@@ -18,8 +18,9 @@ system:
         <strong>Health</strong>. The <strong>Size</strong> of each resulting
         creature is decreased by 1.</p><p>If in combat, the new creature acts as
         a <strong>Summon</strong> and joins at <strong>Initiative</strong> 1.
-        This Action may only be used if the creature has Size larger than 2. The
-        created ooze never has rank superior to <strong>Normal</strong>.</p>
+        This <strong>Action</strong> may only be used if the creature has Size
+        larger than 2. The created ooze never has rank superior to
+        <strong>Normal</strong>.</p>
       cost:
         action: 3
         focus: 1
@@ -38,9 +39,7 @@ system:
       effects: []
       tags:
         - summon
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -58,11 +57,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307157334
-  modifiedTime: 1773514792185
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782141359998
+  lastModifiedBy: fzBjA63BB4hW4rQb
 sort: 0
 _key: '!items!oozeSubdivide000'

@@ -7,8 +7,8 @@ system:
   description: >-
     <p>The @ref[actor.name]{creature}'s caustic body sears whatever it strikes.
     When it scores a <strong>Critical Hit</strong> with a melee attack that
-    deals damage to Health, the target becomes @Condition[corroding] for 3
-    rounds.</p>
+    deals damage to <strong>Health</strong>, the target becomes
+    @Condition[corroding] for 3 rounds.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -27,11 +27,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   createdTime: 1781027705369
-  modifiedTime: 1781027705369
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782137719520
+  lastModifiedBy: fzBjA63BB4hW4rQb
 sort: 0
 _key: '!items!corrosiveStrikes'

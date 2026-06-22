@@ -13,12 +13,13 @@ system:
       condition: ''
       description: >-
         <p>You rapidly treat the wounds of an ally within 4 feet. Perform a
-        <strong>Medicine Check</strong> against the target's Healing Threshold.
-        Your ally's Health is increased by the amount of the Roll in excess of
-        the threshold.</p>
+        <strong>Medicine Check</strong> against the target's <strong>Healing
+        Threshold</strong>. Your ally's <strong>Health</strong> is increased by
+        the amount of the <strong>Roll</strong> in excess of the threshold.</p>
       tags:
         - healing
         - health
+        - skill
         - medicine
       cost:
         action: 3
@@ -38,9 +39,7 @@ system:
         maximum: 4
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - wis2c
   rune: ''
@@ -52,11 +51,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160128
-  modifiedTime: 1773514792564
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782141968935
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

@@ -11,8 +11,9 @@ system:
     damage to attacks against it.</p><p>So intense is your focus that no rival
     may flee your grasp. You may make a @Action[default reactiveStrike] against
     your <strong>Challenged</strong> rival even while you are
-    @Condition[flanked], and so long as you have Focus to spend it costs only
-    <strong>1 Focus</strong> instead of an Action.</p>
+    @Condition[flanked], and so long as you have <strong>Focus</strong> to spend
+    it costs only <strong>1 Focus</strong> instead of an
+    <strong>Action</strong>.</p>
   actions:
     - id: challenge
       name: Challenge
@@ -88,11 +89,11 @@ ownership:
   default: 0
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1781203463310
-  modifiedTime: 1781203962699
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782141839886
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

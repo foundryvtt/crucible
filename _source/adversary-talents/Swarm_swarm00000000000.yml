@@ -9,8 +9,8 @@ system:
     <strong>Health</strong> is doubled.</p></li><li><p>Against any single-target
     source of damage, the swarm gains additional <strong>Resistance</strong>
     equal to its <strong>Toughness</strong>.</p></li><li><p>The swarm's
-    <strong>Size</strong> decreases as its Health is depleted until reaching a
-    minimum Size of 2.</p></li></ul>
+    <strong>Size</strong> decreases as its <strong>Health</strong> is depleted
+    until reaching a minimum Size of 2.</p></li></ul>
   actions: []
   rune: ''
   gesture: ''
@@ -29,12 +29,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.10.0
   createdTime: 1776980101863
-  modifiedTime: 1776980351840
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782140461223
+  lastModifiedBy: fzBjA63BB4hW4rQb
   exportSource: null
   compendiumSource: null
   duplicateSource: null

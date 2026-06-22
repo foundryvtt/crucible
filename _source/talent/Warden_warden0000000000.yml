@@ -19,20 +19,22 @@ system:
       description: >-
         <p>You call forth an
         @UUID[Compendium.crucible.summons.Actor.ancestralGuard00]{Ancestral
-        Guardian} which manifests at a point you can see within 30 feet. The
-        Guardian is an incorporeal spirit that cannot be harmed or moved.
-        Creatures can pass through its space, but it counts as three creatures
-        for the purposes of determining whether an enemy is
-        @Condition[flanked].</p><p>The Guardian emanates an aura with a 20 foot
-        radius that increases the <strong>Resistance</strong> of allies to all
-        damage types by +2.</p><p>So long as the Guardian endures, your weapon
-        attacks against enemies within this aura cause a transfer of life-force
-        from your enemies to your allies. Your target suffers additional
+        Guardian} which manifests at a point you can see within 30 feet.
+        <strong>The Guardian</strong> is an incorporeal spirit that cannot be
+        harmed or moved. Creatures can pass through its space, but it counts as
+        three creatures for the purposes of determining whether an enemy is
+        @Condition[flanked].</p><p><strong>The Guardian</strong> emanates an
+        aura with a 20 foot radius that increases the
+        <strong>Resistance</strong> of allies to all damage types by
+        +2.</p><p>So long as the Guardian endures, your weapon attacks against
+        enemies within this aura cause a transfer of life-force from your
+        enemies to your allies. Your target suffers additional
         <strong>Poison</strong> damage equal to half your
         <strong>Wisdom</strong>, which is transferred as <strong>Health</strong>
         restoration to yourself or an ally within the grove who currently has
-        the lowest Health.</p><p>The Guardian remains until Combat ends, or
-        until the Warden uses this Action again.</p><p></p>
+        the lowest <strong>Health</strong>.</p><p><strong>The Guardian</strong>
+        remains until <strong>Combat</strong> ends, or until the Warden uses
+        this Action again.</p><p></p>
       tags:
         - summon
       cost:
@@ -94,8 +96,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1781203463310
-  modifiedTime: 1781451162627
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782138676574
+  lastModifiedBy: fzBjA63BB4hW4rQb
 folder: fOYHlZJEWUukD7yr
 ownership:
   default: 0

@@ -4,7 +4,7 @@ img: icons/magic/perception/eye-slit-orange.webp
 system:
   nodes: []
   description: >-
-    <p>The @ref[actor.name]{Creature} perceives the world through differences in
+    <p>The @ref[actor.name]{creature} perceives the world through differences in
     temperature with precision, allowing it to locate creatures whose bodily
     temperature deviates from ambient norms.</p><p>This allows detection of
     creatures whose body temperatures are <strong>Gelid</strong>,
@@ -12,7 +12,8 @@ system:
     to 60 feet away as long as they are not behind total cover and as long as
     the @ref[actor.name]{creature} is not @Condition[blinded] or
     @Condition[incapacitated]. A creature detected in this way is treated as
-    visible for the purposes of Actions which require sight.</p>
+    visible for the purposes of <strong>Actions</strong> which require
+    sight.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -32,12 +33,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.10.0
   createdTime: 1770239196651
-  modifiedTime: 1777755575087
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782141471492
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: thermalVision000
 sort: 500000
 _key: '!items!thermalVision000'

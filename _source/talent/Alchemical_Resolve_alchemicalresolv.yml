@@ -9,10 +9,10 @@ system:
     - id: alchemicalResolve
       condition: ''
       description: >-
-        <p>You rapidly bolster the Morale of an ally within 4 feet by applying
-        vapours. Perform a <strong>Medicine</strong> check against the target's
-        <strong>Rallying Threshold</strong>. Successful checks restore
-        <strong>Morale</strong>.</p>
+        <p>You rapidly bolster the <strong>Morale</strong> of an ally within 4
+        feet by applying vapours. Perform a <strong>Medicine</strong> check
+        against the target's <strong>Rallying Threshold</strong>. Successful
+        checks restore <strong>Morale</strong>.</p>
       tags:
         - rallying
         - morale
@@ -36,9 +36,7 @@ system:
         maximum: 4
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - int2c
   rune: ''
@@ -56,11 +54,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160125
-  modifiedTime: 1773514792553
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782141521145
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.alchemicalresolv
   duplicateSource: null
   exportSource: null

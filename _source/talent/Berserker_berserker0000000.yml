@@ -12,10 +12,11 @@ system:
         You have suffered damage to your Health pool since your last turn in
         Combat.
       description: >-
-        You become @Condition[enraged]. While Enraged you deal 4 additional
-        damage on all melee attacks. You may attempt to end the effect on your
-        own turn by succeeding on a Willpower test against a DC of 20. The
-        effect ends automatically when Combat is concluded.
+        <p>You become @Condition[enraged]. While <strong>Enraged</strong> you
+        deal 4 additional damage on all melee attacks. You may attempt to end
+        the effect on your own turn by succeeding on a
+        <strong>Willpower</strong> test against a <strong>DC</strong> of 20. The
+        effect ends automatically when <strong>Combat</strong> is concluded.</p>
       tags: []
       cost:
         action: 1
@@ -29,31 +30,32 @@ system:
         number: 1
         self: false
       effects:
-        - scope: 1
-          statuses:
-            - enraged
-          system:
-            changes:
-              - key: rollBonuses.damage.melee
-                value: 4
-                type: add
-                phase: initial
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
-          name: ''
+        - name: ''
+          scope: 1
           result:
             type: success
             all: false
-      img: null
+          statuses:
+            - enraged
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance: null
+            properties: []
+            regions: []
+            summons: []
+      img: icons/magic/unholy/silhouette-evil-horned-giant.webp
       range:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.toughness.strength
   rune: ''
@@ -68,11 +70,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160127
-  modifiedTime: 1773514792561
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782141622144
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.berserker0000000
   duplicateSource: null
   exportSource: null

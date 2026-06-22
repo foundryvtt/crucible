@@ -16,12 +16,13 @@ system:
       description: >-
         <p>You imbue your strike with momentum and intensity, increasing the
         <strong>Damage Bonus</strong> of your strike according to your missing
-        <strong>Health</strong>.</p><ul><li><p>If your Health is below 75%, your
-        Strike deals <strong>+1 Damage</strong></p></li><li><p>If your Health is
-        below 50%, your Strike deals <strong>+2
-        Damage</strong></p></li><li><p>If your Health is below 25%, your Strike
-        deals <strong>+3 Damage</strong></p></li></ul><p>This damage bonus is
-        doubled if you are using a <strong>Two-Handed</strong> weapon.</p>
+        <strong>Health</strong>.</p><ul><li><p>If your <strong>Health</strong>
+        is below 75%, your Strike deals <strong>+1
+        Damage</strong></p></li><li><p>If your <strong>Health</strong> is below
+        50%, your Strike deals <strong>+2 Damage</strong></p></li><li><p>If your
+        <strong>Health</strong> is below 25%, your Strike deals <strong>+3
+        Damage</strong></p></li></ul><p>This damage bonus is doubled if you are
+        using a <strong>Two-Handed</strong> weapon.</p>
       cost:
         action: 0
         focus: 1
@@ -40,9 +41,7 @@ system:
       effects: []
       tags:
         - melee
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -60,11 +59,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   createdTime: 1772307160127
-  modifiedTime: 1780938158188
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782141653494
+  lastModifiedBy: fzBjA63BB4hW4rQb
 sort: 0
 _key: '!items!berserkStrike000'
