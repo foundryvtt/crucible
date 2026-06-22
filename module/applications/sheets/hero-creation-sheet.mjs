@@ -597,7 +597,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       });
 
       // Ability Step
-      if ( step.id === "background" ) {
+      if ( step.id === "abilities" ) {
         const ap = this._clone.points.ability.pool;
         const chosen = context[step.id];
         tab.selectionLabel = (ap || !chosen)
@@ -1195,6 +1195,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
     // Grant purchased equipment items and apply remaining currency
     let spent = 0;
+    const autoEquipCandidates = [];
     for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
       if ( quantity <= 0 ) continue;
       const itemData = this._clone._cleanItemData(item);
@@ -1204,11 +1205,86 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         itemData.system.quantity = quantity;
         creationData.items.push(itemData);
       }
-      // FIXME: Once https://github.com/foundryvtt/foundry-vtt/pull/5570 is merged this can just be `.fill(itemData)`
-      else creationData.items.push(...Array.from({length: quantity}, () => ({...itemData, _id: foundry.utils.randomID()})));
+      else {
+        // FIXME: Once https://github.com/foundryvtt/foundry-vtt/pull/5570 is merged this can just be `.fill(itemData)`
+        // NOTE: Each unit must be a deep clone (not a shallow spread) so that per-unit mutations - such as
+        // auto-equipping only one of several identical purchased copies - do not leak across sibling units via a
+        // shared "system" object reference.
+        const units = Array.from({length: quantity}, () => {
+          const unitData = foundry.utils.deepClone(itemData);
+          unitData._id = foundry.utils.randomID();
+          return unitData;
+        });
+        creationData.items.push(...units);
+
+        // Each individually equippable unit of a purchased Weapon or Armor is a candidate for auto-equip
+        if ( ["weapon", "armor"].includes(item.type) ) {
+          for ( const unitData of units ) autoEquipCandidates.push({itemData: unitData, sourceItem: item, scaledPrice});
+        }
+      }
       spent += scaledPrice * quantity;
     }
     creationData.system.currency = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET - spent;
+
+    // Automatically equip the highest-value purchased Weapons and Armor that fit available equipment slots
+    this.constructor._autoEquipPurchasedItems(autoEquipCandidates);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Automatically equip purchased Weapon and Armor items into available equipment slots, preferring the
+   * highest-value (price) options first. Only one Armor item may be equipped, and Weapons are greedily assigned
+   * to the Mainhand, Offhand, and Twohand slots as their category and remaining slot availability allow.
+   * @param {{itemData: object, sourceItem: CrucibleItem, scaledPrice: number}[]} candidates  Individually
+   *  equippable units of purchased Weapon or Armor items, paired with the source Item document used to determine
+   *  their equipment category and the price used to rank them.
+   * @protected
+   */
+  static _autoEquipPurchasedItems(candidates) {
+    const SLOTS = SYSTEM.WEAPON.SLOTS;
+    const byHighestValue = (a, b) => (b.scaledPrice - a.scaledPrice) || a.sourceItem.name.localeCompare(b.sourceItem.name);
+
+    // Armor: equip the single highest-value Armor unit, if any was purchased
+    const armors = candidates.filter(c => c.sourceItem.type === "armor").sort(byHighestValue);
+    const bestArmor = armors[0];
+    if ( bestArmor ) {
+      bestArmor.itemData.system.equipped = true;
+      if ( bestArmor.sourceItem.system.requiresInvestment ) bestArmor.itemData.system.invested = true;
+    }
+
+    // Weapons: greedily fill the Mainhand, Offhand, and Twohand slots with the highest-value options that fit
+    const weapons = candidates.filter(c => c.sourceItem.type === "weapon").sort(byHighestValue);
+    let mainhandFree = true;
+    let offhandFree = true;
+    for ( const {itemData, sourceItem} of weapons ) {
+      if ( !mainhandFree && !offhandFree ) break;
+      if ( sourceItem.system.properties.has("natural") ) continue;
+      const category = sourceItem.system.config?.category;
+      if ( !category ) continue;
+
+      // Two-Handed weapons require both slots to be free
+      if ( category.hands === 2 ) {
+        if ( !(mainhandFree && offhandFree) ) continue;
+        itemData.system.equipped = true;
+        itemData.system.slot = SLOTS.TWOHAND;
+        mainhandFree = offhandFree = false;
+      }
+
+      // Otherwise prefer the Mainhand slot, falling back to the Offhand slot if the weapon allows it
+      else if ( category.main && mainhandFree ) {
+        itemData.system.equipped = true;
+        itemData.system.slot = SLOTS.MAINHAND;
+        mainhandFree = false;
+      }
+      else if ( category.off && offhandFree ) {
+        itemData.system.equipped = true;
+        itemData.system.slot = SLOTS.OFFHAND;
+        offhandFree = false;
+      }
+      else continue;
+      if ( sourceItem.system.requiresInvestment ) itemData.system.invested = true;
+    }
   }
 
   /* -------------------------------------------- */
