@@ -52,16 +52,16 @@ effects:
           img: icons/magic/light/orb-shadow-blue.webp
           condition: ''
           description: >-
-            <p>You speak the command word and the @ref[name] kindles into a
-            steady otherworldly glow. The radius of bright light shed depends on
-            the <strong>Tier</strong> of this prefix, with an additional radius
-            of dim light extending an equal distance
+            <p>You speak the command word and the @ref[item.name]{item} kindles
+            into a steady otherworldly glow. The radius of bright light shed
+            depends on the <strong>Tier</strong> of this prefix, with an
+            additional radius of dim light extending an equal distance
             beyond.</p><ul><li><p><strong>Tier 1:</strong> 20 feet of bright
-            light, 40 feet of dim</p></li><li><p><strong>Tier 2:</strong> 40
-            feet of bright light, 80 feet of dim</p></li><li><p><strong>Tier
-            3:</strong> 60 feet of bright light, 120 feet of dim</p></li></ul>
-            <p>The light persists until you dismiss the effect or remove the
-            item.</p>
+            light, 40 feet of dim light.</p></li><li><p><strong>Tier 2:</strong>
+            40 feet of bright light, 80 feet of dim
+            light.</p></li><li><p><strong>Tier 3:</strong> 60 feet of bright
+            light, 120 feet of dim light.</p></li></ul><p>The light persists
+            until you dismiss the effect or remove the item.</p>
           cost:
             action: 1
             focus: 0
@@ -78,8 +78,7 @@ effects:
             scope: 1
             self: false
           effects:
-            - _id: affixLuminous000
-              name: Luminous
+            - name: Luminous
               scope: 1
               result:
                 type: any
@@ -91,10 +90,15 @@ effects:
                 maintenance: null
                 regions: []
                 summons: []
+                dc: null
+                properties: []
+              duration:
+                value: null
+                units: ''
+                expiry: null
+                expired: false
           tags: []
-          summon:
-            actorUuid: null
-            permanent: true
+          summon: null
     _id: luminous00000000
     img: icons/magic/light/orb-shadow-blue.webp
     disabled: false
@@ -108,16 +112,16 @@ effects:
     transfer: false
     statuses: []
     showIcon: 1
-    folder: hd7WNbghiYX3GDXN
-    sort: 300000
+    folder: lCO6ziuWen5phfix
+    sort: 100000
     flags: {}
     _stats:
-      coreVersion: '14.360'
+      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.9.2
-      createdTime: 1777771500000
-      modifiedTime: 1777771500000
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      systemVersion: 0.10.0
+      createdTime: 1782156024091
+      modifiedTime: 1782156024091
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: Compendium.crucible.affixes.ActiveEffect.luminous00000000
       duplicateSource: null
       exportSource: null
@@ -131,12 +135,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1776981020859
-  modifiedTime: 1777771497185
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782156042676
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
   compendiumSource: null
   duplicateSource: null

@@ -123,7 +123,6 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
       case "actions":
         context.actionPartial = this.constructor.ACTION_PARTIAL;
         const editorCls = CONFIG.ux.TextEditor;
-        const editorOptions = {relativeTo: effect, secrets: effect.isOwner};
         context.actionGroups = [{
           legend: null,
           canAdd: true,
@@ -133,7 +132,7 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
             name: action.name,
             img: action.img,
             condition: action.condition,
-            description: await editorCls.enrichHTML(action.description, editorOptions),
+            description: await editorCls.enrichHTML(action.description, {relativeTo: action, secrets: effect.isOwner}),
             tags: action.getTags(),
             effects: action.effects
           })))

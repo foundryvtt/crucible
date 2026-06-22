@@ -420,13 +420,12 @@ export default class CrucibleItem extends foundry.documents.Item {
    */
   async prepareActionsContext() {
     const editorCls = CONFIG.ux.TextEditor;
-    const editorOptions = {relativeTo: this, secrets: this.isOwner};
     return Promise.all((this.actions ?? []).map(async action => ({
       id: action.id,
       name: action.name,
       img: action.img,
       condition: action.condition,
-      description: await editorCls.enrichHTML(action.description, editorOptions),
+      description: await editorCls.enrichHTML(action.description, {relativeTo: action, secrets: this.isOwner}),
       tags: action.getTags(),
       effects: action.effects
     })));
