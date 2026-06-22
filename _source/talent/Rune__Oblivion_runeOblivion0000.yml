@@ -4,24 +4,24 @@ img: icons/magic/unholy/orb-rays-blue.webp
 system:
   description: >-
     <p>A chaotic force of destruction and annihilation of existence. The
-    Oblivion rune governs unmaking of matter or decoherence of spirit.</p><p>The
-    Oblivion rune scales using <strong>Intellect</strong>, targets
-    <strong>Willpower</strong>, and deals <strong>Void</strong> damage to
-    <strong>Morale</strong>. It is opposed by the orderly rune of
-    <strong>Soul</strong>.</p>
+    <strong>Oblivion</strong> rune governs unmaking of matter or decoherence of
+    spirit.</p><p>The <strong>Oblivion</strong> rune scales using
+    <strong>Intellect</strong>, targets <strong>Willpower</strong>, and deals
+    <strong>Void</strong> damage to <strong>Morale</strong>. It is opposed by
+    the orderly rune of <strong>Soul</strong>.</p>
   actions:
     - id: erase
       name: Erase
       img: icons/magic/unholy/orb-rays-blue.webp
       condition: ''
       description: >-
-        <p>Your command of the Rune of Oblivion allows you to unravel tiny holes
-        in the fabric of existence, producing one of the following
-        effects:</p><ul><li><p>Disintegrate a non-magical object you hold
-        smaller than a 6-inch cube, sundering it to a fine particulate dust of
-        its component elements.</p></li><li><p>Anesthetize the ability to feel
-        emotion from yourself or a willing target that you touch, causing it to
-        enter a placid, stoic, or dispassionate state. This effect can be
+        <p>Your command of the <strong>Rune of Oblivion</strong> allows you to
+        unravel tiny holes in the fabric of existence, producing one of the
+        following effects:</p><ul><li><p>Disintegrate a non-magical object you
+        hold smaller than a 6-inch cube, sundering it to a fine particulate dust
+        of its component elements.</p></li><li><p>Anesthetize the ability to
+        feel emotion from yourself or a willing target that you touch, causing
+        it to enter a placid, stoic, or dispassionate state. This effect can be
         maintained as long as you make no further
         <strong>Action</strong>.</p></li><li><p>Subdue the potency of a light
         source, causing its visible radius to be reduced by half for as long as
@@ -49,9 +49,7 @@ system:
       tags:
         - spell
         - harmless
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: oblivion
   nodes:
     - int0a
@@ -68,12 +66,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160144
-  modifiedTime: 1773514792609
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782165867339
+  lastModifiedBy: fzBjA63BB4hW4rQb
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0

@@ -3,26 +3,26 @@ type: talent
 img: icons/magic/light/projectile-smoke-blue-white.webp
 system:
   description: >-
-    <p>The chaotic force of trickery and whimsy. The illusion rune governs
-    magical manifestations of falsehood or misdirection.</p><p>The Illusion rune
-    scales using <strong>Intellect</strong>, targets <strong>Willpower</strong>
-    defense, and deals <strong>Psychic</strong> damage to
-    <strong>Morale</strong>. It is opposed by the orderly rune of
-    <strong>Illumination</strong>.</p>
+    <p>The chaotic force of trickery and whimsy. The <strong>Illusion</strong>
+    rune governs magical manifestations of falsehood or misdirection.</p><p>The
+    <strong>Illusion</strong> rune scales using <strong>Intellect</strong>,
+    targets <strong>Willpower</strong> defense, and deals
+    <strong>Psychic</strong> damage to <strong>Morale</strong>. It is opposed by
+    the orderly rune of <strong>Illumination</strong>.</p>
   actions:
     - id: seeming
       name: Seeming
       img: icons/magic/light/projectile-smoke-blue-white.webp
       condition: ''
       description: >-
-        <p>Your command of the Rune of Illusion allows you to fabricate
-        perception in various simple ways and to manipulate shadow and light to
-        create distraction or entertainment, producing one of the following
-        effects:</p><ul><li><p>Modify a single aspect of your own physical
-        appearance. Such alterations might include adjusting the sound of your
-        voice, changing the color of your eyes, gaining illusory horns, or
-        appearing slightly taller or shorter. The alteration persists until you
-        @Action[default rest] or enact a different alteration and can be
+        <p>Your command of the <strong>Rune of Illusion</strong> allows you to
+        fabricate perception in various simple ways and to manipulate shadow and
+        light to create distraction or entertainment, producing one of the
+        following effects:</p><ul><li><p>Modify a single aspect of your own
+        physical appearance. Such alterations might include adjusting the sound
+        of your voice, changing the color of your eyes, gaining illusory horns,
+        or appearing slightly taller or shorter. The alteration persists until
+        you @Action[default rest] or enact a different alteration and can be
         verified as illusory by physical inspection.</p></li><li><p>Manifest a
         convincing recreation of a short sound or single scent that you can
         clearly recall. The illusion originates from your position and lasts for
@@ -75,7 +75,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1782162654254
+  modifiedTime: 1782165848788
   lastModifiedBy: fzBjA63BB4hW4rQb
 folder: Dy9HnwadNE3kSZ4f
 ownership:

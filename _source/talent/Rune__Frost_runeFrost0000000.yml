@@ -3,30 +3,30 @@ type: talent
 img: icons/magic/water/snowflake-ice-snow-white.webp
 system:
   description: >-
-    <p>The orderly force of water and cold. The Frost rune governs the creation
-    of water or other fluids and their transfer between liquid and frozen
-    states.</p><p>The Frost rune scales using <strong>Wisdom</strong>, targets
-    <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
-    <strong>Health</strong>. It is opposed by the chaotic rune of
-    <strong>Flame</strong>.</p>
+    <p>The orderly force of water and cold. The <strong>Frost</strong> rune
+    governs the creation of water or other fluids and their transfer between
+    liquid and frozen states.</p><p>The <strong>Frost</strong> rune scales using
+    <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and deals
+    <strong>Cold</strong> damage to <strong>Health</strong>. It is opposed by
+    the chaotic rune of <strong>Flame</strong>.</p>
   actions:
     - id: condense
       name: Condense
       img: icons/magic/water/snowflake-ice-snow-white.webp
       condition: ''
       description: >-
-        <p>Your command of the Rune of Frost allows you to manipulate liquids
-        and their thermal properties, producing one of the following
-        effects:</p><ul><li><p>Draw up to one quarter gallon of fresh water from
-        the atmosphere into a container or upon a surface you touch. The created
-        water may be affected by relevant atmospheric properties of your current
-        location.</p></li><li><p>Manipulate the temperature of up to 1 gallon of
-        water, causing it to immediately freeze or thaw. The water need not be
-        in a container; this technique can be used to coat a surface or join two
-        objects together via regelation. Ice created in this way remains frozen
-        for as long as the ambient temperature of the environment
-        allows.</p></li><li><p>Gather up to a six-foot cube of nearby snow,
-        forming it into a solidified sculpture, shape, or
+        <p>Your command of the <strong>Rune of Frost</strong> allows you to
+        manipulate liquids and their thermal properties, producing one of the
+        following effects:</p><ul><li><p>Draw up to one quarter gallon of fresh
+        water from the atmosphere into a container or upon a surface you touch.
+        The created water may be affected by relevant atmospheric properties of
+        your current location.</p></li><li><p>Manipulate the temperature of up
+        to 1 gallon of water, causing it to immediately freeze or thaw. The
+        water need not be in a container; this technique can be used to coat a
+        surface or join two objects together via regelation. Ice created in this
+        way remains frozen for as long as the ambient temperature of the
+        environment allows.</p></li><li><p>Gather up to a six-foot cube of
+        nearby snow, forming it into a solidified sculpture, shape, or
         shelter.</p></li></ul><p>Condense may only affect a creature or object
         you can physically touch. You may attempt other uses similar those
         above, the effectiveness of which is decided by the Gamemaster.</p>
@@ -49,9 +49,7 @@ system:
       tags:
         - spell
         - harmless
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: frost
   nodes:
     - wis0b
@@ -68,12 +66,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1773514792607
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782165826477
+  lastModifiedBy: fzBjA63BB4hW4rQb
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0

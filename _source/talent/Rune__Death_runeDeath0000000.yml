@@ -4,23 +4,23 @@ img: icons/magic/unholy/hand-claw-fire-blue.webp
 system:
   description: >-
     <p>The orderly force of destruction, responsible for the corruption of all
-    biological matter. The Death rune governs decay and destruction.</p><p>The
-    Death rune scales using <strong>Presence</strong>, targets
-    <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage to
-    <strong>Health</strong>. It is opposed by the chaotic rune of
-    <strong>Life</strong>.</p>
+    biological matter. The <strong>Death</strong> rune governs decay and
+    destruction.</p><p>The <strong>Death</strong> rune scales using
+    <strong>Presence</strong>, targets <strong>Fortitude</strong>, and deals
+    <strong>Corruption</strong> damage to <strong>Health</strong>. It is opposed
+    by the chaotic rune of <strong>Life</strong>.</p>
   actions:
     - id: ennervate
       name: Ennervate
       img: icons/magic/unholy/hand-claw-fire-blue.webp
       condition: ''
       description: >-
-        <p>Your command of the Rune of Death allows for basic communion with the
-        dead and for rudimentary manipulation of unholy forces, producing one of
-        the following effects:</p><ul><li><p>Spread decay over an object no
-        larger than a 1-foot cube, causing plants to wither, metallic objects to
-        rust, wood to become rotten, food to grow foul, or a corpse to rapidly
-        decompose. Magical objects are typically
+        <p>Your command of the <strong>Rune of Death</strong> allows for basic
+        communion with the dead and for rudimentary manipulation of unholy
+        forces, producing one of the following effects:</p><ul><li><p>Spread
+        decay over an object no larger than a 1-foot cube, causing plants to
+        wither, metallic objects to rust, wood to become rotten, food to grow
+        foul, or a corpse to rapidly decompose. Magical objects are typically
         unaffected.</p></li><li><p>Cause a corpse which has been dead for less
         than seven days or otherwise preserved to perform a lifeless reenactment
         of its final moments. Its movements imitate those that occurred during
@@ -50,9 +50,7 @@ system:
       tags:
         - spell
         - harmless
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: death
   nodes:
     - pre0b
@@ -69,12 +67,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1773514792607
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782165796825
+  lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

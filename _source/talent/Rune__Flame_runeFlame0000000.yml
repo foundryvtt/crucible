@@ -3,9 +3,10 @@ type: talent
 img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
 system:
   description: >-
-    <p>The chaotic force of elemental, thermal energy. The Flame rune governs
-    fire and heat.</p><p>The Flame rune scales using <strong>Intellect</strong>,
-    targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
+    <p>The chaotic force of elemental, thermal energy. The
+    <strong>Flame</strong> rune governs fire and heat.</p><p>The
+    <strong>Flame</strong> rune scales using <strong>Intellect</strong>, targets
+    <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
     <strong>Health</strong>. It is opposed by the orderly rune of
     <strong>Frost</strong>.</p>
   actions:
@@ -14,10 +15,10 @@ system:
       img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
       condition: ''
       description: >-
-        <p>Your command of the Rune of Flame allows you to manipulate fire and
-        thermal energy in creative ways, producing one of the following
-        effects:</p><ul><li><p>Manifest a burst of elemental flame in one inch
-        sphere which can ignite a candle, torch, or other flammable
+        <p>Your command of the <strong>Rune of Flame</strong> allows you to
+        manipulate fire and thermal energy in creative ways, producing one of
+        the following effects:</p><ul><li><p>Manifest a burst of elemental flame
+        in one inch sphere which can ignite a candle, torch, or other flammable
         materials.</p></li><li><p>Imbue your body with momentary thermal
         shielding which provides you with immunity to fire damage on an
         immediately subsequent action that costs <strong>1 Action</strong> or
@@ -46,9 +47,7 @@ system:
       tags:
         - spell
         - harmless
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: flame
   nodes:
     - int0a
@@ -65,12 +64,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1773514792607
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782165814324
+  lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

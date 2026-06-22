@@ -3,14 +3,14 @@ type: spell
 img: icons/magic/life/heart-cross-strong-flame-green.webp
 system:
   description: >-
-    <p>A potent expression of Life and Control magics, Revive allows the caster
-    to intervene in the natural process of death by driving a surge of the
-    essence of life into the body of the recently deceased. Those who have
-    experienced Revival are often reluctant to discuss it, but describe it as a
-    sensation that is unpleasantly reminiscent of being woken suddenly from a
-    deep slumber to find they have been freezing— the flesh prickles and aches,
-    the mind reels, and the soul aches with the memory of its interrupted
-    departure.</p>
+    <p>A potent expression of <strong>Life</strong> and <strong>Control</strong>
+    magics, <strong>Revive</strong> allows the caster to intervene in the
+    natural process of death by driving a surge of the essence of life into the
+    body of the recently deceased. Those who have experienced Revival are often
+    reluctant to discuss it, but describe it as a sensation that is unpleasantly
+    reminiscent of being woken suddenly from a deep slumber to find they have
+    been freezing— the flesh prickles and aches, the mind reels, and the soul
+    aches with the memory of its interrupted departure.</p>
   actions:
     - id: revive
       name: Revive
@@ -84,12 +84,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307159357
-  modifiedTime: 1773514792469
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782165250550
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: revive0000000000
 sort: 100000
 _key: '!items!revive0000000000'

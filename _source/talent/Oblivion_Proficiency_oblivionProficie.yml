@@ -5,10 +5,10 @@ system:
   nodes:
     - int4b
   description: >-
-    <p>You have fluency in weaving spellcraft using the Rune of Oblivion. You
-    gain a <strong>+1 Skill Bonus</strong> for spells cast using this
-    Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
-    eventually also provide an upgrade to the
+    <p>You have fluency in weaving spellcraft using the <strong>Rune of
+    Oblivion</strong>. You gain a <strong>+1 Skill Bonus</strong> for spells
+    cast using this Rune.</p><h3 class="divider">Playtest Notes</h3><p>This
+    talent will eventually also provide an upgrade to the
     @Action[Compendium.crucible.talent.Item.runeOblivion0000 erase] action,
     expanding its effectiveness or including new options for how to use it.</p>
   actions: []
@@ -33,7 +33,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1763163905709
-  modifiedTime: 1781971544754
+  modifiedTime: 1782165379952
   lastModifiedBy: fzBjA63BB4hW4rQb
 _id: oblivionProficie
 sort: 400000

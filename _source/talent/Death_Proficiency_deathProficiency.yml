@@ -5,10 +5,10 @@ system:
   nodes:
     - pre4c
   description: >-
-    <p>You have fluency in weaving spellcraft using the Rune of Death. You gain
-    a <strong>+1 Skill Bonus</strong> for spells cast using this Rune.</p><h3
-    class="divider">Playtest Notes</h3><p>This talent will eventually also
-    provide an upgrade to the
+    <p>You have fluency in weaving spellcraft using the <strong>Rune of
+    Death</strong>. You gain a <strong>+1 Skill Bonus</strong> for spells cast
+    using this Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent
+    will eventually also provide an upgrade to the
     @Action[Compendium.crucible.talent.Item.runeDeath0000000 ennervate] action,
     expanding its effectiveness or including new options for how to use it.</p>
   actions: []
@@ -33,7 +33,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1763163881562
-  modifiedTime: 1781971105030
+  modifiedTime: 1782165313469
   lastModifiedBy: fzBjA63BB4hW4rQb
 _id: deathProficiency
 sort: 900000

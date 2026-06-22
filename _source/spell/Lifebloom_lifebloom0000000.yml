@@ -4,15 +4,15 @@ img: icons/magic/nature/tree-spirit-glow-black-yellow.webp
 system:
   description: >-
     <p>Few are those that can serve as a conduit within the physical world and
-    allow the raw powers of Life and Soul to comingle, tipping the balance in
-    their favour. This spell allows the caster to serve as a wellspring for the
-    abundant forces that bring all soulful life into being. With a susurration
-    of air the caster is surrounded with dancing motes of the pure energies of
-    life and soul, like dozens of fireflies or the sparks from a fire, and a
-    those within the radius are filled with a calming sensation as if they were
-    immersed in pleasantly warm water. All plant life in the vicinity
-    immediately surges through stages of growth to bloom, and the scent of
-    pollen and lush greenery fills the air.</p>
+    allow the raw powers of <strong>Life</strong> and <strong>Soul</strong> to
+    comingle, tipping the balance in their favour. This spell allows the caster
+    to serve as a wellspring for the abundant forces that bring all soulful life
+    into being. With a susurration of air the caster is surrounded with dancing
+    motes of the pure energies of life and soul, like dozens of fireflies or the
+    sparks from a fire, and a those within the radius are filled with a calming
+    sensation as if they were immersed in pleasantly warm water. All plant life
+    in the vicinity immediately surges through stages of growth to bloom, and
+    the scent of pollen and lush greenery fills the air.</p>
   actions:
     - id: lifebloom
       name: Lifebloom
@@ -95,7 +95,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307159357
-  modifiedTime: 1782140912495
+  modifiedTime: 1782165211783
   lastModifiedBy: fzBjA63BB4hW4rQb
 _id: lifebloom0000000
 sort: 100000

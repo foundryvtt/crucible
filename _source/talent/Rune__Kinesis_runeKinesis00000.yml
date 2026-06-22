@@ -3,13 +3,13 @@ type: talent
 img: icons/magic/movement/pinwheel-turning-blue.webp
 system:
   description: >-
-    <p>The chaotic force of space and physical movement. The Kinesis rune
-    governs all things related to the act of movement and physicality.</p><p>The
-    Kinesis rune scales using <strong>Presence</strong>, targets
-    <strong>Physical</strong> defense, and deals <strong>Bludgeoning</strong>,
-    <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
-    <strong>Health</strong>. It is opposed by the orderly rune of
-    <strong>Control</strong>.</p>
+    <p>The chaotic force of space and physical movement. The
+    <strong>Kinesis</strong> rune governs all things related to the act of
+    movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
+    using <strong>Presence</strong>, targets <strong>Physical</strong> defense,
+    and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+    <strong>Slashing</strong> damage to <strong>Health</strong>. It is opposed
+    by the orderly rune of <strong>Control</strong>.</p>
   actions:
     - id: propel
       name: Propel
@@ -77,7 +77,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1782143550147
+  modifiedTime: 1782165571397
   lastModifiedBy: fzBjA63BB4hW4rQb
 folder: Dy9HnwadNE3kSZ4f
 ownership:
