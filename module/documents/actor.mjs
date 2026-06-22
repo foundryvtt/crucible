@@ -605,12 +605,12 @@ export default class CrucibleActor extends Actor {
   /**
    * Find the best active user to roll on this actor's behalf, preferring an assigned character match then any
    * owner, falling back to the active GM.
-   * @returns {User|undefined}    The designated user, or undefined if none is found
+   * @returns {User|null}    The designated user, or null if none is found
    */
   getDesignatedUser() {
-    return game.users.getDesignatedUser(user => {
+    const assigned = game.users.find(user => user.active && (user.character === this));
+    return assigned ?? game.users.getDesignatedUser(user => {
       if ( !user.active || user.isGM ) return false;
-      if ( user.character === this ) return true;
       return this.testUserPermission(user, "OWNER");
     }) ?? game.users.activeGM;
   }
@@ -1384,7 +1384,7 @@ export default class CrucibleActor extends Actor {
           effectChanges.toDelete.push(effect.id);
           continue;
         }
-        const confirm = await DialogV2.confirm({
+        const confirm = await DialogV2.query(this.getDesignatedUser(), "confirm", {
           window: {
             title: _loc("ACTION.MaintainTitle", {effect: effect.name})
           },
