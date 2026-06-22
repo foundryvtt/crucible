@@ -3,10 +3,12 @@ type: talent
 img: icons/skills/wounds/blood-spurt-spray-red.webp
 system:
   description: >-
-    <p>Your precision with weapons which deal Slashing or Piercing damage can
-    cause the @Condition[bleeding] condition on Critical Hits which deal damage
-    to Health.</p><p>The @Condition[bleeding] effect lasts for 3 rounds and
-    deals your Dexterity score as additional damage to Health.</p>
+    <p>Your precision with weapons which deal <strong>Slashing</strong> or
+    <strong>Piercing</strong> damage can cause the @Condition[bleeding]
+    condition on <strong>Critical Hits</strong> which deal damage to
+    <strong>Health</strong>.</p><p>The @Condition[bleeding] effect lasts for 3
+    <strong>Rounds</strong> and deals your <strong>Dexterity</strong> score as
+    additional damage to <strong>Health</strong>.</p>
   actions: []
   nodes:
     - dex4d
@@ -25,10 +27,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.361'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160127
-  modifiedTime: 1778801305631
+  modifiedTime: 1782169964318
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.bloodletter00000
   duplicateSource: null

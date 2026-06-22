@@ -4,16 +4,19 @@ img: icons/magic/nature/plant-sproud-hands-dirt-green.webp
 system:
   description: >-
     <p>You coalesce arcane power into tangible form, manifesting a
-    <strong>Sprite</strong> which appears within 10 feet and joins Combat at
-    Initiative 1. Your Sprite is a <strong>Minion</strong> of half your own
-    Level.</p><p>The Create gesture scales with <strong>Wisdom</strong> and the
-    Sprite survives for <strong>6 Rounds</strong>. You may only have one active
-    Sprite, casting another spell using the Create gesture replaces your
-    previous Sprite. This gesture requires <strong>2 Hands</strong> to cast and
-    has a base cost of <strong>4 Action</strong> and <strong>1
-    Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all Runes
-    have a Sprite actor defined yet. Runes that do not yet have a defined
-    Creation will — for now — manifest
+    <strong>Sprite</strong> which appears within 10 feet and joins
+    <strong>Combat</strong> at <strong>Initiative</strong> 1. Your Sprite is a
+    <strong>Minion</strong> of half your own <strong>Level</strong>.</p><p>The
+    <strong>Create</strong> gesture scales with <strong>Wisdom</strong> and the
+    <strong>Sprite</strong> survives for <strong>6 Rounds</strong>. You may only
+    have one active <strong>Sprite</strong>, casting another spell using the
+    <strong>Create</strong> gesture replaces your previous
+    <strong>Sprite</strong>. This gesture requires <strong>2 Hands</strong> to
+    cast and has a base cost of <strong>4 Action</strong> and <strong>1
+    Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
+    <strong>Runes</strong> have a Sprite actor defined yet.
+    <strong>Runes</strong> that do not yet have a defined
+    <strong>Creation</strong> will — for now — manifest
     a@UUID[Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI].</p>
   actions: []
   gesture: create
@@ -33,7 +36,7 @@ _stats:
   systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1781974541170
+  modifiedTime: 1782163480194
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gesturecreate000
   duplicateSource: null

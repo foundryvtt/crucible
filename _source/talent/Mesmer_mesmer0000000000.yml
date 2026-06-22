@@ -4,13 +4,14 @@ _id: mesmer0000000000
 img: icons/magic/air/air-burst-spiral-pink.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Illusion. When you cast a
-    Spell or use an action that involves this Rune, your Critical Hits which
-    deal damage cause the @Condition[confused] condition.</p><p>The Confused
-    effect lasts for <strong>1 Round</strong>, deals half the ability score your
-    <strong>Rune of Illusion</strong> scales with as <strong>Psychic</strong>
-    damage to <strong>Morale</strong>, and applies the @Condition[disoriented]
-    condition.</p>
+    <p>You are highly skilled in weaving the <strong>Rune of Illusion</strong>.
+    When you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    cause the @Condition[confused] condition.</p><p>The
+    <strong>Confused</strong> effect lasts for <strong>1 Round</strong>, deals
+    half the ability score your <strong>Rune of Illusion</strong> scales with as
+    <strong>Psychic</strong> damage to <strong>Morale</strong>, and applies the
+    @Condition[disoriented] condition.</p>
   actions: []
   nodes:
     - int3a
@@ -30,11 +31,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160139
-  modifiedTime: 1773514792596
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782145355401
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

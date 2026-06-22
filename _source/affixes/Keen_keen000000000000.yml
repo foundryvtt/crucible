@@ -22,8 +22,8 @@ disabled: false
 start: null
 description: >-
   <p>Reduce the <strong>Critical Threshold</strong> needed to obtain a
-  <strong>Critical Hit</strong> on a successful Strike. This threshold is
-  reduced by 1 for each <strong>Tier</strong> of this affix.</p>
+  <strong>Critical Hit</strong> on a successful <strong>Strike</strong>. This
+  threshold is reduced by 1 for each <strong>Tier</strong> of this affix.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
@@ -33,12 +33,12 @@ folder: X7jf6k3zU0CiCktv
 sort: 100000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1775402630828
-  modifiedTime: 1775442266396
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782144138913
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

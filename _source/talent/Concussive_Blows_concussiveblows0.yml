@@ -4,10 +4,12 @@ _id: concussiveblows0
 img: icons/skills/melee/strike-hammer-destructive-orange.webp
 system:
   description: >-
-    <p>Your physical power wielding melee weapons which deal Bludgeoning damage
-    can cause the @Condition[staggered] condition on Critical Hits which deal
-    damage to Health.</p><p>The @Condition[staggered] effect lasts for 1 round
-    and reduces your target's maximum Action by 2.</p>
+    <p>Your physical power wielding melee weapons which deal
+    <strong>Bludgeoning</strong> damage can cause the @Condition[staggered]
+    condition on <strong>Critical Hits</strong> which deal damage to
+    <strong>Health</strong>.</p><p>The @Condition[staggered] effect lasts for 1
+    <strong>Round</strong> and reduces your target's maximum
+    <strong>Action</strong> by 2.</p>
   actions: []
   nodes:
     - str4a
@@ -27,10 +29,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.361'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160128
-  modifiedTime: 1778801292815
+  modifiedTime: 1782169957137
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null

@@ -4,10 +4,11 @@ _id: vowofanimus00000
 img: icons/magic/death/skull-humanoid-white-red.webp
 system:
   description: >-
-    You swear a vow to destroy a specific character or creature. You gain +2
-    Boons to Strike or Spell attacks against to subject of your vow. You may
-    only swear such a vow against one enemy at a time. Swearing a new vow
-    relinquishes your prior vow.
+    <p>You swear a vow to destroy a specific character or creature. You gain +2
+    <strong>Boons</strong> to <strong>Strike</strong> or <strong>Spell</strong>
+    attacks against to subject of your vow. You may only swear such a vow
+    against one enemy at a time. Swearing a new vow relinquishes your prior
+    vow.</p>
   actions:
     - id: vowOfAnimus
       name: Vow of Animus
@@ -66,11 +67,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160153
-  modifiedTime: 1773514792626
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782163058021
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

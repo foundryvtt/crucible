@@ -7,8 +7,8 @@ flags:
   core: {}
 system:
   description: >-
-    <p>You anticipate dodging an attack, intercepting it to intentionally Parry
-    the strike.</p><p></p>
+    <p>You anticipate dodging an attack, intercepting it to intentionally
+    <strong>Parry</strong> the strike.</p><p></p>
   actions:
     - id: artfulParry
       name: Artful Parry
@@ -50,11 +50,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160126
-  modifiedTime: 1773514792556
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782164609370
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

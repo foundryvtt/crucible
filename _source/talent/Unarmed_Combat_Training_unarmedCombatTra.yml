@@ -5,7 +5,7 @@ img: icons/skills/melee/unarmed-punch-fist-white.webp
 system:
   description: >-
     <p>You are familiar with basic martial arts and hand-to-hand combat. You
-    know how to subdue or restrain opponents using your physical Strength. You
+    know how to subdue or restrain opponents using your physical strength. You
     are <strong>Trained</strong> with weapons in the <strong>Unarmed</strong>
     category.</p>
   actions:
@@ -38,12 +38,15 @@ system:
             value: 1
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
             changes: []
+            dc: null
+            properties: []
         - name: Grappling
           scope: 1
           result:
@@ -55,12 +58,15 @@ system:
             value: 1
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
             changes: []
+            dc: null
+            properties: []
       tags:
         - difficult
         - harmless
@@ -72,10 +78,8 @@ system:
         <p>You attempt to physically restrain or subdue an opponent. Perform a
         <strong>Athletics</strong> skill attack against an adjacent target. If
         successful, both you and your target are @Condition[restrained] for 1
-        Round.</p>
-      summon:
-        actorUuid: null
-        permanent: true
+        <strong>Round</strong>.</p>
+      summon: null
   iconicSpells: 0
   training:
     type: unarmed
@@ -91,12 +95,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160153
-  modifiedTime: 1773514792624
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782170791385
+  lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

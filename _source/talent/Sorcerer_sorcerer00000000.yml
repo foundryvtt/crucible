@@ -9,7 +9,7 @@ system:
     traditional academic understanding.</p><p>You cannot cast <strong>Iconic
     Spells</strong>, but when you cast a spell using an
     <strong>Inflection</strong> it deals an additional <strong>+1
-    Damage</strong> per Iconic Spell slot that you have.</p>
+    Damage</strong> per <strong>Iconic Spell</strong> slot that you have.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -28,12 +28,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.0
   createdTime: 1767141355772
-  modifiedTime: 1773514792615
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1782162747779
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: sorcerer00000000
 sort: 0
 _key: '!items!sorcerer00000000'

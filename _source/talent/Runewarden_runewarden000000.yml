@@ -5,10 +5,12 @@ system:
   description: >-
     <p>Your mastery of the arcane makes you more resilient to elemental and
     spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
-    half your Wisdom for each Elemental or Spiritual damage type where you know
-    the Arcane Rune attuned to that damage type.</p><p>When you use the
-    <strong>Ward</strong> gesture, the Resistance provided by your Ward also
-    increases by half your Wisdom.</p>
+    half your <strong>Wisdom</strong> for each <strong>Elemental</strong> or
+    <strong>Spiritual</strong> damage type where you know the <strong>Arcane
+    Rune</strong> attuned to that damage type.</p><p>When you use the
+    <strong>Ward</strong> gesture, the <strong>Resistance</strong> provided by
+    your <strong>Ward</strong> also increases by half your
+    <strong>Wisdom</strong>.</p>
   actions: []
   iconicSpells: 1
   nodes:
@@ -28,11 +30,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160144
-  modifiedTime: 1773514792610
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782137000991
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.runewarden000000
   duplicateSource: null
   exportSource: null

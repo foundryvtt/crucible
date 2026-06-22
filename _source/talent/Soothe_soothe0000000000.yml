@@ -4,18 +4,19 @@ _id: soothe0000000000
 img: icons/magic/life/heart-cross-strong-blue.webp
 system:
   description: >-
-    You administer a soothing Performance which rallies your allies, restoring
-    Morale.
+    <p>You administer a soothing <strong>Performance</strong> which rallies your
+    allies, restoring <strong>Morale</strong>.</p>
   actions:
     - id: soothe
       description: >-
         <p>You perform a calming verse, benefiting all allies who can perceive
         you within 12 feet. Make a <strong>Performance Check</strong> against
-        the Madness threshold of each ally. On success, each ally's Morale is
-        restored.</p>
+        the <strong>Rallying Threshold</strong> of each ally. On success, each
+        ally's <strong>Morale</strong> is restored.</p>
       tags:
         - rallying
         - morale
+        - skill
         - performance
       cost:
         action: 3
@@ -37,9 +38,7 @@ system:
         maximum: null
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - pre2a
   rune: ''
@@ -53,11 +52,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160148
-  modifiedTime: 1773514792615
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782163978198
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

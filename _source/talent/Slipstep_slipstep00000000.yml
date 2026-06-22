@@ -17,7 +17,7 @@ system:
         it is confirmed, you may expend <strong>Heroism</strong> to instantly
         move up to your <strong>Stride</strong>. The interrupted action is
         nullified without being confirmed or applying any effects.</p><p>This
-        movement does not provoke any Disengagement.</p>
+        movement does not provoke any <strong>Disengagement</strong>.</p>
       cost:
         action: 1
         focus: 0
@@ -36,9 +36,7 @@ system:
       effects: []
       tags:
         - movement
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -56,12 +54,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   createdTime: 1772307160146
-  modifiedTime: 1780938060820
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782170017087
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: slipstep00000000
 sort: 0
 _key: '!items!slipstep00000000'

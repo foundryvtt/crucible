@@ -45,23 +45,23 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       img: icons/magic/light/explosion-star-glow-silhouette.webp
       range:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
     - id: fieldStudy
       name: Field Study
       condition: ''
       description: >-
         <p>During the process of a @Action[default rest], you devote yourself to
         studying a chosen field of <strong>Knowledge</strong>. Upon the
-        completion of the Rest, you gain that Knowledge for the next 24 hours or
-        until you use this Action again.</p>
+        completion of the <strong>Rest</strong>, you gain that
+        <strong>Knowledge</strong> for the next 24 hours or until you use this
+        <strong>Action</strong> again.</p>
       tags:
         - rest
         - noncombat
@@ -94,15 +94,14 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       img: icons/sundries/documents/document-letter-blue.webp
       range:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - sig3.intellect
     - sig3.wisdom
@@ -121,11 +120,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160132
-  modifiedTime: 1780958952650
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782143588627
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

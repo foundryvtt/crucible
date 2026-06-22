@@ -5,10 +5,10 @@ img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
 system:
   nodes: []
   description: >-
-    <p>The @ref[actor.name]{creature} can swallow whole a creature whose Size is
-    at least 2 less than its own. Only one creature may be swallowed at a time,
-    unless an additional creature is one-quarter of this creature's Size or
-    less.</p>
+    <p>The @ref[actor.name]{creature} can swallow whole a creature whose
+    <strong>Size</strong> is at least 2 less than its own. Only one creature may
+    be swallowed at a time, unless an additional creature is one-quarter of this
+    creature's <strong>Size</strong> or less.</p>
   actions:
     - id: swallow
       name: Swallow
@@ -129,8 +129,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1774708342875
-  modifiedTime: 1781567840388
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782167985710
+  lastModifiedBy: fzBjA63BB4hW4rQb
   exportSource: null
   compendiumSource: null
   duplicateSource: null

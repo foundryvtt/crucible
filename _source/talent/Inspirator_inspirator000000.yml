@@ -4,12 +4,13 @@ _id: inspirator000000
 img: icons/magic/light/explosion-star-glow-silhouette.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Soul. When you cast a Spell
-    or use an action that involves this Rune, your Critical Hits which restore
-    Morale cause the @Condition[inspired] condition.</p><p>The Inspired effect
-    lasts for <strong>1 Round</strong> and deals the ability score your
-    <strong>Rune of Soul</strong> scales with as additional
-    <strong>Restoration</strong> to <strong>Morale</strong>.</p>
+    <p>You are highly skilled in weaving the <strong>Rune of Soul</strong>. When
+    you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which restore
+    <strong>Morale</strong> cause the @Condition[inspired] condition.</p><p>The
+    <strong>Inspired</strong> effect lasts for <strong>1 Round</strong> and
+    deals the ability score your <strong>Rune of Soul</strong> scales with as
+    additional <strong>Restoration</strong> to <strong>Morale</strong>.</p>
   actions: []
   nodes:
     - pre3b
@@ -29,11 +30,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160136
-  modifiedTime: 1773514792587
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782169138121
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

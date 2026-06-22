@@ -24,8 +24,8 @@ system:
         behind you, based on your direction of facing at the time this action is
         used, interposing yourself between that ally and their
         attackers.</p><p>This movement does not provoke reactions for
-        Disengagement and the protected ally gains the @Condition[guarded]
-        condition until the start of their next turn.</p>
+        <strong>Disengagement</strong> and the protected ally gains the
+        @Condition[guarded] condition until the start of their next turn.</p>
       tags: []
       cost:
         action: 2
@@ -64,9 +64,7 @@ system:
         minimum: null
         maximum: 1
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.toughness.strength
   rune: ''
@@ -81,11 +79,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1772307160160
-  modifiedTime: 1781301170152
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782168553432
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

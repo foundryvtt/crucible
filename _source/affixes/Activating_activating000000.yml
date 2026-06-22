@@ -23,9 +23,9 @@ system:
       condition: ''
       description: >-
         <p>In moments of duress you can draw upon an additional reserve of
-        <strong>Action</strong> from this item. The amount of Action restored
-        depends on the <strong>Tier</strong> of this
-        affix.</p><ul><li><p><strong>Tier 1:</strong> <strong>1
+        <strong>Action</strong> from this item. The amount of
+        <strong>Action</strong> restored depends on the <strong>Tier</strong> of
+        this affix.</p><ul><li><p><strong>Tier 1:</strong> <strong>1
         Action</strong></p></li><li><p><strong>Tier 2:</strong> <strong>2
         Action</strong></p></li><li><p><strong>Tier 3:</strong> <strong>3
         Action</strong></p></li></ul>
@@ -46,9 +46,7 @@ system:
         self: false
       effects: []
       tags: []
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
 _id: activating000000
 img: icons/magic/lightning/bolt-strike-streak-yellow.webp
 disabled: false
@@ -66,12 +64,12 @@ folder: hd7WNbghiYX3GDXN
 sort: 100000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1775502000000
-  modifiedTime: 1775559019010
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782140521842
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

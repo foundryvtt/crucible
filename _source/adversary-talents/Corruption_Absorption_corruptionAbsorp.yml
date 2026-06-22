@@ -7,9 +7,10 @@ system:
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has an exceptional ability to shrug off
-    the effects of Death magic. Its <strong>Corruption</strong> resistance is
-    doubled and if that resistance would reduce an amount of damage below zero,
-    the negative amount is received as <strong>Healing</strong> instead.</p>
+    the effects of <strong>Death</strong> magic. Its <strong>Corruption</strong>
+    resistance is doubled and if that resistance would reduce an amount of
+    damage below zero, the negative amount is received as
+    <strong>Healing</strong> instead.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -28,10 +29,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.0
   createdTime: 1761588567854
-  modifiedTime: 1773514792179
-  lastModifiedBy: p3lgSv60AK7ndmAK
+  modifiedTime: 1782165187532
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _key: '!items!corruptionAbsorp'

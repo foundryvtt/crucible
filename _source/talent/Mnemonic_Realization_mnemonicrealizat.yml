@@ -6,11 +6,10 @@ system:
   description: >-
     <p>Your sharpened mind is full of secrets and techniques to remember them.
     Once per Day you may focus your thoughts and attempt to recall a word that
-    sparks your memory.</p>
-
-    <p>The Gamemaster must provide you with a one-word clue that is appropriate
-    for your direction of inquiry. It is left to Gamemaster discretion how
-    direct or vague to be with the clue they provide.</p>
+    sparks your memory.</p><p>The <strong>Gamemaster</strong> must provide you
+    with a one-word clue that is appropriate for your direction of inquiry. It
+    is left to <strong>Gamemaster</strong> discretion how direct or vague to be
+    with the clue they provide.</p>
   actions:
     - id: mnemonicRealization
       description: >-
@@ -57,11 +56,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160139
-  modifiedTime: 1773514792597
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782170506828
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -5,12 +5,13 @@ system:
   nodes:
     - pre3b
   description: >-
-    <p>You are highly skilled in weaving the Rune of Kinesis. When you cast a
-    Spell or use an action that involves this Rune, your Critical Hits which
-    deal damage cause the @Condition[bleeding] condition.</p><p>The Bleeding
-    effect lasts for <strong>1 Round</strong> and deals the ability score your
-    <strong>Rune of Kinesis</strong> scales with as additional
-    <strong>Piercing</strong> damage to <strong>Health</strong>.</p>
+    <p>You are highly skilled in weaving the <strong>Rune of Kinesis</strong>.
+    When you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    cause the @Condition[bleeding] condition.</p><p>The
+    <strong>Bleeding</strong> effect lasts for <strong>1 Round</strong> and
+    deals the ability score your <strong>Rune of Kinesis</strong> scales with as
+    additional <strong>Piercing</strong> damage to <strong>Health</strong>.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -29,12 +30,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1762832547425
-  modifiedTime: 1773514792592
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1782145270724
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: kineturge0000000
 sort: 150000
 _key: '!items!kineturge0000000'

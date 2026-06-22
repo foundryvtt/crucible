@@ -6,8 +6,8 @@ system:
     - preint4
   description: >-
     <p>Instinctually compose a spell as a <strong>Reaction</strong> in response
-    to some other action that you observe. The React inflection increases the
-    <strong>Focus</strong> cost of a spell by 2.</p>
+    to some other action that you observe. The <strong>React</strong> inflection
+    increases the <strong>Focus</strong> cost of a spell by 2.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -26,12 +26,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.0
   createdTime: 1767142001548
-  modifiedTime: 1773514792584
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1782166729553
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: inflectionReact0
 sort: 200000
 _key: '!items!inflectionReact0'

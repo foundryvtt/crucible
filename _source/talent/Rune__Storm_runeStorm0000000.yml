@@ -3,34 +3,36 @@ type: talent
 img: icons/magic/lightning/bolt-strike-blue.webp
 system:
   description: >-
-    <p>The chaotic force of raw electrical energy. The Storm rune governs
-    sources of electrical charge and discharge.</p><p>The Storm rune scales
-    using <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-    <strong>Electricity</strong> damage to <strong>Health</strong>. It is
-    opposed by the orderly rune of <strong>Earth</strong>.</p>
+    <p>The chaotic force of raw electrical energy. The <strong>Storm</strong>
+    rune governs sources of electrical charge and discharge.</p><p>The
+    <strong>Storm</strong> rune scales using <strong>Intellect</strong>, targets
+    <strong>Reflex</strong>, and deals <strong>Electricity</strong> damage to
+    <strong>Health</strong>. It is opposed by the orderly rune of
+    <strong>Earth</strong>.</p>
   actions:
     - id: energize
       name: Energize
       img: icons/magic/lightning/bolt-strike-blue.webp
       condition: ''
       description: >-
-        <p>Your command of the Rune of Storm allows you to conduct the flow of
-        both air and electricity, manipulating charge and aerodynamics to
-        produce one of the following effects:</p><ul><li><p>Instill an
-        electromagnetic charge into a metallic object that you touch no larger
-        than a one-foot cube, causing it to strongly adhere to other metals.
-        Only one object can be charged in this way at a given time, casting this
-        spell on a different object causes the prior object to lose its magnetic
-        effect.</p></li><li><p>Gather a squall of wind at your current location
-        in a six-foot radius which blows either as a gust in a single controlled
-        direction or as a cyclone with centripetal force in all directions.
-        Airborne effects in the immediate area are dispersed and unsecured
-        objects with weight less than 1 are flung in the direction of the
-        gust.</p></li><li><p>Produce the concussive sound of a thunderclap at a
-        location you can see within 15 feet of your current
-        position.</p></li></ul><p>Energize may only affect a creature or object
-        you can physically touch. You may attempt other uses similar those
-        above, the effectiveness of which is decided by the Gamemaster.</p>
+        <p>Your command of the <strong>Rune of Storm</strong> allows you to
+        conduct the flow of both air and electricity, manipulating charge and
+        aerodynamics to produce one of the following
+        effects:</p><ul><li><p>Instill an electromagnetic charge into a metallic
+        object that you touch no larger than a one-foot cube, causing it to
+        strongly adhere to other metals. Only one object can be charged in this
+        way at a given time, casting this spell on a different object causes the
+        prior object to lose its magnetic effect.</p></li><li><p>Gather a squall
+        of wind at your current location in a six-foot radius which blows either
+        as a gust in a single controlled direction or as a cyclone with
+        centripetal force in all directions. Airborne effects in the immediate
+        area are dispersed and unsecured objects with weight less than 1 are
+        flung in the direction of the gust.</p></li><li><p>Produce the
+        concussive sound of a thunderclap at a location you can see within 15
+        feet of your current position.</p></li></ul><p>Energize may only affect
+        a creature or object you can physically touch. You may attempt other
+        uses similar those above, the effectiveness of which is decided by the
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 1
@@ -50,9 +52,7 @@ system:
       tags:
         - spell
         - harmless
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: storm
   training:
     type: storm
@@ -69,12 +69,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160144
-  modifiedTime: 1773514792609
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782170713584
+  lastModifiedBy: fzBjA63BB4hW4rQb
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0

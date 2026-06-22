@@ -3,8 +3,9 @@ type: talent
 img: icons/magic/control/hypnosis-mesmerism-eye.webp
 system:
   description: >-
-    <p>The orderly force of discipline and permanence. The Control rune governs
-    thought, reason, and persistence.</p><p>The Control rune scales using
+    <p>The orderly force of discipline and permanence. The
+    <strong>Control</strong> rune governs thought, reason, and
+    persistence.</p><p>The <strong>Control</strong> rune scales using
     <strong>Wisdom</strong>, targets <strong>Willpower</strong>, and deals
     <strong>Psychic</strong> damage to <strong>Morale</strong>. It is opposed by
     the chaotic rune of <strong>Kinesis</strong>.</p>
@@ -33,24 +34,22 @@ system:
       name: Motivate
       condition: ''
       description: >-
-        <p>Your command of the Rune of Control allows you to affect the decision
-        making of others in basic ways, producing one of the following
-        effects:</p><ul><li><p>Moderately intensify or dampen the primary
-        emotion being felt by a creature you touch. If the creature is
+        <p>Your command of the <strong>Rune of Control</strong> allows you to
+        affect the decision making of others in basic ways, producing one of the
+        following effects:</p><ul><li><p>Moderately intensify or dampen the
+        primary emotion being felt by a creature you touch. If the creature is
         intelligent enough to be aware of the laws governing spellcraft, they
         are aware of your actions.</p></li><li><p>Understand the abstract
         motivations of another living creature which allows you to touch it. You
         are able to intuit their immediate goals expressed in the form of a
         single verb.</p></li><li><p>Intensely focus on your current objective
         and the means of achieving it. You receive a brief hint or reminder from
-        the Gamemaster about that objective containing only information which
-        you have previously learned.</p></li></ul><p>Motivate may only affect a
-        creature or object which you can physically touch. You may attempt other
-        uses similar those above, the effectiveness of which is decided by the
-        Gamemaster.</p>
-      summon:
-        actorUuid: null
-        permanent: true
+        the <strong>Gamemaster</strong> about that objective containing only
+        information which you have previously learned.</p></li></ul><p>Motivate
+        may only affect a creature or object which you can physically touch. You
+        may attempt other uses similar those above, the effectiveness of which
+        is decided by the <strong>Gamemaster</strong>.</p>
+      summon: null
   rune: control
   nodes:
     - wis0b
@@ -67,12 +66,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1773514792606
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782170625546
+  lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

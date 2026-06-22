@@ -15,8 +15,8 @@ system:
       description: >-
         <p>You expend <strong>Heroism</strong> to instantly recover half your
         <strong>Intellect</strong> in <strong>Action</strong>. You may perform
-        this action outside of your turn in Combat before making a
-        <strong>Reaction</strong>.</p>
+        this action outside of your turn in <strong>Combat</strong> before
+        making a <strong>Reaction</strong>.</p>
       cost:
         action: 0
         focus: 0
@@ -34,9 +34,7 @@ system:
         self: false
       effects: []
       tags: []
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -54,12 +52,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   createdTime: 1772307160129
-  modifiedTime: 1780938422495
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782168820145
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: decisiveAction00
 sort: 300000
 _key: '!items!decisiveAction00'

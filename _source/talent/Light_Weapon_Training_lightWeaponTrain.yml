@@ -19,7 +19,8 @@ system:
         scales using <strong>Dexterity</strong> against a single target, with an
         increased range of <strong>+2 feet</strong>.</p><p>The attack is
         <strong>Difficult</strong>, but you do not move from your current
-        position nor does this attack provoke Disengagement.</p>
+        position nor does this attack provoke
+        <strong>Disengagement</strong>.</p>
       cost:
         action: 0
         focus: 0
@@ -40,9 +41,7 @@ system:
         - finesse
         - melee
         - difficult
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   iconicSpells: 0
   training:
     type: light
@@ -58,12 +57,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160138
-  modifiedTime: 1773776810356
-  lastModifiedBy: 4uFKaoDjEQwkkXjq
+  modifiedTime: 1782169461182
+  lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

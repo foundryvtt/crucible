@@ -5,8 +5,9 @@ img: icons/skills/wounds/injury-eyes-blood-red-pink.webp
 system:
   description: >-
     <p>Your battle lust spurs you to feats of heightened action. When you
-    achieve a <strong>Critical Hit</strong> that deals damage to Health you
-    immediately gain +1 Action. This benefit may only happen once per Round.</p>
+    achieve a <strong>Critical Hit</strong> that deals damage to
+    <strong>Health</strong> you immediately gain <strong>+1 Action</strong>.
+    This benefit may only happen once per <strong>Round</strong>.</p>
   actions: []
   nodes:
     - str4a
@@ -25,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160127
-  modifiedTime: 1773514792561
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782141684825
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.bloodfrenzy00000
   duplicateSource: null
   exportSource: null

@@ -3,13 +3,13 @@ type: talent
 img: icons/magic/fire/blast-jet-stream-embers-red.webp
 system:
   description: >-
-    <p>You shape the essence of a Rune into a sweeping or splintered arc to
-    strike multiple targets in close proximity.</p><p>The Fan gesture scales
-    using <strong>Intellect</strong> and targets a 120 degree arc with 6 foot
-    radius. It deals <strong>6 Base Damage</strong> to targets which fail to
-    Resist the spell. This gesture requires <strong>1 Hand</strong> to cast and
-    has a base cost of <strong>3 Action</strong> and <strong>1
-    Focus</strong>.</p>
+    <p>You shape the essence of a <strong>Rune</strong> into a sweeping or
+    splintered arc to strike multiple targets in close proximity.</p><p>The
+    <strong>Fan</strong> gesture scales using <strong>Intellect</strong> and
+    targets a 120 degree arc with 6 foot radius. It deals <strong>6 Base
+    Damage</strong> to targets which fail to <strong>Resist</strong> the spell.
+    This gesture requires <strong>1 Hand</strong> to cast and has a base cost of
+    <strong>3 Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: fan
   nodes:
@@ -25,11 +25,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1773514792580
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782163500476
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gesturefan000000
   duplicateSource: null
   exportSource: null

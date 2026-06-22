@@ -7,12 +7,13 @@ system:
     gesture designed to unravel and negate the spellcraft of an enemy
     mage.</p><h2 class="divider">Playtest Notes</h2><p>This action can now be
     used in playtesting, but it is not yet <em>fully automated</em>. The
-    Counterspell can be performed, but it is up to the Gamemaster to manually
-    reverse a previously applied spell and to manually deduct its
-    <strong>Action</strong> and <strong>Focus</strong> cost. These steps of the
-    overall Counterspell workflow <em>will be automated</em> in a subsequent
-    update such that a confirmed Counterspell will also confirm the spell that
-    was countered, but with its effects removed.</p>
+    <strong>Counterspell</strong> can be performed, but it is up to the
+    <strong>Gamemaster</strong> to manually reverse a previously applied spell
+    and to manually deduct its <strong>Action</strong> and
+    <strong>Focus</strong> cost. These steps of the overall
+    <strong>Counterspell</strong> workflow <em>will be automated</em> in a
+    subsequent update such that a confirmed <strong>Counterspell</strong> will
+    also confirm the spell that was countered, but with its effects removed.</p>
   actions:
     - id: counterspell
       condition: Another creature which you can see is casting a spell.
@@ -20,13 +21,14 @@ system:
         <p>You form arcane energy into a countervailing spellcraft, targeting a
         spellcaster you can see within 30 feet.</p><p>Designate a
         <strong>Rune</strong> and <strong>Gesture</strong> which you know to
-        attempt to counter the spell. Choosing a Rune which is opposed to one
-        used in the spell grants <strong>+2 Boons</strong> to your attempt.
-        Selecting the identical Gesture as the one being cast also adds
-        <strong>+2 Boons</strong> to your attempt.</p><p>Perform a harmless
-        Spell Attack against your target's <strong>Willpower</strong> defense.
-        If your roll exceeds their defense, the spell is countered and its magic
-        is nullified, producing no effects.</p>
+        attempt to counter the spell. Choosing a <strong>Rune</strong> which is
+        opposed to one used in the spell grants <strong>+2 Boons</strong> to
+        your attempt. Selecting the identical <strong>Gesture</strong> as the
+        one being cast also adds <strong>+2 Boons</strong> to your
+        attempt.</p><p>Perform a harmless <strong>Spell Attack</strong> against
+        your target's <strong>Willpower</strong> defense. If your roll exceeds
+        their defense, the spell is countered and its magic is nullified,
+        producing no effects.</p>
       tags:
         - reaction
         - spell
@@ -52,9 +54,7 @@ system:
       rune: storm
       gesture: touch
       composition: 1
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
       inflection: ''
   nodes:
     - preint1
@@ -73,11 +73,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160129
-  modifiedTime: 1773514792566
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782145106747
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.counterspell0000
   duplicateSource: null
   exportSource: null

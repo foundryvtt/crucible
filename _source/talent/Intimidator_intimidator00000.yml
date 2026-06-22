@@ -11,8 +11,9 @@ system:
       name: Intimidate
       description: >-
         <p>You physically intimidate an enemy that is within your engagement
-        range, performing an Intimidation skill attack against your target. On a
-        success they sustain Void damage to Morale.</p>
+        range, performing an <strong>Intimidation</strong> skill attack against
+        your target. On a success they sustain <strong>Void</strong> damage to
+        <strong>Morale</strong>.</p>
       tags:
         - void
         - morale
@@ -36,9 +37,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - pre2c
   rune: ''
@@ -57,11 +56,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160137
-  modifiedTime: 1773514792590
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782163909045
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

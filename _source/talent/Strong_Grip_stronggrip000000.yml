@@ -5,10 +5,10 @@ img: icons/skills/melee/hand-grip-sword-orange.webp
 system:
   description: >-
     <p>Your grasp of your weaponry is firm and unyielding. While wielding a
-    two-handed weapon that scales with Strength you may cast spells which
-    require two hands, and attempts to Disarm you are made with +2 Banes.
-    </p><p>Additionally, you may wield a one-handed Heavy weapon in your
-    off-hand.</p>
+    two-handed weapon that scales with <strong>Strength</strong> you may cast
+    spells which require two hands, and attempts to <strong>Disarm</strong> you
+    are made with <strong>+2 Banes</strong>.</p><p>Additionally, you may wield a
+    one-handed <strong>Heavy</strong> weapon in your off-hand.</p>
   actions: []
   nodes:
     - str2c
@@ -23,11 +23,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160150
-  modifiedTime: 1780937954275
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782137060343
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -35,28 +35,27 @@ system:
             value: 10
             units: rounds
             expiry: turnEnd
+            expired: false
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
             changes: []
+            dc: null
+            properties: []
       tags:
-        - spell
-        - iconicSpell
         - spell
         - iconicSpell
       name: Protective Mirage
       condition: ''
       description: >-
         <p>You become surrounded by three illusory duplicates which last up to
-        10 Rounds. Any incoming <strong>Strike</strong> against you is made with
-        a number of <strong>Banes</strong> equal to two times your number of
-        duplicates remaining. Each time a Strike misses you, one of your
-        duplicates disappears.</p>
-      summon:
-        actorUuid: null
-        permanent: true
+        <strong>10 Rounds</strong>. Any incoming <strong>Strike</strong> against
+        you is made with a number of <strong>Banes</strong> equal to two times
+        your number of duplicates remaining. Each time a <strong>Strike</strong>
+        misses you, one of your duplicates disappears.</p>
+      summon: null
       rune: illusion
       gesture: aspect
       inflection: eluding
@@ -75,12 +74,12 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307159357
-  modifiedTime: 1773514792468
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782144838995
+  lastModifiedBy: fzBjA63BB4hW4rQb
   exportSource: null
 _id: protectiveMirage
 sort: 600000

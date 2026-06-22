@@ -5,17 +5,17 @@ system:
   nodes:
     - int4a
   description: >-
-    <p>You focus the arcane power of a Rune into a narrow cone that projects
-    outwards from your location.</p><p>The Cone gesture scales with
-    <strong>Intellect</strong> and produces a 60 degree cone with a 30 foot
-    radius originating from the spellcaster. The Cone deals <strong>8 Base
-    Damage</strong> to targets which fail to Resist the spell. This gesture
-    requires <strong>2 Hands</strong> to cast and has a base cost of <strong>5
-    Action</strong> and <strong>2 Focus</strong>.</p><h3
-    class="divider">Playtest Notes</h3><p>This talent is currently placed at a
-    <strong>Tier 4</strong> node. It will eventually only be attainable at a
-    higher level (probably Level 6 required). It is currently available "early"
-    for testing.</p>
+    <p>You focus the arcane power of a <strong>Rune</strong> into a narrow cone
+    that projects outwards from your location.</p><p>The <strong>Cone</strong>
+    gesture scales with <strong>Intellect</strong> and produces a 60 degree cone
+    with a 30 foot radius originating from the spellcaster. The
+    <strong>Cone</strong> deals <strong>8 Base Damage</strong> to targets which
+    fail to <strong>Resist</strong> the spell. This gesture requires <strong>2
+    Hands</strong> to cast and has a base cost of <strong>5 Action</strong> and
+    <strong>2 Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This
+    talent is currently placed at a <strong>Tier 4</strong> node. It will
+    eventually only be attainable at a higher level (probably Level 6 required).
+    It is currently available "early" for testing.</p>
   actions: []
   rune: ''
   gesture: cone
@@ -34,12 +34,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1762794177874
-  modifiedTime: 1773514792578
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1782169041440
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: gestureCone00000
 sort: 0
 _key: '!items!gestureCone00000'

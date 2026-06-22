@@ -3,9 +3,9 @@ type: talent
 img: icons/magic/light/projectile-smoke-pink.webp
 system:
   description: >-
-    Your tenacity gives you an irrepressible spirit which resists the onset of
-    despair. At the start of your turn if you are not @Condition[broken] you
-    gain 1 Morale.
+    <p>Your tenacity gives you an irrepressible spirit which resists the onset
+    of despair. At the start of your turn if you are not @Condition[broken] you
+    gain <strong>1 Morale</strong>.</p>
   actions: []
   nodes:
     - wis2b
@@ -24,11 +24,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160137
-  modifiedTime: 1773514792591
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782143116650
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.irrepressiblespi
   duplicateSource: null
   exportSource: null

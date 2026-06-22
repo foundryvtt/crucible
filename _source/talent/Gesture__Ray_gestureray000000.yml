@@ -3,13 +3,13 @@ type: talent
 img: icons/magic/light/beam-rays-blue.webp
 system:
   description: >-
-    <p>You funnel the arcane power of a Rune into a point and project it
-    outwards in a beam.</p><p>The Ray gesture scales using
-    <strong>Wisdom</strong> and produces a line that is 1 foot wide and 30 feet
-    long originating from the spellcaster, dealing <strong>6 Base
-    Damage</strong> to targets which fail to Resist the spell. The gesture
-    requires <strong>1 Hand</strong> to cast and has a base cost of <strong>4
-    Action</strong> and <strong>1 Focus</strong>.</p>
+    <p>You funnel the arcane power of a <strong>Rune</strong> into a point and
+    project it outwards in a beam.</p><p>The <strong>Ray</strong> gesture scales
+    using <strong>Wisdom</strong> and produces a line that is 1 foot wide and 30
+    feet long originating from the spellcaster, dealing <strong>6 Base
+    Damage</strong> to targets which fail to <strong>Resist</strong> the spell.
+    The gesture requires <strong>1 Hand</strong> to cast and has a base cost of
+    <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: ray
   nodes:
@@ -28,11 +28,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160134
-  modifiedTime: 1773514792580
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782166383344
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.gestureray000000
   duplicateSource: null
   exportSource: null

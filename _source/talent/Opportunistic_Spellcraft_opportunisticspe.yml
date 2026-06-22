@@ -6,7 +6,7 @@ system:
   description: >-
     <p>Your quick thinking can weave magic to exploit brief windows of
     opportunity. You may make a <strong>Disengagement Attack</strong> using the
-    <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
+    <strong>Touch Gesture</strong> instead of a melee weapon attack.</p>
   actions: []
   nodes:
     - int2b
@@ -26,11 +26,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160140
-  modifiedTime: 1773514792599
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782169514997
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

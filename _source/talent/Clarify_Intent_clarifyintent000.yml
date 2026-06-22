@@ -9,9 +9,10 @@ system:
     - id: clarifyIntent
       description: >-
         <p>You explain your intentions to an ally within 12 feet. Make an
-        <strong>Diplomacy</strong> skill attack against your ally's Madness
-        Threshold. If successful they gain +1 <strong>Focus</strong> and +1
-        <strong>Boon</strong> to actions made within the next Round.</p>
+        <strong>Diplomacy</strong> skill attack against your ally's
+        <strong>Madness Threshold</strong>. If successful they gain +1
+        <strong>Focus</strong> and +1 <strong>Boon</strong> to actions made
+        within the next <strong>Round</strong>.</p>
       tags:
         - rallying
         - skill
@@ -38,12 +39,15 @@ system:
             value: 1
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             changes: []
             dot: []
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       name: Clarify Intent
       img: icons/skills/targeting/crosshair-arrowhead-blue.webp
       condition: ''
@@ -51,9 +55,7 @@ system:
         minimum: null
         maximum: 12
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - wispre1
   rune: ''
@@ -71,11 +73,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160128
-  modifiedTime: 1773514792563
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782168639614
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.clarifyintent000
   duplicateSource: null
   exportSource: null

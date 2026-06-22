@@ -10,11 +10,12 @@ system:
     - id: tacticalPlan
       name: Tactical Plan
       description: >-
-        Using 10 words or fewer, describe a course of action to an ally who acts
-        after you in Initiative order. If that ally carries out your described
-        plan later in the same Round, they gain +2 Boons on any dice rolls
-        associated with that plan. The Gamemaster may arbitrate whether or not
-        the plan was followed.
+        <p>Using 10 words or fewer, describe a course of action to an ally who
+        acts after you in <strong>Initiative</strong> order. If that ally
+        carries out your described plan later in the same
+        <strong>Round</strong>, they gain +2 <strong>Boons</strong> on any dice
+        rolls associated with that plan. The <strong>Gamemaster</strong> may
+        arbitrate whether or not the plan was followed.</p>
       tags: []
       cost:
         action: 2
@@ -28,14 +29,13 @@ system:
         scope: 0
         self: false
       effects: []
-      img: null
+      img: icons/sundries/flags/banner-symbol-axe-red.webp
       range:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
+      condition: ''
   nodes:
     - sig3.presence.intellect
   rune: ''
@@ -49,11 +49,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160151
-  modifiedTime: 1773514792621
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782170768372
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

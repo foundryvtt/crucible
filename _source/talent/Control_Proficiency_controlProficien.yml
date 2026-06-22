@@ -5,10 +5,10 @@ system:
   nodes:
     - wis4c
   description: >-
-    <p>You have fluency in weaving spellcraft using the Rune of Control. You
-    gain a <strong>+1 Skill Bonus</strong> for spells cast using this
-    Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
-    eventually also provide an upgrade to the
+    <p>You have fluency in weaving spellcraft using the <strong>Rune of
+    Control</strong>. You gain a <strong>+1 Skill Bonus</strong> for spells cast
+    using this Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent
+    will eventually also provide an upgrade to the
     @Action[Compendium.crucible.talent.Item.runeControl00000 motivate] action,
     expanding its effectiveness or including new options for how to use it.</p>
   actions: []
@@ -33,7 +33,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1763163877936
-  modifiedTime: 1781971062882
+  modifiedTime: 1782165306070
   lastModifiedBy: fzBjA63BB4hW4rQb
 _id: controlProficien
 sort: 800000

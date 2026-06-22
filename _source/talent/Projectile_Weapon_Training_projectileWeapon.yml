@@ -15,7 +15,8 @@ system:
       description: >-
         <p>You can loose a shot under pressure, although with decreased
         accuracy. You perform a <strong>Strike</strong> that is
-        <strong>Difficult</strong>, but has a reduced Action cost.</p>
+        <strong>Difficult</strong>, but has a reduced <strong>Action</strong>
+        cost.</p>
       cost:
         action: -1
         focus: 0
@@ -36,9 +37,7 @@ system:
         - projectile
         - ranged
         - difficult
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   iconicSpells: 0
   training:
     type: projectile
@@ -54,12 +53,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160142
-  modifiedTime: 1773514792604
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782143469166
+  lastModifiedBy: fzBjA63BB4hW4rQb
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

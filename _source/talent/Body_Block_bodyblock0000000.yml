@@ -7,14 +7,16 @@ flags:
   core: {}
 system:
   description: >-
-    You lean into an attack which was otherwise defended with your Armor,
-    converting its result into a Block instead.
+    <p>You lean into an attack which was otherwise defended with your
+    <strong>Armor</strong>, converting its result into a <strong>Block</strong>
+    instead.</p>
   actions:
     - id: bodyBlock
       condition: You defend against a melee attack with your Armor or as a Glance.
       description: >-
-        <p>An attack which otherwise is defended by your Armor or produced a
-        Glancing blow is converted to a Block and deals no damage.</p>
+        <p>An attack which otherwise is defended by your <strong>Armor</strong>
+        or produced a <strong>Glancing blow</strong> is converted to a
+        <strong>Block</strong> and deals no damage.</p>
       tags:
         - reaction
       cost:
@@ -35,9 +37,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - toustr2
   rune: ''
@@ -49,11 +49,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160128
-  modifiedTime: 1773514792562
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782164962211
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

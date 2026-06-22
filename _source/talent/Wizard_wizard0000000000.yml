@@ -5,10 +5,10 @@ img: icons/magic/symbols/rune-sigil-horned-white-purple.webp
 system:
   description: >-
     <p>You are a consummate scholar of the arcane who can sustain fluidity and
-    momentum in your spellcraft. Once per Turn when you cast a
+    momentum in your spellcraft. Once per <strong>Turn</strong> when you cast a
     <strong>Spell</strong>, you can carry forward a portion of its magic to
-    reduce the <strong>Focus</strong> cost of an immediately subsequent Spell by
-    1.</p>
+    reduce the <strong>Focus</strong> cost of an immediately subsequent
+    <strong>Spell</strong> by 1.</p>
   actions: []
   nodes:
     - sig3.intellect
@@ -28,11 +28,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160132
-  modifiedTime: 1780959082701
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782163132485
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

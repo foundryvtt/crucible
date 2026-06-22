@@ -12,7 +12,8 @@ system:
       description: >-
         <p>You <strong>Strike</strong> from distance. The attack is
         <strong>Difficult</strong>, however if your target is it it becomes
-        @Condition[restrained] until the end of their next Turn.</p>
+        @Condition[restrained] until the end of their next
+        <strong>Turn</strong>.</p>
       tags:
         - ranged
         - difficult
@@ -36,6 +37,7 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           result:
             type: success
             all: false
@@ -45,15 +47,15 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       name: Pinning Shot
       img: icons/skills/ranged/arrow-strike-glowing-teal.webp
       range:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - dex3a
   rune: ''
@@ -67,11 +69,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160141
-  modifiedTime: 1773514792602
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782169605677
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

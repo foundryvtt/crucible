@@ -3,13 +3,13 @@ type: talent
 img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
 system:
   description: >-
-    <p>You hurl a projectile imbued with the magical power of a Rune at a
-    distant target.</p><p>The Arrow gesture scales using
-    <strong>Intellect</strong> and targets a single creature up to a distance of
-    60 feet, dealing <strong>8 Base Damage</strong> to targets which fail to
-    Resist the spell. This gesture requires <strong>1 Hand</strong> to cast and
-    has a base cost of <strong>3 Action</strong> and <strong>1
-    Focus</strong>.</p>
+    <p>You hurl a projectile imbued with the magical power of a
+    <strong>Rune</strong> at a distant target.</p><p>The <strong>Arrow</strong>
+    gesture scales using <strong>Intellect</strong> and targets a single
+    creature up to a distance of 60 feet, dealing <strong>8 Base Damage</strong>
+    to targets which fail to <strong>Resist</strong> the spell. This gesture
+    requires <strong>1 Hand</strong> to cast and has a base cost of <strong>3
+    Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: arrow
   nodes:
@@ -25,11 +25,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1773514792579
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782163374916
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gesturearrow0000
   duplicateSource: null
   exportSource: null

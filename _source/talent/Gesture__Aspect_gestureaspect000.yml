@@ -3,16 +3,17 @@ type: talent
 img: icons/magic/control/silhouette-hold-change-green.webp
 system:
   description: >-
-    <p>You infuse the essence of a Rune into your body, empowering your own
-    physical form or psyche.</p><p>When you assume a certain Aspect, you become
-    more closely attuned to the damage type of the Rune used in your spell. You
-    gain <strong>+2 Resistance</strong> to that damage type, and deal an
-    additional <strong>+2 Damage</strong> whenever dealing damage of that
-    type.</p><p>Your Aspect lasts for <strong>6 Rounds</strong>. You may only
-    have one active Aspect, casting another spell using the Aspect gesture
-    replaces the previous effect. This gesture requires <strong>1 Hand</strong>
-    to cast and has a base cost of <strong>2 Action</strong> and <strong>1
-    Focus</strong>.</p>
+    <p>You infuse the essence of a <strong>Rune</strong> into your body,
+    empowering your own physical form or psyche.</p><p>When you assume a certain
+    <strong>Aspect</strong>, you become more closely attuned to the damage type
+    of the <strong>Rune</strong> used in your spell. You gain <strong>+2
+    Resistance</strong> to that damage type, and deal an additional <strong>+2
+    Damage</strong> whenever dealing damage of that type.</p><p>Your Aspect
+    lasts for <strong>6 Rounds</strong>. You may only have one active
+    <strong>Aspect</strong>, casting another spell using the
+    <strong>Aspect</strong> gesture replaces the previous effect. This gesture
+    requires <strong>1 Hand</strong> to cast and has a base cost of <strong>2
+    Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   gesture: aspect
   nodes:
@@ -28,11 +29,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1773514792579
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782166322913
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gestureaspect000
   duplicateSource: null
   exportSource: null

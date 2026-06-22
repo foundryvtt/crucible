@@ -21,8 +21,8 @@ img: icons/skills/melee/strike-axe-blood-red.webp
 disabled: false
 start: null
 description: >-
-  <p>A Strike that scores a <strong>Critical Hit</strong> with this weapon
-  brutally exploits the wound.</p><ul><li><p>Weapons that deal
+  <p>A <strong>Strike</strong> that scores a <strong>Critical Hit</strong> with
+  this weapon brutally exploits the wound.</p><ul><li><p>Weapons that deal
   <strong>Piercing</strong> or <strong>Slashing</strong> damage cause the target
   to begin @Condition[bleeding].</p></li><li><p>Weapons that deal
   <strong>Bludgeoning</strong> damage cause the target to become
@@ -36,12 +36,12 @@ folder: X7jf6k3zU0CiCktv
 sort: 200000
 flags: {}
 _stats:
-  coreVersion: '14.363'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.5
   createdTime: 1775402630828
-  modifiedTime: 1781023901960
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782144421422
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

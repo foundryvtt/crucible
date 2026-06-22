@@ -20,8 +20,9 @@ system:
         mind. Perform a <strong>Medicine Check</strong>.</p><p>The attempt is
         contested by the higher of the target's <strong>Healing
         Threshold</strong> or <strong>Rallying Threshold</strong>. If successful
-        the target immediately regains both Health and Morale as well as half
-        that amount at the beginning of each of the subsequent 3 turns.</p>
+        the target immediately regains both <strong>Health</strong> and
+        <strong>Morale</strong> as well as half that amount at the beginning of
+        each of the subsequent <strong>3 Turns</strong>.</p>
       cost:
         action: 3
         focus: 0
@@ -50,20 +51,21 @@ system:
             value: 3
             units: rounds
             expiry: turnEnd
+            expired: false
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
             changes: []
+            dc: null
+            properties: []
       tags:
         - healing
+        - rallying
         - skill
         - medicine
-        - rallying
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -81,12 +83,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160128
-  modifiedTime: 1773514792563
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782141879653
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: chirurgeon000000
 sort: 0
 _key: '!items!chirurgeon000000'

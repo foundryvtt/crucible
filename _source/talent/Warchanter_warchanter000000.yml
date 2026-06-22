@@ -7,12 +7,13 @@ system:
     chants carried on the rhythm of your own blows. You know six
     <strong>Chants</strong>; three <strong>Songs</strong> that strengthen your
     allies and three <strong>Dirges</strong> that sap your foes. You may weave
-    multiple Chants together to craft an evolving chorus of battle, but you
-    require the continued strikes of your weapon to fuel their
+    multiple <strong>Chants</strong> together to craft an evolving chorus of
+    battle, but you require the continued strikes of your weapon to fuel their
     song.</p><p>Beginning a chant creates an aura around you that affects other
-    creatures on their respective turns and lasts for one Round. Whenever you
-    successfully hit with a <strong>Melee</strong> attack, your Chant that is
-    nearest to expiring is extended by one <strong>Round</strong>.</p>
+    creatures on their respective turns and lasts for one
+    <strong>Round</strong>. Whenever you successfully hit with a
+    <strong>Melee</strong> attack, your <strong>Chant</strong> that is nearest
+    to expiring is extended by one <strong>Round</strong>.</p>
   actions:
     - id: songOfMight
       name: Song of the Titan's Might
@@ -334,8 +335,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1781203463310
-  modifiedTime: 1781399804166
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782171074388
+  lastModifiedBy: fzBjA63BB4hW4rQb
 folder: fOYHlZJEWUukD7yr
 ownership:
   default: 0

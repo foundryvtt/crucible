@@ -15,7 +15,7 @@ system:
       description: >-
         <p>You expend <strong>Heroism</strong> to instantly recover your
         <strong>Wisdom</strong> in <strong>Focus</strong>. You may perform this
-        action outside of your turn in Combat before making a
+        action outside of your turn in <strong>Combat</strong> before making a
         <strong>Reaction</strong>.</p>
       cost:
         action: 0
@@ -34,9 +34,7 @@ system:
         self: false
       effects: []
       tags: []
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -54,12 +52,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160153
-  modifiedTime: 1773514792625
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782170810118
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: unshakeablePoise
 sort: 150000
 _key: '!items!unshakeablePoise'

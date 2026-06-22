@@ -15,9 +15,9 @@ system:
         - dualwield
         - melee
         - offhand
+        - reflex
         - skill
         - deception
-        - reflex
       cost:
         action: 1
         focus: 0
@@ -38,16 +38,14 @@ system:
         <strong>Deception</strong> attack against the target's
         <strong>Reflex</strong> defense. You immediately make a
         <strong>Strike</strong> with your <strong>offhand</strong>
-        weapon.</p><p>If your Deception was successful, you gain <strong>+2
-        Boons</strong> to your Strike and it deals an additional <strong>+6
-        Damage</strong>.</p>
+        weapon.</p><p>If your <strong>Deception</strong> was successful, you
+        gain <strong>+2 Boons</strong> to your <strong>Strike</strong> and it
+        deals an additional <strong>+6 Damage</strong>.</p>
       range:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - intdex1
   rune: ''
@@ -59,11 +57,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160132
-  modifiedTime: 1773514792574
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782146467112
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
   exportSource: null

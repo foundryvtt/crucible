@@ -4,11 +4,12 @@ img: icons/sundries/gaming/chess-knight-white.webp
 system:
   description: >-
     <p>You are always thinking ahead about where to position yourself should
-    danger loom. Before <strong>Turn 1</strong> of a Combat encounter, provided
-    that you are not @Condition[unaware], you may immediately move 4 feet in any
-    permitted direction.</p><p>If multiple combatants have this feature,
-    repositioning occurs in reverse order of Initiative.</p><h3
-    class="divider">Playtest Notes</h3><p>This talent is not yet automated.</p>
+    danger loom. Before <strong>Turn 1</strong> of a <strong>Combat</strong>
+    encounter, provided that you are not @Condition[unaware], you may
+    immediately move 4 feet in any permitted direction.</p><p>If multiple
+    combatants have this feature, repositioning occurs in reverse order of
+    <strong>Initiative</strong>.</p><h3 class="divider">Playtest
+    Notes</h3><p>This talent is not yet automated.</p>
   actions: []
   nodes:
     - int3b
@@ -27,11 +28,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160149
-  modifiedTime: 1780514231979
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782170070115
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.strategicreposit
   duplicateSource: null
   exportSource: null

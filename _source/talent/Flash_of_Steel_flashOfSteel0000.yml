@@ -16,7 +16,8 @@ system:
       description: >-
         <p>You make a <strong>Thrown </strong>weapon attack, targeting a weak
         point in your enemy's defences. If the attack hits, the target becomes
-        @Condition[exposed] until the start of their next Turn.</p>
+        @Condition[exposed] until the start of their next
+        <strong>Turn</strong>.</p>
       cost:
         action: 0
         focus: 1
@@ -41,6 +42,7 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           result:
             type: success
             all: false
@@ -50,12 +52,12 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
         - melee
         - thrown
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -73,11 +75,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160132
-  modifiedTime: 1773514792576
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782168941973
+  lastModifiedBy: fzBjA63BB4hW4rQb
 sort: 300000
 _key: '!items!flashOfSteel0000'

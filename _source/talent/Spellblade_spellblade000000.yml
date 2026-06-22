@@ -4,14 +4,15 @@ type: talent
 img: icons/weapons/swords/sword-winged-pink.webp
 system:
   description: >-
-    <p>You are an arcane warrior who can weave together Strike and Spell relying
-    on both martial and arcane techniques in battle. The physical strikes of
-    your weaponry partially substitute for the somatic gestures of traditional
-    spellcraft.</p><p>While wielding a <strong>Melee</strong> weapon as your
-    mainhand weapon, spells you cast using <strong>Gesture: Strike</strong>
-    benefit from your weapon's damage bonus.</p><p>Immediately after performing
-    a <strong>Strike</strong> with a melee weapon, you may cast a spell with its
-    <strong>Action</strong> cost reduced by 1.</p>
+    <p>You are an arcane warrior who can weave together <strong>Strike</strong>
+    and <strong>Spell</strong> relying on both martial and arcane techniques in
+    battle. The physical strikes of your weaponry partially substitute for the
+    somatic gestures of traditional spellcraft.</p><p>While wielding a
+    <strong>Melee</strong> weapon as your mainhand weapon, spells you cast using
+    <strong>Gesture: Strike</strong> benefit from your weapon's damage
+    bonus.</p><p>Immediately after performing a <strong>Strike</strong> with a
+    melee weapon, you may cast a spell with its <strong>Action</strong> cost
+    reduced by 1.</p>
   actions: []
   iconicSpells: 1
   nodes:
@@ -31,11 +32,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160148
-  modifiedTime: 1773514792616
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782162796310
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.spellblade000000
   duplicateSource: null
   exportSource: null

@@ -4,13 +4,14 @@ _id: necromancer00000
 img: icons/magic/unholy/strike-beam-blood-red-purple.webp
 system:
   description: >-
-    <p>You are highly skilled in weaving the Rune of Death. When you cast a
-    Spell or use an action that involves this Rune, your Critical Hits which
-    deal damage cause the @Condition[decaying] condition.</p><p>The Decaying
-    effect lasts for <strong>3 Rounds</strong> and deals half the ability score
-    your <strong>Rune of Death</strong> scales with as
-    <strong>Corruption</strong> damage to <strong>Health</strong> each
-    Round.</p>
+    <p>You are highly skilled in weaving the <strong>Rune of Death</strong>.
+    When you cast a <strong>Spell</strong> or use an action that involves this
+    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    cause the @Condition[decaying] condition.</p><p>The
+    <strong>Decaying</strong> effect lasts for <strong>3 Rounds</strong> and
+    deals half the ability score your <strong>Rune of Death</strong> scales with
+    as <strong>Corruption</strong> damage to <strong>Health</strong> each
+    <strong>Round</strong>.</p>
   actions: []
   nodes:
     - pre3b
@@ -30,11 +31,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160139
-  modifiedTime: 1780502874497
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782169482607
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

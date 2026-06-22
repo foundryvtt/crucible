@@ -7,8 +7,8 @@ system:
   description: >-
     <p>Currents of magic flow strangely around you, as if unaware of your
     presence.</p><p>You cannot perform any action with the
-    <strong>Spell</strong> tag. Spells which target you suffer +2
-    <strong>Banes</strong> regardless of whether they impose harmful or
+    <strong>Spell</strong> tag. <strong>Spells</strong> which target you suffer
+    +2 <strong>Banes</strong> regardless of whether they impose harmful or
     beneficial effects.</p>
   actions: []
   rune: ''
@@ -28,12 +28,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.0
   createdTime: 1749944001745
-  modifiedTime: 1773514792616
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782162824457
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: spellmute0000000
 sort: 0
 _key: '!items!spellmute0000000'

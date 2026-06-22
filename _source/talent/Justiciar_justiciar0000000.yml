@@ -4,8 +4,9 @@ _id: justiciar0000000
 img: icons/skills/melee/sword-stuck-glowing-pink.webp
 system:
   description: >-
-    <p>You are an instrument of justice. Critical Strike attacks also deal the
-    Overflow portion of damage to enemy Morale.</p>
+    <p>You are an instrument of justice. <strong>Critical Strike</strong>
+    attacks also deal the <strong>Overflow</strong> portion of damage to enemy
+    <strong>Morale</strong>.</p>
   actions: []
   nodes:
     - sig3.strength.wisdom
@@ -20,11 +21,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160137
-  modifiedTime: 1773514792591
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782148470547
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

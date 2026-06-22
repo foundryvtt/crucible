@@ -3,10 +3,11 @@ type: talent
 img: icons/magic/earth/construct-stone.webp
 system:
   description: >-
-    <p>You cannot be unvoluntarily Moved or knocked @Condition[prone] by any
-    action that is not a Critical Success rolled by an enemy or a Critical
-    Failure rolled by yourself.</p><h3 class="divider">Playtest
-    Notes</h3><p>This talent is not yet automated.</p>
+    <p>You cannot be <strong>Involuntarily Moved</strong> or knocked
+    @Condition[prone] by any action that is not a <strong>Critical
+    Success</strong> rolled by an enemy or a <strong>Critical Failure</strong>
+    rolled by yourself.</p><h3 class="divider">Playtest Notes</h3><p>This talent
+    is not yet automated.</p>
   actions: []
   nodes:
     - tou3b
@@ -22,11 +23,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160153
-  modifiedTime: 1780514259073
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782170906397
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.unshakeablestanc
   duplicateSource: null
   exportSource: null

@@ -3,38 +3,40 @@ type: talent
 img: icons/magic/movement/pinwheel-turning-blue.webp
 system:
   description: >-
-    <p>The chaotic force of space and physical movement. The Kinesis rune
-    governs all things related to the act of movement and physicality.</p><p>The
-    Kinesis rune scales using <strong>Presence</strong>, targets
-    <strong>Physical</strong> defense, and deals <strong>Bludgeoning</strong>,
-    <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
-    <strong>Health</strong>. It is opposed by the orderly rune of
-    <strong>Control</strong>.</p>
+    <p>The chaotic force of space and physical movement. The
+    <strong>Kinesis</strong> rune governs all things related to the act of
+    movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
+    using <strong>Presence</strong>, targets <strong>Physical</strong> defense,
+    and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+    <strong>Slashing</strong> damage to <strong>Health</strong>. It is opposed
+    by the orderly rune of <strong>Control</strong>.</p>
   actions:
     - id: propel
       name: Propel
       img: icons/magic/movement/pinwheel-turning-blue.webp
       condition: ''
       description: >-
-        <p>Your command of the Rune of Kinesis allows you to exert local control
-        over gravitational forces to perform basic telekinetic manipulations,
-        producing one of the following effects:</p><ul><li><p>Pull an unsecured
-        object within 15 feet and with weight no greater than 1 towards you and
-        catch it. An object that is equipped or possessed by a creature is never
-        treated as unsecured unless that creature is willing to release
-        it.</p></li><li><p>Flick an object that you hold with weight no greater
-        than 1 towards a target up to 30 feet away. The object flies unerringly
-        in a straight line towards that target at a moderate speed. Any creature
-        along the object's path can react to catch it as long as they have a
-        free hand with which to do so.</p></li><li><p>Suspend in midair an
-        object or willing creature that you touch with weight less than or equal
-        to 10 times your <strong>Presence</strong>, altering its position up to
-        20 feet in any direction from its original location. You can maintain
-        this suspension indefinitely as long as you take no further Action and
+        <p>Your command of the <strong>Rune of Kinesis</strong> allows you to
+        exert local control over gravitational forces to perform basic
+        telekinetic manipulations, producing one of the following
+        effects:</p><ul><li><p>Pull an unsecured object within 15 feet and with
+        weight no greater than 1 towards you and catch it. An object that is
+        equipped or possessed by a creature is never treated as unsecured unless
+        that creature is willing to release it.</p></li><li><p>Flick an object
+        that you hold with weight no greater than 1 towards a target up to 30
+        feet away. The object flies unerringly in a straight line towards that
+        target at a moderate speed. Any creature along the object's path can
+        react to catch it as long as they have a free hand with which to do
+        so.</p></li><li><p>Suspend in midair an object or willing creature that
+        you touch with weight less than or equal to 10 times your
+        <strong>Presence</strong>, altering its position up to 20 feet in any
+        direction from its original location. You can maintain this suspension
+        indefinitely as long as you take no further <strong>Action</strong> and
         are not @Condition[incapacitated].</p></li></ul><p>Propel may only
         affect a creature or object you can physically touch unless otherwise
         specified. You may attempt other uses similar those above, the
-        effectiveness of which is decided by the Gamemaster.</p>
+        effectiveness of which is decided by the
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 1
@@ -54,9 +56,7 @@ system:
       tags:
         - spell
         - harmless
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: kinesis
   nodes:
     - pre0b
@@ -73,12 +73,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307160143
-  modifiedTime: 1773514792608
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782165571397
+  lastModifiedBy: fzBjA63BB4hW4rQb
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0

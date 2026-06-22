@@ -6,12 +6,12 @@ flags:
   core: {}
 system:
   description: >-
-    You inspire courage within your allies by extolling the heroic deeds of a
+    <p>You inspire courage within your allies by extolling the heroic deeds of a
     companion. You may react by composing a verse, making a quip, or shouting a
     battle cry when an ally you can see <strong>Incapacitates</strong> or
     achieves a <strong>Critical Hit</strong> against an enemy creature. The
-    celebration of these heroic deeds restores the Morale of your allies within
-    6 spaces.
+    celebration of these heroic deeds restores the <strong>Morale</strong> of
+    your allies within 6 spaces.</p>
   actions:
     - id: extollDeeds
       condition: >-
@@ -60,11 +60,11 @@ system:
     rank: null
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160131
-  modifiedTime: 1773514792573
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782142585084
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

@@ -5,9 +5,10 @@ system:
   description: >-
     <p>You fight with the fluid grace of an acrobat, treating your weapon as a
     vaulting pole as readily as an armament. While wielding a <strong>Balanced
-    2H </strong>weapon, your movement does not provoke Disengagement. Your
-    whirling weapon also bats aside incoming missiles, imposing <strong>+2
-    Banes</strong> on ranged attacks made against you.</p>
+    2H </strong>weapon, your movement does not provoke
+    <strong>Disengagement</strong>. Your whirling weapon also bats aside
+    incoming missiles, imposing <strong>+2 Banes</strong> on ranged attacks made
+    against you.</p>
   actions:
     - id: vaultingSweep
       name: Vaulting Sweep
@@ -60,11 +61,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160130
-  modifiedTime: 1781118973430
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782168364441
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

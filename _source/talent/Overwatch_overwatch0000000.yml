@@ -13,11 +13,13 @@ system:
         An enemy you can see casts a spell, or takes an action that targets a
         creature other than itself.
       description: >-
-        <p>You may React to make a ranged Strike against that enemy. On a
-        Critical Hit against a caster, the spell is interrupted and the magic is
-        lost. A self-targeted action that is not a spell, such as Move or
-        Defend, does not trigger this Reaction, which may be used only once per
-        Round.</p>
+        <p>You may <strong>React</strong> to make a ranged
+        <strong>Strike</strong> against that enemy. On a <strong>Critical
+        Hit</strong> against a caster, the spell is interrupted and the magic is
+        lost. A self-targeted action that is not a spell, such as
+        @Action[default move] or @Action[default defend], does not trigger this
+        <strong>Reaction</strong>, which may be used only once per
+        <strong>Round</strong>.</p>
       tags:
         - reaction
         - ranged
@@ -33,14 +35,12 @@ system:
         scope: 0
         self: false
       effects: []
-      img: null
+      img: icons/skills/targeting/target-strike-triple-blue.webp
       range:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.intellect.dexterity
   rune: ''
@@ -58,11 +58,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160140
-  modifiedTime: 1781115310317
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782148896647
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.overwatch0000000
   duplicateSource: null
   exportSource: null

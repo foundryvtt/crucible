@@ -3,14 +3,16 @@ type: talent
 img: icons/magic/defensive/shield-barrier-glowing-blue.webp
 system:
   description: >-
-    <p>You shape the arcane power of a Rune into a protective barrier used to
-    shield yourself from harm.</p><p>The Ward gesture scales using
-    <strong>Toughness</strong> and provides <strong>+6 Resistance</strong>
-    against the damage type of the Rune used in the spell. This resistance lasts
-    for <strong>1 Round</strong> and you may only have a single Ward at a time.
-    Casting another spell using the Ward gesture replaces your prior Ward. This
-    gesture requires <strong>1 Hand</strong> to cast and has a base cost of
-    <strong>2 Action</strong> and <strong>1 Focus</strong>.</p>
+    <p>You shape the arcane power of a <strong>Rune</strong> into a protective
+    barrier used to shield yourself from harm.</p><p>The <strong>Ward</strong>
+    gesture scales using <strong>Toughness</strong> and provides <strong>+6
+    Resistance</strong> against the damage type of the <strong>Rune</strong>
+    used in the spell. This resistance lasts for <strong>1 Round</strong> and
+    you may only have a single <strong>Ward</strong> at a time. Casting another
+    spell using the <strong>Ward</strong> gesture replaces your prior
+    <strong>Ward</strong>. This gesture requires <strong>1 Hand</strong> to cast
+    and has a base cost of <strong>2 Action</strong> and <strong>1
+    Focus</strong>.</p>
   actions: []
   gesture: ward
   nodes:
@@ -29,11 +31,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160134
-  modifiedTime: 1773514792581
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782166415944
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.gestureward00000
   duplicateSource: null
   exportSource: null

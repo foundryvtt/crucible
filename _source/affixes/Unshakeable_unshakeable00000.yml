@@ -21,9 +21,9 @@ img: icons/magic/defensive/shield-barrier-glowing-triangle-orange.webp
 disabled: false
 start: null
 description: >-
-  <p>Strikes against your <strong>Health</strong> require a higher overflow to
-  achieve a <strong>Critical Hit</strong>. The critical threshold is increased
-  by 1 for each <strong>Tier</strong> of this prefix.</p>
+  <p><strong>Strikes</strong> against your <strong>Health</strong> require a
+  higher overflow to achieve a <strong>Critical Hit</strong>. The critical
+  threshold is increased by 1 for each <strong>Tier</strong> of this prefix.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
@@ -33,12 +33,12 @@ folder: 3YVk29Fu7VWCpaG9
 sort: 300000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.364'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1775502000000
-  modifiedTime: 1775567103896
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782144403239
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

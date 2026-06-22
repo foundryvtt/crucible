@@ -14,7 +14,7 @@ system:
         performing a <strong>Diplomacy</strong> skill attack against your
         target's <strong>Willpower</strong>. On a success they suffer modest
         <strong>Psychic</strong> damage to <strong>Morale</strong> and become
-        @Condition[enraged] for 1 Round.</p>
+        @Condition[enraged] for 1 <strong>Round</strong>.</p>
       tags:
         - weakened
         - willpower
@@ -52,15 +52,14 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       img: icons/magic/control/mouth-smile-deception-purple.webp
       range:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - wis2c
   rune: ''
@@ -78,10 +77,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160142
-  modifiedTime: 1780578530261
+  modifiedTime: 1782169831913
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.provocateur00000
   duplicateSource: null

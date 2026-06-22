@@ -8,11 +8,13 @@ system:
     - id: executionersStrike
       condition: ''
       description: >-
-        <p>You deliver a Strike with a two-handed weapon. If your attack is
-        successful and your opponent is under half their maximum
-        <strong>Health</strong>, the Strike is <strong>Deadly</strong>, and the
-        opponent suffers the @Condition[bleeding] condition for 3 Rounds, taking
-        additional damage each Round equal to your Strength score.</p>
+        <p>You deliver a <strong>Strike</strong> with a two-handed weapon. If
+        your attack is successful and your opponent is under half their maximum
+        <strong>Health</strong>, the <strong>Strike</strong> is
+        <strong>Deadly</strong>, and the opponent suffers the
+        @Condition[bleeding] condition for <strong>3 Rounds</strong>, taking
+        additional damage each <strong>Round</strong> equal to your
+        <strong>Strength</strong> score.</p>
       tags:
         - melee
         - twohand
@@ -46,16 +48,15 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       name: Executioner's Strike
       img: icons/skills/melee/strike-axe-blood-red.webp
       range:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - str4b
   rune: ''
@@ -69,11 +70,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160131
-  modifiedTime: 1780538015166
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1782168917907
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

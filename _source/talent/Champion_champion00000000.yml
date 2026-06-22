@@ -11,8 +11,9 @@ system:
     damage to attacks against it.</p><p>So intense is your focus that no rival
     may flee your grasp. You may make a @Action[default reactiveStrike] against
     your <strong>Challenged</strong> rival even while you are
-    @Condition[flanked], and so long as you have Focus to spend it costs only
-    <strong>1 Focus</strong> instead of an Action.</p>
+    @Condition[flanked], and so long as you have <strong>Focus</strong> to spend
+    it costs only <strong>1 Focus</strong> instead of an
+    <strong>Action</strong>.</p>
   actions:
     - id: challenge
       name: Challenge
@@ -21,16 +22,17 @@ system:
       description: >-
         <p>You single out a worthy foe, binding them to a duel through the sheer
         force of your presence. The target becomes your
-        <strong>Challenged</strong> rival until Combat ends, until they are
-        defeated, or until you Challenge a different foe. You may have only one
-        Challenged rival at a time.</p><p>While your Challenged rival is the
+        <strong>Challenged</strong> rival until <strong>Combat</strong> ends,
+        until they are defeated, or until you <strong>Challenge</strong> a
+        different foe. You may have only one <strong>Challenged</strong> rival
+        at a time.</p><p>While your <strong>Challenged</strong> rival is the
         only enemy you are engaged with, your immersion in the duel deepens: at
         the end of each of your turns you gain stacking +1 <strong>Bonus
         Damage</strong> to your melee <strong>Strikes</strong> against that
         rival, to a maximum equal to your <strong>Presence</strong>. This bonus
         resets to zero if the duel is broken, which happens if another enemy
         engages you, if your rival escapes your <strong>Engagement</strong>, or
-        if you Strike any other creature.</p>
+        if you <strong>Strike</strong> any other creature.</p>
       cost:
         action: 1
         focus: 1
@@ -64,12 +66,12 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
         - vocal
         - harmless
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.presence
     - sig3.strength
@@ -88,11 +90,11 @@ ownership:
   default: 0
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.0
   coreVersion: '14.364'
   createdTime: 1781203463310
-  modifiedTime: 1781203962699
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782145013533
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null
