@@ -33,9 +33,9 @@ system:
       condition: ''
       description: >-
         <p>You throw the @ref[name], dealing weakened <strong>Electricity
-        </strong>damage to all enemies in the radius of the discharge and
-        leaving them briefly @Condition[staggered]. The radius of the
-        <strong>Discharge</strong> depends on the quality of the
+        </strong>damage to all enemies in the radius of the discharge who fail
+        to avoid the attack and leaving them briefly @Condition[staggered]. The
+        radius of the <strong>Discharge</strong> depends on the quality of the
         bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
         feet</p></li><li><p><strong>Standard</strong> - 4
         feet</p></li><li><p><strong>Fine</strong> - 6
@@ -59,7 +59,7 @@ system:
         size: 4
       effects:
         - name: ''
-          scope: 3
+          scope: 4
           result:
             type: success
             all: false
@@ -72,8 +72,10 @@ system:
             expired: false
           system:
             changes: []
+            dc: null
             dot: []
             maintenance: null
+            properties: []
             regions: []
             summons: []
       tags:
@@ -81,12 +83,9 @@ system:
         - weakened
         - reflex
         - electricity
-        - dexterity
         - skill
         - athletics
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   uses:
     value: 1
     max: 1
@@ -108,12 +107,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.10.0
   createdTime: 1776980627490
-  modifiedTime: 1776980754314
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1782153705650
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
   compendiumSource: null
   duplicateSource: null
