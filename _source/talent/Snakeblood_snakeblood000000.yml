@@ -4,8 +4,8 @@ type: talent
 img: icons/creatures/reptiles/serpent-horned-green.webp
 system:
   description: >-
-    Your supernatural toughness makes you resistant to venoms and toxins. You
-    gain +5 Resistance to Poison damage.
+    <p>Your supernatural toughness makes you resistant to venoms and toxins. You
+    gain +5 <strong>Resistance</strong> to <strong>Poison</strong> damage.</p>
   actions: []
   nodes:
     - tou3b
@@ -24,11 +24,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160147
-  modifiedTime: 1773514792614
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782164490655
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.snakeblood000000
   duplicateSource: null
   exportSource: null

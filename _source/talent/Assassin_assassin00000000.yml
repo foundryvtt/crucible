@@ -14,12 +14,13 @@ system:
       img: icons/magic/death/skull-humanoid-white-blue.webp
       condition: You are unobserved.
       description: >-
-        <p>You spend 1 minute studying a creature. Perform a Knowledge Test
-        about your target. If successful, you learn all damage types against
-        which the target is Vulnerable. Your minimum Initiative during the first
-        round of Combat becomes one greater than the Initiative of your marked
-        target.</p><h3 class="divider">Playtest Notes</h3><p>This action is not
-        yet automated.</p>
+        <p>You spend 1 minute studying a creature. Perform a <strong>Knowledge
+        Test</strong> about your target. If successful, you learn all damage
+        types against which the target is <strong>Vulnerable</strong>. Your
+        minimum Initiative during the first round of <strong>Combat</strong>
+        becomes one greater than the Initiative of your marked target.</p><h3
+        class="divider">Playtest Notes</h3><p>This action is not yet
+        automated.</p>
       tags:
         - undetectable
       cost:
@@ -38,10 +39,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - sig3.intellect.dexterity
   rune: ''
@@ -59,10 +57,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160126
-  modifiedTime: 1780575997316
+  modifiedTime: 1782164277430
   lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Item.assassin00000000
   duplicateSource: null
