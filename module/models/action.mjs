@@ -2040,6 +2040,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           damageType: ann.damageType, restoration: ann.restoration};
       });
 
+      // Remove false dependent tokens from clone to avoid any visual-only local changes stemming from
+      // modifying specialStatusEffects (namely INVISIBLE)
+      for ( const scene of clone._dependentTokens.keys() ) clone._dependentTokens.delete(scene);
+
       // Apply this event's effects so subsequent events observe the resulting statuses (point-in-time)
       if ( event.effects.length ) await clone._applyActionEffects(event.effects, {commit: false});
     }
