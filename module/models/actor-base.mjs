@@ -714,6 +714,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Two-handed weapons allow one hand free for spellcasting or single-hand actions
     if ( weapons.twoHanded && !mhTalisman ) weapons.freeHands = weapons.spellHands = 1;
 
+    // Being the aggressor in a Grapple must occupy one hand
+    if ( this.parent.effects.has(crucible.api.hooks.action.grapple._GRAPPLING_EFFECT_ID) ) {
+      weapons.freeHands = Math.max(0, weapons.freeHands - 1);
+      weapons.spellHands = Math.max(0, weapons.spellHands - 1);
+    }
+
     // Multi weapon properties
     weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
     weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
