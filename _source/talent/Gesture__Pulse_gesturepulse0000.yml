@@ -4,16 +4,16 @@ _id: gesturepulse0000
 img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
 system:
   description: >-
-    <p>Expel the arcane power of a Rune in a radius that travels outward with
-    you at its center.</p><p>The Pulse gesture scales using
-    <strong>Presence</strong> and produces an emanation with 10 foot radius,
-    dealing <strong>8 Base Damage</strong> to targets which fail to Resist the
-    spell. The gesture requires <strong>2 Hands</strong> to cast and has a base
-    cost of <strong>5 Action</strong> and <strong>2 Focus</strong>.</p><h3
-    class="divider">Playtest Notes</h3><p>This talent is currently placed at a
-    <strong>Tier 4</strong> node. It will eventually only be attainable at a
-    higher level (probably Level 6 required). It is currently available "early"
-    for testing.</p>
+    <p>Expel the arcane power of a <strong>Rune</strong> in a radius that
+    travels outward with you at its center.</p><p>The <strong>Pulse</strong>
+    gesture scales using <strong>Presence</strong> and produces an emanation
+    with 10 foot radius, dealing <strong>8 Base Damage</strong> to targets which
+    fail to <strong>Resist</strong> the spell. The gesture requires <strong>2
+    Hands</strong> to cast and has a base cost of <strong>5 Action</strong> and
+    <strong>2 Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This
+    talent is currently placed at a <strong>Tier 4</strong> node. It will
+    eventually only be attainable at a higher level (probably Level 6 required).
+    It is currently available "early" for testing.</p>
   actions: []
   gesture: pulse
   nodes:
@@ -33,11 +33,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1773514792580
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782163744921
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: null
   duplicateSource: null
   exportSource: null

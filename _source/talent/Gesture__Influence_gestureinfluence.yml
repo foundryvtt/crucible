@@ -3,9 +3,10 @@ type: talent
 img: icons/magic/light/orbs-firefly-hand-yellow.webp
 system:
   description: >-
-    <p>You intensify the arcane power of a Rune into a concentrated direct
-    contact which is generally a more powerful evolution of the basic Touch
-    gesture.</p><p>The Influence gesture scales using <strong>Presence</strong>
+    <p>You intensify the arcane power of a <strong>Rune</strong> into a
+    concentrated direct contact which is generally a more powerful evolution of
+    the basic <strong>Touch</strong> gesture.</p><p>The
+    <strong>Influence</strong> gesture scales using <strong>Presence</strong>
     and targets a single adjacent creature. It deals <strong>10 Base
     Damage</strong> to targets which fail to Resist the spell. This gesture
     requires <strong>1 Hand</strong> to cast and has a base cost of <strong>3
@@ -25,11 +26,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160133
-  modifiedTime: 1773514792580
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782163521210
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gestureinfluence
   duplicateSource: null
   exportSource: null

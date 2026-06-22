@@ -5,17 +5,17 @@ system:
   nodes:
     - wis4d
   description: >-
-    <p>You channel the arcane power of a Rune into a rushing wave of energy that
-    surges forward from your current position.</p><p>The Surge gesture scales
-    with <strong>Wisdom</strong> and produces a line that is 10 feet wide and 15
-    feet long originating from the spellcaster, dealing <strong>8 Base
-    Damage</strong> to targets which fail to Resist the spell. The gesture
-    requires <strong>2 Hands</strong> to cast and has a base cost of <strong>5
-    Action</strong> and <strong>2 Focus</strong>.</p><h3
-    class="divider">Playtest Notes</h3><p>This talent is currently placed at a
-    <strong>Tier 4</strong> node. It will eventually only be attainable at a
-    higher level (probably Level 6 required). It is currently available "early"
-    for testing.</p>
+    <p>You channel the arcane power of a <strong>Rune</strong> into a rushing
+    wave of energy that surges forward from your current position.</p><p>The
+    <strong>Surge</strong> gesture scales with <strong>Wisdom</strong> and
+    produces a line that is 10 feet wide and 15 feet long originating from the
+    spellcaster, dealing <strong>8 Base Damage</strong> to targets which fail to
+    <strong>Resist</strong> the spell. The gesture requires <strong>2
+    Hands</strong> to cast and has a base cost of <strong>5 Action</strong> and
+    <strong>2 Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This
+    talent is currently placed at a <strong>Tier 4</strong> node. It will
+    eventually only be attainable at a higher level (probably Level 6 required).
+    It is currently available "early" for testing.</p>
   actions: []
   rune: ''
   gesture: surge
@@ -34,12 +34,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1762791747140
-  modifiedTime: 1773514792579
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1782163766054
+  lastModifiedBy: fzBjA63BB4hW4rQb
 _id: gestureSurge0000
 sort: 0
 _key: '!items!gestureSurge0000'

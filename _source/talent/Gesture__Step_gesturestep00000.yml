@@ -4,15 +4,15 @@ img: icons/magic/movement/chevrons-down-yellow.webp
 system:
   description: >-
     <p>You infuse runic power into a movement, crossing physical and spatial
-    boundaries.</p><p>The Step gesture scales with <strong>Dexterity</strong>
-    and allows you to move up to 20 feet in a straight line with width equal to
-    your <strong>Size</strong>. It deals <strong>2 Base Damage</strong> to
-    targets along that line which fail to Resist the spell. This gesture does
-    not require any free hands to cast and has a base cost of <strong>3
-    Action</strong> and <strong>1 Focus</strong>.</p><h3
-    class="divider">Playtest Notes</h3><p>The movement aspect of this talent is
-    not yet automated and must be manually performed as a consequence of the
-    spell.</p>
+    boundaries.</p><p>The <strong>Step</strong> gesture scales with
+    <strong>Dexterity</strong> and allows you to move up to 20 feet in a
+    straight line with width equal to your <strong>Size</strong>. It deals
+    <strong>2 Base Damage</strong> to targets along that line which fail to
+    <strong>Resist</strong> the spell. This gesture does not require any free
+    hands to cast and has a base cost of <strong>3 Action</strong> and <strong>1
+    Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>The movement
+    aspect of this talent is not yet automated and must be manually performed as
+    a consequence of the spell.</p>
   actions: []
   gesture: step
   nodes:
@@ -28,11 +28,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160134
-  modifiedTime: 1773514792581
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782163609742
+  lastModifiedBy: fzBjA63BB4hW4rQb
   compendiumSource: Compendium.crucible.talent.gesturestep00000
   duplicateSource: null
   exportSource: null
