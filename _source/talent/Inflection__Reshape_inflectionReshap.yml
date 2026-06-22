@@ -9,8 +9,8 @@ system:
     its area of effect at the cost of <strong>2 Focus</strong>.</p><p>Offensive
     spells which use a template target only target enemies within the area.
     @Rule[action.healing] spells which use a template target only target allies
-    within the area.</p><p>Single target spells do not incur any Banes due to
-    intervening creatures.</p>
+    within the area.</p><p>Single target spells do not incur any
+    <strong>Banes</strong> due to intervening creatures.</p>
   actions: []
   iconicSpells: 1
   inflection: reshape
@@ -34,7 +34,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307160135
-  modifiedTime: 1782147089286
+  modifiedTime: 1782166740353
   lastModifiedBy: fzBjA63BB4hW4rQb
   exportSource: null
 _key: '!items!inflectionReshap'
