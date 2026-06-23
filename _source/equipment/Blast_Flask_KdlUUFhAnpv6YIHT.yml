@@ -30,7 +30,7 @@ system:
       img: icons/weapons/thrown/bomb-fuse-red-black.webp
       condition: ''
       description: >-
-        <p>You light and throw the @ref[name], dealing <strong>Fire
+        <p>You light and throw the @ref[item.name], dealing <strong>Fire
         </strong>damage to all enemies in the radius of the explosion who fail
         to avoid the attack. The radius of the <strong>Blast</strong> depends on
         the quality of the bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
@@ -90,7 +90,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307157756
-  modifiedTime: 1782153594707
+  modifiedTime: 1782224877464
   lastModifiedBy: ZXJsFnFZuf21WDAk
 sort: 600000
 _key: '!items!KdlUUFhAnpv6YIHT'

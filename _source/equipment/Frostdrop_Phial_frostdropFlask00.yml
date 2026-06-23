@@ -31,7 +31,7 @@ system:
       img: icons/consumables/potions/flask-corked-blue-glow.webp
       condition: ''
       description: >-
-        <p>You throw the @ref[name], dealing weakened <strong>Cold
+        <p>You throw the @ref[item.name], dealing weakened <strong>Cold
         </strong>damage to all enemies in the radius of the explosion who fail
         to avoid the attack and causing them to be @Condition[slowed] briefly.
         The radius of the <strong>Blast</strong> depends on the quality of the
@@ -110,7 +110,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1776980754250
-  modifiedTime: 1782153465865
+  modifiedTime: 1782224940612
   lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
   compendiumSource: null

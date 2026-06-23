@@ -26,12 +26,12 @@ system:
       img: icons/consumables/potions/bottle-round-corked-yellow.webp
       condition: ''
       description: >-
-        <p>You hurl the @ref[name], dealing @Rule[action.weakened] immediate
-        <strong>Fire</strong> damage but causing the @Condition[burning]
-        condition to all enemies in a 4 foot radius <strong>Blast</strong> who
-        fail to avoid the attack.</p><p>The amount of burning damage and its
-        duration is dependent on the quality of the
-        @ref[name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 2
+        <p>You hurl the @ref[item.name], dealing @Rule[action.weakened]
+        immediate <strong>Fire</strong> damage but causing the
+        @Condition[burning] condition to all enemies in a 4 foot radius
+        <strong>Blast</strong> who fail to avoid the attack.</p><p>The amount of
+        burning damage and its duration is dependent on the quality of the
+        @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 2
         rounds</p></li><li><p><strong>Standard</strong> - 3 damage for 3
         rounds</p></li><li><p><strong>Fine</strong> - 4 damage for 4
         rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
@@ -103,7 +103,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307157757
-  modifiedTime: 1782153571418
+  modifiedTime: 1782224845578
   lastModifiedBy: ZXJsFnFZuf21WDAk
 sort: 500000
 _key: '!items!alchemistsFire00'

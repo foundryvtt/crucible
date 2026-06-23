@@ -27,13 +27,13 @@ system:
       img: icons/consumables/potions/potion-flask-corked-cyan.webp
       condition: ''
       description: >-
-        <p>You hurl the @ref[name], which is <strong>Harmless</strong> in its
-        immediate effect but causes the @Condition[poisoned] condition to all
-        enemies in an 8 foot radius <strong>Blast</strong> who fail to resist
-        the attack with their <strong>Fortitude</strong>.</p><p>The gas deals
-        poison damage to <strong>Morale</strong> in an amount dependent on the
-        quality of the @ref[name]. Upon a critical success, the affected target
-        also becomes @Condition[silenced] for the
+        <p>You hurl the @ref[item.name], which is <strong>Harmless</strong> in
+        its immediate effect but causes the @Condition[poisoned] condition to
+        all enemies in an 8 foot radius <strong>Blast</strong> who fail to
+        resist the attack with their <strong>Fortitude</strong>.</p><p>The gas
+        deals poison damage to <strong>Morale</strong> in an amount dependent on
+        the quality of the @ref[item.name]. Upon a critical success, the
+        affected target also becomes @Condition[silenced] for the
         duration.</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 3
         rounds</p></li><li><p><strong>Standard</strong> - 6 damage for 3
         rounds</p></li><li><p><strong>Fine</strong> - 12 damage for 3
@@ -80,9 +80,9 @@ system:
       tags:
         - consume
         - harmless
+        - fortitude
         - skill
         - athletics
-        - fortitude
       summon: null
   uses:
     value: 1
@@ -105,7 +105,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307157761
-  modifiedTime: 1782153373664
+  modifiedTime: 1782224912110
   lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: chokingAmpoule00
 sort: 300000

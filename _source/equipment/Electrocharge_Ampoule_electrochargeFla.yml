@@ -32,7 +32,7 @@ system:
       img: icons/consumables/potions/flask-corked-yellow-glow.webp
       condition: ''
       description: >-
-        <p>You throw the @ref[name], dealing weakened <strong>Electricity
+        <p>You throw the @ref[item.name], dealing weakened <strong>Electricity
         </strong>damage to all enemies in the radius of the discharge who fail
         to avoid the attack and leaving them briefly @Condition[staggered]. The
         radius of the <strong>Discharge</strong> depends on the quality of the
@@ -111,7 +111,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1776980627490
-  modifiedTime: 1782153705650
+  modifiedTime: 1782224923635
   lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
   compendiumSource: null

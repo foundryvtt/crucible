@@ -33,7 +33,7 @@ system:
         defend an attack against its <strong>Fortitude</strong> or become
         @Condition[poisoned].</p><p>The amount of poison damage and its duration
         is dependent on the quality of the
-        @ref[name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 4
+        @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 4
         rounds</p></li><li><p><strong>Standard</strong> - 4 damage for 6
         rounds</p></li><li><p><strong>Fine</strong> - 6 damage for 8
         rounds</p></li><li><p><strong>Superior</strong> - 8 damage for 10
@@ -64,6 +64,7 @@ system:
             value: 6
             units: rounds
             expiry: turnEnd
+            expired: false
           result:
             type: success
             all: false
@@ -73,14 +74,14 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
         - harmless
         - fortitude
         - skill
         - medicine
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
     - id: poisonApply
       name: Apply Poison
       img: >-
@@ -109,9 +110,7 @@ system:
       effects: []
       tags:
         - consume
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   uses:
     value: 1
     max: 1
@@ -129,10 +128,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307157773
-  modifiedTime: 1773514792280
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782224976346
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _key: '!items!poisonVial000000'
