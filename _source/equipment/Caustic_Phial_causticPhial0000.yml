@@ -26,12 +26,12 @@ system:
       img: icons/consumables/potions/bottle-conical-fumes-green.webp
       condition: ''
       description: >-
-        <p>You fling the @ref[name], dealing @Rule[action.weakened] immediate
-        <strong>Acid</strong> damage but causing the @Condition[corroding]
-        condition to all enemies in a 4 foot radius <strong>Blast</strong> who
-        fail to avoid the attack.</p><p>The amount of corroding damage and its
-        duration is dependent on the quality of the
-        @ref[name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 2
+        <p>You fling the @ref[item.name], dealing @Rule[action.weakened]
+        immediate <strong>Acid</strong> damage but causing the
+        @Condition[corroding] condition to all enemies in a 4 foot radius
+        <strong>Blast</strong> who fail to avoid the attack.</p><p>The amount of
+        corroding damage and its duration is dependent on the quality of the
+        @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 2
         rounds</p></li><li><p><strong>Standard</strong> - 3 damage for 3
         rounds</p></li><li><p><strong>Fine</strong> - 4 damage for 4
         rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
@@ -103,7 +103,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.0
   createdTime: 1772307157760
-  modifiedTime: 1782153633842
+  modifiedTime: 1782224894738
   lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: causticPhial0000
 sort: 100000

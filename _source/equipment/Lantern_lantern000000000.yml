@@ -24,8 +24,8 @@ system:
       name: Light Lantern
       img: icons/sundries/lights/lantern-iron-yellow.webp
       description: >-
-        <p>You ignite the @ref[name], producing steady illumination in a wide
-        radius. This action consumes one unit of
+        <p>You ignite the @ref[item.name], producing steady illumination in a
+        wide radius. This action consumes one unit of
         @UUID[Compendium.crucible.equipment.Item.lanternOil000000]{Lantern Oil}
         from your inventory; the burn duration depends on the quality of the oil
         consumed:</p><ul><li><p><strong>Shoddy</strong> - 1
@@ -68,11 +68,10 @@ system:
             maintenance: null
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags: []
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   skills:
     - awareness
     - stealth
@@ -87,12 +86,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.0
   createdTime: 1762712297360
-  modifiedTime: 1773514792276
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1782224955801
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: lantern000000000
 sort: 1400000
 _key: '!items!lantern000000000'

@@ -28,7 +28,7 @@ system:
         creature, it is initially <strong>Harmless</strong>, but the target must
         defend an attack against its <strong>Fortitude</strong> or become
         @Condition[paralyzed].</p><p>The duration is dependent on the quality of
-        the @ref[name]:</p><ul><li><p><strong>Shoddy</strong> - 1
+        the @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 1
         rounds</p></li><li><p><strong>Standard</strong> - 2
         rounds</p></li><li><p><strong>Fine</strong> - 4
         rounds</p></li><li><p><strong>Superior</strong> - 8
@@ -63,20 +63,21 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           system:
             dot: []
             maintenance: null
             regions: []
             summons: []
             changes: []
+            dc: null
+            properties: []
       tags:
         - harmless
         - fortitude
         - skill
         - medicine
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
     - id: paralyticApply
       name: Apply Paralytic
       img: icons/consumables/potions/potion-bottle-skull-label-poison-teal.webp
@@ -104,9 +105,7 @@ system:
       effects: []
       tags:
         - consume
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   uses:
     value: 1
     max: 1
@@ -125,12 +124,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307157771
-  modifiedTime: 1773514792278
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782224991134
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: paralyticVial000
 sort: 100000
 _key: '!items!paralyticVial000'

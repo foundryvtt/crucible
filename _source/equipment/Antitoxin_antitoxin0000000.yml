@@ -27,10 +27,10 @@ system:
       img: icons/consumables/potions/potion-vial-tube-yellow.webp
       condition: ''
       description: >-
-        <p>Consuming this @ref[name] is able to neutralize any
+        <p>Consuming this @ref[item.name] is able to neutralize any
         @Condition[poisoned] conditions affecting the target. Stronger poisons
         require a stronger antitoxin to neutralize.</p><p>The category of poison
-        negated by this @ref[name] depends on its
+        negated by this @ref[item.name] depends on its
         quality:</p><ul><li><p><strong>Shoddy</strong> - Poisons dealing 3
         damage or less per round</p></li><li><p><strong>Standard</strong> -
         Poisons dealing 5 damage or less per
@@ -58,9 +58,7 @@ system:
       tags:
         - consume
         - healing
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   uses:
     value: 1
     max: 1
@@ -78,10 +76,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307157758
-  modifiedTime: 1773514792257
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782224860580
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _key: '!items!antitoxin0000000'
