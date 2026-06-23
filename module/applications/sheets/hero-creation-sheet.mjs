@@ -1205,9 +1205,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         creationData.items.push(itemData);
       }
       else {
-        // NOTE: Each unit must be a deep clone (not a shallow spread) so that per-unit mutations - such as
-        // auto-equipping only one of several identical purchased copies - do not leak across sibling units via a
-        // shared "system" object reference.
+        // Deep clone each unit so that can have different stateful properties
         const units = Array.from({length: quantity}, () => foundry.utils.deepClone(itemData));
         creationData.items.push(...units);
 
@@ -1228,8 +1226,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /**
    * Auto-equips purchased Weapons and Armor, favoring higher-value items.
-   * Armor occupies a single slot; Weapons are assigned to available hand slots
-   * according to their category.
+   * Armor occupies a single slot; Weapons are assigned to available hand slots according to their category.
    * @param {{itemData: object, sourceItem: CrucibleItem, scaledPrice: number}[]} candidates
    * @protected
    */
