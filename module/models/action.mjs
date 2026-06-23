@@ -1993,8 +1993,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !clones.has(actor) ) {
         const clone = actor.clone({}, {keepId: true});
 
-        // Remove false dependent tokens from clone to avoid any visual-only local changes stemming from
-        // modifying specialStatusEffects (namely INVISIBLE)
+        // Prevent unintended side-effects on dependent tokens (like specialStatusEffects)
         for ( const scene of clone._dependentTokens.keys() ) clone._dependentTokens.delete(scene);
         clones.set(actor, clone);
       }
