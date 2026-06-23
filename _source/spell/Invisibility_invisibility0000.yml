@@ -39,22 +39,26 @@ system:
           result:
             type: any
             all: false
-          statuses: []
+          statuses:
+            - invisible
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
           system:
             changes: []
+            dc: null
             dot: []
             maintenance: null
+            properties: []
             regions: []
             summons: []
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
         - maintained
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
       rune: illumination
       gesture: aspect
       inflection: eluding
@@ -75,12 +79,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307159357
-  modifiedTime: 1773514792468
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782151852398
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: invisibility0000
 sort: 500000
 _key: '!items!invisibility0000'

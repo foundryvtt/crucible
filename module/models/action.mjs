@@ -1990,7 +1990,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   async #resolveEventStream() {
     const clones = new Map();
     const cloneFor = actor => {
-      if ( !clones.has(actor) ) clones.set(actor, actor.clone({}, {keepId: true}));
+      if ( !clones.has(actor) ) {
+        const clone = actor.clone({}, {keepId: true});
+
+        // Prevent unintended side-effects on dependent tokens (like specialStatusEffects)
+        for ( const scene of clone._dependentTokens.keys() ) clone._dependentTokens.delete(scene);
+        clones.set(actor, clone);
+      }
       return clones.get(actor);
     };
 
