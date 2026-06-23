@@ -1990,7 +1990,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   async #resolveEventStream() {
     const clones = new Map();
     const cloneFor = actor => {
-      if ( !clones.has(actor) ) clones.set(actor, actor.clone({}, {keepId: true}));
+      if ( !clones.has(actor) ) {
+        const clone = actor.clone({}, {keepId: true});
+
+        // Remove false dependent tokens from clone to avoid any visual-only local changes stemming from
+        // modifying specialStatusEffects (namely INVISIBLE)
+        for ( const scene of clone._dependentTokens.keys() ) clone._dependentTokens.delete(scene);
+        clones.set(actor, clone);
+      }
       return clones.get(actor);
     };
 
@@ -2039,10 +2046,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         return {resource, delta: after[resource].value - before[resource].value,
           damageType: ann.damageType, restoration: ann.restoration};
       });
-
-      // Remove false dependent tokens from clone to avoid any visual-only local changes stemming from
-      // modifying specialStatusEffects (namely INVISIBLE)
-      for ( const scene of clone._dependentTokens.keys() ) clone._dependentTokens.delete(scene);
 
       // Apply this event's effects so subsequent events observe the resulting statuses (point-in-time)
       if ( event.effects.length ) await clone._applyActionEffects(event.effects, {commit: false});
