@@ -7,7 +7,7 @@ flags: {}
 system:
   description: >-
     <p>A martial technique designed to disarm your opponent, forcing them to
-    drop an object held in one of their hands.</p>
+    drop an object held in their main hand.</p>
   actions:
     - id: disarmingStrike
       name: Disarming Strike
