@@ -12,13 +12,13 @@ system:
       img: icons/skills/ranged/bullets-triple-ball-yellow.webp
       condition: ''
       description: >-
-        You fire a barrage of attacks using a one-handed mechanical weapon,
+        <p>You fire a barrage of attacks using a one-handed mechanical weapon,
         shooting three times at a target without the need to reload in-between
-        shots.
+        shots.</p>
       tags:
-        - ranged
         - onehand
-        - mainhand
+        - mechanical
+        - ranged
       cost:
         action: 2
         focus: 1
@@ -36,9 +36,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.intellect.dexterity
   rune: ''
@@ -57,11 +55,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.0
+  coreVersion: '14.364'
   createdTime: 1772307160141
-  modifiedTime: 1773514792602
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1782405649681
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
