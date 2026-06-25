@@ -303,6 +303,14 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /*  Movement                                    */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _getDragMovementAction() {
+    if ( game.user.isGM && ui.controls.controls.tokens?.tools?.forcedMovement?.active ) return "push";
+    return super._getDragMovementAction();
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   _getDragLeftDropUpdateOptions() {
     const options = super._getDragLeftDropUpdateOptions();
@@ -315,10 +323,11 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
-  _getMovementCostFunction(options) {
+  _getMovementCostFunction(options={}) {
     const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
     const actionCostFunctions = {};
     const actor = this.actor;
+    if ( "overrideCost" in options ) return (from, to, distance, segment) => options.overrideCost;
 
     // Construct and return cost function
     return (from, to, distance, segment) => {
@@ -357,6 +366,18 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Unlike the predicate, movement strength is a plain number, so it rides the serialized options to execution
     if ( options.crucible?.movementStrength ) config.movementStrength = options.crucible.movementStrength;
     return config;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  // TODO: Remove once Core passes measureOptions in #updatePlannedMovement
+  measureMovementPath(waypoints, options) {
+    const context = this.layer._movementPlanningContext;
+    if ( context?.object === this ) {
+      options = {...context.measureOptions, ...(options ?? {})};
+    }
+    return super.measureMovementPath(waypoints, options);
   }
 
   /* -------------------------------------------- */

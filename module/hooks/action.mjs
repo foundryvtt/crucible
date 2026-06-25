@@ -620,18 +620,23 @@ HOOKS.electrochargeAmpoule = {
 
 /* -------------------------------------------- */
 
-// TODO: Currently this will consume free movement. Determine how to make that not the case while still properly
-// showing 0 cost on the token ruler
 HOOKS.evasiveShot = {
   prepare() {
     this.range.maximum = Math.round(this.actor.system.movement.stride / 2);
     this.cost.action = 0;
+    this.usage.freeMove = false;
+    this.usage.movement.measureOptions = {
+      overrideCost: 0
+    };
   },
   canUse() {
     const lastAction = this.actor.lastConfirmedAction;
     if ( !lastAction?.tags.has("ranged") ) {
       throw new Error(_loc("ACTION.WARNINGS.MustFollowRanged", {action: this.name}));
     }
+  },
+  postActivate() {
+    delete this.selfEvents.actorUpdate.actorUpdates.system.status.hasMoved;
   }
 };
 
