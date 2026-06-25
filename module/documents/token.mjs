@@ -68,7 +68,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /** @inheritDoc */
   async _preCreate(data, options, user) {
     if ( (await super._preCreate(data, options, user)) === false ) return false;
-
+    if ( !this.parent?.useMicrogrid ) return; 
     // Enforce Token size as prepared Actor size
     const actor = this.actor ?? this.baseActor;
     if ( actor && (actor.type !== "group") ) {

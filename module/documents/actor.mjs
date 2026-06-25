@@ -2981,6 +2981,7 @@ export default class CrucibleActor extends Actor {
     // Unlinked Token Actor
     if ( this.isToken ) {
       if ( this.token.width === size ) return;
+      if ( !this.token.parent?.useMicrogrid ) return;
       const waypoint = {...dimensions, ...this.#resolveResizePosition(this.token, size)};
       await this.token.parent.moveTokens({[this.token.id]: {waypoints: [waypoint]}}, {_crucibleRelatedUpdate: true});
       return;
@@ -2996,6 +2997,7 @@ export default class CrucibleActor extends Actor {
       // FIXME: Actor#getDependentTokens can return stale/deleted tokens no longer present in the Scene collection.
       //   Remove this guard once core stops returning dead references from Actor#_dependentTokens.
       if ( !token.parent?.tokens.has(token.id) ) continue;
+      if ( !token.parent?.useMicrogrid ) continue;
       const waypoint = {...dimensions, ...this.#resolveResizePosition(token, size)};
       (scenes[token.parent.id] ||= {})[token.id] = {waypoints: [waypoint]};
     }
