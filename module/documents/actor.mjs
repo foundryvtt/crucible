@@ -2992,10 +2992,7 @@ export default class CrucibleActor extends Actor {
 
     // Resize all placed Tokens, batched using the Scene#moveTokens API
     const scenes = {};
-    for ( const token of this.getDependentTokens() ) {
-      // FIXME: Actor#getDependentTokens can return stale/deleted tokens no longer present in the Scene collection.
-      //   Remove this guard once core stops returning dead references from Actor#_dependentTokens.
-      if ( !token.parent?.tokens.has(token.id) ) continue;
+    for ( const token of this.getDependentTokens({concreteOnly: true}) ) {
       const waypoint = {...dimensions, ...this.#resolveResizePosition(token, size)};
       (scenes[token.parent.id] ||= {})[token.id] = {waypoints: [waypoint]};
     }

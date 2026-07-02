@@ -79,6 +79,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     abgr: 0,
     colorRaw: NaN,
     dashOffsetPx: 0,
+    wasAnimating: false,
     animationTypes: new foundry.utils.BitMask(CrucibleHitBoxShader.STATES)
   };
 
@@ -655,7 +656,14 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const trLocalID = this.transform._localID;
     const trParentID = this.transform._parentID;
     const s = this.actor?.system?.movement?.size ?? this.document?.width ?? 4;
-    const dirty = (trParentID !== cache.trParentID) || (trLocalID !== cache.trLocalID) || (s !== cache.sizeUnits);
+    const animating = this.animationContexts.size > 0;
+
+    // A resize animates with a raw (un-snapped) center; when it settles force one recompute so the grid-snapped
+    // center replaces the stale animated value instead of waiting for the next transform change.
+    const settled = cache.wasAnimating && !animating;
+    const dirty = settled || (trParentID !== cache.trParentID) || (trLocalID !== cache.trLocalID)
+      || (s !== cache.sizeUnits);
+    cache.wasAnimating = animating;
     if ( (dirty === false) || !stage || !grid ) return this.#hbCache;
 
     cache.gridSize = grid.size || 100;
@@ -663,7 +671,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const uneven = (s % 2 > 0);
 
     const M = CONST.GRID_SNAPPING_MODES;
-    const c = !this.animationContexts.size ? canvas.grid.getSnappedPoint(this.center, {
+    const c = !animating ? canvas.grid.getSnappedPoint(this.center, {
       mode: uneven ? M.CENTER : M.VERTEX,
       resolution: 1
     }) : this.center;

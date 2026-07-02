@@ -338,10 +338,11 @@ export default class ActionUseDialog extends StandardCheckDialog {
     if ( !targetConfig.region ) return;
     const regionConfig = targetConfig?.region;
 
-    // Resolve the size of the first summon if applicable
+    // Resolve the size of the first summon if applicable, preferring an explicit token-data size override
     if ( (target.type === "summon") && this.action.usage.summons.length ) {
-      const summon1 = await fromUuid(this.action.usage.summons[0].actorUuid);
-      if ( summon1 ) target.size = summon1.size;
+      const summon = this.action.usage.summons[0];
+      const summonActor = await fromUuid(summon.actorUuid);
+      if ( summonActor ) target.size = summon.tokenData?.width ?? summonActor.size;
     }
 
     // Build initial region document data
