@@ -59,8 +59,16 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.selfrepair000000
       level: null
+    - item: Compendium.crucible.talent.Item.naturalWeaponTra
+      level: 0
+    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+      level: 0
+    - item: Compendium.crucible.talent.Item.heavyWeaponProfi
+      level: 4
+    - item: Compendium.crucible.talent.Item.naturalWeaponPro
+      level: 4
   characteristics:
-    equipment: false
+    equipment: true
     spells: false
   identifier: warMachine
 effects: []
@@ -73,11 +81,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.0
   createdTime: 1772307170601
-  modifiedTime: 1773514792642
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1783022891904
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!taxonomyWarMachi'
