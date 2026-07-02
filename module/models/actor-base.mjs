@@ -894,6 +894,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Initialize bonuses for each resource
     for ( const r of Object.values(rs) ) r.bonus ??= 0;
+
+    // Reasons the actor cannot currently spend Focus, keyed by cause; each value is the localization key naming the
+    // blocking status (falsy when unblocked). Talents waive reasons in the prepareResources hook, actions per-use.
+    rs.focus.block = {
+      broken: this.parent.statuses.has("broken") ? "ACTIVE_EFFECT.STATUSES.Broken" : "",
+      enraged: this.parent.statuses.has("enraged") ? "ACTIVE_EFFECT.STATUSES.Enraged" : ""
+    };
   }
 
   /* -------------------------------------------- */
@@ -937,6 +944,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Clamp resource values
     for ( const r of Object.values(resources) ) r.value = Math.clamp(r.value, 0, r.max);
+
+    // Whether Focus can currently be spent, after talents have waived any block reasons
+    resources.focus.canSpend = !Object.values(resources.focus.block).some(Boolean);
   }
 
   /* -------------------------------------------- */

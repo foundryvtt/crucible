@@ -849,6 +849,9 @@ HOOKS.intellectualsupe = {
 HOOKS.iramancer0000000 = {
   prepareAttack(_item, action, _target, rollData) {
     if ( action.tags.has("spell") && this.statuses.has("enraged") ) rollData.damageBonus += 2;
+  },
+  prepareResources(_item, resources) {
+    resources.focus.block.enraged = ""; // Iramancers may spend Focus even while enraged
   }
 };
 

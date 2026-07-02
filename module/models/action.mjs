@@ -2361,6 +2361,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.cost.focus = 0;
       this.cost.heroism = 0;
     }
+
+    // Substitute unspendable Focus with Heroism, only when the added Heroism is affordable
+    else if ( this.cost.focus > 0 ) {
+      const spendableFocus = this.#focusBlockReason() ? 0 : this.actor.resources.focus.value;
+      const shortfall = Math.max(0, this.cost.focus - spendableFocus);
+      if ( (shortfall > 0) && (this.actor.resources.heroism.value >= (shortfall + this.cost.heroism)) ) {
+        this.cost.focus -= shortfall;
+        this.cost.heroism += shortfall;
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -2374,7 +2384,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _canUse() {
     const r = this.actor.system.resources;
-    const statuses = this.actor.statuses;
 
     // Cannot spend action
     if ( this.cost.action && this.actor.isIncapacitated ) {
@@ -2385,13 +2394,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot spend focus
     if ( this.cost.focus ) {
-      let focusBlock = "";
-      const allowEnragedFocus = this.actor.talentIds.has("iramancer0000000") || this.tags.has("strike");
-      if ( statuses.has("broken") ) focusBlock = "broken";
-      else if ( statuses.has("enraged") && !allowEnragedFocus ) focusBlock = "enraged";
-      if ( focusBlock ) throw new Error(_loc("ACTION.WARNINGS.CannotSpendFocus", {
+      const blockReason = this.#focusBlockReason();
+      if ( blockReason ) throw new Error(_loc("ACTION.WARNINGS.CannotSpendFocus", {
         name: this.actor.name,
-        status: _loc(`ACTIVE_EFFECT.STATUSES.${focusBlock.titleCase()}`)
+        status: _loc(blockReason)
       }));
     }
 
@@ -2477,6 +2483,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }, errorOptions));
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The localization key naming why the acting actor cannot spend Focus on this action, or "" if they can. Reads the
+   * actor's derived Focus block reasons, waiving any this specific action exempts (Strikes may be made while enraged).
+   * @returns {string}
+   */
+  #focusBlockReason() {
+    const block = {...this.actor.resources.focus.block};
+    if ( this.tags.has("strike") ) block.enraged = "";
+    return Object.values(block).find(Boolean) ?? "";
   }
 
   /* -------------------------------------------- */

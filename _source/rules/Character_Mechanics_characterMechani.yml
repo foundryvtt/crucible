@@ -177,7 +177,19 @@ pages:
         feats of magic or heroic prowess. Heroism is earned over the course of —
         typically longer — combat encounters allowing you to narratively unleash
         your most powerful abilities once the tension of battle has
-        peaked!</p></dd></dl><h2 class="divider">Recovering
+        peaked!</p></dd></dl><h2 class="divider">Substituting Heroism for
+        Focus</h2><p>When a character cannot pay the <strong>Focus</strong> cost
+        of an Action, either because their Focus pool is too low or because a
+        condition such as @Condition[broken] or @Condition[enraged] prevents
+        them from spending Focus at all, they may pay the unmet portion of that
+        cost with <strong>Heroism</strong> instead. The character spends whatever
+        Focus they are able to and covers the remainder point for point with
+        Heroism.</p><p>This substitution happens automatically, but only when the
+        character has enough Heroism to cover the remaining cost in full;
+        otherwise no Heroism is spent and the Action stays out of reach. A hero
+        who has exhausted their Focus yet built up Heroism across a long,
+        hard-fought battle can thereby still call upon their most demanding
+        feats.</p><h2 class="divider">Recovering
         Resources</h2><p>During combat, Health and Morale may only be recovered
         by actions or talents which provide <strong>Restoration</strong>.
         Outside of combat, two actions are available to restore your character's

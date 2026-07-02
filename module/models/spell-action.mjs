@@ -288,7 +288,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     // Zero cost for un-composed spells
     this._trueCost = {...this.cost};
     if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
-      this.cost.action = this.cost.focus = this.cost.health = this.cost.hands = 0;
+      this.cost.action = this.cost.focus = this.cost.health = this.cost.heroism = this.cost.hands = 0;
     }
   }
 
