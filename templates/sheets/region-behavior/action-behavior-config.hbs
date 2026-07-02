@@ -1,0 +1,49 @@
+<section class="standard-form scrollable sheet-body">
+    {{#each fields as |outer|}}
+    {{#if outer.fieldset}}
+    <fieldset>
+        <legend>{{localize outer.legend}}</legend>
+        {{#each outer.fields as |f|}}
+        {{formField f.field value=f.value localize=true model=../../model}}
+        {{/each}}
+    </fieldset>
+    {{else}}
+    {{formField outer.field value=outer.value localize=true model=../model}}
+    {{/if}}
+    {{/each}}
+    <fieldset>
+        <legend>{{localize "TYPES.RegionBehavior.crucible.action"}}</legend>
+        {{#unless isSynthetic}}
+        {{formGroup systemFields.origin value=source.system.origin disabled=true}}
+        {{/unless}}
+        {{formGroup systemFields.actor value=source.system.actor disabled=isSynthetic}}
+        {{formGroup systemFields.oncePerRound value=source.system.oncePerRound}}
+        <fieldset>
+            <legend>{{localize "REGION_BEHAVIORS.ACTION.FIELDS.action.label"}}</legend>
+            <p class="hint">{{localize "REGION_BEHAVIORS.ACTION.FIELDS.action.hint"}}</p>
+            <header class="sheet-header flexrow">
+                <img class="profile" src="{{source.system.action.img}}" alt="{{source.system.action.name}}"
+                    data-action="editImage" data-edit="system.action.img">
+                <h1 class="title">
+                    {{formInput systemFields.action.fields.name value=source.system.action.name classes="increased-contrast"}}
+                </h1>
+            </header>
+            {{formGroup systemFields.action.fields.id value=source.system.action.id
+                label=(localize "ACTION.FIELDS.id.label") hint=(localize "ACTION.FIELDS.id.hint")}}
+            {{formGroup systemFields.action.fields.description value=source.system.action.description
+                height=150 label=(localize "ACTION.FIELDS.description.label") hint=(localize "ACTION.FIELDS.description.hint")}}
+            {{formGroup systemFields.action.fields.tags value=source.system.action.tags options=tags
+                label=(localize "ACTION.FIELDS.tags.label") hint=(localize "ACTION.FIELDS.tags.hint")}}
+            <button type="button" class="frame-brown" data-action="addEffect">
+                <i class="fa-solid fa-plus"></i>
+                <span>{{localize "ACTION.EFFECTS.Add"}}</span>
+            </button>
+            {{#each effects as |effect|}}
+            {{> (lookup @root "effectPartial") effect=effect placeholder=@root/source.system.action.name
+                    fields=@root/systemFields.action.fields.effects.element.fields
+                    effectDurations=@root/effectDurations
+                    effectExpiryEvents=@root/effectExpiryEvents}}
+            {{/each}}
+        </fieldset>
+    </fieldset>
+</section>
