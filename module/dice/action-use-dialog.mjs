@@ -658,7 +658,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
             excludeTokens,
             movementStrength: movementUsage.strength
           }
-        }
+        },
+        measureOptions: movementUsage.measureOptions ?? {}
       });
     } finally {
       token.object._movementExcludeTest = null;
@@ -676,7 +677,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Measure the cost of the planned path, then store the movement on the action
-    const {cost} = token.object.measureMovementPath([plan.origin, ...plan.waypoints]);
+    const {cost} = token.object.measureMovementPath([plan.origin, ...plan.waypoints], movementUsage.measureOptions);
     const movement = {id: plan.id, origin: plan.origin, waypoints: plan.waypoints, cost, plan};
     Object.defineProperty(this.action, "movement", {value: movement, configurable: true});
     this.action.prepare();
