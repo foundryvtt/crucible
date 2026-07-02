@@ -384,6 +384,19 @@ export default class ActionUseDialog extends StandardCheckDialog {
             }
             return false; // Prevent core handling
           case "vertex": {
+
+            // For summon specifically, enforce base-to-base range excluding caster overlap
+            if ( (target.type === "summon") && token ) {
+              const summonPos = {x: position.x, y: position.y, width: target.size, height: target.size,
+                depth: target.size, elevation: token._source.elevation ?? 0};
+              const placement = crucible.api.canvas.grid.clampSummonPlacement(token, summonPos,
+                range.maximum ?? 0, {snap});
+              Object.assign(position, placement);
+              shape.move(position, {snap: false});
+              return false;
+            }
+
+            // For other vertex types measure maximum distance origin -> target
             const maxDistance = range.maximum ?? 0;
             if ( maxDistance === 0 ) Object.assign(position, origin);
             else {

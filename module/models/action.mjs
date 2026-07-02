@@ -633,7 +633,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }),
       range: new fields.SchemaField({
         minimum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
-        maximum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
+        maximum: new fields.NumberField({required: true, nullable: true, integer: true, min: 0, initial: null}),
         weapon: new fields.BooleanField({initial: false})
       }),
       target: new fields.SchemaField({

@@ -28,7 +28,7 @@ system:
         hands: 0
       range:
         minimum: null
-        maximum: 3
+        maximum: 0
         weapon: false
       target:
         type: summon
