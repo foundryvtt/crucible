@@ -33,47 +33,50 @@ pages:
         effective <strong>Threat Level</strong> of the Adversary and also
         determines the number of
         @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.2U2k8WcnB1gbPLfd]{Action
-        Points} that the Adversary has in combat. The Threat Categories in the
+        Points} that the Adversary has in combat, as well as bonus Focus
+        capacity for Elite and Boss Adversaries. The Threat Categories in the
         Crucible system are:</p><table><thead><tr><th><p>Threat
         Category</p></th><th><p>Threat Multiplier</p></th><th><p>Action
-        Points</p></th><th
+        Points</p></th><th><p>Bonus Focus</p></th><th
         style="width:50%"><p>Description</p></th></tr></thead><tbody><tr><td><p>Minion</p></td><td><p>×
-        0.5</p></td><td><p>2</p></td><td><p>Weaker than average foes at a given
-        level, minions are less dangerous and more easily dispatched - but may
-        be numerous in quantity.</p></td></tr><tr><td><p>Normal</p></td><td><p>×
-        1</p></td><td><p>3</p></td><td><p>The standard level of difficulty and
-        challenge for a certain
+        0.5</p></td><td><p>2</p></td><td><p>-</p></td><td><p>Weaker than average
+        foes at a given level, minions are less dangerous and more easily
+        dispatched - but may be numerous in
+        quantity.</p></td></tr><tr><td><p>Normal</p></td><td><p>×
+        1</p></td><td><p>3</p></td><td><p>-</p></td><td><p>The standard level of
+        difficulty and challenge for a certain
         level.</p></td></tr><tr><td><p>Elite</p></td><td><p>×
-        1.5</p></td><td><p>4</p></td><td><p>Stronger than average foes at a
-        given level, elites are more dangerous and more difficult to dispatch.
-        Elites are more rarely
+        1.5</p></td><td><p>4</p></td><td><p>+1</p></td><td><p>Stronger than
+        average foes at a given level, elites are more dangerous and more
+        difficult to dispatch. Elites are more rarely
         encountered.</p></td></tr><tr><td><p>Boss</p></td><td><p>×
-        2</p></td><td><p>5</p></td><td><p>Especially dangerous enemies which
-        represent the ultimate degree of challenge at a certain level. Most
-        encounters do not contain a boss.</p></td></tr></tbody></table><h2
-        class="divider">Defeating Adversaries</h2><p>Most Adversaries do not
-        have <strong>Wounds</strong> or <strong>Madness</strong> pools like
-        Protagonist characters; their ability to withstand harm is determined
-        entirely by <strong>Health</strong> and
-        <strong>Morale</strong>.</p><p>When an Adversary <strong>Health</strong>
-        pool reaches zero it becomes @Condition[dead] or, if preferred by the
-        Gamemaster for narrative reasons, @Condition[incapacitated], and takes
-        no further action during the encounter.</p><p>When Adversary
-        <strong>Morale</strong> reaches zero it becomes @Condition[broken]. A
-        Broken Adversary will attempt to flee the battlefield unless they lack
-        instincts of self-preservation or the possibility of escape seems
-        impossible - in which case they will continue to fight to the
-        death.</p><h2 class="divider">Important Adversaries</h2><p>Some
-        Adversaries are recurring antagonists, named villains, or other
-        narratively significant figures who must withstand damage sustained over
-        the course of many encounters. The Gamemaster may designate such an
-        Adversary as <strong>Important</strong>.</p><p>An Important Adversary
-        tracks <strong>Wounds</strong> and <strong>Madness</strong> meters in
-        the same fashion as a Protagonist. Health damage that would reduce the
-        Adversary below zero Health overflows into Wounds, and Morale damage
-        that would reduce them below zero Morale overflows into Madness. The
-        Adversary becomes @Condition[dead] when their Wounds meter reaches its
-        maximum, and @Condition[insane] when their Madness meter reaches its
+        2</p></td><td><p>5</p></td><td><p>+2</p></td><td><p>Especially dangerous
+        enemies which represent the ultimate degree of challenge at a certain
+        level. Most encounters do not contain a
+        boss.</p></td></tr></tbody></table><h2 class="divider">Defeating
+        Adversaries</h2><p>Most Adversaries do not have <strong>Wounds</strong>
+        or <strong>Madness</strong> pools like Protagonist characters; their
+        ability to withstand harm is determined entirely by
+        <strong>Health</strong> and <strong>Morale</strong>.</p><p>When an
+        Adversary <strong>Health</strong> pool reaches zero it becomes
+        @Condition[dead] or, if preferred by the Gamemaster for narrative
+        reasons, @Condition[incapacitated], and takes no further action during
+        the encounter.</p><p>When Adversary <strong>Morale</strong> reaches zero
+        it becomes @Condition[broken]. A Broken Adversary will attempt to flee
+        the battlefield unless they lack instincts of self-preservation or the
+        possibility of escape seems impossible - in which case they will
+        continue to fight to the death.</p><h2 class="divider">Important
+        Adversaries</h2><p>Some Adversaries are recurring antagonists, named
+        villains, or other narratively significant figures who must withstand
+        damage sustained over the course of many encounters. The Gamemaster may
+        designate such an Adversary as <strong>Important</strong>.</p><p>An
+        Important Adversary tracks <strong>Wounds</strong> and
+        <strong>Madness</strong> meters in the same fashion as a Protagonist.
+        Health damage that would reduce the Adversary below zero Health
+        overflows into Wounds, and Morale damage that would reduce them below
+        zero Morale overflows into Madness. The Adversary becomes
+        @Condition[dead] when their Wounds meter reaches its maximum, and
+        @Condition[insane] when their Madness meter reaches its
         maximum.</p><p>The size of an Important Adversary's Wounds and Madness
         reservoirs scales with their Level and Size, but is independent of
         <strong>Threat Category</strong>. An Important Elite or Boss therefore

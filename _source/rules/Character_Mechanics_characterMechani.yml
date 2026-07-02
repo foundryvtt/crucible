@@ -182,25 +182,25 @@ pages:
         of an Action, either because their Focus pool is too low or because a
         condition such as @Condition[broken] or @Condition[enraged] prevents
         them from spending Focus at all, they may pay the unmet portion of that
-        cost with <strong>Heroism</strong> instead. The character spends whatever
-        Focus they are able to and covers the remainder point for point with
-        Heroism.</p><p>This substitution happens automatically, but only when the
-        character has enough Heroism to cover the remaining cost in full;
-        otherwise no Heroism is spent and the Action stays out of reach. A hero
-        who has exhausted their Focus yet built up Heroism across a long,
+        cost with <strong>Heroism</strong> instead. The character spends
+        whatever Focus they are able to and covers the remainder point for point
+        with Heroism.</p><p>This substitution happens automatically, but only
+        when the character has enough Heroism to cover the remaining cost in
+        full; otherwise no Heroism is spent and the Action stays out of reach. A
+        hero who has exhausted their Focus yet built up Heroism across a long,
         hard-fought battle can thereby still call upon their most demanding
-        feats.</p><h2 class="divider">Recovering
-        Resources</h2><p>During combat, Health and Morale may only be recovered
-        by actions or talents which provide <strong>Restoration</strong>.
-        Outside of combat, two actions are available to restore your character's
-        resources.</p><p>The @Action[default recover] action consumes 10 minutes
-        of in-game time and fully replenishes your Health, Morale, Action, and
-        Focus pools. It also removes temporary effects with a short duration.
-        Recover does not reduce Wounds or Madness.</p><p>The @Action[default
-        rest] action consumes 10 hours of in-game time and fully replenishes all
-        active resource pools. Additionally, heroes reduce their accumulated
-        Wounds and Madness by an amount equal to their character level. Rest
-        also removes temporary effects with a longer duration.</p>
+        feats.</p><h2 class="divider">Recovering Resources</h2><p>During combat,
+        Health and Morale may only be recovered by actions or talents which
+        provide <strong>Restoration</strong>. Outside of combat, two actions are
+        available to restore your character's resources.</p><p>The
+        @Action[default recover] action consumes 10 minutes of in-game time and
+        fully replenishes your Health, Morale, Action, and Focus pools. It also
+        removes temporary effects with a short duration. Recover does not reduce
+        Wounds or Madness.</p><p>The @Action[default rest] action consumes 10
+        hours of in-game time and fully replenishes all active resource pools.
+        Additionally, heroes reduce their accumulated Wounds and Madness by an
+        amount equal to their character level. Rest also removes temporary
+        effects with a longer duration.</p>
     video:
       controls: true
       volume: 0.5

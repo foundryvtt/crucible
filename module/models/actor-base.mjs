@@ -321,7 +321,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const {level, threat, threatFactor} = this.advancement;
     return {
       actionMax: 6,
-      focusBonus: {1.5: 1, 2: 2}[threatFactor] || 0, // TODO unused. Remove this? Or implement it?
+      focusBonus: {1.5: 1, 2: 2}[threatFactor] || 0, // Bonus Focus capacity for Elite (+1) and Boss (+2) adversaries
       healthPerLevel: 6,
       healthMultiplier: level < 1 ? threat : threatFactor,
       heroismMax: 3,
@@ -894,6 +894,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Initialize bonuses for each resource
     for ( const r of Object.values(rs) ) r.bonus ??= 0;
+
+    // Elite and boss adversaries gain bonus Focus capacity by threat rank (zero for Heroes, who have no threatFactor)
+    rs.focus.bonus += p.focusBonus;
 
     // Reasons the actor cannot currently spend Focus, keyed by cause; each value is the localization key naming the
     // blocking status (falsy when unblocked). Talents waive reasons in the prepareResources hook, actions per-use.
