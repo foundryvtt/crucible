@@ -2364,7 +2364,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Substitute unspendable Focus with Heroism, only when the added Heroism is affordable
     else if ( this.cost.focus > 0 ) {
-      const spendableFocus = this.#focusBlockReason() ? 0 : this.actor.resources.focus.value;
+      const spendableFocus = this._focusBlockReason() ? 0 : this.actor.resources.focus.value;
       const shortfall = Math.max(0, this.cost.focus - spendableFocus);
       if ( (shortfall > 0) && (this.actor.resources.heroism.value >= (shortfall + this.cost.heroism)) ) {
         this.cost.focus -= shortfall;
@@ -2394,7 +2394,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cannot spend focus
     if ( this.cost.focus ) {
-      const blockReason = this.#focusBlockReason();
+      const blockReason = this._focusBlockReason();
       if ( blockReason ) throw new Error(_loc("ACTION.WARNINGS.CannotSpendFocus", {
         name: this.actor.name,
         status: _loc(blockReason)
@@ -2491,8 +2491,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * The localization key naming why the acting actor cannot spend Focus on this action, or "" if they can. Reads the
    * actor's derived Focus block reasons, waiving any this specific action exempts (Strikes may be made while enraged).
    * @returns {string}
+   * @protected
    */
-  #focusBlockReason() {
+  _focusBlockReason() {
     const block = {...this.actor.resources.focus.block};
     if ( this.tags.has("strike") ) block.enraged = "";
     return Object.values(block).find(Boolean) ?? "";
