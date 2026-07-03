@@ -371,7 +371,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  // TODO: Remove once Core passes measureOptions in #updatePlannedMovement
+  // FIXME remove this override once 14.365 is out with https://github.com/foundryvtt/foundry-vtt/pull/5764
   measureMovementPath(waypoints, options) {
     const context = this.layer._movementPlanningContext;
     if ( context?.object === this ) {
