@@ -375,7 +375,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       }
       const packItems = await pack.getDocuments();
       for ( const item of packItems ) {
-        if ( !item.system.price ) continue;
+        // Exclude items without prices and spell scrolls which require additional configuration
+        if ( !item.system.price || ((item.type === "consumable") && (item.system.category === "scroll")) ) continue;
         const scaledPrice = item.system.price;
         if ( scaledPrice > budget ) continue;
         items.push({item, scaledPrice});
