@@ -487,6 +487,8 @@
       "OncePerRound": "You may only perform the {action} action once per round.",
       "OncePerTurn": "You may only perform the {action} action once per turn.",
       "ReactionUnaware": "You may not use a reaction while Unaware!",
+      "RequiresGesture": "You must know the Gesture required by this action.",
+      "RequiresInflection": "You must know the Inflection required by this action.",
       "RequiresMelee": "You must have melee weapons equipped to use this action.",
       "RequiresNatural": "This action requires use of a natural weapon.",
       "RequiresOffhand": "This action requires an offhand weapon equipped.",

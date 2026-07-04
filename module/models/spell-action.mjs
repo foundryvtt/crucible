@@ -297,6 +297,22 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _canUse() {
     super._canUse();
+
+    // A composed spell can only be cast from spellcraft components the actor currently knows
+    if ( this.isComposed ) {
+      const g = this.actor.grimoire;
+      if ( this.rune && !g.runes.has(this.rune.id) ) {
+        throw new Error(_loc("ACTION.WARNINGS.RequiresRune"));
+      }
+      if ( this.gesture && !g.gestures.has(this.gesture.id) ) {
+        throw new Error(_loc("ACTION.WARNINGS.RequiresGesture"));
+      }
+      if ( this.inflection && !g.inflections.has(this.inflection.id) ) {
+        throw new Error(_loc("ACTION.WARNINGS.RequiresInflection"));
+      }
+    }
+
+    // Cannot use inflections while silenced
     if ( this.inflection && this.actor.statuses.has("silenced") ) {
       const inflectionTalent = crucible.api.models.CrucibleSpellcraftInflection.getGrantingTalent(this.inflection.id);
       if ( !this.actor.talentIds.has("legerdemain00000") || ((inflectionTalent?.tier ?? 0) > 2) ) {
@@ -343,15 +359,13 @@ export default class CrucibleSpellAction extends CrucibleAction {
    */
   static getDefault(actor, spellData={}) {
 
-    // Repeat Last Spell, but only if the actor still knows all of its components
+    // Repeat Last Spell
     const lastSpell = actor.flags.crucible?.lastSpell;
     if ( lastSpell ) {
       try {
         const last = this.fromId(lastSpell, {actor});
         last._canUse();
-        const g = actor.grimoire;
-        if ( g.runes.has(last.rune?.id) && g.gestures.has(last.gesture?.id)
-          && (!last.inflection || g.inflections.has(last.inflection.id)) ) return last;
+        return last;
       } catch(err) {
         console.warn(err);
       }
