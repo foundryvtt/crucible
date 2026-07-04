@@ -11,7 +11,7 @@ system:
         <p>You explain your intentions to an ally within 12 feet. Make an
         <strong>Diplomacy</strong> skill attack against your ally's Madness
         Threshold. If successful they gain +1 <strong>Focus</strong> and +1
-        <strong>Boon</strong> to actions made within the next Round.</p>
+        <strong>Boon</strong> to actions made during their next turn.</p>
       tags:
         - rallying
         - skill
@@ -37,7 +37,7 @@ system:
           duration:
             value: 1
             units: rounds
-            expiry: turnStart
+            expiry: turnEnd
           system:
             changes: []
             dot: []

@@ -11,7 +11,7 @@ system:
     battle cry when an ally you can see <strong>Incapacitates</strong> or
     achieves a <strong>Critical Hit</strong> against an enemy creature. The
     celebration of these heroic deeds restores the Morale of your allies within
-    6 spaces.
+    10 feet.
   actions:
     - id: extollDeeds
       condition: >-

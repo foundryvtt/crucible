@@ -32,6 +32,8 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
     const schema = super.defineSchema();
     delete schema.enchantment; // Consumables cannot be enchanted
     const fields = foundry.data.fields;
+    const gestureChoices = {...SYSTEM.SPELL.GESTURES};
+    delete gestureChoices.touch; // Touch is auto-granted with any known Rune
     return foundry.utils.mergeObject(schema, {
       uses: new fields.SchemaField({
         value: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
@@ -39,7 +41,7 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
       }),
       scroll: new fields.SchemaField({
         runes: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.RUNES})),
-        gestures: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.GESTURES})),
+        gestures: new fields.SetField(new fields.StringField({choices: gestureChoices})),
         inflections: new fields.SetField(new fields.StringField({choices: SYSTEM.SPELL.INFLECTIONS}))
       })
     });

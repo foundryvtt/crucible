@@ -1077,7 +1077,7 @@ HOOKS.poisoner00000000 = {
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
-        const dt = event.weaponItem?.system.damageType;
+        const dt = event.roll?.data.damage?.type; // The damage type actually dealt
         if ( ["piercing", "slashing"].includes(dt) ) {
           event.effects.push(SYSTEM.EFFECTS.poisoned(this));
           break;
