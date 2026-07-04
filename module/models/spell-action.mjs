@@ -343,13 +343,15 @@ export default class CrucibleSpellAction extends CrucibleAction {
    */
   static getDefault(actor, spellData={}) {
 
-    // Repeat Last Spell
+    // Repeat Last Spell, but only if the actor still knows all of its components
     const lastSpell = actor.flags.crucible?.lastSpell;
     if ( lastSpell ) {
       try {
         const last = this.fromId(lastSpell, {actor});
         last._canUse();
-        return last;
+        const g = actor.grimoire;
+        if ( g.runes.has(last.rune?.id) && g.gestures.has(last.gesture?.id)
+          && (!last.inflection || g.inflections.has(last.inflection.id)) ) return last;
       } catch(err) {
         console.warn(err);
       }
