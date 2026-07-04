@@ -2862,7 +2862,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       fallers.push({actor, token});
     }
     for ( const {actor, token} of fallers ) {
-      await actor.actions.fall.use({token});
+      // A dismissed Fall dialog (null) clears the status so the actor is not left perpetually falling
+      const result = await actor.actions.fall.use({token});
+      if ( result === null ) await actor.toggleStatusEffect("falling", {active: false});
     }
   }
 
