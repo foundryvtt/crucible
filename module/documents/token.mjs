@@ -69,7 +69,8 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   async _preCreate(data, options, user) {
     if ( (await super._preCreate(data, options, user)) === false ) return false;
 
-    // Enforce Token size as prepared Actor size
+    // Enforce Token size as prepared Actor size (Crucible microgrid scenes only)
+    if ( !this.parent?.useMicrogrid ) return;
     const actor = this.actor ?? this.baseActor;
     if ( actor && (actor.type !== "group") ) {
       const size = actor.size;

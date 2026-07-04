@@ -2981,6 +2981,7 @@ export default class CrucibleActor extends Actor {
     // Unlinked Token Actor
     if ( this.isToken ) {
       if ( this.token.width === size ) return;
+      if ( !this.token.parent?.useMicrogrid ) return;
       const waypoint = {...dimensions, ...this.#resolveResizePosition(this.token, size)};
       await this.token.parent.moveTokens({[this.token.id]: {waypoints: [waypoint]}}, {_crucibleRelatedUpdate: true});
       return;
@@ -2993,6 +2994,7 @@ export default class CrucibleActor extends Actor {
     // Resize all placed Tokens, batched using the Scene#moveTokens API
     const scenes = {};
     for ( const token of this.getDependentTokens({concreteOnly: true}) ) {
+      if ( !token.parent?.useMicrogrid ) continue;
       const waypoint = {...dimensions, ...this.#resolveResizePosition(token, size)};
       (scenes[token.parent.id] ||= {})[token.id] = {waypoints: [waypoint]};
     }
