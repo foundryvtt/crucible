@@ -1235,7 +1235,7 @@ export default class CrucibleActor extends Actor {
       // Forward
       if ( existing && !forceDelete ) toUpdate.push(effectData);
       else if ( existing && forceDelete ) toDelete.push(effectData._id);
-      else toCreate.push(effectData);
+      else if ( !forceDelete ) toCreate.push(effectData);
     }
 
     // Simulate application without persistence

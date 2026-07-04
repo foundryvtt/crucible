@@ -1750,11 +1750,7 @@ HOOKS.recover = {
     }
   },
   postActivate() {
-    _restRecoverPostActivate(this, {
-      expirationSeconds: SYSTEM.TIME.recoverSeconds,
-      deletePassiveEffects: false,
-      reduceWoundMadness: false
-    });
+    _restRecoverPostActivate(this, {reduceWoundMadness: false});
   }
 };
 
@@ -1805,11 +1801,7 @@ HOOKS.rest = {
     }
   },
   postActivate() {
-    _restRecoverPostActivate(this, {
-      expirationSeconds: SYSTEM.TIME.restSeconds,
-      deletePassiveEffects: true,
-      reduceWoundMadness: true
-    });
+    _restRecoverPostActivate(this, {reduceWoundMadness: true});
   }
 };
 
@@ -1817,11 +1809,9 @@ HOOKS.rest = {
  * Shared event recorder used by the rest and recover action postActivate hooks.
  * @param {CrucibleAction} action
  * @param {object} options
- * @param {number} options.expirationSeconds        ActiveEffects with a duration <= this many seconds expire
- * @param {boolean} options.deletePassiveEffects    Also cull effects that have no defined duration
  * @param {boolean} options.reduceWoundMadness      Reduce hero wounds and madness
  */
-function _restRecoverPostActivate(action, {expirationSeconds, deletePassiveEffects, reduceWoundMadness}) {
+function _restRecoverPostActivate(action, {reduceWoundMadness}) {
   const actor = action.actor;
 
   // Resource recovery deltas
@@ -1846,16 +1836,11 @@ function _restRecoverPostActivate(action, {expirationSeconds, deletePassiveEffec
     if ( madnessDelta < 0 ) activationEvent.resources.push({resource: "madness", delta: madnessDelta});
   }
 
-  // Expire ActiveEffects via a dedicated deletion event
+  // Clear Weakened and Broken; timed effects are expired by the core ActiveEffectRegistry as time advances
   const effects = [];
-  for ( const effect of actor.effects ) {
-    const s = effect.duration.seconds;
-    if ( (effect.id === "weakened00000000") || (effect.id === "broken0000000000") ) {
-      effects.push({_id: effect.id, _action: "delete"});
-    }
-    else if ( s ? (s <= expirationSeconds) : deletePassiveEffects ) {
-      effects.push({_id: effect.id, _action: "delete"});
-    }
+  for ( const id of ["weakened", "broken"] ) {
+    const effect = actor.effects.get(CONFIG.statusEffects[id]._id);
+    if ( effect ) effects.push({_id: effect.id, _action: "delete"});
   }
   if ( effects.length ) action.recordEvent({type: "effect", effects});
 
