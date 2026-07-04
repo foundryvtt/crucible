@@ -66,7 +66,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {boolean} [direct=true]        Require the planned path to be a single direct segment with no intermediate
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
- * @property {object} [measureOptions]      Movement measurement options passed to `Token#planMovement`
+ * @property {object} [measureOptions]      Measurement options (e.g. `overrideCost`) for the planned movement path
  */
 
 /**

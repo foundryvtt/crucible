@@ -1,3 +1,5 @@
+/** @import {TokenMovementOperation} from "@client/documents/_types.mjs"; */
+
 export default class CrucibleToken extends foundry.documents.TokenDocument {
 
   /**
@@ -125,12 +127,11 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
       return;
     }
 
-    const isForced = [...movement.passed.waypoints, ...movement.pending.waypoints].every(w => w.action === "push");
     if ( !this.parent?.useMicrogrid                             // Must be a crucible 1ft grid scene
       || !this.actor?.inCombat                                  // Must have an Actor in combat
       || (movement.method !== "dragging")                       // Must be a drag action
       || movement.chain.length                                  // Must be the first segment
-      || isForced                                               // Forced Movement bypasses AP entirely
+      || CrucibleToken.#isForcedMovement(movement)              // Forced Movement bypasses AP entirely
       || this._confirmedMovements?.has(movement.id) ) return;   // AP already spent via dialog
 
     // Verify that the movement cost is affordable and either prevent movement or record the total cost
@@ -162,7 +163,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     if ( (movement.method !== "dragging") || movement.chain.length ) return;
 
     // Forced Movement skips Move action creation
-    if ( [...movement.passed.waypoints, ...movement.pending.waypoints].every(w => w.action === "push") ) return;
+    if ( CrucibleToken.#isForcedMovement(movement) ) return;
 
     // AP already spent via dialog
     if ( this._confirmedMovements?.has(movement.id) ) {
@@ -171,6 +172,17 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     }
     const costFeet = movement.passed.cost + movement.pending.cost;
     this.actor.useMove(costFeet, {dialog: false, movement});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Whether this movement is entirely forced, i.e. every waypoint uses the "push" action.
+   * @param {TokenMovementOperation} movement
+   * @returns {boolean}
+   */
+  static #isForcedMovement(movement) {
+    return [...movement.passed.waypoints, ...movement.pending.waypoints].every(w => w.action === "push");
   }
 
   /* -------------------------------------------- */

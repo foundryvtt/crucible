@@ -51,7 +51,7 @@ export function configure() {
     tokenCollision: false
   };
 
-  // Physically forced movement, cost is always zero
+  // Forced movement, applied only via the GM's Forced Movement scene-controls toggle; never user-selectable
   CONFIG.Token.movement.actions.push = {
     order: 998,
     label: "TOKEN.MOVEMENT.ACTIONS.push.label",
@@ -60,9 +60,9 @@ export function configure() {
     teleport: false,
     measure: true,
     visualize: true,
-    costMultiplier: 0,
+    costMultiplier: 0, // Infinity distance (e.g. Restrained) becomes NaN, blocking the push so it obeys restraint
     speedMultiplier: 1,
-    canSelect: notGroup,
+    canSelect: () => false,
     terrainAction: null
   };
 

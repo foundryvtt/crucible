@@ -325,10 +325,10 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /** @override */
   _getMovementCostFunction(options={}) {
+    if ( "overrideCost" in options ) return () => options.overrideCost;
     const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
     const actionCostFunctions = {};
     const actor = this.actor;
-    if ( "overrideCost" in options ) return (from, to, distance, segment) => options.overrideCost;
 
     // Construct and return cost function
     return (from, to, distance, segment) => {
