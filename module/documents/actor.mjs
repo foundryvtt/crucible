@@ -1371,8 +1371,8 @@ export default class CrucibleActor extends Actor {
         continue; // No need to maintain an effect which is about to expire naturally
       }
 
-      // Remove unaware
-      if ( effect.id === SYSTEM.EFFECTS.getEffectId("unaware") ) {
+      // Remove unaware at turn start
+      if ( effect.isStatusOnly("unaware") ) {
         effectChanges.toDelete.push(effect.id);
         continue;
       }
