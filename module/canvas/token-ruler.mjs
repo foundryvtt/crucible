@@ -42,7 +42,7 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
       units: grid.units,
       total: (waypoint.measurement.distance - state.priorDistance).toNearest(0.01).toLocaleString(game.i18n.lang)
     });
-    const isForced = game.user.isGM && !!ui.controls.controls.tokens?.tools?.forcedMovement?.active;
+    const isForced = waypoint.action === "push";
     if ( isForced ) context.cost = {units: "", delta: game.i18n.localize("TOKEN.MOVEMENT.COST.Forced"),
       displayCost: isFinalOfSubpath};
     else if ( !Number.isFinite(deltaCost) ) context.cost = {units: "",

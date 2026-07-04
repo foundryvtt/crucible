@@ -58,7 +58,7 @@ export function configure() {
     icon: "fa-solid fa-explosion",
     img: "icons/svg/explosion.svg",
     teleport: false,
-    measure: false,
+    measure: true,
     visualize: true,
     costMultiplier: 0,
     speedMultiplier: 1,
