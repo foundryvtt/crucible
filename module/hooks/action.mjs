@@ -973,7 +973,10 @@ HOOKS.grapple = {
   },
   prepare() {
     for ( const effect of this.effects ) {
-      if ( effect.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF ) effect._id = HOOKS.grapple._GRAPPLING_EFFECT_ID;
+      if ( effect.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF ) {
+        effect._id = HOOKS.grapple._GRAPPLING_EFFECT_ID;
+        effect.system.maintenance = {hands: 1}; // Maintaining the grapple occupies one of the aggressor's hands
+      }
       else effect._id = HOOKS.grapple._GRAPPLED_EFFECT_ID;
     }
   },

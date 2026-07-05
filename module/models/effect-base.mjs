@@ -16,8 +16,9 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
         restoration: new fields.BooleanField()
       }), {nullable: false, initial: []}),
       maintenance: new fields.SchemaField({
-        cost: new fields.NumberField({required: true, integer: true, nullable: false})
-      }, {nullable: true, initial: null}),
+        cost: new fields.NumberField({required: false, integer: true, nullable: true, initial: null}),
+        hands: new fields.NumberField({required: true, integer: true, nullable: false, min: 0, initial: 0})
+      }),
       properties: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.EFFECTS.PROPERTIES})),
       regions: new fields.SetField(new fields.DocumentUUIDField({type: "Region", nullable: false})),
       summons: new fields.SetField(new fields.DocumentUUIDField({type: "Token", nullable: false}))

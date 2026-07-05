@@ -1352,6 +1352,10 @@
         "cost": {
           "label": "Maintenance Cost"
         },
+        "hands": {
+          "hint": "The number of hands occupied while this effect is maintained, reducing hands free for weapons and spellcasting.",
+          "label": "Hands Occupied"
+        },
         "label": "Maintenance"
       },
       "regions": {

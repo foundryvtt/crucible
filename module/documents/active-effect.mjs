@@ -56,8 +56,10 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    */
   isStatusOnly(statusId) {
     if ( !((this.statuses.size === 1) && this.statuses.has(statusId)) ) return false;
+    if ( this.type !== "base" ) return false; // Only base-type effects can be status-only
     const {changes, dot, summons, regions, maintenance} = this.system;
-    return !(changes?.length || dot?.length || summons?.length || regions?.length || maintenance);
+    return !(changes.length || dot.length || summons.size || regions.size
+      || maintenance.cost || maintenance.hands);
   }
 
   /* -------------------------------------------- */

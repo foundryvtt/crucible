@@ -1377,8 +1377,9 @@ export default class CrucibleActor extends Actor {
         continue;
       }
 
-      // Identify maintained effects
-      const maintainedCost = effect.system.maintenance?.cost;
+      // Identify maintained effects (only base-type effects carry maintenance data)
+      if ( effect.type !== "base" ) continue;
+      const maintainedCost = effect.system.maintenance.cost;
       if ( maintainedCost ) {
         if ( maintainedCost > this.resources.focus.value ) {
           effectChanges.toDelete.push(effect.id);

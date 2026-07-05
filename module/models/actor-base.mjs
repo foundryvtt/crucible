@@ -714,6 +714,17 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Two-handed weapons allow one hand free for spellcasting or single-hand actions
     if ( weapons.twoHanded && !mhTalisman ) weapons.freeHands = weapons.spellHands = 1;
 
+    // Active effects may passively occupy hands while they persist (e.g. Grappling)
+    let effectHands = 0;
+    for ( const effect of this.parent.effects ) {
+      if ( !effect.active || (effect.type !== "base") ) continue;
+      effectHands += effect.system.maintenance.hands;
+    }
+    if ( effectHands > 0 ) {
+      weapons.freeHands = Math.max(0, weapons.freeHands - effectHands);
+      weapons.spellHands = Math.max(0, weapons.spellHands - effectHands);
+    }
+
     // Multi weapon properties
     weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
     weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
