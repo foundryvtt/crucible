@@ -293,9 +293,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982304
-      modifiedTime: 1781446982304
+      systemVersion: 0.10.1
+      createdTime: 1783344233385
+      modifiedTime: 1783344233385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -336,9 +336,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982305
-      modifiedTime: 1781446982305
+      systemVersion: 0.10.1
+      createdTime: 1783344233386
+      modifiedTime: 1783344233386
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -396,7 +396,9 @@ items:
               system:
                 changes: []
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 dc: null
@@ -418,10 +420,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982305
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233386
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982305
+      createdTime: 1783344233386
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -459,10 +461,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982305
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233386
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982305
+      createdTime: 1783344233386
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -499,10 +501,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982305
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233387
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982305
+      createdTime: 1783344233387
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -540,10 +542,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982305
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233387
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982305
+      createdTime: 1783344233387
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -579,10 +581,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982306
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233387
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982306
+      createdTime: 1783344233387
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -615,10 +617,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982306
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233387
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982306
+      createdTime: 1783344233387
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -633,9 +635,10 @@ items:
         <p>You are highly skilled in weaving the Rune of Flame. When you cast a
         Spell or use an action that involves this Rune, your Critical Hits which
         deal damage cause the @Condition[burning] condition.</p><p>The Burning
-        effect lasts for <strong>3 Rounds</strong> and deals half your
-        <strong>Intellect</strong> score as <strong>Fire</strong> damage to both
-        <strong>Health</strong> and <strong>Morale</strong>.</p>
+        effect lasts for <strong>3 Rounds</strong> and deals half the ability
+        score your <strong>Rune of Flame</strong> scales with as
+        <strong>Fire</strong> damage to both <strong>Health</strong> and
+        <strong>Morale</strong>.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -652,10 +655,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982306
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233388
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982306
+      createdTime: 1783344233388
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -698,10 +701,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982306
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233388
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982306
+      createdTime: 1783344233388
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -767,10 +770,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446982306
-      createdTime: 1781446982306
+      modifiedTime: 1783344233388
+      createdTime: 1783344233388
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -812,9 +815,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982306
-      modifiedTime: 1781446982306
+      systemVersion: 0.10.1
+      createdTime: 1783344233389
+      modifiedTime: 1783344233389
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -852,9 +855,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982307
-      modifiedTime: 1781446982307
+      systemVersion: 0.10.1
+      createdTime: 1783344233389
+      modifiedTime: 1783344233389
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -874,9 +877,9 @@ items:
         cast a Spell or use an action that involves this Rune, your Critical
         Hits which deal damage cause the @Condition[irradiated]
         condition.</p><p>The Irradiated effect lasts for <strong>1
-        Round</strong> and deals your <strong>Presence</strong> score as
-        <strong>Radiant</strong> damage to both <strong>Health</strong> and
-        <strong>Morale</strong>.</p>
+        Round</strong> and deals the ability score your <strong>Rune of
+        Illumination</strong> scales with as <strong>Radiant</strong> damage to
+        both <strong>Health</strong> and <strong>Morale</strong>.</p>
       actions: []
       nodes:
         - pre3b
@@ -893,9 +896,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982307
-      modifiedTime: 1781446982307
+      systemVersion: 0.10.1
+      createdTime: 1783344233389
+      modifiedTime: 1783344233389
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -935,9 +938,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982307
-      modifiedTime: 1781446982307
+      systemVersion: 0.10.1
+      createdTime: 1783344233389
+      modifiedTime: 1783344233389
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -976,9 +979,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982307
-      modifiedTime: 1781446982307
+      systemVersion: 0.10.1
+      createdTime: 1783344233390
+      modifiedTime: 1783344233390
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1056,9 +1059,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982307
-      modifiedTime: 1781446982307
+      systemVersion: 0.10.1
+      createdTime: 1783344233390
+      modifiedTime: 1783344233390
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1093,9 +1096,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982307
-      modifiedTime: 1781446982307
+      systemVersion: 0.10.1
+      createdTime: 1783344233390
+      modifiedTime: 1783344233390
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1177,9 +1180,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982308
-      modifiedTime: 1781446982308
+      systemVersion: 0.10.1
+      createdTime: 1783344233390
+      modifiedTime: 1783344233390
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1254,10 +1257,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446982308
-      createdTime: 1781446982308
+      modifiedTime: 1783344233390
+      createdTime: 1783344233390
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1278,7 +1281,8 @@ items:
         <p>You have fluency in weaving spellcraft using the Rune of Flame. You
         gain a <strong>+1 Skill Bonus</strong> for spells cast using this
         Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
-        eventually also provide an upgrade to the <strong>Enkindle</strong>
+        eventually also provide an upgrade to the
+        @Action[Compendium.crucible.talent.Item.runeFlame0000000 enkindle]
         action, expanding its effectiveness or including new options for how to
         use it.</p>
       actions: []
@@ -1294,9 +1298,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982308
-      modifiedTime: 1781446982308
+      systemVersion: 0.10.1
+      createdTime: 1783344233391
+      modifiedTime: 1783344233391
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1380,9 +1384,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982308
-      modifiedTime: 1781446982308
+      systemVersion: 0.10.1
+      createdTime: 1783344233391
+      modifiedTime: 1783344233391
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1424,9 +1428,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982308
-      modifiedTime: 1781446982308
+      systemVersion: 0.10.1
+      createdTime: 1783344233391
+      modifiedTime: 1783344233391
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1454,9 +1458,9 @@ flags:
 _stats:
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.10.0
-  createdTime: 1781446982303
-  modifiedTime: 1781446982303
+  systemVersion: 0.10.1
+  createdTime: 1783344233384
+  modifiedTime: 1783344233384
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

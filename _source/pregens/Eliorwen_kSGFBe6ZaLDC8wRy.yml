@@ -292,10 +292,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
-      createdTime: 1781446975437
-      modifiedTime: 1781446975437
+      createdTime: 1783344224749
+      modifiedTime: 1783344224749
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -334,10 +334,10 @@ items:
       invested: false
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
-      createdTime: 1781446975438
-      modifiedTime: 1781446975438
+      createdTime: 1783344224749
+      modifiedTime: 1783344224749
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -372,10 +372,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446975438
+      systemVersion: 0.10.1
+      modifiedTime: 1783344224750
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446975438
+      createdTime: 1783344224750
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -395,8 +395,9 @@ items:
           condition: ''
           description: >-
             <p>You <strong>Strike</strong> from distance. The attack is
-            <strong>Difficult</strong>, however if your target is it it becomes
-            @Condition[restrained] until the end of their next Turn.</p>
+            @Rule[action.difficult], however if your target is hit they become
+            @Condition[restrained] until the end of their next
+            <strong>Turn</strong>.</p>
           tags:
             - ranged
             - difficult
@@ -427,7 +428,9 @@ items:
               system:
                 changes: []
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 dc: null
@@ -453,10 +456,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446975438
+      systemVersion: 0.10.1
+      modifiedTime: 1783344224750
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446975438
+      createdTime: 1783344224750
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -495,9 +498,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446975439
-      modifiedTime: 1781446975439
+      systemVersion: 0.10.1
+      createdTime: 1783344224750
+      modifiedTime: 1783344224750
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -580,10 +583,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446975439
-      createdTime: 1781446975439
+      modifiedTime: 1783344224751
+      createdTime: 1783344224751
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -645,9 +648,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446975439
-      modifiedTime: 1781446975439
+      systemVersion: 0.10.1
+      createdTime: 1783344224751
+      modifiedTime: 1783344224751
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -706,10 +709,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446975439
-      createdTime: 1781446975439
+      modifiedTime: 1783344224751
+      createdTime: 1783344224751
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -748,9 +751,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446975440
-      modifiedTime: 1781446975440
+      systemVersion: 0.10.1
+      createdTime: 1783344224752
+      modifiedTime: 1783344224752
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -760,6 +763,7 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.GO04lQS1VSYuK8fx'
 effects: []
 flags:
@@ -767,10 +771,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.0
+  systemVersion: 0.10.1
   coreVersion: '14.364'
-  createdTime: 1781446975436
-  modifiedTime: 1781446975436
+  createdTime: 1783344224748
+  modifiedTime: 1783344224748
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

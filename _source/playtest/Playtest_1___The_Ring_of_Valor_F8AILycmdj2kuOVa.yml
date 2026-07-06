@@ -313,7 +313,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -354,7 +354,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -406,7 +406,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -440,7 +442,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -454,7 +456,7 @@ actors:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -766,7 +768,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -806,7 +808,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -843,7 +845,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -858,7 +860,7 @@ actors:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -1181,7 +1183,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -1225,7 +1227,7 @@ actors:
           slot: 3
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -1261,7 +1263,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -1314,7 +1316,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -1348,7 +1352,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -1388,7 +1392,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -1423,7 +1427,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -1485,7 +1489,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -1550,7 +1554,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -1599,7 +1603,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -1619,7 +1625,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -1655,7 +1663,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -1672,7 +1680,7 @@ actors:
         actionHistory: []
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -2006,7 +2014,7 @@ actors:
           slot: 2
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -2049,7 +2057,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -2087,7 +2095,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -2153,7 +2161,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -2207,7 +2215,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -2235,7 +2245,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -2302,7 +2312,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -2365,7 +2375,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -2410,7 +2420,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -2479,7 +2489,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -2539,7 +2549,7 @@ actors:
             rank: null
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -2558,7 +2568,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -2889,7 +2899,7 @@ actors:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -2930,7 +2940,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -2972,7 +2982,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -3009,7 +3019,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -3035,8 +3045,8 @@ actors:
             has a base cost of <strong>4 Action</strong> and <strong>1
             Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
             Runes have a Sprite actor defined yet. Runes that do not yet have a
-            defined Creation will — for now — manifest a <strong>Flame
-            Sprite</strong>.</p>
+            defined Creation will — for now — manifest
+            a@UUID[Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI].</p>
           actions: []
           gesture: create
           nodes:
@@ -3055,7 +3065,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -3095,7 +3105,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -3131,7 +3141,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -3169,7 +3179,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -3242,7 +3252,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -3308,7 +3318,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -3348,7 +3358,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -3429,7 +3439,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -3511,7 +3521,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -3593,7 +3603,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -3637,7 +3647,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -3654,7 +3664,7 @@ actors:
         lastSpell: spell.death.create
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -3970,7 +3980,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -4011,7 +4021,7 @@ actors:
           slot: 3
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -4072,7 +4082,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -4132,7 +4142,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -4196,7 +4206,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -4241,7 +4251,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -4257,7 +4267,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -4582,7 +4592,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -4624,7 +4634,7 @@ actors:
           slot: 1
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -4662,7 +4672,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -4698,7 +4708,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -4751,7 +4761,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -4785,7 +4797,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -4855,7 +4867,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -4900,7 +4912,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -4965,7 +4977,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -4981,7 +4993,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -5306,7 +5318,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -5348,7 +5360,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -5384,7 +5396,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -5443,7 +5455,9 @@ actors:
                     all: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -5471,7 +5485,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -5536,7 +5550,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -5571,7 +5585,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -5606,7 +5620,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -5643,7 +5657,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -5664,32 +5678,34 @@ actors:
           actions:
             - id: ferociousLeap
               description: >-
-                <p>You leap up to 10 feet and perform a Strike against an enemy
-                within melee range of where you land. Your movement ignores
-                difficult terrain and is not blocked by enemy creatures.</p>
+                <p>You <strong>Jump</strong> up to 10 feet, delivering a
+                <strong>Strike</strong> against an enemy within melee range of
+                where you land. Your movement ignores difficult terrain and is
+                not blocked by enemy creatures.</p>
               tags:
                 - melee
+                - mainhand
                 - movement
                 - jump
-                - mainhand
               cost:
-                action: 0
+                action: -1
                 focus: 1
                 weapon: true
                 heroism: 0
                 hands: 0
               target:
-                type: single
+                type: movement
                 number: 1
                 scope: 3
                 self: false
+                limit: 1
               effects: []
               name: Ferocious Leap
               img: icons/magic/movement/portal-vortex-orange.webp
               condition: ''
               range:
                 maximum: 10
-                weapon: false
+                weapon: true
                 minimum: 4
               summon: null
           nodes:
@@ -5708,7 +5724,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -5746,7 +5762,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -5795,7 +5811,9 @@ actors:
                         type: add
                         phase: initial
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -5833,7 +5851,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -5875,7 +5893,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -5937,7 +5955,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -5992,7 +6010,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -6021,7 +6041,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -6086,7 +6106,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -6135,7 +6155,7 @@ actors:
               tokenId: RuJPDLgDfWvnR2sg
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -6445,7 +6465,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -6486,7 +6506,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -6528,7 +6548,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -6582,7 +6602,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -6613,7 +6635,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -6651,7 +6673,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -6697,7 +6719,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -6733,7 +6755,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -6815,7 +6837,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -6897,7 +6919,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -6912,7 +6934,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -7223,7 +7245,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -7265,7 +7287,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -7317,7 +7339,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -7350,7 +7374,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -7410,7 +7434,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -7423,7 +7447,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -7736,7 +7760,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -7778,7 +7802,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -7798,9 +7822,8 @@ actors:
             - id: devourThoughts
               description: >-
                 <p>Lash onto a single enemy with multiple tendrils, dealing
-                @Rule[action.weakened] <strong>Psychic</strong> damage and
-                inflicting the @Rule[condition.stunned] condition on a
-                success.</p>
+                Weakened Psychic damage and inflicting the Stunned condition on
+                a success.</p>
               tags:
                 - melee
                 - natural
@@ -7828,17 +7851,19 @@ actors:
                     - stunned
                   duration:
                     value: 1
-                    units: ''
+                    units: turns
                     expiry: null
                     expired: false
                   system:
-                    changes: []
-                    dc: null
                     dot: []
-                    maintenance: null
-                    properties: []
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
+                    changes: []
+                    dc: null
+                    properties: []
               name: Devour Thoughts
               img: icons/creatures/magical/spirit-fear-energy-pink.webp
               condition: ''
@@ -7863,7 +7888,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -7915,7 +7940,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -7945,7 +7972,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -7958,7 +7985,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -8260,7 +8287,7 @@ actors:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -8302,7 +8329,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -8362,7 +8389,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -8386,7 +8415,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -8426,7 +8455,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -8498,7 +8527,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -8577,7 +8606,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -8654,7 +8683,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -8694,7 +8723,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -8710,7 +8739,7 @@ actors:
         lastSpell: spell.flame.influence
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -9020,7 +9049,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -9055,7 +9084,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9095,7 +9124,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9139,7 +9168,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9176,7 +9205,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9215,7 +9244,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9250,7 +9279,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9316,7 +9345,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9346,14 +9375,14 @@ actors:
                 <strong>Stride </strong>and <strong>Strike</strong> another foe
                 that you pass next to or end your movement adjacent to.</p>
               cost:
-                action: -1
+                action: -2
                 focus: 1
                 weapon: true
                 heroism: 0
                 hands: 0
               range:
                 maximum: null
-                weapon: false
+                weapon: true
                 minimum: null
               target:
                 type: movement
@@ -9380,7 +9409,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9415,7 +9444,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -9458,7 +9487,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -9499,7 +9528,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -9537,7 +9566,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -9601,7 +9630,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -9638,7 +9667,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -9679,7 +9708,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -9713,7 +9742,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -9748,7 +9777,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -9809,7 +9838,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -9834,7 +9865,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -9852,9 +9883,9 @@ actors:
             cast a Spell or use an action that involves this Rune, your Critical
             Hits which deal damage cause the @Condition[burning]
             condition.</p><p>The Burning effect lasts for <strong>3
-            Rounds</strong> and deals half your <strong>Intellect</strong> score
-            as <strong>Fire</strong> damage to both <strong>Health</strong> and
-            <strong>Morale</strong>.</p>
+            Rounds</strong> and deals half the ability score your <strong>Rune
+            of Flame</strong> scales with as <strong>Fire</strong> damage to
+            both <strong>Health</strong> and <strong>Morale</strong>.</p>
           actions: []
           nodes:
             - int3a
@@ -9874,7 +9905,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -9917,7 +9948,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -9994,7 +10025,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -10011,7 +10042,7 @@ actors:
             <p>The chaotic force of raw electrical energy. The Storm rune
             governs sources of electrical charge and discharge.</p><p>The Storm
             rune scales using <strong>Intellect</strong>, targets
-            <strong>Reflex</strong>, and deals <strong>Electrical</strong>
+            <strong>Reflex</strong>, and deals <strong>Electricity</strong>
             damage to <strong>Health</strong>. It is opposed by the orderly rune
             of <strong>Earth</strong>.</p>
           actions:
@@ -10078,7 +10109,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -10087,6 +10118,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
@@ -10117,7 +10149,7 @@ actors:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -10431,7 +10463,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -10476,7 +10508,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -10517,7 +10549,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -10582,7 +10614,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -10646,7 +10678,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -10683,7 +10715,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -10748,7 +10780,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -10783,7 +10815,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -10817,7 +10849,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -10880,7 +10912,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -10915,7 +10947,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -10952,7 +10984,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -11022,7 +11054,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -11087,7 +11119,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -11132,7 +11164,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -11172,7 +11204,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -11213,7 +11245,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11295,7 +11327,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11331,12 +11363,12 @@ actors:
               img: icons/consumables/potions/potion-vial-tube-yellow.webp
               condition: ''
               description: >-
-                <p>Consuming this @ref[name] is able to neutralize any
+                <p>Consuming this @ref[item.name] is able to neutralize any
                 @Condition[poisoned] conditions affecting the target. Stronger
                 poisons require a stronger antitoxin to neutralize.</p><p>The
-                category of poison negated by this @ref[name] depends on its
-                quality:</p><ul><li><p><strong>Shoddy</strong> - Poisons dealing
-                3 damage or less per
+                category of poison negated by this @ref[item.name] depends on
+                its quality:</p><ul><li><p><strong>Shoddy</strong> - Poisons
+                dealing 3 damage or less per
                 round</p></li><li><p><strong>Standard</strong> - Poisons dealing
                 5 damage or less per round</p></li><li><p><strong>Fine</strong>
                 - Poisons dealing 7 damage or less per
@@ -11379,7 +11411,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11423,13 +11455,13 @@ actors:
                 against its <strong>Fortitude</strong> or become
                 @Condition[poisoned].</p><p>The amount of poison damage and its
                 duration is dependent on the quality of the
-                @ref[name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for
-                4 rounds</p></li><li><p><strong>Standard</strong> - 4 damage for
-                6 rounds</p></li><li><p><strong>Fine</strong> - 6 damage for 8
-                rounds</p></li><li><p><strong>Superior</strong> - 8 damage for
-                10 rounds</p></li><li><p><strong>Masterwork</strong> - 10 damage
-                for 12 rounds</p></li></ul><p><em>This action should be used
-                when the poison is ingested rather than when it is first
+                @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2
+                damage for 4 rounds</p></li><li><p><strong>Standard</strong> - 4
+                damage for 6 rounds</p></li><li><p><strong>Fine</strong> - 6
+                damage for 8 rounds</p></li><li><p><strong>Superior</strong> - 8
+                damage for 10 rounds</p></li><li><p><strong>Masterwork</strong>
+                - 10 damage for 12 rounds</p></li></ul><p><em>This action should
+                be used when the poison is ingested rather than when it is first
                 applied.</em></p>
               cost:
                 action: 0
@@ -11462,7 +11494,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -11518,7 +11552,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11560,7 +11594,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11619,7 +11653,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -11643,7 +11679,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11707,7 +11743,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11775,7 +11811,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11844,7 +11880,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11879,7 +11915,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11921,7 +11957,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11982,7 +12018,7 @@ actors:
             rank: null
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -11995,6 +12031,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
       - name: Dual Wield
         type: talent
         img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
@@ -12051,7 +12088,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -12060,6 +12097,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
@@ -12070,7 +12108,7 @@ actors:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -12379,7 +12417,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -12446,7 +12484,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -12504,7 +12542,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -12546,7 +12584,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -12611,7 +12649,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -12671,7 +12709,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -12701,7 +12741,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -12738,7 +12778,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -12775,7 +12815,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -12812,7 +12852,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -12854,7 +12894,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -12892,7 +12932,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -12941,7 +12981,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -12961,7 +13003,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -12998,7 +13042,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -13064,7 +13108,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -13101,7 +13145,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13165,7 +13209,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13205,7 +13249,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13243,7 +13287,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13299,7 +13343,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -13326,7 +13372,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13362,7 +13408,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13404,7 +13450,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13486,7 +13532,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13531,7 +13577,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13620,7 +13666,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13662,7 +13708,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13705,7 +13751,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13749,7 +13795,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13792,7 +13838,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13801,6 +13847,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
       - name: Mental Fortress
         type: talent
         img: icons/magic/holy/barrier-shield-winged-blue.webp
@@ -13824,7 +13871,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -13837,6 +13884,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
       - name: Rallying Cry
         type: talent
         img: icons/creatures/abilities/mouth-teeth-human.webp
@@ -13882,7 +13930,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -13913,7 +13963,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13922,6 +13972,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
@@ -13932,7 +13983,7 @@ actors:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -14107,7 +14158,7 @@ actors:
         madness:
           value: 0
         action:
-          value: 6
+          value: 4
         focus:
           value: 5
         heroism:
@@ -14116,7 +14167,10 @@ actors:
         sizeBonus: 0
         strideBonus: 0
         engagementBonus: 0
-      status: null
+      status:
+        lastAction: strike
+        rangedAttack: true
+        hasAttacked: true
       favorites:
         - cast
         - defend
@@ -14242,7 +14296,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -14283,7 +14337,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -14304,9 +14358,9 @@ actors:
               condition: ''
               description: >-
                 <p>You <strong>Strike</strong> from distance. The attack is
-                <strong>Difficult</strong>, however if your target is it it
-                becomes @Condition[restrained] until the end of their next
-                Turn.</p>
+                @Rule[action.difficult], however if your target is hit they
+                become @Condition[restrained] until the end of their next
+                <strong>Turn</strong>.</p>
               tags:
                 - ranged
                 - difficult
@@ -14337,7 +14391,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -14365,7 +14421,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -14407,7 +14463,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -14445,7 +14501,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -14497,7 +14553,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -14527,7 +14585,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -14588,7 +14646,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -14627,7 +14685,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -14687,7 +14745,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -14730,7 +14788,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -14792,7 +14850,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -14855,7 +14913,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -14890,7 +14948,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -14933,7 +14991,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -14969,7 +15027,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15033,7 +15091,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15050,9 +15108,10 @@ actors:
             cast a Spell or use an action that involves this Rune, your Critical
             Hits which deal damage cause the @Condition[shocked]
             condition.</p><p>The Shocked effect lasts for <strong>3
-            Rounds</strong>, deals half your <strong>Intellect</strong> score as
-            <strong>Electricity</strong> damage to <strong>Morale</strong>, and
-            applies the @Condition[staggered] condition.</p>
+            Rounds</strong>, deals half the ability score your <strong>Rune of
+            Storm</strong> scales with as <strong>Electricity</strong> damage to
+            <strong>Morale</strong>, and applies the @Condition[staggered]
+            condition.</p>
           actions: []
           nodes:
             - int3a
@@ -15072,7 +15131,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15114,7 +15173,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15200,7 +15259,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -15237,7 +15296,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15272,7 +15331,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15311,10 +15370,11 @@ actors:
               img: icons/weapons/thrown/bomb-fuse-red-black.webp
               condition: ''
               description: >-
-                <p>You light and throw the @ref[name], dealing <strong>Fire
-                </strong>damage to all enemies in the radius of the explosion.
-                The radius of the <strong>Blast</strong> depends on the quality
-                of the bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
+                <p>You light and throw the @ref[item.name], dealing <strong>Fire
+                </strong>damage to all enemies in the radius of the explosion
+                who fail to avoid the attack. The radius of the
+                <strong>Blast</strong> depends on the quality of the
+                bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
                 feet</p></li><li><p><strong>Standard</strong> - 4
                 feet</p></li><li><p><strong>Fine</strong> - 6
                 feet</p></li><li><p><strong>Superior</strong> - 8
@@ -15341,7 +15401,6 @@ actors:
                 - consume
                 - reflex
                 - fire
-                - dexterity
                 - skill
                 - athletics
               summon: null
@@ -15366,7 +15425,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15430,7 +15489,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15451,7 +15510,7 @@ actors:
           price: 240
           quality: standard
           enchantment: mundane
-          equipped: true
+          equipped: false
           properties: []
           description:
             public: >-
@@ -15472,7 +15531,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15481,6 +15540,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
       - name: 'Rune: Storm'
         type: talent
         img: icons/magic/lightning/bolt-strike-blue.webp
@@ -15489,7 +15549,7 @@ actors:
             <p>The chaotic force of raw electrical energy. The Storm rune
             governs sources of electrical charge and discharge.</p><p>The Storm
             rune scales using <strong>Intellect</strong>, targets
-            <strong>Reflex</strong>, and deals <strong>Electrical</strong>
+            <strong>Reflex</strong>, and deals <strong>Electricity</strong>
             damage to <strong>Health</strong>. It is opposed by the orderly rune
             of <strong>Earth</strong>.</p>
           actions:
@@ -15556,7 +15616,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15565,12 +15625,60 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
+      - name: Pistol
+        type: weapon
+        img: icons/weapons/guns/gun-pistol-flintlock-metal.webp
+        effects: []
+        flags: {}
+        system:
+          category: mechanical1
+          quantity: 1
+          weight: 4
+          price: 640
+          quality: standard
+          enchantment: mundane
+          equipped: true
+          properties: []
+          description:
+            public: >-
+              <p>An early black powder firearm with a single, thunderous shot,
+              the flintlock pistol is a gambler’s weapon—deadly in a flash, but
+              slow to reload in the chaos of battle.</p>
+            private: ''
+          damageType: bludgeoning
+          broken: false
+          loaded: false
+          identifier: pistol
+          invested: false
+          actions: []
+          dropped: false
+          slot: 1
+        _stats:
+          compendiumSource: null
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '14.364'
+          systemId: crucible
+          systemVersion: 0.10.1
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+        _id: gSJwMBCibQjN3hqL
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
       crucible:
         lastSpell: spell.illusion.arrow
         actionHistory:
+          - id: strike
+            messageId: 2KjhNxuDZjODCLZn
+            combat: null
           - id: rest
             messageId: ZN7uvsLwg0t6Okp0
             combat: null
@@ -15579,7 +15687,7 @@ actors:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -15887,7 +15995,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15931,7 +16039,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15974,7 +16082,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16039,7 +16147,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -16078,7 +16186,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -16104,8 +16212,8 @@ actors:
             has a base cost of <strong>4 Action</strong> and <strong>1
             Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
             Runes have a Sprite actor defined yet. Runes that do not yet have a
-            defined Creation will — for now — manifest a <strong>Flame
-            Sprite</strong>.</p>
+            defined Creation will — for now — manifest
+            a@UUID[Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI].</p>
           actions: []
           gesture: create
           nodes:
@@ -16124,7 +16232,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -16161,7 +16269,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -16197,7 +16305,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -16216,9 +16324,10 @@ actors:
             cast a Spell or use an action that involves this Rune, your Critical
             Hits which deal damage cause the @Condition[freezing]
             condition.</p><p>The Freezing effect lasts for <strong>1
-            Round</strong>, deals half your <strong>Wisdom</strong> score as
-            <strong>Frost</strong> damage to <strong>Health</strong>, and
-            applies the @Condition[slowed] condition.</p>
+            Round</strong>, deals half the ability score your <strong>Rune of
+            Frost</strong> scales with as <strong>Frost</strong> damage to
+            <strong>Health</strong>, and applies the @Condition[slowed]
+            condition.</p>
           actions: []
           nodes:
             - wis3b
@@ -16237,7 +16346,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -16274,7 +16383,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -16360,7 +16469,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -16423,7 +16532,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16492,7 +16601,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16579,7 +16688,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16597,9 +16706,10 @@ actors:
             cast a Spell or use an action that involves this Rune, your Critical
             Hits which deal damage cause the @Condition[shocked]
             condition.</p><p>The Shocked effect lasts for <strong>3
-            Rounds</strong>, deals half your <strong>Intellect</strong> score as
-            <strong>Electricity</strong> damage to <strong>Morale</strong>, and
-            applies the @Condition[staggered] condition.</p>
+            Rounds</strong>, deals half the ability score your <strong>Rune of
+            Storm</strong> scales with as <strong>Electricity</strong> damage to
+            <strong>Morale</strong>, and applies the @Condition[staggered]
+            condition.</p>
           actions: []
           nodes:
             - int3a
@@ -16619,7 +16729,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16638,9 +16748,10 @@ actors:
             cast a Spell or use an action that involves this Rune, your Critical
             Hits which deal damage cause the @Condition[confused]
             condition.</p><p>The Confused effect lasts for <strong>1
-            Round</strong>, deals half your <strong>Intellect</strong> score as
-            <strong>Psychic</strong> damage to <strong>Morale</strong>, and
-            applies the @Condition[disoriented] condition.</p>
+            Round</strong>, deals half the ability score your <strong>Rune of
+            Illusion</strong> scales with as <strong>Psychic</strong> damage to
+            <strong>Morale</strong>, and applies the @Condition[disoriented]
+            condition.</p>
           actions: []
           nodes:
             - int3a
@@ -16659,7 +16770,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16747,7 +16858,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16828,7 +16939,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16898,7 +17009,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -16960,7 +17071,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -17022,7 +17133,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -17054,7 +17165,7 @@ actors:
             6 required). It is currently available "early" for
             testing.</p><p>Not all Runes have a Visitor actor defined yet. Runes
             that do not yet have a defined Conjuration will — for now — manifest
-            a <strong>Flame Visitor</strong>.</p>
+            a@UUID[Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd].</p>
           actions: []
           rune: ''
           gesture: conjure
@@ -17071,7 +17182,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -17114,7 +17225,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -17123,6 +17234,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
       - name: 'Rune: Storm'
         type: talent
         img: icons/magic/lightning/bolt-strike-blue.webp
@@ -17131,7 +17243,7 @@ actors:
             <p>The chaotic force of raw electrical energy. The Storm rune
             governs sources of electrical charge and discharge.</p><p>The Storm
             rune scales using <strong>Intellect</strong>, targets
-            <strong>Reflex</strong>, and deals <strong>Electrical</strong>
+            <strong>Reflex</strong>, and deals <strong>Electricity</strong>
             damage to <strong>Health</strong>. It is opposed by the orderly rune
             of <strong>Earth</strong>.</p>
           actions:
@@ -17198,7 +17310,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -17207,6 +17319,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
@@ -17299,7 +17412,7 @@ actors:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -17604,7 +17717,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -17647,7 +17760,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -17687,7 +17800,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -17727,7 +17840,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -17763,7 +17876,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -17815,7 +17928,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -17854,7 +17969,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -17891,7 +18006,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -17927,7 +18042,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -17946,9 +18061,9 @@ actors:
             cast a Spell or use an action that involves this Rune, your Critical
             Hits which deal damage cause the @Condition[corroding]
             condition.</p><p>The Corroding effect lasts for <strong>3
-            Rounds</strong> and deals half your <strong>Wisdom</strong> score as
-            <strong>Acid</strong> damage to <strong>Health</strong> each
-            Round.</p>
+            Rounds</strong> and deals half the ability score your <strong>Rune
+            of Earth</strong> scales with as <strong>Acid</strong> damage to
+            <strong>Health</strong> each Round.</p>
           actions: []
           nodes:
             - wis3b
@@ -17967,7 +18082,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -18040,7 +18155,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -18080,7 +18195,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -18150,7 +18265,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18205,7 +18320,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18260,7 +18375,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18301,7 +18416,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18367,7 +18482,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18410,7 +18525,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18428,9 +18543,9 @@ actors:
             a Spell or use an action that involves this Rune, your Critical Hits
             which restore Morale cause the @Condition[inspired]
             condition.</p><p>The Inspired effect lasts for <strong>1
-            Round</strong> and deals your <strong>Presence</strong> score as
-            additional <strong>Restoration</strong> to
-            <strong>Morale</strong>.</p>
+            Round</strong> and deals the ability score your <strong>Rune of
+            Soul</strong> scales with as additional <strong>Restoration</strong>
+            to <strong>Morale</strong>.</p>
           actions: []
           nodes:
             - pre3b
@@ -18449,7 +18564,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18467,9 +18582,9 @@ actors:
             a Spell or use an action that involves this Rune, your Critical Hits
             which restore Health cause the @Condition[mending]
             condition.</p><p>The Mending effect lasts for <strong>1
-            Round</strong> and deals your <strong>Wisdom</strong> score as
-            additional <strong>Restoration</strong> to
-            <strong>Health</strong>.</p>
+            Round</strong> and deals the ability score your <strong>Rune of
+            Life</strong> scales with as additional <strong>Restoration</strong>
+            to <strong>Health</strong>.</p>
           actions: []
           nodes:
             - wis3b
@@ -18488,7 +18603,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18534,7 +18649,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18615,7 +18730,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18651,7 +18766,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18688,7 +18803,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18767,7 +18882,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18847,7 +18962,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18951,7 +19066,7 @@ actors:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -19133,7 +19248,11 @@ actors:
         sizeBonus: 0
         strideBonus: 0
         engagementBonus: 0
-      status: null
+      status:
+        lastAction: ferociousLeap
+        hasAttacked: true
+        freeMovementId: null
+        hasMoved: false
       favorites:
         - cleave
         - strike
@@ -19261,7 +19380,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -19304,7 +19423,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -19370,7 +19489,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -19432,7 +19551,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -19496,7 +19615,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -19530,7 +19649,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -19582,7 +19701,9 @@ actors:
                         type: add
                         phase: initial
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -19619,7 +19740,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -19657,50 +19778,13 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
           createdTime: null
         folder: yQPNpmhq761VzMZe
         sort: -100000
-        ownership:
-          default: 0
-      - folder: pvclaELBSimFnNMJ
-        name: Blood Frenzy
-        type: talent
-        img: icons/skills/wounds/injury-eyes-blood-red-pink.webp
-        system:
-          description: >-
-            <p>Your battle lust spurs you to feats of heightened action. When
-            you achieve a <strong>Critical Hit</strong> that deals damage to
-            Health you immediately gain +1 Action. This benefit may only happen
-            once per Round.</p>
-          actions: []
-          nodes:
-            - str4a
-          rune: ''
-          gesture: ''
-          inflection: ''
-          iconicSpells: 0
-          training:
-            type: ''
-            rank: null
-        effects: []
-        flags:
-          core: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.bloodfrenzy00000
-          duplicateSource: null
-          coreVersion: '14.364'
-          systemId: crucible
-          systemVersion: 0.10.0
-          modifiedTime: null
-          lastModifiedBy: null
-          exportSource: null
-          createdTime: null
-        _id: bloodfrenzy00000
-        sort: 100000
         ownership:
           default: 0
       - name: Executioner's Strike
@@ -19749,7 +19833,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -19777,7 +19863,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -19813,7 +19899,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -19844,14 +19930,14 @@ actors:
                 <strong>Stride </strong>and <strong>Strike</strong> another foe
                 that you pass next to or end your movement adjacent to.</p>
               cost:
-                action: -1
+                action: -2
                 focus: 1
                 weapon: true
                 heroism: 0
                 hands: 0
               range:
                 maximum: null
-                weapon: false
+                weapon: true
                 minimum: null
               target:
                 type: movement
@@ -19878,7 +19964,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -19938,7 +20024,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -20007,7 +20093,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -20059,7 +20145,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -20079,7 +20167,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -20116,7 +20206,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -20175,7 +20265,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -20200,7 +20292,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20265,7 +20357,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20302,7 +20394,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20337,7 +20429,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20373,7 +20465,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20417,7 +20509,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20476,7 +20568,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -20498,7 +20592,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20507,43 +20601,49 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Penetrating Throw
+      - name: Ferocious Leap
         type: talent
-        img: icons/skills/ranged/shuriken-thrown-yellow.webp
+        _id: ferociousleap000
+        img: icons/magic/movement/portal-vortex-orange.webp
         system:
-          nodes:
-            - str3b
           description: >-
-            <p>You can hurl your weapon with such ferocity that it strikes all
-            targets in a direct line.</p>
+            <p>You leap powerfully into battle to deliver a punishing blow to a
+            nearby enemy with your mainhand weapon.</p>
           actions:
-            - id: penetratingThrow
-              name: Penetrating Throw
-              img: icons/skills/ranged/shuriken-thrown-yellow.webp
-              condition: ''
+            - id: ferociousLeap
               description: >-
-                <p>You perform a @Rule[action.thrown] weapon strike which
-                penetrates to hit all enemies in a straight line.</p>
-              cost:
-                action: 1
-                focus: 1
-                heroism: 0
-                weapon: true
-                hands: 0
-              range:
-                minimum: null
-                maximum: null
-                weapon: false
-              target:
-                type: ray
-                number: 1
-                scope: 4
-                self: false
-              effects: []
+                <p>You <strong>Jump</strong> up to 10 feet, delivering a
+                <strong>Strike</strong> against an enemy within melee range of
+                where you land. Your movement ignores difficult terrain and is
+                not blocked by enemy creatures.</p>
               tags:
                 - melee
-                - thrown
+                - mainhand
+                - movement
+                - jump
+              cost:
+                action: -1
+                focus: 1
+                weapon: true
+                heroism: 0
+                hands: 0
+              target:
+                type: movement
+                number: 1
+                scope: 3
+                self: false
+                limit: 1
+              effects: []
+              name: Ferocious Leap
+              img: icons/magic/movement/portal-vortex-orange.webp
+              condition: ''
+              range:
+                maximum: 10
+                weapon: true
+                minimum: 4
               summon: null
+          nodes:
+            - str3b
           rune: ''
           gesture: ''
           inflection: ''
@@ -20554,25 +20654,28 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.penetratingThrow
-          duplicateSource: null
-          exportSource: null
-          coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
+          coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-        _id: penetratingThrow
+          compendiumSource: Compendium.crucible.talent.Item.ferociousleap000
+          duplicateSource: null
+          exportSource: null
         folder: null
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
       crucible:
         actionHistory:
+          - id: ferociousLeap
+            messageId: fdcmWUC6WoJ0jzgv
+            combat: null
           - id: move
             messageId: vpOPJDKcRZ5usJ4A
             combat:
@@ -20586,7 +20689,7 @@ actors:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -20893,7 +20996,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20935,7 +21038,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -20992,7 +21095,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -21016,7 +21121,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -21056,7 +21161,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -21095,7 +21200,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -21135,7 +21240,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -21173,7 +21278,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -21209,7 +21314,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -21225,9 +21330,9 @@ actors:
             cast a Spell or use an action that involves this Rune, your Critical
             Hits which deal damage cause the @Condition[burning]
             condition.</p><p>The Burning effect lasts for <strong>3
-            Rounds</strong> and deals half your <strong>Intellect</strong> score
-            as <strong>Fire</strong> damage to both <strong>Health</strong> and
-            <strong>Morale</strong>.</p>
+            Rounds</strong> and deals half the ability score your <strong>Rune
+            of Flame</strong> scales with as <strong>Fire</strong> damage to
+            both <strong>Health</strong> and <strong>Morale</strong>.</p>
           actions: []
           nodes:
             - int3a
@@ -21246,7 +21351,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -21292,7 +21397,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -21361,7 +21466,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -21406,7 +21511,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21445,7 +21550,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21463,9 +21568,9 @@ actors:
             you cast a Spell or use an action that involves this Rune, your
             Critical Hits which deal damage cause the @Condition[irradiated]
             condition.</p><p>The Irradiated effect lasts for <strong>1
-            Round</strong> and deals your <strong>Presence</strong> score as
-            <strong>Radiant</strong> damage to both <strong>Health</strong> and
-            <strong>Morale</strong>.</p>
+            Round</strong> and deals the ability score your <strong>Rune of
+            Illumination</strong> scales with as <strong>Radiant</strong> damage
+            to both <strong>Health</strong> and <strong>Morale</strong>.</p>
           actions: []
           nodes:
             - pre3b
@@ -21485,7 +21590,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21527,7 +21632,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21567,7 +21672,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21648,7 +21753,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21684,7 +21789,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21769,7 +21874,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21846,7 +21951,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -21867,8 +21972,9 @@ actors:
             You gain a <strong>+1 Skill Bonus</strong> for spells cast using
             this Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent
             will eventually also provide an upgrade to the
-            <strong>Enkindle</strong> action, expanding its effectiveness or
-            including new options for how to use it.</p>
+            @Action[Compendium.crucible.talent.Item.runeFlame0000000 enkindle]
+            action, expanding its effectiveness or including new options for how
+            to use it.</p>
           actions: []
           rune: ''
           gesture: ''
@@ -21885,7 +21991,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21973,7 +22079,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -22016,7 +22122,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -22044,7 +22150,7 @@ actors:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -22344,7 +22450,7 @@ actors:
           slot: 3
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -22386,7 +22492,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -22424,7 +22530,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -22467,7 +22573,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -22505,7 +22611,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -22569,7 +22675,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -22607,7 +22713,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -22684,7 +22790,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -22700,7 +22806,7 @@ actors:
         lastSpell: spell.death.touch
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -23008,7 +23114,7 @@ actors:
           slot: 2
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -23053,7 +23159,7 @@ actors:
           slot: 1
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -23094,7 +23200,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -23162,7 +23268,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -23226,7 +23332,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -23294,7 +23400,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -23339,7 +23445,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -23379,7 +23485,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -23447,7 +23553,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -23510,7 +23616,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -23519,13 +23625,14 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -23825,7 +23932,7 @@ actors:
           dropped: false
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -23868,7 +23975,7 @@ actors:
           slot: 2
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -23911,7 +24018,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -23981,7 +24088,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -24033,7 +24140,9 @@ actors:
                     all: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -24063,7 +24172,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -24124,7 +24233,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -24169,7 +24278,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -24207,7 +24316,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -24256,7 +24365,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -24276,7 +24387,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -24313,7 +24426,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -24379,7 +24492,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -24416,7 +24529,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -24431,7 +24544,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -24737,7 +24850,7 @@ actors:
           slot: 0
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -24778,7 +24891,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -24817,7 +24930,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -24837,9 +24950,9 @@ actors:
               condition: ''
               description: >-
                 <p>You <strong>Strike</strong> from distance. The attack is
-                <strong>Difficult</strong>, however if your target is it it
-                becomes @Condition[restrained] until the end of their next
-                Turn.</p>
+                @Rule[action.difficult], however if your target is hit they
+                become @Condition[restrained] until the end of their next
+                <strong>Turn</strong>.</p>
               tags:
                 - ranged
                 - difficult
@@ -24870,7 +24983,9 @@ actors:
                   system:
                     changes: []
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     dc: null
@@ -24898,7 +25013,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -24941,7 +25056,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25027,7 +25142,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -25091,7 +25206,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25151,7 +25266,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -25192,7 +25307,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25201,13 +25316,14 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -25511,7 +25627,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -25555,7 +25671,7 @@ actors:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -25598,7 +25714,7 @@ actors:
           core: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -25640,7 +25756,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -25666,8 +25782,8 @@ actors:
             has a base cost of <strong>4 Action</strong> and <strong>1
             Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
             Runes have a Sprite actor defined yet. Runes that do not yet have a
-            defined Creation will — for now — manifest a <strong>Flame
-            Sprite</strong>.</p>
+            defined Creation will — for now — manifest
+            a@UUID[Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI].</p>
           actions: []
           gesture: create
           nodes:
@@ -25687,7 +25803,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -25776,7 +25892,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25857,7 +25973,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25919,7 +26035,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -25936,7 +26052,7 @@ actors:
             <p>The chaotic force of raw electrical energy. The Storm rune
             governs sources of electrical charge and discharge.</p><p>The Storm
             rune scales using <strong>Intellect</strong>, targets
-            <strong>Reflex</strong>, and deals <strong>Electrical</strong>
+            <strong>Reflex</strong>, and deals <strong>Electricity</strong>
             damage to <strong>Health</strong>. It is opposed by the orderly rune
             of <strong>Earth</strong>.</p>
           actions:
@@ -26003,7 +26119,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -26012,6 +26128,7 @@ actors:
         sort: 0
         ownership:
           default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
@@ -26019,7 +26136,7 @@ actors:
         lastSpell: spell.lightning.arrow
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -26322,7 +26439,7 @@ actors:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -26365,7 +26482,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -26408,7 +26525,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -26481,7 +26598,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -26519,7 +26636,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
@@ -26601,7 +26718,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -26681,7 +26798,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -26761,7 +26878,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -26777,7 +26894,7 @@ actors:
         lastSpell: spell.life.influence
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -27082,7 +27199,7 @@ actors:
           actions: []
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -27125,7 +27242,7 @@ actors:
           slot: 3
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -27194,7 +27311,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -27256,7 +27373,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -27320,7 +27437,7 @@ actors:
           duplicateSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           modifiedTime: null
           lastModifiedBy: null
           exportSource: null
@@ -27388,7 +27505,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -27440,7 +27557,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -27460,7 +27579,9 @@ actors:
                     expired: false
                   system:
                     dot: []
-                    maintenance: null
+                    maintenance:
+                      cost: null
+                      hands: 0
                     regions: []
                     summons: []
                     changes: []
@@ -27497,7 +27618,7 @@ actors:
           exportSource: null
           coreVersion: '14.364'
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           lastModifiedBy: null
           modifiedTime: null
           createdTime: null
@@ -27510,7 +27631,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -27638,19 +27759,19 @@ actors:
     effects: []
     folder: 4UpoTGqP4amIS23h
     sort: 100000
+    ownership:
+      default: 0
     flags: {}
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    ownership:
-      default: 0
 combats: []
 items: []
 journal:
@@ -27714,7 +27835,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -27796,7 +27917,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -27866,7 +27987,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -27946,7 +28067,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -28013,7 +28134,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -28085,7 +28206,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -28178,7 +28299,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -28220,7 +28341,7 @@ journal:
         flags: {}
         _stats:
           systemId: crucible
-          systemVersion: 0.10.0
+          systemVersion: 0.10.1
           coreVersion: '14.364'
           createdTime: null
           modifiedTime: null
@@ -28236,7 +28357,7 @@ journal:
         sheetClass: crucible.CrucibleJournalEntrySheet
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -28699,8 +28820,8 @@ scenes:
         sort: 6
         _id: FhkahWVKKbsjdpdW
         delta: null
-        x: 4840
-        'y': 4600
+        x: 4920
+        'y': 4680
         elevation: 0
         locked: false
         _regions: []
@@ -30755,7 +30876,7 @@ scenes:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       modifiedTime: null
       lastModifiedBy: null
@@ -30800,6 +30921,8 @@ scenes:
         luminosity: -0.5
         saturation: 0
         shadows: 0
+    ownership:
+      default: 0
     shiftX: 0
     shiftY: 0
     levels:
@@ -30837,8 +30960,6 @@ scenes:
       type: fade
       duration: 1500
       activeOnly: true
-    ownership:
-      default: 0
     active: false
 tables: []
 macros: []
@@ -30855,7 +30976,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -30874,7 +30995,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -30893,7 +31014,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -30912,7 +31033,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -30931,7 +31052,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -30950,7 +31071,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -30969,7 +31090,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -30988,7 +31109,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -31007,7 +31128,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -31025,7 +31146,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -31045,7 +31166,7 @@ folders:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       coreVersion: '14.364'
       createdTime: null
       modifiedTime: null
@@ -31068,7 +31189,7 @@ folders:
       duplicateSource: null
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -31082,8 +31203,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.364'
-  modifiedTime: 1781991026111
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1783344266141
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

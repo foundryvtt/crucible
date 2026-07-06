@@ -164,7 +164,7 @@ system:
     madness:
       value: 0
     action:
-      value: 6
+      value: 4
     focus:
       value: 5
     heroism:
@@ -173,7 +173,10 @@ system:
     sizeBonus: 0
     strideBonus: 0
     engagementBonus: 0
-  status: null
+  status:
+    lastAction: strike
+    rangedAttack: true
+    hasAttacked: true
   favorites:
     - cast
     - defend
@@ -297,9 +300,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982320
-      modifiedTime: 1781446982320
+      systemVersion: 0.10.1
+      createdTime: 1783344233403
+      modifiedTime: 1783344233403
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -339,9 +342,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982321
-      modifiedTime: 1781446982321
+      systemVersion: 0.10.1
+      createdTime: 1783344233403
+      modifiedTime: 1783344233403
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -363,8 +366,9 @@ items:
           condition: ''
           description: >-
             <p>You <strong>Strike</strong> from distance. The attack is
-            <strong>Difficult</strong>, however if your target is it it becomes
-            @Condition[restrained] until the end of their next Turn.</p>
+            @Rule[action.difficult], however if your target is hit they become
+            @Condition[restrained] until the end of their next
+            <strong>Turn</strong>.</p>
           tags:
             - ranged
             - difficult
@@ -395,7 +399,9 @@ items:
               system:
                 changes: []
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 dc: null
@@ -421,10 +427,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982321
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233404
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982321
+      createdTime: 1783344233404
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -463,10 +469,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982321
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233404
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982321
+      createdTime: 1783344233404
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -501,10 +507,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982321
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233404
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982321
+      createdTime: 1783344233404
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -556,7 +562,9 @@ items:
               system:
                 changes: []
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 dc: null
@@ -584,10 +592,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982321
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233404
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982321
+      createdTime: 1783344233404
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -646,10 +654,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982322
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233405
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982322
+      createdTime: 1783344233405
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -686,10 +694,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982322
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233405
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982322
+      createdTime: 1783344233405
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -747,10 +755,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982322
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233407
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982322
+      createdTime: 1783344233407
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -789,9 +797,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982322
-      modifiedTime: 1781446982322
+      systemVersion: 0.10.1
+      createdTime: 1783344233407
+      modifiedTime: 1783344233407
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -852,9 +860,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982323
-      modifiedTime: 1781446982323
+      systemVersion: 0.10.1
+      createdTime: 1783344233407
+      modifiedTime: 1783344233407
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -914,9 +922,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982323
-      modifiedTime: 1781446982323
+      systemVersion: 0.10.1
+      createdTime: 1783344233407
+      modifiedTime: 1783344233407
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -950,9 +958,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982323
-      modifiedTime: 1781446982323
+      systemVersion: 0.10.1
+      createdTime: 1783344233407
+      modifiedTime: 1783344233407
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -994,9 +1002,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982324
-      modifiedTime: 1781446982324
+      systemVersion: 0.10.1
+      createdTime: 1783344233408
+      modifiedTime: 1783344233408
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1031,9 +1039,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982324
-      modifiedTime: 1781446982324
+      systemVersion: 0.10.1
+      createdTime: 1783344233408
+      modifiedTime: 1783344233408
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1096,9 +1104,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982324
-      modifiedTime: 1781446982324
+      systemVersion: 0.10.1
+      createdTime: 1783344233408
+      modifiedTime: 1783344233408
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1116,10 +1124,10 @@ items:
         <p>You are highly skilled in weaving the Rune of Storm. When you cast a
         Spell or use an action that involves this Rune, your Critical Hits which
         deal damage cause the @Condition[shocked] condition.</p><p>The Shocked
-        effect lasts for <strong>3 Rounds</strong>, deals half your
-        <strong>Intellect</strong> score as <strong>Electricity</strong> damage
-        to <strong>Morale</strong>, and applies the @Condition[staggered]
-        condition.</p>
+        effect lasts for <strong>3 Rounds</strong>, deals half the ability score
+        your <strong>Rune of Storm</strong> scales with as
+        <strong>Electricity</strong> damage to <strong>Morale</strong>, and
+        applies the @Condition[staggered] condition.</p>
       actions: []
       nodes:
         - int3a
@@ -1136,9 +1144,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982325
-      modifiedTime: 1781446982325
+      systemVersion: 0.10.1
+      createdTime: 1783344233408
+      modifiedTime: 1783344233408
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1178,9 +1186,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982325
-      modifiedTime: 1781446982325
+      systemVersion: 0.10.1
+      createdTime: 1783344233408
+      modifiedTime: 1783344233408
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1263,10 +1271,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446982325
-      createdTime: 1781446982325
+      modifiedTime: 1783344233409
+      createdTime: 1783344233409
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1301,9 +1309,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982325
-      modifiedTime: 1781446982325
+      systemVersion: 0.10.1
+      createdTime: 1783344233409
+      modifiedTime: 1783344233409
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1337,9 +1345,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982326
-      modifiedTime: 1781446982326
+      systemVersion: 0.10.1
+      createdTime: 1783344233409
+      modifiedTime: 1783344233409
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1381,9 +1389,10 @@ items:
           img: icons/weapons/thrown/bomb-fuse-red-black.webp
           condition: ''
           description: >-
-            <p>You light and throw the @ref[name], dealing <strong>Fire
-            </strong>damage to all enemies in the radius of the explosion. The
-            radius of the <strong>Blast</strong> depends on the quality of the
+            <p>You light and throw the @ref[item.name], dealing <strong>Fire
+            </strong>damage to all enemies in the radius of the explosion who
+            fail to avoid the attack. The radius of the <strong>Blast</strong>
+            depends on the quality of the
             bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
             feet</p></li><li><p><strong>Standard</strong> - 4
             feet</p></li><li><p><strong>Fine</strong> - 6
@@ -1411,7 +1420,6 @@ items:
             - consume
             - reflex
             - fire
-            - dexterity
             - skill
             - athletics
           summon: null
@@ -1433,9 +1441,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982326
-      modifiedTime: 1781446982326
+      systemVersion: 0.10.1
+      createdTime: 1783344233410
+      modifiedTime: 1783344233410
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1498,9 +1506,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982326
-      modifiedTime: 1781446982326
+      systemVersion: 0.10.1
+      createdTime: 1783344233410
+      modifiedTime: 1783344233410
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1523,7 +1531,7 @@ items:
       price: 240
       quality: standard
       enchantment: mundane
-      equipped: true
+      equipped: false
       properties: []
       description:
         public: >-
@@ -1541,9 +1549,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982326
-      modifiedTime: 1781446982326
+      systemVersion: 0.10.1
+      createdTime: 1783344233410
+      modifiedTime: 1783344233410
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1553,6 +1561,7 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!2lvTCCOj4dnBI774.f9YuKxp29iYf7PnA'
   - name: 'Rune: Storm'
     type: talent
@@ -1624,9 +1633,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982327
-      modifiedTime: 1781446982327
+      systemVersion: 0.10.1
+      createdTime: 1783344233411
+      modifiedTime: 1783344233411
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1636,22 +1645,71 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!2lvTCCOj4dnBI774.runeStorm0000000'
+  - name: Pistol
+    type: weapon
+    img: icons/weapons/guns/gun-pistol-flintlock-metal.webp
+    effects: []
+    flags: {}
+    system:
+      category: mechanical1
+      quantity: 1
+      weight: 4
+      price: 640
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties: []
+      description:
+        public: >-
+          <p>An early black powder firearm with a single, thunderous shot, the
+          flintlock pistol is a gambler’s weapon—deadly in a flash, but slow to
+          reload in the chaos of battle.</p>
+        private: ''
+      damageType: bludgeoning
+      broken: false
+      loaded: false
+      identifier: pistol
+      invested: false
+      actions: []
+      dropped: false
+      slot: 1
+    _stats:
+      coreVersion: '14.364'
+      systemId: crucible
+      systemVersion: 0.10.1
+      createdTime: 1783344233402
+      modifiedTime: 1783344233402
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: gSJwMBCibQjN3hqL
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!2lvTCCOj4dnBI774.gSJwMBCibQjN3hqL'
 effects: []
 flags:
   core: {}
   crucible:
     lastSpell: spell.illusion.arrow
     actionHistory:
+      - id: strike
+        messageId: 2KjhNxuDZjODCLZn
+        combat: null
       - id: rest
         messageId: ZN7uvsLwg0t6Okp0
         combat: null
 _stats:
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.10.0
-  createdTime: 1781446982319
-  modifiedTime: 1781446982319
+  systemVersion: 0.10.1
+  createdTime: 1783344233402
+  modifiedTime: 1783344233402
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

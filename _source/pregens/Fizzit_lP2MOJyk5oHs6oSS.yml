@@ -294,9 +294,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982310
-      modifiedTime: 1781446982310
+      systemVersion: 0.10.1
+      createdTime: 1783344233394
+      modifiedTime: 1783344233394
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -339,9 +339,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982311
-      modifiedTime: 1781446982311
+      systemVersion: 0.10.1
+      createdTime: 1783344233394
+      modifiedTime: 1783344233394
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -382,9 +382,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982311
-      modifiedTime: 1781446982311
+      systemVersion: 0.10.1
+      createdTime: 1783344233395
+      modifiedTime: 1783344233395
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -448,10 +448,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982311
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233395
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982311
+      createdTime: 1783344233395
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -488,10 +488,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982311
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233395
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982311
+      createdTime: 1783344233395
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -516,8 +516,8 @@ items:
         cast and has a base cost of <strong>4 Action</strong> and <strong>1
         Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
         Runes have a Sprite actor defined yet. Runes that do not yet have a
-        defined Creation will — for now — manifest a <strong>Flame
-        Sprite</strong>.</p>
+        defined Creation will — for now — manifest
+        a@UUID[Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI].</p>
       actions: []
       gesture: create
       iconicSpells: 0
@@ -534,10 +534,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982311
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233395
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982311
+      createdTime: 1783344233395
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -572,10 +572,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982311
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233395
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982311
+      createdTime: 1783344233395
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -609,10 +609,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982312
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233396
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982312
+      createdTime: 1783344233396
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -630,10 +630,10 @@ items:
         <p>You are highly skilled in weaving the Rune of Frost. When you cast a
         Spell or use an action that involves this Rune, your Critical Hits which
         deal damage cause the @Condition[freezing] condition.</p><p>The Freezing
-        effect lasts for <strong>1 Round</strong>, deals half your
-        <strong>Wisdom</strong> score as <strong>Frost</strong> damage to
-        <strong>Health</strong>, and applies the @Condition[slowed]
-        condition.</p>
+        effect lasts for <strong>1 Round</strong>, deals half the ability score
+        your <strong>Rune of Frost</strong> scales with as
+        <strong>Frost</strong> damage to <strong>Health</strong>, and applies
+        the @Condition[slowed] condition.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -650,10 +650,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982312
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233396
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982312
+      createdTime: 1783344233396
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -688,10 +688,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982312
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233396
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982312
+      createdTime: 1783344233396
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -773,10 +773,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982312
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233397
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982312
+      createdTime: 1783344233397
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -836,9 +836,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982313
-      modifiedTime: 1781446982313
+      systemVersion: 0.10.1
+      createdTime: 1783344233397
+      modifiedTime: 1783344233397
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -906,9 +906,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982313
-      modifiedTime: 1781446982313
+      systemVersion: 0.10.1
+      createdTime: 1783344233397
+      modifiedTime: 1783344233397
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -992,9 +992,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982313
-      modifiedTime: 1781446982313
+      systemVersion: 0.10.1
+      createdTime: 1783344233397
+      modifiedTime: 1783344233397
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1013,10 +1013,10 @@ items:
         <p>You are highly skilled in weaving the Rune of Storm. When you cast a
         Spell or use an action that involves this Rune, your Critical Hits which
         deal damage cause the @Condition[shocked] condition.</p><p>The Shocked
-        effect lasts for <strong>3 Rounds</strong>, deals half your
-        <strong>Intellect</strong> score as <strong>Electricity</strong> damage
-        to <strong>Morale</strong>, and applies the @Condition[staggered]
-        condition.</p>
+        effect lasts for <strong>3 Rounds</strong>, deals half the ability score
+        your <strong>Rune of Storm</strong> scales with as
+        <strong>Electricity</strong> damage to <strong>Morale</strong>, and
+        applies the @Condition[staggered] condition.</p>
       actions: []
       nodes:
         - int3a
@@ -1033,9 +1033,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982314
-      modifiedTime: 1781446982314
+      systemVersion: 0.10.1
+      createdTime: 1783344233397
+      modifiedTime: 1783344233397
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1055,10 +1055,10 @@ items:
         <p>You are highly skilled in weaving the Rune of Illusion. When you cast
         a Spell or use an action that involves this Rune, your Critical Hits
         which deal damage cause the @Condition[confused] condition.</p><p>The
-        Confused effect lasts for <strong>1 Round</strong>, deals half your
-        <strong>Intellect</strong> score as <strong>Psychic</strong> damage to
-        <strong>Morale</strong>, and applies the @Condition[disoriented]
-        condition.</p>
+        Confused effect lasts for <strong>1 Round</strong>, deals half the
+        ability score your <strong>Rune of Illusion</strong> scales with as
+        <strong>Psychic</strong> damage to <strong>Morale</strong>, and applies
+        the @Condition[disoriented] condition.</p>
       actions: []
       nodes:
         - int3a
@@ -1074,9 +1074,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982314
-      modifiedTime: 1781446982314
+      systemVersion: 0.10.1
+      createdTime: 1783344233398
+      modifiedTime: 1783344233398
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1160,9 +1160,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982314
-      modifiedTime: 1781446982314
+      systemVersion: 0.10.1
+      createdTime: 1783344233398
+      modifiedTime: 1783344233398
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1241,9 +1241,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982315
-      modifiedTime: 1781446982315
+      systemVersion: 0.10.1
+      createdTime: 1783344233398
+      modifiedTime: 1783344233398
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1311,9 +1311,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982315
-      modifiedTime: 1781446982315
+      systemVersion: 0.10.1
+      createdTime: 1783344233399
+      modifiedTime: 1783344233399
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1374,10 +1374,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446982315
-      createdTime: 1781446982315
+      modifiedTime: 1783344233399
+      createdTime: 1783344233399
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1436,9 +1436,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982316
-      modifiedTime: 1781446982316
+      systemVersion: 0.10.1
+      createdTime: 1783344233399
+      modifiedTime: 1783344233399
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1470,8 +1470,8 @@ items:
         4</strong> node. It will eventually only be attainable at a higher level
         (probably Level 6 required). It is currently available "early" for
         testing.</p><p>Not all Runes have a Visitor actor defined yet. Runes
-        that do not yet have a defined Conjuration will — for now — manifest a
-        <strong>Flame Visitor</strong>.</p>
+        that do not yet have a defined Conjuration will — for now — manifest
+        a@UUID[Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd].</p>
       actions: []
       rune: ''
       gesture: conjure
@@ -1485,9 +1485,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982316
-      modifiedTime: 1781446982316
+      systemVersion: 0.10.1
+      createdTime: 1783344233400
+      modifiedTime: 1783344233400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1529,9 +1529,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982316
-      modifiedTime: 1781446982316
+      systemVersion: 0.10.1
+      createdTime: 1783344233400
+      modifiedTime: 1783344233400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1541,6 +1541,7 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!lP2MOJyk5oHs6oSS.Lo3qsvBe64PplA10'
   - name: 'Rune: Storm'
     type: talent
@@ -1612,9 +1613,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982317
-      modifiedTime: 1781446982317
+      systemVersion: 0.10.1
+      createdTime: 1783344233400
+      modifiedTime: 1783344233400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1624,6 +1625,7 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!lP2MOJyk5oHs6oSS.runeStorm0000000'
 effects: []
 flags:
@@ -1715,9 +1717,9 @@ flags:
 _stats:
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.10.0
-  createdTime: 1781446982310
-  modifiedTime: 1781446982310
+  systemVersion: 0.10.1
+  createdTime: 1783344233393
+  modifiedTime: 1783344233393
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

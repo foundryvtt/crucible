@@ -171,7 +171,11 @@ system:
     sizeBonus: 0
     strideBonus: 0
     engagementBonus: 0
-  status: null
+  status:
+    lastAction: ferociousLeap
+    hasAttacked: true
+    freeMovementId: null
+    hasMoved: false
   favorites:
     - cleave
     - strike
@@ -296,9 +300,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982296
-      modifiedTime: 1781446982296
+      systemVersion: 0.10.1
+      createdTime: 1783344233376
+      modifiedTime: 1783344233376
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -340,9 +344,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982296
-      modifiedTime: 1781446982296
+      systemVersion: 0.10.1
+      createdTime: 1783344233376
+      modifiedTime: 1783344233376
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -406,10 +410,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982297
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233376
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982297
+      createdTime: 1783344233376
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -468,10 +472,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982297
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233377
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982297
+      createdTime: 1783344233377
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -533,10 +537,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982297
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233377
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982297
+      createdTime: 1783344233377
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -568,10 +572,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982297
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233378
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982297
+      createdTime: 1783344233378
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -622,7 +626,9 @@ items:
                     type: add
                     phase: initial
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 dc: null
@@ -657,10 +663,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982298
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233378
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982298
+      createdTime: 1783344233378
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -696,10 +702,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982298
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233378
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982298
+      createdTime: 1783344233378
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -708,44 +714,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.stronggrip000000'
-  - folder: pvclaELBSimFnNMJ
-    name: Blood Frenzy
-    type: talent
-    img: icons/skills/wounds/injury-eyes-blood-red-pink.webp
-    system:
-      description: >-
-        <p>Your battle lust spurs you to feats of heightened action. When you
-        achieve a <strong>Critical Hit</strong> that deals damage to Health you
-        immediately gain +1 Action. This benefit may only happen once per
-        Round.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - str4a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982298
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982298
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: bloodfrenzy00000
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!L0qEPpUQBZQPCxN3.bloodfrenzy00000'
   - name: Executioner's Strike
     type: talent
     _id: executionersstri
@@ -792,7 +760,9 @@ items:
               system:
                 changes: []
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 dc: null
@@ -818,10 +788,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982298
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233379
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982298
+      createdTime: 1783344233379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -855,10 +825,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982298
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233379
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982298
+      createdTime: 1783344233379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -889,14 +859,14 @@ items:
             <strong>Stride </strong>and <strong>Strike</strong> another foe that
             you pass next to or end your movement adjacent to.</p>
           cost:
-            action: -1
+            action: -2
             focus: 1
             weapon: true
             heroism: 0
             hands: 0
           range:
             maximum: null
-            weapon: false
+            weapon: true
             minimum: null
           target:
             type: movement
@@ -921,10 +891,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982299
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233379
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982299
+      createdTime: 1783344233379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -982,10 +952,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982299
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233379
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982299
+      createdTime: 1783344233379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1051,10 +1021,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446982299
-      createdTime: 1781446982299
+      modifiedTime: 1783344233379
+      createdTime: 1783344233379
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1107,7 +1077,9 @@ items:
                 expired: false
               system:
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 changes: []
@@ -1127,7 +1099,9 @@ items:
                 expired: false
               system:
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 changes: []
@@ -1161,10 +1135,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446982299
-      createdTime: 1781446982299
+      modifiedTime: 1783344233380
+      createdTime: 1783344233380
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1223,7 +1197,9 @@ items:
               system:
                 changes: []
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 dc: null
@@ -1245,9 +1221,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982299
-      modifiedTime: 1781446982299
+      systemVersion: 0.10.1
+      createdTime: 1783344233380
+      modifiedTime: 1783344233380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1311,9 +1287,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982300
-      modifiedTime: 1781446982300
+      systemVersion: 0.10.1
+      createdTime: 1783344233380
+      modifiedTime: 1783344233380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1348,9 +1324,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982300
-      modifiedTime: 1781446982300
+      systemVersion: 0.10.1
+      createdTime: 1783344233381
+      modifiedTime: 1783344233381
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1384,9 +1360,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982301
-      modifiedTime: 1781446982301
+      systemVersion: 0.10.1
+      createdTime: 1783344233381
+      modifiedTime: 1783344233381
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1421,9 +1397,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982301
-      modifiedTime: 1781446982301
+      systemVersion: 0.10.1
+      createdTime: 1783344233381
+      modifiedTime: 1783344233381
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1434,67 +1410,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.armoredefficienc'
-  - name: Penetrating Throw
-    type: talent
-    img: icons/skills/ranged/shuriken-thrown-yellow.webp
-    system:
-      nodes:
-        - str3b
-      description: >-
-        <p>You can hurl your weapon with such ferocity that it strikes all
-        targets in a direct line.</p>
-      actions:
-        - id: penetratingThrow
-          name: Penetrating Throw
-          img: icons/skills/ranged/shuriken-thrown-yellow.webp
-          condition: ''
-          description: >-
-            <p>You perform a @Rule[action.thrown] weapon strike which penetrates
-            to hit all enemies in a straight line.</p>
-          cost:
-            action: 1
-            focus: 1
-            heroism: 0
-            weapon: true
-            hands: 0
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          target:
-            type: ray
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          tags:
-            - thrown
-          summon: null
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982301
-      modifiedTime: 1781446982301
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: penetratingThrow
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!L0qEPpUQBZQPCxN3.penetratingThrow'
   - name: Stiletto
     type: weapon
     img: icons/weapons/daggers/dagger-straight-thin-black.webp
@@ -1527,9 +1442,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982302
-      modifiedTime: 1781446982302
+      systemVersion: 0.10.1
+      createdTime: 1783344233381
+      modifiedTime: 1783344233381
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1589,7 +1504,9 @@ items:
               system:
                 changes: []
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 dc: null
@@ -1608,9 +1525,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982302
-      modifiedTime: 1781446982302
+      systemVersion: 0.10.1
+      createdTime: 1783344233382
+      modifiedTime: 1783344233382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1621,11 +1538,82 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.adrenalineSurge0'
+  - name: Ferocious Leap
+    type: talent
+    _id: ferociousleap000
+    img: icons/magic/movement/portal-vortex-orange.webp
+    system:
+      description: >-
+        <p>You leap powerfully into battle to deliver a punishing blow to a
+        nearby enemy with your mainhand weapon.</p>
+      actions:
+        - id: ferociousLeap
+          description: >-
+            <p>You <strong>Jump</strong> up to 10 feet, delivering a
+            <strong>Strike</strong> against an enemy within melee range of where
+            you land. Your movement ignores difficult terrain and is not blocked
+            by enemy creatures.</p>
+          tags:
+            - melee
+            - mainhand
+            - movement
+            - jump
+          cost:
+            action: -1
+            focus: 1
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: movement
+            number: 1
+            scope: 3
+            self: false
+            limit: 1
+          effects: []
+          name: Ferocious Leap
+          img: icons/magic/movement/portal-vortex-orange.webp
+          condition: ''
+          range:
+            maximum: 10
+            weapon: true
+            minimum: 4
+          summon: null
+      nodes:
+        - str3b
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.1
+      coreVersion: '14.364'
+      createdTime: 1783344233375
+      modifiedTime: 1783344233375
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.ferociousleap000'
 effects: []
 flags:
   core: {}
   crucible:
     actionHistory:
+      - id: ferociousLeap
+        messageId: fdcmWUC6WoJ0jzgv
+        combat: null
       - id: move
         messageId: vpOPJDKcRZ5usJ4A
         combat:
@@ -1637,9 +1625,9 @@ flags:
 _stats:
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.10.0
-  createdTime: 1781446982295
-  modifiedTime: 1781446982295
+  systemVersion: 0.10.1
+  createdTime: 1783344233375
+  modifiedTime: 1783344233375
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

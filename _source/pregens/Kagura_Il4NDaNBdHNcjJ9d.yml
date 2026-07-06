@@ -291,9 +291,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982329
-      modifiedTime: 1781446982329
+      systemVersion: 0.10.1
+      createdTime: 1783344233414
+      modifiedTime: 1783344233414
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -334,9 +334,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982329
-      modifiedTime: 1781446982329
+      systemVersion: 0.10.1
+      createdTime: 1783344233414
+      modifiedTime: 1783344233414
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -375,10 +375,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982329
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233414
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982329
+      createdTime: 1783344233414
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -416,10 +416,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982330
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233415
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982330
+      createdTime: 1783344233415
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -453,10 +453,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982330
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233415
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982330
+      createdTime: 1783344233415
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -508,7 +508,9 @@ items:
                 expired: false
               system:
                 dot: []
-                maintenance: null
+                maintenance:
+                  cost: null
+                  hands: 0
                 regions: []
                 summons: []
                 changes: []
@@ -545,10 +547,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982330
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233415
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982330
+      createdTime: 1783344233415
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -583,10 +585,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982330
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233415
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982330
+      createdTime: 1783344233415
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -620,10 +622,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982330
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233415
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982330
+      createdTime: 1783344233415
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -641,9 +643,9 @@ items:
         <p>You are highly skilled in weaving the Rune of Earth. When you cast a
         Spell or use an action that involves this Rune, your Critical Hits which
         deal damage cause the @Condition[corroding] condition.</p><p>The
-        Corroding effect lasts for <strong>3 Rounds</strong> and deals half your
-        <strong>Wisdom</strong> score as <strong>Acid</strong> damage to
-        <strong>Health</strong> each Round.</p>
+        Corroding effect lasts for <strong>3 Rounds</strong> and deals half the
+        ability score your <strong>Rune of Earth</strong> scales with as
+        <strong>Acid</strong> damage to <strong>Health</strong> each Round.</p>
       actions: []
       iconicSpells: 0
       training:
@@ -660,10 +662,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982330
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233416
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982330
+      createdTime: 1783344233416
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -732,10 +734,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
+      systemVersion: 0.10.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1781446982331
-      createdTime: 1781446982331
+      modifiedTime: 1783344233416
+      createdTime: 1783344233416
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -771,10 +773,10 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      modifiedTime: 1781446982331
+      systemVersion: 0.10.1
+      modifiedTime: 1783344233416
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1781446982331
+      createdTime: 1783344233416
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -842,9 +844,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982331
-      modifiedTime: 1781446982331
+      systemVersion: 0.10.1
+      createdTime: 1783344233417
+      modifiedTime: 1783344233417
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -898,9 +900,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982332
-      modifiedTime: 1781446982332
+      systemVersion: 0.10.1
+      createdTime: 1783344233417
+      modifiedTime: 1783344233417
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -954,9 +956,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982332
-      modifiedTime: 1781446982332
+      systemVersion: 0.10.1
+      createdTime: 1783344233417
+      modifiedTime: 1783344233417
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -996,9 +998,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982332
-      modifiedTime: 1781446982332
+      systemVersion: 0.10.1
+      createdTime: 1783344233418
+      modifiedTime: 1783344233418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1063,9 +1065,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982332
-      modifiedTime: 1781446982332
+      systemVersion: 0.10.1
+      createdTime: 1783344233418
+      modifiedTime: 1783344233418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1106,9 +1108,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982332
-      modifiedTime: 1781446982332
+      systemVersion: 0.10.1
+      createdTime: 1783344233418
+      modifiedTime: 1783344233418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1127,8 +1129,8 @@ items:
         <p>You are highly skilled in weaving the Rune of Soul. When you cast a
         Spell or use an action that involves this Rune, your Critical Hits which
         restore Morale cause the @Condition[inspired] condition.</p><p>The
-        Inspired effect lasts for <strong>1 Round</strong> and deals your
-        <strong>Presence</strong> score as additional
+        Inspired effect lasts for <strong>1 Round</strong> and deals the ability
+        score your <strong>Rune of Soul</strong> scales with as additional
         <strong>Restoration</strong> to <strong>Morale</strong>.</p>
       actions: []
       nodes:
@@ -1145,9 +1147,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982333
-      modifiedTime: 1781446982333
+      systemVersion: 0.10.1
+      createdTime: 1783344233418
+      modifiedTime: 1783344233418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1166,9 +1168,9 @@ items:
         <p>You are highly skilled in weaving the Rune of Life. When you cast a
         Spell or use an action that involves this Rune, your Critical Hits which
         restore Health cause the @Condition[mending] condition.</p><p>The
-        Mending effect lasts for <strong>1 Round</strong> and deals your
-        <strong>Wisdom</strong> score as additional <strong>Restoration</strong>
-        to <strong>Health</strong>.</p>
+        Mending effect lasts for <strong>1 Round</strong> and deals the ability
+        score your <strong>Rune of Life</strong> scales with as additional
+        <strong>Restoration</strong> to <strong>Health</strong>.</p>
       actions: []
       nodes:
         - wis3b
@@ -1184,9 +1186,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982333
-      modifiedTime: 1781446982333
+      systemVersion: 0.10.1
+      createdTime: 1783344233419
+      modifiedTime: 1783344233419
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1230,9 +1232,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982333
-      modifiedTime: 1781446982333
+      systemVersion: 0.10.1
+      createdTime: 1783344233419
+      modifiedTime: 1783344233419
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1310,9 +1312,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982333
-      modifiedTime: 1781446982333
+      systemVersion: 0.10.1
+      createdTime: 1783344233419
+      modifiedTime: 1783344233419
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1347,9 +1349,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982333
-      modifiedTime: 1781446982333
+      systemVersion: 0.10.1
+      createdTime: 1783344233420
+      modifiedTime: 1783344233420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1384,9 +1386,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982334
-      modifiedTime: 1781446982334
+      systemVersion: 0.10.1
+      createdTime: 1783344233420
+      modifiedTime: 1783344233420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1462,9 +1464,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982334
-      modifiedTime: 1781446982334
+      systemVersion: 0.10.1
+      createdTime: 1783344233420
+      modifiedTime: 1783344233420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1540,9 +1542,9 @@ items:
     _stats:
       coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.0
-      createdTime: 1781446982334
-      modifiedTime: 1781446982334
+      systemVersion: 0.10.1
+      createdTime: 1783344233420
+      modifiedTime: 1783344233420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1646,9 +1648,9 @@ flags:
 _stats:
   coreVersion: '14.364'
   systemId: crucible
-  systemVersion: 0.10.0
-  createdTime: 1781446982328
-  modifiedTime: 1781446982328
+  systemVersion: 0.10.1
+  createdTime: 1783344233412
+  modifiedTime: 1783344233412
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
