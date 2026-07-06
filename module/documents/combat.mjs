@@ -114,8 +114,33 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @override */
   async _onStartTurn(combatant, context) {
     await super._onStartTurn(combatant, context);
+    if ( game.user.isActiveGM ) await this.#recordDelayWitnesses(combatant);
     // TODO forward turn events to the system subtype
     return combatant.actor.onStartTurn(context);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record enemy Actors who act while another Actor is Delaying, for talents like Eye of the Storm.
+   * @param {Combatant} combatant     The Combatant whose turn is starting
+   */
+  async #recordDelayWitnesses(combatant) {
+    const actingActor = combatant.actor;
+    if ( !actingActor ) return;
+    const round = this.round;
+    const updates = [];
+    for ( const other of this.combatants ) {
+      const delayingActor = other.actor;
+      if ( !delayingActor || (delayingActor === actingActor) ) continue;
+      const delay = delayingActor.flags.crucible?.delay;
+      if ( !delay || (delay.round !== round) ) continue;
+      if ( delayingActor.getDispositionTowards(actingActor) !== CONST.TOKEN_DISPOSITIONS.HOSTILE ) continue;
+      const witnessed = delay.witnessed || [];
+      if ( witnessed.includes(actingActor.id) ) continue;
+      updates.push({_id: delayingActor.id, "flags.crucible.delay.witnessed": [...witnessed, actingActor.id]});
+    }
+    if ( updates.length ) await Actor.updateDocuments(updates);
   }
 
   /* -------------------------------------------- */
