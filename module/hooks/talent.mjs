@@ -547,9 +547,15 @@ HOOKS.echolocation0000 = {
 HOOKS.eyeofthestorm000 = {
   prepareAttack(item, action, target, rollData) {
     if ( !action.tags.has("strike") && !action.tags.has("spell") ) return;
-    const witnessed = this.flags.crucible?.delay?.witnessed;
-    if ( !witnessed?.includes(target.id) ) return;
-    rollData.boons.eyeOfTheStorm = {label: item.name, number: 2};
+    const delay = this.flags.crucible?.delay;
+    if ( !delay ) return;
+    if ( this.getDispositionTowards(target) !== CONST.TOKEN_DISPOSITIONS.HOSTILE ) return;
+    const targetTurn = target.combatant?.flags.crucible?.turnNumber;
+    const myTurn = this.combatant?.flags.crucible?.turnNumber;
+    if ( (targetTurn === undefined) || (myTurn === undefined) ) return;
+    if ( (targetTurn >= delay.fromTurn) && (targetTurn < myTurn) ) {
+      rollData.boons.eyeOfTheStorm = {label: item.name, number: 2};
+    }
   }
 }
 
