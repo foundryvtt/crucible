@@ -2065,7 +2065,9 @@
     "EnableVFXHint": "Play visual effects animations on the canvas when actions are confirmed.",
     "EnableVFXName": "Enable Action Visual Effects",
     "FlexibleAncestryAbilitiesHint": "When enabled, hero characters may reassign their Ancestry's Primary and Secondary Ability Score bonuses to abilities of their choice during character creation. The Ancestry still contributes the same +2 and +1 starting bonuses; only the abilities receiving them are flexible.",
-    "FlexibleAncestryAbilitiesName": "Flexible Ancestry Ability Bonuses"
+    "FlexibleAncestryAbilitiesName": "Flexible Ancestry Ability Bonuses",
+    "DoorActionCostName": "Doors Cost Action Points",
+    "DoorActionCostHint": "Opening or closing a door in combat costs 1 Action Point for the interacting creature."
   },
   "SKILL": {
     "CATEGORY": {

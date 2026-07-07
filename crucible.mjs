@@ -18,6 +18,7 @@ import * as models from "./module/models/_module.mjs";
 import * as audio from "./module/audio.mjs";
 import * as hooks from "./module/hooks/_module.mjs";
 import {applyEmberPatches} from "./module/hooks/ember.mjs";
+import "./module/hooks/door.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -26,7 +27,6 @@ import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
 import CrucibleTalentNode from "./module/const/talent-node.mjs";
 import {statusEffects} from "./module/const/statuses.mjs";
-
 // Party
 let party = null;
 
@@ -373,6 +373,15 @@ Hooks.once("init", async function() {
     config: false,
     type: Boolean,
     default: false
+  });
+
+  game.settings.register("crucible", "doorActionCost", {
+    name: "SETTINGS.DoorActionCostName",
+    hint: "SETTINGS.DoorActionCostHint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true
   });
 
   const fields = foundry.data.fields;
@@ -841,6 +850,7 @@ Hooks.on("canvasReady", () => {
 Hooks.on("canvasTearDown", () => {
   CONFIG.Canvas.polygonBackends.move = foundry.canvas.geometry.ClockwiseSweepPolygon;
 });
+
 
 /* -------------------------------------------- */
 
