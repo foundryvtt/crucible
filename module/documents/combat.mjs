@@ -114,9 +114,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @override */
   async _onStartTurn(combatant, context) {
     await super._onStartTurn(combatant, context);
-     const turnNumber = (this.flags.crucible?.turnNumber ?? 0) + 1;
-     await this.update({"flags.crucible.turnNumber": turnNumber});
-     await combatant.update({"flags.crucible.turnNumber": turnNumber});
+
     // TODO forward turn events to the system subtype
     return combatant.actor.onStartTurn(context);
   }

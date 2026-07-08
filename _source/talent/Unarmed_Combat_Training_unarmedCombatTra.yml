@@ -37,7 +37,7 @@ system:
           duration:
             value: 1
             units: rounds
-            expiry: turnEnd
+            expiry: turnStart
           system:
             dot: []
             maintenance: null

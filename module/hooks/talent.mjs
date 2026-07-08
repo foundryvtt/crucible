@@ -550,10 +550,9 @@ HOOKS.eyeofthestorm000 = {
     const delay = this.flags.crucible?.delay;
     if ( !delay ) return;
     if ( this.getDispositionTowards(target) !== CONST.TOKEN_DISPOSITIONS.HOSTILE ) return;
-    const targetTurn = target.combatant?.flags.crucible?.turnNumber;
-    const myTurn = this.combatant?.flags.crucible?.turnNumber;
-    if ( (targetTurn === undefined) || (myTurn === undefined) ) return;
-    if ( (targetTurn >= delay.fromTurn) && (targetTurn < myTurn) ) {
+    const targetTurn = target.combatant?.turnNumber;
+    if ( !Number.isNumeric(targetTurn) ) return;
+    if ( (targetTurn >= delay.fromTurn) && (targetTurn < (this.combatant?.turnNumber ?? 0)) ) {
       rollData.boons.eyeOfTheStorm = {label: item.name, number: 2};
     }
   }
