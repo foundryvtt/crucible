@@ -2965,6 +2965,15 @@ export default class CrucibleActor extends Actor {
     }
   }
 
+
+  async #endGrappleOnDeath() {
+    const grapple = crucible.api?.hooks?.action?.grapple;
+    if ( !grapple ) return;
+    const ids = [grapple._GRAPPLED_EFFECT_ID, grapple._GRAPPLING_EFFECT_ID]
+    .filter(id => this.effects.has(id));
+    if ( ids.length ) await this.deleteEmbeddedDocuments("ActiveEffect", ids);
+  }
+
   /* -------------------------------------------- */
 
   /**
