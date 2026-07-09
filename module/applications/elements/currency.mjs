@@ -27,7 +27,7 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
   _buildElements() {
     // Initialize existing raw value
     this._value = Number(this.getAttribute("value") || 0);
-    this.removeAttribute("value");
+    this.setAttribute("value", String(this._value));
 
     // Create input fields for each denomination
     const elements = [];
@@ -154,6 +154,7 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
     }
 
     // Dispatch change
+    this.setAttribute("value", String(this._value));
     this.dispatchEvent(new Event("change", { bubbles: true, cancelable: true }));
     this._refresh();
   }
