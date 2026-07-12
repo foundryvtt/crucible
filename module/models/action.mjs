@@ -1816,17 +1816,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
 
-  /**
-   * Resolve only @ref[...] links in a description against this action, leaving every other enricher (@Rule,
-   * @Condition, etc.) untouched so they still enrich normally whenever the description is later rendered.
-   * Must run before this action's description is copied onto a created effect (see #recordEffectEvents), since
-   * gesture/item hooks (e.g. Alchemist's Fire) can overwrite that effect's own data - including its name - with
-   * generic status data (e.g. "Burning") before the effect is ever displayed. Resolving @refs now, while `this`
-   * still has valid item/gesture context, keeps references like "@ref[item.name]" pinned to the source item's
-   * name instead of silently drifting to whatever the effect's data happens to hold later. See GH #1310.
-   * @param {string} text
-   * @returns {string}
-   */
+  
+ /** Resolve @ref[...] links against this action before copying the description to an effect, preserving source references if the effect's data changes later. */
   #resolveRefEnrichers(text) {
     if ( !text ) return text;
     return text.replace(/@ref\[([\w.]+)](?:{([^}]+)})?/g, (match, path, fallback) => {
