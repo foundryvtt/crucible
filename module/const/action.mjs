@@ -615,6 +615,17 @@ export const TAGS = {
       const summonEvents = this.events.filter(e => e.type === "summon");
       if ( !summonEvents.length ) return;
 
+       // Enforce "only one at a time": dismiss whatever creature this gesture's deterministic effect id is currently tracking, before summoning a new one.
+      const priorEffectIds = new Set(summonEvents.map(e => e.summon.effectId).filter(Boolean));
+       for ( const effectId of priorEffectIds ) {
+         const existing = this.actor.effects.get(effectId);
+         if ( !existing ) continue;
+         for ( const uuid of existing.system.summons ?? [] ) {
+           const token = await fromUuid(uuid);
+           if ( token ) await token.delete();
+         }
+       }
+
       // Create summoned tokens, track non-permanent ones
       const summonedTokens = [];
       for ( const event of summonEvents ) {
