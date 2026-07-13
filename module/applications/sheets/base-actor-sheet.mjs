@@ -331,15 +331,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       featuredEquipment.push({name: oh.name, type: oh.type, uuid: oh.uuid, img: oh.img,
         tags: [ohTags.damage, ohTags.range]});
     }
-    if ( natural.length ) {
-      for ( let i=0; i<3-featuredEquipment.length; i++ ) {
-        const n = natural[i];
-        if ( n ) {
-          const tags = n.getTags("short");
-          featuredEquipment.push({name: n.name, type: n.type, uuid: n.uuid, img: n.img,
-            tags: [tags.damage, tags.range]});
-        }
-      }
+    for ( const n of natural ) {
+      if ( featuredEquipment.length >= 3 ) break;
+      const tags = n.getTags("short");
+      featuredEquipment.push({name: n.name, type: n.type, uuid: n.uuid, img: n.img,
+        tags: [tags.damage, tags.range]});
     }
 
     // Equipped Armor
