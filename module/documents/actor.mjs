@@ -654,9 +654,9 @@ export default class CrucibleActor extends Actor {
       skillId ??= Object.keys(skills)[0];
       dc ??= skills[skillId].dc;
     }
-    const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
+    let check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
     if ( messageMode ) check.data.messageMode = messageMode;
-    const flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillId].label});
+    let flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillId].label});
 
     // Optionally prompt the user with a configuration dialog
     if ( dialog ) {
@@ -665,6 +665,11 @@ export default class CrucibleActor extends Actor {
       if ( skills && (Object.keys(skills).length > 1) ) dialogOptions.skills = skills;
       const response = await check.dialog(dialogOptions);
       if ( response === null ) return null;
+
+      // Adopt the roll returned by the dialog, which may have swapped to a different skill from a multi-skill set
+      check = response;
+      skillId = check.data.type;
+      flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillId].label});
     }
 
     // Evaluate the roll, disallowing interactive evaluation for blind rolls
