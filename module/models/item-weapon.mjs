@@ -122,7 +122,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   prepareBaseData() {
     super.prepareBaseData();
-    const {enchantment} = this.config;
 
     // Equipment Slot
     if ( this.dropped ) this.equipped = false;
@@ -142,7 +141,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     this.range = this.#prepareRange();
 
     // Weapon Bonuses
-    this.actionBonuses = {ability: 0, skill: -4, enchantment: enchantment.bonus};
+    this.actionBonuses = {ability: 0, skill: -4, enchantment: 0};
     this.actionCost = category.actionCost;
   }
 
@@ -156,6 +155,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
       this.rarity -= 2;
     }
     super.prepareDerivedData();
+    this.actionBonuses.enchantment = this.config.enchantment.bonus;
   }
 
   /* -------------------------------------------- */

@@ -58,7 +58,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
    */
   prepareBaseData() {
     super.prepareBaseData();
-    const {category, quality, enchantment} = this.config;
+    const {category, quality} = this.config;
 
     // Armor Defense
     this.armor.base = Math.clamp(this.armor.base, category.armor.min, category.armor.max);
@@ -66,7 +66,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
 
     // Dodge Defense
     this.dodge ||= {};
-    this.dodge.base = category.dodge.base(this.armor.base) + enchantment.bonus;
+    this.dodge.base = category.dodge.base(this.armor.base);
     this.dodge.scaling = category.dodge.scaling;
 
     // Natural applies property
@@ -83,6 +83,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
       this.rarity -= 2;
     }
     super.prepareDerivedData();
+    this.dodge.base += this.config.enchantment.bonus;
   }
 
   /* -------------------------------------------- */
