@@ -845,7 +845,7 @@ export default class CrucibleActor extends Actor {
     // Create and evaluate the AttackRoll instance, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const result = roll.resolveDamage(this, target, {
+    roll.resolveDamage(this, target, {
       multiplier: rollData.multiplier,
       base: spell.damage.base,
       bonus: rollData.damageBonus + (this.system.rollBonuses.damage?.[rollData.damageType] ?? 0),
@@ -853,7 +853,7 @@ export default class CrucibleActor extends Actor {
       damageType: rollData.damageType,
       restoration: spell.damage.restoration
     });
-    if ( result >= AttackRoll.RESULT_TYPES.GLANCE ) target.callActorHooks("receiveAttack", spell, roll);
+    target.callActorHooks("receiveAttack", spell, roll);
     return roll;
   }
 
@@ -1017,7 +1017,7 @@ export default class CrucibleActor extends Actor {
     // Create and evaluate the AttackRoll instance, then resolve its outcome and structured damage
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-    const result = roll.resolveDamage(this, target, {
+    roll.resolveDamage(this, target, {
       multiplier: rollData.multiplier,
       base: weapon.system.damage.weapon,
       bonus: weapon.system.damage.bonus + rollData.damageBonus,
@@ -1025,8 +1025,8 @@ export default class CrucibleActor extends Actor {
       damageType: rollData.damageType
     });
 
-    // Finalize the attack and return; offensive reactions fire only on a connecting hit
-    if ( result >= AttackRoll.RESULT_TYPES.GLANCE ) target.callActorHooks("receiveAttack", action, roll);
+    // Finalize the attack and return; hooks fire for every result so talents can react to misses, dodges, and parries
+    target.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
 

@@ -1555,6 +1555,24 @@ HOOKS.swarm00000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.swashbuckler0000 = {
+  receiveAttack(item, action, roll) {
+    const T = roll.constructor.RESULT_TYPES;
+    if ( ![T.DODGE, T.PARRY].includes(roll.data.result) ) return;
+    const attacker = action.actor;
+    if ( !attacker ) return;
+    const morale = this.system.abilities.presence.value;
+    if ( morale <= 0 ) return;
+    action.recordEvent({
+      target: attacker,
+      resources: [{resource: "morale", delta: -morale}],
+      statusText: [{text: item.name, fillColor: SYSTEM.RESOURCES.morale.color.high.css}]
+    });
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.telekinetic00000 = {
   prepareAction(item, action) {
     if ( !action.tags.has("composed") || !["pull", "push"].includes(action.inflection?.id) ) return;
