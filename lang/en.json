@@ -660,6 +660,9 @@
       "Suffocating": "Suffocating",
       "Unaware": "Unaware",
       "Weakened": "Weakened"
+    },
+    "WARNINGS": {
+      "ReferenceNotDeleted": "Expected to delete \"{name}\" but it could not be deleted automatically. Please delete it manually if appropriate."
     }
   },
   "ACTOR": {

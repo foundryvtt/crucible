@@ -10,6 +10,19 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    */
   static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-active-effect.hbs";
 
+  /**
+   * Document types the owned-reference deletion cascade is permitted to delete.
+   * @type {Set<string>}
+   */
+  static #DELETABLE_TYPES = new Set(["Token", "Region"]);
+
+  /**
+   * The UUIDs of the Tokens and Regions this effect owns. Cached from the effect's own persisted data.
+   * The responsible active GM derives the set of documents to delete from trusted, replicated state.
+   * @type {Set<string>}
+   */
+  #ownedReferences;
+
   /* -------------------------------------------- */
 
   /**
@@ -65,20 +78,42 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async _onDelete(options, userId) {
-    await super._onDelete(options, userId);
+  prepareBaseData() {
+    super.prepareBaseData();
+    this.#ownedReferences ??= this.#collectOwnedReferences(); // Seed once; _onUpdate maintains it thereafter
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Collect the UUIDs of the Tokens and Regions this effect currently owns from its persisted references.
+   * @returns {Set<string>}
+   */
+  #collectOwnedReferences() {
+    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? [])]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete owned references on behalf of a requesting User.
+   * Enforce that each still exists, is an allowed document type, and is OWNED by the user who triggered the operation.
+   * @param {Set<string>} references      UUIDs of owned Tokens and Regions to delete
+   * @param {string} userId               The user who performed the triggering operation
+   * @returns {Promise<void>}
+   */
+  async #deleteOwnedReferences(references, userId) {
     if ( !game.user.isActiveGM ) return;
-    if ( this.system.regions ) {
-      for ( const uuid of this.system.regions ) {
-        const region = await fromUuid(uuid);
-        if ( region ) await region.delete();
+    const user = game.users.get(userId);
+    if ( !user ) return;
+    for ( const uuid of references ) {
+      const doc = await fromUuid(uuid);
+      if ( !doc ) continue; // Already deleted
+      if ( CrucibleActiveEffect.#DELETABLE_TYPES.has(doc.documentName) && doc.testUserPermission(user, "OWNER") ) {
+        await doc.delete();
+        continue;
       }
-    }
-    if ( this.system.summons ) {
-      for ( const uuid of this.system.summons ) {
-        const token = await fromUuid(uuid);
-        if ( token ) await token.delete();
-      }
+      ui.notifications.warn(_loc("ACTIVE_EFFECT.WARNINGS.ReferenceNotDeleted", {name: doc.name}));
     }
   }
 
@@ -164,6 +199,18 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _onUpdate(changed, options, userId) {
+    await super._onUpdate(changed, options, userId);
+
+    // Delete any owned Token/Region no longer referenced after this update
+    const prior = this.#ownedReferences ?? new Set();
+    this.#ownedReferences = this.#collectOwnedReferences();
+    await this.#deleteOwnedReferences(prior.difference(this.#ownedReferences), userId);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Pre-create operation for ActiveEffects. Validates the proposed affix composition on the parent Item.
    * TODO: https://github.com/foundryvtt/foundryvtt/issues/14133 - consolidate to CrucibleItem.validateJoint
@@ -224,6 +271,14 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       ui.notifications.warn(err.message);
       return false;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onDelete(options, userId) {
+    await super._onDelete(options, userId);
+    await this.#deleteOwnedReferences(this.#ownedReferences, userId); // Delete every owned Token/Region
   }
 
   /* -------------------------------------------- */
