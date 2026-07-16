@@ -506,14 +506,32 @@ function enrichHazard([_match, terms, name]) {
 
   // Prepare label
   const hazardRank = _loc("HAZARD.Rank", {danger});
-  const label = name ? _loc("HAZARD.Parenthetical", {label: name, tags: hazardRank}) : hazardRank;
+  const parenthetical = name ? [hazardRank] : [];
+  const severeCfg = SYSTEM.ACTION.TAGS.severe;
+  if ( tags.includes("severe") && severeCfg?.label ) parenthetical.push(_loc(severeCfg.label));
+  let label = name || hazardRank;
+  const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "short", type: "unit"});
+  if ( parenthetical.length ) label = _loc("HAZARD.Parenthetical", {label, tags: listFormatter.format(parenthetical)});
+
   // Prepare tooltip
   const defenseLabel = _loc(SYSTEM.DEFENSES[defenseType]?.label);
   const resourceLabel = _loc(SYSTEM.RESOURCES[resource]?.label);
   const damageLabel = _loc(SYSTEM.DAMAGE_TYPES[damageType]?.label) || "";
-  const tooltip = restoration
+  let tooltip = restoration
     ? _loc("HAZARD.TooltipRestoration", {rank: hazardRank, defense: defenseLabel, resource: resourceLabel})
     : _loc("HAZARD.TooltipDamage", {rank: hazardRank, defense: defenseLabel, damage: damageLabel, resource: resourceLabel});
+
+  // Append any tags not already covered by the sentence above, so nothing is silently dropped
+  const structuralTags = new Set([defenseType, damageType, resource, "severe"].filter(Boolean));
+  const extraTooltips = [];
+  for ( const t of tags ) {
+    if ( structuralTags.has(t) ) continue;
+    const cfg = SYSTEM.ACTION.TAGS[t];
+    if ( cfg?.internal ) continue;
+    const tagLabel = cfg?.label ? _loc(cfg.label) : t;
+    extraTooltips.push(cfg?.tooltip ? `${tagLabel}: ${_loc(cfg.tooltip)}` : tagLabel);
+  }
+  if ( extraTooltips.length ) tooltip += ` (${extraTooltips.join(", ")})`;
 
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
