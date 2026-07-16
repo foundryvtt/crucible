@@ -1819,11 +1819,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   
  /** Resolve @ref[...] links against this action before copying the description to an effect, preserving source references if the effect's data changes later. */
   #resolveRefEnrichers(text) {
-    if ( !text ) return text;
-    return text.replace(/@ref\[([\w.]+)](?:{([^}]+)})?/g, (match, path, fallback) => {
-      const attr = foundry.utils.getProperty(this, path);
-      return attr ?? fallback ?? match;
-    });
+  const {pattern, enricher} = CONFIG.TextEditor.enrichers.find(e => e.id === "reference");
+  return text.replace(pattern, (...args) => enricher(args.slice(0, -2), {relativeTo: this}).textContent);
   }
 
   /* -------------------------------------------- */
