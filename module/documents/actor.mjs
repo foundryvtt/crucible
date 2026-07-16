@@ -1048,6 +1048,7 @@ export default class CrucibleActor extends Actor {
     await this.update(foundry.utils.mergeObject(actorUpdates, {"flags.crucible.delay": {
       round: game.combat.round,
       from: combatant.initiative,
+      fromTurn: combatant.turnNumber ?? 0,
       to: initiative
     }
     }));

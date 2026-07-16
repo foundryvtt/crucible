@@ -114,6 +114,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @override */
   async _onStartTurn(combatant, context) {
     await super._onStartTurn(combatant, context);
+
     // TODO forward turn events to the system subtype
     return combatant.actor.onStartTurn(context);
   }

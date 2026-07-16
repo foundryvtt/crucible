@@ -5,8 +5,7 @@ img: icons/magic/water/wave-water-explosion.webp
 system:
   description: >-
     <p>After you Delay your Turn, gain +2 Boons on any Strike or Spell attack
-    against an enemy that you allowed to act before you that Round.</p><p>TODO:
-    Needs automation. For now apply boons manually.</p>
+    against an enemy that you allowed to act before you that Round.</p>
   actions: []
   nodes:
     - wis1a
