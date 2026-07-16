@@ -506,14 +506,7 @@ function enrichHazard([_match, terms, name]) {
 
   // Prepare label
   const hazardRank = _loc("HAZARD.Rank", {danger});
-  const parenthetical = name ? [hazardRank] : [];
-  for ( const t of tags ) {
-    const cfg = SYSTEM.ACTION.TAGS[t];
-    if ( cfg && cfg.label && !cfg.internal ) parenthetical.push(_loc(cfg.label));
-  }
-  let label = name || hazardRank;
-  const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "short", type: "unit"});
-  if ( parenthetical.length ) label = _loc("HAZARD.Parenthetical", {label, tags: listFormatter.format(parenthetical)});
+  const label = name ? _loc("HAZARD.Parenthetical", {label: name, tags: hazardRank}) : hazardRank;
   // Prepare tooltip
   const defenseLabel = _loc(SYSTEM.DEFENSES[defenseType]?.label);
   const resourceLabel = _loc(SYSTEM.RESOURCES[resource]?.label);
