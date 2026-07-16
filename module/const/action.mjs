@@ -685,6 +685,7 @@ export const TAGS = {
     prepare() {
       // Capture the non-weapon cost before weapon cost is added, so candidate affordability can be measured against it
       this.usage.baseActionCost = this.cost.action;
+      this.usage.focusBlock.enraged = false; // Strikes may be made while enraged
 
       // Resolve a specific weapon when a choice is allowed. Honor explicit user selection as usage.weaponChoice.
       // Otherwise, pick the best available weapon for the current target.

@@ -40,6 +40,8 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {Record<string, DiceBoon>} banes  Banes applied to this action
  * @property {DiceCheckBonuses} bonuses     Roll bonuses applied to this action
  * @property {ActionContext} context        Action usage context
+ * @property {Record<string, string|false>} focusBlock  Per-action Focus block overrides, keyed by reason, which
+ *   supersede the actor's prepared availability. Provide a string localization key for a blocking reason, or false.
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
  * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
@@ -1028,6 +1030,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       boons: {},
       banes: {},
       context: {label: undefined, icon: undefined, tags: {}},
+      focusBlock: {},
       hasDice: false,
       isAttack: false,
       isMelee: false,
@@ -2489,14 +2492,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * The localization key naming why the acting actor cannot spend Focus on this action, or "" if they can. Reads the
-   * actor's derived Focus block reasons, waiving any this specific action exempts (Strikes may be made while enraged).
+   * Identify the first reason why focus expenditure is blocked, if any.
    * @returns {string}
    * @protected
    */
   _focusBlockReason() {
     const block = {...this.actor.resources.focus.block};
-    if ( this.tags.has("strike") ) block.enraged = "";
+    for ( const [reason, blocked] of Object.entries(this.usage.focusBlock) ) block[reason] = blocked || "";
     return Object.values(block).find(Boolean) ?? "";
   }
 

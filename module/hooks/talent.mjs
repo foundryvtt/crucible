@@ -218,6 +218,9 @@ HOOKS.battlefocus00000 = {
 /* -------------------------------------------- */
 
 HOOKS.berserker0000000 = {
+  prepareAction(_item, action) {
+    if ( !action.tags.has("spell") ) action.usage.focusBlock.enraged = false; // Berserkers spend Focus while enraged
+  },
   prepareAttack(_item, action, _target, rollData) {
     if ( !this.effects.has(SYSTEM.EFFECTS.getEffectId("berserkerRage")) ) return;
     if ( !action.tags.has("melee") ) return;

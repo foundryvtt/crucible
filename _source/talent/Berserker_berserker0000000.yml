@@ -4,7 +4,8 @@ img: icons/magic/unholy/silhouette-evil-horned-giant.webp
 system:
   description: >-
     <p>You revel in the thrill of combat, hurling yourself into the fray with
-    reckless abandon.</p>
+    reckless abandon.</p><p>While @Condition[enraged] you may still spend
+    <strong>Focus</strong> on any action which is not a spell.</p>
   actions:
     - id: berserkerRage
       name: Berserker Rage
