@@ -337,7 +337,7 @@
       "OneHandTooltip": "Ta akcja wymaga użycia broni jednoręcznej.",
       "Projectile": "Miotana",
       "ProjectileTooltip": "Ta akcja wymaga użycia broni miotającej.",
-      "Rallying": "Mobilizacji",
+      "Rallying": "Mobilizacja",
       "RallyingTooltip": "Ta akcja zapewnia przywrócenie poprzez sprawdzenie progu Obłędu sojusznika.",
       "Ranged": "Dystansowy",
       "RangedTooltip": "Wykonanie tej akcji wymaga użycia broni dystansowej.",
@@ -404,14 +404,14 @@
       "Self": "Na siebie"
     },
     "TARGET_TYPES": {
-      "Aura": "Aury",
-      "Blast": "Wybuchu",
-      "Cone": "Stożka",
-      "Fan": "Wachlarza",
+      "Aura": "Aura",
+      "Blast": "Wybuch",
+      "Cone": "Stożek",
+      "Fan": "Wachlarz",
       "Movement": "Ruch",
       "None": "Brak",
-      "Pulse": "Impulsu",
-      "Ray": "Promienia",
+      "Pulse": "Impuls",
+      "Ray": "Promień",
       "Self": "Na siebie",
       "Single": "Pojedynczy",
       "Summon": "Przywołany",
@@ -487,6 +487,8 @@
       "OncePerRound": "Akcję {action} można wykonać tylko raz na rundę.",
       "OncePerTurn": "Akcję {action} można wykonać tylko raz na turę.",
       "ReactionUnaware": "Nie możesz użyć reakcji, gdy jesteś Nieświadomy!",
+      "RequiresGesture": "Musisz znać gest wymagany dla tej akcji.",
+      "RequiresInflection": "Musisz znać fleksję wymaganą dla tej akcji.",
       "RequiresMelee": "Aby wykonać tę akcję, musisz mieć wyposażoną broń do walki wręcz.",
       "RequiresNatural": "Ta akcja wymaga użycia broni naturalnej.",
       "RequiresOffhand": "Aby wykonać tę akcję, musisz mieć wyposażoną broń w drugiej ręce.",
@@ -500,6 +502,7 @@
       "Silenced": "Nie możesz użyć tej akcji, gdy jesteś Wyciszony.",
       "TargetTooLarge": "Cel „{target}” jest zbyt duży dla {action}.",
       "UnimplementedTarget": "Automatyzacja dla typu celu {type} dla akcji {name} nie jest jeszcze obsługiwana, należy ręcznie wybrać odpowiednie tokeny.",
+      "WeaponDropped": "Twoja broń wypadła z rąk i musisz ją podnieść, aby wykonać tę akcję.",
       "WrongMovementToken": "Aby wykonać tę akcję, musisz przesunąć token."
     },
     "Action": "Akcja",
@@ -589,7 +592,7 @@
       "AlreadySwallowing": "Właśnie połknąłeś inną istotę."
     },
     "Throw": {
-      "NotGrappling": "Możesz rzucić tylko stworzeniem, którego przytrzymujesz."
+      "NotGrappling": "Możesz rzucić tylko stworzeniem, które przytrzymujesz."
     }
   },
   "ACTIVE_EFFECT": {
@@ -657,6 +660,9 @@
       "Suffocating": "Duszący",
       "Unaware": "Nieświadomy",
       "Weakened": "Osłabiony"
+    },
+    "WARNINGS": {
+      "ReferenceNotDeleted": "Planowano usunąć „{name}”, ale nie udało się tego zrobić automatycznie. W razie potrzeby usuń to ręcznie."
     }
   },
   "ACTOR": {
@@ -801,7 +807,7 @@
           "label": "Postęp",
           "milestones": {
             "element": {
-              "number.label": "Numer nagrody",
+              "number.label": "Liczba kamieni milowych",
               "reason.label": "Powód przyznania nagrody",
               "reason.placeholder": "Opcjonalny powód przyznania nagrody."
             },
@@ -828,7 +834,7 @@
         },
         "movement": {
           "air.label": "Prędkość w powietrzu",
-          "label": "Szybkość ruchu",
+          "label": "Prędkość ruchu",
           "land.label": "Prędkość na lądzie",
           "pace.label": "Tempo podróży",
           "water.label": "Prędkość w wodzie"
@@ -1207,17 +1213,17 @@
   "AWARD": {
     "LABELS": {
       "Award": "Nagroda",
-      "Revoke": "Odwołać"
+      "Revoke": "Wycofanie"
     },
     "MILESTONE": {
       "Award": "Nagroda za postępy w realizacji kamieni milowych ",
       "GroupAward": "Przyznano nagrodę {number} {label} grupie {name} oraz następującym członkom:",
-      "GroupRevoke": "Odwołano {number} {label} grupie {name} oraz następującym członkom:",
+      "GroupRevoke": "Cofnięto {number} {label} grupie {name} oraz następującym członkom:",
       "Identifier": "Identyfikator",
       "IdentifierHint": "Unikalny identyfikator nagrody za osiągnięcie kamienia milowego musi być slugiem (bez spacji i znaków specjalnych).",
       "Recipients": "Osoby, które osiągnęły kamień milowy",
       "RecipientsHint": "Wyznacz jednego lub więcej bohaterów, którzy otrzymają ten kamień milowy.",
-      "Revoke": "Odwołać kamienie milowe",
+      "Revoke": "Wycofanie kamieni milowych",
       "zero": "Kamieni milowych",
       "one": "Kamień milowy",
       "two": "Kamienie milowe",
@@ -1349,6 +1355,10 @@
         "cost": {
           "label": "Koszt utrzymania"
         },
+        "hands": {
+          "hint": "Liczba zajętych rąk w czasie trwania tego efektu, co ogranicza liczbę rąk wolnych do posługiwania się bronią i rzucania zaklęć.",
+          "label": "Zajęte ręce"
+        },
         "label": "Utrzymanie"
       },
       "regions": {
@@ -1411,7 +1421,7 @@
     },
     "PROPERTIES": {
       "Thrown": "Rzucana",
-      "ThrownTooltip":"Ten materiał eksploatacyjny jest przeznaczony do wyrzucenia."
+      "ThrownTooltip":"Ten materiał eksploatacyjny jest przeznaczony do rzucenia."
     },
     "SCROLL": {
       "ComponentBudget": "Ten zwój może zapewnić do {budget} magicznych komponentów. Wybierz, jakie składniki zapewnia ten zwój.",
@@ -1498,7 +1508,7 @@
     "Corruption": "Zepsucia",
     "Damage": "Obrażenia",
     "Electricity": "Elektryczność",
-    "Elemental": "Żywiołak",
+    "Elemental": "Żywiołowe",
     "Fire": "Ogień",
     "Physical": "Fizyczne",
     "Piercing": "Kłutych obr.",
@@ -1523,7 +1533,7 @@
     "Dodge": "Unik",
     "Fortitude": "Wytrwałość",
     "Madness": "Próg mobilizacji",
-    "MadnessShort": "Mobilizacji",
+    "MadnessShort": "Mobilizacja",
     "Parry": "Parowanie",
     "Physical": "Fizyczne",
     "Reflex": "Refleks",
@@ -1692,7 +1702,7 @@
       "Recover": "Odzyskaj {typeLabel}",
       "RecoverAllContent": "Podnieść wszystkie przedmioty upuszczone przez {actor}?",
       "RecoverAllTitle": "Odzyskaj upuszczone przedmioty",
-      "RecoverDetail": "Odzyskaj upuszczony {item}",
+      "RecoverDetail": "Odzyskaj upuszczony przedmiot: {item}",
       "UnEquip": "Zdejmij wyposażenie {typeLabel}",
       "UnEquipDetail": "Zdjęto {item}"
     },
@@ -1762,7 +1772,7 @@
       "NotKnown": "Nieznane",
       "Parry": "Parowanie {parry}",
       "Range": "Zasięg {range}",
-      "Stackable": "Grupowalna",
+      "Stackable": "Grupowalny",
       "Unequipped": "Nie wyposażony",
       "Unique": "Unikalny"
     },
@@ -1828,11 +1838,11 @@
     "EnchantmentMajor": "Znaczące",
     "EnchantmentMinor": "Niewielkie",
     "EnchantmentMundane": "Przeciętne",
-    "QualityFine": "Dobra",
-    "QualityMasterwork": "Mistrzowska",
-    "QualityShoddy": "Tandetna",
-    "QualityStandard": "Standardowa",
-    "QualitySuperior": "Wybitna",
+    "QualityFine": "Dobry",
+    "QualityMasterwork": "Mistrzowski",
+    "QualityShoddy": "Tandetny",
+    "QualityStandard": "Standardowy",
+    "QualitySuperior": "Wybitny",
     "QuantityNone": "Brak"
   },
   "KEYBINDINGS": {
@@ -2232,25 +2242,25 @@
     },
     "INFLECTIONS": {
       "Compose": "Kompozycja",
-      "ComposeAdj": "Skomponowany",
+      "ComposeAdj": "Skomponowane",
       "Determine": "Determinacja",
-      "DetermineAdj": "Zdeterminowany",
+      "DetermineAdj": "Zdeterminowane",
       "Elude": "Unikanie",
-      "EludeAdj": "Uciekający",
+      "EludeAdj": "Omijające",
       "Extend": "Rozszerzanie",
-      "ExtendAdj": "Rozszerzony",
+      "ExtendAdj": "Rozszerzające",
       "Negate": "Negacja",
-      "NegateAdj": "Zaprzeczający",
+      "NegateAdj": "Zaprzeczające",
       "Pull": "Przyciąganie",
-      "PullAdj": "Przyciągający",
+      "PullAdj": "Przyciągające",
       "Push": "Pchnięcie",
-      "PushAdj": "Odpychający",
+      "PushAdj": "Odpychające",
       "Quicken": "Przyspieszanie",
-      "QuickenAdj": "Przyspieszający",
+      "QuickenAdj": "Przyspieszające",
       "React": "Reagowanie",
-      "ReactAdj": "Reaktywny",
+      "ReactAdj": "Reaktywne",
       "Reshape": "Przekształcanie",
-      "ReshapeAdj": "Przekształcony"
+      "ReshapeAdj": "Przekształcające"
     },
     "NAMES": {
       "CurseConductivity": "Klątwa przewodzenia",
@@ -2319,8 +2329,8 @@
     "DamageType": "Typ obrażeń",
     "Iconic": "Zaklęcie ikoniczne",
     "IconicPl": "Zaklęcia ikoniczne",
-    "NameFormatAdj": "{rune} {gesture}",
-    "NameFormatNoun": "{gesture} z runą {rune}"
+    "NameFormatAdj": "Zaklęcie {rune} {gesture}",
+    "NameFormatNoun": "Zaklęcie {gesture} z runą {rune}"
   },
   "TALENT": {
     "ACTIONS": {
@@ -2413,7 +2423,7 @@
       "Melee": "Walka wręcz",
       "Move": "Ruch",
       "Origin": "Geneza",
-      "Ranged": "Dystansowy",
+      "Ranged": "Dystansowe",
       "Signature": "Popisowe",
       "Skill": "Umiejętność",
       "Spell": "Czaroznastwo",
@@ -2539,7 +2549,7 @@
     }
   },
   "TEMPERATURE_TIERS": {
-    "Boiling": "Upalny",
+    "Boiling": "Gorący",
     "Warm": "Ciepły",
     "Neutral": "Neutralny",
     "Cool": "Chłodny",
@@ -2763,9 +2773,9 @@
       "ReturningTooltip": "Ta broń została zaprojektowana w sposób magiczny lub mechaniczny tak, aby po rzuceniu powróciła do ręki użytkownika. Wykorzystanie akcji Rzucenie bronią z tą bronią nie powoduje jej Upuszczenia.",
       "Thrown": "Rzucana",
       "ThrownTooltip": "Broń ta została zaprojektowana tak, aby nadawała się do rzucania i nie podlega karze Zgub, która zazwyczaj jest nakładana na akcję rzucania bronią.",
-      "UntrainedTooltip": "Twoja postać nie posiada {training} w posługiwaniu się tą bronią i otrzymuje karę -4 do umiejętności podczas ataku tą bronią.",
+      "UntrainedTooltip": "Twoja postać nie posiada treningu w posługiwaniu się bronią typu {training} i otrzymuje karę -4 do umiejętności podczas ataku tą bronią.",
       "Versatile": "Wszechstronna",
-      "VersatileTooltip": "Broń tę można dzierżyć jedną lub dwiema rękami i przełączać się między tymi trybami bez ponoszenia kosztów Punktów Akcji. Podczas dzierżenia broni dwiema rękami zyskuje ona dodatkowe +2 do podstawowych obrażeń, ale uderzenie kosztuje 1 dodatkowy Punkt Akcji."
+      "VersatileTooltip": "Broń tę można dzierżyć zarówno jedną, jak i dwiema rękami, przełączając się między sposobami trzymania bez ponoszenia kosztu punktów akcji. W alternatywnym uchwycie działa ona jak broń tego samego rodzaju: broń jednoręczna staje się większą bronią dwuręczną, a broń dwuręczna – mniejszą bronią jednoręczną."
     }
   }
 }
