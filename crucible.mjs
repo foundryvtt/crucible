@@ -806,6 +806,25 @@ Hooks.on("getSceneControlButtons", controls => {
 Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTracker);
 
 /* -------------------------------------------- */
+/*  grappling solution                          */
+/* -------------------------------------------- */
+Hooks.on("deleteActor", async actor => {
+  if ( !game.user.isActiveGM ) return;
+  const grapple = crucible.api.hooks.action.grapple;
+  const pairs = {
+    [grapple._GRAPPLED_EFFECT_ID]: grapple._GRAPPLING_EFFECT_ID,
+    [grapple._GRAPPLING_EFFECT_ID]: grapple._GRAPPLED_EFFECT_ID
+  };
+  for ( const [ownId, partnerId] of Object.entries(pairs) ) {
+    const effect = actor.effects.get(ownId);
+    if ( !effect?.origin ) continue;
+    const partner = await fromUuid(effect.origin);
+    const partnerEffect = partner?.effects?.get(partnerId);
+    if ( partnerEffect ) await partnerEffect.delete();
+  }
+ });
+
+/* -------------------------------------------- */
 /*  Canvas Hooks                                */
 /* -------------------------------------------- */
 

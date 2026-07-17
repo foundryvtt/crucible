@@ -115,6 +115,21 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       }
       ui.notifications.warn(_loc("ACTIVE_EFFECT.WARNINGS.ReferenceNotDeleted", {name: doc.name}));
     }
+    await this.#endGrapplePair();
+  }
+
+
+  async #endGrapplePair() {
+    const grapple = crucible.api?.hooks?.action?.grapple;
+    if ( !grapple ) return;
+    const partnerId = {
+      [grapple._GRAPPLED_EFFECT_ID]: grapple._GRAPPLING_EFFECT_ID,
+      [grapple._GRAPPLING_EFFECT_ID]: grapple._GRAPPLED_EFFECT_ID
+    }[this.id];
+    if ( !partnerId || !this.origin ) return;
+    const partner = await fromUuid(this.origin);
+    const partnerEffect = partner?.effects?.get(partnerId);
+    if ( partnerEffect ) await partnerEffect.delete();
   }
 
   /* -------------------------------------------- */

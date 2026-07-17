@@ -2,7 +2,7 @@
  * Active Effect subtype containing crucible-specific system schema.
  */
 export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectTypeDataModel {
-
+static AUTO_DC = -1;
   /** @inheritDoc */
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -32,8 +32,11 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
 
   /** @override */
   prepareBaseData() {
-    // An effect with no removal DC cannot be removed; represent that as an infinite difficulty
     if ( this.dc === null ) this.dc = Infinity;
+    else if ( this.dc === CrucibleBaseActiveEffect.AUTO_DC ) {
+        const actor = this.parent?.parent;
+        this.dc = SYSTEM.PASSIVE_BASE + (actor?.system.advancement?.level ?? 0);
+      }
   }
 
   /* -------------------------------------------- */

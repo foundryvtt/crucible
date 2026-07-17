@@ -24,4 +24,6 @@
                 value=effect.duration.units options=effectDurations}}
     {{formGroup fields.duration.fields.expiry name=(concat effect.fieldPath ".duration.expiry")
                 value=effect.duration.expiry options=effectExpiryEvents}}
+    {{formGroup fields.system.fields.dc name=(concat effect.fieldPath ".system.dc") value=effect.system.dc
+                classes="slim" placeholder="∞"}}
 </fieldset>

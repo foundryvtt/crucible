@@ -34,11 +34,9 @@ system:
             all: false
           statuses:
             - restrained
-          duration:
-            value: 1
-            units: rounds
-            expiry: turnStart
+          duration: {}
           system:
+            dc: -1
             dot: []
             maintenance: null
             regions: []
@@ -51,11 +49,9 @@ system:
             all: false
           statuses:
             - restrained
-          duration:
-            value: 1
-            units: rounds
-            expiry: turnStart
+          duration: {}
           system:
+            dc: -1
             dot: []
             maintenance: null
             regions: []
