@@ -1488,6 +1488,24 @@ export const DEFAULT_ACTIONS = Object.freeze([
     autoFavorite: true
   },
 
+  // Open/Close Door
+  {
+    id: "openDoor",
+    name: "ACTION.DEFAULT_ACTIONS.OpenDoor.Name",
+    img: "icons/environment/wilderness/cave-entrance.webp",
+    description: "ACTION.DEFAULT_ACTIONS.OpenDoor.Description",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    cost: {
+      action: 1
+    },
+    tags: ["harmless"],
+    autoFavorite: true
+  },
+
   // Reactive Strike
   {
     id: "reactiveStrike",

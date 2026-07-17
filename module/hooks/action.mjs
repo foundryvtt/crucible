@@ -1,3 +1,5 @@
+import {requestDoorToggle} from "../socket.mjs";
+
 const HOOKS = {};
 
 /* -------------------------------------------- */
@@ -1542,6 +1544,110 @@ HOOKS.omniglotDecoction = {
   preActivate() {
     const minutes = {shoddy: 10, standard: 60, fine: 240, superior: 720, masterwork: 1440}[this.item.system.quality];
     if ( this.effects[0] ) this.effects[0].duration.value = minutes;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.openDoor = {
+  suppressFromSheet: true,
+  _MAX_RANGE: 5, // grid units of reach from the actor's token to a door
+
+  /**
+   * Is a given door wall within the actor's reach? On a scene using Scene Levels, a door is only considered if
+   * it's actually on the token's current level - matching the same "empty membership means unrestricted"
+   * convention Region documents use elsewhere in this codebase (see CrucibleTokenDocument##findRestingLevel) - so
+   * a door stacked on a different floor can't be mistaken for one the actor can actually reach. Shared by both the
+   * automatic nearest-door search and an explicitly-targeted wall (see #_resolveDoor), so a canvas click on a door
+   * that's out of reach is rejected the same way an out-of-range door is excluded from the automatic search.
+   * @param {CrucibleActor} actor
+   * @param {Wall} wall
+   * @returns {boolean}
+   */
+  _isReachable(actor, wall) {
+    const token = actor.getActiveTokens(true, false)[0]; // canvas placeable, not the document, for .center
+    if ( !token || !canvas.ready ) return false;
+    const tokenLevel = token.document._source.level;
+    if ( wall.document.levels?.size && !wall.document.levels.has(tokenLevel) ) return false; // wrong floor
+    const [mx, my] = wall.midpoint;
+    const {distance} = canvas.grid.measurePath([token.center, {x: mx, y: my}]);
+    return distance <= HOOKS.openDoor._MAX_RANGE;
+  },
+
+  /**
+   * The nearest door wall within reach of the actor's token, or null if none qualifies.
+   * @param {CrucibleActor} actor
+   * @returns {Wall|null}
+   */
+  _nearestDoor(actor) {
+    const token = actor.getActiveTokens(true, false)[0]; // canvas placeable, not the document, for .center
+    if ( !token || !canvas.ready ) return null;
+    let nearest = null;
+    let nearestDistance = Infinity;
+    for ( const wall of canvas.walls.placeables ) {
+      if ( !wall.document.isDoor ) continue;
+      if ( !HOOKS.openDoor._isReachable(actor, wall) ) continue;
+      const [mx, my] = wall.midpoint;
+      const {distance} = canvas.grid.measurePath([token.center, {x: mx, y: my}]);
+      if ( distance < nearestDistance ) {
+        nearest = wall;
+        nearestDistance = distance;
+      }
+    }
+    return nearest;
+  },
+
+  /**
+   * Resolve the door wall this use of the Action targets.
+   *
+   * A caller may pre-target a specific wall - e.g. a door clicked directly on the canvas - by passing
+   * `usage: {forcedDoorWallId: wall.id}` to {@link CrucibleActor#useAction}/{@link CrucibleAction#use}. That value
+   * is deliberately kept separate from `usage.doorWallId`: the latter is a *derived* field this method overwrites
+   * on every `prepare()` call, so it can't double as a one-shot signal without being indistinguishable from a
+   * stale result left over from a previous, unrelated preparation of the same (actor-shared) Action instance.
+   * `forcedDoorWallId` exists only to be consumed here - it's deleted as soon as it's read, whether or not it
+   * resolves to a usable door, so it never leaks into a later automatic preparation.
+   * @param {CrucibleAction} action
+   * @returns {Wall|null}
+   */
+  _resolveDoor(action) {
+    const forcedId = action.usage.forcedDoorWallId;
+    if ( forcedId !== undefined ) delete action.usage.forcedDoorWallId;
+    if ( forcedId ) {
+      const wall = canvas.walls?.get(forcedId);
+      // The explicitly targeted door may no longer exist or be out of reach - don't silently substitute whatever
+      // door happens to be nearest, since that isn't the door the player clicked.
+      if ( wall?.document.isDoor && HOOKS.openDoor._isReachable(action.actor, wall) ) return wall;
+      return null;
+    }
+    return HOOKS.openDoor._nearestDoor(action.actor);
+  },
+
+  prepare() {
+    const door = HOOKS.openDoor._resolveDoor(this);
+    this.usage.doorWallId = door?.id ?? null;
+    // Doors only draw from the Action economy in combat, matching the "doorActionCost" world setting
+    const charges = game.settings.get("crucible", "doorActionCost") && this.actor.inCombat;
+    this.cost.action = charges ? 1 : 0;
+  },
+
+  canUse() {
+    if ( !this.usage.doorWallId ) return false; // no door within reach - stay hidden from the sheet entirely
+    const door = canvas.walls.get(this.usage.doorWallId);
+    if ( !door || (door.document.ds === CONST.WALL_DOOR_STATES.LOCKED) ) return false;
+    if ( this.actor.inCombat && (game.combat?.combatant?.actor !== this.actor) ) {
+      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.OPEN_DOOR.WrongTurn"));
+    }
+  },
+
+  // Open/Closed is a binary toggle, so applying it twice is its own inverse - the same logic serves both the
+  // initial confirm and the chat card's reverse/undo, which is also where the Action cost gets refunded
+  // automatically via the normal event-reversal pipeline in #applyEvents. The actual toggle is serialized through
+  // the active GM's client (see requestDoorToggle/socket.mjs) so two actors toggling the same door at nearly the
+  // same instant can't race each other's stale reads of the door's current state.
+  async confirm() {
+    if ( !this.usage.doorWallId ) return;
+    await requestDoorToggle(this.usage.doorWallId);
   }
 };
 

@@ -369,6 +369,10 @@ class CrucibleActionEvent {
  * @property {CrucibleToken} [token]  A specific Token which is performing the action
  * @property {boolean} [dialog]             Present the user with an action configuration dialog?
  * @property {string} [messageMode]         Which message visibility mode to apply to the resulting message?
+ * @property {Partial<ActionUsage>} [usage] One-shot usage overrides merged onto the Action before it is cloned and
+ *                                          prepared, e.g. to pre-target a specific door wall that was clicked
+ *                                          directly on the canvas rather than letting the Action guess one. See
+ *                                          {@link CrucibleAction#use} for how this interacts with `prepare()`.
  */
 
 
@@ -1312,15 +1316,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * The action is cloned so that its data may be transformed throughout the workflow.
    * @param {CrucibleActionUsageOptions} [options]    Options which modify action usage
    * @param {TokenDocument} [options.token]           A specific token performing the action
+   * @param {Partial<ActionUsage>} [options.usage]    One-shot usage overrides applied before (re-)preparation
    * @returns {Promise<CrucibleAction|undefined>}
    */
-  async use({token, ...options}={}) {
+  async use({token, usage, ...options}={}) {
     if ( !this._prepared ) throw new Error("A CrucibleAction must be prepared for an Actor before it can be used.");
 
     // Redirect to spellcasting
     if ( this.id === "cast" ) {
       const spell = crucible.api.models.CrucibleSpellAction.getDefault(this.actor);
-      return spell.use({token, ...options});
+      return spell.use({token, usage, ...options});
     }
 
     // Infer the Token performing the Action
@@ -1332,6 +1337,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         throw new Error(`Multiple tokens controlled for Actor "${this.actor.name}"`);
       }
     }
+
+    // Seed any one-shot usage overrides onto this bound Action *before* cloning. #clone passes this.usage to the
+    // clone's construction context by reference (see #clone), and the clone re-runs prepare() synchronously as
+    // part of that construction - so anything merged in here is visible to the Action's own prepare() hook before
+    // it would otherwise compute a default (e.g. HOOKS.openDoor guessing the nearest door). Individual hooks are
+    // responsible for consuming and clearing any one-shot keys they read, so a value passed for this single use()
+    // call doesn't linger on the shared usage object and leak into a later, unrelated preparation.
+    if ( usage ) foundry.utils.mergeObject(this.usage, usage, {inplace: true});
 
     // Use a clone of the Action
     const action = this.clone({}, {parent: this.parent, actor: this.actor, token});

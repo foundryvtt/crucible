@@ -18,7 +18,6 @@ import * as models from "./module/models/_module.mjs";
 import * as audio from "./module/audio.mjs";
 import * as hooks from "./module/hooks/_module.mjs";
 import {applyEmberPatches} from "./module/hooks/ember.mjs";
-import "./module/hooks/door.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -851,6 +850,27 @@ Hooks.on("canvasTearDown", () => {
   CONFIG.Canvas.polygonBackends.move = foundry.canvas.geometry.ClockwiseSweepPolygon;
 });
 
+
+/* -------------------------------------------- */
+
+/**
+ * Door open/close cost, refund, actor, and turn handling live entirely on the "openDoor" CrucibleAction (see
+ * module/hooks/action.mjs), which resolves the acting actor, checks turn order, and applies its Action cost
+ * atomically alongside the wall update. A normal left-click on the door icon is already routed into that Action
+ * by CrucibleDoorControl (see module/canvas/door-control.mjs), so this hook doesn't need to handle the common
+ * case - it's the backstop that stops a raw wall update from reaching the door state some other way (e.g. a
+ * macro, another module, or a stray API call) while the cost setting is active in combat. GMs are exempt.
+ */
+Hooks.on("preUpdateWall", (wall, changes, options, userId) => {
+  if ( options.crucibleAction ) return;                    // came from the openDoor action itself - let it through
+  if ( !("ds" in changes) ) return;                        // not a door-state change, ignore
+  if ( game.user.isGM ) return;                             // GMs may freely toggle doors
+  if ( !game.settings.get("crucible", "doorActionCost") ) return;
+  if ( !game.combat?.started ) return;                      // combat only
+
+  ui.notifications.warn(game.i18n.localize("WARNING.DoorUseAction"));
+  return false;
+});
 
 /* -------------------------------------------- */
 
