@@ -192,10 +192,12 @@ Hooks.once("init", async function() {
 
   // Region Behavior document configuration
   Object.assign(CONFIG.RegionBehavior.dataModels, {
-    "crucible.hazard": models.CrucibleHazardRegionBehavior
+    "crucible.hazard": models.CrucibleHazardRegionBehavior,
+    "crucible.action": models.CrucibleActionRegionBehavior
   });
   Object.assign(CONFIG.RegionBehavior.typeIcons, {
-    "crucible.hazard": "fa-solid fa-triangle-exclamation"
+    "crucible.hazard": "fa-solid fa-triangle-exclamation",
+    "crucible.action": "fa-solid fa-burst"
   });
 
   // Configure dynamic constants
@@ -252,6 +254,14 @@ Hooks.once("init", async function() {
   sheets.registerSheet(ActiveEffect, "crucible", applications.CrucibleActiveEffectSheet, {types: ["base"], label: "CRUCIBLE.SHEETS.Effect", makeDefault: true});
 
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
+
+  sheets.unregisterSheet(RegionBehavior, "core", foundry.applications.sheets.RegionBehaviorConfig, {
+    types: ["crucible.action"]
+  });
+  sheets.registerSheet(RegionBehavior, "crucible", applications.CrucibleActionBehaviorConfig, {
+    types: ["crucible.action"],
+    label: "CRUCIBLE.SHEETS.Action"
+  });
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;

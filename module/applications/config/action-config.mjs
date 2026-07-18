@@ -29,6 +29,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     actions: {
       addEffect: CrucibleActionConfig.#onAddEffect,
       deleteEffect: CrucibleActionConfig.#onDeleteEffect,
+      editRegionBehavior: CrucibleActionConfig.#onEditRegionBehavior,
       hookToggleSource: CrucibleActionConfig.#onHookToggleSource
     },
     form: {
@@ -126,6 +127,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
       fields: this.action.constructor.schema.fields,
+      hasRegionBehavior: this.action.hasPersistentRegion,
       headerTags: this.action.tags.reduce((acc, tagId) => {
         const tag = SYSTEM.ACTION.TAGS[tagId];
         if ( !tag.internal ) acc[tagId] = tag;
@@ -295,6 +297,45 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     fieldset.remove();
     const submit = new SubmitEvent("submit", {cancelable: true});
     this.element.dispatchEvent(submit);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Open a Region Behavior Config window to pre-configure a region behavior.
+   * @this {CrucibleActionConfig}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   * @returns {Promise<void>}
+   */
+  static async #onEditRegionBehavior(_event, _target) {
+    const behaviorData = foundry.utils.deepClone(this.action.regionBehavior) ?? {
+      name: this.action.name,
+      system: {
+        action: {
+          id: `${this.action.id}Region`,
+          name: this.action.name,
+          img: this.action.img,
+          description: this.action.description,
+          effects: [],
+          tags: []
+        }
+      }
+    };
+    foundry.utils.mergeObject(behaviorData, {
+      type: "crucible.action",
+      flags: {
+        crucible: {
+          itemUuid: this.document.uuid,
+          actionId: this.action.id
+        }
+      },
+      system: {
+        actor: this.action.actor?.uuid
+      }
+    });
+    const tempBehavior = new RegionBehavior.implementation(behaviorData);
+    tempBehavior.sheet.render(true);
   }
 
   /* -------------------------------------------- */

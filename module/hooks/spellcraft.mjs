@@ -63,6 +63,18 @@ HOOKS.aspect = {
 HOOKS.aura = {
   initialize() {
     this.tags.add("maintained");
+  },
+  prepare() {
+    this.usage.hasDice = false;
+
+    // TODO: Appropriate tag(s) which will always cause region to have dice & roll
+    const tags = [...this.scaling, "generic"];
+    if ( this.rune.restoration ) {
+      tags.push((this.rune.resource === "health") ? "healing" : "rallying");
+    } else {
+      tags.push(this.rune.resource, this.rune.defense, this.rune.damageType);
+    }
+    this.regionBehavior.system.action.tags = tags;
   }
 };
 
@@ -144,6 +156,7 @@ HOOKS.sense = {
   prepare() {
     this.usage.hasDice = false;
     this.usage.region.wallRestriction = false;
+    this.regionBehavior.system.events = [];
   },
   postActivate() {
     this.recordEvent({type: "effect", effects: [{
