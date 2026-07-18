@@ -376,7 +376,7 @@ export default class CrucibleActor extends Actor {
    */
   _configureAttackerRollData(action, rollData) {
     const {boons, banes} = rollData;
-    const {isAttack=false} = action.usage;
+    const {isAttack=false, isRanged=false} = action.usage;
     const statuses = CONFIG.statusEffects;
 
     // Global conditions
@@ -387,6 +387,9 @@ export default class CrucibleActor extends Actor {
       if ( this.statuses.has("blinded") ) banes.blind = {label: statuses.blinded.name, number: 2};
       if ( this.statuses.has("prone") ) banes.prone = {label: statuses.prone.name, number: 1};
       if ( this.statuses.has("restrained") ) banes.restrained = {label: statuses.restrained.name, number: 2};
+      if ( this.statuses.has("invisible") && !isRanged ) {
+        boons.invisible = {label: statuses.invisible.name, number: 1, hidden: true};
+      }
     }
 
     // Temporary boons and banes stored as Actor rollBonuses

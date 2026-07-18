@@ -602,9 +602,11 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     engagement.allyBonus = 0;
 
     // Count flankers; an adversary's flankingStrength lets it count as more than one
+    // Invisible enemies do not contribute to flanking - their advantage is a personal, secret boon instead
     let flankers = 0;
     for ( const enemy of engagement.enemies ) {
       const {isBroken, isIncapacitated} = enemy.actor.system;
+      if ( enemy.actor.statuses.has("invisible") ) continue;
       if ( !(isBroken || isIncapacitated) ) flankers += enemy.actor.system.movement?.flankingStrength ?? 1;
     }
     engagement.flankers = flankers;
@@ -613,6 +615,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     for ( const ally of engagement.allies ) {
       const {isBroken, isIncapacitated} = ally.actor.system;
       if ( isBroken || isIncapacitated ) continue;
+      if ( ally.actor.statuses.has("invisible") ) continue;
       const mutual = ally.engagement.enemies.intersection(engagement.enemies);
       if ( !mutual.size ) continue;
       const allyEngage = ally?.actor.system.movement.engagement ?? 1;
