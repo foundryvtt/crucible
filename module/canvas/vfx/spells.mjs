@@ -30,8 +30,9 @@ import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-co
  * @property {string[]} ground       Background debris residue settling underfoot (marks, cracks).
  * @property {string[]} impact       Impact burst textures for singleImpact components.
  * @property {string[]} projectile   Side-view directional sprites for x/y travel (e.g., arrow shafts).
+ * @property {string[]} root         Ground-laid directional textures growing outward from an origin (roots, fissures).
  * @property {string[]} spray        Small mote textures for scatter and halo generators.
- * @property {string[]} streak       Elongated directional textures for beam/ray generators.
+ * @property {string[]} streak       Mid-air directional textures for beam/ray generators.
  */
 
 /**
@@ -904,6 +905,7 @@ function resolveSpellVFXContext(action) {
       ground: getVFXTexturePaths(runeId, "ground"),
       impact: getVFXTexturePaths(runeId, "impact"),
       projectile: getVFXTexturePaths(runeId, "projectile"),
+      root: getVFXTexturePaths(runeId, "root"),
       spray: getVFXTexturePaths(runeId, "spray"),
       streak: getVFXTexturePaths(runeId, "streak")
     }
@@ -926,7 +928,8 @@ function resolveSpellVFXContext(action) {
  * @param {number} ctx.casterElevation
  * @param {number} [ctx.particleElevation]  Defaults to casterElevation when omitted.
  * @param {object} opts
- * @param {string} [opts.anchor]  Layer anchor override (defaults to runeProps.chargeAnchor ?? "origin").
+ * @param {string} [opts.anchor]  Default layer anchor (defaults to runeProps.chargeAnchor ?? "origin"); an
+ *                                individual layer's own `anchor` field wins over it.
  * @param {number} opts.duration  Emission duration (ms) for each layer.
  * @returns {object[]}
  */
@@ -934,26 +937,28 @@ function _resolveChargeLayers(runeProps, ctx, {anchor, duration}) {
   const {runeId, textures, casterRadiusPx, casterElevation, particleElevation = casterElevation} = ctx;
   const behavior = runeProps.chargeBehavior ?? "circleParticleGather";
   const a = anchor ?? runeProps.chargeAnchor ?? "origin";
-  const elevationFor = above => above ? (casterElevation + 1)
-    : (((a === "source") || (a === "forward")) ? casterElevation : particleElevation);
+  const elevationFor = (above, anch) => above ? (casterElevation + 1)
+    : (((anch === "source") || (anch === "forward")) ? casterElevation : particleElevation);
   if ( runeProps.chargeLayers ) {
     return runeProps.chargeLayers.map(layer => {
       const layerTextures = layer.frames ? getVFXFrames(runeId, ...layer.frames)
         : layer.categories.flatMap(c => textures[c]);
       const rad = casterRadiusPx * (layer.radiusFactor ?? 2.0);
+      const layerAnchor = layer.anchor ?? a;
       return {
         animation: layer.animation ?? behavior,
-        anchor: a, textures: layerTextures,
+        anchor: layerAnchor, textures: layerTextures,
         offset: layer.offset ?? 0,
         duration: layer.duration ?? duration,
-        params: {chargeRadius: rad, radius: rad, elevation: elevationFor(layer.above), ...layer.params}
+        params: {chargeRadius: rad, radius: rad, elevation: elevationFor(layer.above, layerAnchor),
+          ...layer.params}
       };
     });
   }
   return [{
     animation: behavior, anchor: a, textures: textures.spray, duration,
     params: {chargeRadius: casterRadiusPx * 2.0, lifetime: 350, spawnRate: 480,
-      elevation: elevationFor(runeProps.chargeAbove), ...runeProps.sprayParams}
+      elevation: elevationFor(runeProps.chargeAbove, a), ...runeProps.sprayParams}
   }];
 }
 
@@ -1209,6 +1214,31 @@ const _CHARGE_LIFE_BLOOMS = {
   ]
 };
 
+// Reusable orbit charge-up for Death spells: the caster tears bone from the ground and holds the fragments
+// in a wobbling ring at a fixed radius, under a slow overhead swirl of spectral bone.
+const _CHARGE_DEATH_ORBIT = {
+  chargeBehavior: "circleParticleOrbit", chargeAnchor: "source",
+  sustainedChargeAnchor: "source",
+  chargeLayers: [
+    {frames: ["GroundBonesDense"], above: false, animation: "circleParticleBloom", radiusFactor: 1.9,
+      params: {growFraction: 0.4, spawnRate: 4.5, lifetime: {min: 1200, max: 2200},
+        alpha: {min: 0.55, max: 0.9}, scale: {min: 0.8, max: 1.4},
+        fade: {in: 0.15, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL, sort: 0}},
+    {frames: ["SprayBone"], above: true, radiusFactor: 1.6,
+      params: {orbitSpeed: 2.2, spinSpeed: 3, radiusJitter: 0.12,
+        wobbleAmplitude: 0.07, wobbleSpeed: 2.2, speedJitter: 0.15,
+        spawnRate: 60, lifetime: {min: 1200, max: 1800},
+        alpha: {min: 0.75, max: 1.0}, scale: {min: 0.5, max: 0.9},
+        fade: {in: 0.12, out: 0.3}, blend: PIXI.BLEND_MODES.NORMAL}},
+    {frames: ["AirBonesSwirling"], above: true, radiusFactor: 1.2,
+      params: {orbitSpeed: 1.1, spinSpeed: 2.6, radiusJitter: 0.2,
+        wobbleAmplitude: 0.1, wobbleSpeed: 1.4, speedJitter: 0.2,
+        spawnRate: 5, lifetime: {min: 1800, max: 2800},
+        alpha: {min: 0.08, max: 0.20}, scale: {min: 1.2, max: 2.0},
+        fade: {in: 0.2, out: 0.45}, blend: PIXI.BLEND_MODES.ADD}}
+  ]
+};
+
 // Reusable impact treatment for Frost spells
 const _IMPACT_FROST = {
   impactParticles: {
@@ -1225,6 +1255,39 @@ const _IMPACT_FLAME = {
     params: {count: 24, speed: {min: 50, max: 150}, lifetime: {min: 400, max: 800},
       alpha: {min: 0.4, max: 0.9}, scale: {min: 0.4, max: 0.9}}
   }
+};
+
+// Reusable impact treatment for Death spells: particle-driven rather than leaning on the rune's single impact
+// sprite, with bone shrapnel, dissipating wisps, and spikes erupting at the target's feet.
+const _IMPACT_DEATH = {
+  impactSpriteSize: 2,
+  impactParticles: [
+    {
+      frames: ["SprayBone"],
+      params: {count: 20, speed: {min: 60, max: 200}, lifetime: {min: 500, max: 900},
+        alpha: {min: 0.5, max: 1.0}, scale: {min: 0.5, max: 1.0},
+        rotationSpread: Math.PI, blend: PIXI.BLEND_MODES.NORMAL}
+    },
+    {
+      frames: ["SprayWisps"],
+      params: {count: 24, speed: {min: 40, max: 140}, lifetime: {min: 600, max: 1100},
+        alpha: {min: 0.4, max: 0.85}, scale: {min: 0.4, max: 0.9},
+        fade: {in: 0.05, out: 0.5}, blend: PIXI.BLEND_MODES.ADD}
+    },
+    {
+      animation: "circleParticleBloom",
+      frames: ["GroundBoneSpikes"],
+      radiusFactor: 0.3,
+      duration: 400,
+      params: {count: 3, initial: 3, spawnRate: 0,
+        lifetime: {min: 2500, max: 4000},
+        scale: {min: 0.8, max: 1.4}, growFraction: 0.35,
+        alpha: {min: 0.7, max: 1.0},
+        fade: {in: 0.1, out: 0.5},
+        blend: PIXI.BLEND_MODES.NORMAL,
+        elevation: 0}
+    }
+  ]
 };
 
 // Reusable impact treatment for Life spells: soft restorative arrival (no recoil/burst) + glow +
@@ -1307,6 +1370,31 @@ const ARROW_VFX_PROPS = {
   // Arrow+Frost
   frost: {..._CHARGE_FROST_ICICLES, ..._IMPACT_FROST, stickDuration: 1500, projectileSize: 2, trail: true},
 
+  // Arrow+Death: bones surface around the caster, stream forward, and condense into a bone shard bolt
+  death: {
+    ..._IMPACT_DEATH,
+    chargeBehavior: "circleParticleGather", chargeAnchor: "origin",
+    chargeDuration: 1100, chargeTail: 0,
+    chargeLayers: [
+      { // Bones erupting around the gather point all at once, receding as the shards lift away
+        frames: ["GroundBonesDense"], above: false,
+        animation: "circleParticleBloom", radiusFactor: 1.8, duration: 200,
+        params: {count: 16, initial: 16, spawnRate: 0, growFraction: 0.15,
+          lifetime: {min: 1000, max: 1300},
+          alpha: {min: 0.55, max: 0.9}, scale: {min: 0.7, max: 1.2},
+          fade: {in: 0.4, out: 0.55}, blend: PIXI.BLEND_MODES.NORMAL, sort: 0}},
+      { // Shards lifting off and streaming into the manifest point, the last arriving exactly at release
+        frames: ["SprayBone"], above: true, radiusFactor: 2.0,
+        offset: 300, duration: 400,
+        params: {lifetime: 400, spawnRate: 260,
+          alpha: {min: 0.7, max: 1.0}, scale: {min: 0.5, max: 0.9},
+          blend: PIXI.BLEND_MODES.NORMAL}}
+    ],
+    projectileFrame: "death/ProjectileBoneArrow", projectileSize: 3,
+    path: {type: "weave", params: {arcCount: 2, amplitude: 0.1}},
+    stickDuration: 1200, trail: true
+  },
+
   // Arrow+Life
   life: {
     ..._CHARGE_LIFE_BLOOMS,
@@ -1378,6 +1466,63 @@ const RAY_IMPACT_TIMINGS = {
  * @type {Record<string, object>}
  */
 const RAY_VFX_PROPS = {
+
+  // Ray+Death
+  death: {
+    ..._CHARGE_DEATH_ORBIT,
+    ..._IMPACT_DEATH,
+    deliveryDuration: 2500,
+    impactTiming: "beamFront",
+    deliverySoundType: "damage",
+    deliverySound: {fade: 700, offset: -500, release: 600},
+    buildDelivery(ctx) {
+      const {action, width, beamElevation, spawnRadius, beamSpeed} = ctx;
+      const runeId = action.rune.id;
+      const DELIVERY_DURATION = this.deliveryDuration;
+      return [
+        { // Tight jet of bone needles streaming down the beam, sparse enough to read as individual shards
+          animation: "rayParticleBeam", anchor: "origin",
+          textures: getVFXFrames(runeId, "StreakBoneShard"),
+          duration: DELIVERY_DURATION, mask: true,
+          params: {speed: beamSpeed * 1.5, angleSpread: 0.5, radius: spawnRadius,
+            spawnRate: 28, rotationSpread: 0.03,
+            alpha: {min: 0.75, max: 1.0}, scale: {min: 0.35, max: 0.6},
+            fade: {in: 40, out: 200}, blend: PIXI.BLEND_MODES.NORMAL, elevation: beamElevation}
+        },
+        { // Bone spikes erupting from the ground as the front marches out along the beam
+          animation: "rayParticleGroundCascade", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundBoneSpikes"),
+          duration: DELIVERY_DURATION, mask: true,
+          params: {width: Math.round(width * 0.5), spacing: 52,
+            rotationSpread: Math.toRadians(15),
+            lifetime: {min: DELIVERY_DURATION + 2000, max: DELIVERY_DURATION + 3500},
+            alpha: {min: 0.7, max: 1.0}, scale: {min: 0.8, max: 1.3},
+            fade: {in: 60, out: 1200}, blend: PIXI.BLEND_MODES.NORMAL, elevation: 0, sort: 0}
+        },
+        { // Spike fans, mirrored along the beam axis so the curl points at the target rather than back
+          animation: "rayParticleGroundCascade", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundSpikesFan"),
+          duration: DELIVERY_DURATION, mask: true,
+          params: {width: Math.round(width * 0.5), spacing: 52,
+            rotationSpread: Math.toRadians(15), flipX: true,
+            lifetime: {min: DELIVERY_DURATION + 2000, max: DELIVERY_DURATION + 3500},
+            alpha: {min: 0.7, max: 1.0}, scale: {min: 0.8, max: 1.3},
+            fade: {in: 60, out: 1200}, blend: PIXI.BLEND_MODES.NORMAL, elevation: 0, sort: 0}
+        },
+        { // Grasping hands layered over the spikes: splayed +/-45 deg off the beam heading, mirrored at
+          // random for handedness, each rising and withdrawing as the front passes
+          animation: "rayParticleGroundCascade", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundHandGrasp"),
+          duration: DELIVERY_DURATION, mask: true,
+          params: {width: Math.round(width * 0.35), spacing: 120,
+            rotationSpread: Math.toRadians(45), randomFlipY: true,
+            emergeDuration: 180, holdDuration: 700, withdrawDuration: 220,
+            alpha: {min: 0.8, max: 1.0}, scale: {min: 0.9, max: 1.4},
+            blend: PIXI.BLEND_MODES.NORMAL, elevation: 0, sort: 1}
+        }
+      ];
+    }
+  },
 
   // Ray+Frost
   frost: {
@@ -1502,15 +1647,15 @@ const RAY_VFX_PROPS = {
     sustainedChargeAnchor: "source",
 
     buildDelivery(ctx) {
-      const {action, width, casterElevation, beamSpeed} = ctx;
+      const {action, textures, width, casterElevation, beamSpeed} = ctx;
       const runeId = action.rune.id;
       const DELIVERY_DURATION = this.deliveryDuration;
       const LINGER = 5000;
       const rootLifetime = {min: DELIVERY_DURATION + LINGER, max: DELIVERY_DURATION + LINGER + 1500};
       return [
-        { // StreakRoots laid along the beam axis with subtle rotation jitter (~+/-10 deg)
+        { // Roots laid along the beam axis with subtle rotation jitter (~+/-10 deg)
           animation: "rayParticleGroundCascade", anchor: "origin",
-          textures: getVFXFrames(runeId, "StreakRoots"),
+          textures: textures.root,
           duration: DELIVERY_DURATION, mask: true,
           params: {width: Math.round(width * 0.5), spacing: 30,
             rotationSpread: Math.toRadians(10),
@@ -1580,6 +1725,72 @@ const RAY_VFX_PROPS = {
  * @type {Record<string, object>}
  */
 const BLAST_VFX_PROPS = {
+
+  // Blast+Death
+  death: {
+    ..._CHARGE_DEATH_ORBIT,
+    ..._IMPACT_DEATH,
+    chargeDuration: 1000,
+    deliveryDuration: 3500,
+    deliverySoundType: "damage",
+    deliverySound: {fade: 700, offset: -500, release: 600},
+    impactTiming: "fromCenter",
+    buildDelivery(ctx) {
+      const {action, textures, origin, radius, particleElevation} = ctx;
+      const runeId = action.rune.id;
+      const STORM_DURATION = this.deliveryDuration;
+      const SPAWN_RATE = 14;
+      const EMERGE_DELAY = 500;
+      const area = {type: "circle", x: origin.x, y: origin.y, radius};
+      return [
+        { // Fissures cracking open across the blast circle, each recording a site for a hand to rise from
+          animation: "blastParticleEmergenceSite", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundFissureLarge", "GroundFissureSmall"),
+          duration: STORM_DURATION, mask: true,
+          params: {spawnRate: SPAWN_RATE, count: null, growDuration: 180,
+            lifetime: {min: 2500, max: 4000},
+            scale: {min: 0.7, max: 1.2}, alpha: {min: 0.6, max: 0.9},
+            fade: {in: 60, out: 1200}, area,
+            blend: PIXI.BLEND_MODES.NORMAL, elevation: 0}
+        },
+        { // Skeletal hands bursting from each fissure half a second after it opens, then withdrawing
+          animation: "blastParticleEmergingSprite", anchor: "origin",
+          textures: getVFXFrames(runeId, "GroundBoneHand"),
+          duration: STORM_DURATION, mask: true,
+          params: {spawnRate: SPAWN_RATE, count: null,
+            emergeDelay: EMERGE_DELAY, emergeDuration: 180, holdDuration: 600, withdrawDuration: 220,
+            rotationSpread: Math.PI / 3,
+            scale: {min: 0.9, max: 1.4}, alpha: {min: 0.85, max: 1.0},
+            fade: {in: 0, out: 0}, area,
+            blend: PIXI.BLEND_MODES.NORMAL, elevation: 0, sort: 1}
+        },
+        { // Spectral haze of swirling bones and grave mist hanging over the area
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: textures.air, duration: STORM_DURATION, mask: true,
+          params: {spawnRate: 25, count: null,
+            area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 1.15)},
+            speed: {min: 8, max: 28}, lifetime: {min: 2200, max: 3200},
+            scale: {min: 1.2, max: 2.2}, alpha: {min: 0.10, max: 0.28},
+            rotationSpeed: {min: -0.4, max: 0.4},
+            scaleCurve: [{time: 0, value: 0.8}, {time: 1, value: 1.5}],
+            fade: {in: 200, out: 1400}, blend: PIXI.BLEND_MODES.ADD,
+            elevation: particleElevation + 1}
+        },
+        { // Spiral of spectral wisps winding outward from the center across the area
+          animation: "circleParticleSpiral", anchor: "origin",
+          textures: getVFXFrames(runeId, "SprayWisps"),
+          duration: STORM_DURATION, mask: true,
+          params: {chargeRadius: Math.round(radius * 1.2),
+            innerRadius: Math.round(radius * 0.18), radiusJitter: 0.3,
+            swirlSpeed: 3.0, spinSpeed: 3.5,
+            spawnRate: 260, lifetime: {min: 1800, max: 2600},
+            scale: {min: 0.5, max: 1.0}, alpha: {min: 0.55, max: 0.95},
+            fade: {in: 0.1, out: 0.4}, blend: PIXI.BLEND_MODES.ADD,
+            elevation: particleElevation + 1}
+        }
+      ];
+    }
+  },
 
   // Blast+Frost
   frost: {
@@ -1804,6 +2015,70 @@ const BLAST_VFX_PROPS = {
  */
 const FAN_VFX_PROPS = {
 
+  // Fan+Death: bone scythes yo-yo across the arc over forking bone roots, inside a spectral wisp haze
+  death: {
+    ..._CHARGE_DEATH_ORBIT,
+    ..._IMPACT_DEATH,
+    chargeDuration: 700,
+    sweepDuration: 1400,
+    deliverySoundType: "damage",
+    deliverySound: {fade: 400, offset: -200, release: 1200},
+    impactStart: ({chargeDuration, sweepDuration}) => chargeDuration + Math.round(sweepDuration / 2),
+    buildDelivery(ctx) {
+      const {action, radius, sweepDuration, particleElevation, casterElevation} = ctx;
+      const runeId = action.rune.id;
+      return [
+        { // Bone scythes fired out to the cone perimeter and back in unison, spinning on their own axes
+          animation: "fanParticleYoyo", anchor: "origin",
+          textures: getVFXFrames(runeId, "ProjectileBoneScythe"),
+          duration: sweepDuration, mask: true,
+          params: {count: 4, initial: 4, spawnRate: 0,
+            reach: Math.round(radius * 0.9),
+            lifetime: {min: sweepDuration, max: sweepDuration},
+            rotationSpeed: 7,
+            alpha: {min: 0.85, max: 1.0}, scale: {min: 1.1, max: 1.45},
+            fade: {in: 0.05, out: 0.15}, blend: PIXI.BLEND_MODES.NORMAL,
+            elevation: casterElevation + 1}
+        },
+        { // Bone roots forking outward beneath the scythes as the wave expands through the cone
+          animation: "fanParticleCascade", anchor: "origin",
+          textures: getVFXFrames(runeId, "RootBone"),
+          duration: sweepDuration, mask: true,
+          params: {maxRadiusFactor: 0.85, initialFactor: 0.15, spawnRate: 25,
+            velocity: {speed: [0, 0], angle: [0, 360]},
+            lifetime: {min: sweepDuration + 2000, max: sweepDuration + 3500},
+            alpha: {min: 0.6, max: 0.9}, scale: {min: 0.7, max: 1.2},
+            fade: {in: 80, out: 1500}, blend: PIXI.BLEND_MODES.NORMAL,
+            elevation: 0, sort: 0}
+        },
+        { // A few large, faint mist bodies hanging over the cone
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: getVFXFrames(runeId, "AirMistyWisps"),
+          duration: sweepDuration, mask: true,
+          params: {count: 10, initial: 10,
+            speed: {min: 5, max: 18}, lifetime: {min: 2000, max: 3000},
+            scale: {min: 1.6, max: 2.6}, alpha: {min: 0.06, max: 0.16},
+            rotationSpeed: {min: -0.3, max: 0.3},
+            scaleCurve: [{time: 0, value: 0.7}, {time: 1, value: 1.3}],
+            fade: {in: 200, out: 1200}, blend: PIXI.BLEND_MODES.ADD,
+            elevation: casterElevation + 2}
+        },
+        { // Fine spirit sparkle filling the cone
+          animation: "shapeParticleResidue", anchor: "origin",
+          textures: getVFXFrames(runeId, "SprayWisps"),
+          duration: sweepDuration, mask: true,
+          params: {count: 90, initial: 90,
+            speed: {min: 20, max: 70}, lifetime: {min: 900, max: 1600},
+            scale: {min: 0.3, max: 0.6}, alpha: {min: 0.5, max: 0.95},
+            rotationSpread: Math.PI,
+            scaleCurve: [{time: 0, value: 0.8}, {time: 1, value: 1.1}],
+            fade: {in: 60, out: 400}, blend: PIXI.BLEND_MODES.ADD,
+            elevation: particleElevation}
+        }
+      ];
+    }
+  },
+
   // Fan+Frost
   frost: {
     ..._IMPACT_FROST,
@@ -1952,7 +2227,7 @@ const FAN_VFX_PROPS = {
           animation: "fanParticleYoyo", anchor: "origin",
           textures: getVFXFrames(runeId, "DiscWispy"),
           duration: sweepDuration, mask: true,
-          params: {count: 6, initial: 1, spawnRate: 0,
+          params: {count: 6, initial: 6, spawnRate: 0,
             reach: Math.round(radius * 0.9),
             lifetime: {min: sweepDuration, max: sweepDuration},
             rotationSpeed: 5,
@@ -2002,6 +2277,19 @@ const FAN_VFX_PROPS = {
  * @type {Record<string, object>}
  */
 const TOUCH_VFX_PROPS = {
+
+  // Touch+Death: wisps swirl around the caster and collapse inward, then a bone burst on contact
+  death: {
+    ..._IMPACT_DEATH,
+    impactSpriteSize: 2.5,
+    chargeDuration: 450,
+    chargeBehavior: "circleParticleVortex",
+    chargeLayers: [
+      {frames: ["SprayWisps"], above: true, radiusFactor: 1.0,
+        params: {lifetime: {min: 400, max: 700}, spawnRate: 220, alpha: {min: 0.5, max: 1.0},
+          scale: {min: 0.4, max: 0.8}, blend: PIXI.BLEND_MODES.ADD}}
+    ]
+  },
 
   // Touch+Frost: frost motes swirl around the caster and collapse inward, then a frost burst on contact
   frost: {
@@ -2070,7 +2358,7 @@ const SPELL_VFX_GESTURES = {
   fan: {configure: configureFanVFXEffect, runes: FAN_VFX_PROPS},
   influence: {configure: configureContactVFXEffect, runes: TOUCH_VFX_PROPS, channel: {
     chargeDuration: 550, deliveryDuration: 1800, lingerDuration: 900, coatRadiusFactor: 1.1, burstSize: 3.5,
-    glow: {frost: 0x8FE3FF, flame: 0xFF7A2A, life: 0xFF5DC0}
+    glow: {frost: 0x8FE3FF, flame: 0xFF7A2A, life: 0xFF5DC0, death: 0x3FD9A0}
   }},
   pulse: {},
   ray: {configure: configureRayVFXEffect, runes: RAY_VFX_PROPS},

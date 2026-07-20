@@ -126,6 +126,132 @@ const circleParticleVortex = {
 /* -------------------------------------------- */
 
 /**
+ * @typedef CircleParticleSpiralParams
+ * @property {number} chargeRadius     Radius the spiral expands out to. REQUIRED.
+ * @property {number} [innerRadius]    Radius of the central spawn disc (default chargeRadius * 0.15).
+ * @property {number} [swirlSpeed]     Angular velocity of the winding (rad/sec, default 3).
+ * @property {number} [spinSpeed]      Per-particle sprite spin (rad/sec, default swirlSpeed).
+ * @property {number} [radiusJitter]   Fractional variation in each particle's final radius (default 0.3).
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
+ */
+
+/**
+ * A spiral spreading outward: particles spawn inside a small central disc and wind out to their own
+ * jittered final radius, so the leading edge stays ragged rather than forming a clean ring. The radial
+ * inverse of {@link circleParticleVortex}. Position and rotation are driven parametrically from particle
+ * age so motion continues after the generator soft-stops.
+ * @type {CrucibleParticleBehavior<CircleParticleSpiralParams>}
+ */
+const circleParticleSpiral = {
+  setup(phase, layer) {
+    const params = layer.params;
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
+    const outerRadius = params.chargeRadius;
+    const innerRadius = params.innerRadius ?? (outerRadius * 0.15);
+    const swirl = params.swirlSpeed ?? 3;
+    const spin = params.spinSpeed ?? swirl;
+    const jitter = params.radiusJitter ?? 0.3;
+
+    const place = (p, generator) => {
+      const ox = anchor.x - generator.bounds.x;
+      const oy = anchor.y - generator.bounds.y;
+      const age = p.lifetime > 0 ? Math.min(p.elapsedTime / p.lifetime, 1) : 1;
+      const r = p._spiralInner + ((p._spiralOuter - p._spiralInner) * age);
+      const a = p._spiralAngle + (swirl * p.elapsedTime * 0.001);
+      p.x = ox + (Math.cos(a) * r);
+      p.y = oy + (Math.sin(a) * r);
+      p.rotation = p._spiralSpin + (spin * p.elapsedTime * 0.001);
+    };
+    return {
+      area: {type: "circle", x: anchor.x, y: anchor.y, radius: innerRadius},
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      fade: params.fade ?? {in: 0.1, out: 0.4},
+      blend: params.blend ?? PIXI.BLEND_MODES.ADD,
+      onSpawn: (p, {generator}) => {
+        const sx = p.x + generator.bounds.x;
+        const sy = p.y + generator.bounds.y;
+        p._spiralAngle = Math.atan2(sy - anchor.y, sx - anchor.x);
+        p._spiralInner = Math.hypot(sx - anchor.x, sy - anchor.y);
+        p._spiralOuter = Math.max(p._spiralInner, outerRadius * (1 - (Math.random() * jitter)));
+        p._spiralSpin = Math.random() * Math.PI * 2;
+        place(p, generator);
+      },
+      onUpdate: (p, {generator}) => place(p, generator)
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef CircleParticleOrbitParams
+ * @property {number} chargeRadius        Radius of the orbital ring. REQUIRED.
+ * @property {number} [orbitSpeed]        Angular velocity around the anchor (rad/sec, default 2).
+ * @property {number} [spinSpeed]         Per-particle sprite spin (rad/sec, default 0).
+ * @property {number} [radiusJitter]      Fractional width of the spawn band, i.e. how far the ring is
+ *                                         permuted off a perfect circle (default 0.08).
+ * @property {number} [speedJitter]       Fractional variation in per-particle angular velocity (default 0.15).
+ * @property {number} [wobbleAmplitude]   Fractional radial oscillation about the orbit (default 0.06).
+ * @property {number} [wobbleSpeed]       Angular frequency of the radial wobble (rad/sec, default 2).
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [blend]
+ */
+
+/**
+ * A ring of particles orbiting the anchor at a held radius - neither drawn inward like
+ * {@link circleParticleVortex} nor flung outward like {@link circleParticleSpiral}. Each particle keeps
+ * its spawn radius and sweeps around at a jittered angular velocity while oscillating slightly in and
+ * out, so the ring reads as a wobbling disc rather than a rigid wheel. Position and rotation are driven
+ * parametrically from particle age so motion continues after the generator soft-stops.
+ * @type {CrucibleParticleBehavior<CircleParticleOrbitParams>}
+ */
+const circleParticleOrbit = {
+  setup(phase, layer) {
+    const params = layer.params;
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
+    const orbitRadius = params.chargeRadius;
+    const bandWidth = Math.max(2, orbitRadius * (params.radiusJitter ?? 0.08));
+    const orbit = params.orbitSpeed ?? 2;
+    const spin = params.spinSpeed ?? 0;
+    const speedJitter = params.speedJitter ?? 0.15;
+    const wobbleAmp = (params.wobbleAmplitude ?? 0.06) * orbitRadius;
+    const wobbleSpeed = params.wobbleSpeed ?? 2;
+
+    const place = (p, generator) => {
+      const ox = anchor.x - generator.bounds.x;
+      const oy = anchor.y - generator.bounds.y;
+      const t = p.elapsedTime * 0.001;
+      const r = p._orbitRadius + (Math.sin((wobbleSpeed * t) + p._orbitWobble) * wobbleAmp);
+      const a = p._orbitAngle + (p._orbitSpeed * t);
+      p.x = ox + (Math.cos(a) * r);
+      p.y = oy + (Math.sin(a) * r);
+      p.rotation = p._orbitSpin + (spin * t);
+    };
+    return {
+      area: {type: "ring", x: anchor.x, y: anchor.y, radius: orbitRadius,
+        innerWidth: bandWidth, outerWidth: bandWidth},
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      fade: params.fade ?? {in: 0.15, out: 0.35},
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
+      onSpawn: (p, {generator}) => {
+        const sx = p.x + generator.bounds.x;
+        const sy = p.y + generator.bounds.y;
+        p._orbitAngle = Math.atan2(sy - anchor.y, sx - anchor.x);
+        p._orbitRadius = Math.hypot(sx - anchor.x, sy - anchor.y);
+        p._orbitSpeed = orbit * (1 + (((Math.random() * 2) - 1) * speedJitter));
+        p._orbitWobble = Math.random() * Math.PI * 2;
+        p._orbitSpin = Math.random() * Math.PI * 2;
+        place(p, generator);
+      },
+      onUpdate: (p, {generator}) => place(p, generator)
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * @typedef ProjectileParticleTrailParams
  * @property {boolean} [align]  Lock streaks to projectile heading (directional wake) vs scatter outward.
  * @property {boolean} [flipX]  Mirror sprite horizontally for asymmetric streak textures.
@@ -466,6 +592,15 @@ const rayParticleRootCastoff = {
  * @property {number} [fadeOutMs]        Cap on burnToEnd fade-out duration (default 250).
  * @property {object} [velocity]         Override the static {0,0} velocity (rising smoke instead of pinned deposits).
  * @property {number} [rotationSpread]   Radians of jitter around the beam axis (default 0.3).
+ * @property {boolean} [flipX]           Mirror every deposit along the beam axis, for directional art
+ *                                        authored pointing back toward the origin.
+ * @property {boolean} [randomFlipY]     Mirror each deposit vertically at random, for sprites with a
+ *                                        handedness (e.g. left/right grasping hands).
+ * @property {number} [emergeDuration]   Non-zero enables emergence staging: the deposit scales up over
+ *                                        this window, holds, then withdraws. Sets `lifetime` and the
+ *                                        default `fade` envelope. Incompatible with `burnToEnd`.
+ * @property {number} [holdDuration]     Ms at full scale before withdrawing (staging only).
+ * @property {number} [withdrawDuration] Ms to retract back to nothing (staging only).
  * @property {{in: number, out: number}} [fade]
  * @property {number} [blend]
  */
@@ -473,7 +608,8 @@ const rayParticleRootCastoff = {
 /**
  * A trail laid down along the beam's path as a front sweeps from origin to end. Scorched earth,
  * frosted ground, a fuse being lit. `burnToEnd` keeps the whole line lit through completion and
- * extinguishes together; `velocity` lets the deposits drift instead of staying static.
+ * extinguishes together; `velocity` lets the deposits drift instead of staying static;
+ * `emergeDuration` turns each static deposit into something that rises, holds, and withdraws.
  * @type {CrucibleParticleBehavior<RayParticleGroundCascadeParams>}
  */
 const rayParticleGroundCascade = {
@@ -490,12 +626,20 @@ const rayParticleGroundCascade = {
     const burnToEnd = !!params.burnToEnd;
     const burnTail = params.burnTail ?? 400;
     const drift = !!params.velocity;
+    const flipX = !!params.flipX;
+    const randomFlipY = !!params.randomFlipY;
+    const emerge = params.emergeDuration ?? 0;
+    const staged = emerge > 0;
+    const hold = params.holdDuration ?? 0;
+    const withdraw = params.withdrawDuration ?? 0;
+    const stagedTotal = emerge + hold + withdraw;
     let elapsed = 0;
     let frontDist = 0;
 
-    // Lifetime is positional per-particle in burnToEnd mode; otherwise honor params.lifetime or default generously
+    // Staging pins lifetime to its own envelope; burnToEnd is positional per-particle; else honor params
     let lifetime;
-    if ( burnToEnd ) lifetime = {min: duration + burnTail, max: duration + burnTail};
+    if ( staged ) lifetime = {min: stagedTotal, max: stagedTotal};
+    else if ( burnToEnd ) lifetime = {min: duration + burnTail, max: duration + burnTail};
     else if ( params.lifetime ) {
       lifetime = (typeof params.lifetime === "object")
         ? params.lifetime
@@ -507,14 +651,14 @@ const rayParticleGroundCascade = {
       ? {speed: [params.velocity.speed[0] * gridScale, params.velocity.speed[1] * gridScale],
         angle: params.velocity.angle}
       : {speed: [0, 0], angle: [0, 360]};
-    return {
+    const config = {
       // One particle per `spacing` over the sweep duration
       spawnRate: Math.max(1, Math.round((length / spacing) * (1000 / duration))),
       area: {type: "circle", x: origin.x, y: origin.y, radius: 4},
       velocity,
       rotation: {initial: rotation, spread: params.rotationSpread ?? 0.3},
       lifetime,
-      fade: params.fade ?? {in: 0, out: 800},
+      fade: params.fade ?? (staged ? {in: emerge, out: withdraw} : {in: 0, out: 800}),
       blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onTick: dt => {
         elapsed += dt;
@@ -530,6 +674,16 @@ const rayParticleGroundCascade = {
           p.movementSpeed.x = 0;
           p.movementSpeed.y = 0;
         }
+        p._flipX = flipX ? -1 : 1;
+        p._flipY = (randomFlipY && (Math.random() < 0.5)) ? -1 : 1;
+        if ( staged ) {
+          p._baseScale = p.scale.x;
+          p.scale.set(0, 0);
+        }
+        else {
+          if ( flipX ) p.scale.x = Math.abs(p.scale.x) * p._flipX;
+          if ( randomFlipY ) p.scale.y = Math.abs(p.scale.y) * p._flipY;
+        }
         // Positional lifetime: later spawns live shorter so all extinguish together at sweep end;
         // fadeOutDuration is recomputed because _setupParticleBase used the config lifetime
         if ( burnToEnd ) {
@@ -540,6 +694,21 @@ const rayParticleGroundCascade = {
         }
       }
     };
+
+    // Emergence staging: rise, hold, withdraw. Scale carries the motion while the generator's own fade
+    // envelope carries the alpha, so the two stay in step without being driven twice.
+    if ( staged ) {
+      config.onUpdate = p => {
+        const t = p.elapsedTime;
+        let f;
+        if ( t < emerge ) f = t / emerge;
+        else if ( t < (emerge + hold) ) f = 1;
+        else f = (withdraw > 0) ? Math.max(0, 1 - ((t - emerge - hold) / withdraw)) : 0;
+        const s = p._baseScale * f;
+        p.scale.set(s * p._flipX, s * p._flipY);
+      };
+    }
+    return config;
   }
 };
 
@@ -976,12 +1145,149 @@ const blastParticleFallingDebris = {
 /* -------------------------------------------- */
 
 /**
+ * Claim the most recent unclaimed emergence site, so a consumer particle rises from a site its producer
+ * actually opened rather than a coincidental nearby point.
+ * @param {Array<{x: number, y: number, claimed: boolean}>} sites
+ * @returns {{x: number, y: number}|null}   The claimed site, or null when none have been opened yet.
+ */
+function _claimEmergenceSite(sites) {
+  for ( let i = sites.length - 1; i >= 0; i-- ) {
+    if ( sites[i].claimed ) continue;
+    sites[i].claimed = true;
+    return sites[i];
+  }
+  return null;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef BlastParticleEmergenceSiteParams
+ * @property {number} [growDuration]   Ms the site takes to crack open to full scale (default 180).
+ * @property {number} [maxSites]       Ring-buffer length of retained sites (default 32).
+ * @property {{min: number, max: number}} [scale]
+ * @property {{min: number, max: number}} [lifetime]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [rotationSpread]
+ * @property {number} [blend]
+ * @property {object} [area]           Override the component-supplied deliveryArea.
+ */
+
+/**
+ * Ground sites cracking open across the delivery area, each recorded onto `state.emergenceSites` so a
+ * paired {@link blastParticleEmergingSprite} layer can rise from the same points. Pair the two layers at
+ * matching spawn rates; this one must be declared first so sites exist before consumers claim them.
+ * @type {CrucibleParticleBehavior<BlastParticleEmergenceSiteParams>}
+ */
+const blastParticleEmergenceSite = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const sites = this.state.emergenceSites ??= [];
+    const growDuration = params.growDuration ?? 180;
+    const maxSites = params.maxSites ?? 32;
+    return {
+      area: params.area ?? this.state.deliveryArea,
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      rotation: {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? Math.PI},
+      lifetime: params.lifetime ?? {min: 2500, max: 4000},
+      fade: params.fade ?? {in: 60, out: 1200},
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
+      onSpawn: (p, {generator}) => {
+        sites.push({x: p.x + generator.bounds.x, y: p.y + generator.bounds.y, claimed: false});
+        if ( sites.length > maxSites ) sites.shift();
+        p._baseScale = p.scale.x;
+        p._opened = false;
+        p.scale.set(0, 0);
+      },
+      onUpdate: p => {
+        if ( p._opened ) return;
+        if ( p.elapsedTime >= growDuration ) {
+          p._opened = true;
+          p.scale.set(p._baseScale, p._baseScale);
+          return;
+        }
+        const s = p._baseScale * (p.elapsedTime / growDuration);
+        p.scale.set(s, s);
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef BlastParticleEmergingSpriteParams
+ * @property {number} [emergeDelay]        Ms a particle waits at its site before erupting (default 500).
+ * @property {number} [emergeDuration]     Ms the eruption takes to reach full scale (default 180).
+ * @property {number} [holdDuration]       Ms at full scale before withdrawing (default 1000).
+ * @property {number} [withdrawDuration]   Ms to retract back to nothing (default 220).
+ * @property {{min: number, max: number}} [scale]
+ * @property {{in: number, out: number}} [fade]
+ * @property {number} [rotationSpread]
+ * @property {number} [blend]
+ * @property {object} [area]               Override the component-supplied deliveryArea.
+ */
+
+/**
+ * Sprites erupting from sites opened by a paired {@link blastParticleEmergenceSite} layer: each particle
+ * claims a site, waits, bursts to full scale, holds, then withdraws. Scale rather than alpha gates
+ * visibility so the generator's own fade envelope stays free. A particle that finds no unclaimed site
+ * stays hidden for its whole life, so consumers never appear away from a site.
+ * @type {CrucibleParticleBehavior<BlastParticleEmergingSpriteParams>}
+ */
+const blastParticleEmergingSprite = {
+  setup(phase, layer) {
+    const params = layer.params ?? {};
+    const sites = this.state.emergenceSites ??= [];
+    const emergeDelay = params.emergeDelay ?? 500;
+    const emergeDuration = params.emergeDuration ?? 180;
+    const holdDuration = params.holdDuration ?? 1000;
+    const withdrawDuration = params.withdrawDuration ?? 220;
+    const total = emergeDelay + emergeDuration + holdDuration + withdrawDuration;
+    const holdEnd = emergeDelay + emergeDuration + holdDuration;
+    return {
+      area: params.area ?? this.state.deliveryArea,
+      velocity: {speed: [0, 0], angle: [0, 360]},
+      rotation: {alignVelocity: false, initial: 0, spread: params.rotationSpread ?? 0},
+      lifetime: {min: total, max: total},
+      fade: params.fade ?? {in: 0, out: 0},
+      blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
+      onSpawn: (p, {generator}) => {
+        const site = _claimEmergenceSite(sites);
+        if ( site ) {
+          p.x = site.x - generator.bounds.x;
+          p.y = site.y - generator.bounds.y;
+        }
+        p._orphan = !site;
+        p._baseScale = p.scale.x;
+        p.scale.set(0, 0);
+      },
+      onUpdate: p => {
+        if ( p._orphan ) return;
+        const t = p.elapsedTime;
+        if ( t < emergeDelay ) return;
+        let f;
+        if ( t < (emergeDelay + emergeDuration) ) f = (t - emergeDelay) / emergeDuration;
+        else if ( t < holdEnd ) f = 1;
+        else f = Math.max(0, 1 - ((t - holdEnd) / withdrawDuration));
+        const s = p._baseScale * f;
+        p.scale.set(s, s);
+      }
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Crucible particle behaviors, keyed by registry name.
  * @type {Record<string, CrucibleParticleBehavior>}
  */
 export const PARTICLE_ANIMATIONS = {
   circleParticleGather,
   circleParticleVortex,
+  circleParticleSpiral,
+  circleParticleOrbit,
   circleParticleBloom,
   projectileParticleTrail,
   circleParticleResidue,
@@ -996,5 +1302,7 @@ export const PARTICLE_ANIMATIONS = {
   fanParticleCascade,
   fanParticleArcDeposit,
   fanParticleYoyo,
-  blastParticleFallingDebris
+  blastParticleFallingDebris,
+  blastParticleEmergenceSite,
+  blastParticleEmergingSprite
 };

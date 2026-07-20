@@ -25,6 +25,28 @@ const PARTICLE_DENSITY_FACTORS = {
 };
 
 /**
+ * The quantity at or below which a particle layer is treated as "hero" and exempted from density
+ * thinning. A layer of a few deliberately placed particles (the six yo-yo discs of a fan, a burst of
+ * ground bones) cannot be scaled down without changing what the effect *is*, whereas a layer of
+ * hundreds thins invisibly. Density therefore never reduces a quantity below this value, and never
+ * touches one that started at or below it.
+ * @type {number}
+ */
+export const PARTICLE_DENSITY_FLOOR = 10;
+
+/**
+ * Apply performance density to a single particle quantity, honoring {@link PARTICLE_DENSITY_FLOOR}.
+ * At HIGH/MAX (density 1.0) this is the identity for every input.
+ * @param {number} value     The configured quantity (`count`, `initial`, or `spawnRate`).
+ * @param {number} density   The active `canvas.performance.particleDensity`.
+ * @returns {number}
+ */
+export function applyParticleDensity(value, density) {
+  if ( !(value > PARTICLE_DENSITY_FLOOR) ) return value;
+  return Math.max(PARTICLE_DENSITY_FLOOR, value * density);
+}
+
+/**
  * Cache performance-mode-derived values onto `canvas.performance` for direct read access by
  * Crucible consumers. Called once during the ready hook; changing performance mode at runtime
  * requires a session reload to take effect, so a one-shot computation is sufficient.

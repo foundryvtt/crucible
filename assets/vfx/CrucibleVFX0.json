@@ -1,6 +1,6 @@
 {"frames": {
 
-"flame/AirSmoke":
+"death/AirBonesSwirling":
 {
 	"frame": {"x":0,"y":0,"w":128,"h":128},
 	"rotated": false,
@@ -9,9 +9,315 @@
 	"sourceSize": {"w":128,"h":128},
 	"anchor": {"x":0.5,"y":0.5}
 },
+"death/AirMistyWisps":
+{
+	"frame": {"x":0,"y":130,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/FallingBoneSkull":
+{
+	"frame": {"x":0,"y":3327,"w":63,"h":59},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":63,"h":59},
+	"sourceSize": {"w":64,"h":64},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/FallingBoneSpikes":
+{
+	"frame": {"x":196,"y":3288,"w":60,"h":60},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":60,"h":60},
+	"sourceSize": {"w":64,"h":64},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/FallingWisps":
+{
+	"frame": {"x":0,"y":3063,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/GroundBoneHand":
+{
+	"frame": {"x":0,"y":3129,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64},
+	"anchor": {"x":0.5,"y":0.8}
+},
+"death/GroundBonesDense":
+{
+	"frame": {"x":0,"y":1168,"w":128,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/GroundBoneSpikes":
+{
+	"frame": {"x":0,"y":3388,"w":60,"h":64},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":60,"h":64},
+	"sourceSize": {"w":64,"h":64},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/GroundFissureLarge":
+{
+	"frame": {"x":0,"y":1295,"w":128,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/GroundFissureSmall":
+{
+	"frame": {"x":62,"y":3388,"w":62,"h":63},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":62,"h":63},
+	"sourceSize": {"w":64,"h":64},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/GroundHandGrasp":
+{
+	"frame": {"x":130,"y":2761,"w":115,"h":121},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":3,"w":115,"h":121},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.15,"y":0.5}
+},
+"death/GroundSpikesFan":
+{
+	"frame": {"x":0,"y":2939,"w":107,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":3,"w":107,"h":122},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/ImpactBoneShards":
+{
+	"frame": {"x":130,"y":1751,"w":122,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":1,"w":122,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.9,"y":0.5}
+},
+"death/ProjectileBoneArrow":
+{
+	"frame": {"x":0,"y":2277,"w":128,"h":87},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":20,"w":128,"h":87},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.52,"y":0.48}
+},
+"death/ProjectileBoneScythe":
+{
+	"frame": {"x":0,"y":2366,"w":128,"h":86},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":21,"w":128,"h":86},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.48,"y":0.5}
+},
+"death/ProjectileBoneSkull":
+{
+	"frame": {"x":130,"y":386,"w":126,"h":92},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":18,"w":126,"h":92},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.52,"y":0.48}
+},
+"death/ProjectileWisps":
+{
+	"frame": {"x":0,"y":2454,"w":128,"h":81},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":23,"w":128,"h":81},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.72,"y":0.5}
+},
+"death/RootBoneMisc":
+{
+	"frame": {"x":0,"y":2607,"w":128,"h":24},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
+	"sourceSize": {"w":128,"h":24},
+	"anchor": {"x":0.05,"y":0.5}
+},
+"death/RootBoneSpikes":
+{
+	"frame": {"x":130,"y":1561,"w":123,"h":38},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":45,"w":123,"h":38},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.1,"y":0.56}
+},
+"death/RootBoneSpine":
+{
+	"frame": {"x":0,"y":2633,"w":128,"h":24},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
+	"sourceSize": {"w":128,"h":24},
+	"anchor": {"x":0.07,"y":0.5}
+},
+"death/RootFissure":
+{
+	"frame": {"x":0,"y":2659,"w":128,"h":24},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
+	"sourceSize": {"w":128,"h":24},
+	"anchor": {"x":0.1,"y":0.5}
+},
+"death/SprayBoneBlunt":
+{
+	"frame": {"x":234,"y":3179,"w":19,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":0,"w":19,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayBoneCarved":
+{
+	"frame": {"x":98,"y":3346,"w":30,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":30,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayBoneSharp":
+{
+	"frame": {"x":162,"y":3334,"w":31,"h":31},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":31},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayBoneSpine":
+{
+	"frame": {"x":234,"y":3145,"w":20,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":0,"w":20,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayBoneWinged":
+{
+	"frame": {"x":65,"y":3346,"w":31,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayWispsBurst":
+{
+	"frame": {"x":200,"y":3179,"w":32,"h":28},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":32,"h":28},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayWispsDot":
+{
+	"frame": {"x":66,"y":3233,"w":32,"h":31},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":31},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayWispsDual":
+{
+	"frame": {"x":66,"y":3266,"w":32,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":32,"h":29},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayWispsVortex":
+{
+	"frame": {"x":211,"y":3009,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/SprayWispsWave":
+{
+	"frame": {"x":211,"y":3043,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"death/StreakBoneBroken":
+{
+	"frame": {"x":130,"y":2884,"w":114,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":2,"w":114,"h":19},
+	"sourceSize": {"w":128,"h":24},
+	"anchor": {"x":0.1,"y":0.5}
+},
+"death/StreakBoneShard":
+{
+	"frame": {"x":0,"y":2889,"w":127,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":24},
+	"sourceSize": {"w":128,"h":24},
+	"anchor": {"x":0.1,"y":0.5}
+},
+"death/StreakWisps":
+{
+	"frame": {"x":130,"y":1261,"w":124,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":124,"h":24},
+	"sourceSize": {"w":128,"h":24},
+	"anchor": {"x":0.1,"y":0.5}
+},
+"flame/AirSmoke":
+{
+	"frame": {"x":0,"y":260,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
 "flame/AuraBlast":
 {
-	"frame": {"x":0,"y":780,"w":128,"h":126},
+	"frame": {"x":0,"y":1040,"w":128,"h":126},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":128,"h":126},
@@ -29,7 +335,7 @@
 },
 "flame/DiscInferno":
 {
-	"frame": {"x":130,"y":1189,"w":123,"h":125},
+	"frame": {"x":130,"y":1309,"w":123,"h":125},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":123,"h":125},
@@ -38,7 +344,7 @@
 },
 "flame/FallingBlaze":
 {
-	"frame": {"x":102,"y":2357,"w":64,"h":64},
+	"frame": {"x":100,"y":3136,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -47,7 +353,7 @@
 },
 "flame/FallingSpiral":
 {
-	"frame": {"x":168,"y":2357,"w":64,"h":64},
+	"frame": {"x":0,"y":3195,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -65,7 +371,7 @@
 },
 "flame/GroundSmoke":
 {
-	"frame": {"x":0,"y":130,"w":128,"h":128},
+	"frame": {"x":0,"y":390,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -74,7 +380,7 @@
 },
 "flame/ImpactBlaze":
 {
-	"frame": {"x":0,"y":260,"w":128,"h":128},
+	"frame": {"x":0,"y":520,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -83,7 +389,7 @@
 },
 "flame/ImpactFlames":
 {
-	"frame": {"x":130,"y":854,"w":124,"h":125},
+	"frame": {"x":130,"y":948,"w":124,"h":125},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":124,"h":125},
@@ -92,7 +398,7 @@
 },
 "flame/ImpactSparks":
 {
-	"frame": {"x":0,"y":390,"w":128,"h":128},
+	"frame": {"x":0,"y":650,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -101,7 +407,7 @@
 },
 "flame/ProjectileBlazing":
 {
-	"frame": {"x":0,"y":1655,"w":128,"h":106},
+	"frame": {"x":0,"y":2169,"w":128,"h":106},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":11,"w":128,"h":106},
@@ -110,7 +416,7 @@
 },
 "flame/ProjectilePointed":
 {
-	"frame": {"x":130,"y":644,"w":125,"h":55},
+	"frame": {"x":130,"y":738,"w":125,"h":55},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":36,"w":125,"h":55},
@@ -119,7 +425,7 @@
 },
 "flame/ProjectileWave":
 {
-	"frame": {"x":0,"y":2282,"w":100,"h":125},
+	"frame": {"x":109,"y":3009,"w":100,"h":125},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":1,"w":100,"h":125},
@@ -128,7 +434,7 @@
 },
 "flame/SprayEmbers1":
 {
-	"frame": {"x":66,"y":2409,"w":32,"h":32},
+	"frame": {"x":211,"y":3077,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -137,7 +443,7 @@
 },
 "flame/SprayEmbers2":
 {
-	"frame": {"x":66,"y":2443,"w":32,"h":32},
+	"frame": {"x":211,"y":3111,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -146,7 +452,7 @@
 },
 "flame/SprayEmbers3":
 {
-	"frame": {"x":66,"y":2477,"w":32,"h":32},
+	"frame": {"x":66,"y":3063,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -155,7 +461,7 @@
 },
 "flame/SprayEmbers4":
 {
-	"frame": {"x":166,"y":2485,"w":32,"h":32},
+	"frame": {"x":66,"y":3097,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -164,7 +470,7 @@
 },
 "flame/SprayFlame1":
 {
-	"frame": {"x":0,"y":2601,"w":32,"h":23},
+	"frame": {"x":66,"y":3297,"w":32,"h":23},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":4,"w":32,"h":23},
@@ -173,7 +479,7 @@
 },
 "flame/SprayFlame2":
 {
-	"frame": {"x":100,"y":2553,"w":32,"h":26},
+	"frame": {"x":166,"y":3234,"w":32,"h":26},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":3,"w":32,"h":26},
@@ -182,7 +488,7 @@
 },
 "flame/SprayFlame3":
 {
-	"frame": {"x":134,"y":2553,"w":32,"h":22},
+	"frame": {"x":66,"y":3322,"w":32,"h":22},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":32,"h":22},
@@ -191,7 +497,7 @@
 },
 "flame/SprayFlame4":
 {
-	"frame": {"x":200,"y":2485,"w":32,"h":32},
+	"frame": {"x":66,"y":3131,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -200,7 +506,7 @@
 },
 "flame/SprayFlame5":
 {
-	"frame": {"x":202,"y":2570,"w":31,"h":31},
+	"frame": {"x":196,"y":3350,"w":31,"h":31},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":31},
@@ -209,7 +515,7 @@
 },
 "flame/SprayFlame6":
 {
-	"frame": {"x":100,"y":2489,"w":32,"h":32},
+	"frame": {"x":66,"y":3165,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -218,7 +524,7 @@
 },
 "flame/StreakCurled":
 {
-	"frame": {"x":0,"y":1963,"w":128,"h":23},
+	"frame": {"x":0,"y":2815,"w":128,"h":23},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":23},
@@ -227,7 +533,7 @@
 },
 "flame/StreakJagged":
 {
-	"frame": {"x":0,"y":2013,"w":128,"h":22},
+	"frame": {"x":0,"y":2865,"w":128,"h":22},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":128,"h":22},
@@ -236,7 +542,7 @@
 },
 "flame/StreakTwisted":
 {
-	"frame": {"x":0,"y":1988,"w":128,"h":23},
+	"frame": {"x":0,"y":2840,"w":128,"h":23},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":23},
@@ -245,7 +551,7 @@
 },
 "frost/AirSnow":
 {
-	"frame": {"x":0,"y":908,"w":128,"h":125},
+	"frame": {"x":0,"y":1422,"w":128,"h":125},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":128,"h":125},
@@ -254,7 +560,7 @@
 },
 "frost/AirSpray":
 {
-	"frame": {"x":130,"y":1946,"w":120,"h":120},
+	"frame": {"x":130,"y":2233,"w":120,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":4,"w":120,"h":120},
@@ -263,7 +569,7 @@
 },
 "frost/FallingChunk":
 {
-	"frame": {"x":0,"y":2409,"w":64,"h":64},
+	"frame": {"x":100,"y":3202,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -272,7 +578,7 @@
 },
 "frost/FallingPrism":
 {
-	"frame": {"x":100,"y":2423,"w":64,"h":64},
+	"frame": {"x":0,"y":3261,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -281,7 +587,7 @@
 },
 "frost/GroundBlast":
 {
-	"frame": {"x":0,"y":2087,"w":119,"h":125},
+	"frame": {"x":130,"y":2378,"w":119,"h":125},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":1,"w":119,"h":125},
@@ -290,7 +596,7 @@
 },
 "frost/GroundCracks":
 {
-	"frame": {"x":130,"y":724,"w":124,"h":128},
+	"frame": {"x":130,"y":818,"w":124,"h":128},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":124,"h":128},
@@ -299,7 +605,7 @@
 },
 "frost/ImpactBlast":
 {
-	"frame": {"x":130,"y":1714,"w":121,"h":107},
+	"frame": {"x":130,"y":2001,"w":121,"h":107},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":10,"w":121,"h":107},
@@ -308,7 +614,7 @@
 },
 "frost/ImpactShards":
 {
-	"frame": {"x":130,"y":981,"w":124,"h":120},
+	"frame": {"x":130,"y":1075,"w":124,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":4,"w":124,"h":120},
@@ -317,7 +623,7 @@
 },
 "frost/ImpactSnow":
 {
-	"frame": {"x":130,"y":516,"w":125,"h":126},
+	"frame": {"x":130,"y":610,"w":125,"h":126},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":125,"h":126},
@@ -326,7 +632,7 @@
 },
 "frost/ImpactSpray":
 {
-	"frame": {"x":130,"y":1823,"w":120,"h":121},
+	"frame": {"x":130,"y":2110,"w":120,"h":121},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":3,"w":120,"h":121},
@@ -335,7 +641,7 @@
 },
 "frost/ProjectileChunk":
 {
-	"frame": {"x":120,"y":2279,"w":113,"h":76},
+	"frame": {"x":129,"y":2931,"w":113,"h":76},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":8,"y":26,"w":113,"h":76},
@@ -344,7 +650,7 @@
 },
 "frost/ProjectileCrystal":
 {
-	"frame": {"x":0,"y":2214,"w":118,"h":66},
+	"frame": {"x":130,"y":2631,"w":118,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":31,"w":118,"h":66},
@@ -353,7 +659,7 @@
 },
 "frost/ProjectileEncased":
 {
-	"frame": {"x":130,"y":1103,"w":124,"h":62},
+	"frame": {"x":130,"y":1197,"w":124,"h":62},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":33,"w":124,"h":62},
@@ -362,7 +668,7 @@
 },
 "frost/ProjectileShard":
 {
-	"frame": {"x":120,"y":2217,"w":116,"h":60},
+	"frame": {"x":130,"y":2699,"w":116,"h":60},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":6,"y":34,"w":116,"h":60},
@@ -371,7 +677,7 @@
 },
 "frost/SprayShard1":
 {
-	"frame": {"x":167,"y":2598,"w":31,"h":17},
+	"frame": {"x":222,"y":3417,"w":31,"h":17},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":7,"w":31,"h":17},
@@ -380,7 +686,7 @@
 },
 "frost/SprayShard2":
 {
-	"frame": {"x":134,"y":2523,"w":30,"h":28},
+	"frame": {"x":130,"y":3350,"w":30,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":30,"h":28},
@@ -389,7 +695,7 @@
 },
 "frost/SprayShard3":
 {
-	"frame": {"x":167,"y":2577,"w":31,"h":19},
+	"frame": {"x":200,"y":3266,"w":31,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":6,"w":31,"h":19},
@@ -398,7 +704,7 @@
 },
 "frost/SprayShard4":
 {
-	"frame": {"x":133,"y":2602,"w":31,"h":15},
+	"frame": {"x":96,"y":3453,"w":31,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":8,"w":31,"h":15},
@@ -407,7 +713,7 @@
 },
 "frost/SprayShard5":
 {
-	"frame": {"x":134,"y":2577,"w":31,"h":23},
+	"frame": {"x":129,"y":3442,"w":31,"h":23},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":4,"w":31,"h":23},
@@ -416,7 +722,7 @@
 },
 "frost/SprayShard6":
 {
-	"frame": {"x":100,"y":2581,"w":31,"h":21},
+	"frame": {"x":189,"y":3417,"w":31,"h":21},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":31,"h":21},
@@ -425,7 +731,7 @@
 },
 "frost/SprayShard7":
 {
-	"frame": {"x":229,"y":2452,"w":26,"h":31},
+	"frame": {"x":229,"y":3350,"w":26,"h":31},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":0,"w":26,"h":31},
@@ -434,7 +740,7 @@
 },
 "frost/SpraySnow1":
 {
-	"frame": {"x":66,"y":2511,"w":32,"h":32},
+	"frame": {"x":66,"y":3199,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -443,7 +749,7 @@
 },
 "frost/SpraySnow2":
 {
-	"frame": {"x":229,"y":2423,"w":27,"h":27},
+	"frame": {"x":166,"y":3288,"w":27,"h":27},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":27,"h":27},
@@ -452,7 +758,7 @@
 },
 "frost/SpraySnow3":
 {
-	"frame": {"x":0,"y":2541,"w":32,"h":32},
+	"frame": {"x":166,"y":3136,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -461,7 +767,7 @@
 },
 "frost/StreakIcicle":
 {
-	"frame": {"x":130,"y":1441,"w":123,"h":19},
+	"frame": {"x":130,"y":1601,"w":123,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":123,"h":19},
@@ -470,7 +776,7 @@
 },
 "frost/StreakJagged":
 {
-	"frame": {"x":130,"y":1167,"w":124,"h":20},
+	"frame": {"x":130,"y":1287,"w":124,"h":20},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":124,"h":20},
@@ -479,7 +785,7 @@
 },
 "frost/StreakShard":
 {
-	"frame": {"x":130,"y":701,"w":125,"h":21},
+	"frame": {"x":130,"y":795,"w":125,"h":21},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":125,"h":21},
@@ -488,7 +794,7 @@
 },
 "frost/StreakTwist":
 {
-	"frame": {"x":129,"y":2068,"w":120,"h":21},
+	"frame": {"x":130,"y":2355,"w":120,"h":21},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":1,"w":120,"h":21},
@@ -497,7 +803,7 @@
 },
 "life/AirBubbles":
 {
-	"frame": {"x":130,"y":386,"w":125,"h":128},
+	"frame": {"x":130,"y":480,"w":125,"h":128},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":125,"h":128},
@@ -515,7 +821,7 @@
 },
 "life/AuraBubble":
 {
-	"frame": {"x":130,"y":1462,"w":122,"h":127},
+	"frame": {"x":130,"y":1622,"w":122,"h":127},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":0,"w":122,"h":127},
@@ -524,7 +830,7 @@
 },
 "life/AuraGlow":
 {
-	"frame": {"x":0,"y":1035,"w":128,"h":125},
+	"frame": {"x":0,"y":1549,"w":128,"h":125},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":128,"h":125},
@@ -533,7 +839,7 @@
 },
 "life/AuraWispy":
 {
-	"frame": {"x":130,"y":1591,"w":121,"h":121},
+	"frame": {"x":130,"y":1878,"w":121,"h":121},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":3,"w":121,"h":121},
@@ -542,7 +848,7 @@
 },
 "life/DiscBubble":
 {
-	"frame": {"x":0,"y":520,"w":128,"h":128},
+	"frame": {"x":0,"y":780,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -551,7 +857,7 @@
 },
 "life/DiscWispy":
 {
-	"frame": {"x":0,"y":1162,"w":128,"h":125},
+	"frame": {"x":0,"y":1676,"w":128,"h":125},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":128,"h":125},
@@ -560,7 +866,7 @@
 },
 "life/FallingBubble":
 {
-	"frame": {"x":0,"y":2475,"w":64,"h":64},
+	"frame": {"x":100,"y":3268,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -569,7 +875,7 @@
 },
 "life/FallingWispy":
 {
-	"frame": {"x":166,"y":2423,"w":61,"h":60},
+	"frame": {"x":126,"y":3380,"w":61,"h":60},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":61,"h":60},
@@ -578,7 +884,7 @@
 },
 "life/GroundBlooms":
 {
-	"frame": {"x":0,"y":650,"w":128,"h":128},
+	"frame": {"x":0,"y":910,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -587,7 +893,7 @@
 },
 "life/GroundRoots":
 {
-	"frame": {"x":0,"y":1289,"w":128,"h":125},
+	"frame": {"x":0,"y":1803,"w":128,"h":125},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":128,"h":125},
@@ -596,7 +902,7 @@
 },
 "life/GroundWispy":
 {
-	"frame": {"x":130,"y":1316,"w":123,"h":123},
+	"frame": {"x":130,"y":1436,"w":123,"h":123},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":123,"h":123},
@@ -605,7 +911,7 @@
 },
 "life/ImpactBubble":
 {
-	"frame": {"x":121,"y":2091,"w":119,"h":124},
+	"frame": {"x":130,"y":2505,"w":119,"h":124},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":2,"w":119,"h":124},
@@ -614,7 +920,7 @@
 },
 "life/ImpactWispy":
 {
-	"frame": {"x":0,"y":1416,"w":128,"h":123},
+	"frame": {"x":0,"y":1930,"w":128,"h":123},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":128,"h":123},
@@ -623,7 +929,7 @@
 },
 "life/ProjectileBubble":
 {
-	"frame": {"x":0,"y":1763,"w":128,"h":68},
+	"frame": {"x":0,"y":2537,"w":128,"h":68},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":30,"w":128,"h":68},
@@ -632,16 +938,34 @@
 },
 "life/ProjectileWispy":
 {
-	"frame": {"x":0,"y":1541,"w":128,"h":112},
+	"frame": {"x":0,"y":2055,"w":128,"h":112},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":8,"w":128,"h":112},
 	"sourceSize": {"w":128,"h":128},
 	"anchor": {"x":0.65,"y":0.5}
 },
+"life/RootDouble":
+{
+	"frame": {"x":0,"y":2915,"w":127,"h":22},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":127,"h":22},
+	"sourceSize": {"w":128,"h":24},
+	"anchor": {"x":0.1,"y":0.5}
+},
+"life/RootSingle":
+{
+	"frame": {"x":0,"y":2685,"w":128,"h":24},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
+	"sourceSize": {"w":128,"h":24},
+	"anchor": {"x":0.06,"y":0.5}
+},
 "life/SprayBubble1":
 {
-	"frame": {"x":166,"y":2519,"w":32,"h":32},
+	"frame": {"x":200,"y":3145,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -650,7 +974,7 @@
 },
 "life/SprayBubble2":
 {
-	"frame": {"x":134,"y":2489,"w":30,"h":32},
+	"frame": {"x":189,"y":3383,"w":30,"h":32},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":30,"h":32},
@@ -659,7 +983,7 @@
 },
 "life/SprayBubble3":
 {
-	"frame": {"x":34,"y":2541,"w":30,"h":32},
+	"frame": {"x":221,"y":3383,"w":30,"h":32},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":30,"h":32},
@@ -668,7 +992,7 @@
 },
 "life/SprayLeaf1":
 {
-	"frame": {"x":202,"y":2553,"w":32,"h":15},
+	"frame": {"x":62,"y":3453,"w":32,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":8,"w":32,"h":15},
@@ -677,7 +1001,7 @@
 },
 "life/SprayLeaf2":
 {
-	"frame": {"x":66,"y":2545,"w":32,"h":27},
+	"frame": {"x":200,"y":3209,"w":32,"h":27},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":32,"h":27},
@@ -686,7 +1010,7 @@
 },
 "life/SprayLeaf3":
 {
-	"frame": {"x":66,"y":2574,"w":32,"h":26},
+	"frame": {"x":200,"y":3238,"w":32,"h":26},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":3,"w":32,"h":26},
@@ -695,7 +1019,7 @@
 },
 "life/SprayWispy1":
 {
-	"frame": {"x":200,"y":2519,"w":32,"h":32},
+	"frame": {"x":166,"y":3170,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -704,7 +1028,7 @@
 },
 "life/SprayWispy2":
 {
-	"frame": {"x":100,"y":2523,"w":32,"h":28},
+	"frame": {"x":166,"y":3204,"w":32,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":32,"h":28},
@@ -713,7 +1037,7 @@
 },
 "life/SprayWispy3":
 {
-	"frame": {"x":168,"y":2553,"w":32,"h":22},
+	"frame": {"x":162,"y":3442,"w":32,"h":22},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":32,"h":22},
@@ -722,7 +1046,7 @@
 },
 "life/SprayWispy4":
 {
-	"frame": {"x":0,"y":2575,"w":32,"h":24},
+	"frame": {"x":166,"y":3262,"w":32,"h":24},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":4,"w":32,"h":24},
@@ -731,7 +1055,7 @@
 },
 "life/StreakBlooms":
 {
-	"frame": {"x":0,"y":1833,"w":128,"h":24},
+	"frame": {"x":0,"y":2711,"w":128,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
@@ -740,7 +1064,7 @@
 },
 "life/StreakBubble":
 {
-	"frame": {"x":0,"y":2037,"w":127,"h":24},
+	"frame": {"x":129,"y":2905,"w":127,"h":24},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":24},
@@ -749,34 +1073,16 @@
 },
 "life/StreakLeafy":
 {
-	"frame": {"x":0,"y":1859,"w":128,"h":24},
+	"frame": {"x":0,"y":2737,"w":128,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
-	"sourceSize": {"w":128,"h":24},
-	"anchor": {"x":0.2,"y":0.5}
-},
-"life/StreakRoots1":
-{
-	"frame": {"x":0,"y":1885,"w":128,"h":24},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
-	"sourceSize": {"w":128,"h":24},
-	"anchor": {"x":0.1,"y":0.5}
-},
-"life/StreakRoots2":
-{
-	"frame": {"x":0,"y":2063,"w":127,"h":22},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":1,"w":127,"h":22},
 	"sourceSize": {"w":128,"h":24},
 	"anchor": {"x":0.2,"y":0.5}
 },
 "life/StreakTendril":
 {
-	"frame": {"x":0,"y":1911,"w":128,"h":24},
+	"frame": {"x":0,"y":2763,"w":128,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
@@ -785,7 +1091,7 @@
 },
 "life/StreakWispy":
 {
-	"frame": {"x":0,"y":1937,"w":128,"h":24},
+	"frame": {"x":0,"y":2789,"w":128,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":24},
@@ -799,16 +1105,15 @@
 	"frost/SpraySnow": ["frost/SpraySnow1","frost/SpraySnow2","frost/SpraySnow3"],
 	"life/SprayBubble": ["life/SprayBubble1","life/SprayBubble2","life/SprayBubble3"],
 	"life/SprayLeaf": ["life/SprayLeaf1","life/SprayLeaf2","life/SprayLeaf3"],
-	"life/SprayWispy": ["life/SprayWispy1","life/SprayWispy2","life/SprayWispy3","life/SprayWispy4"],
-	"life/StreakRoots": ["life/StreakRoots1","life/StreakRoots2"]
+	"life/SprayWispy": ["life/SprayWispy1","life/SprayWispy2","life/SprayWispy3","life/SprayWispy4"]
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.1",
 	"image": "CrucibleVFX0.ktx2",
 	"format": "BASISU_ETC1S",
-	"size": {"w":256,"h":2624},
+	"size": {"w":256,"h":3468},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:754877d352f31120e966ce4637405cdf:fb7d1d08b5d025ad2b74cdd5fd6c794c:f62ce8200f4d7a9ca7b0203f0788715d$"
+	"smartupdate": "$TexturePacker:SmartUpdate:41b9b7d444934b09075d447738342b69:4597c3058ee24368567368b908f35ccf:f62ce8200f4d7a9ca7b0203f0788715d$"
 }
 }

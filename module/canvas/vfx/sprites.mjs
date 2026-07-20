@@ -23,9 +23,11 @@ const VFX_ATLASES = [
  * For example, `VFX_TEXTURES.frost.spray` contains `["#crucible.vfx.frost/SprayShard1", ...]`.
  *
  * Categories correspond to the particle type prefixes in the atlas frame names:
- * Air, Aura, Disc, Falling, Ground, Impact, Projectile, Spray, Streak.
+ * Air, Aura, Disc, Falling, Ground, Impact, Projectile, Root, Spray, Streak.
  * - Projectile: side-view directional sprites for x/y travel (e.g., arrow shafts).
  * - Falling: top-down descending sprites for elevation drops (e.g., hail, debris from above).
+ * - Root: ground-laid directional sprites that grow outward from an origin (e.g., roots, fissures).
+ * - Streak: mid-air directional sprites that trail behind a moving front (e.g., beam particles).
  * @type {Record<string, Record<string, string[]>>}
  */
 export const VFX_TEXTURES = {};
@@ -95,7 +97,8 @@ function _parseCategory(suffix) {
   }
   return null;
 }
-_parseCategory.CATEGORIES = ["Air", "Aura", "Disc", "Falling", "Ground", "Impact", "Projectile", "Spray", "Streak"];
+_parseCategory.CATEGORIES = ["Air", "Aura", "Disc", "Falling", "Ground", "Impact", "Projectile", "Root", "Spray",
+  "Streak"];
 
 /* -------------------------------------------- */
 

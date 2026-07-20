@@ -1,5 +1,6 @@
 import VFXResolvedReferenceField from "../fields/vfx-resolved-reference-field.mjs";
 import CrucibleParticleShader from "../../particles/particle-shader.mjs";
+import {applyParticleDensity} from "../blocks.mjs";
 
 const {ArrayField, BooleanField, ColorField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
@@ -573,15 +574,16 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
         };
         this.#configureParticleExposure(config, params.exposure);
 
-        // Apply particle density multipliers to total count, spawn rate, and initial spawn values
-        if ( config.count != null ) config.count = Math.max(0, Math.round(config.count * density));
-        config.initial = Math.max(0, Math.round(config.initial * density));
-        config.spawnRate = Math.max(0, config.spawnRate * density);
+        // Apply particle density multipliers to total count, spawn rate, and initial spawn values.
+        // Sparse "hero" layers are exempt - see PARTICLE_DENSITY_FLOOR.
+        if ( config.count != null ) config.count = Math.max(0, Math.round(applyParticleDensity(config.count, density)));
+        config.initial = Math.max(0, Math.round(applyParticleDensity(config.initial, density)));
+        config.spawnRate = Math.max(0, applyParticleDensity(config.spawnRate, density));
         const generator = this._spawnGenerator(config, phase.start + layer.offset);
 
         // Optionally govern the rate of particle emission over time
         if ( params.spawnRateEnd !== undefined ) {
-          const spawnRateEnd = Math.max(0, params.spawnRateEnd * density);
+          const spawnRateEnd = Math.max(0, applyParticleDensity(params.spawnRateEnd, density));
           if ( spawnRateEnd !== config.spawnRate ) {
             this.timeline.add(generator,
               {spawnRate: {from: config.spawnRate, to: spawnRateEnd, duration: config.duration}},
