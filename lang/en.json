@@ -63,6 +63,10 @@
         "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
         "Name": "Move"
       },
+      "OpenDoor": {
+        "Description": "Open or close a door within reach. During Combat this costs 1 Action; using it again to reverse your own most recent toggle of the same door refunds that Action.",
+        "Name": "Open/Close Door"
+      },
       "ReactiveStrike": {
         "Description": "Perform a strike when an enemy leaves your engagement and you are not fully engaged.",
         "Name": "Reactive Strike"
@@ -425,6 +429,9 @@
         },
         "ESTOCADE": {
           "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
+        },
+        "OPEN_DOOR": {
+          "WrongTurn": "You may only open or close a door on your own turn in combat."
         },
         "REVIVE": {
           "RequiresDead": "Revive requires a Dead target."
@@ -2068,7 +2075,9 @@
     "EnableVFXHint": "Play visual effects animations on the canvas when actions are confirmed.",
     "EnableVFXName": "Enable Action Visual Effects",
     "FlexibleAncestryAbilitiesHint": "When enabled, hero characters may reassign their Ancestry's Primary and Secondary Ability Score bonuses to abilities of their choice during character creation. The Ancestry still contributes the same +2 and +1 starting bonuses; only the abilities receiving them are flexible.",
-    "FlexibleAncestryAbilitiesName": "Flexible Ancestry Ability Bonuses"
+    "FlexibleAncestryAbilitiesName": "Flexible Ancestry Ability Bonuses",
+    "DoorActionCostName": "Doors Cost Action Points",
+    "DoorActionCostHint": "Opening or closing a door in combat costs 1 Action Point for the interacting creature."
   },
   "SKILL": {
     "CATEGORY": {
@@ -2695,6 +2704,7 @@
     "CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
     "CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because the {type} item slot is already in use.",
     "CannotEquipTaxonomy": "Actor {actor} cannot equip {item} because the \"{taxonomy}\" taxonomy is incapable of using equipment.",
+    "DoorUseAction": "Use the Open/Close Door action from your sheet to interact with doors during combat.",
     "NoParty": "You must have a primary party configured for this.",
     "SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks."
   },

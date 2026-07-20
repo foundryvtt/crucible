@@ -26,7 +26,6 @@ import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
 import CrucibleTalentNode from "./module/const/talent-node.mjs";
 import {statusEffects} from "./module/const/statuses.mjs";
-
 // Party
 let party = null;
 
@@ -373,6 +372,15 @@ Hooks.once("init", async function() {
     config: false,
     type: Boolean,
     default: false
+  });
+
+  game.settings.register("crucible", "doorActionCost", {
+    name: "SETTINGS.DoorActionCostName",
+    hint: "SETTINGS.DoorActionCostHint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true
   });
 
   const fields = foundry.data.fields;
@@ -840,6 +848,28 @@ Hooks.on("canvasReady", () => {
 // Restore the core move backend when a scene is torn down
 Hooks.on("canvasTearDown", () => {
   CONFIG.Canvas.polygonBackends.move = foundry.canvas.geometry.ClockwiseSweepPolygon;
+});
+
+
+/* -------------------------------------------- */
+
+/**
+ * Door open/close cost, refund, actor, and turn handling live entirely on the "openDoor" CrucibleAction (see
+ * module/hooks/action.mjs), which resolves the acting actor, checks turn order, and applies its Action cost
+ * atomically alongside the wall update. A normal left-click on the door icon is already routed into that Action
+ * by CrucibleDoorControl (see module/canvas/door-control.mjs), so this hook doesn't need to handle the common
+ * case - it's the backstop that stops a raw wall update from reaching the door state some other way (e.g. a
+ * macro, another module, or a stray API call) while the cost setting is active in combat. GMs are exempt.
+ */
+Hooks.on("preUpdateWall", (wall, changes, options, userId) => {
+  if ( options.crucibleAction ) return;                    // came from the openDoor action itself - let it through
+  if ( !("ds" in changes) ) return;                        // not a door-state change, ignore
+  if ( game.user.isGM ) return;                             // GMs may freely toggle doors
+  if ( !game.settings.get("crucible", "doorActionCost") ) return;
+  if ( !game.combat?.started ) return;                      // combat only
+
+  ui.notifications.warn(game.i18n.localize("WARNING.DoorUseAction"));
+  return false;
 });
 
 /* -------------------------------------------- */
