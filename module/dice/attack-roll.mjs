@@ -168,7 +168,8 @@ export default class AttackRoll extends StandardCheck {
     if ( defense ) cardData.defenseType = defense.shortLabel ?? defense.label;
     else if ( dt in SYSTEM.SKILLS ) cardData.defenseType = SYSTEM.SKILLS[dt].label;
     else cardData.defenseType = _loc("DICE.DC");
-    if ( game.user.isGM ) cardData.targetLabel = `${cardData.defenseType} ${cardData.dc}`;
+    cardData.targetLabel = cardData.defenseType;
+    if ( game.user.isGM ) cardData.targetLabel += ` ${cardData.dc}`;
 
     // Roll result
     const isCritHit = (this.data.result === this.constructor.RESULT_TYPES.HIT) && this.isCriticalSuccess;
