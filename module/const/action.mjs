@@ -1067,7 +1067,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.DeadlyTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.bonuses.multiplier += 1;
+      if ( !this._prepared ) this.usage.bonuses.multiplier += 1;
     }
   },
 
@@ -1087,7 +1087,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.EmpoweredTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.bonuses.damageBonus += 6;
+      if ( !this._prepared ) this.usage.bonuses.damageBonus += 6;
     }
   },
   keen: {
@@ -1096,7 +1096,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.KeenTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.bonuses.criticalSuccessThreshold -= 2;
+      if ( !this._prepared ) this.usage.bonuses.criticalSuccessThreshold -= 2;
     }
   },
   accurate: {
@@ -1134,7 +1134,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.WeakenedTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.bonuses.damageBonus -= 6;
+      if ( !this._prepared ) this.usage.bonuses.damageBonus -= 6;
     }
   },
 
