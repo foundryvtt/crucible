@@ -24,6 +24,7 @@
         </h3>
         {{formInput biography.publicField value=biography.publicSrc enriched=biography.publicHTML toggled=true}}
     </div>
+    {{#if actor.isOwner}}
     <div class="sheet-section flexcol expandable {{biography.privateClass}}">
         <h3 data-action="expandSection" data-tooltip="{{biography.privateField.hint}}">
             {{biography.privateField.label}}
@@ -31,4 +32,5 @@
         </h3>
         {{formInput biography.privateField value=biography.privateSrc enriched=biography.privateHTML toggled=true}}
     </div>
+    {{/if}}
 </section>
