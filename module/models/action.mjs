@@ -1138,16 +1138,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Prepare Summons
     this.usage.summons = this.summon?.actorUuid ? [{...this.summon}] : [];
-
-    // Reset bonuses
-    Object.assign(this.usage.bonuses, {
-      ability: 0,
-      skill: 0,
-      enchantment: 0,
-      damageBonus: 0,
-      multiplier: 1,
-      criticalSuccessThreshold: 0
-    });
   }
 
   /* -------------------------------------------- */
@@ -2325,6 +2315,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.cost.focus = sc.focus;
     this.cost.heroism = sc.heroism;
     this.cost.hands = sc.hands;
+
+    // Reset bonuses for the same reason; tag and hook contributions below are accumulated onto these baselines
+    Object.assign(this.usage.bonuses, {
+      ability: 0,
+      skill: 0,
+      enchantment: 0,
+      damageBonus: 0,
+      multiplier: 1,
+      criticalSuccessThreshold: 0
+    });
 
     // Configure tags
     if ( this.target.type === "movement" ) this.tags.add("movement");
