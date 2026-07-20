@@ -4,6 +4,12 @@ import CrucibleItem from "./item.mjs";
  * An active effect subclass which handles system specific logic for active effects.
  */
 export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect {
+  /** @inheritDoc */
+  constructor(...args) {
+    super(...args);
+    this.#ownedReferences = this.#collectOwnedReferences();
+  }
+
   /**
    * The Handlebars template used to render this ActiveEffect as a line item for tooltips or as a partial.
    * @type {string}
@@ -73,14 +79,6 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const {changes, dot, summons, regions, maintenance} = this.system;
     return !(changes.length || dot.length || summons.size || regions.size
       || maintenance.cost || maintenance.hands);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  prepareBaseData() {
-    super.prepareBaseData();
-    this.#ownedReferences ??= this.#collectOwnedReferences(); // Seed once; _onUpdate maintains it thereafter
   }
 
   /* -------------------------------------------- */
