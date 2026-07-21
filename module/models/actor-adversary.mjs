@@ -46,6 +46,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       }),
+      knowledge: new fields.SetField(new fields.StringField({blank: false})),
       languages: new fields.SetField(new fields.StringField({blank: false}))
     });
 
