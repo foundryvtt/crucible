@@ -46,10 +46,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       ancestryName: s.system.details.ancestry?.name || _loc("ANCESTRY.SHEET.Choose"),
       backgroundName: s.system.details.background?.name || _loc("BACKGROUND.SHEET.Choose"),
       capacity: a.system.capacity,
-      knowledge: this._prepareBackgroundDetailSet({
-        type: "knowledge",
-        tooltip: "ACTOR.LABELS.BackgroundKnowledgeTooltip"
-      }),
       talentTreeButtonText: _loc(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`)
     });
 

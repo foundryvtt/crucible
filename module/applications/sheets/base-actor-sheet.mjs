@@ -176,6 +176,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       incomplete: {},
       inventory,
       isEditable: this.isEditable,
+      knowledge: this._prepareBackgroundDetailSet({
+        type: "knowledge",
+        tooltip: "ACTOR.LABELS.BackgroundKnowledgeTooltip"
+      }),
       languages: this._prepareBackgroundDetailSet({
         type: "languages",
         tooltip: "ACTOR.LABELS.BackgroundLanguageTooltip"

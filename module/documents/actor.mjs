@@ -623,8 +623,7 @@ export default class CrucibleActor extends Actor {
    * @returns {boolean}
    */
   hasKnowledge(knowledgeId) {
-    if ( this.type !== "hero" ) return false; // Relax this assumption eventually?
-    return this.system.details.background.knowledge.has(knowledgeId);
+    return this.system.details?.knowledge?.has(knowledgeId);
   }
 
   /* -------------------------------------------- */
