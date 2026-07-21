@@ -211,6 +211,11 @@ export default class CrucibleChatMessage extends ChatMessage {
       if ( (flags.action.target.type === "summon") && !game.user.isGM ) html.querySelector(".target-region.full-tags")?.remove();
     }
 
+    // Hide GM-only roll details (e.g. an invisible attacker's secret boon) for non-GMs
+    if ( !game.user.isGM ) {
+      for ( const el of html.querySelectorAll(".gm-only") ) el.remove();
+    }
+
     // Initiative Report
     if ( flags.isInitiativeReport ) {
       crucible.api.models.CrucibleCombatChallenge.onRenderInitiativeReport(message, html);
