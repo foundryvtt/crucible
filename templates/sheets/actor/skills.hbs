@@ -47,7 +47,13 @@
                     {{label}}
                 </span>
                 {{else}}
-                <p class="hint">{{localize "ACTOR.LABELS.KnowledgeHint"}}</p>
+                <p class="hint">
+                    {{#if (eq actor.type "hero")}}
+                    {{localize "ACTOR.LABELS.KnowledgeHint"}}
+                    {{else}}
+                    {{localize "ACTOR.LABELS.KnowledgeHintAdversary"}}
+                    {{/if}}
+                </p>
                 {{/each}}
             </div>
         </div>
@@ -65,7 +71,13 @@
                     {{label}}
                 </span>
                 {{else}}
-                <p class="hint">{{localize "ACTOR.LABELS.LanguagesHint"}}</p>
+                <p class="hint">
+                    {{#if (eq actor.type "hero")}}
+                    {{localize "ACTOR.LABELS.LanguagesHint"}}
+                    {{else}}
+                    {{localize "ACTOR.LABELS.LanguagesHintAdversary"}}
+                    {{/if}}
+                </p>
                 {{/each}}
             </div>
         </div>
