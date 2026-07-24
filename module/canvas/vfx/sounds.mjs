@@ -110,25 +110,19 @@ export const RUNE_SOUNDS = {
       {src: "LifeMiss2.ogg", duration: 1.215}
     ]
   },
-  // FIXME placeholder: death has no recorded SFX yet and reuses the flame samples so delivery pacing can be
-  // tuned against audio. Replace the prefix and entries when death assets are produced.
   death: {
-    prefix: "systems/crucible/assets/sfx/flame",
-    charge: [{src: "FlameChargeUpMedium.ogg", duration: 1.562}],
-    passive: [{src: "FlameLoopPassive.ogg", loop: true}],
-    damage: [{src: "FlameLoopDamage.ogg", loop: true}],
+    prefix: "systems/crucible/assets/sfx/death",
+    charge: [{src: "DeathChargeUp.ogg", duration: 1.915}],
+    passive: [{src: "DeathLoopPassive.ogg", loop: true}],
+    damage: [{src: "DeathLoopDamage.ogg", loop: true}],
     impact: [
-      {src: "FlameImpact1.ogg", duration: 1.915},
-      {src: "FlameImpact2.ogg", duration: 2.013}
-    ],
-    impactHeavy: [
-      {src: "FlameImpactHeavy1.ogg", duration: 1.850},
-      {src: "FlameImpactHeavy2.ogg", duration: 1.915},
-      {src: "FlameImpactHeavy3.ogg", duration: 2.013}
+      {src: "DeathImpact1.ogg", duration: 2.895},
+      {src: "DeathImpact2.ogg", duration: 3.018},
+      {src: "DeathImpact3.ogg", duration: 3.058}
     ],
     miss: [
-      {src: "FlameMiss1.ogg", duration: 1.092},
-      {src: "FlameMiss2.ogg", duration: 1.395}
+      {src: "DeathMiss1.ogg", duration: 2.545},
+      {src: "DeathMiss2.ogg", duration: 2.710}
     ]
   },
   generic: {
