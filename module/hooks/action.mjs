@@ -1370,7 +1370,8 @@ HOOKS.interpose = {
     // Rewrite the event stream, re-evaluating strikes against the interposer's defenses
     for ( const event of originalAction.events ) {
       if ( (event.type === "strike") && event.roll ) {
-        const roll = HOOKS.interpose._cloneRoll(event.roll);
+        const roll = Object.create(event.roll); // Shallow copy
+        roll.data = foundry.utils.deepClone(event.roll.data);
         HOOKS.interpose._rewriteStrike(rewrittenAction, roll, event.weapon, interposer);
       }
       else if ( (event.type === "activation") || (event.type === "actorUpdate") ) {
@@ -1383,20 +1384,10 @@ HOOKS.interpose = {
     }
 
     // Post rewritten action as confirmed
-    const rewrittenMessage = await rewrittenAction.toMessage({confirmed: true});
+    await rewrittenAction._resolveEventStream();
+    const rewrittenMessage = await rewrittenAction.toMessage({confirmed: false});
+    await CrucibleAction.confirmMessage(rewrittenMessage);
     await this.message.setFlag("crucible", "rewrittenMessageId", rewrittenMessage.id);
-  },
-  /**
-   * Create a shallow copy of a Roll that has its own independent data property.
-   * Preserves the prototype chain (methods, getters) while preventing mutation of the original.
-   * @param {AttackRoll} roll     The original roll to clone
-   * @returns {AttackRoll}        A roll copy with deep-cloned data
-   * @internal
-   */
-  _cloneRoll(roll) {
-    const clone = Object.create(roll);
-    clone.data = foundry.utils.deepClone(roll.data);
-    return clone;
   },
   /**
    * Re-evaluate a strike against the interposing actor's defenses and record it on the rewritten action.

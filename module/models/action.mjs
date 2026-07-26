@@ -551,8 +551,8 @@ class CrucibleActionTags extends Set {
  * - `CrucibleAction##settleRollOutcomes` - Flag critical successes/failures and report whether damage or healing landed.
  *    - Actor hooks called: `applyCriticalEffects` - Critical hit effects are recorded into the event stream when
  *      the action damages or heals another target.
- * - `CrucibleAction##resolveEventStream` - Simulate the stream on an actor clone to compute final resource deltas
- *      (overflow, clamps, constraints, point-in-time statuses) and write the realized deltas back.
+ * - {@linkcode CrucibleAction#_resolveEventStream} - Simulate the stream on an actor clone to compute final
+ *      resource deltas (overflow, clamps, constraints, point-in-time statuses) and write the realized deltas back.
  * - Actor hooks called: `finalizeAction`
  * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, spell
  *      provenance on new effects, and effect-change snapshots for reversal.
@@ -1396,7 +1396,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this._post();
     const dealsDamage = this.#settleRollOutcomes();
     if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
-    await this.#resolveEventStream();
+    await this._resolveEventStream();
     this.actor.callActorHooks("finalizeAction", this);
     this.#finalizeEvents();
 
@@ -1981,15 +1981,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Resolve the event stream against an ephemeral simulation of each affected actor. Each event's intended resource
    * deltas are applied to the actor's clone in chronological order - honoring pool overflow, clamps, status- and
    * action-scoped constraints, and statuses applied by earlier events - and the realized change is written back so the
-   * recorded stream is exact and reverses accurately. Subsumes per-roll allocation. See GH #820, #1271.
+   * recorded stream is exact and reverses accurately.
+   * @internal
    */
-  async #resolveEventStream() {
+  async _resolveEventStream() {
     const clones = new Map();
     const cloneFor = actor => {
       if ( !clones.has(actor) ) {
         const clone = actor.clone({}, {keepId: true});
 
-        // Prevent unintended side-effects on dependent tokens (like specialStatusEffects)
+        // Prevent unintended side effects on dependent tokens (like specialStatusEffects)
         for ( const scene of clone._dependentTokens.keys() ) clone._dependentTokens.delete(scene);
         clones.set(actor, clone);
       }
@@ -3440,6 +3441,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {boolean} [options.reverse=false]
    */
   static async confirmMessage(message, {action, reverse=false}={}) {
+    // Confirming twice would apply the events twice, which auto-confirmation can otherwise race a caller into doing
+    if ( !reverse && message?.getFlag("crucible", "confirmed") ) return;
+
     // Bail if a reverse-confirm is already in flight for this message.
     if ( reverse && message?._reversing ) return;
     if ( reverse && message ) message._reversing = true;
