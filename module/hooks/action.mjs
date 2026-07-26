@@ -1371,7 +1371,7 @@ HOOKS.interpose = {
     for ( const event of originalAction.events ) {
       if ( (event.type === "strike") && event.roll ) {
         const roll = HOOKS.interpose._cloneRoll(event.roll);
-        HOOKS.interpose._rewriteStrike(rewrittenAction, roll, event.weapon, interposer);
+        await HOOKS.interpose._rewriteStrike(rewrittenAction, roll, event.weapon, interposer);
       }
       else if ( (event.type === "activation") || (event.type === "actorUpdate") ) {
         rewrittenAction.recordEvent({type: event.type, resources: event.resources,
@@ -1383,7 +1383,8 @@ HOOKS.interpose = {
     }
 
     // Post rewritten action as confirmed
-    const rewrittenMessage = await rewrittenAction.toMessage({confirmed: true});
+    const rewrittenMessage = await rewrittenAction.toMessage({confirmed: false});
+    await CrucibleAction.confirmMessage(rewrittenMessage);
     await this.message.setFlag("crucible", "rewrittenMessageId", rewrittenMessage.id);
   },
   /**
@@ -1407,7 +1408,7 @@ HOOKS.interpose = {
    * @param {CrucibleActor} interposer           The actor interposing to receive the attack
    * @internal
    */
-  _rewriteStrike(action, roll, weapon, interposer) {
+  async _rewriteStrike(action, roll, weapon, interposer) {
     const CrucibleAction = crucible.api.models.CrucibleAction;
     const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
 
@@ -1417,14 +1418,47 @@ HOOKS.interpose = {
 
     // Recompute damage against the interposer, or zero it if the attack does not connect against the interposer
     const dmg = roll.data.damage;
+    let resources = [];
     if ( roll.data.result >= RESULTS.GLANCE ) {
       dmg.overflow = roll.overflow;
       dmg.resistance = interposer.getResistance(dmg.resource, dmg.type, dmg.restoration);
       dmg.total = CrucibleAction.computeDamage(dmg);
+      resources = await HOOKS.interpose._resolveDamageResources(dmg, interposer);
     }
     else dmg.total = 0;
     interposer.callActorHooks("receiveAttack", action, roll);
-    action.recordEvent({type: "strike", target: interposer, roll, weapon});
+    action.recordEvent({type: "strike", target: interposer, roll, weapon, resources});
+  },
+  /**
+   * Translate a re-evaluated strike's damage into a resource delta for the interposer.
+   * @param {object} dmg                  The roll's re-evaluated damage data
+   * @param {CrucibleActor} interposer    The actor absorbing the redirected strike
+   * @returns {ActionResourceDelta[]}     Resource deltas to record on the rewritten strike event
+   * @internal
+   */
+  async _resolveDamageResources(dmg, interposer) {
+    if ( dmg.harmless ) return [];
+    const resource = dmg.resource ?? "health";
+    const cfg = SYSTEM.RESOURCES[resource];
+    const restoration = !!dmg.restoration;
+    const intended = (dmg.total ?? 0) * (restoration ? 1 : -1) * (cfg.type === "reserve" ? -1 : 1);
+    if ( !intended ) return [];
+
+    // Simulate on a clone so the delta honors clamps/overflow
+    const clone = interposer.clone({}, {keepId: true});
+    for ( const scene of clone._dependentTokens.keys() ) clone._dependentTokens.delete(scene);
+    const before = foundry.utils.deepClone(clone.system.resources);
+    await clone.alterResources({[resource]: intended}, {}, {commit: false});
+    const after = clone.system.resources;
+
+    const changed = new Set([resource]);
+    for ( const k in after ) if ( after[k].value !== before[k].value ) changed.add(k);
+    return Array.from(changed, res => ({
+      resource: res,
+      delta: after[res].value - before[res].value,
+      damageType: dmg.type,
+      restoration
+    }));
   },
   /**
    * Reverse a previously confirmed Interpose. Reverses the rewritten action and removes
