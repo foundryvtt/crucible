@@ -20,10 +20,10 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * Document types the owned-reference deletion cascade is permitted to delete.
    * @type {Set<string>}
    */
-  static #DELETABLE_TYPES = new Set(["Token", "Region"]);
+  static #DELETABLE_TYPES = new Set(["Token", "Region", "AmbientLight"]);
 
   /**
-   * The UUIDs of the Tokens and Regions this effect owns. Cached from the effect's own persisted data.
+   * The UUIDs of the Tokens, Regions, and AmbientLights this effect owns. Cached from the effect's own persisted data.
    * The responsible active GM derives the set of documents to delete from trusted, replicated state.
    * @type {Set<string>}
    */
@@ -76,19 +76,19 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   isStatusOnly(statusId) {
     if ( !((this.statuses.size === 1) && this.statuses.has(statusId)) ) return false;
     if ( this.type !== "base" ) return false; // Only base-type effects can be status-only
-    const {changes, dot, summons, regions, maintenance} = this.system;
-    return !(changes.length || dot.length || summons.size || regions.size
+    const {changes, dot, summons, regions, lights, maintenance} = this.system;
+    return !(changes.length || dot.length || summons.size || regions.size || lights.size
       || maintenance.cost || maintenance.hands);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Collect the UUIDs of the Tokens and Regions this effect currently owns from its persisted references.
+   * Collect the UUIDs of the Tokens, Regions, and AmbientLights this effect currently owns from its persisted references.
    * @returns {Set<string>}
    */
   #collectOwnedReferences() {
-    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? [])]);
+    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? []), ...(this.system.lights ?? [])]);
   }
 
   /* -------------------------------------------- */
@@ -96,7 +96,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /**
    * Delete owned references on behalf of a requesting User.
    * Enforce that each still exists, is an allowed document type, and is OWNED by the user who triggered the operation.
-   * @param {Set<string>} references      UUIDs of owned Tokens and Regions to delete
+   * @param {Set<string>} references      UUIDs of owned Tokens, Regions, and AmbientLights to delete
    * @param {string} userId               The user who performed the triggering operation
    * @returns {Promise<void>}
    */

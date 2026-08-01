@@ -19,11 +19,7 @@ system:
         counteracts magical darkness and destroys any source of magical darkness
         whose origin is contained within its area.</p><p>Enemies within the area
         when the light is first created must resist an attack against their
-        <strong>Fortitude</strong> or be @Condition[blinded] for one
-        round.</p><p><strong>WIP: This spell does not yet automatically create a
-        light source, which must be done manually for now. Eventually this will
-        be automated using a new Foundry VTT version 14 framework for template
-        placement.</strong></p>
+        <strong>Fortitude</strong> or be @Condition[blinded] for one round.</p>
       cost:
         action: 0
         focus: 0
@@ -37,7 +33,7 @@ system:
       target:
         type: pulse
         number: 1
-        scope: 1
+        scope: 3
         self: false
         size: 60
       effects:
@@ -58,9 +54,26 @@ system:
             maintenance: null
             regions: []
             summons: []
+            lights: []
+        - name: Dawn Beacon Pillar
+          scope: 1
+          statuses: []
+          duration:
+            value: 6
+            units: rounds
+            expiry: turnEnd
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            lights: []
       tags:
         - spell
-        - iconicSpell
         - iconicSpell
       summon:
         actorUuid: null

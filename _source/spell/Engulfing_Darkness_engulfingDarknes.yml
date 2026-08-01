@@ -18,10 +18,7 @@ system:
         @Condition[blinded].</p><p>The area of this sphere is constrained by
         solid walls. Creatures outside this area cannot see into it and the
         effective area of light sources outside this area ends at its
-        perimeter.</p><p><strong>WIP: This spell does not yet automatically
-        create a darkness source, which must be done manually for now.
-        Eventually this will be automated using a new Foundry VTT version 14
-        framework for template placement.</strong></p>
+        perimeter.</p>
       cost:
         action: 4
         focus: 2
@@ -38,10 +35,26 @@ system:
         scope: 1
         self: false
         size: 20
-      effects: []
+      effects:
+        - name: Engulfing Darkness Sphere
+          scope: 1
+          statuses: []
+          duration:
+            value: 6
+            units: rounds
+            expiry: turnEnd
+          result:
+            type: success
+            all: false
+          system:
+            changes: []
+            dot: []
+            maintenance: null
+            regions: []
+            summons: []
+            lights: []
       tags:
         - spell
-        - iconicSpell
         - iconicSpell
       summon:
         actorUuid: null

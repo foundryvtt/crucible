@@ -21,7 +21,8 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
       }),
       properties: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.EFFECTS.PROPERTIES})),
       regions: new fields.SetField(new fields.DocumentUUIDField({type: "Region", nullable: false})),
-      summons: new fields.SetField(new fields.DocumentUUIDField({type: "Token", nullable: false}))
+      summons: new fields.SetField(new fields.DocumentUUIDField({type: "Token", nullable: false})),
+      lights: new fields.SetField(new fields.DocumentUUIDField({type: "AmbientLight", nullable: false}))
     });
   }
 
