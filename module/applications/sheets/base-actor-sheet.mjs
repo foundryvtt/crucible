@@ -787,9 +787,25 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       s.hexClass = skill.abilities.toSorted().join("-");
 
       // Tooltips
+      const abilityValue1 = this.actor.abilities[skill.abilities[0]].value;
+      const abilityValue2 = this.actor.abilities[skill.abilities[1]].value;
+      const divisor = 4; // We can assume that every skill has 2 abilities associated with it and the scaling factor for each is 2. 2*2=4
+      const abilityBonusRaw = (abilityValue1 + abilityValue2)/divisor; // We recalculate this here as this inbetween step is not stored on the actor
+      const actorSkill = this.actor.skills[skill.id]
+      const abilityBonus = actorSkill.abilityBonus;
+      const skillBonus = actorSkill.skillBonus;
+      const enchantmentBonus = actorSkill.enchantmentBonus;
+      const score = actorSkill.score;
+      const passiveScore = actorSkill.passive;
+
       s.tooltips = {
-        value: _loc("SKILL.TooltipCheck", {a1: a1.label, a2: a2.label}),
-        passive: _loc("SKILL.TooltipPassive")
+        value: _loc("SKILL.TooltipCheck", {
+          ability1: a1.label, ability1Value: abilityValue1, ability2: a2.label, ability2Value: abilityValue2, abilityDivisor: divisor, abilityRaw: abilityBonusRaw, abilityBonus: abilityBonus,
+          skillRank: rank.label, skillBonus: skillBonus, 
+          enchantmentBonus: enchantmentBonus,
+          score: score
+        }),
+        passive: _loc("SKILL.TooltipPassive", {bonus: score, value: passiveScore})
       };
 
       // Add to category

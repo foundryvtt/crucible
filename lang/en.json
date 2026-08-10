@@ -1522,7 +1522,7 @@
   },
   "DEFENSES": {
     "TOOLTIPS": {
-      "Fortitude": "{base} + ((Strength + Wisdom) / 4)",
+      "Fortitude": "{base} + [(Strength + Wisdom) / 4]",
       "Madness": "{base} + (Madness / 10)",
       "Reflex": "{base} + ((Dexterity + Intellect) / 4)",
       "Willpower": "{base} + ((Toughness + Presence) / 4)",
@@ -2160,8 +2160,8 @@
     "SpecializationPathSelect": "Select Specialization",
     "SpecializationPathSpecific": "Specialization Path: {path}",
     "Summary": "Skill Summary",
-    "TooltipCheck": "[({a1} + {a2}) / 4] + Skill Bonus + Enchantment Bonus",
-    "TooltipPassive": "12 + Score",
+    "TooltipCheck": "Ability Bonus:<br />[{ability1}({ability1Value}) + {ability2}({ability2Value})] / {abilityDivisor} = {abilityRaw}, round {abilityBonus} <br /><br />Skill Bonus: {skillRank}({skillBonus})<br/><br/>Enchantment Bonus: {enchantmentBonus}<br/><br/>Total Bonus:<br />Ability({abilityBonus}) + Skill({skillBonus}) + Enchantment({enchantmentBonus}) = {score}",
+    "TooltipPassive": "12 + Total Bonus({bonus}) = {value}",
     "UnacquiredRanks": "Unacquired Ranks"
   },
   "SPELL": {
