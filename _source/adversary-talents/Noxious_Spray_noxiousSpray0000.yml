@@ -58,7 +58,7 @@ system:
         - melee
         - natural
         - reflex
-        - electricity
+        - poison
   rune: ''
   gesture: ''
   inflection: ''
