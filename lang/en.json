@@ -1522,7 +1522,7 @@
   },
   "DEFENSES": {
     "TOOLTIPS": {
-      "Fortitude": "{base} + [(Strength + Wisdom) / 4]",
+      "Fortitude": "{base} + ((Strength + Wisdom) / 4)",
       "Madness": "{base} + (Madness / 10)",
       "Reflex": "{base} + ((Dexterity + Intellect) / 4)",
       "Willpower": "{base} + ((Toughness + Presence) / 4)",
