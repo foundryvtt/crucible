@@ -1,6 +1,7 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
+import {resolveReferences} from "../enrichers.mjs";
 
 /**
  * @import {DataModelConstructionContext} from "@common/abstract/_types.mjs"
@@ -1819,15 +1820,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
 
-  
- /** Resolve @ref[...] links against this action before copying the description to an effect, preserving source references if the effect's data changes later. */
-  #resolveRefEnrichers(text) {
-  const {pattern, enricher} = CONFIG.TextEditor.enrichers.find(e => e.id === "reference");
-  return text.replace(pattern, (...args) => enricher(args.slice(0, -2), {relativeTo: this}).textContent);
-  }
-
-  /* -------------------------------------------- */
-
   /**
    * Record effect events for each target in the event stream based on the action's defined effects.
    * Effects are attached to qualifying roll events where possible, or recorded as standalone effect events.
@@ -1837,6 +1829,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     let regionEffectRequired = this.region
       && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
     if ( !this.effects.length && !regionEffectRequired ) return;
+    const description = resolveReferences(this.description, this); // Bake @ref annotations now, last chance to do so
     const eventsByActor = this.eventsByActor;
     const allActors = Array.from(this.targets.keys());
     if ( !this.targets.has(this.actor) ) allActors.push(this.actor);
@@ -1854,7 +1847,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const effect = {
           _id: _id || SYSTEM.EFFECTS.getEffectId(this.id, {suffix: String(i)}),
           name: name || this.name,
-          description: this.#resolveRefEnrichers(this.description),
+          description,
           img: this.img,
           origin: this.actor.uuid,
           duration: effectDuration,
@@ -1884,7 +1877,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         this.recordEvent({type: "effect", target, effects: [{
           _id: SYSTEM.EFFECTS.getEffectId(this.gesture?.id ?? this.id),
           name: this.name,
-          description: this.#resolveRefEnrichers(this.description),
+          description,
           img: this.img,
           origin: this.actor.uuid,
           showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,

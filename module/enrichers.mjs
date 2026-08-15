@@ -1,6 +1,12 @@
 import { chooseActorsDialog } from "./interaction.mjs";
 
 /**
+ * The pattern which matches `@ref` annotations, shared by the registered enricher and {@link resolveReferences}.
+ * @type {RegExp}
+ */
+const REFERENCE_PATTERN = /@ref\[([\w.]+)](?:{([^}]+)})?/g;
+
+/**
  * Register custom text editor enrichers that are applied to Crucible content.
  */
 export function registerEnrichers() {
@@ -78,7 +84,7 @@ export function registerEnrichers() {
     },
     {
       id: "reference",
-      pattern: /@ref\[([\w.]+)](?:{([^}]+)})?/g,
+      pattern: REFERENCE_PATTERN,
       enricher: enrichRef
     },
     {
@@ -876,6 +882,21 @@ function enrichRef([match, path, fallback], options) {
   if ( !doc ) return new Text(fallback || match);
   const attr = foundry.utils.getProperty(doc, path);
   return new Text(attr || fallback || match);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve `@ref` annotations to literal text eagerly, rather than deferring them to display-time enrichment.
+ * Used when text is copied onto another document which would otherwise become the referent, see GH #1310.
+ * @param {string} text           Source text which may contain `@ref` annotations
+ * @param {object} relativeTo     The document against which property paths are resolved
+ * @returns {string}              The text with every reference replaced by its resolved value
+ */
+export function resolveReferences(text, relativeTo) {
+  if ( !text ) return text;
+  return text.replace(REFERENCE_PATTERN, (match, path, fallback) =>
+    enrichRef([match, path, fallback], {relativeTo}).textContent);
 }
 
 /* -------------------------------------------- */

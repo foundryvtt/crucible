@@ -881,10 +881,10 @@
       "FavoriteActions": "Favorite Actions",
       "Knowledge": "Knowledge Areas",
       "KnowledgeHint": "Learn some Knowledge Areas from your Background or edit your Hero to gain some.",
-      "KnowledgeHintAdversary": "No Knowledge Areas known.",
+      "KnowledgeHintAdversary": "Use the configuration control to assign Knowledge Areas.",
       "Languages": "Known Languages",
       "LanguagesHint": "Learn some Languages from your Background or edit your Hero to gain some.",
-      "LanguagesHintAdversary": "No Languages known.",
+      "LanguagesHintAdversary": "Use the configuration control to assign Languages.",
       "OverCapacity": "Over Capacity"
     },
     "SECTIONS": {

@@ -39,7 +39,7 @@
                 <a class="control icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="knowledge"></a>
             </h3>
             <div class="tags knowledge-areas">
-                {{#each knowledge}}
+                {{#each knowledge.known}}
                 <span
                     class="larger tag knowledge-area{{#if fromBackground}} background-granted{{/if}}"
                     {{#if tooltip}} data-tooltip="{{tooltip}}"{{/if}}
@@ -47,13 +47,7 @@
                     {{label}}
                 </span>
                 {{else}}
-                <p class="hint">
-                    {{#if (eq actor.type "hero")}}
-                    {{localize "ACTOR.LABELS.KnowledgeHint"}}
-                    {{else}}
-                    {{localize "ACTOR.LABELS.KnowledgeHintAdversary"}}
-                    {{/if}}
-                </p>
+                <p class="hint">{{knowledge.hint}}</p>
                 {{/each}}
             </div>
         </div>
@@ -63,7 +57,7 @@
                 <a class="control icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="languages"></a>
             </h3>
             <div class="tags languages">
-                {{#each languages}}
+                {{#each languages.known}}
                 <span
                     class="larger tag language{{#if fromBackground}} background-granted{{/if}}"
                     {{#if tooltip}} data-tooltip="{{tooltip}}"{{/if}}
@@ -71,13 +65,7 @@
                     {{label}}
                 </span>
                 {{else}}
-                <p class="hint">
-                    {{#if (eq actor.type "hero")}}
-                    {{localize "ACTOR.LABELS.LanguagesHint"}}
-                    {{else}}
-                    {{localize "ACTOR.LABELS.LanguagesHintAdversary"}}
-                    {{/if}}
-                </p>
+                <p class="hint">{{languages.hint}}</p>
                 {{/each}}
             </div>
         </div>
