@@ -21,9 +21,17 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @property {Set<Token>} other       Other tokens which are engaged
    * @property {PIXI.Rectangle} [engagementBounds] Your bounds of engagement
    * @property {PIXI.Polygon} [movePolygon] Your current movement polygon
+   * @property {number} [value]         Your engagement capacity, absent for an engagement with nobody
    * @property {number} [flankers]      The number of enemy flankers
    * @property {number} [allyBonus]     The engagement bonus provided by adjacent allies
    * @property {number} [flanked]       The resulting flanked stage
+   */
+
+  /**
+   * @typedef CrucibleTokenFlanking
+   * @property {number} flankers        The number of enemy flankers which counted
+   * @property {number} allyBonus       The engagement bonus provided by adjacent allies
+   * @property {number} flanked         The resulting flanked stage
    */
 
   /**
@@ -89,8 +97,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * Test whether this Token can detect another Token via any of its enabled detection modes.
-   * If this Token has no active vision source, an ephemeral one is constructed using the token's standard vision data
-   * and blinded states, then disposed of after the test.
    * @param {CrucibleTokenObject} targetToken               The token whose visibility is being tested
    * @param {object} [options]
    * @param {Iterable<string>} [options.modes]              Restrict the test to this subset of detection mode ids
@@ -98,27 +104,67 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    */
   canDetect(targetToken, {modes}={}) {
     if ( this === targetToken ) return true;
-    let visionSource = this.vision;
-    let ephemeral = false;
-    if ( !visionSource ) {
-      visionSource = new CONFIG.Canvas.visionSourceClass({
-        sourceId: `${this.sourceId}.detectionTest`,
-        object: this
-      });
-      const blindedStates = this._getVisionBlindedStates();
-      for ( const state in blindedStates ) visionSource.blinded[state] = blindedStates[state];
-      visionSource.initialize(this._getVisionSourceData());
-      ephemeral = true;
+    const {visionSource, ephemeral} = this.#acquireDetectionVisionSource();
+    const detected = this.#testDetection(targetToken, visionSource, modes ? new Set(modes) : null);
+    if ( ephemeral ) visionSource.destroy();
+    return detected;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Filter a group of Tokens down to those which this Token can detect, reusing one vision source for every test.
+   * @param {Iterable<CrucibleTokenObject>} targetTokens    The tokens whose visibility is being tested
+   * @param {object} [options]
+   * @param {Iterable<string>} [options.modes]              Restrict the test to this subset of detection mode ids
+   * @returns {Set<CrucibleTokenObject>}                    The subset of tokens which this Token detects
+   */
+  filterDetected(targetTokens, {modes}={}) {
+    const {visionSource, ephemeral} = this.#acquireDetectionVisionSource();
+    const allowed = modes ? new Set(modes) : null;
+    const detected = new Set();
+    for ( const t of targetTokens ) {
+      if ( (this === t) || this.#testDetection(t, visionSource, allowed) ) detected.add(t);
     }
+    if ( ephemeral ) visionSource.destroy();
+    return detected;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Obtain a vision source to perform detection tests against.
+   * An ephemeral source is constructed if this Token has none active, which the caller is responsible for destroying.
+   * @returns {{visionSource: PointVisionSource, ephemeral: boolean}}
+   */
+  #acquireDetectionVisionSource() {
+    if ( this.vision ) return {visionSource: this.vision, ephemeral: false};
+    const visionSource = new CONFIG.Canvas.visionSourceClass({
+      sourceId: `${this.sourceId}.detectionTest`,
+      object: this
+    });
+    const blindedStates = this._getVisionBlindedStates();
+    for ( const state in blindedStates ) visionSource.blinded[state] = blindedStates[state];
+    visionSource.initialize(this._getVisionSourceData());
+    return {visionSource, ephemeral: true};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether a prepared vision source detects a target Token via any permitted detection mode.
+   * @param {CrucibleTokenObject} targetToken     The token whose visibility is being tested
+   * @param {PointVisionSource} visionSource      A vision source from {@link #acquireDetectionVisionSource}
+   * @param {Set<string>|null} allowed            Permitted detection mode ids, or null to permit all of them
+   * @returns {boolean}
+   */
+  #testDetection(targetToken, visionSource, allowed) {
     const testPoints = targetToken.document.getVisibilityTestPoints();
     const config = canvas.visibility._createVisibilityTestConfig(testPoints, {object: targetToken, tolerance: 0});
-    const allowed = modes ? new Set(modes) : null;
-    const detected = Object.entries(this.detectionModes).some(([id, mode]) => {
+    return Object.entries(this.detectionModes).some(([id, mode]) => {
       if ( allowed && !allowed.has(id) ) return false;
       return CONFIG.Canvas.detectionModes[id]?.testVisibility(visionSource, mode, config) === true;
     });
-    if ( ephemeral ) visionSource.destroy();
-    return detected;
   }
 
   /* -------------------------------------------- */
@@ -572,10 +618,10 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const toUpdate = this.#propagateEngagementUpdates(this.engagement, engagement);
 
     // Step 3: Compute flanking of this token
-    this.engagement = this.constructor.computeFlanking(engagement);
+    this.engagement = Object.assign(engagement, this.constructor.computeFlanking(engagement));
 
     // Step 4: Compute flanking stage of all engaged tokens
-    for ( const t of toUpdate ) t.engagement = this.constructor.computeFlanking(t.engagement);
+    for ( const t of toUpdate ) Object.assign(t.engagement, this.constructor.computeFlanking(t.engagement));
 
     // Debug visualize enemies
     this._visualizeEngagement(engagement);
@@ -594,32 +640,40 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /**
-   * Compute the Flanked stage for a certain engagement state.
-   * @param {CrucibleTokenEngagement} engagement      The current engagement
-   * @returns {CrucibleTokenEngagement}               Updated engagement with computed flanking stage
+   * Compute the Flanked stage for a certain engagement state, which is not mutated.
+   * @param {CrucibleTokenEngagement} engagement      The engagement state of the Token being flanked
+   * @param {object} [options]
+   * @param {CrucibleTokenObject} [options.observer]  An attacking Token which only counts participants it perceives
+   * @returns {CrucibleTokenFlanking}                 The computed flanking result
    */
-  static computeFlanking(engagement) {
-    engagement.allyBonus = 0;
+  static computeFlanking(engagement, {observer}={}) {
+
+    // Perception is filtered once for both sides; an observer always perceives itself
+    const perceived = observer?.filterDetected(engagement.enemies.union(engagement.allies));
 
     // Count flankers; an adversary's flankingStrength lets it count as more than one
     let flankers = 0;
     for ( const enemy of engagement.enemies ) {
+      if ( perceived && !perceived.has(enemy) ) continue;
       const {isBroken, isIncapacitated} = enemy.actor.system;
       if ( !(isBroken || isIncapacitated) ) flankers += enemy.actor.system.movement?.flankingStrength ?? 1;
     }
-    engagement.flankers = flankers;
 
-    // Determine the engagement bonus received from allies
+    // Determine the engagement bonus received from allies; an unperceived defender does not distract the observer
+    let allyBonus = 0;
     for ( const ally of engagement.allies ) {
+      if ( perceived && !perceived.has(ally) ) continue;
       const {isBroken, isIncapacitated} = ally.actor.system;
       if ( isBroken || isIncapacitated ) continue;
       const mutual = ally.engagement.enemies.intersection(engagement.enemies);
       if ( !mutual.size ) continue;
       const allyEngage = ally?.actor.system.movement.engagement ?? 1;
-      engagement.allyBonus += Math.min(allyEngage, mutual.size);
+      allyBonus += Math.min(allyEngage, mutual.size);
     }
-    engagement.flanked = Math.max(engagement.flankers - engagement.allyBonus - engagement.value, 0);
-    return engagement;
+
+    // Engagement with nobody carries no capacity, in which case there are no flankers to subtract
+    const value = engagement.value ?? 0;
+    return {flankers, allyBonus, flanked: Math.max(flankers - allyBonus - value, 0)};
   }
 
   /* -------------------------------------------- */
@@ -784,9 +838,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Remove engagement from the deleted token
     const newEngagement = this.#initializeEngagement(); // "new" engagement is nobody
     const toUpdate = this.#propagateEngagementUpdates(this.engagement, newEngagement);
-    this.engagement = this.constructor.computeFlanking(newEngagement);
+    this.engagement = Object.assign(newEngagement, this.constructor.computeFlanking(newEngagement));
     for ( const t of toUpdate ) {
-      t.engagement = this.constructor.computeFlanking(t.engagement);
+      Object.assign(t.engagement, this.constructor.computeFlanking(t.engagement));
       if ( commit ) t.actor.commitFlanking(t.engagement);
     }
   }

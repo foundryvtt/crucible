@@ -1766,6 +1766,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Compute the degree to which a target is flanked by this Action's actor.
+   * @param {CrucibleActor} target    An actor which this Action targets
+   * @returns {number}                The flanked stage which applies to this attacker, zero if none applies
+   */
+  computeFlanking(target) {
+    const attacker = this.token?.object;
+    const defender = this.targets.get(target)?.token?.object;
+    if ( !attacker || !defender ) return 0;
+    const engagement = defender.engagement;
+
+    // A movement action strikes from a terminal waypoint the attacker does not yet occupy, so it is still absent
+    // from the defender's engagement
+    let {enemies} = engagement;
+    if ( (this.target.type === "movement") && !enemies.has(attacker) ) enemies = enemies.union(new Set([attacker]));
+
+    const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking({...engagement, enemies},
+      {observer: attacker});
+    return flanked;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Pre-create the self actorUpdate and activation events before preActivate hooks run.
    * Drains any pre-accumulated usage.actorUpdates and usage.itemSnapshots into the events.
    */
