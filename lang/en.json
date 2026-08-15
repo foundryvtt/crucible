@@ -1669,6 +1669,8 @@
     "Rank": "Hazard {danger}",
     "TooltipDamage": "{rank} vs. {defense} dealing {damage} damage to {resource}",
     "TooltipRestoration": "{rank} vs. {defense} restoring {resource}",
+    "TooltipTag": "{label}: {tooltip}",
+    "TooltipTags": "{tooltip} ({tags})",
     "UseHazard": "Use Hazard",
     "WindowTitle": "Hazard: {name}",
     "CONFIG": {
