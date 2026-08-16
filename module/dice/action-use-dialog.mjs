@@ -263,9 +263,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
   _onChangeForm(formConfig, event) {
     super._onChangeForm(formConfig, event);
     if ( event.target.name === "weapon" ) {
-      // Lock in the explicit choice; the strike tag's prepare resolves it to a weapon and honors it over the default
-      this.#weaponChoice = this.action.usage.weaponChoice = event.target.value;
+      this.#weaponChoice = this.action.usage.weaponChoice = event.target.value; // Lock explicit choice
       this.action.reset();
+      this.action._configureFlanking(); // A different weapon choice may change flanking eligibility
       this.#rebuildRoll();
       this.render();
     }

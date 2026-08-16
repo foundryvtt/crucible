@@ -1526,7 +1526,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {Map<CrucibleActor, ActionUseTarget>}
    */
   #assignTargets(targets) {
-    this.#configureFlanking(targets);
+    this._configureFlanking(targets);
     this.targets = new Map(targets.map(t => [t.actor, t]));
     return this.targets;
   }
@@ -1798,9 +1798,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Record the flanking each acquired target affords, and preview the boon it will award before the Action is used.
    * The best flanking among the targets is previewed, while each target is still rolled against its own.
    * Usage is shared between clones of a bound Action, so a boon which no longer applies is actively removed.
-   * @param {ActionUseTarget[]} targets   The acquired targets, annotated in place
+   * @param {Iterable<ActionUseTarget>} [targets]   Targets to annotate with flanking stages
+   * @internal
    */
-  #configureFlanking(targets) {
+  _configureFlanking(targets=this.targets.values()) {
     delete this.usage.boons.flanked;
     let best = 0;
     for ( const target of targets ) {
@@ -2356,7 +2357,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _configureUsage() {
-    this.usage.hasDice = false; // Actions don't involve a roll unless otherwise configured
+    // Reset flags that are determined during action preparation
+    this.usage.hasDice = this.usage.isAttack = this.usage.isMelee = this.usage.isRanged = false;
 
     // Reset cost fields to their source values so that repeated prepare() calls do not accumulate costs
     const sc = this._source.cost;
