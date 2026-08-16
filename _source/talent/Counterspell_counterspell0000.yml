@@ -4,8 +4,7 @@ img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
 system:
   description: >-
     <p>You immediately react to a spell being cast and compose a rune and
-    gesture designed to unravel and negate the spellcraft of an enemy
-    mage.</p>
+    gesture designed to unravel and negate the spellcraft of an enemy mage.</p>
   actions:
     - id: counterspell
       condition: Another creature which you can see is casting a spell.

@@ -489,7 +489,9 @@ export const TAGS = {
     category: "context",
     acquireTargets(targets) {
       for ( const target of targets ) {
-        if ( !target.actor.statuses.has("flanked") ) target.error ??= _loc("ACTION.WARNINGS.NotFlanked", {action: this.name, target: target.actor.name});
+        if ( !this.computeFlanking(target.actor, target.token) ) {
+          target.error ??= _loc("ACTION.WARNINGS.NotFlanked", {action: this.name, target: target.actor.name});
+        }
       }
     }
   },

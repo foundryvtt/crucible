@@ -142,8 +142,7 @@ Hooks.once("init", async function() {
   CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
   CONFIG.ActiveEffect.dataModels = {
     affix: models.CrucibleAffixActiveEffect,
-    base: models.CrucibleBaseActiveEffect,
-    flanked: models.CrucibleFlankedActiveEffect
+    base: models.CrucibleBaseActiveEffect
   };
   Object.assign(CONFIG.ActiveEffect, {
     compendiumIndexFields: ["system.identifier", "system.affixType"],
@@ -707,41 +706,6 @@ Hooks.on("openDetachedWindow", (_id, window) => {
 /* -------------------------------------------- */
 
 /**
- * Perform one-time data migrations for the current world.
- * @param {string} priorVersion
- * @returns {Promise<void>}
- */
-async function _performMigrations(priorVersion) {
-  await syncWorldItems({equipment: true});
-  await syncOwnedItems({equipment: true, force: true, reload: false});
-  await game.settings.set("crucible", "migrationVersion", crucible.version);
-  foundry.utils.debouncedReload();
-}
-
-/* -------------------------------------------- */
-
-/**
- * Resolve the effective world migration version, inferring a baseline for quickstart worlds whose setting is 0.0.0.
- * @returns {string} The resolved migration version.
- */
-function _getMigrationVersion() {
-  const mv = game.settings.get("crucible", "migrationVersion");
-  if ( mv !== "0.0.0" ) return mv;
-
-  // A quickstart world reports 0.0.0 despite holding content from a later vintage; recover the oldest such vintage
-  // from the recorded adventure imports.
-  const imports = game.settings.get("core", "adventureImports");
-  let baseline = null;
-  for ( const data of Object.values(imports) ) {
-    if ( !data.quickstart?.quickstarted || !data.systemVersion ) continue;
-    if ( !baseline || foundry.utils.isNewerVersion(baseline, data.systemVersion) ) baseline = data.systemVersion;
-  }
-  return baseline ?? mv;
-}
-
-/* -------------------------------------------- */
-
-/**
  * One time initialization of prototype token override preferences.
  * @returns {Promise<void>}
  */
@@ -775,6 +739,7 @@ async function _initializePrototypeTokenSettings() {
 Hooks.on("getChatMessageContextOptions", chat.addChatMessageContextOptions);
 Hooks.on("renderChatMessageHTML", documents.CrucibleChatMessage.onRenderHTML);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
+Hooks.on("targetToken", () => canvas.CrucibleTokenObject.refreshFlankingVisualization());
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
 Hooks.on("getSceneControlButtons", controls => {
   controls.tokens.tools.forcedMovement = {
@@ -796,10 +761,7 @@ Hooks.on("getSceneControlButtons", controls => {
     active: false,
     onChange: (_event, active) => {
       CONFIG.debug.flanking = active;
-      for ( const token of globalThis.canvas.tokens.controlled ) {
-        if ( active ) token._visualizeEngagement(token.engagement);
-        else token._clearEngagementVisualization();
-      }
+      canvas.CrucibleTokenObject.refreshFlankingVisualization();
     }
   };
 });
@@ -1139,6 +1101,94 @@ Hooks.once("diceSoNiceReady", dice3d => {
   // Improve Group Skill Checks rendering by hiding only the roll result
   dice3d.setMessageUpdateHideSelector?.(".dice-result");
 });
+
+/* -------------------------------------------- */
+/*  Data Migrations                             */
+/* -------------------------------------------- */
+
+/**
+ * Perform one-time data migrations for the current world.
+ * @param {string} priorVersion
+ * @returns {Promise<void>}
+ */
+async function _performMigrations(priorVersion) {
+  await syncWorldItems({equipment: true});
+  await syncOwnedItems({equipment: true, force: true, reload: false});
+  await _deleteFlankedEffects();
+  await game.settings.set("crucible", "migrationVersion", crucible.version);
+  foundry.utils.debouncedReload();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the effective world migration version, inferring a baseline for quickstart worlds whose setting is 0.0.0.
+ * @returns {string} The resolved migration version.
+ */
+function _getMigrationVersion() {
+  const mv = game.settings.get("crucible", "migrationVersion");
+  if ( mv !== "0.0.0" ) return mv;
+
+  // A quickstart world reports 0.0.0 despite holding content from a later vintage; recover the oldest such vintage
+  // from the recorded adventure imports.
+  const imports = game.settings.get("core", "adventureImports");
+  let baseline = null;
+  for ( const data of Object.values(imports) ) {
+    if ( !data.quickstart?.quickstarted || !data.systemVersion ) continue;
+    if ( !baseline || foundry.utils.isNewerVersion(baseline, data.systemVersion) ) baseline = data.systemVersion;
+  }
+  return baseline ?? mv;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Delete the ActiveEffects which the retired automatic flanking system committed to Actors, wherever they persist.
+ * Flanking is now derived per-attacker at the moment of use, so these persisted effects are inert automation
+ * artifacts. They are identified by their "flanked" subtype, which no manually applied condition ever carries.
+ * @returns {Promise<void>}
+ */
+async function _deleteFlankedEffects() {
+  console.groupCollapsed("Crucible | Retired Flanking Effect Cleanup");
+  const retiredIds = effects => (effects ?? []).filter(e => e.type === "flanked").map(e => e._id);
+  const deleteRetired = async (actor, ids) => {
+    await actor.deleteEmbeddedDocuments("ActiveEffect", ids);
+    console.debug(`Deleted ${ids.length} retired flanking effect(s) from ${actor.name} [${actor.uuid}]`);
+  };
+
+  // World Actors own their effects directly
+  for ( const actor of game.actors ) {
+    const ids = retiredIds(actor._source.effects);
+    if ( ids.length ) await deleteRetired(actor, ids);
+  }
+
+  // An unlinked Token holds an ActorDelta whose own effects are addressed through its synthetic Actor
+  for ( const scene of game.scenes ) {
+    for ( const token of scene.tokens ) {
+      if ( token.isLinked ) continue;
+      const ids = retiredIds(token._source.delta?.effects);
+      if ( !ids.length ) continue;
+      if ( token.actor ) await deleteRetired(token.actor, ids);
+      else console.warn(`Could not resolve the Actor for Token [${token.uuid}] to delete its flanking effects`);
+    }
+  }
+
+  // World-level Actor packs, which may hold an Actor exported while it was flanked
+  for ( const pack of game.packs ) {
+    if ( (pack.documentName !== "Actor") || (pack.metadata.packageType !== "world") ) continue;
+    const wasLocked = pack.locked;
+    if ( wasLocked ) await pack.configure({locked: false});
+    try {
+      for ( const actor of await pack.getDocuments() ) {
+        const ids = retiredIds(actor._source.effects);
+        if ( ids.length ) await deleteRetired(actor, ids);
+      }
+    } finally {
+      if ( wasLocked ) await pack.configure({locked: true});
+    }
+  }
+  console.groupEnd();
+}
 
 /* -------------------------------------------- */
 /*  ESModules API                               */

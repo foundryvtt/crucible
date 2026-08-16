@@ -21,9 +21,17 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @property {Set<Token>} other       Other tokens which are engaged
    * @property {PIXI.Rectangle} [engagementBounds] Your bounds of engagement
    * @property {PIXI.Polygon} [movePolygon] Your current movement polygon
+   * @property {number} [value]         Your engagement capacity, absent for an engagement with nobody
    * @property {number} [flankers]      The number of enemy flankers
    * @property {number} [allyBonus]     The engagement bonus provided by adjacent allies
    * @property {number} [flanked]       The resulting flanked stage
+   */
+
+  /**
+   * @typedef CrucibleTokenFlanking
+   * @property {number} flankers        The number of enemy flankers which counted
+   * @property {number} allyBonus       The engagement bonus provided by adjacent allies
+   * @property {number} flanked         The resulting flanked stage
    */
 
   /**
@@ -31,18 +39,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @type {CrucibleTokenEngagement}
    */
   engagement = this.#initializeEngagement();
-
-  /**
-   * Should the next flanking update be responsible for committing Active Effect changes?
-   * @type {boolean}
-   */
-  #commitFlanking = false;
-
-  /**
-   * A Graphics object in the debug layer which displays engagement for this token.
-   * @type {PIXI.Graphics}
-   */
-  #engagementDebug;
 
   /**
    * Cached hitbox data in screen-space coordinates.
@@ -89,8 +85,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * Test whether this Token can detect another Token via any of its enabled detection modes.
-   * If this Token has no active vision source, an ephemeral one is constructed using the token's standard vision data
-   * and blinded states, then disposed of after the test.
    * @param {CrucibleTokenObject} targetToken               The token whose visibility is being tested
    * @param {object} [options]
    * @param {Iterable<string>} [options.modes]              Restrict the test to this subset of detection mode ids
@@ -98,27 +92,72 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    */
   canDetect(targetToken, {modes}={}) {
     if ( this === targetToken ) return true;
-    let visionSource = this.vision;
-    let ephemeral = false;
-    if ( !visionSource ) {
-      visionSource = new CONFIG.Canvas.visionSourceClass({
-        sourceId: `${this.sourceId}.detectionTest`,
-        object: this
-      });
-      const blindedStates = this._getVisionBlindedStates();
-      for ( const state in blindedStates ) visionSource.blinded[state] = blindedStates[state];
-      visionSource.initialize(this._getVisionSourceData());
-      ephemeral = true;
+    const {visionSource, ephemeral} = this.#acquireDetectionVisionSource();
+    const detected = this.#testDetection(targetToken, visionSource, modes ? new Set(modes) : null);
+    if ( ephemeral ) visionSource.destroy();
+    return detected;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Filter a group of Tokens down to those which this Token can detect, reusing one vision source for every test.
+   * @param {Iterable<CrucibleTokenObject>} targetTokens    The tokens whose visibility is being tested
+   * @param {object} [options]
+   * @param {Iterable<string>} [options.modes]              Restrict the test to this subset of detection mode ids
+   * @returns {Set<CrucibleTokenObject>}                    The subset of tokens which this Token detects
+   */
+  filterDetected(targetTokens, {modes}={}) {
+    const {visionSource, ephemeral} = this.#acquireDetectionVisionSource();
+    const allowed = modes ? new Set(modes) : null;
+    const detected = new Set();
+    for ( const t of targetTokens ) {
+      if ( (this === t) || this.#testDetection(t, visionSource, allowed) ) detected.add(t);
     }
+    if ( ephemeral ) visionSource.destroy();
+    return detected;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Obtain a vision source to perform detection tests against.
+   * An ephemeral source is constructed if this Token has none active, which the caller is responsible for destroying.
+   * @returns {{visionSource: PointVisionSource, ephemeral: boolean}}
+   */
+  #acquireDetectionVisionSource() {
+    if ( this.vision ) return {visionSource: this.vision, ephemeral: false};
+    const visionSource = new CONFIG.Canvas.visionSourceClass({
+      sourceId: `${this.sourceId}.detectionTest`,
+      object: this
+    });
+    const blindedStates = this._getVisionBlindedStates();
+    for ( const state in blindedStates ) visionSource.blinded[state] = blindedStates[state];
+    visionSource.initialize(this._getVisionSourceData());
+    return {visionSource, ephemeral: true};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether a prepared vision source detects a target Token via any permitted detection mode.
+   * @param {CrucibleTokenObject} targetToken     The token whose visibility is being tested
+   * @param {PointVisionSource} visionSource      A vision source from {@link #acquireDetectionVisionSource}
+   * @param {Set<string>|null} allowed            Permitted detection mode ids, or null to permit all of them
+   * @returns {boolean}
+   */
+  #testDetection(targetToken, visionSource, allowed) {
     const testPoints = targetToken.document.getVisibilityTestPoints();
     const config = canvas.visibility._createVisibilityTestConfig(testPoints, {object: targetToken, tolerance: 0});
-    const allowed = modes ? new Set(modes) : null;
-    const detected = Object.entries(this.detectionModes).some(([id, mode]) => {
+    // Use configured detection modes if the token has some, otherwise use automatic lightPerception and basicSight
+    const detectionModes = foundry.utils.isEmpty(this.detectionModes) ? {
+      lightPerception: {enabled: true, range: Infinity},
+      basicSight: {enabled: true, range: this.document.sight.range}
+    } : this.detectionModes;
+    return Object.entries(detectionModes).some(([id, mode]) => {
       if ( allowed && !allowed.has(id) ) return false;
       return CONFIG.Canvas.detectionModes[id]?.testVisibility(visionSource, mode, config) === true;
     });
-    if ( ephemeral ) visionSource.destroy();
-    return detected;
   }
 
   /* -------------------------------------------- */
@@ -289,7 +328,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @inheritDoc */
   _onControl(options) {
     super._onControl(options);
-    if ( CONFIG.debug.flanking ) this._visualizeEngagement(this.engagement);
+    CrucibleTokenObject.refreshFlankingVisualization();
   }
 
   /* -------------------------------------------- */
@@ -297,7 +336,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @inheritDoc */
   _onRelease(options) {
     super._onRelease(options);
-    this._clearEngagementVisualization();
+    CrucibleTokenObject.refreshFlankingVisualization();
   }
 
   /* -------------------------------------------- */
@@ -548,12 +587,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * Set the render flag to schedule a flanking refresh.
-   * @param {boolean} commit
    */
-  refreshFlanking(commit) {
-    const activeGM = game.users.activeGM;
-    commit ??= (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    if ( commit ) this.#commitFlanking = true;
+  refreshFlanking() {
     this.renderFlags.set({refreshFlanking: true});
   }
 
@@ -572,54 +607,72 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const toUpdate = this.#propagateEngagementUpdates(this.engagement, engagement);
 
     // Step 3: Compute flanking of this token
-    this.engagement = this.constructor.computeFlanking(engagement);
+    this.engagement = Object.assign(engagement, this.constructor.computeFlanking(engagement));
 
     // Step 4: Compute flanking stage of all engaged tokens
-    for ( const t of toUpdate ) t.engagement = this.constructor.computeFlanking(t.engagement);
+    for ( const t of toUpdate ) Object.assign(t.engagement, this.constructor.computeFlanking(t.engagement));
 
-    // Debug visualize enemies
-    this._visualizeEngagement(engagement);
-
-    // Update other Actors
-    if ( !this.#commitFlanking ) return;
-    this.#commitFlanking = false;
-    for ( const token of toUpdate ) {
-      token.actor.commitFlanking(token.engagement);
-    }
-
-    // Update our own actor
-    this.actor.commitFlanking(this.engagement);
+    // Movement may have changed the flanking of any participant, not only this Token
+    CrucibleTokenObject.refreshFlankingVisualization();
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Compute the Flanked stage for a certain engagement state.
-   * @param {CrucibleTokenEngagement} engagement      The current engagement
-   * @returns {CrucibleTokenEngagement}               Updated engagement with computed flanking stage
+   * Compute the Flanked stage for a certain engagement state, which is not mutated.
+   * @param {CrucibleTokenEngagement} engagement      The engagement state of the Token being flanked
+   * @param {object} [options]
+   * @param {CrucibleTokenObject} [options.observer]  An attacking Token which only counts participants it perceives
+   * @returns {CrucibleTokenFlanking}                 The computed flanking result
    */
-  static computeFlanking(engagement) {
-    engagement.allyBonus = 0;
+  static computeFlanking(engagement, {observer}={}) {
+
+    // Perception is filtered once for both sides; an observer always perceives itself
+    const perceived = observer?.filterDetected(engagement.enemies.union(engagement.allies));
 
     // Count flankers; an adversary's flankingStrength lets it count as more than one
     let flankers = 0;
     for ( const enemy of engagement.enemies ) {
+      if ( perceived && !perceived.has(enemy) ) continue;
       const {isBroken, isIncapacitated} = enemy.actor.system;
       if ( !(isBroken || isIncapacitated) ) flankers += enemy.actor.system.movement?.flankingStrength ?? 1;
     }
-    engagement.flankers = flankers;
 
-    // Determine the engagement bonus received from allies
+    // Determine the engagement bonus received from allies; an unperceived defender does not distract the observer
+    let allyBonus = 0;
     for ( const ally of engagement.allies ) {
+      if ( perceived && !perceived.has(ally) ) continue;
       const {isBroken, isIncapacitated} = ally.actor.system;
       if ( isBroken || isIncapacitated ) continue;
       const mutual = ally.engagement.enemies.intersection(engagement.enemies);
       if ( !mutual.size ) continue;
       const allyEngage = ally?.actor.system.movement.engagement ?? 1;
-      engagement.allyBonus += Math.min(allyEngage, mutual.size);
+      allyBonus += Math.min(allyEngage, mutual.size);
     }
-    engagement.flanked = Math.max(engagement.flankers - engagement.allyBonus - engagement.value, 0);
-    return engagement;
+
+    // Engagement with nobody carries no capacity, in which case there are no flankers to subtract
+    const value = engagement.value ?? 0;
+    return {flankers, allyBonus, flanked: Math.max(flankers - allyBonus - value, 0)};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the degree to which a target Token is flanked, as this Token perceives the situation.
+   * @param {CrucibleTokenObject} target        The Token being flanked
+   * @param {object} [options]
+   * @param {boolean} [options.includeSelf]     Count this Token as a flanker even where it is not yet engaged, as
+   *                                            when it will close to melee before it strikes
+   * @returns {CrucibleTokenFlanking}
+   */
+  getFlankingAgainst(target, {includeSelf=false}={}) {
+    if ( this === target ) return {flankers: 0, allyBonus: 0, flanked: 0};
+    const engagement = target.engagement;
+    let {enemies} = engagement;
+    if ( includeSelf && !enemies.has(this) ) enemies = enemies.union(new Set([this]));
+    const flanking = this.constructor.computeFlanking({...engagement, enemies}, {observer: this});
+    flanking.flanked += target.actor?.imposedFlanking ?? 0;
+    return flanking;
   }
 
   /* -------------------------------------------- */
@@ -777,18 +830,11 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( !canvas.scene.useMicrogrid ) return;
     CrucibleTokenObject.visibleTokens.delete(this);
 
-    // Apply flanking updates
-    const activeGM = game.users.activeGM;
-    const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-
     // Remove engagement from the deleted token
     const newEngagement = this.#initializeEngagement(); // "new" engagement is nobody
     const toUpdate = this.#propagateEngagementUpdates(this.engagement, newEngagement);
-    this.engagement = this.constructor.computeFlanking(newEngagement);
-    for ( const t of toUpdate ) {
-      t.engagement = this.constructor.computeFlanking(t.engagement);
-      if ( commit ) t.actor.commitFlanking(t.engagement);
-    }
+    this.engagement = Object.assign(newEngagement, this.constructor.computeFlanking(newEngagement));
+    for ( const t of toUpdate ) Object.assign(t.engagement, this.constructor.computeFlanking(t.engagement));
   }
 
   /* -------------------------------------------- */
@@ -796,72 +842,91 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /**
-   * Draw the visualization of Token engagement.
-   * @param {CrucibleTokenEngagement} engagement
+   * A scene-wide overlay which visualizes flanking from the perspective of the controlled Token.
+   * @type {PIXI.Container|null}
+   */
+  static #flankingOverlay = null;
+
+  /* -------------------------------------------- */
+
+  /**
+   * Redraw the flanking visualization in its entirety.
+   * The overlay describes a single perspective, so it is rebuilt wholesale rather than maintained per-Token.
    * @internal
    */
-  _visualizeEngagement(engagement) {
-    if ( !CONFIG.debug.flanking || !canvas.scene?.useMicrogrid ) return;
-    const PT = foundry.canvas.containers.PreciseText;
-    if ( !this.#engagementDebug ) {
-      this.#engagementDebug = canvas.controls.debug.addChild(new PIXI.Graphics());
+  static refreshFlankingVisualization() {
+    const overlay = CrucibleTokenObject.#clearFlankingVisualization();
+    if ( !overlay || !CONFIG.debug.flanking || !canvas.scene?.useMicrogrid ) return;
 
-      // Enemies Text
-      this.#engagementDebug.enemies = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 20})));
-      this.#engagementDebug.enemies.anchor.set(0.5, 1);
+    // A single controlled Token supplies the perspective; without exactly one there is nothing to describe
+    const controlled = canvas.tokens.controlled;
+    if ( controlled.length !== 1 ) return;
+    const [observer] = controlled;
+    if ( !observer.actor || !observer.engagement.movePolygon ) return;
 
-      // Engagement Text
-      this.#engagementDebug.engagement = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 20})));
-      this.#engagementDebug.engagement.anchor.set(0.5, 0);
+    // The observer's own engagement, and the creatures it perceives around itself
+    const g = overlay.addChild(new PIXI.Graphics());
+    g.beginFill(0x00FFFF, 0.1).lineStyle({width: 3, color: 0x00FFFF, alpha: 1.0})
+      .drawShape(observer.engagement.movePolygon).endFill();
+    const {enemies, allies} = observer.engagement;
+    const perceived = observer.filterDetected(enemies.union(allies));
+    CrucibleTokenObject.#drawFlankingLabels(overlay, observer, [
+      {key: "TOKEN.LABELS.Enemies", data: {enemies: enemies.intersection(perceived).size}},
+      {key: "TOKEN.LABELS.Engagement", data: {engagement: observer.engagement.value ?? 0}, size: 32},
+      {key: "TOKEN.LABELS.Allies", data: {allies: allies.intersection(perceived).size}}
+    ]);
 
-      // Flanked Text
-      this.#engagementDebug.flanked = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 32})));
-      this.#engagementDebug.flanked.anchor.set(0.5, 0.5);
+    // What each targeted creature affords the observer, as the observer perceives it
+    for ( const target of game.user.targets ) {
+      if ( (target === observer) || !target.actor ) continue;
+      const {flankers, allyBonus, flanked} = observer.getFlankingAgainst(target);
+      CrucibleTokenObject.#drawFlankingLabels(overlay, target, [
+        {key: "TOKEN.LABELS.Attackers", data: {attackers: flankers}},
+        {key: "TOKEN.LABELS.Flanked", data: {flanked}, size: 32},
+        {key: "TOKEN.LABELS.Allies", data: {allies: allyBonus}}
+      ]);
     }
-    this._clearEngagementVisualization();
-    if ( canvas.tokens.controlled.length !== 1 ) return;
-    const e = this.#engagementDebug;
-
-    // Movement polygon
-    e.beginFill(0x00FFFF, 0.1).lineStyle({width: 3, color: 0x00FFFF, alpha: 1.0})
-      .drawShape(engagement.movePolygon).endFill();
-
-    // Enemy bounds
-    e.beginFill(0xFF0000, 0.1).lineStyle({width: 2, color: 0xFF0000, alpha: 1.0});
-    for ( const enemy of engagement.enemies ) e.drawShape(enemy.bounds);
-    e.endFill();
-
-    // Ally bounds
-    e.beginFill(0x00FF00, 0.1).lineStyle({width: 2, color: 0x00FF00, alpha: 1.0});
-    for ( const ally of engagement.allies ) e.drawShape(ally.bounds);
-    e.endFill();
-
-    // Flanking State
-    const {x, y} = this.document._source;
-    const {x: cx, y: cy} = this.getCenterPoint({x, y});
-    this.#engagementDebug.enemies.text = _loc("TOKEN.LABELS.Enemies", {enemies: engagement.enemies.size});
-    this.#engagementDebug.enemies.position.set(cx, y);
-    this.#engagementDebug.enemies.visible = true;
-    this.#engagementDebug.engagement.text = _loc("TOKEN.LABELS.Engagement", {engagement: engagement.value + engagement.allyBonus});
-    this.#engagementDebug.engagement.position.set(cx, y + this.h);
-    this.#engagementDebug.engagement.visible = true;
-    this.#engagementDebug.flanked.text = _loc("TOKEN.LABELS.Flanked", {flanked: engagement.flanked});
-    this.#engagementDebug.flanked.position.set(cx, cy);
-    this.#engagementDebug.flanked.visible = true;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Clear the visualization of Token engagement.
-   * @internal
+   * Draw up to three stacked labels within a Token's hitbox, so that adjacent Tokens do not overlap one another.
+   * @param {PIXI.Container} overlay                              The overlay to draw into
+   * @param {CrucibleTokenObject} token                           The Token to label
+   * @param {Array<{key: string, data: object, size?: number}|null>} labels   Top, middle, and bottom labels
    */
-  _clearEngagementVisualization() {
-    if ( !this.#engagementDebug ) return;
-    this.#engagementDebug.clear();
-    this.#engagementDebug.enemies.visible = false;
-    this.#engagementDebug.engagement.visible = false;
-    this.#engagementDebug.flanked.visible = false;
+  static #drawFlankingLabels(overlay, token, labels) {
+    const PT = foundry.canvas.containers.PreciseText;
+    const {x, y} = token.document._source;
+    const {width, height} = token.document.getSize();
+    const rect = new PIXI.Rectangle(x, y, width, height).pad(-canvas.dimensions.size / 4);
+    const scale = Math.min(1, rect.width / (5 * canvas.dimensions.size));
+    const anchors = [[0, rect.top], [0.5, rect.top + (rect.height / 2)], [1, rect.bottom]];
+    for ( const [i, label] of labels.entries() ) {
+      if ( !label ) continue;
+      const [anchorY, y] = anchors[i];
+      const text = overlay.addChild(new PT(_loc(label.key, label.data),
+        PT.getTextStyle({fontSize: (label.size ?? 20) * scale})));
+      text.anchor.set(0.5, anchorY);
+      text.position.set(rect.x + (rect.width / 2), y);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Empty the flanking overlay, creating it if the canvas has been redrawn beneath it.
+   * @returns {PIXI.Container|null}   The empty overlay, or null if there is no canvas to draw upon
+   */
+  static #clearFlankingVisualization() {
+    let overlay = CrucibleTokenObject.#flankingOverlay;
+    if ( overlay && !overlay.destroyed ) overlay.removeChildren().forEach(c => c.destroy({children: true}));
+    else {
+      if ( !canvas.controls?.debug ) return CrucibleTokenObject.#flankingOverlay = null;
+      overlay = CrucibleTokenObject.#flankingOverlay = canvas.controls.debug.addChild(new PIXI.Container());
+    }
+    return overlay;
   }
 
   /* -------------------------------------------- */

@@ -417,14 +417,17 @@ pages:
       content: >-
         <p>When a creature is simultaneously <strong>Engaged</strong> by a
         number of creatures greater than its <strong>Engagement</strong> score,
-        it has the <strong>Flanked</strong> condition. The Flanked condition has
-        multiple integer stages, starting at Flanked 1, where each stage of
-        Flanked contributes <strong>+1 Boon</strong> to melee attack rolls made
-        against that creature.</p><p>While having more Engaged enemies increases
-        your Flanked condition, having adjacent allies who are supporting you
-        can nullify flanking. Allies contribute their own Engagement as a bonus
-        to yours if you share enemies in common that you are both Engaged
-        with.</p>
+        it is <strong>Flanked</strong>. Flanking has multiple integer stages,
+        starting at Flanked 1, where each stage contributes <strong>+1
+        Boon</strong> to melee attack rolls made against that
+        creature.</p><p>While having more Engaged enemies increases your Flanked
+        condition, having adjacent allies who are supporting you can nullify
+        flanking. Allies contribute their own Engagement as a bonus to yours if
+        you share enemies in common that you are both Engaged with.</p>
+        <p>Flanking is determined separately for each attacker, depending on
+        which allies or enemies it perceives. A creature may also be
+        @Condition[overrun], which adds a flanked stage regardless of that
+        creature's Engagement.</p>
     video:
       controls: true
       volume: 0.5
@@ -444,6 +447,44 @@ pages:
       modifiedTime: 1763304093974
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.flanked000000000'
+  - sort: 1225000
+    name: Overrun
+    type: text
+    category: SIxXwOOANW4yoN1D
+    _id: overrun000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature which is <strong>Overrun</strong> is beset more heavily
+        than its position alone would suggest. While Overrun, a creature suffers
+        one additional stage of @Condition[flanked] against every
+        attacker.</p><p>Where Flanked is derived from the creatures a target is
+        Engaged with, Overrun is imposed directly, whether by an effect which
+        causes it or by the Game Master to represent a circumstance which
+        positioning alone does not capture.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.363'
+      systemId: crucible
+      systemVersion: 0.10.1
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+    _key: '!journal.pages!crucibleConditio.overrun000000000'
   - sort: 1300000
     name: Incapacitated
     type: text

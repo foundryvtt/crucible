@@ -163,6 +163,22 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   /**
+   * Rebuild the previewed roll from the current state of the Action, carrying over the boons and banes which the
+   * user added by hand. A fresh roll is constructed rather than re-initialized because {@link StandardCheck#initialize}
+   * merges, and so cannot drop a boon which the Action no longer offers.
+   */
+  #rebuildRoll() {
+    const {boons={}, banes={}} = this.roll?.data ?? {};
+    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+    const special = {};
+    if ( boons.special ) special.boons = {special: boons.special};
+    if ( banes.special ) special.banes = {special: banes.special};
+    if ( !foundry.utils.isEmpty(special) ) this.roll.initialize(special);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare the field and value for choosing which weapon to use if the action supports weapon choice.
    * @returns {{field: StringField, value: string}|null}
    */
@@ -247,10 +263,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
   _onChangeForm(formConfig, event) {
     super._onChangeForm(formConfig, event);
     if ( event.target.name === "weapon" ) {
-      // Lock in the explicit choice; the strike tag's prepare resolves it to a weapon and honors it over the default
-      this.#weaponChoice = this.action.usage.weaponChoice = event.target.value;
+      this.#weaponChoice = this.action.usage.weaponChoice = event.target.value; // Lock explicit choice
       this.action.reset();
-      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+      this.action._configureFlanking(); // A different weapon choice may change flanking eligibility
+      this.#rebuildRoll();
       this.render();
     }
   }
@@ -434,12 +450,17 @@ export default class ActionUseDialog extends StandardCheckDialog {
     region.updateShapeConstraints();
     setNewTargets({action: this.action, document: region});
 
+    // Rebuilt after acquisition so the preview reflects the flanking afforded by the placed region
+    this.#rebuildRoll();
+
     // If the placement produces an invalid target, discard the region and require the user to place again
     const invalidRegion = this.#regionTargets && Array.from(this.#regionTargets.values()).find(t => t.error);
     if ( invalidRegion ) {
       ui.notifications.warn(invalidRegion.error);
       delete this.action.region;
+      this.action.acquireTargets({strict: false}); // Discarding the region discards the targets it covered
       this.#regionTargets = null;
+      this.#rebuildRoll();
       canvas.tokens.setTargets([]);
       await this.render();
       return;
@@ -694,10 +715,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const movement = {id: plan.id, origin: plan.origin, waypoints: plan.waypoints, cost, plan};
     Object.defineProperty(this.action, "movement", {value: movement, configurable: true});
     this.action.prepare();
-    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
 
     // Acquire targets from the planned movement path and highlight on canvas
     this.action.acquireTargets({strict: false});
+
+    // Built after acquisition so the preview reflects the flanking afforded at the planned destination
+    this.#rebuildRoll();
 
     // If the planned path produces an invalid target, discard the plan and require the user to plan again
     const invalid = Array.from(this.action.targets.values()).find(t => t.error);
@@ -705,7 +728,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
       ui.notifications.warn(invalid.error);
       delete this.action.movement;
       this.action.prepare();
-      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+      this.action.acquireTargets({strict: false}); // Discarding the plan discards the targets it reached
+      this.#rebuildRoll();
       canvas.tokens.setTargets([]);
       await this.render();
       return;

@@ -13,7 +13,7 @@ import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
 import {defineEnum} from "./enum.mjs";
-import {statusEffects} from "./statuses.mjs";
+import {derivedConditions, statusEffects} from "./statuses.mjs";
 
 /* -------------------------------------------- */
 
@@ -214,7 +214,8 @@ export const TIME = Object.freeze({
  */
 export const RULES = {
   action: ACTION.TAGS,
-  condition: statusEffects
+  // Everything `@Condition` may link to, which is broader than the statuses a creature can actually be given
+  condition: {...statusEffects, ...derivedConditions}
 };
 
 /* -------------------------------------------- */

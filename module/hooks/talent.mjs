@@ -1027,14 +1027,10 @@ HOOKS.operator00000000 = {
 /* -------------------------------------------- */
 
 HOOKS.packhunter000000 = {
-  prepareAttack(item, action, target, rollData) {
+  prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("strike") ) return;
-    if ( target.statuses.has("flanked") ) {
-      rollData.boons.packHunter = {
-        label: item.name,
-        number: rollData.boons.flanked.number
-      };
-    }
+    const flanked = rollData.boons.flanked;
+    if ( flanked ) rollData.boons.packHunter = {label: item.name, number: flanked.number};
   }
 };
 
@@ -1655,7 +1651,7 @@ HOOKS.weakpoints000000 = {
     if ( !action.tags.has("strike") ) return;
     const weapon = action.usage.weapon;
     if ( !weapon?.system.config.category.scaling.includes("dexterity") ) return;
-    if ( ["exposed", "flanked", "unaware"].some(s => target.statuses.has(s)) ) rollData.damageBonus += 2;
+    if ( rollData.flanked || ["exposed", "unaware"].some(s => target.statuses.has(s)) ) rollData.damageBonus += 2;
   }
 };
 
@@ -1721,15 +1717,19 @@ HOOKS.duelist000000000 = {
     const w = actor.equipment.weapons;
     const mh = w.mainhand;
     const cat = mh?.config?.category;
-    return mh?.id && !w.twoHanded && !w.shield && !w.offhand?.id && (cat?.hands < 2) && !cat?.ranged
-      && !actor.statuses.has("flanked");
+    return mh?.id && !w.twoHanded && !w.shield && !w.offhand?.id && (cat?.hands < 2) && !cat?.ranged;
   },
   prepareDefenses(_item, defenses) {
     if ( crucible.api.hooks.talent.duelist000000000._isDueling(this) ) defenses.parry.bonus += 2;
   },
+  defendAttack(_item, _action, _attacker, rollData) {
+    if ( !rollData.flanked || (rollData.defenseType !== "physical") ) return;
+    if ( !crucible.api.hooks.talent.duelist000000000._isDueling(this) ) return;
+    rollData.dc -= Math.min(this.defenses.parry.total, 2);
+  },
   receiveAttack(_item, _action, roll) {
     const T = roll.constructor.RESULT_TYPES;
-    if ( roll.data.result !== T.GLANCE ) return;
+    if ( (roll.data.result !== T.GLANCE) || roll.data.flanked ) return;
     if ( !crucible.api.hooks.talent.duelist000000000._isDueling(this) ) return;
     roll.data.result = T.PARRY;
     roll.data.damage.total = 0;
