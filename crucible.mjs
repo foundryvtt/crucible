@@ -142,8 +142,7 @@ Hooks.once("init", async function() {
   CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
   CONFIG.ActiveEffect.dataModels = {
     affix: models.CrucibleAffixActiveEffect,
-    base: models.CrucibleBaseActiveEffect,
-    flanked: models.CrucibleFlankedActiveEffect
+    base: models.CrucibleBaseActiveEffect
   };
   Object.assign(CONFIG.ActiveEffect, {
     compendiumIndexFields: ["system.identifier", "system.affixType"],

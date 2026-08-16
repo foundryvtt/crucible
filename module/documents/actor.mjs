@@ -1564,15 +1564,14 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * A helper function to return actor updates that should take place upon exiting combat,
-   * and whether flanking needs updating
-   * @returns {{updates: object, updateFlanking: boolean}}
+   * A helper function to return actor updates that should take place upon exiting combat.
+   * @returns {object}
    */
   prepareLeaveCombatUpdates() {
     const updates = {};
     if ( this.resources.heroism.value ) updates["system.resources.heroism.value"] = 0;
     if ( this.flags.crucible?.delay ) updates["flags.crucible.delay"] = _del;
-    return {updates, updateFlanking: this.statuses.has("flanked")};
+    return updates;
   }
 
   /* -------------------------------------------- */
@@ -1586,9 +1585,8 @@ export default class CrucibleActor extends Actor {
 
     // Only if combat is ongoing (combatant deleted, not combat)
     if ( combat.started && (combat.turn !== null) ) {
-      const {updates, updateFlanking} = this.prepareLeaveCombatUpdates();
+      const updates = this.prepareLeaveCombatUpdates();
       if ( !foundry.utils.isEmpty(updates) ) await this.update(updates);
-      if ( updateFlanking ) await this.commitFlanking();
     }
 
     // Prompt designated user to pick up dropped items
@@ -2489,50 +2487,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-  /*  Flanking and Engagement                     */
-  /* -------------------------------------------- */
-
-  /**
-   * Update the Flanking state of this Actor given a set of engaged Tokens.
-   * @param {CrucibleTokenEngagement} engagement      The enemies and allies which this Actor currently has engaged.
-   */
-  async commitFlanking(engagement) {
-    engagement ||= {flanked: 0};
-    const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
-    const flankedStage = engagement.flanked;
-    const current = this.effects.get(flankedId);
-    if ( flankedStage === current?.system.flanked ) return;
-
-    // Add flanked effect
-    if ( flankedStage > 0 ) {
-      const flankedData = {
-        _id: flankedId,
-        type: "flanked",
-        name: `${_loc("ACTIVE_EFFECT.STATUSES.Flanked")} ${flankedStage}`,
-        description: _loc("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
-        img: "systems/crucible/icons/statuses/flanked.svg",
-        statuses: ["flanked"],
-        showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
-        system: {
-          enemies: engagement.enemies.size,
-          allies: engagement.allies.size,
-          flanked: flankedStage
-        }
-      };
-      if ( current ) {
-        if ( flankedData.name !== current.name ) {
-          await current.update(flankedData);
-          current._displayScrollingStatus(true);
-        }
-      }
-      else await this.createEmbeddedDocuments("ActiveEffect", [flankedData], {keepId: true});
-    }
-
-    // Remove flanked effect
-    else if ( current ) await current.delete();
-  }
-
-  /* -------------------------------------------- */
   /*  Currency Management                         */
   /* -------------------------------------------- */
 
@@ -2744,10 +2698,7 @@ export default class CrucibleActor extends Actor {
     if ( this._cachedResources ) {
       const {wasIncapacitated, wasBroken} = this._cachedResources || {};
       if ( (this.isIncapacitated !== wasIncapacitated) || (this.system.isBroken !== wasBroken) ) {
-        const tokens = this.getActiveTokens(true);
-        const activeGM = game.users.activeGM;
-        const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-        for ( const token of tokens ) token.refreshFlanking(commit);
+        for ( const token of this.getActiveTokens(true) ) token.refreshFlanking();
       }
       this._updateCachedResources();
       this.#updateGroups();

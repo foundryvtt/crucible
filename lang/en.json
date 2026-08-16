@@ -634,7 +634,6 @@
       "Falling": "Falling",
       "Fear": "Frightened",
       "Flanked": "Flanked",
-      "FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
       "Flying": "Flying",
       "Freezing": "Freezing",
       "Guarded": "Guarded",
@@ -1638,19 +1637,6 @@
     "SkillBonus": "Skill Bonus",
     "UnknownScore": "???"
   },
-  "FLANKED_EFFECT": {
-    "FIELDS": {
-      "allies": {
-        "label": "Allies Engaging"
-      },
-      "enemies": {
-        "label": "Enemies Engaging"
-      },
-      "flanked": {
-        "label": "Flanked Stage"
-      }
-    }
-  },
   "HOOKS": {
     "NoModuleHooks": "No module hooks are registered for this identifier.",
     "ToggleSource": "Toggle Source",
@@ -2646,8 +2632,7 @@
   },
   "TYPES": {
     "ActiveEffect": {
-      "affix": "Affix",
-      "flanked": "Flanked"
+      "affix": "Affix"
     },
     "Actor": {
       "adversary": "Adversary",

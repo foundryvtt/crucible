@@ -1787,7 +1787,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   computeFlanking(target, token=this.targets.get(target)?.token) {
     const attacker = this.token?.object;
     const defender = token?.object;
-    if ( !attacker || !defender || (attacker === defender) ) return 0;
+    if ( attacker && (attacker === defender) ) return 0; // A creature never flanks itself
+
+    // The Flanked condition imposes a stage by fiat, requiring no positioning and surviving an absent canvas
+    const imposed = target.statuses.has("flanked") ? 1 : 0;
+    if ( !attacker || !defender ) return imposed;
     const engagement = defender.engagement;
 
     // A movement action strikes from a terminal waypoint the attacker does not yet occupy, so it is still absent
@@ -1797,7 +1801,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking({...engagement, enemies},
       {observer: attacker});
-    return flanked;
+    return imposed + flanked;
   }
 
   /* -------------------------------------------- */

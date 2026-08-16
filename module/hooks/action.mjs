@@ -1647,6 +1647,7 @@ HOOKS.reactiveStrike = {
     if ( championBypass ) return;
 
     // A creature engaged with flankers it perceives cannot spare the attention to react
+    if ( actor.statuses.has("flanked") ) HOOKS.reactiveStrike._reject.call(this, "flanked");
     const token = this.token?.object;
     if ( !token ) return;
     const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking(token.engagement, {observer: token});

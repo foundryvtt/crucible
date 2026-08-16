@@ -41,12 +41,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   engagement = this.#initializeEngagement();
 
   /**
-   * Should the next flanking update be responsible for committing Active Effect changes?
-   * @type {boolean}
-   */
-  #commitFlanking = false;
-
-  /**
    * A Graphics object in the debug layer which displays engagement for this token.
    * @type {PIXI.Graphics}
    */
@@ -594,12 +588,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * Set the render flag to schedule a flanking refresh.
-   * @param {boolean} commit
    */
-  refreshFlanking(commit) {
-    const activeGM = game.users.activeGM;
-    commit ??= (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    if ( commit ) this.#commitFlanking = true;
+  refreshFlanking() {
     this.renderFlags.set({refreshFlanking: true});
   }
 
@@ -625,16 +615,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
     // Debug visualize enemies
     this._visualizeEngagement(engagement);
-
-    // Update other Actors
-    if ( !this.#commitFlanking ) return;
-    this.#commitFlanking = false;
-    for ( const token of toUpdate ) {
-      token.actor.commitFlanking(token.engagement);
-    }
-
-    // Update our own actor
-    this.actor.commitFlanking(this.engagement);
   }
 
   /* -------------------------------------------- */
@@ -831,18 +811,11 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( !canvas.scene.useMicrogrid ) return;
     CrucibleTokenObject.visibleTokens.delete(this);
 
-    // Apply flanking updates
-    const activeGM = game.users.activeGM;
-    const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-
     // Remove engagement from the deleted token
     const newEngagement = this.#initializeEngagement(); // "new" engagement is nobody
     const toUpdate = this.#propagateEngagementUpdates(this.engagement, newEngagement);
     this.engagement = Object.assign(newEngagement, this.constructor.computeFlanking(newEngagement));
-    for ( const t of toUpdate ) {
-      Object.assign(t.engagement, this.constructor.computeFlanking(t.engagement));
-      if ( commit ) t.actor.commitFlanking(t.engagement);
-    }
+    for ( const t of toUpdate ) Object.assign(t.engagement, this.constructor.computeFlanking(t.engagement));
   }
 
   /* -------------------------------------------- */

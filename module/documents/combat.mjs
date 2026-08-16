@@ -94,19 +94,16 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     super._onDelete(options, userId);
     const isGM = game.user.isActiveGM;
     const actorUpdates = [];
-    const removeFlanking = [];
     for ( const {actor} of this.combatants ) {
       if ( !actor ) continue;
       if ( isGM ) {
-        const {updates, updateFlanking} = actor.prepareLeaveCombatUpdates();
+        const updates = actor.prepareLeaveCombatUpdates();
         if ( !foundry.utils.isEmpty(updates) ) actorUpdates.push({_id: actor.id, ...updates});
-        if ( updateFlanking ) removeFlanking.push(actor);
       }
       actor.reset();
       actor.render(false);
     }
     if ( actorUpdates.length ) Actor.updateDocuments(actorUpdates);
-    Promise.allSettled(removeFlanking.map(a => a.commitFlanking()));
   }
 
   /* -------------------------------------------- */
