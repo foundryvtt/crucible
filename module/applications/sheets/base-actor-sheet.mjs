@@ -787,6 +787,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   #prepareSkills() {
     const skills = this.document.system.skills;
     const categories = foundry.utils.deepClone(SYSTEM.SKILL.CATEGORIES);
+    const signed = n => `${n < 0 ? "-" : "+"} ${Math.abs(n)}`; // Pretty formatting for signed addition
     for ( const skill of Object.values(SYSTEM.SKILLS) ) {
       const s = foundry.utils.mergeObject(skill, skills[skill.id], {inplace: false});
       const category = categories[skill.category];
@@ -802,10 +803,15 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       s.rankTags = [rank.label];
       s.hexClass = skill.abilities.toSorted().join("-");
 
-      // Tooltips
+      // Tooltips annotate each term of the formula with the value it contributes
+      const abilities = this.actor.system.abilities;
       s.tooltips = {
-        value: _loc("SKILL.TooltipCheck", {a1: a1.label, a2: a2.label}),
-        passive: _loc("SKILL.TooltipPassive")
+        value: _loc("SKILL.TooltipCheck", {
+          a1: a1.label, v1: abilities[skill.abilities[0]].value,
+          a2: a2.label, v2: abilities[skill.abilities[1]].value,
+          rank: rank.label, skill: signed(s.skillBonus), enchantment: signed(s.enchantmentBonus)
+        }),
+        passive: _loc("SKILL.TooltipPassive", {score: s.score})
       };
 
       // Add to category

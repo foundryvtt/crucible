@@ -2164,8 +2164,8 @@
     "SpecializationPathSelect": "Select Specialization",
     "SpecializationPathSpecific": "Specialization Path: {path}",
     "Summary": "Skill Summary",
-    "TooltipCheck": "[({a1} + {a2}) / 4] + Skill Bonus + Enchantment Bonus",
-    "TooltipPassive": "12 + Score",
+    "TooltipCheck": "[({v1} {a1} + {v2} {a2}) / 4] {skill} {rank} {enchantment} Enchantment",
+    "TooltipPassive": "12 + {score}",
     "UnacquiredRanks": "Unacquired Ranks"
   },
   "SPELL": {
