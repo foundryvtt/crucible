@@ -1788,20 +1788,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const attacker = this.token?.object;
     const defender = token?.object;
     if ( attacker && (attacker === defender) ) return 0; // A creature never flanks itself
-
-    // The Overrun condition imposes a stage by fiat, requiring no positioning and surviving an absent canvas
-    const imposed = target.statuses.has("overrun") ? 1 : 0;
-    if ( !attacker || !defender ) return imposed;
-    const engagement = defender.engagement;
-
-    // A movement action strikes from a terminal waypoint the attacker does not yet occupy, so it is still absent
-    // from the defender's engagement
-    let {enemies} = engagement;
-    if ( (this.target.type === "movement") && !enemies.has(attacker) ) enemies = enemies.union(new Set([attacker]));
-
-    const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking({...engagement, enemies},
-      {observer: attacker});
-    return imposed + flanked;
+    if ( !attacker || !defender ) return target.imposedFlanking;
+    return attacker.getFlankingAgainst(defender, {includeSelf: this.target.type === "movement"}).flanked;
   }
 
   /* -------------------------------------------- */

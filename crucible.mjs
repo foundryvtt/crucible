@@ -739,6 +739,7 @@ async function _initializePrototypeTokenSettings() {
 Hooks.on("getChatMessageContextOptions", chat.addChatMessageContextOptions);
 Hooks.on("renderChatMessageHTML", documents.CrucibleChatMessage.onRenderHTML);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
+Hooks.on("targetToken", () => canvas.CrucibleTokenObject.refreshFlankingVisualization());
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
 Hooks.on("getSceneControlButtons", controls => {
   controls.tokens.tools.forcedMovement = {
@@ -760,10 +761,7 @@ Hooks.on("getSceneControlButtons", controls => {
     active: false,
     onChange: (_event, active) => {
       CONFIG.debug.flanking = active;
-      for ( const token of globalThis.canvas.tokens.controlled ) {
-        if ( active ) token._visualizeEngagement(token.engagement);
-        else token._clearEngagementVisualization();
-      }
+      canvas.CrucibleTokenObject.refreshFlankingVisualization();
     }
   };
 });

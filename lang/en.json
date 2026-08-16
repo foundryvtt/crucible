@@ -2548,6 +2548,8 @@
   },
   "TOKEN": {
     "LABELS": {
+      "Allies": "{allies} Allies",
+      "Attackers": "{attackers} Attackers",
       "Enemies": "{enemies} Enemies",
       "Engagement": "Engagement {engagement}",
       "Flanked": "Flanked {flanked}"

@@ -105,6 +105,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * A Flanked stage which this Actor suffers by condition rather than by the positions of creatures surrounding it.
+   * @returns {number}
+   */
+  get imposedFlanking() {
+    return this.statuses.has("overrun") ? 1 : 0;
+  }
+
+  /**
    * Actor resources.
    * @returns {Record<string, {value: number, max: number}>}
    */
