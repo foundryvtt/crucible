@@ -91,7 +91,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @returns {boolean}                                     Did any of this token's detection modes detect the target?
    */
   canDetect(targetToken, {modes}={}) {
-    if ( this === targetToken ) return true;
+    if ( (this === targetToken) || foundry.utils.isEmpty(this.detectionModes) ) return true;
     const {visionSource, ephemeral} = this.#acquireDetectionVisionSource();
     const detected = this.#testDetection(targetToken, visionSource, modes ? new Set(modes) : null);
     if ( ephemeral ) visionSource.destroy();
@@ -108,6 +108,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @returns {Set<CrucibleTokenObject>}                    The subset of tokens which this Token detects
    */
   filterDetected(targetTokens, {modes}={}) {
+    if ( foundry.utils.isEmpty(this.detectionModes) ) return new Set(targetTokens);
     const {visionSource, ephemeral} = this.#acquireDetectionVisionSource();
     const allowed = modes ? new Set(modes) : null;
     const detected = new Set();

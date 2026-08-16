@@ -1634,17 +1634,19 @@ HOOKS.rallyingTonic = {
 HOOKS.reactiveStrike = {
   canUse() {
     const actor = this.actor;
-    if ( actor.statuses.has("unaware") ) HOOKS.reactiveStrike._reject.call(this, "unaware");
+    if ( actor.statuses.has("unaware") ) throw new Error(HOOKS.reactiveStrike._rejection.call(this, "unaware"));
     if ( actor.statuses.has("overrun") && !HOOKS.reactiveStrike._championBypass(actor) ) {
-      HOOKS.reactiveStrike._reject.call(this, "overrun");
+      throw new Error(HOOKS.reactiveStrike._rejection.call(this, "overrun"));
     }
   },
-  preActivate() {
+  acquireTargets(targets) {
     if ( HOOKS.reactiveStrike._championBypass(this.actor) ) return;
     const token = this.token?.object;
     if ( !token ) return;
     const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking(token.engagement, {observer: token});
-    if ( flanked ) HOOKS.reactiveStrike._reject.call(this, "flanked");
+    if ( !flanked ) return;
+    const error = HOOKS.reactiveStrike._rejection.call(this, "flanked");
+    for ( const target of targets ) target.error ??= error;
   },
   // FIXME figure out a way for champion to affect this without needing to be hardcoded into reactiveStrike
   _championBypass(actor) {
@@ -1653,9 +1655,9 @@ HOOKS.reactiveStrike = {
     const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
     return actor.effects.get(dominanceId)?.origin === rival?.uuid;
   },
-  _reject(condition) {
+  _rejection(condition) {
     const status = _loc(SYSTEM.RULES.condition[condition]?.name ?? condition);
-    throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status}));
+    return _loc("ACTION.WARNINGS.BadStatus", {action: this.name, status});
   },
   // FIXME figure out a way for champion to affect this without needing to be hardcoded into reactiveStrike
   prepare() {
