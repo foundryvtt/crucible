@@ -427,9 +427,12 @@ export default class CrucibleActor extends Actor {
         if ( isRanged ) banes.prone = {label: statuses.prone.name, number: 1};
         else boons.prone = {label: statuses.prone.name, number: 1};
       }
-      if ( this.statuses.has("flanked") && !isRanged ) {
-        const ae = this.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-        boons.flanked = {label: statuses.flanked.name, number: ae?.system.flanked ?? 1};
+      // Flanking is per-target, so the optimistic boon previewed in action usage is replaced or cleared here.
+      // A ranged attack keeps whatever usage offered, since only a hook (like Thread the Needle) can grant it.
+      rollData.flanked = action.targets.get(this)?.flanked ?? 0;
+      if ( !isRanged ) {
+        if ( rollData.flanked ) boons.flanked = {label: statuses.flanked.name, number: rollData.flanked};
+        else delete boons.flanked;
       }
     }
   }

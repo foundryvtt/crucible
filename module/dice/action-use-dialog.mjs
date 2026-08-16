@@ -434,12 +434,17 @@ export default class ActionUseDialog extends StandardCheckDialog {
     region.updateShapeConstraints();
     setNewTargets({action: this.action, document: region});
 
+    // Rebuilt after acquisition so the preview reflects the flanking afforded by the placed region
+    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+
     // If the placement produces an invalid target, discard the region and require the user to place again
     const invalidRegion = this.#regionTargets && Array.from(this.#regionTargets.values()).find(t => t.error);
     if ( invalidRegion ) {
       ui.notifications.warn(invalidRegion.error);
       delete this.action.region;
+      this.action.acquireTargets({strict: false}); // Discarding the region discards the targets it covered
       this.#regionTargets = null;
+      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
       canvas.tokens.setTargets([]);
       await this.render();
       return;
@@ -694,10 +699,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const movement = {id: plan.id, origin: plan.origin, waypoints: plan.waypoints, cost, plan};
     Object.defineProperty(this.action, "movement", {value: movement, configurable: true});
     this.action.prepare();
-    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
 
     // Acquire targets from the planned movement path and highlight on canvas
     this.action.acquireTargets({strict: false});
+
+    // Built after acquisition so the preview reflects the flanking afforded at the planned destination
+    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
 
     // If the planned path produces an invalid target, discard the plan and require the user to plan again
     const invalid = Array.from(this.action.targets.values()).find(t => t.error);
@@ -705,6 +712,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       ui.notifications.warn(invalid.error);
       delete this.action.movement;
       this.action.prepare();
+      this.action.acquireTargets({strict: false}); // Discarding the plan discards the targets it reached
       this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
       canvas.tokens.setTargets([]);
       await this.render();

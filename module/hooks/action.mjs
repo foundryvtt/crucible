@@ -2195,11 +2195,9 @@ HOOKS.thrash = {
 HOOKS.threadTheNeedle = {
   configure() {
     // Grant flanked boons for ranged attacks (normally only melee gets flanking)
-    for ( const [actor] of this.targets ) {
-      if ( !actor.statuses.has("flanked") ) continue;
-      const ae = actor.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-      this.usage.boons.flanked = {label: _loc("ACTIVE_EFFECT.STATUSES.Flanked"), number: ae?.system.flanked ?? 1};
-      break; // Single target action
+    const [target] = this.targets.values(); // Single target action
+    if ( target?.flanked ) {
+      this.usage.boons.flanked = {label: CONFIG.statusEffects.flanked.name, number: target.flanked};
     }
   }
 };

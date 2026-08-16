@@ -1452,6 +1452,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @property {string} name
    * @property {string} uuid
    * @property {string} [error]
+   * @property {number} [flanked]   The degree to which this target is flanked by the acting actor
    */
 
   /**
@@ -1466,15 +1467,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   acquireTargets({strict=true}={}) {
     if ( this.usage.forcedTargets?.length ) {
-      return this.targets = new Map(this.usage.forcedTargets.map(actor => {
+      return this.#assignTargets(this.usage.forcedTargets.map(actor => {
         const token = actor.getActiveTokens?.(true, true)[0] ?? null;
-        return [actor, {actor, uuid: actor.uuid, name: actor.name, token}];
+        return {actor, uuid: actor.uuid, name: actor.name, token};
       }));
     }
     let targets;
     let targetType = this.target.type;
     const targetCfg = SYSTEM.ACTION.TARGET_TYPES[targetType];
-    if ( targetType === "summon" ) return this.targets = new Map();
+    if ( targetType === "summon" ) return this.#assignTargets([]);
 
     // Acquire Region Targets
     if ( targetCfg.region ) targets = this.#acquireTargetsFromRegion();
@@ -1486,7 +1487,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       switch ( targetType ) {
         case "none":
-          return this.targets = new Map();
+          return this.#assignTargets([]);
         case "self":
           const tokenTargets = this.actor.getActiveTokens(true, true).map(CrucibleAction.#getTargetFromToken);
           targets = tokenTargets.length
@@ -1514,8 +1515,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( target.error && strict ) throw new Error(target.error);
     }
 
-    // Build and return the targets map
-    return this.targets = new Map(targets.map(t => [t.actor, t]));
+    return this.#assignTargets(targets);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record the targets acquired by this Action and derive the target-dependent portion of its usage.
+   * @param {ActionUseTarget[]} targets   The acquired targets
+   * @returns {Map<CrucibleActor, ActionUseTarget>}
+   */
+  #assignTargets(targets) {
+    this.#configureFlanking(targets);
+    this.targets = new Map(targets.map(t => [t.actor, t]));
+    return this.targets;
   }
 
   /* -------------------------------------------- */
@@ -1767,13 +1780,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Compute the degree to which a target is flanked by this Action's actor.
-   * @param {CrucibleActor} target    An actor which this Action targets
-   * @returns {number}                The flanked stage which applies to this attacker, zero if none applies
+   * @param {CrucibleActor} target      An actor which this Action targets
+   * @param {CrucibleToken} [token]     The Token being targeted, required before this Action's targets are assigned
+   * @returns {number}                  The flanked stage which applies to this attacker, zero if none applies
    */
-  computeFlanking(target) {
+  computeFlanking(target, token=this.targets.get(target)?.token) {
     const attacker = this.token?.object;
-    const defender = this.targets.get(target)?.token?.object;
-    if ( !attacker || !defender ) return 0;
+    const defender = token?.object;
+    if ( !attacker || !defender || (attacker === defender) ) return 0;
     const engagement = defender.engagement;
 
     // A movement action strikes from a terminal waypoint the attacker does not yet occupy, so it is still absent
@@ -1784,6 +1798,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking({...engagement, enemies},
       {observer: attacker});
     return flanked;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record the flanking each acquired target affords, and preview the boon it will award before the Action is used.
+   * The best flanking among the targets is previewed, while each target is still rolled against its own.
+   * Usage is shared between clones of a bound Action, so a boon which no longer applies is actively removed.
+   * @param {ActionUseTarget[]} targets   The acquired targets, annotated in place
+   */
+  #configureFlanking(targets) {
+    delete this.usage.boons.flanked;
+    let best = 0;
+    for ( const target of targets ) {
+      target.flanked = this.computeFlanking(target.actor, target.token);
+      best = Math.max(best, target.flanked);
+    }
+    if ( !best || !this.usage.isAttack || this.usage.isRanged ) return;
+    this.usage.boons.flanked = {label: CONFIG.statusEffects.flanked.name, number: best};
   }
 
   /* -------------------------------------------- */

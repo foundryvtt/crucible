@@ -1027,14 +1027,10 @@ HOOKS.operator00000000 = {
 /* -------------------------------------------- */
 
 HOOKS.packhunter000000 = {
-  prepareAttack(item, action, target, rollData) {
+  prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("strike") ) return;
-    if ( target.statuses.has("flanked") ) {
-      rollData.boons.packHunter = {
-        label: item.name,
-        number: rollData.boons.flanked.number
-      };
-    }
+    const flanked = rollData.boons.flanked;
+    if ( flanked ) rollData.boons.packHunter = {label: item.name, number: flanked.number};
   }
 };
 
@@ -1655,7 +1651,7 @@ HOOKS.weakpoints000000 = {
     if ( !action.tags.has("strike") ) return;
     const weapon = action.usage.weapon;
     if ( !weapon?.system.config.category.scaling.includes("dexterity") ) return;
-    if ( ["exposed", "flanked", "unaware"].some(s => target.statuses.has(s)) ) rollData.damageBonus += 2;
+    if ( rollData.flanked || ["exposed", "unaware"].some(s => target.statuses.has(s)) ) rollData.damageBonus += 2;
   }
 };
 
