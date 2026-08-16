@@ -773,17 +773,17 @@ pages:
         mechanics works, there is a special toggle that can be used in
         the<strong> Tokens Layer</strong> of the <strong>Scene Controls
         </strong>UI on the left side of the screen. While enabled, the
-        Engagement rectangles and flanked status of a creature will be
-        visualized to help understand its current status.</p></section><h2
-        class="divider">Flanking</h2><p>Flanking occurs when you and your allies
-        team up to combat an opponent. When a creature is
-        <strong>Engaged</strong> with a number of creatures greater than its
-        <strong>Engagement</strong> score it has the @Condition[flanked]
-        condition. The Flanked condition has multiple stages, and each stage of
-        Flanked contributes +1 Boon to melee attack rolls made against that
-        creature.</p><section class="formula"><p class="value">Flanked
-        Stage</p><p class="equals">=</p><p class="equation">Number of Engaged
-        Enemies<br>- Engagement Score<br>- Engagement Bonus from Adjacent
+        Engagement of your controlled creature is drawn, and each creature you
+        target is labelled with the Flanking which you would have against
+        it.</p></section><h2 class="divider">Flanking</h2><p>Flanking occurs
+        when you and your allies team up to combat an opponent. When a creature
+        is <strong>Engaged</strong> with a number of creatures greater than its
+        <strong>Engagement</strong> score it becomes @Condition[flanked].
+        Flanking has multiple stages, and each stage contributes +1 Boon to
+        melee attack rolls made against that creature.</p><section
+        class="formula"><p class="value">Flanked Stage</p><p
+        class="equals">=</p><p class="equation">Number of Engaged Enemies<br>-
+        Engagement Score<br>- Engagement Bonus from Adjacent
         Allies</p></section><section class="gameplay"><p>Krag, a heavily armored
         fighter, has an <strong>Engagement</strong> score of <strong>3</strong>,
         with bonuses from his <strong>True Grit</strong> talent and from his
@@ -804,24 +804,31 @@ pages:
         where Jinora can engage at least 2 of the Goblins, Krag's Flanked
         condition is removed because Jinora's 2 Engagement adds to Krag's own
         Engagement score, allowing Krag to engage up to 5
-        enemies.</p></section><section class="foundryvtt"><p>A status effect
-        condition when a creature is <strong>Flanked</strong> is automatically
-        computed and added whenever a character moves into or out of
-        <strong>Engagement</strong> with other adversaries. The Flanked effect
-        automatically applies the correct number of boons to melee attack rolls
-        against the Flanked creature.</p></section><h2
+        enemies.</p></section><p>Flanking is judged separately for each
+        attacker. You benefit only from those fellow attackers whom you
+        perceive, and are hindered only by those defenders whom you perceive, so
+        a creature which goes undetected aids neither side. Two creatures
+        striking the same target may therefore face different stages of
+        Flanking.</p><p>A creature may also be @Condition[overrun], suffering
+        one additional stage of Flanking against every attacker regardless of
+        where it stands.</p><section class="foundryvtt"><p>Flanking is computed
+        at the moment an attack is made, from the perspective of the attacking
+        creature, and the correct number of Boons is applied automatically.
+        Because the result depends upon whom that attacker perceives, no Flanked
+        status is shown upon the creature itself.</p></section><h2
         class="divider">Disengagement</h2><p>When an opponent attempts to
         disengage from you in melee combat it becomes temporarily vulnerable,
         allowing you to perform a @Action[default reactiveStrike], a weapon
         attack as a Reaction. You may not make a Reactive Strike if you are
-        @Condition[unaware] or @Condition[flanked] by other remaining
-        opponents.</p><section class="gameplay"><p>The Goblins in our previous
-        example have decided that Krag is too tough and it is advisable to
-        disengage in search of more vulnerable prey. Two of the four goblins may
-        move away from Krag without reciprocity, because Krag is otherwise
-        <strong>Fully Engaged</strong> and therefore cannot retaliate. When the
-        third goblin moves away, however, Krag performs a @Action[default
-        reactiveStrike], burying his battle axe in the back of the retreating
+        @Condition[unaware], @Condition[overrun], or @Condition[flanked] by
+        other remaining opponents whom you perceive.</p><section
+        class="gameplay"><p>The Goblins in our previous example have decided
+        that Krag is too tough and it is advisable to disengage in search of
+        more vulnerable prey. Two of the four goblins may move away from Krag
+        without reciprocity, because Krag is otherwise <strong>Fully
+        Engaged</strong> and therefore cannot retaliate. When the third goblin
+        moves away, however, Krag performs a @Action[default reactiveStrike],
+        burying his battle axe in the back of the retreating
         evildoer!</p></section>
     video:
       controls: true

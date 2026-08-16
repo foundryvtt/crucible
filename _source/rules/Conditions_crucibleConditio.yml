@@ -417,14 +417,17 @@ pages:
       content: >-
         <p>When a creature is simultaneously <strong>Engaged</strong> by a
         number of creatures greater than its <strong>Engagement</strong> score,
-        it has the <strong>Flanked</strong> condition. The Flanked condition has
-        multiple integer stages, starting at Flanked 1, where each stage of
-        Flanked contributes <strong>+1 Boon</strong> to melee attack rolls made
-        against that creature.</p><p>While having more Engaged enemies increases
-        your Flanked condition, having adjacent allies who are supporting you
-        can nullify flanking. Allies contribute their own Engagement as a bonus
-        to yours if you share enemies in common that you are both Engaged
-        with.</p>
+        it is <strong>Flanked</strong>. Flanking has multiple integer stages,
+        starting at Flanked 1, where each stage contributes <strong>+1
+        Boon</strong> to melee attack rolls made against that
+        creature.</p><p>While having more Engaged enemies increases your Flanked
+        condition, having adjacent allies who are supporting you can nullify
+        flanking. Allies contribute their own Engagement as a bonus to yours if
+        you share enemies in common that you are both Engaged with.</p>
+        <p>Flanking is determined separately for each attacker, depending on
+        which allies or enemies it perceives. A creature may also be
+        @Condition[overrun], which adds a flanked stage regardless of that
+        creature's Engagement.</p>
     video:
       controls: true
       volume: 0.5
