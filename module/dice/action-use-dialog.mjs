@@ -163,6 +163,22 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   /**
+   * Rebuild the previewed roll from the current state of the Action, carrying over the boons and banes which the
+   * user added by hand. A fresh roll is constructed rather than re-initialized because {@link StandardCheck#initialize}
+   * merges, and so cannot drop a boon which the Action no longer offers.
+   */
+  #rebuildRoll() {
+    const {boons={}, banes={}} = this.roll?.data ?? {};
+    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+    const special = {};
+    if ( boons.special ) special.boons = {special: boons.special};
+    if ( banes.special ) special.banes = {special: banes.special};
+    if ( !foundry.utils.isEmpty(special) ) this.roll.initialize(special);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare the field and value for choosing which weapon to use if the action supports weapon choice.
    * @returns {{field: StringField, value: string}|null}
    */
@@ -250,7 +266,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       // Lock in the explicit choice; the strike tag's prepare resolves it to a weapon and honors it over the default
       this.#weaponChoice = this.action.usage.weaponChoice = event.target.value;
       this.action.reset();
-      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+      this.#rebuildRoll();
       this.render();
     }
   }
@@ -435,7 +451,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     setNewTargets({action: this.action, document: region});
 
     // Rebuilt after acquisition so the preview reflects the flanking afforded by the placed region
-    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+    this.#rebuildRoll();
 
     // If the placement produces an invalid target, discard the region and require the user to place again
     const invalidRegion = this.#regionTargets && Array.from(this.#regionTargets.values()).find(t => t.error);
@@ -444,7 +460,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       delete this.action.region;
       this.action.acquireTargets({strict: false}); // Discarding the region discards the targets it covered
       this.#regionTargets = null;
-      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+      this.#rebuildRoll();
       canvas.tokens.setTargets([]);
       await this.render();
       return;
@@ -704,7 +720,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.action.acquireTargets({strict: false});
 
     // Built after acquisition so the preview reflects the flanking afforded at the planned destination
-    this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+    this.#rebuildRoll();
 
     // If the planned path produces an invalid target, discard the plan and require the user to plan again
     const invalid = Array.from(this.action.targets.values()).find(t => t.error);
@@ -713,7 +729,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       delete this.action.movement;
       this.action.prepare();
       this.action.acquireTargets({strict: false}); // Discarding the plan discards the targets it reached
-      this.roll = crucible.api.dice.StandardCheck.fromAction(this.action);
+      this.#rebuildRoll();
       canvas.tokens.setTargets([]);
       await this.render();
       return;
