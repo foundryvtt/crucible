@@ -91,7 +91,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @returns {boolean}                                     Did any of this token's detection modes detect the target?
    */
   canDetect(targetToken, {modes}={}) {
-    if ( (this === targetToken) || foundry.utils.isEmpty(this.detectionModes) ) return true;
+    if ( this === targetToken ) return true;
     const {visionSource, ephemeral} = this.#acquireDetectionVisionSource();
     const detected = this.#testDetection(targetToken, visionSource, modes ? new Set(modes) : null);
     if ( ephemeral ) visionSource.destroy();
@@ -108,7 +108,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @returns {Set<CrucibleTokenObject>}                    The subset of tokens which this Token detects
    */
   filterDetected(targetTokens, {modes}={}) {
-    if ( foundry.utils.isEmpty(this.detectionModes) ) return new Set(targetTokens);
     const {visionSource, ephemeral} = this.#acquireDetectionVisionSource();
     const allowed = modes ? new Set(modes) : null;
     const detected = new Set();
@@ -150,7 +149,12 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   #testDetection(targetToken, visionSource, allowed) {
     const testPoints = targetToken.document.getVisibilityTestPoints();
     const config = canvas.visibility._createVisibilityTestConfig(testPoints, {object: targetToken, tolerance: 0});
-    return Object.entries(this.detectionModes).some(([id, mode]) => {
+    // Use configured detection modes if the token has some, otherwise use automatic lightPerception and basicSight
+    const detectionModes = foundry.utils.isEmpty(this.detectionModes) ? {
+      lightPerception: {enabled: true, range: Infinity},
+      basicSight: {enabled: true, range: this.document.sight.range}
+    } : this.detectionModes;
+    return Object.entries(detectionModes).some(([id, mode]) => {
       if ( allowed && !allowed.has(id) ) return false;
       return CONFIG.Canvas.detectionModes[id]?.testVisibility(visionSource, mode, config) === true;
     });
