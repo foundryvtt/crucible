@@ -7,10 +7,10 @@ system:
     fighting style that uses a one-handed weapon while keeping your off-hand
     unoccupied.</p><p>While wielding a one-handed melee weapon with your other
     hand empty, you gain a <strong>+2</strong> bonus to your
-    <strong>Parry</strong> defense as long as you are not @Condition[flanked].
-    While meeting these criteria, any attack that results in a
-    <strong>Glance</strong> against your <strong>Armor</strong> becomes a
-    <strong>Parry</strong> instead.</p>
+    <strong>Parry</strong> defense. While meeting these criteria, any attack
+    that results in a <strong>Glance</strong> against your
+    <strong>Armor</strong> becomes a <strong>Parry</strong> instead. You gain
+    neither benefit against an attacker who has you @Condition[flanked].</p>
   actions:
     - id: estocade
       name: Estocade
