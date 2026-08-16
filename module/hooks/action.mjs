@@ -1636,18 +1636,25 @@ HOOKS.reactiveStrike = {
     const actor = this.actor;
 
     // A Champion may strike their Challenged rival even while Flanked
+    // FIXME figure out a way for champion to affect this without needing to be hardcoded into reactiveStrike
     const target = [...game.user.targets][0]?.actor;
     const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
     const championBypass = actor.talentIds.has("champion00000000")
       && (actor.effects.get(dominanceId)?.origin === target?.uuid);
 
-    for ( const s of ["unaware", "flanked"] ) {
-      if ( (s === "flanked") && championBypass ) continue;
-      if ( actor.statuses.has(s) ) {
-        const statusLabel = _loc(CONFIG.statusEffects[s]?.name ?? s);
-        throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: statusLabel}));
-      }
-    }
+    // You cannot react if unaware
+    if ( actor.statuses.has("unaware") ) HOOKS.reactiveStrike._reject.call(this, "unaware");
+    if ( championBypass ) return;
+
+    // A creature engaged with flankers it perceives cannot spare the attention to react
+    const token = this.token?.object;
+    if ( !token ) return;
+    const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking(token.engagement, {observer: token});
+    if ( flanked ) HOOKS.reactiveStrike._reject.call(this, "flanked");
+  },
+  _reject(status) {
+    const statusLabel = _loc(CONFIG.statusEffects[status]?.name ?? status);
+    throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: statusLabel}));
   },
   prepare() {
     const actor = this.actor;
@@ -1656,8 +1663,8 @@ HOOKS.reactiveStrike = {
     const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
     const isRival = actor.effects.get(dominanceId)?.origin === target?.uuid;
 
-    // Champion vs rival: trade Action for 1 Focus. Done in prepare (after the strike tag folds in weapon AP) so the
-    // discounted cost precedes _canUse's affordability gate, which would otherwise reject on the full weapon AP.
+    // Champion vs rival, exchange action for focus
+    // FIXME figure out a way for champion to affect this without needing to be hardcoded into reactiveStrike
     if ( isRival && (actor.resources.focus.value >= 1) ) {
       this.cost.action = 0;
       this.cost.focus = 1;
