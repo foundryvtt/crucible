@@ -25,7 +25,11 @@ system:
     - item: Compendium.crucible.talent.Item.runeDeath0000000
       level: null
   identifier: occultist
-  skills: []
+  skills:
+    - awareness
+    - arcana
+    - deception
+    - intimidation
   spells: []
   equipment: []
 effects: []
@@ -37,11 +41,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.1
+  coreVersion: '14.365'
   createdTime: 1772307157485
-  modifiedTime: 1773514792219
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1785264133163
+  lastModifiedBy: QPs9IwGEu5DxD700
   compendiumSource: null
   duplicateSource: null
   exportSource: null
