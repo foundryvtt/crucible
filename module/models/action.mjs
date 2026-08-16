@@ -1789,8 +1789,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const defender = token?.object;
     if ( attacker && (attacker === defender) ) return 0; // A creature never flanks itself
 
-    // The Flanked condition imposes a stage by fiat, requiring no positioning and surviving an absent canvas
-    const imposed = target.statuses.has("flanked") ? 1 : 0;
+    // The Overrun condition imposes a stage by fiat, requiring no positioning and surviving an absent canvas
+    const imposed = target.statuses.has("overrun") ? 1 : 0;
     if ( !attacker || !defender ) return imposed;
     const engagement = defender.engagement;
 
@@ -1820,7 +1820,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       best = Math.max(best, target.flanked);
     }
     if ( !best || !this.usage.isAttack || this.usage.isRanged ) return;
-    this.usage.boons.flanked = {label: CONFIG.statusEffects.flanked.name, number: best};
+    this.usage.boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: best};
   }
 
   /* -------------------------------------------- */

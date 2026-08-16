@@ -177,12 +177,12 @@ export const statusEffects = {
     hud: nonGroupTypes,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.exposed000000000"
   },
-  flanked: {
-    id: "flanked",
-    name: "ACTIVE_EFFECT.STATUSES.Flanked",
+  overrun: {
+    id: "overrun",
+    name: "ACTIVE_EFFECT.STATUSES.Overrun",
     img: "systems/crucible/icons/statuses/flanked.svg",
     hud: nonGroupTypes,
-    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.flanked000000000"
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.overrun000000000"
   },
   diseased: {
     id: "diseased",
@@ -337,5 +337,20 @@ export const statusEffects = {
     hud: false,
     generator: EFFECTS.shocked,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.shocked000000000"
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Condition-like rules concepts which a creature can be subject to, but which are derived from circumstance rather
+ * than applied as a status. These are documented and may be referenced by `@Condition`, but cannot be assigned.
+ * @type {Record<string, {id: string, name: string, page: string}>}
+ */
+export const derivedConditions = {
+  flanked: {
+    id: "flanked",
+    name: "ACTIVE_EFFECT.STATUSES.Flanked",
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.flanked000000000"
   }
 };

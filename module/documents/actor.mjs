@@ -431,7 +431,7 @@ export default class CrucibleActor extends Actor {
       // A ranged attack keeps whatever usage offered, since only a hook (like Thread the Needle) can grant it.
       rollData.flanked = action.targets.get(this)?.flanked ?? 0;
       if ( !isRanged ) {
-        if ( rollData.flanked ) boons.flanked = {label: statuses.flanked.name, number: rollData.flanked};
+        if ( rollData.flanked ) boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: rollData.flanked};
         else delete boons.flanked;
       }
     }

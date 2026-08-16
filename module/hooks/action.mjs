@@ -1634,38 +1634,36 @@ HOOKS.rallyingTonic = {
 HOOKS.reactiveStrike = {
   canUse() {
     const actor = this.actor;
-
-    // A Champion may strike their Challenged rival even while Flanked
-    // FIXME figure out a way for champion to affect this without needing to be hardcoded into reactiveStrike
-    const target = [...game.user.targets][0]?.actor;
-    const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
-    const championBypass = actor.talentIds.has("champion00000000")
-      && (actor.effects.get(dominanceId)?.origin === target?.uuid);
-
-    // You cannot react if unaware
     if ( actor.statuses.has("unaware") ) HOOKS.reactiveStrike._reject.call(this, "unaware");
-    if ( championBypass ) return;
-
-    // A creature engaged with flankers it perceives cannot spare the attention to react
-    if ( actor.statuses.has("flanked") ) HOOKS.reactiveStrike._reject.call(this, "flanked");
+    if ( actor.statuses.has("overrun") && !HOOKS.reactiveStrike._championBypass(actor) ) {
+      HOOKS.reactiveStrike._reject.call(this, "overrun");
+    }
+  },
+  preActivate() {
+    if ( HOOKS.reactiveStrike._championBypass(this.actor) ) return;
     const token = this.token?.object;
     if ( !token ) return;
     const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking(token.engagement, {observer: token});
     if ( flanked ) HOOKS.reactiveStrike._reject.call(this, "flanked");
   },
-  _reject(status) {
-    const statusLabel = _loc(CONFIG.statusEffects[status]?.name ?? status);
-    throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status: statusLabel}));
+  // FIXME figure out a way for champion to affect this without needing to be hardcoded into reactiveStrike
+  _championBypass(actor) {
+    if ( !actor.talentIds.has("champion00000000") ) return false;
+    const rival = [...game.user.targets][0]?.actor;
+    const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
+    return actor.effects.get(dominanceId)?.origin === rival?.uuid;
   },
+  _reject(condition) {
+    const status = _loc(SYSTEM.RULES.condition[condition]?.name ?? condition);
+    throw new Error(_loc("ACTION.WARNINGS.BadStatus", {action: this.name, status}));
+  },
+  // FIXME figure out a way for champion to affect this without needing to be hardcoded into reactiveStrike
   prepare() {
     const actor = this.actor;
     if ( !actor.talentIds.has("champion00000000") ) return;
     const target = [...game.user.targets][0]?.actor;
     const dominanceId = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
     const isRival = actor.effects.get(dominanceId)?.origin === target?.uuid;
-
-    // Champion vs rival, exchange action for focus
-    // FIXME figure out a way for champion to affect this without needing to be hardcoded into reactiveStrike
     if ( isRival && (actor.resources.focus.value >= 1) ) {
       this.cost.action = 0;
       this.cost.focus = 1;
@@ -2205,7 +2203,7 @@ HOOKS.threadTheNeedle = {
     // Grant flanked boons for ranged attacks (normally only melee gets flanking)
     const [target] = this.targets.values(); // Single target action
     if ( target?.flanked ) {
-      this.usage.boons.flanked = {label: CONFIG.statusEffects.flanked.name, number: target.flanked};
+      this.usage.boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: target.flanked};
     }
   }
 };
