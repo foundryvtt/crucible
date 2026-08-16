@@ -58,7 +58,7 @@ for ( const runeId of Object.keys(RUNES) ) {
   HOOKS[id] = {
     prepareGrimoire(item, grimoire) {
       grimoire.runeIds.push(runeId);
-      this.training[runeId] = Math.max(this.training[runeId] ?? 0, 1);
+      this.system.training[runeId] = Math.max(this.system.training[runeId] ?? 0, 1);
     }
   };
 }
