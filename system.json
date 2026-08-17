@@ -262,6 +262,9 @@
     "RegionBehavior": {
       "crucible.hazard": {
         "htmlFields": ["description"]
+      },
+      "crucible.action": {
+        "htmlFields": ["action.description"]
       }
     }
   },
