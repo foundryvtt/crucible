@@ -13,21 +13,21 @@ system:
     wisdom: 1
     presence: 0
     intellect: 1
-    strength: 3
+    strength: 4
     toughness: 4
-    dexterity: 3
+    dexterity: 2
   movement:
     size: 3
     stride: 6
   resistances:
     bludgeoning:
-      value: 0
+      value: 1
       immune: false
     corruption:
       value: 0
       immune: false
     piercing:
-      value: 2
+      value: 0
       immune: false
     slashing:
       value: 0
@@ -39,7 +39,7 @@ system:
       value: 2
       immune: false
     fire:
-      value: -2
+      value: -1
       immune: false
     cold:
       value: -2
@@ -48,27 +48,32 @@ system:
       value: -2
       immune: false
     psychic:
-      value: 2
+      value: 3
       immune: false
     radiant:
       value: 0
       immune: false
     void:
-      value: 0
+      value: -1
       immune: false
   talents:
     - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
       level: null
     - item: Compendium.crucible.adversary-talents.Item.oozeSubdivide000
-      level: null
+      level: 2
     - item: Compendium.crucible.adversary-talents.Item.oozeMultiply0000
-      level: null
+      level: 1
     - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
       level: null
   characteristics:
     equipment: false
     spells: false
   identifier: slime
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.pseudopod0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
 effects: []
 folder: zo1Egh9MIjBCmv7C
 ownership:
@@ -79,11 +84,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.366'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307170601
-  modifiedTime: 1773514792642
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1786975389391
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!taxonomySlime000'
