@@ -44,7 +44,7 @@ system:
             units: rounds
             expiry: turnEnd
           result:
-            type: success
+            type: any
             all: false
           system:
             changes: []
@@ -53,6 +53,16 @@ system:
             regions: []
             summons: []
             lights: []
+            light:
+              bright: 0
+              dim: 20
+              color: "#2b0033"
+              alpha: 0.75
+              negative: true
+              animation:
+                type: blackHole
+                speed: 1
+                intensity: 3
       tags:
         - spell
         - iconicSpell

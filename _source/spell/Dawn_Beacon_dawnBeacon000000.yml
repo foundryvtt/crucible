@@ -19,7 +19,8 @@ system:
         counteracts magical darkness and destroys any source of magical darkness
         whose origin is contained within its area.</p><p>Enemies within the area
         when the light is first created must resist an attack against their
-        <strong>Fortitude</strong> or be @Condition[blinded] for one round.</p>
+        <strong>Fortitude</strong> or be @Condition[blinded] for one
+        round.</p>
       cost:
         action: 0
         focus: 0
@@ -63,7 +64,7 @@ system:
             units: rounds
             expiry: turnEnd
           result:
-            type: success
+            type: any
             all: false
           system:
             changes: []
@@ -72,6 +73,16 @@ system:
             regions: []
             summons: []
             lights: []
+            light:
+              bright: 30
+              dim: 60
+              color: "#fff2c2"
+              alpha: 0.35
+              negative: false
+              animation:
+                type: pulse
+                speed: 1
+                intensity: 2
       tags:
         - spell
         - iconicSpell

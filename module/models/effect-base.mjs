@@ -22,7 +22,23 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
       properties: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.EFFECTS.PROPERTIES})),
       regions: new fields.SetField(new fields.DocumentUUIDField({type: "Region", nullable: false})),
       summons: new fields.SetField(new fields.DocumentUUIDField({type: "Token", nullable: false})),
-      lights: new fields.SetField(new fields.DocumentUUIDField({type: "AmbientLight", nullable: false}))
+      lights: new fields.SetField(new fields.DocumentUUIDField({type: "AmbientLight", nullable: false})),
+
+      // A declarative template describing an AmbientLight this effect should conjure and own for its duration.
+      // When set, the effect document itself creates and destroys the light automatically - no bespoke hook
+      // code is required. See CrucibleActiveEffect##createOwnedLight.
+      light: new fields.SchemaField({
+        bright: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0}),
+        dim: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0}),
+        color: new fields.ColorField({nullable: true, initial: null}),
+        alpha: new fields.AlphaField({initial: 0.5}),
+        negative: new fields.BooleanField({initial: false}),
+        animation: new fields.SchemaField({
+          type: new fields.StringField({required: false, blank: true, initial: ""}),
+          speed: new fields.NumberField({required: false, nullable: false, initial: 5}),
+          intensity: new fields.NumberField({required: false, nullable: false, initial: 5})
+        })
+      }, {required: false, nullable: true, initial: null})
     });
   }
 
