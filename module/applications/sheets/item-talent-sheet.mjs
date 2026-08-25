@@ -22,7 +22,7 @@ export default class CrucibleTalentItemSheet extends CrucibleBaseItemSheet {
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    context.trainingRanks = Object.values(SYSTEM.TALENT.TRAINING_RANKS).reduce((arr, r) => {
+    context.trainingRanks = Object.values(SYSTEM.TRAINING.RANKS).reduce((arr, r) => {
       if ( r.rank > 0 ) arr.push({value: r.rank, label: r.label});
       return arr;
     }, []);

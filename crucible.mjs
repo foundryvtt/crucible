@@ -598,8 +598,10 @@ function preLocalizeConfig() {
 
   // Talent
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES);
-  localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS);
-  localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
+
+  // Training
+  localizeConfigObject(SYSTEM.TRAINING.RANKS);
+  localizeConfigObject(SYSTEM.TRAINING.TYPES, ["group", "label"]);
 
   // Weapon
   localizeConfigObject(SYSTEM.WEAPON.CATEGORIES);
