@@ -90,51 +90,74 @@ export const TRAINING_TYPES = defineEnum({
 /**
  * @typedef CrucibleTrainingRank
  * @property {string} id
- * @property {number} rank
+ * @property {number} rank      The integer rank, ascending from zero for untrained.
  * @property {string} label
- * @property {number} bonus
+ * @property {number} bonus     The check bonus conferred by this rank.
+ * @property {number} cost      Proficiency Points spent to advance into this rank from the one below.
+ * @property {number} [level]   A character level required to advance into this rank, if any.
  */
 
 /**
- * The possible training ranks.
+ * The possible training ranks, their skill bonuses, and costs to acquire.
  * @type {Readonly<Record<string, CrucibleTrainingRank>>}
  */
 export const TRAINING_RANKS = defineEnum({
   untrained: {
     rank: 0,
     label: "TALENT.RANKS.Untrained",
-    bonus: -4
+    bonus: -4,
+    cost: 0
   },
   trained: {
     rank: 1,
     label: "TALENT.RANKS.Trained",
-    bonus: 0
+    bonus: 0,
+    cost: 1
   },
   proficient: {
     rank: 2,
     label: "TALENT.RANKS.Proficient",
-    bonus: 1
+    bonus: 1,
+    cost: 1
   },
   expert: {
     rank: 3,
     label: "TALENT.RANKS.Expert",
-    bonus: 2
+    bonus: 2,
+    cost: 2
   },
   master: {
     rank: 4,
     label: "TALENT.RANKS.Master",
-    bonus: 3
+    bonus: 3,
+    cost: 3
   }
 });
 
 /**
- * A reverse mapping of training rank integers to rank IDs.
- * @type {Readonly<Record<0|1|2|3|4, CrucibleTrainingRank>>}
+ * A reverse mapping of training rank integers to rank definitions.
+ * @type {Readonly<Record<number, CrucibleTrainingRank>>}
  */
-export const TRAINING_RANK_VALUES = Object.freeze(Object.values(TRAINING_RANKS)).reduce((obj, e) => {
+export const TRAINING_RANK_VALUES = Object.freeze(Object.values(TRAINING_RANKS).reduce((obj, e) => {
   obj[e.rank] = e;
   return obj;
-}, {});
+}, {}));
+
+/**
+ * The highest training rank which may be attained.
+ * @type {number}
+ */
+export const TRAINING_RANK_MAX = Math.max(...Object.values(TRAINING_RANKS).map(r => r.rank));
+
+/**
+ * Proficiency Points awarded to a hero, which are spent to advance training ranks.
+ * @type {Readonly<{background: number, initial: number, perLevel: number}>}
+ */
+export const PROFICIENCY_POINTS = Object.freeze({
+  background: 2,
+  initial: 2,
+  perLevel: 2
+});
 
 
 /**
