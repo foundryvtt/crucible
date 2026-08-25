@@ -6,7 +6,6 @@ import {TEMPLATES} from "../chat.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
- * @import {TRAINING_TYPES} from "../const/talents.mjs";
  * @import {TokenMovementOperation} from "@client/documents/_types.mjs";
  * @import {GroupCheckSkillConfig} from "../dice/group-check.mjs";
  */
@@ -364,10 +363,10 @@ export default class CrucibleActor extends Actor {
    * @returns {number}
    */
   getSkillBonus(training) {
-    let bonus = training.length ? SYSTEM.TALENT.TRAINING_RANKS.untrained.bonus : 0; // Does the skill require training?
+    let bonus = training.length ? SYSTEM.TRAINING.RANKS.untrained.bonus : 0; // Does the skill require training?
     for ( const t of training ) {
       const tier = this.system.training[t] ?? 0;
-      const rank = SYSTEM.TALENT.TRAINING_RANK_VALUES[tier];
+      const rank = SYSTEM.TRAINING.RANK_VALUES[tier];
       const b = rank.bonus;
       if ( b > bonus ) bonus = b;
     }

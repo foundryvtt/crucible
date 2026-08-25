@@ -1257,7 +1257,7 @@ HOOKS.runewarden000000 = {
 HOOKS.saboteur00000000 = {
   prepareAction(item, action) {
     if ( action.item?.config?.category.id === "bomb" ) {
-      action.usage.bonuses.skill = Math.max(action.usage.bonuses.skill, SYSTEM.TALENT.TRAINING_RANKS.trained.bonus);
+      action.usage.bonuses.skill = Math.max(action.usage.bonuses.skill, SYSTEM.TRAINING.RANKS.trained.bonus);
       action.usage.boons[item.id] = {label: item.name, number: 1};
     }
   }

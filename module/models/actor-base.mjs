@@ -2,6 +2,10 @@ import CrucibleAction from "./action.mjs";
 import CruciblePhysicalItem from "./item-physical.mjs";
 
 /**
+ * @import {TYPES as TRAINING_TYPES} from "../const/training.mjs";
+ */
+
+/**
  * @typedef CrucibleActorEquipment
  * @property {CrucibleItem} armor
  * @property {CrucibleActorEquippedWeapons} weapons
@@ -190,7 +194,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Prepared training data for the Actor.
-   * @type {Record<keyof TRAINING_TYPES, 0|1|2|3>}
+   * @type {Record<keyof typeof TRAINING_TYPES, number>}
    */
   training = this.training;
 
@@ -1084,7 +1088,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
       const rank = this.training[config.id] ?? 0;
       const abilityBonus = this.parent.getAbilityBonus(config.abilities);
-      const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;
+      const skillBonus = SYSTEM.TRAINING.RANK_VALUES[rank].bonus;
       const enchantmentBonus = 0;
       this.skills[skillId] = {rank, abilityBonus, skillBonus, enchantmentBonus};
     }
