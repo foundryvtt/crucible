@@ -12,6 +12,7 @@ import * as WEAPON from "./weapon.mjs";
 import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
+import * as TRAINING from "./training.mjs";
 import {defineEnum} from "./enum.mjs";
 import {derivedConditions, statusEffects} from "./statuses.mjs";
 
@@ -253,5 +254,6 @@ export const SYSTEM = {
   TEMPERATURE_TIERS,
   THREAT_RANKS,
   TIME,
+  TRAINING: {...TRAINING},
   WEAPON: {...WEAPON}
 };
