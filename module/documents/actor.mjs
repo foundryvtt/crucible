@@ -365,7 +365,7 @@ export default class CrucibleActor extends Actor {
   getSkillBonus(training) {
     let bonus = training.length ? SYSTEM.TRAINING.RANKS.untrained.bonus : 0; // Does the skill require training?
     for ( const t of training ) {
-      const tier = this.system.training[t] ?? 0;
+      const tier = this.system.training[t]?.value ?? 0;
       const rank = SYSTEM.TRAINING.RANK_VALUES[tier];
       const b = rank.bonus;
       if ( b > bonus ) bonus = b;
@@ -2006,6 +2006,7 @@ export default class CrucibleActor extends Actor {
         this.system.details.ancestry?.name,
         this.system.details.background?.name,
         !this.points.ability.requireInput,
+        this.points.proficiency.available <= 0,
         this.points.talent.available <= 0
       ];
       if ( !steps.every(k => k) ) return ui.notifications.warn(_loc("WALKTHROUGH.LevelZeroIncomplete"));
@@ -2073,6 +2074,56 @@ export default class CrucibleActor extends Actor {
       else if ( (delta < 0) && (a.increases === 0) ) return false;
       return true;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Purchase a training rank increase or decrease for the Actor.
+   * @param {string} type         The training type id to advance
+   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
+   * @returns {Promise}
+   */
+  async purchaseTraining(type, delta=1) {
+    delta = Math.sign(delta);
+    const t = this.system.training[type];
+    if ( !t || !delta ) return;
+
+    // Can the training rank be purchased?
+    if ( !this.canPurchaseTraining(type, delta) ) {
+      return ui.notifications.warn(_loc(`WARNING.TrainingCannot${delta > 0 ? "Increase" : "Decrease"}`));
+    }
+
+    // Modify the training rank
+    const update = {[`system.training.${type}.increases`]: t.increases + delta};
+
+    // Temporary modification for ephemeral Actor
+    if ( !this._id ) this.updateSource(update);
+    else await this.update(update);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Actor can modify a training rank in a certain direction.
+   * @param {string} type         A value in TRAINING.TYPES
+   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
+   * @returns {boolean}           Can the training rank be changed?
+   */
+  canPurchaseTraining(type, delta=1) {
+    if ( !this.system.points ) return false;
+    delta = Math.sign(delta);
+    const t = this.system.training[type];
+    if ( !t || !delta ) return false;
+
+    // Case 1 - Refund, which may only reclaim ranks that were purchased
+    if ( delta < 0 ) return t.increases > 0;
+
+    // Case 2 - Advance into the next rank, which must exist, be affordable, and be level-appropriate
+    const rank = SYSTEM.TRAINING.RANK_VALUES[t.initial + t.increases + 1];
+    if ( !rank ) return false;
+    if ( this.level < (rank.level ?? 0) ) return false;
+    return this.points.proficiency.available >= rank.cost;
   }
 
   /* -------------------------------------------- */

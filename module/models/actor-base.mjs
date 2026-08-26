@@ -6,6 +6,14 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  */
 
 /**
+ * @typedef CrucibleTrainingRankData
+ * @property {number} initial    Rank granted by talents, creation options, or other features.
+ * @property {number} increases  Rank purchased with Proficiency Points.
+ * @property {number} bonus      Rank adjustment from Active Effects or other transient sources.
+ * @property {number} value      The derived rank, clamped to the configured ladder.
+ */
+
+/**
  * @typedef CrucibleActorEquipment
  * @property {CrucibleItem} armor
  * @property {CrucibleActorEquippedWeapons} weapons
@@ -86,6 +94,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       }, {label: ability.label});
       return obj;
     }, {}));
+
+    // Training
+    schema.training = new fields.TypedObjectField(new fields.SchemaField({
+      initial: new fields.NumberField({...requiredInteger, initial: 0, min: 0, persisted: false}),
+      increases: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
+      bonus: new fields.NumberField({...requiredInteger, initial: 0})
+    }), {validateKey: key => key in SYSTEM.TRAINING.TYPES});
 
     // Defenses
     schema.defenses = new fields.SchemaField(Object.values(SYSTEM.DEFENSES).reduce((obj, defense) => {
@@ -193,8 +208,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   talentNodes = this.talentNodes;
 
   /**
-   * Prepared training data for the Actor.
-   * @type {Record<keyof typeof TRAINING_TYPES, number>}
+   * Training ranks for the Actor, layered the same way as ability scores.
+   * @type {Record<keyof typeof TRAINING_TYPES, CrucibleTrainingRankData>}
    */
   training = this.training;
 
@@ -270,6 +285,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   prepareBaseData() {
     this.#clear();
+    this.#prepareBaseTraining();
     this._prepareDetails();
     this._prepareBaseMovement();
     this.details.progression = this._configureProgression(); // Affected by base size
@@ -287,7 +303,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       this[name] ||= {};
       for ( const k in this[name] ) delete this[name][k];
     };
-    const objects = ["actions", "actorHooks", "equipment", "rollBonuses", "talentNodes", "training", "skills"];
+    const objects = ["actions", "actorHooks", "equipment", "rollBonuses", "talentNodes", "skills"];
     for ( const name of objects ) createOrEmpty(name);
     this.talentIds ||= new Set();
     this.talentIds.clear();
@@ -305,6 +321,18 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.permanentTalentIds.clear();
     Object.assign(this.rollBonuses, {damage: {}, boons: {}, banes: {}});
     if ( this.status === null ) this.status = {};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Ensure every configured training type is represented, since only purchased ranks exist in source data.
+   */
+  #prepareBaseTraining() {
+    const {element} = this.schema.fields.training;
+    for ( const id in SYSTEM.TRAINING.TYPES ) {
+      this.training[id] ??= element.initialize(element.getInitialValue(), this);
+    }
   }
 
   /* -------------------------------------------- */
@@ -406,8 +434,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
       // Register training ranks
       if ( training.type ) {
-        this.training[training.type] ??= 0;
-        this.training[training.type] = Math.max(this.training[training.type], training.rank ?? 0);
+        const t = this.training[training.type];
+        if ( t ) t.initial = Math.max(t.initial, training.rank ?? 0);
       }
 
       // Register spellcraft knowledge
@@ -804,6 +832,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareResistances", this.resistances);
     this.#prepareFinalResistances();
 
+    // Training
+    this.parent.callActorHooks("prepareTraining", this.training);
+    this.#prepareFinalTraining();
+
     // Skills
     this.#prepareSkills();
     this.parent.callActorHooks("prepareSkills", this.skills);
@@ -1078,6 +1110,19 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
+  /*  Training Preparation                        */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare final training ranks as the sum of initial, increases, and bonus components.
+   */
+  #prepareFinalTraining() {
+    for ( const t of Object.values(this.training) ) {
+      t.value = Math.clamp(t.initial + t.increases + t.bonus, 0, SYSTEM.TRAINING.RANK_MAX);
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Skill Preparation                           */
   /* -------------------------------------------- */
 
@@ -1086,7 +1131,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #prepareSkills() {
     for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
-      const rank = this.training[config.id] ?? 0;
+      const rank = this.training[config.id].value;
       const abilityBonus = this.parent.getAbilityBonus(config.abilities);
       const skillBonus = SYSTEM.TRAINING.RANK_VALUES[rank].bonus;
       const enchantmentBonus = 0;
