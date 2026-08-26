@@ -34,6 +34,7 @@ export const TYPES = defineEnum({
  * @property {string} label
  * @property {number} bonus     The check bonus conferred by this rank.
  * @property {number} cost      Proficiency Points spent to advance into this rank from the one below.
+ * @property {number} spent     Cumulative Proficiency Points spent to reach this rank from untrained.
  * @property {number} [level]   A character level required to advance into this rank, if any.
  */
 
@@ -74,6 +75,10 @@ export const RANKS = defineEnum({
   }
 });
 
+// Accumulate the cost of each rank into the total spent to reach it
+let spent = 0;
+for ( const rank of Object.values(RANKS) ) rank.spent = (spent += rank.cost);
+
 /**
  * A reverse mapping of training rank integers to rank definitions.
  * @type {Readonly<Record<number, CrucibleTrainingRank>>}
@@ -91,10 +96,15 @@ export const RANK_MAX = Math.max(...Object.values(RANKS).map(r => r.rank));
 
 /**
  * Proficiency Points awarded to a hero, which are spent to advance training ranks.
- * @type {Readonly<{background: number, initial: number, perLevel: number}>}
+ * @type {Readonly<{initial: number, perLevel: number}>}
  */
 export const PROFICIENCY_POINTS = Object.freeze({
-  background: 2,
   initial: 2,
   perLevel: 2
 });
+
+/**
+ * The number of training ranks a Background is expected to grant, free of Proficiency Point cost.
+ * @type {number}
+ */
+export const BACKGROUND_RANKS = 2;

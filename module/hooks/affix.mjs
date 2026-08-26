@@ -56,9 +56,11 @@ for ( const runeId of Object.keys(RUNES) ) {
 for ( const runeId of Object.keys(RUNES) ) {
   const id = `${runeId}Spellcraft`;
   HOOKS[id] = {
+    prepareTraining(item, training) {
+      training[runeId].initial = Math.max(training[runeId].initial, 1);
+    },
     prepareGrimoire(item, grimoire) {
       grimoire.runeIds.push(runeId);
-      this.system.training[runeId] = Math.max(this.system.training[runeId] ?? 0, 1);
     }
   };
 }

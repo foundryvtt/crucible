@@ -2692,7 +2692,9 @@
     "CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because the {type} item slot is already in use.",
     "CannotEquipTaxonomy": "Actor {actor} cannot equip {item} because the \"{taxonomy}\" taxonomy is incapable of using equipment.",
     "NoParty": "You must have a primary party configured for this.",
-    "SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks."
+    "SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
+    "TrainingCannotDecrease": "You cannot decrease this Proficiency further.",
+    "TrainingCannotIncrease": "You cannot increase this Proficiency further."
   },
   "WEAPON": {
     "CATEGORIES": {

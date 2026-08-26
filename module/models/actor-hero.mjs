@@ -74,6 +74,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    * Advancement points that are available to spend and have been spent.
    * @type {{
    *   ability: {pool: number, total: number, bought: number, spent: number, available: number},
+   *   proficiency: {total: number, spent: number, available: number},
    *   talent: {total: number, spent: number, available: number}
    * }}
    */
@@ -113,8 +114,10 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   #prepareAdvancement() {
     const adv = this.advancement;
     const effectiveLevel = Math.max(adv.level, 1) - 1;
+    const proficiency = SYSTEM.TRAINING.PROFICIENCY_POINTS;
     this.points = {
       ability: {pool: 9, total: effectiveLevel, bought: 0, spent: 0, available: 0},
+      proficiency: {total: proficiency.initial + (effectiveLevel*proficiency.perLevel), spent: 0, available: 0},
       talent: {total: 3 + (effectiveLevel*3), spent: 0, available: 0}
     };
     const level = SYSTEM.ACTOR.LEVELS[adv.level];
@@ -202,9 +205,20 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /** @inheritDoc */
   prepareItems(items) {
     super.prepareItems(items);
-    const points = this.points.talent;
-    points.spent = Math.max(this.talentIds.size - this.permanentTalentIds.size, 0) + this.advancement.talentNodes.size;
-    points.available = points.total - points.spent;
+
+    // Talent Points
+    const talent = this.points.talent;
+    talent.spent = Math.max(this.talentIds.size - this.permanentTalentIds.size, 0) + this.advancement.talentNodes.size;
+    talent.available = talent.total - talent.spent;
+
+    // Proficiency Points, spent only on ranks beyond those which were granted for free
+    const {RANK_VALUES, RANK_MAX} = SYSTEM.TRAINING;
+    const proficiency = this.points.proficiency;
+    for ( const t of Object.values(this.training) ) {
+      const rank = RANK_VALUES[Math.min(t.initial + t.increases, RANK_MAX)];
+      proficiency.spent += rank.spent - RANK_VALUES[t.initial].spent;
+    }
+    proficiency.available = proficiency.total - proficiency.spent;
   }
 
   /* -------------------------------------------- */
