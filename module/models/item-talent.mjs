@@ -141,7 +141,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       Object.assign(requirements, foundry.utils.deepClone(node.requirements));
     }
     if ( this.training.rank > 1 ) {
-      foundry.utils.setProperty(requirements, `training.${this.training.type}`, this.training.rank - 1);
+      foundry.utils.setProperty(requirements, `training.${this.training.type}.value`, this.training.rank - 1);
     }
     return CrucibleTalentNode.preparePrerequisites(requirements);
   }

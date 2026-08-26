@@ -550,6 +550,11 @@ export const HOOKS = Object.freeze({
     argNames: ["token"],
     argLabels: ["item: CrucibleItem", "token: CrucibleToken"]
   },
+  prepareTraining: {
+    group: "TALENT.HOOKS.GroupPreparation",
+    argNames: ["training"],
+    argLabels: ["item: CrucibleItem", "training: object"]
+  },
 
   // Equipment Preparation
   configureEquipment: {
