@@ -483,7 +483,9 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    * Perform a group rest where every member of the group uses the Rest action and time advances.
    * Fires a `crucible.preGroupRest` hook which may return `false` to cancel synchronously, or push a Promise
    * into `restConfig.promises` for async workflows which may throw an Error to prevent rest progress.
+   * Fires a `crucible.groupRest` hook once an uninterrupted rest has finished and time has advanced.
    * @fires {preGroupRest}
+   * @fires {groupRest}
    * @param {object} [options]
    * @param {boolean} [options.allowInterruption=true]    Allow the possibility of rest interruption.
    * @param {boolean} [options.dialog=true]               Prompt the Gamemaster to confirm participants and duration.
@@ -538,6 +540,9 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     }
     promises.push(game.time.advance(restConfig.duration));
     await Promise.allSettled(promises);
+
+    // Announce completion only once time has advanced, so listeners which timestamp the rest record its end
+    Hooks.callAll("crucible.groupRest", this, restConfig, participants);
   }
 
   /* -------------------------------------------- */
