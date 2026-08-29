@@ -2006,7 +2006,6 @@ export default class CrucibleActor extends Actor {
         this.system.details.ancestry?.name,
         this.system.details.background?.name,
         !this.points.ability.requireInput,
-        this.points.proficiency.available <= 0,
         this.points.talent.available <= 0
       ];
       if ( !steps.every(k => k) ) return ui.notifications.warn(_loc("WALKTHROUGH.LevelZeroIncomplete"));
@@ -2079,9 +2078,9 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Purchase a training rank increase or decrease for the Actor.
+   * Allocate or reclaim a training point for the Actor.
    * @param {string} type         The training type id to advance
-   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
+   * @param {number} delta        A number in [-1, 1] for the direction of the allocation
    * @returns {Promise}
    */
   async purchaseTraining(type, delta=1) {
@@ -2089,12 +2088,12 @@ export default class CrucibleActor extends Actor {
     const t = this.system.training[type];
     if ( !t || !delta ) return;
 
-    // Can the training rank be purchased?
+    // Can the training point be allocated?
     if ( !this.canPurchaseTraining(type, delta) ) {
       return ui.notifications.warn(_loc(`WARNING.TrainingCannot${delta > 0 ? "Increase" : "Decrease"}`));
     }
 
-    // Modify the training rank
+    // Modify the allocation
     const update = {[`system.training.${type}.increases`]: t.increases + delta};
 
     // Temporary modification for ephemeral Actor
@@ -2105,10 +2104,10 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Test whether this Actor can modify a training rank in a certain direction.
+   * Test whether this Actor can modify a training point allocation in a certain direction.
    * @param {string} type         A value in TRAINING.TYPES
-   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
-   * @returns {boolean}           Can the training rank be changed?
+   * @param {number} delta        A number in [-1, 1] for the direction of the allocation
+   * @returns {boolean}           Can the allocation be changed?
    */
   canPurchaseTraining(type, delta=1) {
     if ( !this.system.points ) return false;
@@ -2116,14 +2115,12 @@ export default class CrucibleActor extends Actor {
     const t = this.system.training[type];
     if ( !t || !delta ) return false;
 
-    // Case 1 - Refund, which may only reclaim ranks that were purchased
+    // Case 1 - Refund, which may only reclaim points that were allocated
     if ( delta < 0 ) return t.increases > 0;
 
-    // Case 2 - Advance into the next rank, which must exist, be affordable, and be level-appropriate
-    const rank = SYSTEM.TRAINING.RANK_VALUES[t.initial + t.increases + 1];
-    if ( !rank ) return false;
-    if ( this.level < (rank.level ?? 0) ) return false;
-    return this.points.proficiency.available >= rank.cost;
+    // Case 2 - Allocate a point, which must be affordable and must fit beneath the cap
+    if ( this.points.proficiency.available < 1 ) return false;
+    return t.points < this.system.details.progression.trainingCap;
   }
 
   /* -------------------------------------------- */

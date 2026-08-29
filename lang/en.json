@@ -1092,6 +1092,10 @@
         "hint": "Configure one or more Talents that this Ancestry receives automatically.",
         "label": "Talent Progression"
       },
+      "training": {
+        "hint": "Training points which this Ancestry grants freely, costing no Proficiency Points and not refundable.",
+        "label": "Granted Training"
+      },
       "ui": {
         "color": {
           "hint": "A representative color for this Ancestry used when referring to them in the user interface.",
@@ -1143,6 +1147,10 @@
       "talents": {
         "hint": "Configure one or more talents which this Archetype receives automatically.",
         "label": "Granted Talents"
+      },
+      "training": {
+        "hint": "Training points which this Archetype grants freely, costing no Proficiency Points and not refundable.",
+        "label": "Granted Training"
       }
     },
     "SHEET": {
@@ -1292,6 +1300,10 @@
       "talents": {
         "hint": "Configure one or more talents which this Background receives automatically. Typically, a Background receives two granted talents.",
         "label": "Acquired Talents"
+      },
+      "training": {
+        "hint": "Training points which this Background grants freely, costing no Proficiency Points and not refundable. Typically, a Background grants two points.",
+        "label": "Granted Training"
       },
       "ui": {
         "color": {

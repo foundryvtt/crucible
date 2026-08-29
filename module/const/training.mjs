@@ -30,16 +30,15 @@ export const TYPES = defineEnum({
 /**
  * @typedef CrucibleTrainingRank
  * @property {string} id
- * @property {number} rank      The integer rank, ascending from zero for untrained.
+ * @property {number} rank        The integer rank, ascending from zero for untrained.
  * @property {string} label
- * @property {number} bonus     The check bonus conferred by this rank.
- * @property {number} cost      Proficiency Points spent to advance into this rank from the one below.
- * @property {number} spent     Cumulative Proficiency Points spent to reach this rank from untrained.
- * @property {number} [level]   A character level required to advance into this rank, if any.
+ * @property {number} bonus       The check bonus conferred by this rank.
+ * @property {number} required    Training points required to attain this rank.
  */
 
 /**
- * The possible training ranks, their skill bonuses, and costs to acquire.
+ * The possible training ranks, their skill bonuses, and the points required to attain them.
+ * Requirements double their interval, so each rank costs as much to reach as every rank before it combined.
  * @type {Readonly<Record<string, CrucibleTrainingRank>>}
  */
 export const RANKS = defineEnum({
@@ -47,37 +46,33 @@ export const RANKS = defineEnum({
     rank: 0,
     label: "TALENT.RANKS.Untrained",
     bonus: -4,
-    cost: 0
+    required: 0
   },
   trained: {
     rank: 1,
     label: "TALENT.RANKS.Trained",
     bonus: 0,
-    cost: 1
+    required: 2
   },
   proficient: {
     rank: 2,
     label: "TALENT.RANKS.Proficient",
     bonus: 1,
-    cost: 1
+    required: 6
   },
   expert: {
     rank: 3,
     label: "TALENT.RANKS.Expert",
     bonus: 2,
-    cost: 2
+    required: 14
   },
   master: {
     rank: 4,
     label: "TALENT.RANKS.Master",
     bonus: 3,
-    cost: 3
+    required: 30
   }
 });
-
-// Accumulate the cost of each rank into the total spent to reach it
-let spent = 0;
-for ( const rank of Object.values(RANKS) ) rank.spent = (spent += rank.cost);
 
 /**
  * A reverse mapping of training rank integers to rank definitions.
@@ -95,16 +90,24 @@ export const RANK_VALUES = Object.freeze(Object.values(RANKS).reduce((obj, e) =>
 export const RANK_MAX = Math.max(...Object.values(RANKS).map(r => r.rank));
 
 /**
- * Proficiency Points awarded to a hero, which are spent to advance training ranks.
+ * The greatest number of training points any one type may hold, being those which attain the highest rank.
+ * @type {number}
+ */
+export const POINTS_MAX = Math.max(...Object.values(RANKS).map(r => r.required));
+
+/**
+ * Proficiency Points awarded to a hero, which are allocated to advance training.
+ * This rate also caps how many points a single training may hold, so allocation alone can carry exactly one
+ * training to mastery; talents advance further trainings rather than carrying any one of them higher.
  * @type {Readonly<{initial: number, perLevel: number}>}
  */
 export const PROFICIENCY_POINTS = Object.freeze({
-  initial: 2,
+  initial: 4,
   perLevel: 2
 });
 
 /**
- * The number of training ranks a Background is expected to grant, free of Proficiency Point cost.
+ * The number of training points a Background is expected to grant, free of Proficiency Point cost.
  * @type {number}
  */
-export const BACKGROUND_RANKS = 2;
+export const BACKGROUND_POINTS = 2;
