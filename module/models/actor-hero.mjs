@@ -98,6 +98,15 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _configureProgression() {
+    const config = super._configureProgression();
+    config.trainingCap = Math.min(this.points.proficiency.total, SYSTEM.TRAINING.POINTS_MAX);
+    return config;
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   _prepareBaseMovement() {
     super._prepareBaseMovement();
@@ -211,13 +220,9 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     talent.spent = Math.max(this.talentIds.size - this.permanentTalentIds.size, 0) + this.advancement.talentNodes.size;
     talent.available = talent.total - talent.spent;
 
-    // Proficiency Points, spent only on ranks beyond those which were granted for free
-    const {RANK_VALUES, RANK_MAX} = SYSTEM.TRAINING;
+    // Proficiency Points, one spent per allocated training point
     const proficiency = this.points.proficiency;
-    for ( const t of Object.values(this.training) ) {
-      const rank = RANK_VALUES[Math.min(t.initial + t.increases, RANK_MAX)];
-      proficiency.spent += rank.spent - RANK_VALUES[t.initial].spent;
-    }
+    for ( const t of Object.values(this.training) ) proficiency.spent += t.increases;
     proficiency.available = proficiency.total - proficiency.spent;
   }
 

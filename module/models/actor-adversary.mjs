@@ -271,21 +271,22 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritDoc */
   _prepareTraining() {
-    const rank = this.advancement.autoTrainingRank;
+    super._prepareTraining();
+    const {required} = SYSTEM.TRAINING.RANK_VALUES[this.advancement.autoTrainingRank];
 
     // Automatic natural weapon training if the taxonomy does not use equipment
     if ( !this.usesEquipment ) {
       const natural = this.training.natural;
-      natural.initial = Math.max(natural.initial, rank);
+      natural.initial = Math.max(natural.initial, required);
     }
 
     // Automatic skill progression
     const skills = this.details.archetype?.skills || [];
     for ( const skillId of skills ) {
       const t = this.training[skillId];
-      if ( t ) t.initial = Math.max(t.initial, rank);
+      if ( t ) t.initial = Math.max(t.initial, required);
     }
   }
 

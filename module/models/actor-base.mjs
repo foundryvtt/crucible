@@ -7,10 +7,12 @@ import CruciblePhysicalItem from "./item-physical.mjs";
 
 /**
  * @typedef CrucibleTrainingRankData
- * @property {number} initial    Rank granted by talents, creation options, or other features.
- * @property {number} increases  Rank purchased with Proficiency Points.
- * @property {number} bonus      Rank adjustment from Active Effects or other transient sources.
- * @property {number} value      The derived rank, clamped to the configured ladder.
+ * @property {number} initial    Points granted by creation options or other features.
+ * @property {number} talents    Points contributed by owned talents.
+ * @property {number} increases  Points allocated with Proficiency Points.
+ * @property {number} bonus      Point adjustment from Active Effects or other transient sources.
+ * @property {number} points     The derived point total, clamped to this Actor's training cap.
+ * @property {number} value      The training rank attained at that point total.
  */
 
 /**
@@ -98,6 +100,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Training
     schema.training = new fields.TypedObjectField(new fields.SchemaField({
       initial: new fields.NumberField({...requiredInteger, initial: 0, min: 0, persisted: false}),
+      talents: new fields.NumberField({...requiredInteger, initial: 0, min: 0, persisted: false}),
       increases: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
       bonus: new fields.NumberField({...requiredInteger, initial: 0})
     }), {validateKey: key => key in SYSTEM.TRAINING.TYPES});
@@ -362,7 +365,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       moraleMultiplier: level < 1 ? threat : threatFactor,
       woundsMultiplier: 1.5,
       abilityMin: 1, // Excluding zero as special case
-      abilityMax: 12
+      abilityMax: 12,
+      trainingCap: SYSTEM.TRAINING.POINTS_MAX // Unpaced by default; heroes pace it by Proficiency Points received
     };
   }
 
@@ -432,10 +436,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       }
       if ( !nodes.size ) this.permanentTalentIds.add(t.id); // Manual talents
 
-      // Register training ranks
+      // Register training ranks, converted to the points which attain them
       if ( training.type ) {
         const t = this.training[training.type];
-        if ( t ) t.initial = Math.max(t.initial, training.rank ?? 0);
+        const granted = SYSTEM.TRAINING.RANK_VALUES[training.rank ?? 0]?.required ?? 0;
+        if ( t ) t.initial = Math.max(t.initial, granted);
       }
 
       // Register spellcraft knowledge
@@ -452,10 +457,19 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare training ranks granted by owned talents or other features.
+   * Prepare training points granted by creation options or other features.
+   * Grants accumulate, unlike talent-granted training which takes the greatest single grant.
    * @protected
    */
-  _prepareTraining() {}
+  _prepareTraining() {
+    const {ancestry, background, archetype} = this.details;
+    for ( const source of [ancestry, background, archetype] ) {
+      for ( const [type, points] of Object.entries(source?.training ?? {}) ) {
+        const t = this.training[type];
+        if ( t ) t.initial += points;
+      }
+    }
+  }
 
   /* -------------------------------------------- */
 
@@ -1114,11 +1128,18 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare final training ranks as the sum of initial, increases, and bonus components.
+   * Total the training point contributions and resolve the rank each total attains.
    */
   #prepareFinalTraining() {
+    const ranks = Object.values(SYSTEM.TRAINING.RANKS); // Ascending by points required
+    const cap = this.details.progression.trainingCap;
     for ( const t of Object.values(this.training) ) {
-      t.value = Math.clamp(t.initial + t.increases + t.bonus, 0, SYSTEM.TRAINING.RANK_MAX);
+      t.points = Math.clamp(t.initial + t.talents + t.increases + t.bonus, 0, cap);
+      t.value = 0;
+      for ( const rank of ranks ) {
+        if ( t.points < rank.required ) break;
+        t.value = rank.rank;
+      }
     }
   }
 
