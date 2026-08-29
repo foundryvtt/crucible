@@ -25,6 +25,8 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
         level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
       })),
       skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
+      training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false,
+        integer: true, min: 0, initial: 0}), {validateKey: key => key in SYSTEM.TRAINING.TYPES}),
       spells: new fields.ArrayField(new fields.SchemaField({
         item: new fields.DocumentUUIDField({type: "Item"}),
         level: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})

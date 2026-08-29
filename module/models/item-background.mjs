@@ -22,6 +22,8 @@ export default class CrucibleBackgroundItem extends foundry.abstract.TypeDataMod
         item: new fields.DocumentUUIDField({type: "Item"}),
         level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
       })),
+      training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false,
+        integer: true, min: 0, initial: 0}), {validateKey: key => key in SYSTEM.TRAINING.TYPES}),
       ui: new fields.SchemaField({
         color: new fields.ColorField()
       })
