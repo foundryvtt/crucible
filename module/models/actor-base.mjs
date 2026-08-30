@@ -1037,8 +1037,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const madness = this.usesReserveResources
       ? resources.madness.value
       : ((resources.morale.max - resources.morale.value) * 2);
-    defenses.wounds.base += Math.floor(wounds / 10);
-    defenses.madness.base += Math.floor(madness / 10);
+    defenses.wounds.base += Math.ceil(wounds / 10);
+    defenses.madness.base += Math.ceil(madness / 10);
 
     // Status effects which affect defenses
     if ( statuses.has("exposed") ) defenses.armor.base = Math.max(defenses.armor.base - 2, 0);
