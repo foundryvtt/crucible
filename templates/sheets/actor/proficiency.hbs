@@ -1,0 +1,45 @@
+<section class="tab secondary {{tabs.proficiency.id}} scrollable flexcol {{tabs.proficiency.cssClass}}"
+         data-tab="{{tabs.proficiency.id}}" data-group="{{tabs.proficiency.group}}">
+    {{#each proficiency.groups as |group|}}
+    <div class="sheet-section item-section flexcol">
+        <h3 class="section-header">{{group.label}}</h3>
+        <ol class="items-list proficiency-list" data-tooltip-direction="LEFT">
+            {{#each group.types as |training id|}}
+            <li class="line-item training" data-training="{{id}}">
+                <div class="title">
+                    <h4>{{training.label}}</h4>
+                    <div class="tags">
+                        <span class="rank tag">{{training.rank.label}}</span>
+                    </div>
+                </div>
+                <div class="progress flexrow">
+                    <span class="current" data-tooltip aria-label="{{localize 'TRAINING.PointsTooltip'}}">
+                        {{training.points}}
+                    </span>
+                    <div class="bar-container">
+                        <span class="bar" style="width: {{training.widthPct}}"></span>
+                    </div>
+                    <span class="max" data-tooltip aria-label="{{training.nextTooltip}}">
+                        {{training.end}}
+                    </span>
+                </div>
+                <div class="controls">
+                    <button type="button" class="icon fa-solid fa-minus" data-action="proficiencyDecrease"
+                            data-tooltip aria-label="{{localize 'TRAINING.Decrease'}}"
+                            {{#unless training.canDecrease}}disabled{{/unless}}></button>
+                    <button type="button" class="icon fa-solid fa-plus" data-action="proficiencyIncrease"
+                            data-tooltip aria-label="{{localize 'TRAINING.Increase'}}"
+                            {{#unless training.canIncrease}}disabled{{/unless}}></button>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/each}}
+    <footer class="tab-footer proficiency-footer flexrow">
+        <span class="label">{{localize "TRAINING.PointsAvailable"}}</span>
+        <span class="value">{{proficiency.available}}</span>
+        <span class="label">{{localize "TRAINING.PointsSpent"}}</span>
+        <span class="value">{{proficiency.spent}}</span>
+    </footer>
+</section>
