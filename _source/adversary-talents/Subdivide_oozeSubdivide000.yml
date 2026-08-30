@@ -16,10 +16,13 @@ system:
         <p>The ooze's cells rapidly divide and the creature splits in two! The
         original creature and its clone equally divide its remaining
         <strong>Health</strong>. The <strong>Size</strong> of each resulting
-        creature is decreased by 1.</p><p>If in combat, the new creature acts as
-        a <strong>Summon</strong> and joins at <strong>Initiative</strong> 1.
-        This Action may only be used if the creature has Size larger than 2. The
-        created ooze never has rank superior to <strong>Normal</strong>.</p>
+        creature is decreased by 1, and its threat tier is reduced, for example
+        an <strong>Elite</strong> ooze becomes a <strong>Normal</strong> ooze.
+        The new ooze arrives with only the <strong>Action</strong> and
+        <strong>Focus</strong> its parent had remaining after performing this
+        Action. If in combat, the new creature acts as a <strong>Summon</strong>
+        and joins at <strong>Initiative</strong> 1. This Action may only be used
+        if the creature has Size larger than 2.</p>
       cost:
         action: 3
         focus: 1

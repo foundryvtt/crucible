@@ -1490,18 +1490,18 @@ HOOKS.oozeMultiply = {
 
 HOOKS.oozeSubdivide = {
   prepare() {
-    const newHealth = Math.ceil(this.actor.system.resources.health.value / 2);
-    const newSize = this.actor.system.movement.sizeBonus - 1;
+    const {advancement, movement, resources} = this.actor.system;
+    const ranks = Object.keys(SYSTEM.THREAT_RANKS);
     const systemData = {
       advancement: {
-        rank: this.actor.system.advancement.rank === "minion" ? "minion" : "normal"
+        rank: ranks[Math.max(ranks.indexOf(advancement.rank) - 1, 0)]
       },
       movement: {
-        sizeBonus: newSize
+        sizeBonus: movement.sizeBonus - 1
       },
       resources: {
         health: {
-          value: newHealth
+          value: Math.ceil(resources.health.value / 2)
         }
       }
     };
@@ -1524,6 +1524,19 @@ HOOKS.oozeSubdivide = {
   },
   canUse() {
     if ( this.actor.size < 3 ) throw new Error(_loc("ACTION.WARNINGS.MinimumSize", {size: 3, action: this.name}));
+  },
+  postActivate() {
+    const summonEvent = this.events.find(e => e.type === "summon");
+    const activation = this.selfEvents?.activation;
+    if ( !summonEvent || !activation ) return;
+    const remaining = resource => {
+      const delta = activation.resources.reduce((t, r) => r.resource === resource ? t + r.delta : t, 0);
+      return Math.max(this.actor.system.resources[resource].value + delta, 0);
+    };
+    foundry.utils.mergeObject(summonEvent.summon.tokenData.delta.system.resources, {
+      action: {value: remaining("action")},
+      focus: {value: remaining("focus")}
+    });
   }
 };
 
