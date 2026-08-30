@@ -4,6 +4,16 @@ export const NAME_FORMATS = Object.freeze({
 });
 
 /**
+ * The areas of spellcraft in which a character may be trained, each grouping several Arcane Runes.
+ * @type {Readonly<Record<string, {id: string, label: string}>>}
+ */
+export const TRAINING = {
+  physical: {id: "physical", label: "SPELL.TRAINING.Kinematic"},
+  elemental: {id: "elemental", label: "SPELL.TRAINING.Elemental"},
+  spiritual: {id: "spiritual", label: "SPELL.TRAINING.Spiritual"}
+};
+
+/**
  * The Arcane Runes which exist in the Crucible spellcraft system.
  * These config objects are instantiated as CrucibleSpellcraftRune instances during system initialization.
  * @enum {object}
@@ -18,6 +28,7 @@ export const RUNES = {
     opposed: "kinesis",
     defense: "willpower",
     scaling: "wisdom",
+    training: "physical",
     nameFormat: NAME_FORMATS.NOUN
   },
   death: {
@@ -29,6 +40,7 @@ export const RUNES = {
     opposed: "life",
     defense: "fortitude",
     scaling: "presence",
+    training: "physical",
     nameFormat: NAME_FORMATS.NOUN
   },
   earth: {
@@ -40,6 +52,7 @@ export const RUNES = {
     opposed: "storm",
     defense: "reflex",
     scaling: "wisdom",
+    training: "elemental",
     nameFormat: NAME_FORMATS.ADJ
   },
   flame: {
@@ -51,6 +64,7 @@ export const RUNES = {
     opposed: "frost",
     defense: "reflex",
     scaling: "intellect",
+    training: "elemental",
     nameFormat: NAME_FORMATS.NOUN
   },
   frost: {
@@ -62,6 +76,7 @@ export const RUNES = {
     opposed: "flame",
     defense: "fortitude",
     scaling: "wisdom",
+    training: "elemental",
     nameFormat: NAME_FORMATS.NOUN
   },
   illumination: {
@@ -73,6 +88,7 @@ export const RUNES = {
     opposed: "illusion",
     defense: "reflex",
     scaling: "presence",
+    training: "spiritual",
     nameFormat: NAME_FORMATS.ADJ
   },
   illusion: {
@@ -84,6 +100,7 @@ export const RUNES = {
     opposed: "illumination",
     defense: "willpower",
     scaling: "intellect",
+    training: "spiritual",
     nameFormat: NAME_FORMATS.ADJ
   },
   kinesis: {
@@ -95,6 +112,7 @@ export const RUNES = {
     opposed: "control",
     defense: "physical",
     scaling: "presence",
+    training: "physical",
     nameFormat: NAME_FORMATS.ADJ
   },
   life: {
@@ -107,6 +125,7 @@ export const RUNES = {
     opposed: "death",
     defense: "fortitude",
     scaling: "wisdom",
+    training: "physical",
     nameFormat: NAME_FORMATS.NOUN
   },
   oblivion: {
@@ -118,6 +137,7 @@ export const RUNES = {
     opposed: "soul",
     defense: "willpower",
     scaling: "intellect",
+    training: "spiritual",
     nameFormat: NAME_FORMATS.NOUN
   },
   soul: {
@@ -130,6 +150,7 @@ export const RUNES = {
     opposed: "oblivion",
     defense: "willpower",
     scaling: "presence",
+    training: "spiritual",
     nameFormat: NAME_FORMATS.NOUN
   },
   storm: {
@@ -141,9 +162,11 @@ export const RUNES = {
     opposed: "earth",
     defense: "reflex",
     scaling: "intellect",
+    training: "elemental",
     nameFormat: NAME_FORMATS.ADJ
   }
 };
+
 
 /**
  * The Somatic Gestures which exist in the Crucible spellcraft system.
@@ -551,6 +574,24 @@ export const INFLECTIONS = {
     }
   }
 };
+
+/**
+ * The configuration record which declares each type of spellcraft component. Entries of these records are replaced
+ * by model instances during system initialization, so the record identities are stable but their values are not.
+ * @type {Readonly<Record<"rune"|"gesture"|"inflection", Record<string, object>>>}
+ */
+export const COMPONENT_RECORDS = Object.freeze({rune: RUNES, gesture: GESTURES, inflection: INFLECTIONS});
+
+/**
+ * Every spellcraft component which a Talent may grant, keyed by component id and tagged with the type of component
+ * it is. Ids are unique across runes, gestures, and inflections, so one identifier names a component unambiguously.
+ * @type {Readonly<Record<string, {id: string, label: string, group: string, type: "rune"|"gesture"|"inflection"}>>}
+ */
+export const COMPONENTS = {};
+for ( const [type, group] of [["rune", "SPELL.COMPONENTS.RunePl"], ["gesture", "SPELL.COMPONENTS.GesturePl"],
+  ["inflection", "SPELL.COMPONENTS.InflectionPl"]] ) {
+  for ( const [id, c] of Object.entries(COMPONENT_RECORDS[type]) ) COMPONENTS[id] = {id, label: c.name, group, type};
+}
 
 export const GESTURE_SUMMONS = {
   create: {

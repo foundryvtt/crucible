@@ -52,10 +52,12 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
         choices: () => CrucibleTalentNode.getChoices()})),
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new crucibleFields.CrucibleActionField()),
-      rune: new fields.StringField({...blankString, choices: SYSTEM.SPELL.RUNES}),
-      gesture: new fields.StringField({...blankString, choices: SYSTEM.SPELL.GESTURES}),
-      inflection: new fields.StringField({...blankString, choices: SYSTEM.SPELL.INFLECTIONS}),
+      spellcraft: new fields.StringField({...blankString, choices: SYSTEM.SPELL.COMPONENTS}),
       iconicSpells: new fields.NumberField({required: true, nullable: false, initial: 0, integer: true, min: 0}),
+      requirements: new fields.SchemaField({
+        training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false,
+          integer: true, min: 1, max: SYSTEM.TRAINING.RANK_MAX}), {validateKey: key => key in SYSTEM.TRAINING.TYPES})
+      }),
       training: new fields.SchemaField({
         type: new fields.StringField({...blankString, choices: SYSTEM.TRAINING.TYPES}),
         rank: new fields.NumberField({required: true, nullable: true, initial: null, integer: true, min: 1,
@@ -100,18 +102,14 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     for ( const node of this.nodes ) node.talents.add(talent);
 
     // Update Metadata
-    const components = [
-      {type: "rune", cls: crucible.api.models.CrucibleSpellcraftRune, options: SYSTEM.SPELL.RUNES},
-      {type: "gesture", cls: crucible.api.models.CrucibleSpellcraftGesture, options: SYSTEM.SPELL.GESTURES},
-      {type: "inflection", cls: crucible.api.models.CrucibleSpellcraftInflection, options: SYSTEM.SPELL.INFLECTIONS}
-    ];
-    for ( const {type, cls, options} of components ) {
-      if ( !this[type] ) continue;
-      const component = options[this[type]];
+    if ( this.spellcraft ) {
+      const {type} = SYSTEM.SPELL.COMPONENTS[this.spellcraft];
+      const component = SYSTEM.SPELL.COMPONENT_RECORDS[type][this.spellcraft];
       component.img = talent.img;
       const tier = this.nodes.reduce((minTier, node) => (minTier < node.tier) ? minTier : node.tier, Infinity);
-      cls.grantingTalents[this[type]] ??= [];
-      cls.grantingTalents[this[type]].push({uuid: this.parent.uuid, tier});
+      const {grantingTalents} = component.constructor;
+      grantingTalents[this.spellcraft] ??= [];
+      grantingTalents[this.spellcraft].push({uuid: this.parent.uuid, tier});
     }
   }
 
@@ -140,8 +138,15 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     for ( const node of this.nodes ) {
       Object.assign(requirements, foundry.utils.deepClone(node.requirements));
     }
+
+    // A bundled training talent requires the rank below the one it grants
     if ( this.training.rank > 1 ) {
       foundry.utils.setProperty(requirements, `training.${this.training.type}.value`, this.training.rank - 1);
+    }
+
+    // Training requirements declared by the talent itself, which take precedence
+    for ( const [type, rank] of Object.entries(this.requirements.training) ) {
+      foundry.utils.setProperty(requirements, `training.${type}.value`, rank);
     }
     return CrucibleTalentNode.preparePrerequisites(requirements);
   }
@@ -359,6 +364,24 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     }
     if ( source.rune === "lightning" ) source.rune = "storm";
     if ( source.training?.type === "lightning" ) source.training.type = "storm";
+
+    /** @deprecated since 0.10.3 - the rune, gesture, and inflection fields collapsed into one spellcraft field */
+    if ( !("spellcraft" in source) ) {
+      const granted = source.rune || source.gesture || source.inflection;
+      if ( granted ) source.spellcraft = granted;
+    }
+    delete source.rune;
+    delete source.gesture;
+    delete source.inflection;
+
+    /**
+     * Temporary shim. Runes ceased to be trainable individually and were aggregated into spellcraft families, so
+     * source content naming a rune would otherwise fail its choices validation and silently lose its training.
+     * Remove once the talents tracked in crucible-training-content-tracker.md have been rewritten.
+     * @deprecated since 0.10.3
+     */
+    const spellcraftTraining = SYSTEM.SPELL.RUNES[source.training?.type]?.family;
+    if ( spellcraftTraining ) source.training.type = spellcraftTraining;
     return source;
   }
 }

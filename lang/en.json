@@ -2312,6 +2312,11 @@
     "SHEET": {
       "Knowledge": "Required Knowledge"
     },
+    "TRAINING": {
+      "Elemental": "Elemental Spellcraft",
+      "Kinematic": "Kinematic Spellcraft",
+      "Spiritual": "Spiritual Spellcraft"
+    },
     "WARNINGS": {
       "BindArmamentAlreadyBound": "weapon is already bound",
       "BindArmamentNoMainhand": "no mainhand weapon",
@@ -2367,25 +2372,23 @@
       "description": {
         "label": "Talent Description"
       },
-      "gesture": {
-        "hint": "Obtaining this talent grants knowledge of a specific spellcraft Gesture.",
-        "label": "Gesture"
-      },
       "iconicSpells": {
         "hint": "A number of Iconic Spell slots that are granted by this Talent.",
         "label": "Iconic Spells"
-      },
-      "inflection": {
-        "hint": "Obtaining this talent grants knowledge of a specific spellcraft Inflection.",
-        "label": "Inflection"
       },
       "nodes": {
         "hint": "Assign this Talent to be purchased from one or more particular nodes in the Talent Tree.",
         "label": "Talent Nodes"
       },
-      "rune": {
-        "hint": "Obtaining this talent grants knowledge of a specific spellcraft Rune.",
-        "label": "Rune"
+      "requirements": {
+        "training": {
+          "hint": "Training ranks which a character must already possess before this Talent may be purchased.",
+          "label": "Required Training"
+        }
+      },
+      "spellcraft": {
+        "hint": "Obtaining this Talent grants knowledge of one spellcraft component: a Rune, a Gesture, or an Inflection.",
+        "label": "Spellcraft Component"
       },
       "training": {
         "hint": "Does this talent provide some rank of training in a particular area?",

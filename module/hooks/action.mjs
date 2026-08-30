@@ -1706,7 +1706,7 @@ HOOKS.readScroll = {
     const changes = [];
     for ( const rune of runes ) {
       changes.push({key: "system.grimoire.runeIds", type: "add", value: rune});
-      changes.push({key: `system.training.${rune}.initial`, type: "upgrade",
+      changes.push({key: `system.training.${SYSTEM.SPELL.RUNES[rune].training}.initial`, type: "upgrade",
         value: SYSTEM.TRAINING.RANKS.trained.required});
     }
     for ( const gesture of gestures ) {
