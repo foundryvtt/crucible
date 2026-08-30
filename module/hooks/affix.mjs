@@ -57,8 +57,11 @@ for ( const runeId of Object.keys(RUNES) ) {
   const id = `${runeId}Spellcraft`;
   HOOKS[id] = {
     prepareTraining(item, training) {
-      const {required} = SYSTEM.TRAINING.RANKS.trained;
-      training[runeId].initial = Math.max(training[runeId].initial, required);
+      // Affix tiers correspond to training ranks: Trained, Proficient, then Expert
+      const tier = item.system.affixes[id].system.tier.value;
+      const {required} = SYSTEM.TRAINING.RANK_VALUES[tier];
+      const t = training[SYSTEM.SPELL.RUNES[runeId].training];
+      t.initial = Math.max(t.initial, required);
     },
     prepareGrimoire(item, grimoire) {
       grimoire.runeIds.push(runeId);

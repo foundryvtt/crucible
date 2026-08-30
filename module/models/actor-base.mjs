@@ -423,7 +423,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const t of talents ) {
       this.talentIds.add(t.id);
       if ( maybePermanentTalentIds.has(t.id) ) this.permanentTalentIds.add(t.id);
-      const {nodes, training, gesture, inflection, rune, iconicSpells} = t.system;
+      const {nodes, training, spellcraft, iconicSpells} = t.system;
 
       // Register hooks
       this.#registerActorHooks(t);
@@ -443,10 +443,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
         if ( t ) t.initial = Math.max(t.initial, granted);
       }
 
-      // Register spellcraft knowledge
-      if ( rune ) this.grimoire.runeIds.push(rune);
-      if ( gesture ) this.grimoire.gestureIds.push(gesture);
-      if ( inflection ) this.grimoire.inflectionIds.push(inflection);
+      // Register spellcraft knowledge, whose component type names the grimoire collection it joins
+      if ( spellcraft ) {
+        const {type} = SYSTEM.SPELL.COMPONENTS[spellcraft];
+        this.grimoire[`${type}Ids`].push(spellcraft);
+      }
       if ( iconicSpells ) this.grimoire.iconicSlots += iconicSpells;
     }
 

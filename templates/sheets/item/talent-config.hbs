@@ -8,9 +8,7 @@
 
     <fieldset>
         <legend>{{localize "ITEM.SHEET.Spellcraft"}}</legend>
-        {{formGroup fields.rune value=source.system.rune valueAttr="id" labelAttr="name"}}
-        {{formGroup fields.gesture value=source.system.gesture valueAttr="id" labelAttr="name"}}
-        {{formGroup fields.inflection value=source.system.inflection valueAttr="id" labelAttr="name"}}
+        {{formGroup fields.spellcraft value=source.system.spellcraft blank=""}}
         {{formGroup fields.iconicSpells value=source.system.iconicSpells}}
     </fieldset>
 

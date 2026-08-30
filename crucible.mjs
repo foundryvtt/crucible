@@ -592,6 +592,8 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.SKILL.SKILLS);
 
   // Spellcraft
+  localizeConfigObject(SYSTEM.SPELL.COMPONENTS, ["label", "group"]);
+  localizeConfigObject(SYSTEM.SPELL.TRAINING);
   localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name", "adjective"]);
   localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name", "adjective"]);
   localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective"]);

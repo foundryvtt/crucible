@@ -120,7 +120,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     // Common Attributes
     this.scaling = [this.rune.scaling, this.gesture.scaling];
-    this.training = [this.rune.id];
+    this.training = [this.rune.training];
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
     this.usage.defenseType = CrucibleSpellAction.#prepareDefense.call(this);
 
@@ -250,6 +250,9 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _configureUsage() {
     super._configureUsage();
+
+    // A rune cannot be cast unless it is known, so casting is intuitive even while its training area is untrained
+    this.usage.bonuses.skill = Math.max(this.usage.bonuses.skill, SYSTEM.INTUITIVE_MINIMUM_BONUS);
 
     // The base class resets cost fields from _source, but for composed spells the action cost is computed
     // dynamically from gesture and inflection components and is not stored in _source (which retains schema

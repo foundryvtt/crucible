@@ -1,7 +1,7 @@
 import {SKILLS} from "./skills.mjs";
 import {TRAINING as WEAPON_TRAINING} from "./weapon.mjs";
 import {TRAINING as CRAFTING_TRAINING} from "./crafting.mjs";
-import {RUNES as SPELLCRAFT_RUNES} from "./spellcraft.mjs";
+import {TRAINING as SPELLCRAFT_TRAINING} from "./spellcraft.mjs";
 import {defineEnum} from "./enum.mjs";
 
 /**
@@ -17,7 +17,7 @@ export const TYPES = defineEnum({
     obj[id] = {group: "TALENT.TRAINING.Weapon", label};
     return obj;
   }, {}),
-  ...Object.entries(SPELLCRAFT_RUNES).reduce((obj, [id, {name: label}]) => {
+  ...Object.entries(SPELLCRAFT_TRAINING).reduce((obj, [id, {label}]) => {
     obj[id] = {group: "TALENT.TRAINING.Spell", label};
     return obj;
   }, {}),

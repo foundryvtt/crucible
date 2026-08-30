@@ -262,6 +262,15 @@ export const PASSIVE_BASE = 12;
 /* -------------------------------------------- */
 
 /**
+ * The floor beneath which an intuitive skill bonus cannot fall, applied to simple or intuitive weapons and to the
+ * casting of a known rune, in place of the far harsher untrained penalty.
+ * @type {number}
+ */
+export const INTUITIVE_MINIMUM_BONUS = -1;
+
+/* -------------------------------------------- */
+
+/**
  * The defense types which can be used to counter an attack roll.
  * @type {object}
  */
