@@ -272,13 +272,13 @@ pages:
         Dex</p></td></tr><tr><td><p>Light</p></td><td><p>4-8</p></td><td><p>6-8</p></td><td><p>4
         Dex</p></td></tr><tr><td><p>Medium</p></td><td><p>9-13</p></td><td><p>3-5</p></td><td><p>6
         Dex</p></td></tr><tr><td><p>Heavy</p></td><td><p>14-18</p></td><td><p>0-2</p></td><td><p>8
-        Dex</p></td></tr><tr><td><p>Natural</p></td><td><p>0-18</p></td><td><p>0-8</p></td><td><p>0
-        Dex</p></td></tr></tbody></table><p>The total <strong>Physical
-        Defense</strong> contributed by the piece of Armor is equal to the sum
-        of Armor and Dodge components.</p><section class="formula"><p
-        class="value">Physical Defense</p><p class="equals">=</p><p
-        class="equation">Base Armor + Bonus Armor + Base Dodge + Bonus
-        Dodge</p></section><section
+        Dex</p></td></tr><tr><td><p>Natural</p></td><td><p>0-18</p></td><td><p>-1
+        to 8</p></td><td><p>0 Dex</p></td></tr></tbody></table><p>The total
+        <strong>Physical Defense</strong> contributed by the piece of Armor is
+        equal to the sum of Armor and Dodge components.</p><section
+        class="formula"><p class="value">Physical Defense</p><p
+        class="equals">=</p><p class="equation">Base Armor + Bonus Armor + Base
+        Dodge + Bonus Dodge</p></section><section
         class="gameplay"><p>@UUID[Compendium.crucible.equipment.Item.scaleMail0000000]{Scale
         Mail} is Medium Armor which offers <strong>13 Armor Defense</strong> and
         <strong>3 Base Dodge Defense</strong>. As Medium Armor, the
@@ -309,8 +309,16 @@ pages:
         class="equation">10 - ((Base Armor-1) / 2)</p><p class="value">Base
         Dodge (Heavy)</p><p class="equals">=</p><p class="equation">10 - ((Base
         Armor-2) / 2)</p><p class="value">Base Dodge (Natural)</p><p
-        class="equals">=</p><p class="equation">10 - (Base Armor /
-        2)</p></section><p>In addition to Base Dodge defense, each piece of
+        class="equals">=</p><p class="equation">8 - (Base Armor /
+        2)</p></section><p><strong>Natural Armor</strong> is hide, chitin,
+        scales, or bone rather than worn equipment, so it encumbers nothing and
+        imposes no Scaling Threshold; the creature keeps the full benefit of its
+        Dexterity. Its Base Dodge is anchored to the Unarmored value of 8 so
+        that Natural Armor can never make a creature more evasive than it would
+        be with no armor at all. Each point of Base Armor trades away half a
+        point of Base Dodge, leaving a naturally armored creature with its
+        defenses skewed towards Armor and a net Physical Defense gain of half
+        its Base Armor.</p><p>In addition to Base Dodge defense, each piece of
         Armor can yield additional Bonus Dodge defense depending on the wearer's
         Dexterity ability score exceeds a certain Dodge Scaling Threshold. Bonus
         Dodge is also increased by the item's Enchantment Tier which is

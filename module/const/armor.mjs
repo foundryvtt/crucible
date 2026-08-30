@@ -40,8 +40,8 @@ export const CATEGORIES = defineEnum({
   },
   natural: {
     label: "ARMOR.CATEGORIES.Natural",
-    armor: {min: 4, max: 18},
-    dodge: {scaling: 2, base: a => 10 - Math.floor(a / 2)}
+    armor: {min: 0, max: 18},
+    dodge: {scaling: 0, base: a => 8 - Math.floor(a / 2)} // Never more dodge than unarmored would provide for any DEX
   }
 });
 
