@@ -413,9 +413,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
             const tags = action.getTags();
             d.tags = Object.assign({}, tags.action, tags.activation);
           }
-          const spellComp = i.system.rune || i.system.gesture || i.system.inflection;
           if ( i.system.isSignature ) section = sections.talents.signature;           // Signature
-          else if ( spellComp ) section ||= sections.talents.spell;                   // Spellcraft
+          else if ( i.system.spellcraft ) section ||= sections.talents.spell;         // Spellcraft
           else if ( i.system.training.type ) section ||= sections.talents.training;   // Training
           else if ( action ) section ||= sections.talents.active;                     // Actives
           else section ||= sections.talents.passive;                                  // Passives

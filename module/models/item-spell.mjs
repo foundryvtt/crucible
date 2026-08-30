@@ -161,17 +161,13 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
     const spell = this.parent;
     actor ||= spell.parent;
 
-    const runeReqs = [...this.runes].map(req => ({
-      tag: SYSTEM.SPELL.RUNES[req]?.name ?? req,
-      met: !actor || actor.itemTypes.talent.some(i => i.system.rune === req)
-    }));
+    const grants = req => !actor || actor.itemTypes.talent.some(i => i.system.spellcraft === req);
+    const runeReqs = [...this.runes].map(req => ({tag: SYSTEM.SPELL.RUNES[req]?.name ?? req, met: grants(req)}));
     const gestureReqs = [...this.gestures].map(req => ({
-      tag: SYSTEM.SPELL.GESTURES[req]?.name ?? req,
-      met: !actor || actor.itemTypes.talent.some(i => i.system.gesture === req)
+      tag: SYSTEM.SPELL.GESTURES[req]?.name ?? req, met: grants(req)
     }));
     const inflectionReqs = [...this.inflections].map(req => ({
-      tag: SYSTEM.SPELL.INFLECTIONS[req]?.name ?? req,
-      met: !actor || actor.itemTypes.talent.some(i => i.system.inflection === req)
+      tag: SYSTEM.SPELL.INFLECTIONS[req]?.name ?? req, met: grants(req)
     }));
 
     // Render the card

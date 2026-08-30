@@ -1981,11 +1981,11 @@ export default class CrucibleActor extends Actor {
    * @returns {boolean}             Whether the Talent would be usable
    */
   canUtilizeTalent(talent) {
-    // Can't use a Gesture or Inflection without a Rune
-    if ( (talent.system.gesture || talent.system.inflection) && !this.items.find(i => (i.type === "talent" && i.system.rune)) ) {
-      throw new Error(_loc(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`));
+    // Can't use a Gesture or Inflection without knowing a Rune
+    const {type} = SYSTEM.SPELL.COMPONENTS[talent.system.spellcraft] ?? {};
+    if ( type && (type !== "rune") && !this.system.grimoire.runes.size ) {
+      throw new Error(_loc(`TALENT.WARNINGS.RequiresRune${type.capitalize()}`));
     }
-
     return true;
   }
 

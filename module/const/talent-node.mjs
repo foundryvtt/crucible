@@ -66,8 +66,7 @@ export default class CrucibleTalentNode {
     if ( typeof nodeType.passive === "boolean" ) return nodeType.passive; // Never or always passive
     for ( const t of this.talents ) {
       if ( t.actions.length ) return false;
-      const {rune, gesture, inflection} = t.system;
-      if ( rune || gesture || inflection ) return false; // Spellcraft components count as active
+      if ( t.system.spellcraft ) return false; // Spellcraft components count as active
     }
     return true;
   }
@@ -360,10 +359,12 @@ export default class CrucibleTalentNode {
         if ( v <= 1 ) return obj;
         o.label = _loc("ADVANCEMENT.Level");
       }
-      else if ( k.startsWith("skills.") ) o.label = SYSTEM.SKILLS[k.split(".")[1]].label;
-      else if ( k.startsWith("training.") ) o.label = SYSTEM.TRAINING.TYPES[k.split(".")[1]].label;
+      else if ( k.startsWith("training.") ) {
+        o.label = SYSTEM.TRAINING.TYPES[k.split(".")[1]].label;
+        o.tag = `${o.label}: ${SYSTEM.TRAINING.RANK_VALUES[v]?.label ?? v}`; // Name the rank, not its integer
+      }
       else o.label = k;
-      o.tag = `${o.label} ${o.value}`;
+      o.tag ??= `${o.label} ${o.value}`;
       obj[k] = o;
       return obj;
     }, {});
