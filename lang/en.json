@@ -956,6 +956,7 @@
       "biography": "Biography",
       "effects": "Effects",
       "inventory": "Inventory",
+      "proficiency": "Proficiency",
       "skills": "Skills",
       "spells": "Spells",
       "talents": "Talents"
@@ -2710,6 +2711,15 @@
     "SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
     "TrainingCannotDecrease": "You cannot decrease this Proficiency further.",
     "TrainingCannotIncrease": "You cannot increase this Proficiency further."
+  },
+  "TRAINING": {
+    "Decrease": "Reclaim a Proficiency Point",
+    "Increase": "Allocate a Proficiency Point",
+    "MaximumTooltip": "Maximum training reached.",
+    "NextTooltip": "Training points required to become {rank}.",
+    "PointsAvailable": "Proficiency Points Available",
+    "PointsSpent": "Spent",
+    "PointsTooltip": "Training points accumulated, from every source."
   },
   "WEAPON": {
     "CATEGORIES": {

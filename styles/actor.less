@@ -981,6 +981,56 @@
       }
     }
   }
+
+  /* ----------------------------------------- */
+  /*  Proficiency Tab                          */
+  /* ----------------------------------------- */
+
+  .proficiency-list .line-item {
+    .title {
+      flex: 2;
+      h4 { margin: 0; }
+    }
+    .progress {
+      flex: 3;
+      gap: 0.5rem;
+      align-items: center;
+      .current, .max {
+        flex: none;
+        font-size: var(--font-size-12);
+        color: var(--color-text-secondary);
+      }
+    }
+    .bar-container {
+      flex: 1;
+      height: 16px;
+      box-sizing: content-box;
+      background: var(--color-frame-bg);
+      border: 1px solid var(--color-frame);
+      border-radius: 4px;
+      .bar {
+        display: block;
+        height: 12px;
+        max-width: calc(100% - 4px);
+        margin: 2px;
+        background: var(--color-warm-2);
+        border-radius: 2px;
+      }
+    }
+    .controls {
+      flex: none;
+      display: flex;
+      gap: 0.25rem;
+    }
+  }
+
+  .proficiency-footer {
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    .label { color: var(--color-text-secondary); }
+    .value { font-weight: bold; }
+  }
 }
 
 /* ----------------------------------------- */

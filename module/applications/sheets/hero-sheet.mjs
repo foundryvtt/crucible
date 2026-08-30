@@ -13,12 +13,23 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     actions: {
       editAncestry: HeroSheet.#onEditAncestry,
       editBackground: HeroSheet.#onEditBackground,
-      levelUp: HeroSheet.#onLevelUp
+      levelUp: HeroSheet.#onLevelUp,
+      proficiencyDecrease: HeroSheet.#onChangeProficiency,
+      proficiencyIncrease: HeroSheet.#onChangeProficiency
     }
   };
 
   static {
     this._initializeActorSheetClass();
+
+    // Proficiency is a Hero-only advancement track, so its tab is not shared with other Actor types
+    this.PARTS.proficiency = {
+      id: "proficiency",
+      template: "systems/crucible/templates/sheets/actor/proficiency.hbs"
+    };
+    const tabs = this.TABS.sheet.tabs;
+    tabs.splice(tabs.findIndex(t => t.id === "skills") + 1, 0,
+      {id: "proficiency", icon: "systems/crucible/ui/tabs/skills.webp"});
 
     // FIXME Remove once Ember is updated to 0.6.0 requiring Crucible 0.10.1+ to account for TABS change
     Object.assign(this.TABS.sheet, {
@@ -46,6 +57,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       ancestryName: s.system.details.ancestry?.name || _loc("ANCESTRY.SHEET.Choose"),
       backgroundName: s.system.details.background?.name || _loc("BACKGROUND.SHEET.Choose"),
       capacity: a.system.capacity,
+      proficiency: this.#prepareProficiency(),
       talentTreeButtonText: _loc(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`)
     });
 
@@ -106,6 +118,37 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   /* -------------------------------------------- */
 
   /**
+   * Prepare training data for the Proficiency tab, grouped by the kind of training.
+   * @returns {{groups: Record<string, object>, available: number, spent: number}}
+   */
+  #prepareProficiency() {
+    const {TYPES, RANK_VALUES} = SYSTEM.TRAINING;
+    const {training, points} = this.actor.system;
+    const groups = {};
+    for ( const config of Object.values(TYPES) ) {
+      const t = training[config.id];
+      const rank = RANK_VALUES[t.value];
+      const next = RANK_VALUES[t.value + 1];
+
+      // The bar fills across the current rank band rather than from zero, so progress is always legible
+      const span = next ? next.required - rank.required : 0;
+      const pct = next ? (t.points - rank.required) / span : 1;
+      const group = groups[config.group] ??= {label: config.group, types: {}};
+      group.types[config.id] = {
+        ...config, rank, points: t.points,
+        end: next?.required ?? t.points,
+        widthPct: `${Math.round(Math.clamp(pct, 0, 1) * 100)}%`,
+        nextTooltip: _loc(next ? "TRAINING.NextTooltip" : "TRAINING.MaximumTooltip", {rank: next?.label}),
+        canIncrease: this.actor.canPurchaseTraining(config.id, 1),
+        canDecrease: this.actor.canPurchaseTraining(config.id, -1)
+      };
+    }
+    return {groups, available: points.proficiency.available, spent: points.proficiency.spent};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Handle click action to level up.
    * @this {HeroSheet}
    * @param {PointerEvent} event
@@ -114,6 +157,21 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   static async #onLevelUp(event) {
     game.tooltip.deactivate();
     await this.actor.levelUp(1);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click actions to allocate or reclaim a training point.
+   * @this {HeroSheet}
+   * @param {PointerEvent} event
+   * @param {HTMLButtonElement} target
+   * @returns {Promise<void>}
+   */
+  static async #onChangeProficiency(event, target) {
+    const {training} = target.closest(".line-item.training").dataset;
+    const delta = target.dataset.action === "proficiencyIncrease" ? 1 : -1;
+    await this.actor.purchaseTraining(training, delta);
   }
 
   /* -------------------------------------------- */
