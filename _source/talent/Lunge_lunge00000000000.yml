@@ -1,13 +1,11 @@
 folder: i7WposibCJ94XpuD
-name: Light Weapon Training
+name: Lunge
 type: talent
-img: icons/weapons/swords/sword-simple-white.webp
+img: icons/skills/melee/strike-polearm-light-orange.webp
 system:
   description: >-
     <p>You know how to wield light weapons fluidly with a high degree of
-    maneuverability and grace in combat. You are <strong>Trained</strong> with
-    all weapons in the <strong>Light</strong> and <strong>Balanced</strong>
-    categories.</p>
+    maneuverability and grace in combat.</p>
   actions:
     - id: lunge
       name: Lunge
@@ -67,6 +65,6 @@ _stats:
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: lightWeaponTrain
+_id: lunge00000000000
 sort: 0
-_key: '!items!lightWeaponTrain'
+_key: '!items!lunge00000000000'

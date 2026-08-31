@@ -13,7 +13,7 @@ system:
     - arcana
     - medicine
   talents:
-    - item: Compendium.crucible.talent.Item.talismanWeaponTr
+    - item: Compendium.crucible.talent.Item.refocus000000000
       level: null
     - item: Compendium.crucible.talent.Item.runeSoul00000000
       level: null

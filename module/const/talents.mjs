@@ -81,14 +81,24 @@ export const TALENT_ID_MIGRATIONS = {
   runetime00000000: "Compendium.crucible.talent.Item.runeIllusion0000",
   runevoid00000000: "Compendium.crucible.talent.Item.runeOblivion0000",
 
-  // Weapon Trainings
-  heavystrike00000: "Compendium.crucible.talent.Item.heavyWeaponTrain",
-  wrestler00000000: "Compendium.crucible.talent.Item.unarmedCombatTra",
-  shieldBash000000: "Compendium.crucible.talent.Item.shieldCombatTrai",
-  lunge00000000000: "Compendium.crucible.talent.Item.lightWeaponTrain",
-  rapidreload00000: "Compendium.crucible.talent.Item.mechanicalWeapon",
-  mechanicalTraini: "Compendium.crucible.talent.Item.mechanicalWeapon",
-  projectileTraini: "Compendium.crucible.talent.Item.projectileWeapon",
+  /*
+   * Weapon Trainings, renamed to the action each carries. Training ceased to be the point of these talents,
+   * so each is now named for what it actually does and contributes its training point as a side effect.
+   * Two of the ids they reclaim, lunge and shieldBash, were previously migrated away from and now point at
+   * themselves once more, so those entries are gone rather than inverted.
+   */
+  heavystrike00000: "Compendium.crucible.talent.Item.heavyStrike00000",
+  heavyWeaponTrain: "Compendium.crucible.talent.Item.heavyStrike00000",
+  lightWeaponTrain: "Compendium.crucible.talent.Item.lunge00000000000",
+  mechanicalTraini: "Compendium.crucible.talent.Item.rapidReload00000",
+  mechanicalWeapon: "Compendium.crucible.talent.Item.rapidReload00000",
+  rapidreload00000: "Compendium.crucible.talent.Item.rapidReload00000",
+  naturalWeaponTra: "Compendium.crucible.talent.Item.wildStrike000000",
+  projectileTraini: "Compendium.crucible.talent.Item.quickDraw0000000",
+  projectileWeapon: "Compendium.crucible.talent.Item.quickDraw0000000",
+  shieldCombatTrai: "Compendium.crucible.talent.Item.shieldBash000000",
+  talismanWeaponTr: "Compendium.crucible.talent.Item.refocus000000000",
+  unarmedCombatTra: "Compendium.crucible.talent.Item.grapple000000000",
 
   // Lightning to Storm Rune Rename
   runeLightning000: "Compendium.crucible.talent.Item.runeStorm0000000",
@@ -205,3 +215,28 @@ export const TALENT_ID_MIGRATIONS = {
   talismanWeaponPr: null,
   unarmedCombatPro: null
 };
+
+/* -------------------------------------------- */
+
+/**
+ * Normalize the talents granted by an Ancestry, Background, Archetype, or Taxonomy in candidate source data.
+ * Converts the legacy bare-string shape and applies {@link TALENT_ID_MIGRATIONS} to each granted UUID,
+ * dropping grants of talents which were retired without replacement.
+ * Grants are resolved by a plain `fromUuid`, which silently skips a talent that has since been renamed, so a
+ * grant list that is never migrated decays without reporting anything.
+ * @param {object} source   Candidate source data for a detail item, modified in place
+ */
+export function migrateTalentGrants(source) {
+  if ( !source.talents?.length ) return;
+  source.talents = source.talents.reduce((arr, t) => {
+    const grant = typeof t === "string" ? {item: t, level: null} : t;
+    const id = grant.item?.split(".").pop();
+    if ( id in TALENT_ID_MIGRATIONS ) {
+      const target = TALENT_ID_MIGRATIONS[id];
+      if ( !target ) return arr; // Retired without replacement
+      grant.item = target;
+    }
+    if ( grant.item ) arr.push(grant);
+    return arr;
+  }, []);
+}

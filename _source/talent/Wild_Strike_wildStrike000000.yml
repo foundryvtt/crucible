@@ -1,13 +1,12 @@
 folder: i7WposibCJ94XpuD
-name: Natural Weapon Training
+name: Wild Strike
 type: talent
-img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
+img: icons/creatures/abilities/fangs-teeth-bite.webp
 system:
   description: >-
     <p>You have a developed familiarity with using features of your own body as
-    a natural weapons including claws, jaws, tails, or other mechanisms of
-    self-defense. You are <strong>Trained</strong> with weapons in the
-    <strong>Natural</strong> category.</p>
+    natural weapons including claws, jaws, tails, or other mechanisms of
+    self-defense.</p>
   actions:
     - id: wildStrike
       img: icons/creatures/abilities/fangs-teeth-bite.webp
@@ -65,6 +64,6 @@ _stats:
   createdTime: 1772307160139
   modifiedTime: 1773514792598
   lastModifiedBy: WRGzDgYAt3ZuX6TU
-_id: naturalWeaponTra
+_id: wildStrike000000
 sort: 0
-_key: '!items!naturalWeaponTra'
+_key: '!items!wildStrike000000'

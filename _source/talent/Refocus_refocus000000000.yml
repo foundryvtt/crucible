@@ -1,13 +1,11 @@
 folder: i7WposibCJ94XpuD
-name: Talisman Weapon Training
+name: Refocus
 type: talent
-img: icons/weapons/polearms/trident-fork-white.webp
+img: icons/magic/light/orb-shadow-blue.webp
 system:
   description: >-
     <p>You understand the arcane usage of talismans, orbs, foci, or other
-    similar implements to channel magic or empower spellcraft. You are
-    <strong>Trained</strong> with weapons in the <strong>Talisman</strong>
-    categories.</p>
+    similar implements to channel magic or empower spellcraft.</p>
   actions:
     - id: refocus
       name: Refocus
@@ -68,6 +66,6 @@ _stats:
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: talismanWeaponTr
+_id: refocus000000000
 sort: 0
-_key: '!items!talismanWeaponTr'
+_key: '!items!refocus000000000'

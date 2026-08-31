@@ -14,7 +14,7 @@ system:
     - awareness
     - intimidation
   talents:
-    - item: Compendium.crucible.talent.Item.unarmedCombatTra
+    - item: Compendium.crucible.talent.Item.grapple000000000
       level: null
     - item: Compendium.crucible.talent.Item.intercept0000000
       level: null

@@ -14,7 +14,7 @@ system:
     above all else.</p>
   identifier: orcish
   talents:
-    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+    - item: Compendium.crucible.talent.Item.heavyStrike00000
       level: null
   ui:
     color: '#c14425'

@@ -120,11 +120,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
   static migrateData(source) {
     source = super.migrateData(source);
 
-    if ( source.talents?.length ) {
-      if ( typeof source.talents[0] === "string") {
-        source.talents = source.talents.map(t => ({item: t, level: null}));
-      }
-    }
+    SYSTEM.TALENT.migrateTalentGrants(source);
 
     const abilities = source.abilities;
     if ( abilities ) {

@@ -17,9 +17,9 @@ system:
       level: 3
     - item: Compendium.crucible.talent.Item.weakpoints000000
       level: 0
-    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+    - item: Compendium.crucible.talent.Item.lunge00000000000
       level: 0
-    - item: Compendium.crucible.talent.Item.projectileWeapon
+    - item: Compendium.crucible.talent.Item.quickDraw0000000
       level: 2
     - item: Compendium.crucible.talent.Item.backstab00000000
       level: 0

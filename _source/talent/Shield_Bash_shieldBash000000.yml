@@ -1,12 +1,11 @@
 folder: i7WposibCJ94XpuD
-name: Shield Combat Training
+name: Shield Bash
 type: talent
-img: icons/equipment/shield/buckler-wooden-boss-lightning.webp
+img: icons/skills/melee/shield-block-bash-blue.webp
 system:
   description: >-
     <p>You are practiced at fighting with shield, using it to slam into and
-    imbalance your foes. You are <strong>Trained</strong> with weapons in the
-    <strong>Shield</strong> category.</p>
+    imbalance your foes.</p>
   actions:
     - id: shieldBash
       name: Shield Bash
@@ -80,6 +79,6 @@ _stats:
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: shieldCombatTrai
+_id: shieldBash000000
 sort: 700000
-_key: '!items!shieldCombatTrai'
+_key: '!items!shieldBash000000'

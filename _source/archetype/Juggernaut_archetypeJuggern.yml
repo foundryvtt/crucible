@@ -16,7 +16,7 @@ system:
     toughness: 4
     dexterity: 1
   talents:
-    - item: Compendium.crucible.talent.Item.unarmedCombatTra
+    - item: Compendium.crucible.talent.Item.grapple000000000
       level: null
     - item: Compendium.crucible.talent.Item.unarmedblocking0
       level: 1

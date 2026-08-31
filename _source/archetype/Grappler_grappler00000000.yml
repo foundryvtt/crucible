@@ -20,7 +20,7 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.concussiveblows0
       level: null
-    - item: Compendium.crucible.talent.Item.unarmedCombatTra
+    - item: Compendium.crucible.talent.Item.grapple000000000
       level: null
   identifier: grappler
   skills:

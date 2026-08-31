@@ -1,12 +1,11 @@
 folder: i7WposibCJ94XpuD
-name: Projectile Weapon Training
+name: Quick Draw
 type: talent
-img: icons/weapons/bows/shortbow-white.webp
+img: icons/skills/ranged/arrow-barbed-flying-gray.webp
 system:
   description: >-
-    <p>You have a basic education in archery and other projectile weaponry. You
-    are no longer treated as <strong>Untrained</strong> with weapons in the
-    <strong>Projectile </strong>categories.</p>
+    <p>You have a basic education in archery and other projectile
+    weaponry.</p>
   actions:
     - id: quickDraw
       name: Quick Draw
@@ -63,6 +62,6 @@ _stats:
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: projectileWeapon
+_id: quickDraw0000000
 sort: 0
-_key: '!items!projectileWeapon'
+_key: '!items!quickDraw0000000'
