@@ -1,32 +1,68 @@
 <section class="tab secondary {{tabs.proficiency.id}} scrollable flexcol {{tabs.proficiency.cssClass}}"
          data-tab="{{tabs.proficiency.id}}" data-group="{{tabs.proficiency.group}}">
-    {{#each proficiency.groups as |group|}}
+
+    <div class="header-section flexrow">
+        <div class="point-pools flexrow">
+            <span class="label">{{localize "ACTOR.SHEET.PointsAvailable"}}</span>
+            <span class="value">{{proficiency.available}}</span>
+            <span class="label">{{localize "ACTOR.SHEET.PointsSpent"}}</span>
+            <span class="value">{{proficiency.spent}}</span>
+        </div>
+    </div>
+
+    {{#each proficiency.sections as |section|}}
     <div class="sheet-section item-section flexcol">
-        <h3 class="section-header">{{group.label}}</h3>
-        <ol class="items-list proficiency-list" data-tooltip-direction="LEFT">
-            {{#each group.types as |training id|}}
-            <li class="line-item training" data-training="{{id}}">
+        <h3 class="section-header">{{section.label}}</h3>
+        <ol class="items-list proficiency-list" style="--bar-color: {{section.color}}"
+            data-tooltip-direction="LEFT">
+            {{#each section.types as |training|}}
+            <li class="line-item training{{#if training.rollable}} skill{{/if}}"
+                data-training="{{training.id}}" data-skill="{{training.id}}">
+                <img class="icon" src="{{training.icon}}" alt="{{training.label}}">
                 <div class="title">
+                    {{#if training.rollable}}
+                    <h4 aria-label="{{localize "ACTOR.ACTIONS.RollCheck"}}" data-tooltip
+                        data-action="skillRoll"><a>{{training.label}}</a></h4>
+                    {{else}}
                     <h4>{{training.label}}</h4>
+                    {{/if}}
                     <div class="tags">
                         <span class="rank tag">{{training.rank.label}}</span>
+                        {{#each training.abilityAbbrs}}<span class="attribute tag">{{this}}</span>{{/each}}
                     </div>
                 </div>
-                <div class="progress flexrow">
-                    <span class="current" data-tooltip aria-label="{{localize 'TRAINING.PointsTooltip'}}">
-                        {{training.points}}
+                <div class="bonus flexrow">
+                    {{#if training.rollable}}
+                    <span class="value hex small {{training.hexClass}}" data-tooltip="{{training.tooltips.value}}">
+                        {{numberFormat training.score sign=true}}
                     </span>
-                    <div class="bar-container">
-                        <span class="bar" style="width: {{training.widthPct}}"></span>
-                    </div>
-                    <span class="max" data-tooltip aria-label="{{training.nextTooltip}}">
-                        {{training.end}}
+                    <span class="passive"
+                          data-tooltip="{{localize "SKILL.PassiveSpecific" passive=training.tooltips.passive}}">
+                        {{training.passive}}
                     </span>
+                    {{else}}
+                    <span class="value" data-tooltip aria-label="{{localize 'TRAINING.BonusTooltip'}}">
+                        {{numberFormat training.bonus sign=true}}
+                    </span>
+                    {{/if}}
+                </div>
+                <div class="allocate flexrow">
+                    {{#if training.canDecrease}}
+                    <button type="button" class="icon fa-solid fa-minus" data-action="proficiencyDecrease"
+                            data-tooltip aria-label="{{localize 'TRAINING.Decrease'}}"></button>
+                    {{/if}}
+                </div>
+                <div class="bar-container" data-tooltip
+                     aria-label="{{localize 'TRAINING.PointsTooltip' points=training.points}}">
+                    <span class="bar" style="width: {{training.widthPct}}"></span>
+                    {{#each ../../proficiency.ticks as |tick|}}
+                    <span class="tick" style="left: {{tick.left}}" data-tooltip aria-label="{{tick.label}}"></span>
+                    {{/each}}
+                    {{#with ../../proficiency.capTick as |cap|}}
+                    <span class="tick cap" style="left: {{cap.left}}" data-tooltip aria-label="{{cap.label}}"></span>
+                    {{/with}}
                 </div>
                 <div class="controls">
-                    <button type="button" class="icon fa-solid fa-minus" data-action="proficiencyDecrease"
-                            data-tooltip aria-label="{{localize 'TRAINING.Decrease'}}"
-                            {{#unless training.canDecrease}}disabled{{/unless}}></button>
                     <button type="button" class="icon fa-solid fa-plus" data-action="proficiencyIncrease"
                             data-tooltip aria-label="{{localize 'TRAINING.Increase'}}"
                             {{#unless training.canIncrease}}disabled{{/unless}}></button>
@@ -36,10 +72,43 @@
         </ol>
     </div>
     {{/each}}
-    <footer class="tab-footer proficiency-footer flexrow">
-        <span class="label">{{localize "TRAINING.PointsAvailable"}}</span>
-        <span class="value">{{proficiency.available}}</span>
-        <span class="label">{{localize "TRAINING.PointsSpent"}}</span>
-        <span class="value">{{proficiency.spent}}</span>
+
+    <footer class="tab-footer skills-footer flexrow">
+        <div class="sheet-section flexcol">
+            <h3>
+                {{localize "ACTOR.LABELS.Knowledge"}}
+                <a class="control icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="knowledge"></a>
+            </h3>
+            <div class="tags knowledge-areas">
+                {{#each knowledge.known}}
+                <span
+                    class="larger tag knowledge-area{{#if fromBackground}} background-granted{{/if}}"
+                    {{#if tooltip}} data-tooltip="{{tooltip}}"{{/if}}
+                >
+                    {{label}}
+                </span>
+                {{else}}
+                <p class="hint">{{knowledge.hint}}</p>
+                {{/each}}
+            </div>
+        </div>
+        <div class="sheet-section flexcol">
+            <h3>
+                {{localize "ACTOR.LABELS.Languages"}}
+                <a class="control icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="languages"></a>
+            </h3>
+            <div class="tags languages">
+                {{#each languages.known}}
+                <span
+                    class="larger tag language{{#if fromBackground}} background-granted{{/if}}"
+                    {{#if tooltip}} data-tooltip="{{tooltip}}"{{/if}}
+                >
+                    {{label}}
+                </span>
+                {{else}}
+                <p class="hint">{{languages.hint}}</p>
+                {{/each}}
+            </div>
+        </div>
     </footer>
 </section>
