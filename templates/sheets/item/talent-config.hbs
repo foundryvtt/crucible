@@ -13,9 +13,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>{{fields.training.label}}</legend>
-        <p class="hint">{{fields.training.hint}}</p>
-        {{formGroup fields.training.fields.type value=source.system.training.type blank=""}}
-        {{formGroup fields.training.fields.rank value=source.system.training.rank options=trainingRanks blank=""}}
+        <legend>{{localize "ITEM.SHEET.Training"}}</legend>
+        {{formGroup fields.training value=source.system.training blank=""}}
     </fieldset>
 </section>

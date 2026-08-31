@@ -10,13 +10,13 @@ export const NAME_FORMATS = Object.freeze({
  * @type {Readonly<Record<string, {id: string, label: string, icon: string, abilities: string[]}>>}
  */
 export const TRAINING = {
-  physical: {id: "physical", label: "SPELL.TRAINING.Kinematic",
+  physical: {id: "physical", label: "TRAINING.LABELS.physical", short: "TRAINING.LABELS.physicalShort",
     icon: "icons/magic/movement/pinwheel-turning-blue.webp",
     abilities: ["wisdom", "presence"]},
-  elemental: {id: "elemental", label: "SPELL.TRAINING.Elemental",
+  elemental: {id: "elemental", label: "TRAINING.LABELS.elemental", short: "TRAINING.LABELS.elementalShort",
     icon: "icons/magic/symbols/elements-air-earth-fire-water.webp",
     abilities: ["wisdom", "intellect"]},
-  spiritual: {id: "spiritual", label: "SPELL.TRAINING.Spiritual",
+  spiritual: {id: "spiritual", label: "TRAINING.LABELS.spiritual", short: "TRAINING.LABELS.spiritualShort",
     icon: "icons/magic/light/projectile-halo-teal.webp",
     abilities: ["intellect", "presence"]}
 };

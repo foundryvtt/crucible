@@ -37,7 +37,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
   _configure({active, accessible, ...config}={}) {
     config = super._configure(config);
     const spritesheet = crucible.tree.spritesheet;
-    const {actions, spellcraft, iconicSpells, training} = this.talent.system;
+    const {actions, spellcraft, iconicSpells} = this.talent.system;
     const nodeColor = this.node.node.color;
 
     // Defaults
@@ -55,11 +55,6 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
     // Spellcraft Talents
     else if ( spellcraft || iconicSpells ) {
-      config.shape = "hex";
-    }
-
-    // Training Talents
-    else if ( training.type && training.rank ) {
       config.shape = "hex";
     }
 
