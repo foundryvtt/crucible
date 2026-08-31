@@ -19,12 +19,8 @@ system:
       level: 0
     - item: Compendium.crucible.talent.Item.lightWeaponTrain
       level: 0
-    - item: Compendium.crucible.talent.Item.lightWeaponProfi
-      level: 4
     - item: Compendium.crucible.talent.Item.projectileWeapon
       level: 2
-    - item: Compendium.crucible.talent.Item.projectileProfic
-      level: 4
     - item: Compendium.crucible.talent.Item.backstab00000000
       level: 0
     - item: Compendium.crucible.talent.Item.bloodletter00000

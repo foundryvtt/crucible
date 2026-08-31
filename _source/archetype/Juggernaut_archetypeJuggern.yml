@@ -26,8 +26,6 @@ system:
       level: 3
     - item: Compendium.crucible.talent.Item.juggernaut000000
       level: 4
-    - item: Compendium.crucible.talent.Item.unarmedCombatPro
-      level: 5
   skills:
     - athletics
     - intimidation

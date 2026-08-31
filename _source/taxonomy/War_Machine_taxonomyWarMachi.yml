@@ -63,10 +63,6 @@ system:
       level: 0
     - item: Compendium.crucible.talent.Item.heavyWeaponTrain
       level: 0
-    - item: Compendium.crucible.talent.Item.heavyWeaponProfi
-      level: 4
-    - item: Compendium.crucible.talent.Item.naturalWeaponPro
-      level: 4
   characteristics:
     equipment: true
     spells: false

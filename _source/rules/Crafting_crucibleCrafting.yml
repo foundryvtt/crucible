@@ -24,11 +24,7 @@ pages:
         @UUID[Compendium.crucible.equipment.Item.poisonVial000000]{Poison Vial},
         as well as throwable weapons such as
         @UUID[Compendium.crucible.equipment.Item.KdlUUFhAnpv6YIHT]{Blast
-        Flask}.</p><h2>Talents</h2><p>The following talents are available to
-        represent Alchemical
-        training:</p><p></p><p>@UUID[Compendium.crucible.talent.Item.alchemyNovice000]{Alchemy
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.alchemyJourneyma]{Alchemy
-        Journeyman}</p>
+        Flask}.</p>
     video:
       controls: true
       volume: 0.5
@@ -65,11 +61,7 @@ pages:
         available ingredients in order to prepare a consumable meal for
         sustenance. Well trained cooks can prepare hearty meals that bolster
         party performance and aid in the recovery of
-        morale.</p><h2>Talents</h2><p>The following talents are available to
-        represent training in the art of
-        Cooking:</p><p>@UUID[Compendium.crucible.talent.Item.cookingNovice000]{Cooking
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.cookingJourneyma]{Cooking
-        Journeyman}</p>
+        morale.</p>
     video:
       controls: true
       volume: 0.5
@@ -114,11 +106,7 @@ pages:
         process of enchanting an item typically involves some additional
         sympathetic material components which are used in a ritual to bind the
         magical effect to a non-magical item, typically one of at least Fine
-        quality.</p><h2>Talents</h2><p>The following talents are available to
-        represent training in the art of
-        Enchanting:</p><p>@UUID[Compendium.crucible.talent.Item.enchantingNovice]{Enchanting
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.enchantingJourne]{Enchanting
-        Journeyman}</p>
+        quality.</p>
     video:
       controls: true
       volume: 0.5
@@ -155,11 +143,7 @@ pages:
         available components such as wood, leather, plant fibers and feathers to
         create bows and ammunition. A Fletcher is capable of crafting and
         repairing bows, and ensuring that they don't run out of suitable supply
-        of arrows.</p><h2>Talents</h2><p>The following talents are available to
-        represent Fletcher
-        training:</p><p>@UUID[Compendium.crucible.talent.Item.fletchingNovice0]{Fletching
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.fletchingJourney]{Fletching
-        Journeyman}</p>
+        of arrows.</p>
     video:
       controls: true
       volume: 0.5
@@ -196,11 +180,7 @@ pages:
         metals and rare crystalized minerals to compose rings, bracelets, and
         necklaces as well as the insetting of decorative (and potentially
         magical) gems into these and other pieces of
-        equipment.</p><h2>Talents</h2><p>The following talents are available to
-        represent Jewelcraft
-        training:</p><p></p><p>@UUID[Compendium.crucible.talent.Item.jewelcraftNovice]{Jewelcraft
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.jewelcraftJourne]{Jewelcraft
-        Journeyman}</p>
+        equipment.</p>
     video:
       controls: true
       volume: 0.5
@@ -238,11 +218,7 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.qjTSKlh59JhtUuEr.JournalEntryPage.p3hKRiZN3x0DEtyG]{Runes}
         to create Glyphs. Glyphs can be used to imbue magical properties into
         non-magical materials or as a component to aid ritual
-        magic.</p><h2>Talents</h2><p>The following talents are available to
-        represent Glyphweaver
-        training:</p><p>@UUID[Compendium.crucible.talent.Item.glyphweavingNovi]{Glyphweaving
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.glyphweavingJour]{Glyphweaving
-        Journeyman}</p>
+        magic.</p>
     video:
       controls: true
       volume: 0.5
@@ -278,11 +254,7 @@ pages:
         <p>Smithing is the skill of working to combine base metals and alloys in
         the production of tools, armor, and weapons as well as the repair and
         maintenance of metal-crafted items and
-        equipment.</p><h2>Talents</h2><p>The following talents are available to
-        represent Smith
-        training:</p><p>@UUID[Compendium.crucible.talent.Item.smithingNovice00]{Smithing
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.smithingJourneym]{Smithing
-        Journeyman}</p><p></p>
+        equipment.</p>
     video:
       controls: true
       volume: 0.5
@@ -318,11 +290,7 @@ pages:
         <p>Tailoring is the art of working to combine fabrics, furs and leathers
         in the production of clothing and armor as well as the repair and
         maintenance of items and equipment crafted from natural fibers and
-        skins.</p><h2>Talents</h2><p>The following talents are available to
-        represent Tailor
-        training:</p><p>@UUID[Compendium.crucible.talent.Item.tailoringNovice0]{Tailoring
-        Novice}</p><p>@UUID[Compendium.crucible.talent.Item.tailoringJourney]{Tailoring
-        Journeyman}</p>
+        skins.</p>
     video:
       controls: true
       volume: 0.5
