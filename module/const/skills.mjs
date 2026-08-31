@@ -31,7 +31,6 @@ export const CATEGORIES = defineEnum({
  * @property {string} label
  * @property {string} category
  * @property {[string, string]} abilities
- * @property {Record<1|2|3|4, string>} talents
  */
 
 /**
@@ -45,49 +44,25 @@ export const SKILLS = defineEnum({
     label: "TRAINING.LABELS.athletics",
     icon: "systems/crucible/icons/skills/athletics.jpg",
     category: "exp",
-    abilities: ["strength", "dexterity"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.athleticsNovice0",
-      2: "Compendium.crucible.talent.Item.athleticsJourney",
-      3: "Compendium.crucible.talent.Item.athleticsAdept00",
-      4: "Compendium.crucible.talent.Item.athleticsMaster0"
-    }
+    abilities: ["strength", "dexterity"]
   },
   awareness: {
     label: "TRAINING.LABELS.awareness",
     icon: "systems/crucible/icons/skills/awareness.jpg",
     category: "exp",
-    abilities: ["intellect", "wisdom"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.awarenessNovice0",
-      2: "Compendium.crucible.talent.Item.athleticsJourney",
-      3: "Compendium.crucible.talent.Item.athleticsAdept00",
-      4: "Compendium.crucible.talent.Item.athleticsAdept00"
-    }
+    abilities: ["intellect", "wisdom"]
   },
   stealth: {
     label: "TRAINING.LABELS.stealth",
     icon: "systems/crucible/icons/skills/stealth.jpg",
     category: "exp",
-    abilities: ["dexterity", "intellect"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.stealthNovice000",
-      2: "Compendium.crucible.talent.Item.stealthJourneyma",
-      3: "Compendium.crucible.talent.Item.stealthAdept0000",
-      4: "Compendium.crucible.talent.Item.stealthMaster000"
-    }
+    abilities: ["dexterity", "intellect"]
   },
   wilderness: {
     label: "TRAINING.LABELS.wilderness",
     icon: "systems/crucible/icons/skills/wilderness.jpg",
     category: "exp",
-    abilities: ["toughness", "wisdom"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.wildernessNovice",
-      2: "Compendium.crucible.talent.Item.wildernessJourne",
-      3: "Compendium.crucible.talent.Item.wildernessAdept0",
-      4: "Compendium.crucible.talent.Item.wildernessMaster"
-    }
+    abilities: ["toughness", "wisdom"]
   },
 
   // Knowledge Skills
@@ -95,49 +70,25 @@ export const SKILLS = defineEnum({
     label: "TRAINING.LABELS.arcana",
     icon: "systems/crucible/icons/skills/arcana.jpg",
     category: "kno",
-    abilities: ["presence", "intellect"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.arcanaNovice0000",
-      2: "Compendium.crucible.talent.Item.arcanaJourneyman",
-      3: "Compendium.crucible.talent.Item.arcanaAdept00000",
-      4: "Compendium.crucible.talent.Item.arcanaMaster0000"
-    }
+    abilities: ["presence", "intellect"]
   },
   medicine: {
     label: "TRAINING.LABELS.medicine",
     icon: "systems/crucible/icons/skills/medicine.jpg",
     category: "kno",
-    abilities: ["wisdom", "intellect"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.medicineNovice00",
-      2: "Compendium.crucible.talent.Item.medicineJourneym",
-      3: "Compendium.crucible.talent.Item.medicineAdept000",
-      4: "Compendium.crucible.talent.Item.medicineMaster00"
-    }
+    abilities: ["wisdom", "intellect"]
   },
   science: {
     label: "TRAINING.LABELS.science",
     icon: "systems/crucible/icons/skills/science.jpg",
     category: "kno",
-    abilities: ["intellect", "wisdom"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.scienceNovice000",
-      2: "Compendium.crucible.talent.Item.scienceJourneyma",
-      3: "Compendium.crucible.talent.Item.scienceAdept0000",
-      4: "Compendium.crucible.talent.Item.scienceMaster000"
-    }
+    abilities: ["intellect", "wisdom"]
   },
   society: {
     label: "TRAINING.LABELS.society",
     icon: "systems/crucible/icons/skills/society.jpg",
     category: "kno",
-    abilities: ["wisdom", "presence"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.societyNovice000",
-      2: "Compendium.crucible.talent.Item.societyJourneyma",
-      3: "Compendium.crucible.talent.Item.societyAdept0000",
-      4: "Compendium.crucible.talent.Item.societyMaster000"
-    }
+    abilities: ["wisdom", "presence"]
   },
 
   // Social Skills
@@ -145,49 +96,25 @@ export const SKILLS = defineEnum({
     label: "TRAINING.LABELS.deception",
     icon: "systems/crucible/icons/skills/deception.jpg",
     category: "soc",
-    abilities: ["intellect", "presence"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.deceptionNovice0",
-      2: "Compendium.crucible.talent.Item.deceptionJourney",
-      3: "Compendium.crucible.talent.Item.deceptionAdept00",
-      4: "Compendium.crucible.talent.Item.deceptionMaster0"
-    }
+    abilities: ["intellect", "presence"]
   },
   diplomacy: {
     label: "TRAINING.LABELS.diplomacy",
     icon: "systems/crucible/icons/skills/diplomacy.jpg",
     category: "soc",
-    abilities: ["wisdom", "presence"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.diplomacyNovice0",
-      2: "Compendium.crucible.talent.Item.diplomacyJourney",
-      3: "Compendium.crucible.talent.Item.diplomacyAdept00",
-      4: "Compendium.crucible.talent.Item.diplomacyMaster0"
-    }
+    abilities: ["wisdom", "presence"]
   },
   intimidation: {
     label: "TRAINING.LABELS.intimidation",
     icon: "systems/crucible/icons/skills/intimidation.jpg",
     category: "soc",
-    abilities: ["presence", "toughness"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.intimidationNovi",
-      2: "Compendium.crucible.talent.Item.intimidationJour",
-      3: "Compendium.crucible.talent.Item.intimidationAdep",
-      4: "Compendium.crucible.talent.Item.intimidationMast"
-    }
+    abilities: ["presence", "toughness"]
   },
   performance: {
     label: "TRAINING.LABELS.performance",
     icon: "systems/crucible/icons/skills/performance.jpg",
     category: "soc",
-    abilities: ["presence", "dexterity"],
-    talents: {
-      1: "Compendium.crucible.talent.Item.performanceNovic",
-      2: "Compendium.crucible.talent.Item.performanceJourn",
-      3: "Compendium.crucible.talent.Item.performanceAdept",
-      4: "Compendium.crucible.talent.Item.performanceMaste"
-    }
+    abilities: ["presence", "dexterity"]
   }
 });
 
