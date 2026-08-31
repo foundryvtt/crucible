@@ -15,7 +15,7 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.berserker0000000
       level: null
-    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+    - item: Compendium.crucible.talent.Item.heavyStrike00000
       level: null
   identifier: berserker
   skills: []

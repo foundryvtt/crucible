@@ -14,7 +14,7 @@ system:
     - deception
     - performance
   talents:
-    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+    - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
     - item: Compendium.crucible.talent.Item.inspireheroism00
       level: null

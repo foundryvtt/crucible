@@ -20,9 +20,9 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.precisionshot000
       level: null
-    - item: Compendium.crucible.talent.Item.projectileWeapon
+    - item: Compendium.crucible.talent.Item.quickDraw0000000
       level: null
-    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+    - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
   skills:
     - athletics

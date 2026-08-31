@@ -14,7 +14,7 @@ system:
     toughness: 3
     dexterity: 1
   talents:
-    - item: Compendium.crucible.talent.Item.shieldCombatTrai
+    - item: Compendium.crucible.talent.Item.shieldBash000000
       level: null
     - item: Compendium.crucible.talent.Item.bulwark000000000
       level: null

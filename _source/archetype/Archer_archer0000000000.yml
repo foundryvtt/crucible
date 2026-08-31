@@ -16,7 +16,7 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.evasiveshot00000
       level: null
-    - item: Compendium.crucible.talent.Item.projectileWeapon
+    - item: Compendium.crucible.talent.Item.quickDraw0000000
       level: null
   identifier: archer
   skills: []

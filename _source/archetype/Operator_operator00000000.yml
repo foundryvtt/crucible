@@ -21,7 +21,7 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.weakpoints000000
       level: null
-    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+    - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
   skills:
     - awareness

@@ -1,13 +1,11 @@
 folder: i7WposibCJ94XpuD
-name: Heavy Weapon Training
+name: Heavy Strike
 type: talent
-img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
+img: icons/skills/melee/strike-hammer-destructive-blue.webp
 system:
   description: >-
     <p>You know how to use a heavy weapon to deliver punishing blows, putting
-    your entire strength behind every swing. You are <strong>Trained</strong>
-    with all weapons in the <strong>Heavy</strong> and <strong>Balanced</strong>
-    categories.</p>
+    your entire strength behind every swing.</p>
   actions:
     - id: heavyStrike
       img: icons/skills/melee/strike-hammer-destructive-blue.webp
@@ -64,6 +62,6 @@ _stats:
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: heavyWeaponTrain
+_id: heavyStrike00000
 sort: 100000
-_key: '!items!heavyWeaponTrain'
+_key: '!items!heavyStrike00000'

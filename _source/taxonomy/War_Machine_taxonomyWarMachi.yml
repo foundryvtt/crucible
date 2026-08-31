@@ -59,9 +59,9 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.selfrepair000000
       level: null
-    - item: Compendium.crucible.talent.Item.naturalWeaponTra
+    - item: Compendium.crucible.talent.Item.wildStrike000000
       level: 0
-    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+    - item: Compendium.crucible.talent.Item.heavyStrike00000
       level: 0
   characteristics:
     equipment: true

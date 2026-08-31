@@ -17,7 +17,7 @@ system:
   talents:
     - item: Compendium.crucible.talent.Item.intercept0000000
       level: 1
-    - item: Compendium.crucible.talent.Item.projectileWeapon
+    - item: Compendium.crucible.talent.Item.quickDraw0000000
       level: 1
     - item: Compendium.crucible.talent.Item.preparedness0000
       level: 0
@@ -29,7 +29,7 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.markprey00000000
       level: 2
-    - item: Compendium.crucible.talent.Item.unarmedCombatTra
+    - item: Compendium.crucible.talent.Item.grapple000000000
       level: 0
   skills:
     - awareness

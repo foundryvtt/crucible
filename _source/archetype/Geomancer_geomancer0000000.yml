@@ -23,7 +23,7 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.gestureinfluence
       level: 0
-    - item: Compendium.crucible.talent.Item.talismanWeaponTr
+    - item: Compendium.crucible.talent.Item.refocus000000000
       level: 0
   skills:
     - wilderness

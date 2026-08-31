@@ -14,7 +14,7 @@ system:
     - society
     - diplomacy
   talents:
-    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+    - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
     - item: Compendium.crucible.talent.Item.preparedness0000
       level: null
