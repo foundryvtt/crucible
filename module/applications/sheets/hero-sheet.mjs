@@ -165,10 +165,12 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     // Common to every training type, whether or not it is also a Skill
     const prepareType = (config, color) => {
       const t = training[config.id];
-      const abilities = SYSTEM.TRAINING.TYPES[config.id].abilities ?? [];
+      const type = SYSTEM.TRAINING.TYPES[config.id];
+      const abilities = type.abilities ?? [];
       const rank = RANK_VALUES[t.value];
       return {
         ...config, color, rank, score: t.score, passive: t.passive, points: t.points,
+        label: type.short ?? type.label, // Each row sits beneath its group heading, so shorthand reads better
         widthPct: pct(t.points),
         abilityAbbrs: abilities.map(a => SYSTEM.ABILITIES[a].abbreviation),
         // A pair names both sextants it spans; a single ability names its own

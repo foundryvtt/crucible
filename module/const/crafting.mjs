@@ -6,21 +6,21 @@ import {defineEnum} from "./enum.mjs";
  * @type {Readonly<Record<string, {id: string, label: string, icon: string, abilities: string[]}>>}
  **/
 export const TRAINING = defineEnum({
-  alchemy: {label: "SKILL.LABELS.alchemy", icon: "icons/consumables/potions/flask-corked-blue-glow.webp",
+  alchemy: {label: "TRAINING.LABELS.alchemy", icon: "icons/consumables/potions/flask-corked-blue-glow.webp",
     abilities: ["intellect", "toughness"]},
-  cooking: {label: "SKILL.LABELS.cooking", icon: "icons/tools/cooking/pot-camping-iron-black.webp",
+  cooking: {label: "TRAINING.LABELS.cooking", icon: "icons/tools/cooking/pot-camping-iron-black.webp",
     abilities: ["wisdom", "toughness"]},
-  enchanting: {label: "SKILL.LABELS.enchanting", icon: "icons/magic/symbols/runes-triangle-blue.webp",
+  enchanting: {label: "TRAINING.LABELS.enchanting", icon: "icons/magic/symbols/runes-triangle-blue.webp",
     abilities: ["intellect", "presence"]},
-  fletching: {label: "SKILL.LABELS.fletching", icon: "icons/weapons/ammunition/arrows-fletching.webp",
+  fletching: {label: "TRAINING.LABELS.fletching", icon: "icons/weapons/ammunition/arrows-fletching.webp",
     abilities: ["strength", "wisdom"]},
-  jewelcraft: {label: "SKILL.LABELS.jewelcraft", icon: "icons/commodities/gems/gem-faceted-teardrop-blue.webp",
+  jewelcraft: {label: "TRAINING.LABELS.jewelcraft", icon: "icons/commodities/gems/gem-faceted-teardrop-blue.webp",
     abilities: ["wisdom", "strength"]},
-  glyphweaving: {label: "SKILL.LABELS.glyphweaving", icon: "icons/magic/symbols/rune-sigil-black-pink.webp",
+  glyphweaving: {label: "TRAINING.LABELS.glyphweaving", icon: "icons/magic/symbols/rune-sigil-black-pink.webp",
     abilities: ["presence", "dexterity"]},
-  smithing: {label: "SKILL.LABELS.smithing", icon: "icons/skills/trades/smithing-anvil-silver-red.webp",
+  smithing: {label: "TRAINING.LABELS.smithing", icon: "icons/skills/trades/smithing-anvil-silver-red.webp",
     abilities: ["strength", "intellect"]},
-  tailoring: {label: "SKILL.LABELS.tailoring", icon: "icons/commodities/cloth/thread-spindle-white.webp",
+  tailoring: {label: "TRAINING.LABELS.tailoring", icon: "icons/commodities/cloth/thread-spindle-white.webp",
     abilities: ["dexterity", "presence"]}
 });
 

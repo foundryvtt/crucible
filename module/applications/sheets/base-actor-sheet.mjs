@@ -415,7 +415,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           }
           if ( i.system.isSignature ) section = sections.talents.signature;           // Signature
           else if ( i.system.spellcraft ) section ||= sections.talents.spell;         // Spellcraft
-          else if ( i.system.training.type ) section ||= sections.talents.training;   // Training
           else if ( action ) section ||= sections.talents.active;                     // Actives
           else section ||= sections.talents.passive;                                  // Passives
           break;

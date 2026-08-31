@@ -9,6 +9,7 @@
                 {{~#each prerequisites as |req|}}
                 <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
                 {{/each~}}
+                {{~#if training}}<span class="tag training">{{training}}</span>{{/if~}}
             </div>
         </div>
     </header>
