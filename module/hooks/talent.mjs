@@ -289,6 +289,9 @@ HOOKS.bloodSense000000 = {
   prepareAttack(_item, action, target, rollData) {
     if ( !["strike", "skill"].some(t => action.tags.has(t)) ) return;
     if ( target.resources.health.value < target.resources.health.max ) delete rollData.banes.blind;
+  },
+  prepareToken(_item, token) {
+    token.detectionModes.bloodSense ??= {enabled: true, range: 20};
   }
 };
 
