@@ -16,7 +16,7 @@ system:
         within range, attacking its <strong>Reflex</strong>. On a success the
         target is dragged back into reach and becomes @Condition[restrained].
         This action may only be used on creatures which are eligible targets for
-        @Action[Compendium.crucible.talent.Item.unarmedCombatTra
+        @Action[Compendium.crucible.talent.Item.grapple000000000
         grapple].</p><p>The hold is maintained until the
         @ref[actor.name]{creature} releases it, the target escapes, or a
         different creature is targeted with Ensnare.</p>

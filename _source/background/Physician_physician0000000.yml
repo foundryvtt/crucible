@@ -13,7 +13,7 @@ system:
     - medicine
     - science
   talents:
-    - item: Compendium.crucible.talent.Item.talismanWeaponTr
+    - item: Compendium.crucible.talent.Item.refocus000000000
       level: null
     - item: Compendium.crucible.talent.Item.runeLife00000000
       level: null

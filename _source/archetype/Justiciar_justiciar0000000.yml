@@ -16,7 +16,7 @@ system:
   talents:
     - item: Compendium.crucible.talent.Item.justiciar0000000
       level: null
-    - item: Compendium.crucible.talent.Item.heavyWeaponTrain
+    - item: Compendium.crucible.talent.Item.heavyStrike00000
       level: null
     - item: Compendium.crucible.talent.Item.zealoussmite0000
       level: null

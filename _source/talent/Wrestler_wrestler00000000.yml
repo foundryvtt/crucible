@@ -6,7 +6,7 @@ system:
   description: >-
     <p>Through leverage and technique you seize and hold creatures far larger
     than yourself. The Size of creature you can
-    @Action[Compendium.crucible.talent.Item.unarmedCombatTra grapple], and be
+    @Action[Compendium.crucible.talent.Item.grapple000000000 grapple], and be
     Grappled by, increases by 1.</p>
   actions: []
   nodes:

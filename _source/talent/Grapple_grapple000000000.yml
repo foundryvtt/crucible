@@ -1,13 +1,11 @@
 folder: i7WposibCJ94XpuD
-name: Unarmed Combat Training
+name: Grapple
 type: talent
-img: icons/skills/melee/unarmed-punch-fist-white.webp
+img: icons/magic/control/buff-strength-muscle-damage.webp
 system:
   description: >-
     <p>You are familiar with basic martial arts and hand-to-hand combat. You
-    know how to subdue or restrain opponents using your physical Strength. You
-    are <strong>Trained</strong> with weapons in the <strong>Unarmed</strong>
-    category.</p>
+    know how to subdue or restrain opponents using your physical Strength.</p>
   actions:
     - id: grapple
       img: icons/magic/control/buff-strength-muscle-damage.webp
@@ -100,6 +98,6 @@ _stats:
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: unarmedCombatTra
+_id: grapple000000000
 sort: 1100000
-_key: '!items!unarmedCombatTra'
+_key: '!items!grapple000000000'

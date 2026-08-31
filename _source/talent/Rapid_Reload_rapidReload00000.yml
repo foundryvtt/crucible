@@ -1,12 +1,11 @@
 folder: i7WposibCJ94XpuD
-name: Mechanical Weapon Training
+name: Rapid Reload
 type: talent
-img: icons/weapons/crossbows/crossbow-white.webp
+img: icons/skills/ranged/bullet-sparks-yellow.webp
 system:
   description: >-
     <p>You are familiar in the design and usage of crossbows, firearms, and
-    other similar armaments. You are <strong>Trained</strong> with weapons in
-    the <strong>Mechanical</strong> category.</p>
+    other similar armaments.</p>
   actions:
     - id: rapidReload
       name: Rapid Reload
@@ -61,6 +60,6 @@ _stats:
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_id: mechanicalWeapon
+_id: rapidReload00000
 sort: 0
-_key: '!items!mechanicalWeapon'
+_key: '!items!rapidReload00000'

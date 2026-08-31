@@ -23,11 +23,11 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.dualWield0000000
       level: null
-    - item: Compendium.crucible.talent.Item.lightWeaponTrain
+    - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
     - item: Compendium.crucible.talent.Item.feintingstrike00
       level: null
-    - item: Compendium.crucible.talent.Item.mechanicalWeapon
+    - item: Compendium.crucible.talent.Item.rapidReload00000
       level: null
   skills:
     - athletics

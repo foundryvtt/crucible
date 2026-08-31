@@ -14,7 +14,7 @@ system:
     - arcana
     - science
   talents:
-    - item: Compendium.crucible.talent.Item.mechanicalWeapon
+    - item: Compendium.crucible.talent.Item.rapidReload00000
       level: null
     - item: Compendium.crucible.talent.Item.runeKinesis00000
       level: null
