@@ -55,9 +55,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
-  training:
-    type: flame
-    rank: 1
+  training: elemental
 effects: []
 flags:
   core: {}
