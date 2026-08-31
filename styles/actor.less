@@ -504,11 +504,8 @@
         justify-content: center;
         align-items: center;
         gap: 0;
-        // The frame's ink is drawn flush to the bottom of its source canvas, with the top margin left
-        // clear for the label. Anchor to the bottom so cropping to ink does not lift it off the icons.
         background: url("../ui/abilities/frame.webp") no-repeat bottom center;
-        background-size: 100% auto; // Art is cropped to ink, so cover would clip its sides
-
+        background-size: 100% auto;
         .label {
           position: absolute;
           top: -8px;
@@ -920,6 +917,18 @@
     }
   }
 
+  .tab.proficiency {
+    padding-top: 0; // Sticky offsets measure from the scrollport, so the scroller cannot pad its top
+    .header-section {
+      justify-content: flex-end; // No left-hand button here, so the point pools carry the row
+      position: sticky;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      margin: -1rem 0;
+    }
+  }
+
   /* ----------------------------------------- */
   /*  Skills Tab                               */
   /* ----------------------------------------- */
@@ -983,9 +992,9 @@
   /* ----------------------------------------- */
 
   .proficiency-list .line-item {
-    // Columns: .icon .title .bonus .allocate .bar-container .controls
+    // Columns: .icon .title .bonus .bar-container .buttons
     display: grid;
-    grid-template-columns: auto minmax(140px, 1fr) 68px 24px minmax(120px, 2fr) 24px;
+    grid-template-columns: auto minmax(140px, 1fr) 68px minmax(120px, 2fr) 24px;
     align-items: center;
     gap: 0.75rem;
 
@@ -998,9 +1007,10 @@
       .tags { margin-top: 0.125rem; }
     }
 
-    // Score and passive, sized to keep rows compact rather than as tall as a full hex
+    // Score and passive, sized to keep rows compact rather than as tall as a full hex. Right-aligned so the
+    // hex holds one column whether or not this training carries a passive score.
     .bonus {
-      justify-content: center;
+      justify-content: flex-end;
       gap: 0.25rem;
       span.value {
         --hex-size: 32px;
@@ -1021,9 +1031,15 @@
       }
     }
 
-    // Reserved so rows stay aligned whether or not the control is shown
-    .allocate {
-      justify-content: flex-end;
+    // Stacked carets, following the ability allocation controls in character creation
+    .buttons {
+      align-content: center;
+      button {
+        --button-size: 20px;
+      }
+      button:disabled {
+        opacity: 0.25;
+      }
     }
 
     .bar-container {

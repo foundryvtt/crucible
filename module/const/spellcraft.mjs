@@ -5,15 +5,20 @@ export const NAME_FORMATS = Object.freeze({
 
 /**
  * The areas of spellcraft in which a character may be trained, each grouping several Arcane Runes.
- * @type {Readonly<Record<string, {id: string, label: string}>>}
+ * Abilities are the union of the scaling declared by the runes of each family, restated here so that every
+ * training type carries its own abilities rather than requiring consumers to walk the rune table.
+ * @type {Readonly<Record<string, {id: string, label: string, icon: string, abilities: string[]}>>}
  */
 export const TRAINING = {
   physical: {id: "physical", label: "SPELL.TRAINING.Kinematic",
-    icon: "icons/magic/movement/pinwheel-turning-blue.webp"},
+    icon: "icons/magic/movement/pinwheel-turning-blue.webp",
+    abilities: ["wisdom", "presence"]},
   elemental: {id: "elemental", label: "SPELL.TRAINING.Elemental",
-    icon: "icons/magic/symbols/elements-air-earth-fire-water.webp"},
+    icon: "icons/magic/symbols/elements-air-earth-fire-water.webp",
+    abilities: ["wisdom", "intellect"]},
   spiritual: {id: "spiritual", label: "SPELL.TRAINING.Spiritual",
-    icon: "icons/magic/light/projectile-halo-teal.webp"}
+    icon: "icons/magic/light/projectile-halo-teal.webp",
+    abilities: ["intellect", "presence"]}
 };
 
 /**

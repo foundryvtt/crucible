@@ -851,10 +851,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareTraining", this.training);
     this.#prepareFinalTraining();
 
-    // Skills
+    // Skills, a named view over the skill subset of training
     this.#prepareSkills();
     this.parent.callActorHooks("prepareSkills", this.skills);
-    this.#prepareFinalSkills();
+    this.#prepareTrainingScores();
 
     // Spellcraft
     this.parent.callActorHooks("prepareGrimoire", this.grimoire);
@@ -1134,13 +1134,17 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   #prepareFinalTraining() {
     const ranks = Object.values(SYSTEM.TRAINING.RANKS); // Ascending by points required
     const cap = this.details.progression.trainingCap;
-    for ( const t of Object.values(this.training) ) {
+    for ( const [id, t] of Object.entries(this.training) ) {
       t.points = Math.clamp(t.initial + t.talents + t.increases + t.bonus, 0, cap);
       t.value = 0;
       for ( const rank of ranks ) {
         if ( t.points < rank.required ) break;
         t.value = rank.rank;
       }
+      t.rank = t.value; // Talent requirement paths address this as "value"; skill consumers name it "rank"
+      t.abilityBonus = this.parent.getAbilityBonus(SYSTEM.TRAINING.TYPES[id].abilities);
+      t.skillBonus = SYSTEM.TRAINING.RANK_VALUES[t.value].bonus;
+      t.enchantmentBonus = 0;
     }
   }
 
@@ -1152,24 +1156,19 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * Prepare skills data for all Actor subtypes.
    */
   #prepareSkills() {
-    for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
-      const rank = this.training[config.id].value;
-      const abilityBonus = this.parent.getAbilityBonus(config.abilities);
-      const skillBonus = SYSTEM.TRAINING.RANK_VALUES[rank].bonus;
-      const enchantmentBonus = 0;
-      this.skills[skillId] = {rank, abilityBonus, skillBonus, enchantmentBonus};
-    }
+    for ( const skillId of Object.keys(SYSTEM.SKILLS) ) this.skills[skillId] = this.training[skillId];
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Recompute derived skill values after hooks have modified enchantmentBonus.
+   * Recompute derived values for every training type after hooks have modified enchantmentBonus.
+   * Skills share object identity with their training, so the prepareSkills hook is accounted for here too.
    */
-  #prepareFinalSkills() {
-    for ( const skill of Object.values(this.skills) ) {
-      skill.score = skill.abilityBonus + skill.skillBonus + skill.enchantmentBonus;
-      skill.passive = SYSTEM.PASSIVE_BASE + skill.score;
+  #prepareTrainingScores() {
+    for ( const t of Object.values(this.training) ) {
+      t.score = t.abilityBonus + t.skillBonus + t.enchantmentBonus;
+      t.passive = SYSTEM.PASSIVE_BASE + t.score;
     }
   }
 
