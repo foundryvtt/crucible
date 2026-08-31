@@ -58,11 +58,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
         training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false,
           integer: true, min: 1, max: SYSTEM.TRAINING.RANK_MAX}), {validateKey: key => key in SYSTEM.TRAINING.TYPES})
       }),
-      training: new fields.SchemaField({
-        type: new fields.StringField({...blankString, choices: SYSTEM.TRAINING.TYPES}),
-        rank: new fields.NumberField({required: true, nullable: true, initial: null, integer: true, min: 1,
-          max: SYSTEM.TRAINING.RANK_MAX})
-      })
+      training: new fields.StringField({...blankString, choices: SYSTEM.TRAINING.TYPES})
     };
   }
 
@@ -137,11 +133,6 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     const requirements = {};
     for ( const node of this.nodes ) {
       Object.assign(requirements, foundry.utils.deepClone(node.requirements));
-    }
-
-    // A bundled training talent requires the rank below the one it grants
-    if ( this.training.rank > 1 ) {
-      foundry.utils.setProperty(requirements, `training.${this.training.type}.value`, this.training.rank - 1);
     }
 
     // Training requirements declared by the talent itself, which take precedence
@@ -328,7 +319,10 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       img: talent.img,
       actions: await talent.prepareActionsContext(),
       tags: this.getTags(),
-      prerequisites: reqs
+      prerequisites: reqs,
+      training: this.training
+        ? _loc("TALENT.TrainingGrant", {training: _loc(SYSTEM.TRAINING.TYPES[this.training].label)})
+        : null
     });
   }
 
@@ -363,7 +357,10 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       delete source.node;
     }
     if ( source.rune === "lightning" ) source.rune = "storm";
-    if ( source.training?.type === "lightning" ) source.training.type = "storm";
+
+    /** @deprecated since 0.10.3 - training named a rank to grant, which is now always a flat single point */
+    if ( source.training && (typeof source.training === "object") ) source.training = source.training.type ?? "";
+    if ( source.training === "lightning" ) source.training = "storm";
 
     /** @deprecated since 0.10.3 - the rune, gesture, and inflection fields collapsed into one spellcraft field */
     if ( !("spellcraft" in source) ) {
@@ -376,12 +373,13 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
     /**
      * Temporary shim. Runes ceased to be trainable individually and were aggregated into spellcraft families, so
-     * source content naming a rune would otherwise fail its choices validation and silently lose its training.
+     * source content naming a rune would otherwise fail its choices validation and lose the whole talent.
+     * Each rune names the family it belongs to as its own training type.
      * Remove once the talents tracked in crucible-training-content-tracker.md have been rewritten.
      * @deprecated since 0.10.3
      */
-    const spellcraftTraining = SYSTEM.SPELL.RUNES[source.training?.type]?.family;
-    if ( spellcraftTraining ) source.training.type = spellcraftTraining;
+    const runeFamily = SYSTEM.SPELL.RUNES[source.training]?.training;
+    if ( runeFamily ) source.training = runeFamily;
     return source;
   }
 }

@@ -19,23 +19,26 @@ export const GROUPS = defineEnum({
 /**
  * The types of training which are available in the system.
  * Every type declares the abilities which scale it, so a check bonus can be computed uniformly.
- * @type {Readonly<Record<string, {id: string, group: string, label: string, abilities: string[]}>>}
+ * `label` is the full and formal name, correct wherever a training is cited on its own. `short` is optional
+ * shorthand for use beside the type's own group heading; display it as `short || label`.
+ * @type {Readonly<Record<string, {id: string, group: string, label: string, short?: string,
+ *   abilities: string[]}>>}
  */
 export const TYPES = defineEnum({
-  ...Object.entries(SKILLS).reduce((obj, [id, {label, abilities}]) => {
-    obj[id] = {group: GROUPS.skill.label, label, abilities};
+  ...Object.entries(SKILLS).reduce((obj, [id, {label, short, abilities}]) => {
+    obj[id] = {group: GROUPS.skill.label, label, short, abilities};
     return obj;
   }, {}),
-  ...Object.entries(WEAPON_TRAINING).reduce((obj, [id, {label, abilities}]) => {
-    obj[id] = {group: GROUPS.weapon.label, label, abilities};
+  ...Object.entries(WEAPON_TRAINING).reduce((obj, [id, {label, short, abilities}]) => {
+    obj[id] = {group: GROUPS.weapon.label, label, short, abilities};
     return obj;
   }, {}),
-  ...Object.entries(SPELLCRAFT_TRAINING).reduce((obj, [id, {label, abilities}]) => {
-    obj[id] = {group: GROUPS.spell.label, label, abilities};
+  ...Object.entries(SPELLCRAFT_TRAINING).reduce((obj, [id, {label, short, abilities}]) => {
+    obj[id] = {group: GROUPS.spell.label, label, short, abilities};
     return obj;
   }, {}),
-  ...Object.entries(CRAFTING_TRAINING).reduce((obj, [id, {label, abilities}]) => {
-    obj[id] = {group: GROUPS.craft.label, label, abilities};
+  ...Object.entries(CRAFTING_TRAINING).reduce((obj, [id, {label, short, abilities}]) => {
+    obj[id] = {group: GROUPS.craft.label, label, short, abilities};
     return obj;
   }, {})
 });

@@ -1805,6 +1805,7 @@
       "TalentConfiguration": "Talent Configuration",
       "TalentDrop": "Add a talent by dragging and dropping a Talent item into this area.",
       "TalentRemove": "Remove Talent",
+      "Training": "Training",
       "Type": "Equipment Type"
     },
     "TABS": {
@@ -2098,28 +2099,6 @@
         "label": "Social"
       }
     },
-    "LABELS": {
-      "alchemy": "Alchemy",
-      "arcana": "Arcana",
-      "athletics": "Athletics",
-      "awareness": "Awareness",
-      "cooking": "Cooking",
-      "deception": "Deception",
-      "diplomacy": "Diplomacy",
-      "enchanting": "Enchanting",
-      "fletching": "Fletching",
-      "glyphweaving": "Glyphweaving",
-      "intimidation": "Intimidation",
-      "jewelcraft": "Jewelcraft",
-      "medicine": "Medicine",
-      "performance": "Performance",
-      "science": "Science",
-      "smithing": "Smithing",
-      "society": "Society",
-      "stealth": "Stealth",
-      "tailoring": "Tailoring",
-      "wilderness": "Wilderness"
-    },
     "RANKS": {
       "ADEPT": {
         "hint": "You are a subject matter expert and fluent in all base competencies and applications of this skill.",
@@ -2316,11 +2295,6 @@
     "SHEET": {
       "Knowledge": "Required Knowledge"
     },
-    "TRAINING": {
-      "Elemental": "Elemental Spellcraft",
-      "Kinematic": "Kinematic Spellcraft",
-      "Spiritual": "Spiritual Spellcraft"
-    },
     "WARNINGS": {
       "BindArmamentAlreadyBound": "weapon is already bound",
       "BindArmamentNoMainhand": "no mainhand weapon",
@@ -2395,10 +2369,8 @@
         "label": "Spellcraft Component"
       },
       "training": {
-        "hint": "Does this talent provide some rank of training in a particular area?",
-        "label": "Provided Training",
-        "rank.label": "Training Rank",
-        "type.label": "Training Type"
+        "hint": "Owning this talent contributes one training point to the area named here, whether the talent was purchased or granted. Leave blank if this talent advances no training.",
+        "label": "Provided Training"
       }
     },
     "HOOKS": {
@@ -2476,7 +2448,8 @@
     "Prerequisites": "Prerequisites",
     "SignatureLimit": "Signature Limit Reached",
     "SignatureNext": "Next at Level {level}",
-    "Tier": "Tier {tier}"
+    "Tier": "Tier {tier}",
+    "TrainingGrant": "{training} +1"
   },
   "TAXONOMY": {
     "CATEGORIES": {
@@ -2725,6 +2698,52 @@
       "Talents": "Talents",
       "Total": "Total"
     },
+    "LABELS": {
+      "alchemy": "Alchemy",
+      "arcana": "Arcana",
+      "athletics": "Athletics",
+      "awareness": "Awareness",
+      "cooking": "Cooking",
+      "deception": "Deception",
+      "diplomacy": "Diplomacy",
+      "elemental": "Elemental Spellcraft",
+      "elementalShort": "Elemental",
+      "enchanting": "Enchanting",
+      "fletching": "Fletching",
+      "glyphweaving": "Glyphweaving",
+      "heavy": "Heavy Weapons",
+      "heavyShort": "Heavy",
+      "intimidation": "Intimidation",
+      "jewelcraft": "Jewelcraft",
+      "light": "Light Weapons",
+      "lightShort": "Light",
+      "mechanical": "Mechanical Weapons",
+      "mechanicalShort": "Mechanical",
+      "medicine": "Medicine",
+      "natural": "Natural Weapons",
+      "naturalShort": "Natural",
+      "performance": "Performance",
+      "physical": "Kinematic Spellcraft",
+      "physicalShort": "Kinematic",
+      "projectile": "Projectile Weapons",
+      "projectileShort": "Projectile",
+      "science": "Science",
+      "shield": "Shield Combat",
+      "shieldShort": "Shield",
+      "simple": "Simple Weapons",
+      "simpleShort": "Simple",
+      "smithing": "Smithing",
+      "society": "Society",
+      "spiritual": "Spiritual Spellcraft",
+      "spiritualShort": "Spiritual",
+      "stealth": "Stealth",
+      "tailoring": "Tailoring",
+      "talisman": "Talisman Weapons",
+      "talismanShort": "Talisman",
+      "unarmed": "Unarmed Combat",
+      "unarmedShort": "Unarmed",
+      "wilderness": "Wilderness"
+    },
     "BonusTooltip": "Your current bonus to checks using this training.",
     "CapTooltip": "Your level presently limits any one training to {points} points.",
     "Decrease": "Reclaim a Proficiency Point",
@@ -2738,16 +2757,8 @@
     "CATEGORIES": {
       "Balanced": "Balanced",
       "CategoryHands": "{category} ({hands}h)",
-      "Heavy": "Heavy",
-      "Light": "Light",
-      "Mechanical": "Mechanical",
-      "Projectile": "Projectile",
-      "Shield": "Shield",
       "ShieldHeavy": "Heavy Shield",
-      "ShieldLight": "Light Shield",
-      "Simple": "Simple",
-      "Talisman": "Talisman",
-      "Unarmed": "Unarmed"
+      "ShieldLight": "Light Shield"
     },
     "FIELDS": {
       "damageType": {

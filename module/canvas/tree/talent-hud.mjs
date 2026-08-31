@@ -125,11 +125,15 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     }
 
     // Return context
+    const training = talent.system.training;
     return {
       source: talent.toObject(),
       descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description, {relativeTo: talent}),
       actions: await talent.prepareActionsContext(),
-      prerequisites: reqs
+      prerequisites: reqs,
+      training: training
+        ? _loc("TALENT.TrainingGrant", {training: _loc(SYSTEM.TRAINING.TYPES[training].label)})
+        : null
     };
   }
 

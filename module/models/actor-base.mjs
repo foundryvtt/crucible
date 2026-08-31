@@ -436,11 +436,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       }
       if ( !nodes.size ) this.permanentTalentIds.add(t.id); // Manual talents
 
-      // Register training ranks, converted to the points which attain them
-      if ( training.type ) {
-        const t = this.training[training.type];
-        const granted = SYSTEM.TRAINING.RANK_VALUES[training.rank ?? 0]?.required ?? 0;
-        if ( t ) t.initial = Math.max(t.initial, granted);
+      // Every owned talent naming a training contributes one point to it, however it was acquired
+      if ( training ) {
+        const trained = this.training[training];
+        if ( trained ) trained.talents += 1;
       }
 
       // Register spellcraft knowledge, whose component type names the grimoire collection it joins

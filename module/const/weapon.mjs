@@ -33,24 +33,24 @@ import {defineEnum, defineIntEnum} from "./enum.mjs";
  * @type {Readonly<Record<WeaponTrainingTypes, {id: string, label: string, icon: string, abilities: string[]}>>}
  **/
 export const TRAINING = defineEnum({
-  talisman: {label: "WEAPON.CATEGORIES.Talisman", icon: "icons/weapons/polearms/trident-fork-white.webp",
-    abilities: ["presence"]},
-  heavy: {label: "WEAPON.CATEGORIES.Heavy", icon: "icons/skills/melee/weapons-crossed-poleaxes-white.webp",
-    abilities: ["strength"]},
-  light: {label: "WEAPON.CATEGORIES.Light", icon: "icons/weapons/swords/sword-simple-white.webp",
-    abilities: ["dexterity"]},
-  mechanical: {label: "WEAPON.CATEGORIES.Mechanical", icon: "icons/weapons/crossbows/crossbow-white.webp",
-    abilities: ["dexterity"]},
-  natural: {label: "WEAPON.TAGS.Natural", icon: "icons/creatures/abilities/cougar-pounce-stalk-black.webp",
-    abilities: ["strength", "dexterity"]},
-  projectile: {label: "WEAPON.CATEGORIES.Projectile", icon: "icons/weapons/bows/shortbow-white.webp",
-    abilities: ["strength", "dexterity"]},
-  shield: {label: "WEAPON.CATEGORIES.Shield", icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
-    abilities: ["strength", "dexterity"]},
-  simple: {label: "WEAPON.CATEGORIES.Simple", icon: "icons/weapons/clubs/club-simple-black.webp",
-    abilities: ["strength"]},
-  unarmed: {label: "WEAPON.CATEGORIES.Unarmed", icon: "icons/skills/melee/unarmed-punch-fist-white.webp",
-    abilities: ["strength", "dexterity"]}
+  talisman: {label: "TRAINING.LABELS.talisman", short: "TRAINING.LABELS.talismanShort",
+    icon: "icons/weapons/polearms/trident-fork-white.webp", abilities: ["presence"]},
+  heavy: {label: "TRAINING.LABELS.heavy", short: "TRAINING.LABELS.heavyShort",
+    icon: "icons/skills/melee/weapons-crossed-poleaxes-white.webp", abilities: ["strength"]},
+  light: {label: "TRAINING.LABELS.light", short: "TRAINING.LABELS.lightShort",
+    icon: "icons/weapons/swords/sword-simple-white.webp", abilities: ["dexterity"]},
+  mechanical: {label: "TRAINING.LABELS.mechanical", short: "TRAINING.LABELS.mechanicalShort",
+    icon: "icons/weapons/crossbows/crossbow-white.webp", abilities: ["dexterity"]},
+  natural: {label: "TRAINING.LABELS.natural", short: "TRAINING.LABELS.naturalShort",
+    icon: "icons/creatures/abilities/cougar-pounce-stalk-black.webp", abilities: ["strength", "dexterity"]},
+  projectile: {label: "TRAINING.LABELS.projectile", short: "TRAINING.LABELS.projectileShort",
+    icon: "icons/weapons/bows/shortbow-white.webp", abilities: ["strength", "dexterity"]},
+  shield: {label: "TRAINING.LABELS.shield", short: "TRAINING.LABELS.shieldShort",
+    icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp", abilities: ["strength", "dexterity"]},
+  simple: {label: "TRAINING.LABELS.simple", short: "TRAINING.LABELS.simpleShort",
+    icon: "icons/weapons/clubs/club-simple-black.webp", abilities: ["strength"]},
+  unarmed: {label: "TRAINING.LABELS.unarmed", short: "TRAINING.LABELS.unarmedShort",
+    icon: "icons/skills/melee/unarmed-punch-fist-white.webp", abilities: ["strength", "dexterity"]}
 });
 
 // Helper function for labeling categories
@@ -68,7 +68,7 @@ export const CATEGORIES = defineEnum({
 
   // One-Handed Melee
   unarmed: {
-    label: "WEAPON.CATEGORIES.Unarmed",
+    label: "TRAINING.LABELS.unarmedShort",
     hands: 1,
     main: true,
     off: true,
@@ -79,7 +79,7 @@ export const CATEGORIES = defineEnum({
     training: ["unarmed"]
   },
   light1: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Light", 1),
+    label: label.bind(globalThis, "TRAINING.LABELS.lightShort", 1),
     hands: 1,
     main: true,
     off: true,
@@ -90,7 +90,7 @@ export const CATEGORIES = defineEnum({
     training: ["light"]
   },
   simple1: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Simple", 1),
+    label: label.bind(globalThis, "TRAINING.LABELS.simpleShort", 1),
     hands: 1,
     main: true,
     off: true,
@@ -114,7 +114,7 @@ export const CATEGORIES = defineEnum({
     training: ["heavy", "light"]
   },
   heavy1: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Heavy", 1),
+    label: label.bind(globalThis, "TRAINING.LABELS.heavyShort", 1),
     hands: 1,
     main: true,
     off: false,
@@ -128,7 +128,7 @@ export const CATEGORIES = defineEnum({
 
   // Two-Handed Melee
   simple2: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Simple", 2),
+    label: label.bind(globalThis, "TRAINING.LABELS.simpleShort", 2),
     hands: 2,
     main: true,
     off: false,
@@ -152,7 +152,7 @@ export const CATEGORIES = defineEnum({
     training: ["light", "heavy"]
   },
   heavy2: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Heavy", 2),
+    label: label.bind(globalThis, "TRAINING.LABELS.heavyShort", 2),
     hands: 2,
     main: true,
     off: false,
@@ -166,7 +166,7 @@ export const CATEGORIES = defineEnum({
 
   // One-Handed Ranged
   projectile1: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Projectile", 1),
+    label: label.bind(globalThis, "TRAINING.LABELS.projectileShort", 1),
     hands: 1,
     main: true,
     off: true,
@@ -179,7 +179,7 @@ export const CATEGORIES = defineEnum({
     training: ["projectile"]
   },
   talisman1: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Talisman", 1),
+    label: label.bind(globalThis, "TRAINING.LABELS.talismanShort", 1),
     hands: 1,
     main: true,
     off: true,
@@ -192,7 +192,7 @@ export const CATEGORIES = defineEnum({
     training: ["talisman"]
   },
   mechanical1: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Mechanical", 1),
+    label: label.bind(globalThis, "TRAINING.LABELS.mechanicalShort", 1),
     hands: 1,
     main: true,
     off: true,
@@ -208,7 +208,7 @@ export const CATEGORIES = defineEnum({
 
   // Two-Handed Ranged
   projectile2: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Projectile", 2),
+    label: label.bind(globalThis, "TRAINING.LABELS.projectileShort", 2),
     hands: 2,
     main: true,
     off: false,
@@ -221,7 +221,7 @@ export const CATEGORIES = defineEnum({
     training: ["projectile"]
   },
   talisman2: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Talisman", 2),
+    label: label.bind(globalThis, "TRAINING.LABELS.talismanShort", 2),
     hands: 2,
     main: true,
     off: false,
@@ -234,7 +234,7 @@ export const CATEGORIES = defineEnum({
     training: ["talisman"]
   },
   mechanical2: {
-    label: label.bind(globalThis, "WEAPON.CATEGORIES.Mechanical", 2),
+    label: label.bind(globalThis, "TRAINING.LABELS.mechanicalShort", 2),
     hands: 2,
     main: true,
     off: false,
