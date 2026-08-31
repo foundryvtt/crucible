@@ -60,8 +60,7 @@ pages:
         <p><strong>Cooking</strong> is the tradecraft of combining commonly
         available ingredients in order to prepare a consumable meal for
         sustenance. Well trained cooks can prepare hearty meals that bolster
-        party performance and aid in the recovery of
-        morale.</p>
+        party performance and aid in the recovery of morale.</p>
     video:
       controls: true
       volume: 0.5
@@ -179,8 +178,7 @@ pages:
         <p><strong>Jewelcrafting</strong> is the art of combining decorative
         metals and rare crystalized minerals to compose rings, bracelets, and
         necklaces as well as the insetting of decorative (and potentially
-        magical) gems into these and other pieces of
-        equipment.</p>
+        magical) gems into these and other pieces of equipment.</p>
     video:
       controls: true
       volume: 0.5
@@ -217,8 +215,7 @@ pages:
         physical manifestations of metaphysical
         @UUID[Compendium.crucible.rules.JournalEntry.qjTSKlh59JhtUuEr.JournalEntryPage.p3hKRiZN3x0DEtyG]{Runes}
         to create Glyphs. Glyphs can be used to imbue magical properties into
-        non-magical materials or as a component to aid ritual
-        magic.</p>
+        non-magical materials or as a component to aid ritual magic.</p>
     video:
       controls: true
       volume: 0.5
@@ -253,8 +250,7 @@ pages:
       content: >-
         <p>Smithing is the skill of working to combine base metals and alloys in
         the production of tools, armor, and weapons as well as the repair and
-        maintenance of metal-crafted items and
-        equipment.</p>
+        maintenance of metal-crafted items and equipment.</p>
     video:
       controls: true
       volume: 0.5
