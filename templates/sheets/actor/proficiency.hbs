@@ -7,6 +7,8 @@
             <span class="value">{{proficiency.available}}</span>
             <span class="label">{{localize "ACTOR.SHEET.PointsSpent"}}</span>
             <span class="value">{{proficiency.spent}}</span>
+            <a class="button icon fa-solid fa-undo" data-action="proficiencyReset"
+               aria-label="{{localize "ACTOR.ACTIONS.ResetProficiency"}}" data-tooltip></a>
         </div>
     </div>
 
@@ -33,24 +35,14 @@
                 </div>
                 <div class="bonus flexrow">
                     {{#if training.rollable}}
-                    <span class="value hex small {{training.hexClass}}" data-tooltip="{{training.tooltips.value}}">
-                        {{numberFormat training.score sign=true}}
-                    </span>
                     <span class="passive"
                           data-tooltip="{{localize "SKILL.PassiveSpecific" passive=training.tooltips.passive}}">
                         {{training.passive}}
                     </span>
-                    {{else}}
-                    <span class="value" data-tooltip aria-label="{{localize 'TRAINING.BonusTooltip'}}">
-                        {{numberFormat training.bonus sign=true}}
+                    {{/if}}
+                    <span class="value hex small {{training.hexClass}}" data-tooltip="{{training.tooltips.value}}">
+                        {{numberFormat training.score sign=true}}
                     </span>
-                    {{/if}}
-                </div>
-                <div class="allocate flexrow">
-                    {{#if training.canDecrease}}
-                    <button type="button" class="icon fa-solid fa-minus" data-action="proficiencyDecrease"
-                            data-tooltip aria-label="{{localize 'TRAINING.Decrease'}}"></button>
-                    {{/if}}
                 </div>
                 <div class="bar-container" data-tooltip
                      aria-label="{{localize 'TRAINING.PointsTooltip' points=training.points}}">
@@ -58,14 +50,17 @@
                     {{#each ../../proficiency.ticks as |tick|}}
                     <span class="tick" style="left: {{tick.left}}" data-tooltip aria-label="{{tick.label}}"></span>
                     {{/each}}
-                    {{#with ../../proficiency.capTick as |cap|}}
+                    {{#with training.capTick as |cap|}}
                     <span class="tick cap" style="left: {{cap.left}}" data-tooltip aria-label="{{cap.label}}"></span>
                     {{/with}}
                 </div>
-                <div class="controls">
-                    <button type="button" class="icon fa-solid fa-plus" data-action="proficiencyIncrease"
+                <div class="buttons flexcol">
+                    <button type="button" class="plain icon fa-solid fa-caret-up" data-action="proficiencyIncrease"
                             data-tooltip aria-label="{{localize 'TRAINING.Increase'}}"
                             {{#unless training.canIncrease}}disabled{{/unless}}></button>
+                    <button type="button" class="plain icon fa-solid fa-caret-down" data-action="proficiencyDecrease"
+                            data-tooltip aria-label="{{localize 'TRAINING.Decrease'}}"
+                            {{#unless training.canDecrease}}disabled{{/unless}}></button>
                 </div>
             </li>
             {{/each}}

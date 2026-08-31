@@ -113,6 +113,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         return this.actor.toggleTalentTree();
       case "talentReset":
         return this.actor.resetTalents();
+      case "proficiencyReset":
+        return this.actor.resetTraining();
     }
   }
 
@@ -120,7 +122,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
 
   /**
    * Prepare training data for the Proficiency tab, grouped by the kind of training.
-   * @returns {{groups: Record<string, object>, available: number, spent: number}}
+   * @param {Record<string, object>} skillCategories   Enriched skill categories from the base sheet context.
+   * @returns {{sections: object[], ticks: object[], available: number, spent: number}}
    */
   #prepareProficiency(skillCategories) {
     const {RANKS, RANK_VALUES, POINTS_MAX, GROUPS} = SYSTEM.TRAINING;
@@ -128,26 +131,41 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     const {training, points, details} = actor.system;
     const pct = n => `${(Math.clamp(n / POINTS_MAX, 0, 1) * 100).toFixed(2)}%`;
 
-    // Every bar spans the full point range, marked with the rank thresholds and this Actor's current cap
+    // Every bar spans the full point range, marked with the rank thresholds
     const cap = details.progression.trainingCap;
     const ticks = Object.values(RANKS).filter(r => (r.required > 0) && (r.required < POINTS_MAX))
       .map(r => ({left: pct(r.required), label: `${r.label} (${r.required})`}));
-    const capTick = cap < POINTS_MAX
-      ? {left: pct(cap), label: _loc("TRAINING.CapTooltip", {points: cap})} : null;
+    const capLabel = _loc("TRAINING.CapTooltip", {points: cap});
+    const signed = n => `${n < 0 ? "-" : "+"} ${Math.abs(n)}`; // Pretty formatting for signed addition
 
     // Common to every training type, whether or not it is also a Skill
     const prepareType = (config, color) => {
       const t = training[config.id];
+      const abilities = SYSTEM.TRAINING.TYPES[config.id].abilities ?? [];
+      const rank = RANK_VALUES[t.value];
       return {
-        ...config, color, points: t.points,
-        rank: RANK_VALUES[t.value],
+        ...config, color, rank, score: t.score, passive: t.passive, points: t.points,
         widthPct: pct(t.points),
+        abilityAbbrs: abilities.map(a => SYSTEM.ABILITIES[a].abbreviation),
+        // A pair names both sextants it spans; a single ability names its own
+        hexClass: abilities.toSorted().join("-"),
+        tooltips: {
+          value: _loc("TRAINING.TooltipCheck", {
+            abilities: abilities.map(a => `${actor.system.abilities[a].value} ${SYSTEM.ABILITIES[a].abbreviation}`)
+              .join(" + "),
+            divisor: abilities.length * 2,
+            rank: rank.label, skill: signed(t.skillBonus), enchantment: signed(t.enchantmentBonus)
+          }),
+          passive: _loc("TRAINING.TooltipPassive", {score: t.score})
+        },
+        // The cap only earns a marker where it is actually binding on this training
+        capTick: (cap < POINTS_MAX) && (t.points === cap) ? {left: pct(cap), label: capLabel} : null,
         canIncrease: actor.canPurchaseTraining(config.id, 1),
         canDecrease: actor.canPurchaseTraining(config.id, -1)
       };
     };
 
-    // Skills keep everything the Skills tab gave them: roll action, ability badges, formula tooltips, passive score
+    // Skills additionally offer their roll action from the title
     const sections = Object.values(skillCategories).map(category => ({
       label: _loc("SKILL.CategoryHeader", {category: category.label}),
       color: category.color.css,
@@ -156,14 +174,9 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     for ( const [group, record] of [["weapon", SYSTEM.WEAPON.TRAINING], ["spell", SYSTEM.SPELL.TRAINING],
       ["craft", SYSTEM.CRAFTING.TRAINING]] ) {
       const {label, color} = GROUPS[group];
-      const types = Object.values(record).map(c => {
-        const type = prepareType(c, color);
-        type.bonus = type.rank.bonus; // No ability pair is configured, so the rank bonus stands alone
-        return type;
-      });
-      sections.push({label, color, types});
+      sections.push({label, color, types: Object.values(record).map(c => prepareType(c, color))});
     }
-    return {sections, ticks, capTick, available: points.proficiency.available, spent: points.proficiency.spent};
+    return {sections, ticks, available: points.proficiency.available, spent: points.proficiency.spent};
   }
 
   /* -------------------------------------------- */

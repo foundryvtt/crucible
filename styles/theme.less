@@ -374,8 +374,9 @@
     }
     &.flat,
     &.dexterity-intellect, &.dexterity-presence, &.dexterity-strength, &.intellect-presence,
-    &.intellect-toughness, &.intellect-wisdom, &.presence-strength, &.presence-wisdom,
-    &.strength-wisdom, &.toughness-wisdom {
+    &.intellect-strength, &.intellect-toughness, &.intellect-wisdom, &.presence-strength,
+    &.presence-wisdom, &.strength-wisdom, &.toughness-wisdom,
+    &.dexterity, &.toughness, &.strength, &.wisdom, &.presence, &.intellect {
       --hex-bg-size: auto var(--hex-size);
     }
 
@@ -384,23 +385,31 @@
     &.small {
       --hex-bg: url("../ui/elements/hex-plain-64.webp");
       &.filled {--hex-bg: url("../ui/elements/hex-plain-filled-64.webp")}
-      &.dexterity-intellect, &.intellect-presence, &.presence-wisdom {
+      &.intellect-strength {--hex-bg: url("../ui/elements/hex-accent-2a-64.webp")}
+      &.dexterity-intellect, &.intellect-presence, &.presence-wisdom, &.strength-wisdom {
         --hex-bg: url("../ui/elements/hex-accent-2b-64.webp");
       }
       &.dexterity-presence, &.dexterity-strength, &.intellect-toughness, &.intellect-wisdom,
-      &.presence-strength, &.strength-wisdom, &.toughness-wisdom {
+      &.presence-strength, &.toughness-wisdom {
         --hex-bg: url("../ui/elements/hex-accent-2c-64.webp");
+      }
+      &.dexterity, &.toughness, &.strength, &.wisdom, &.presence, &.intellect {
+        --hex-bg: url("../ui/elements/hex-accent-single-64.webp");
       }
     }
     &.tiny {
       --hex-bg: url("../ui/elements/hex-plain-48.webp");
       &.filled {--hex-bg: url("../ui/elements/hex-plain-filled-48.webp")}
-      &.dexterity-intellect, &.intellect-presence, &.presence-wisdom {
+      &.intellect-strength {--hex-bg: url("../ui/elements/hex-accent-2a-48.webp")}
+      &.dexterity-intellect, &.intellect-presence, &.presence-wisdom, &.strength-wisdom {
         --hex-bg: url("../ui/elements/hex-accent-2b-48.webp");
       }
       &.dexterity-presence, &.dexterity-strength, &.intellect-toughness, &.intellect-wisdom,
-      &.presence-strength, &.strength-wisdom, &.toughness-wisdom {
+      &.presence-strength, &.toughness-wisdom {
         --hex-bg: url("../ui/elements/hex-accent-2c-48.webp");
+      }
+      &.dexterity, &.toughness, &.strength, &.wisdom, &.presence, &.intellect {
+        --hex-bg: url("../ui/elements/hex-accent-single-48.webp");
       }
     }
     &.dexterity-intellect {
@@ -436,13 +445,30 @@
       --hex-rotation: 120deg;
     }
     &.strength-wisdom {
-      --hex-bg: url("../ui/elements/hex-accent-2c.webp");
-      --hex-rotation: 0;
+      --hex-bg: url("../ui/elements/hex-accent-2b.webp");
+      --hex-rotation: 60deg;
     }
     &.toughness-wisdom {
       --hex-bg: url("../ui/elements/hex-accent-2c.webp");
       --hex-rotation: 0;
     }
+    &.intellect-strength {
+      --hex-bg: url("../ui/elements/hex-accent-2a.webp"); // Opposing sextants, so the two-edge accent art
+      --hex-rotation: 60deg;
+    }
+
+    // A training scaling with one ability marks that ability's sextant of the talent tree. Unrotated art
+    // marks the bottom edge, which is Toughness, so each rotation is that sextant's angle less 90 degrees.
+    &.dexterity, &.toughness, &.strength, &.wisdom, &.presence, &.intellect {
+      --hex-bg: url("../ui/elements/hex-accent-single.webp");
+    }
+    &.dexterity {--hex-rotation: -60deg}
+    &.toughness {--hex-rotation: 0}
+    &.strength {--hex-rotation: 60deg}
+    &.wisdom {--hex-rotation: 120deg}
+    &.presence {--hex-rotation: 180deg}
+    &.intellect {--hex-rotation: 240deg}
+
     .value.large {
       font-size: 2em;
     }
