@@ -43,9 +43,6 @@ system:
   nodes:
     - wis2c
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
   rune: ''
   gesture: ''
   inflection: ''

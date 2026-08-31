@@ -17,9 +17,6 @@ system:
   rune: ''
   inflection: ''
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
 effects: []
 ownership:
   default: 0

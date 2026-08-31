@@ -17,9 +17,6 @@ system:
     - preint2
   rune: ''
   gesture: ''
-  training:
-    type: ''
-    rank: null
 effects: []
 flags:
   core: {}

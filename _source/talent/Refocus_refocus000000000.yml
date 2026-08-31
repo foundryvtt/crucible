@@ -43,9 +43,7 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 0
-  training:
-    type: talisman
-    rank: 1
+  training: talisman
   nodes:
     - pre0a
   rune: ''

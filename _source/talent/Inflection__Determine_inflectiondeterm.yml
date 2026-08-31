@@ -14,9 +14,6 @@ system:
     - preint2
   rune: ''
   gesture: ''
-  training:
-    type: ''
-    rank: null
 effects: []
 sort: 300000
 ownership:

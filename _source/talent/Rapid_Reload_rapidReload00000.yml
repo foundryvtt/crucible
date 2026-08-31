@@ -37,9 +37,7 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 0
-  training:
-    type: mechanical
-    rank: 1
+  training: mechanical
   nodes:
     - dex0a
   rune: ''

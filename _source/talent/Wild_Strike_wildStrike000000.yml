@@ -41,9 +41,7 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 0
-  training:
-    type: natural
-    rank: 1
+  training: natural
   nodes:
     - tou0b
   rune: ''

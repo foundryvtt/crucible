@@ -17,9 +17,6 @@ system:
     - wispre4
   rune: ''
   gesture: ''
-  training:
-    type: ''
-    rank: null
 effects: []
 sort: 100000
 ownership:
