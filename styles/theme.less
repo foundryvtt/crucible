@@ -338,9 +338,10 @@
 
   // Bordered hexes
   .hex {
-    --hex-bg: url("../ui/elements/hex-plain.svg");
+    --hex-bg: url("../ui/elements/hex-plain.webp");
     --hex-rotation: 0;
-    --hex-size: 64px;
+    --hex-size: 64px; // Always the hexagon's flat-to-flat measure, whatever the art's orientation
+    --hex-bg-size: var(--hex-size) auto; // The default art is pointy-topped
     position: relative;
     display: flex;
     height: calc(1.25 * var(--hex-size));
@@ -351,54 +352,95 @@
     &::before {
       content: "";
       position: absolute;
-      width: 100%;
+      // Backgrounds clip to the border box, and flat-top art is wider than --hex-size. Overhang the
+      // painting box so a vertex dimension is never cut; 150% keeps every centring offset integral.
+      width: 150%;
+      left: -25%;
       height: 100%;
       background: var(--hex-bg) no-repeat center;
-      background-size: auto var(--hex-size);
+      background-size: var(--hex-bg-size);
       transform: rotate(var(--hex-rotation));
       z-index: -1;
     }
     &.filled {
-      --hex-bg: url("../ui/elements/hex-plain-filled.svg");
+      --hex-bg: url("../ui/elements/hex-plain-filled.webp");
+    }
+
+    // Orientation. Art is sized on its flat dimension, so whole pixels land under the long straight
+    // strokes where aliasing shows. Pointy-topped art is flat left-to-right and sizes on width;
+    // flat-topped art is flat top-to-bottom and sizes on height. Every ability-pair accent is flat.
+    &.pointy {
+      --hex-bg-size: var(--hex-size) auto;
+    }
+    &.flat,
+    &.dexterity-intellect, &.dexterity-presence, &.dexterity-strength, &.intellect-presence,
+    &.intellect-toughness, &.intellect-wisdom, &.presence-strength, &.presence-wisdom,
+    &.strength-wisdom, &.toughness-wisdom {
+      --hex-bg-size: auto var(--hex-size);
+    }
+
+    // Size tiers. Art is never downscaled more than about 3x, so small annotations load smaller
+    // sources: tiny covers renders up to 24px, small covers 25-32px, the default covers 33-64px.
+    &.small {
+      --hex-bg: url("../ui/elements/hex-plain-64.webp");
+      &.filled {--hex-bg: url("../ui/elements/hex-plain-filled-64.webp")}
+      &.dexterity-intellect, &.intellect-presence, &.presence-wisdom {
+        --hex-bg: url("../ui/elements/hex-accent-2b-64.webp");
+      }
+      &.dexterity-presence, &.dexterity-strength, &.intellect-toughness, &.intellect-wisdom,
+      &.presence-strength, &.strength-wisdom, &.toughness-wisdom {
+        --hex-bg: url("../ui/elements/hex-accent-2c-64.webp");
+      }
+    }
+    &.tiny {
+      --hex-bg: url("../ui/elements/hex-plain-48.webp");
+      &.filled {--hex-bg: url("../ui/elements/hex-plain-filled-48.webp")}
+      &.dexterity-intellect, &.intellect-presence, &.presence-wisdom {
+        --hex-bg: url("../ui/elements/hex-accent-2b-48.webp");
+      }
+      &.dexterity-presence, &.dexterity-strength, &.intellect-toughness, &.intellect-wisdom,
+      &.presence-strength, &.strength-wisdom, &.toughness-wisdom {
+        --hex-bg: url("../ui/elements/hex-accent-2c-48.webp");
+      }
     }
     &.dexterity-intellect {
-      --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2b.webp");
       --hex-rotation: -120deg;
     }
     &.dexterity-strength {
-      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2c.webp");
       --hex-rotation: -60deg;
     }
     &.dexterity-presence {
-      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2c.webp");
       --hex-rotation: 180deg;
     }
     &.intellect-presence {
-      --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2b.webp");
       --hex-rotation: 180deg;
     }
     &.intellect-toughness {
-      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2c.webp");
       --hex-rotation: -120deg;
     }
     &.intellect-wisdom {
-      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2c.webp");
       --hex-rotation: 120deg;
     }
     &.presence-strength {
-      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2c.webp");
       --hex-rotation: 60deg;
     }
     &.presence-wisdom {
-      --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2b.webp");
       --hex-rotation: 120deg;
     }
     &.strength-wisdom {
-      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2c.webp");
       --hex-rotation: 0;
     }
     &.toughness-wisdom {
-      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-bg: url("../ui/elements/hex-accent-2c.webp");
       --hex-rotation: 0;
     }
     .value.large {
@@ -408,8 +450,9 @@
 
   // Labeled Hex
   .labeled-hex {
-    --hex-bg: url("../ui/elements/hex-plain.svg");
+    --hex-bg: url("../ui/elements/hex-plain.webp");
     --hex-size: 64px;
+    --hex-bg-size: var(--hex-size) auto; // Pointy-topped art
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -418,7 +461,7 @@
     height: calc(1.25 * var(--hex-size));
     padding: 1rem 0 0;
     background: var(--hex-bg) no-repeat bottom center;
-    background-size: auto var(--hex-size);
+    background-size: var(--hex-bg-size);
     h4 {
       position: absolute;
       top: 0;

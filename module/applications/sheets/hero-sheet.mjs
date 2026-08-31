@@ -25,7 +25,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     // Proficiency is a Hero-only advancement track, so its tab is not shared with other Actor types
     this.PARTS.proficiency = {
       id: "proficiency",
-      template: "systems/crucible/templates/sheets/actor/proficiency.hbs"
+      template: "systems/crucible/templates/sheets/actor/proficiency.hbs",
+      scrollable: [""] // The tab section is itself the scroller, so its position survives re-render
     };
     const tabs = this.TABS.sheet.tabs;
     tabs.splice(tabs.findIndex(t => t.id === "skills") + 1, 0,
@@ -57,7 +58,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       ancestryName: s.system.details.ancestry?.name || _loc("ANCESTRY.SHEET.Choose"),
       backgroundName: s.system.details.background?.name || _loc("BACKGROUND.SHEET.Choose"),
       capacity: a.system.capacity,
-      proficiency: this.#prepareProficiency(),
+      proficiency: this.#prepareProficiency(context.skillCategories),
       talentTreeButtonText: _loc(`ACTOR.ACTIONS.TalentTree${game.system.tree.actor === a ? "Close" : "Open"}`)
     });
 
@@ -121,29 +122,48 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
    * Prepare training data for the Proficiency tab, grouped by the kind of training.
    * @returns {{groups: Record<string, object>, available: number, spent: number}}
    */
-  #prepareProficiency() {
-    const {TYPES, RANK_VALUES} = SYSTEM.TRAINING;
-    const {training, points} = this.actor.system;
-    const groups = {};
-    for ( const config of Object.values(TYPES) ) {
-      const t = training[config.id];
-      const rank = RANK_VALUES[t.value];
-      const next = RANK_VALUES[t.value + 1];
+  #prepareProficiency(skillCategories) {
+    const {RANKS, RANK_VALUES, POINTS_MAX, GROUPS} = SYSTEM.TRAINING;
+    const actor = this.actor;
+    const {training, points, details} = actor.system;
+    const pct = n => `${(Math.clamp(n / POINTS_MAX, 0, 1) * 100).toFixed(2)}%`;
 
-      // The bar fills across the current rank band rather than from zero, so progress is always legible
-      const span = next ? next.required - rank.required : 0;
-      const pct = next ? (t.points - rank.required) / span : 1;
-      const group = groups[config.group] ??= {label: config.group, types: {}};
-      group.types[config.id] = {
-        ...config, rank, points: t.points,
-        end: next?.required ?? t.points,
-        widthPct: `${Math.round(Math.clamp(pct, 0, 1) * 100)}%`,
-        nextTooltip: _loc(next ? "TRAINING.NextTooltip" : "TRAINING.MaximumTooltip", {rank: next?.label}),
-        canIncrease: this.actor.canPurchaseTraining(config.id, 1),
-        canDecrease: this.actor.canPurchaseTraining(config.id, -1)
+    // Every bar spans the full point range, marked with the rank thresholds and this Actor's current cap
+    const cap = details.progression.trainingCap;
+    const ticks = Object.values(RANKS).filter(r => (r.required > 0) && (r.required < POINTS_MAX))
+      .map(r => ({left: pct(r.required), label: `${r.label} (${r.required})`}));
+    const capTick = cap < POINTS_MAX
+      ? {left: pct(cap), label: _loc("TRAINING.CapTooltip", {points: cap})} : null;
+
+    // Common to every training type, whether or not it is also a Skill
+    const prepareType = (config, color) => {
+      const t = training[config.id];
+      return {
+        ...config, color, points: t.points,
+        rank: RANK_VALUES[t.value],
+        widthPct: pct(t.points),
+        canIncrease: actor.canPurchaseTraining(config.id, 1),
+        canDecrease: actor.canPurchaseTraining(config.id, -1)
       };
+    };
+
+    // Skills keep everything the Skills tab gave them: roll action, ability badges, formula tooltips, passive score
+    const sections = Object.values(skillCategories).map(category => ({
+      label: _loc("SKILL.CategoryHeader", {category: category.label}),
+      color: category.color.css,
+      types: Object.values(category.skills).map(s => ({...prepareType(s, category.color.css), rollable: true}))
+    }));
+    for ( const [group, record] of [["weapon", SYSTEM.WEAPON.TRAINING], ["spell", SYSTEM.SPELL.TRAINING],
+      ["craft", SYSTEM.CRAFTING.TRAINING]] ) {
+      const {label, color} = GROUPS[group];
+      const types = Object.values(record).map(c => {
+        const type = prepareType(c, color);
+        type.bonus = type.rank.bonus; // No ability pair is configured, so the rank bonus stands alone
+        return type;
+      });
+      sections.push({label, color, types});
     }
-    return {groups, available: points.proficiency.available, spent: points.proficiency.spent};
+    return {sections, ticks, capTick, available: points.proficiency.available, spent: points.proficiency.spent};
   }
 
   /* -------------------------------------------- */

@@ -2713,13 +2713,12 @@
     "TrainingCannotIncrease": "You cannot increase this Proficiency further."
   },
   "TRAINING": {
+    "BonusTooltip": "Your current bonus to checks using this training.",
+    "CapTooltip": "Your level presently limits any one training to {points} points.",
     "Decrease": "Reclaim a Proficiency Point",
     "Increase": "Allocate a Proficiency Point",
-    "MaximumTooltip": "Maximum training reached.",
-    "NextTooltip": "Training points required to become {rank}.",
-    "PointsAvailable": "Proficiency Points Available",
-    "PointsSpent": "Spent",
-    "PointsTooltip": "Training points accumulated, from every source."
+    "PassiveTooltip": "Your passive score for this training.",
+    "PointsTooltip": "{points} training points accumulated, from every source."
   },
   "WEAPON": {
     "CATEGORIES": {

@@ -409,28 +409,21 @@
           transition: background-position 1s;
         }
 
+        // Sizing, centering, and hex art all come from .hex
         .threshold {
+          --hex-size: 28px;
           position: absolute;
-          bottom: -8px;
-          flex: none;
-          width: 32px;
-          height: 40px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          background: url("../ui/elements/hex-plain.svg") no-repeat center;
-          background-size: auto 32px;
+          bottom: -5px;
           .value {
             font-size: var(--font-size-12);
             font-family: var(--font-h1);
             color: var(--color-secondary);
           }
           &.wounds {
-            right: -12px;
+            right: -10px;
           }
           &.madness {
-            left: -12px;
+            left: -10px;
           }
         }
       }
@@ -447,8 +440,9 @@
       .economy {
         height: 100%;
         align-items: center;
-        gap: 0.5rem;
-        padding: 1.25rem 0 0;
+        justify-content: center;
+        padding: 0.5rem 0 0;
+        gap: 0.25rem;
         .currency {
           width: 100%;
           align-items: center;
@@ -478,7 +472,7 @@
           .crucible-rank-pips {
             flex: 0 0 100px;
             justify-content: center;
-            gap: 4px 2px;
+            gap: 1px 2px;
           }
         }
         .action {
@@ -510,8 +504,10 @@
         justify-content: center;
         align-items: center;
         gap: 0;
-        background: url("../ui/abilities/frame.svg") no-repeat center;
-        background-size: cover;
+        // The frame's ink is drawn flush to the bottom of its source canvas, with the top margin left
+        // clear for the label. Anchor to the bottom so cropping to ink does not lift it off the icons.
+        background: url("../ui/abilities/frame.webp") no-repeat bottom center;
+        background-size: 100% auto; // Art is cropped to ink, so cover would clip its sides
 
         .label {
           position: absolute;
@@ -533,22 +529,22 @@
         }
       }
       .strength {
-        --ability-icon: url("../ui/abilities/strength.svg");
+        --ability-icon: url("../ui/abilities/strength.webp");
       }
       .toughness {
-        --ability-icon: url("../ui/abilities/toughness.svg");
+        --ability-icon: url("../ui/abilities/toughness.webp");
       }
       .dexterity {
-        --ability-icon: url("../ui/abilities/dexterity.svg");
+        --ability-icon: url("../ui/abilities/dexterity.webp");
       }
       .wisdom {
-        --ability-icon: url("../ui/abilities/wisdom.svg");
+        --ability-icon: url("../ui/abilities/wisdom.webp");
       }
       .presence {
-        --ability-icon: url("../ui/abilities/presence.svg");
+        --ability-icon: url("../ui/abilities/presence.webp");
       }
       .intellect {
-        --ability-icon: url("../ui/abilities/intellect.svg");
+        --ability-icon: url("../ui/abilities/intellect.webp");
       }
 
       // Control Buttons
@@ -620,7 +616,7 @@
         .total {
           width: 60px;
           height: 100px;
-          background: url("../ui/elements/hex-willpower.svg") no-repeat center;
+          background: url("../ui/elements/hex-willpower.webp") no-repeat center;
           background-size: 60px;
         }
         .sep {
@@ -630,7 +626,7 @@
         .component {
           width: 40px;
           height: 80px;
-          background: url("../ui/elements/hex-plain.svg") no-repeat center;
+          background: url("../ui/elements/hex-plain.webp") no-repeat center;
           background-size: 40px;
           .value {
             font-size: var(--font-size-18);
@@ -658,26 +654,26 @@
           height: 80px;
           padding: 16px 0 0;
           background: var(--defense-icon) no-repeat bottom center;
-          background-size: auto 64px;
+          background-size: 56px auto;
           &.fortitude {
-            --defense-icon: url("../ui/elements/hex-fortitude.svg");
+            --defense-icon: url("../ui/elements/hex-fortitude.webp");
           }
           &.willpower {
-            --defense-icon: url("../ui/elements/hex-willpower.svg");
+            --defense-icon: url("../ui/elements/hex-willpower.webp");
           }
           &.reflex {
-            --defense-icon: url("../ui/elements/hex-reflex.svg");
+            --defense-icon: url("../ui/elements/hex-reflex.webp");
           }
         }
 
         // Stride and Engagement
         .extra {
-          --defense-icon: url("../ui/elements/hex-plain.svg");
+          --defense-icon: url("../ui/elements/hex-plain-64.webp");
           width: 32px;
           height: 64px;
           align-self: flex-end;
           padding: 16px 0;
-          background-size: auto 32px;
+          background-size: 28px auto;
           background-position: center;
           .value {
             font-size: var(--font-size-12);
@@ -723,8 +719,8 @@
           .value {
             flex: 0 0 24px;
             height: 24px;
-            background: url("../ui/elements/hex-plain-filled.svg") no-repeat center;
-            background-size: auto 24px;
+            background: url("../ui/elements/hex-plain-filled-48.webp") no-repeat center;
+            background-size: 20px auto;
             line-height: 24px;
             text-align: center;
             font-size: var(--font-size-12);
@@ -747,8 +743,8 @@
         }
         &.immunity {
           .value {
-            background: url("../ui/elements/hex-immunity.svg") no-repeat center;
-            background-size: auto 24px;
+            background: url("../ui/elements/hex-immunity.webp") no-repeat center;
+            background-size: 20px auto;
           }
           .bar {
             left: 0;
@@ -759,8 +755,8 @@
         }
         &.res {
           .value {
-            background: url("../ui/elements/hex-resistance.svg") no-repeat center;
-            background-size: auto 24px;
+            background: url("../ui/elements/hex-resistance.webp") no-repeat center;
+            background-size: 20px auto;
           }
           .bar {
             left: 50%;
@@ -772,8 +768,8 @@
         }
         &.vuln {
           .value {
-            background: url("../ui/elements/hex-vulnerability.svg") no-repeat center;
-            background-size: auto 24px;
+            background: url("../ui/elements/hex-vulnerability.webp") no-repeat center;
+            background-size: 20px auto;
           }
           .bar {
             right: 50%;
@@ -840,7 +836,7 @@
       .value {
         flex: 0 0 24px;
         height: 24px;
-        background: url("../ui/elements/hex-plain.svg") no-repeat center;
+        background: url("../ui/elements/hex-plain-48.webp") no-repeat center;
         background-size: auto 24px;
         line-height: 24px;
         text-align: center;
@@ -987,49 +983,76 @@
   /* ----------------------------------------- */
 
   .proficiency-list .line-item {
+    // Columns: .icon .title .bonus .allocate .bar-container .controls
+    display: grid;
+    grid-template-columns: auto minmax(140px, 1fr) 68px 24px minmax(120px, 2fr) 24px;
+    align-items: center;
+    gap: 0.75rem;
+
     .title {
-      flex: 2;
-      h4 { margin: 0; }
+      min-width: 0;
+      h4 {
+        margin: 0;
+        font-size: var(--title-font-size);
+      }
+      .tags { margin-top: 0.125rem; }
     }
-    .progress {
-      flex: 3;
-      gap: 0.5rem;
-      align-items: center;
-      .current, .max {
-        flex: none;
-        font-size: var(--font-size-12);
-        color: var(--color-text-secondary);
+
+    // Score and passive, sized to keep rows compact rather than as tall as a full hex
+    .bonus {
+      justify-content: center;
+      gap: 0.25rem;
+      span.value {
+        --hex-size: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 32px;
+        height: 40px;
+        font-family: var(--font-h1);
+        font-size: var(--font-size-14);
+      }
+      span.passive {
+        flex: 0 0 20px;
+        text-align: center;
+        font-size: var(--font-size-10);
+        font-family: var(--font-sans);
+        color: var(--color-secondary);
       }
     }
+
+    // Reserved so rows stay aligned whether or not the control is shown
+    .allocate {
+      justify-content: flex-end;
+    }
+
     .bar-container {
-      flex: 1;
+      position: relative;
       height: 16px;
-      box-sizing: content-box;
       background: var(--color-frame-bg);
       border: 1px solid var(--color-frame);
       border-radius: 4px;
+      overflow: hidden;
       .bar {
         display: block;
-        height: 12px;
-        max-width: calc(100% - 4px);
-        margin: 2px;
-        background: var(--color-warm-2);
-        border-radius: 2px;
+        height: 100%;
+        background: var(--bar-color);
+        opacity: 0.85;
+      }
+
+      // Rank thresholds, and the point beyond which this Actor's level does not yet permit progress
+      .tick {
+        position: absolute;
+        top: 0;
+        width: 1px;
+        height: 100%;
+        background: var(--color-frame);
+        &.cap {
+          width: 2px;
+          background: var(--color-text-emphatic);
+        }
       }
     }
-    .controls {
-      flex: none;
-      display: flex;
-      gap: 0.25rem;
-    }
-  }
-
-  .proficiency-footer {
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    .label { color: var(--color-text-secondary); }
-    .value { font-weight: bold; }
   }
 }
 
@@ -1063,9 +1086,9 @@
     align-items: flex-start;
     .movement-speed {
       --hex-size: 64px;
-      &.land {--hex-bg: url("../ui/elements/hex-willpower.svg");}
-      &.water {--hex-bg: url("../ui/elements/hex-fortitude.svg");}
-      &.air {--hex-bg: url("../ui/elements/hex-reflex.svg");}
+      &.land {--hex-bg: url("../ui/elements/hex-willpower.webp");}
+      &.water {--hex-bg: url("../ui/elements/hex-fortitude.webp");}
+      &.air {--hex-bg: url("../ui/elements/hex-reflex.webp");}
     }
     button.value {
       --button-text-color: var(--color-text-emphatic);
