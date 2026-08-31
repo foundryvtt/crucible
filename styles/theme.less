@@ -336,6 +336,30 @@
     color: var(--color-text);
   }
 
+  // Point accounting, following the roll breakdown of a chat card
+  .training-breakdown {
+    gap: 0.25rem;
+    .counter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: var(--font-size-12);
+      label {
+        color: var(--color-secondary);
+      }
+      .value {
+        width: 24px;
+        text-align: center;
+      }
+      &.total {
+        font-weight: bold;
+        border-top: 1px solid var(--color-frame);
+        padding-top: 0.25rem;
+      }
+    }
+  }
+
   // Bordered hexes
   .hex {
     --hex-bg: url("../ui/elements/hex-plain.webp");
@@ -563,6 +587,8 @@
     margin: 0 0 0.5rem;
     font-size: var(--font-size-16);
   }
+
+
 
   .group-check {
     display: grid;

@@ -2716,6 +2716,15 @@
     "TrainingCannotIncrease": "You cannot increase this Proficiency further."
   },
   "TRAINING": {
+    "BREAKDOWN": {
+      "Bonus": "Bonus",
+      "Cap": "Level Cap",
+      "Granted": "Granted",
+      "Increases": "Increases",
+      "Next": "Next Rank ({rank})",
+      "Talents": "Talents",
+      "Total": "Total"
+    },
     "BonusTooltip": "Your current bonus to checks using this training.",
     "CapTooltip": "Your level presently limits any one training to {points} points.",
     "Decrease": "Reclaim a Proficiency Point",

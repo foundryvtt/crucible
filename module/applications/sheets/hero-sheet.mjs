@@ -138,6 +138,30 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     const capLabel = _loc("TRAINING.CapTooltip", {points: cap});
     const signed = n => `${n < 0 ? "-" : "+"} ${Math.abs(n)}`; // Pretty formatting for signed addition
 
+    /**
+     * Account for where a training's points came from and what the next rank would cost.
+     * Contributing sources appear only when they contribute, so the rows always sum to the total.
+     * @param {object} t   The prepared training data for one type.
+     * @returns {string}   An HTML table for use as tooltip content.
+     */
+    const pointsBreakdown = t => {
+      const rows = [];
+      const row = (key, value, {cssClass="", ...data}={}) => rows.push(
+        `<div class="counter ${cssClass}"><label>${_loc(`TRAINING.BREAKDOWN.${key}`, data)}</label>`
+        + `<span class="value">${value}</span></div>`);
+      if ( t.initial ) row("Granted", t.initial);
+      if ( t.talents ) row("Talents", t.talents);
+      row("Increases", t.increases); // Always stated, since this is the row the player spends into
+      if ( t.bonus ) row("Bonus", signed(t.bonus));
+      if ( (cap < POINTS_MAX) && (t.points === cap) ) row("Cap", cap);
+
+      // Increases alone are their own total, so only sum when something else contributes
+      if ( t.initial || t.talents || t.bonus ) row("Total", t.points, {cssClass: "total"});
+      const next = Object.values(RANKS).find(r => r.required > t.points); // Ascending by points required
+      if ( next ) row("Next", next.required, {rank: _loc(next.label)});
+      return `<div class="training-breakdown flexcol">${rows.join("")}</div>`;
+    };
+
     // Common to every training type, whether or not it is also a Skill
     const prepareType = (config, color) => {
       const t = training[config.id];
@@ -156,7 +180,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
             divisor: abilities.length * 2,
             rank: rank.label, skill: signed(t.skillBonus), enchantment: signed(t.enchantmentBonus)
           }),
-          passive: _loc("TRAINING.TooltipPassive", {score: t.score})
+          passive: _loc("TRAINING.TooltipPassive", {score: t.score}),
+          points: pointsBreakdown(t)
         },
         // The cap only earns a marker where it is actually binding on this training
         capTick: (cap < POINTS_MAX) && (t.points === cap) ? {left: pct(cap), label: capLabel} : null,
