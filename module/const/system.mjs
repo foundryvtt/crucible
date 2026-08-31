@@ -2,17 +2,15 @@ import * as ATTRIBUTES from "./attributes.mjs";
 import * as ACTION from "./action.mjs";
 import * as ARMOR from "./armor.mjs";
 import * as CONSUMABLE from "./consumable.mjs";
-import * as CRAFTING from "./crafting.mjs";
+import * as PROFICIENCY from "./proficiencies.mjs";
 import * as DICE from "./dice.mjs";
 import * as ITEM from "./items.mjs";
 import * as EFFECTS from "./effects.mjs";
-import * as SKILL from "./skills.mjs";
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.mjs";
 import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
-import * as TRAINING from "./training.mjs";
 import {defineEnum} from "./enum.mjs";
 import {derivedConditions, statusEffects} from "./statuses.mjs";
 
@@ -236,7 +234,6 @@ export const SYSTEM = {
   ARMOR: {...ARMOR},
   COMPENDIUM_PACKS,
   CONSUMABLE: {...CONSUMABLE},
-  CRAFTING: {...CRAFTING},
   DAMAGE_CATEGORIES: ATTRIBUTES.DAMAGE_CATEGORIES,
   DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
   DEFENSES: ATTRIBUTES.DEFENSES,
@@ -248,13 +245,13 @@ export const SYSTEM = {
   RESOURCES: ATTRIBUTES.RESOURCES,
   RULES,
   RESOURCE_CONSTRAINTS: ATTRIBUTES.RESOURCE_CONSTRAINTS,
-  SKILL: {...SKILL},
-  SKILLS: SKILL.SKILLS,
+  PROFICIENCY: {...PROFICIENCY},
+  PROFICIENCIES: PROFICIENCY.PROFICIENCIES,
+  SKILLS: PROFICIENCY.SKILLS,
   SPELL: {...SPELL},
   TALENT: {...TALENT},
   TEMPERATURE_TIERS,
   THREAT_RANKS,
   TIME,
-  TRAINING: {...TRAINING},
   WEAPON: {...WEAPON}
 };

@@ -784,7 +784,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareSkills() {
     const skills = this.document.system.skills;
-    const categories = foundry.utils.deepClone(SYSTEM.SKILL.CATEGORIES);
+    const categories = foundry.utils.deepClone(SYSTEM.PROFICIENCY.SKILL_CATEGORIES);
     const signed = n => `${n < 0 ? "-" : "+"} ${Math.abs(n)}`; // Pretty formatting for signed addition
     for ( const skill of Object.values(SYSTEM.SKILLS) ) {
       const s = foundry.utils.mergeObject(skill, skills[skill.id], {inplace: false});
@@ -794,10 +794,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
       // Skill data
       s.abilityAbbrs = [a1.abbreviation, a2.abbreviation];
-      s.pips = Array.fromRange(SYSTEM.TRAINING.RANK_MAX).map(i => i < s.rank ? "full" : "");
+      s.pips = Array.fromRange(SYSTEM.PROFICIENCY.RANK_MAX).map(i => i < s.rank ? "full" : "");
 
       // Specialization status
-      const rank = SYSTEM.TRAINING.RANK_VALUES[s.rank];
+      const rank = SYSTEM.PROFICIENCY.RANK_VALUES[s.rank];
       s.rankTags = [rank.label];
       s.hexClass = skill.abilities.toSorted().join("-");
 

@@ -330,7 +330,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     if ( ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive") ) return null;
     const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
     if ( actor.getSkillBonus(trainingTypes) >= 0 ) return null;
-    const labels = trainingTypes.map(t => _loc(SYSTEM.WEAPON.TRAINING[t].label));
+    const labels = trainingTypes.map(t => _loc(SYSTEM.PROFICIENCY.WEAPONS[t].label));
     const training = game.i18n.getListFormatter({type: "disjunction"}).format(labels);
     return _loc("WEAPON.TAGS.UntrainedTooltip", {training});
   }

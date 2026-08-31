@@ -35,7 +35,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
         level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
       })),
       training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false,
-        integer: true, min: 0, initial: 0}), {validateKey: key => key in SYSTEM.TRAINING.TYPES}),
+        integer: true, min: 0, initial: 0}), {validateKey: key => key in SYSTEM.PROFICIENCIES}),
       characteristics: new fields.SchemaField({
         blooded: new fields.BooleanField({required: true, initial: true}),
         temperature: new fields.StringField({required: true, blank: true, initial: "",
