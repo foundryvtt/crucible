@@ -315,7 +315,7 @@ class CrucibleActionEvent {
     if ( this.#weaponItem ) return this.#weaponItem;
     const source = this.#action.actor.items.get(this.weapon._id);
     if ( !source ) return undefined;
-    const clone = source.clone();
+    const clone = source.clone({}, {keepId: true});
     clone.system.updateSource(this.weapon.system);
     return this.#weaponItem = clone;
   }

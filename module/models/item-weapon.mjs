@@ -183,7 +183,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     if ( !category.ranged ) bonus += (actorBonuses.melee ?? 0);
     if ( category.ranged ) bonus += (actorBonuses.ranged ?? 0);
     if ( category.hands === 2 ) bonus += (actorBonuses.twoHanded ?? 0);
-    this.damage.bonus = bonus;
+    this.damage.bonus += bonus;
   }
 
   /* -------------------------------------------- */
