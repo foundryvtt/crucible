@@ -27,18 +27,30 @@ import {defineEnum, defineIntEnum} from "./enum.mjs";
 /**
  * Training categories which apply to weapons.
  * Icons are inherited from the talent which grants each training, except for simple weapons which no talent grants.
- * @type {Readonly<Record<WeaponTrainingTypes, {id: string, label: string, icon: string}>>}
+ * Abilities name the scaling of each type's archetypal categories. They are authored rather than derived because
+ * balanced categories declare two training types, which would otherwise collapse light and heavy onto one pair,
+ * and because no category declares the natural or simple types at all.
+ * @type {Readonly<Record<WeaponTrainingTypes, {id: string, label: string, icon: string, abilities: string[]}>>}
  **/
 export const TRAINING = defineEnum({
-  talisman: {label: "WEAPON.CATEGORIES.Talisman", icon: "icons/weapons/polearms/trident-fork-white.webp"},
-  heavy: {label: "WEAPON.CATEGORIES.Heavy", icon: "icons/skills/melee/weapons-crossed-poleaxes-white.webp"},
-  light: {label: "WEAPON.CATEGORIES.Light", icon: "icons/weapons/swords/sword-simple-white.webp"},
-  mechanical: {label: "WEAPON.CATEGORIES.Mechanical", icon: "icons/weapons/crossbows/crossbow-white.webp"},
-  natural: {label: "WEAPON.TAGS.Natural", icon: "icons/creatures/abilities/cougar-pounce-stalk-black.webp"},
-  projectile: {label: "WEAPON.CATEGORIES.Projectile", icon: "icons/weapons/bows/shortbow-white.webp"},
-  shield: {label: "WEAPON.CATEGORIES.Shield", icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp"},
-  simple: {label: "WEAPON.CATEGORIES.Simple", icon: "icons/weapons/clubs/club-simple-black.webp"},
-  unarmed: {label: "WEAPON.CATEGORIES.Unarmed", icon: "icons/skills/melee/unarmed-punch-fist-white.webp"}
+  talisman: {label: "WEAPON.CATEGORIES.Talisman", icon: "icons/weapons/polearms/trident-fork-white.webp",
+    abilities: ["presence"]},
+  heavy: {label: "WEAPON.CATEGORIES.Heavy", icon: "icons/skills/melee/weapons-crossed-poleaxes-white.webp",
+    abilities: ["strength"]},
+  light: {label: "WEAPON.CATEGORIES.Light", icon: "icons/weapons/swords/sword-simple-white.webp",
+    abilities: ["dexterity"]},
+  mechanical: {label: "WEAPON.CATEGORIES.Mechanical", icon: "icons/weapons/crossbows/crossbow-white.webp",
+    abilities: ["dexterity"]},
+  natural: {label: "WEAPON.TAGS.Natural", icon: "icons/creatures/abilities/cougar-pounce-stalk-black.webp",
+    abilities: ["strength", "dexterity"]},
+  projectile: {label: "WEAPON.CATEGORIES.Projectile", icon: "icons/weapons/bows/shortbow-white.webp",
+    abilities: ["strength", "dexterity"]},
+  shield: {label: "WEAPON.CATEGORIES.Shield", icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
+    abilities: ["strength", "dexterity"]},
+  simple: {label: "WEAPON.CATEGORIES.Simple", icon: "icons/weapons/clubs/club-simple-black.webp",
+    abilities: ["strength"]},
+  unarmed: {label: "WEAPON.CATEGORIES.Unarmed", icon: "icons/skills/melee/unarmed-punch-fist-white.webp",
+    abilities: ["strength", "dexterity"]}
 });
 
 // Helper function for labeling categories

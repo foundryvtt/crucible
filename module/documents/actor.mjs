@@ -1739,6 +1739,44 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Reclaim every Proficiency Point this Actor has allocated to training.
+   * Only allocated increases are refunded; training granted by ancestry, background, or talents is untouched.
+   * @param {object} [options]        Options which modify how training is reset
+   * @param {boolean} [options.dialog]    Present the user with a confirmation dialog?
+   * @returns {Promise<void>}         A Promise which resolves once training is reset or the dialog is declined
+   */
+  async resetTraining({dialog=true}={}) {
+
+    // Prompt for confirmation
+    if ( dialog ) {
+      const confirm = await DialogV2.confirm({
+        window: {
+          title: _loc("ACTOR.ACTIONS.ResetProficiencyTitle", {actor: this.name}),
+          icon: "fa-solid fa-undo"
+        },
+        content: _loc("ACTOR.ACTIONS.ResetProficiencyContent"),
+        yes: {
+          default: true
+        }
+      });
+      if ( !confirm ) return;
+    }
+
+    // Zero every allocation
+    const update = {};
+    for ( const [id, t] of Object.entries(this.system.training) ) {
+      if ( t.increases ) update[`system.training.${id}.increases`] = 0;
+    }
+    if ( foundry.utils.isEmpty(update) ) return;
+
+    // Temporary modification for ephemeral Actor
+    if ( !this._id ) this.updateSource(update);
+    else await this.update(update);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Re-sync all Talent data on this actor with updated source data.
    * @param {object} [options]
    * @param {boolean} [options.performUpdates]   Whether to actually perform the updates

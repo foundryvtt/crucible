@@ -677,6 +677,9 @@
       "IncreaseAbility": "Increase Ability Score",
       "IncreaseAbilitySpecific": "Increase {ability}",
       "LevelUp": "Level Up!",
+      "ResetProficiency": "Reclaim All Proficiency Points",
+      "ResetProficiencyContent": "<p>Are you sure you wish to reclaim every allocated Proficiency Point? Training granted by your Ancestry, Background, or Talents is retained.</p>",
+      "ResetProficiencyTitle": "Reclaim Proficiency Points: {actor}",
       "ResetTalents": "Reset All Talents",
       "ResetTalentsContent": "<p>Are you sure you wish to reset all Talents?</p>",
       "ResetTalentsTitle": "Reset Talents: {actor}",
@@ -2718,7 +2721,9 @@
     "Decrease": "Reclaim a Proficiency Point",
     "Increase": "Allocate a Proficiency Point",
     "PassiveTooltip": "Your passive score for this training.",
-    "PointsTooltip": "{points} training points accumulated, from every source."
+    "PointsTooltip": "{points} training points accumulated, from every source.",
+    "TooltipCheck": "[({abilities}) / {divisor}] {skill} {rank} {enchantment} Enchantment",
+    "TooltipPassive": "12 + {score}"
   },
   "WEAPON": {
     "CATEGORIES": {
