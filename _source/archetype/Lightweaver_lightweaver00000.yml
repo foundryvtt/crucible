@@ -23,8 +23,6 @@ system:
       level: 0
     - item: Compendium.crucible.talent.Item.talismanWeaponTr
       level: 0
-    - item: Compendium.crucible.talent.Item.talismanWeaponPr
-      level: 4
     - item: Compendium.crucible.talent.Item.runeControl00000
       level: 0
     - item: Compendium.crucible.talent.Item.gesturecreate000

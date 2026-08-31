@@ -2174,11 +2174,10 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
    * @param {boolean} [options.local=false]     Apply the item locally without saving changes to the database
    * @param {boolean} [options.notify=true]     Display a notification about the application result?
-   * @param {boolean} [options.skillTalents]
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true, skillTalents=true}={}) {
+  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true}={}) {
     type ??= item?.type;
     if ( item ) {
       if ( !canApply ) throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
@@ -2192,10 +2191,10 @@ export default class CrucibleActor extends Actor {
 
     // Remove items granted by the detail being replaced, preserving those granted elsewhere
     const existing = this.system.details[type];
-    const deleteItemIds = this.#detailGrantedItemIds(existing, skillTalents);
+    const deleteItemIds = this.#detailGrantedItemIds(existing);
     for ( const [otherType, otherDetail] of Object.entries(this.system.details) ) {
       if ( otherType === type ) continue;
-      for ( const id of this.#detailGrantedItemIds(otherDetail, skillTalents) ) deleteItemIds.delete(id);
+      for ( const id of this.#detailGrantedItemIds(otherDetail) ) deleteItemIds.delete(id);
     }
 
     // Clear the detail data
@@ -2215,11 +2214,7 @@ export default class CrucibleActor extends Actor {
       const updateItems = [];
 
       // Grant Talents
-      const talents = [
-        ...(detail.talents || []),
-        ...(skillTalents ? (detail.skills || []).map(skillId => ({item: SYSTEM.SKILLS[skillId]?.talents[1],
-          level: 0})) : [])
-      ];
+      const talents = detail.talents || [];
       const {toCreate: talentsToCreate, toKeep: talentsToKeep} = await this.#prepareGrantedDetailTalents(talents);
       for ( const id of talentsToKeep ) deleteItemIds.delete(id); // Talent already owned
       updateItems.push(...talentsToCreate);                       // Add new Talent
@@ -2269,12 +2264,11 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Identify the IDs of currently owned items granted by a detail's data (talents, equipment, spells, skill talents).
+   * Identify the IDs of currently owned items granted by a detail's data (talents, equipment, spells).
    * @param {object} detail               The detail data, e.g. system.details.ancestry
-   * @param {boolean} [skillTalents=true] Include the talents granted by the detail's trained skills?
    * @returns {Set<string>}               Granted item IDs provided by the detail item
    */
-  #detailGrantedItemIds(detail, skillTalents=true) {
+  #detailGrantedItemIds(detail) {
     const grantedIds = new Set();
     if ( !detail ) return grantedIds;
     const add = uuid => {
@@ -2284,7 +2278,6 @@ export default class CrucibleActor extends Actor {
     for ( const {item} of (detail.talents || []) ) add(item);
     for ( const {item} of (detail.equipment || []) ) add(item);
     for ( const {item} of (detail.spells || []) ) add(item);
-    if ( skillTalents ) for ( const skillId of (detail.skills || []) ) add(SYSTEM.SKILLS[skillId]?.talents[1]);
     return grantedIds;
   }
 

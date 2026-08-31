@@ -338,14 +338,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       tags: languageTags
     });
 
-    // Skills
-    const skillItems = await Promise.all(skills.map(skillId => {
-      const uuid = SYSTEM.SKILLS[skillId].talents[1];
-      return this._renderFeatureItem(uuid);
-    }));
-    if ( skillItems.length ) background.features.push({
+    // Skills, named as tags now that a trained skill grants training points rather than a talent
+    const skillTags = Array.from(skills.map(skillId => ({text: _loc(SYSTEM.SKILLS[skillId].label)})));
+    if ( skillTags.length ) background.features.push({
       label: schema.getField("skills").label,
-      items: skillItems
+      tags: skillTags
     });
 
     // Talents

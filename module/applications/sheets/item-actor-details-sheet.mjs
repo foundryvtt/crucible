@@ -138,7 +138,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
 
       // Apply the updated detail item
       const item = this.document.clone(submitData);
-      await this.document.parent._applyDetailItem(item, {skillTalents: this.document.parent.type === "hero"});
+      await this.document.parent._applyDetailItem(item);
 
       // Update this document and re-render the sheet
       this.document.updateSource(item.toObject());
