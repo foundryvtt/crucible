@@ -1,4 +1,4 @@
-import {SKILLS} from "./skills.mjs";
+import {SKILLS} from "./proficiencies.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import {MOVEMENT_ACTIONS} from "./actor.mjs";
 import {defineEnum, defineIntEnum} from "./enum.mjs";

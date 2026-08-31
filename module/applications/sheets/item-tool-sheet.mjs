@@ -36,7 +36,7 @@ export default class CrucibleToolItemSheet extends CrucibleBaseItemSheet {
     for ( const {id: value, label} of Object.values(SYSTEM.SKILLS) ) {
       context.skillOptions.push({value, label, group: "Skills"});
     }
-    for ( const [value, {label}] of Object.entries(SYSTEM.CRAFTING.TRAINING) ) {
+    for ( const [value, {label}] of Object.entries(SYSTEM.PROFICIENCY.TRADECRAFTS) ) {
       context.skillOptions.push({value, label, group: "Tradecraft"});
     }
     return context;

@@ -105,7 +105,7 @@ Hooks.once("init", async function() {
      * The knowledge topics configured for the system.
      * @type {Record<string, CrucibleKnowledgeConfig>}
      */
-    knowledge: foundry.utils.deepClone(SYSTEM.SKILL.DEFAULT_KNOWLEDGE),
+    knowledge: foundry.utils.deepClone(SYSTEM.PROFICIENCY.DEFAULT_KNOWLEDGE),
 
     /**
      * The categories a language can belong to.
@@ -574,7 +574,7 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES, ["label", "tooltip"]);
 
   // Crafting
-  localizeConfigObject(SYSTEM.CRAFTING.TRAINING);
+  localizeConfigObject(SYSTEM.PROFICIENCY.TRADECRAFTS);
 
   // Effects
   localizeConfigObject(SYSTEM.EFFECTS.PROPERTIES, ["label", "tooltip"]);
@@ -587,13 +587,16 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.ITEM.SCHEMATIC_PROPERTIES);
   localizeConfigObject(SYSTEM.ITEM.TOOL_CATEGORIES);
 
-  // Skill
-  localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
-  localizeConfigObject(SYSTEM.SKILL.SKILLS);
+  // Proficiencies
+  localizeConfigObject(SYSTEM.PROFICIENCY.SKILL_CATEGORIES, ["label", "hint"]);
+  localizeConfigObject(SYSTEM.PROFICIENCY.SKILLS, ["label", "short"]);
+  localizeConfigObject(SYSTEM.PROFICIENCY.WEAPONS, ["label", "short"]);
+  localizeConfigObject(SYSTEM.PROFICIENCY.TRADECRAFTS, ["label", "short"]);
+  localizeConfigObject(SYSTEM.PROFICIENCY.PROFICIENCIES, ["label", "short", "group"]);
 
   // Spellcraft
   localizeConfigObject(SYSTEM.SPELL.COMPONENTS, ["label", "group"]);
-  localizeConfigObject(SYSTEM.SPELL.TRAINING);
+  localizeConfigObject(SYSTEM.PROFICIENCY.SPELLCRAFT, ["label", "short"]);
   localizeConfigObject(SYSTEM.SPELL.GESTURES, ["name", "adjective"]);
   localizeConfigObject(SYSTEM.SPELL.INFLECTIONS, ["name", "adjective"]);
   localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective"]);
@@ -602,15 +605,15 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES);
 
   // Training
-  localizeConfigObject(SYSTEM.TRAINING.GROUPS);
-  localizeConfigObject(SYSTEM.TRAINING.RANKS);
-  localizeConfigObject(SYSTEM.TRAINING.TYPES, ["group", "label"]);
+  localizeConfigObject(SYSTEM.PROFICIENCY.GROUPS);
+  localizeConfigObject(SYSTEM.PROFICIENCY.RANKS);
+  localizeConfigObject(SYSTEM.PROFICIENCIES, ["group", "label"]);
 
   // Weapon
   localizeConfigObject(SYSTEM.WEAPON.CATEGORIES);
   localizeConfigObject(SYSTEM.WEAPON.PROPERTIES, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.WEAPON.SLOTS);
-  localizeConfigObject(SYSTEM.WEAPON.TRAINING);
+  localizeConfigObject(SYSTEM.PROFICIENCY.WEAPONS);
 
   // CONFIG objects (not in SYSTEM)
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"]);

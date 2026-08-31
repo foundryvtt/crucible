@@ -266,7 +266,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     adv.threat = adv.threatLevel * adv.threatFactor;
 
     // Automatic training and maximum action configuration
-    this.advancement.autoTrainingRank = Math.clamp(1 + Math.floor(adv.threatLevel / 6), 0, SYSTEM.TRAINING.RANK_MAX);
+    this.advancement.autoTrainingRank = Math.clamp(1 + Math.floor(adv.threatLevel / 6), 0, SYSTEM.PROFICIENCY.RANK_MAX);
   }
 
   /* -------------------------------------------- */
@@ -274,7 +274,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   /** @inheritDoc */
   _prepareTraining() {
     super._prepareTraining();
-    const {required} = SYSTEM.TRAINING.RANK_VALUES[this.advancement.autoTrainingRank];
+    const {required} = SYSTEM.PROFICIENCY.RANK_VALUES[this.advancement.autoTrainingRank];
 
     // Automatic natural weapon training if the taxonomy does not use equipment
     if ( !this.usesEquipment ) {

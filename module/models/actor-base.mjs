@@ -2,7 +2,7 @@ import CrucibleAction from "./action.mjs";
 import CruciblePhysicalItem from "./item-physical.mjs";
 
 /**
- * @import {TYPES as TRAINING_TYPES} from "../const/training.mjs";
+ * @import {PROFICIENCIES} from "../const/proficiencies.mjs";
  */
 
 /**
@@ -103,7 +103,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       talents: new fields.NumberField({...requiredInteger, initial: 0, min: 0, persisted: false}),
       increases: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
       bonus: new fields.NumberField({...requiredInteger, initial: 0})
-    }), {validateKey: key => key in SYSTEM.TRAINING.TYPES});
+    }), {validateKey: key => key in SYSTEM.PROFICIENCIES});
 
     // Defenses
     schema.defenses = new fields.SchemaField(Object.values(SYSTEM.DEFENSES).reduce((obj, defense) => {
@@ -212,7 +212,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Training ranks for the Actor, layered the same way as ability scores.
-   * @type {Record<keyof typeof TRAINING_TYPES, CrucibleTrainingRankData>}
+   * @type {Record<keyof typeof PROFICIENCIES, CrucibleTrainingRankData>}
    */
   training = this.training;
 
@@ -333,7 +333,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #prepareBaseTraining() {
     const {element} = this.schema.fields.training;
-    for ( const id in SYSTEM.TRAINING.TYPES ) {
+    for ( const id in SYSTEM.PROFICIENCIES ) {
       this.training[id] ??= element.initialize(element.getInitialValue(), this);
     }
   }
@@ -366,7 +366,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       woundsMultiplier: 1.5,
       abilityMin: 1, // Excluding zero as special case
       abilityMax: 12,
-      trainingCap: SYSTEM.TRAINING.POINTS_MAX // Unpaced by default; heroes pace it by Proficiency Points received
+      trainingCap: SYSTEM.PROFICIENCY.POINTS_MAX // Unpaced by default; heroes pace it by Proficiency Points received
     };
   }
 
@@ -1125,7 +1125,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * Total the training point contributions and resolve the rank each total attains.
    */
   #prepareFinalTraining() {
-    const ranks = Object.values(SYSTEM.TRAINING.RANKS); // Ascending by points required
+    const ranks = Object.values(SYSTEM.PROFICIENCY.RANKS); // Ascending by points required
     const cap = this.details.progression.trainingCap;
     for ( const [id, t] of Object.entries(this.training) ) {
       t.points = Math.clamp(t.initial + t.talents + t.increases + t.bonus, 0, cap);
@@ -1135,8 +1135,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
         t.value = rank.rank;
       }
       t.rank = t.value; // Talent requirement paths address this as "value"; skill consumers name it "rank"
-      t.abilityBonus = this.parent.getAbilityBonus(SYSTEM.TRAINING.TYPES[id].abilities);
-      t.skillBonus = SYSTEM.TRAINING.RANK_VALUES[t.value].bonus;
+      t.abilityBonus = this.parent.getAbilityBonus(SYSTEM.PROFICIENCIES[id].abilities);
+      t.skillBonus = SYSTEM.PROFICIENCY.RANK_VALUES[t.value].bonus;
       t.enchantmentBonus = 0;
     }
   }

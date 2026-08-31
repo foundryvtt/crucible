@@ -126,7 +126,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
    * @returns {{sections: object[], ticks: object[], available: number, spent: number}}
    */
   #prepareProficiency(skillCategories) {
-    const {RANKS, RANK_VALUES, POINTS_MAX, GROUPS} = SYSTEM.TRAINING;
+    const {RANKS, RANK_VALUES, POINTS_MAX, GROUPS} = SYSTEM.PROFICIENCY;
     const actor = this.actor;
     const {training, points, details} = actor.system;
     const pct = n => `${(Math.clamp(n / POINTS_MAX, 0, 1) * 100).toFixed(2)}%`;
@@ -165,7 +165,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     // Common to every training type, whether or not it is also a Skill
     const prepareType = (config, color) => {
       const t = training[config.id];
-      const type = SYSTEM.TRAINING.TYPES[config.id];
+      const type = SYSTEM.PROFICIENCIES[config.id];
       const abilities = type.abilities ?? [];
       const rank = RANK_VALUES[t.value];
       return {
@@ -198,8 +198,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       color: category.color.css,
       types: Object.values(category.skills).map(s => ({...prepareType(s, category.color.css), rollable: true}))
     }));
-    for ( const [group, record] of [["weapon", SYSTEM.WEAPON.TRAINING], ["spell", SYSTEM.SPELL.TRAINING],
-      ["craft", SYSTEM.CRAFTING.TRAINING]] ) {
+    for ( const [group, record] of [["weapon", SYSTEM.PROFICIENCY.WEAPONS], ["spell", SYSTEM.PROFICIENCY.SPELLCRAFT],
+      ["craft", SYSTEM.PROFICIENCY.TRADECRAFTS]] ) {
       const {label, color} = GROUPS[group];
       sections.push({label, color, types: Object.values(record).map(c => prepareType(c, color))});
     }

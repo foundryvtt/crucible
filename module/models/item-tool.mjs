@@ -46,7 +46,7 @@ export default class CrucibleToolItem extends CruciblePhysicalItem {
   static defineSchema() {
     const schema = super.defineSchema();
     const {SetField, StringField} = foundry.data.fields;
-    const skillOptions = Object.keys(SYSTEM.SKILLS).concat(Object.keys(SYSTEM.CRAFTING.TRAINING));
+    const skillOptions = Object.keys(SYSTEM.SKILLS).concat(Object.keys(SYSTEM.PROFICIENCY.TRADECRAFTS));
     return foundry.utils.mergeObject(schema, {
       skills: new SetField(new StringField({choices: skillOptions, blank: false}))
     });
