@@ -3,9 +3,7 @@ name: Quick Draw
 type: talent
 img: icons/skills/ranged/arrow-barbed-flying-gray.webp
 system:
-  description: >-
-    <p>You have a basic education in archery and other projectile
-    weaponry.</p>
+  description: <p>You have a basic education in archery and other projectile weaponry.</p>
   actions:
     - id: quickDraw
       name: Quick Draw
