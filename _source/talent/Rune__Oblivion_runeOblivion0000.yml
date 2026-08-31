@@ -58,9 +58,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
-  training:
-    type: oblivion
-    rank: 1
+  training: spiritual
 effects: []
 flags:
   core: {}

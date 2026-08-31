@@ -51,9 +51,7 @@ system:
         actorUuid: null
         permanent: true
   rune: life
-  training:
-    type: life
-    rank: 1
+  training: physical
   nodes:
     - wis0b
   gesture: ''

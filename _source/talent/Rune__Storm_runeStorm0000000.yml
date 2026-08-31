@@ -54,9 +54,7 @@ system:
         actorUuid: null
         permanent: true
   rune: storm
-  training:
-    type: storm
-    rank: 1
+  training: elemental
   nodes:
     - int0a
   gesture: ''
