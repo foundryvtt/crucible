@@ -59,9 +59,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
-  training:
-    type: death
-    rank: 1
+  training: physical
 effects: []
 flags:
   core: {}
