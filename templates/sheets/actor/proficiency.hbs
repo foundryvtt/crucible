@@ -44,8 +44,8 @@
                         {{numberFormat training.score sign=true}}
                     </span>
                 </div>
-                <div class="bar-container" data-tooltip
-                     aria-label="{{localize 'TRAINING.PointsTooltip' points=training.points}}">
+                <div class="bar-container" data-tooltip="{{training.tooltips.points}}"
+                     data-tooltip-class="crucible">
                     <span class="bar" style="width: {{training.widthPct}}"></span>
                     {{#each ../../proficiency.ticks as |tick|}}
                     <span class="tick" style="left: {{tick.left}}" data-tooltip aria-label="{{tick.label}}"></span>
