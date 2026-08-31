@@ -22,9 +22,6 @@ system:
   rune: ''
   inflection: ''
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
 effects: []
 flags:
   core: {}

@@ -39,9 +39,7 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 0
-  training:
-    type: heavy
-    rank: 1
+  training: heavy
   nodes:
     - str0a
   rune: ''

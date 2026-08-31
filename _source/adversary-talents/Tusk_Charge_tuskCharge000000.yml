@@ -57,9 +57,6 @@ system:
   rune: ''
   gesture: ''
   inflection: ''
-  training:
-    type: ''
-    rank: null
 effects: []
 ownership:
   default: 0

@@ -16,9 +16,6 @@ system:
     - dex2b
   rune: ''
   gesture: ''
-  training:
-    type: ''
-    rank: null
 effects: []
 sort: 400000
 ownership:

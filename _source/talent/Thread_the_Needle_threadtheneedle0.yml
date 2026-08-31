@@ -41,9 +41,6 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
 effects: []
 folder: k2H23tobHffCMQCj
 sort: 125000

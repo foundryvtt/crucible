@@ -26,9 +26,6 @@ system:
   gesture: conjure
   inflection: ''
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
 effects: []
 sort: 100000
 ownership:

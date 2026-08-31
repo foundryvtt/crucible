@@ -15,9 +15,6 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
 effects: []
 folder: BevAJzzLeFbSaVic
 sort: 50000

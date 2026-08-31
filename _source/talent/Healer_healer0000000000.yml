@@ -66,9 +66,6 @@ system:
     - sig3.wisdom.presence
   gesture: ''
   inflection: ''
-  training:
-    type: ''
-    rank: null
 effects: []
 ownership:
   default: 0

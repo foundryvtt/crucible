@@ -43,9 +43,6 @@ system:
   nodes:
     - str1a
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
   rune: ''
   gesture: ''
   inflection: ''

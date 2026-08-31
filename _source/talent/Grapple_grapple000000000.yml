@@ -75,9 +75,7 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 0
-  training:
-    type: unarmed
-    rank: 1
+  training: unarmed
   nodes:
     - str0b
   rune: ''
