@@ -8,9 +8,12 @@ export const NAME_FORMATS = Object.freeze({
  * @type {Readonly<Record<string, {id: string, label: string}>>}
  */
 export const TRAINING = {
-  physical: {id: "physical", label: "SPELL.TRAINING.Kinematic"},
-  elemental: {id: "elemental", label: "SPELL.TRAINING.Elemental"},
-  spiritual: {id: "spiritual", label: "SPELL.TRAINING.Spiritual"}
+  physical: {id: "physical", label: "SPELL.TRAINING.Kinematic",
+    icon: "icons/magic/movement/pinwheel-turning-blue.webp"},
+  elemental: {id: "elemental", label: "SPELL.TRAINING.Elemental",
+    icon: "icons/magic/symbols/elements-air-earth-fire-water.webp"},
+  spiritual: {id: "spiritual", label: "SPELL.TRAINING.Spiritual",
+    icon: "icons/magic/light/projectile-halo-teal.webp"}
 };
 
 /**

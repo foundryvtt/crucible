@@ -26,18 +26,19 @@ import {defineEnum, defineIntEnum} from "./enum.mjs";
 
 /**
  * Training categories which apply to weapons.
- * @type {Readonly<Record<WeaponTrainingTypes, {id: string, label: string}>>}
+ * Icons are inherited from the talent which grants each training, except for simple weapons which no talent grants.
+ * @type {Readonly<Record<WeaponTrainingTypes, {id: string, label: string, icon: string}>>}
  **/
 export const TRAINING = defineEnum({
-  talisman: {label: "WEAPON.CATEGORIES.Talisman"},
-  heavy: {label: "WEAPON.CATEGORIES.Heavy"},
-  light: {label: "WEAPON.CATEGORIES.Light"},
-  mechanical: {label: "WEAPON.CATEGORIES.Mechanical"},
-  natural: {label: "WEAPON.TAGS.Natural"},
-  projectile: {label: "WEAPON.CATEGORIES.Projectile"},
-  shield: {label: "WEAPON.CATEGORIES.Shield"},
-  simple: {label: "WEAPON.CATEGORIES.Simple"},
-  unarmed: {label: "WEAPON.CATEGORIES.Unarmed"}
+  talisman: {label: "WEAPON.CATEGORIES.Talisman", icon: "icons/weapons/polearms/trident-fork-white.webp"},
+  heavy: {label: "WEAPON.CATEGORIES.Heavy", icon: "icons/skills/melee/weapons-crossed-poleaxes-white.webp"},
+  light: {label: "WEAPON.CATEGORIES.Light", icon: "icons/weapons/swords/sword-simple-white.webp"},
+  mechanical: {label: "WEAPON.CATEGORIES.Mechanical", icon: "icons/weapons/crossbows/crossbow-white.webp"},
+  natural: {label: "WEAPON.TAGS.Natural", icon: "icons/creatures/abilities/cougar-pounce-stalk-black.webp"},
+  projectile: {label: "WEAPON.CATEGORIES.Projectile", icon: "icons/weapons/bows/shortbow-white.webp"},
+  shield: {label: "WEAPON.CATEGORIES.Shield", icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp"},
+  simple: {label: "WEAPON.CATEGORIES.Simple", icon: "icons/weapons/clubs/club-simple-black.webp"},
+  unarmed: {label: "WEAPON.CATEGORIES.Unarmed", icon: "icons/skills/melee/unarmed-punch-fist-white.webp"}
 });
 
 // Helper function for labeling categories

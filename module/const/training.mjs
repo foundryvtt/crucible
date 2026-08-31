@@ -5,24 +5,36 @@ import {TRAINING as SPELLCRAFT_TRAINING} from "./spellcraft.mjs";
 import {defineEnum} from "./enum.mjs";
 
 /**
+ * The groups into which training types are gathered for display.
+ * Skills are further subdivided for display by their own SKILL.CATEGORIES, which carry their own colors.
+ * @type {Readonly<Record<string, {id: string, label: string, color: string}>>}
+ */
+export const GROUPS = defineEnum({
+  skill: {label: "TALENT.TRAINING.Skill", color: "#81cc44"},
+  weapon: {label: "TALENT.TRAINING.Weapon", color: "#c0553d"},
+  spell: {label: "TALENT.TRAINING.Spell", color: "#4d8fd1"},
+  craft: {label: "TALENT.TRAINING.Craft", color: "#c9a227"}
+});
+
+/**
  * The types of training which are available in the system.
  * @type {Readonly<Record<string, {id: string, group: string, label: string}>>}
  */
 export const TYPES = defineEnum({
   ...Object.entries(SKILLS).reduce((obj, [id, {label}]) => {
-    obj[id] = {group: "TALENT.TRAINING.Skill", label};
+    obj[id] = {group: GROUPS.skill.label, label};
     return obj;
   }, {}),
   ...Object.entries(WEAPON_TRAINING).reduce((obj, [id, {label}]) => {
-    obj[id] = {group: "TALENT.TRAINING.Weapon", label};
+    obj[id] = {group: GROUPS.weapon.label, label};
     return obj;
   }, {}),
   ...Object.entries(SPELLCRAFT_TRAINING).reduce((obj, [id, {label}]) => {
-    obj[id] = {group: "TALENT.TRAINING.Spell", label};
+    obj[id] = {group: GROUPS.spell.label, label};
     return obj;
   }, {}),
   ...Object.entries(CRAFTING_TRAINING).reduce((obj, [id, {label}]) => {
-    obj[id] = {group: "TALENT.TRAINING.Craft", label};
+    obj[id] = {group: GROUPS.craft.label, label};
     return obj;
   }, {})
 });

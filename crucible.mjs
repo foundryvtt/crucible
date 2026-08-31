@@ -602,6 +602,7 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES);
 
   // Training
+  localizeConfigObject(SYSTEM.TRAINING.GROUPS);
   localizeConfigObject(SYSTEM.TRAINING.RANKS);
   localizeConfigObject(SYSTEM.TRAINING.TYPES, ["group", "label"]);
 
