@@ -56,9 +56,9 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       iconicSpells: new fields.NumberField({required: true, nullable: false, initial: 0, integer: true, min: 0}),
       requirements: new fields.SchemaField({
         training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false,
-          integer: true, min: 1, max: SYSTEM.TRAINING.RANK_MAX}), {validateKey: key => key in SYSTEM.TRAINING.TYPES})
+          integer: true, min: 1, max: SYSTEM.PROFICIENCY.RANK_MAX}), {validateKey: key => key in SYSTEM.PROFICIENCIES})
       }),
-      training: new fields.StringField({...blankString, choices: SYSTEM.TRAINING.TYPES})
+      training: new fields.StringField({...blankString, choices: SYSTEM.PROFICIENCIES})
     };
   }
 
@@ -321,7 +321,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       tags: this.getTags(),
       prerequisites: reqs,
       training: this.training
-        ? _loc("TALENT.TrainingGrant", {training: _loc(SYSTEM.TRAINING.TYPES[this.training].label)})
+        ? _loc("TALENT.TrainingGrant", {training: _loc(SYSTEM.PROFICIENCIES[this.training].label)})
         : null
     });
   }

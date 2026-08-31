@@ -360,8 +360,8 @@ export default class CrucibleTalentNode {
         o.label = _loc("ADVANCEMENT.Level");
       }
       else if ( k.startsWith("training.") ) {
-        o.label = SYSTEM.TRAINING.TYPES[k.split(".")[1]].label;
-        o.tag = `${o.label}: ${SYSTEM.TRAINING.RANK_VALUES[v]?.label ?? v}`; // Name the rank, not its integer
+        o.label = SYSTEM.PROFICIENCIES[k.split(".")[1]].label;
+        o.tag = `${o.label}: ${SYSTEM.PROFICIENCY.RANK_VALUES[v]?.label ?? v}`; // Name the rank, not its integer
       }
       else o.label = k;
       o.tag ??= `${o.label} ${o.value}`;

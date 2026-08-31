@@ -3,23 +3,6 @@ export const NAME_FORMATS = Object.freeze({
   ADJ: 2
 });
 
-/**
- * The areas of spellcraft in which a character may be trained, each grouping several Arcane Runes.
- * Abilities are the union of the scaling declared by the runes of each family, restated here so that every
- * training type carries its own abilities rather than requiring consumers to walk the rune table.
- * @type {Readonly<Record<string, {id: string, label: string, icon: string, abilities: string[]}>>}
- */
-export const TRAINING = {
-  physical: {id: "physical", label: "TRAINING.LABELS.physical", short: "TRAINING.LABELS.physicalShort",
-    icon: "icons/magic/movement/pinwheel-turning-blue.webp",
-    abilities: ["wisdom", "presence"]},
-  elemental: {id: "elemental", label: "TRAINING.LABELS.elemental", short: "TRAINING.LABELS.elementalShort",
-    icon: "icons/magic/symbols/elements-air-earth-fire-water.webp",
-    abilities: ["wisdom", "intellect"]},
-  spiritual: {id: "spiritual", label: "TRAINING.LABELS.spiritual", short: "TRAINING.LABELS.spiritualShort",
-    icon: "icons/magic/light/projectile-halo-teal.webp",
-    abilities: ["intellect", "presence"]}
-};
 
 /**
  * The Arcane Runes which exist in the Crucible spellcraft system.

@@ -101,7 +101,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /** @inheritDoc */
   _configureProgression() {
     const config = super._configureProgression();
-    config.trainingCap = Math.min(this.points.proficiency.total, SYSTEM.TRAINING.POINTS_MAX);
+    config.trainingCap = Math.min(this.points.proficiency.total, SYSTEM.PROFICIENCY.POINTS_MAX);
     return config;
   }
 
@@ -123,7 +123,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   #prepareAdvancement() {
     const adv = this.advancement;
     const effectiveLevel = Math.max(adv.level, 1) - 1;
-    const proficiency = SYSTEM.TRAINING.PROFICIENCY_POINTS;
+    const proficiency = SYSTEM.PROFICIENCY.PROFICIENCY_POINTS;
     this.points = {
       ability: {pool: 9, total: effectiveLevel, bought: 0, spent: 0, available: 0},
       proficiency: {total: proficiency.initial + (effectiveLevel*proficiency.perLevel), spent: 0, available: 0},

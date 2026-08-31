@@ -363,10 +363,10 @@ export default class CrucibleActor extends Actor {
    * @returns {number}
    */
   getSkillBonus(training) {
-    let bonus = training.length ? SYSTEM.TRAINING.RANKS.untrained.bonus : 0; // Does the skill require training?
+    let bonus = training.length ? SYSTEM.PROFICIENCY.RANKS.untrained.bonus : 0; // Does the skill require training?
     for ( const t of training ) {
       const tier = this.system.training[t]?.value ?? 0;
-      const rank = SYSTEM.TRAINING.RANK_VALUES[tier];
+      const rank = SYSTEM.PROFICIENCY.RANK_VALUES[tier];
       const b = rank.bonus;
       if ( b > bonus ) bonus = b;
     }

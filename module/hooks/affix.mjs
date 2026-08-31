@@ -1,6 +1,6 @@
 import {CREATURE_CATEGORIES} from "../const/actor.mjs";
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
-import {SKILLS} from "../const/skills.mjs";
+import {SKILLS} from "../const/proficiencies.mjs";
 import {GESTURES, INFLECTIONS, RUNES} from "../const/spellcraft.mjs";
 
 const HOOKS = {};
@@ -59,7 +59,7 @@ for ( const runeId of Object.keys(RUNES) ) {
     prepareTraining(item, training) {
       // Affix tiers correspond to training ranks: Trained, Proficient, then Expert
       const tier = item.system.affixes[id].system.tier.value;
-      const {required} = SYSTEM.TRAINING.RANK_VALUES[tier];
+      const {required} = SYSTEM.PROFICIENCY.RANK_VALUES[tier];
       const t = training[SYSTEM.SPELL.RUNES[runeId].training];
       t.initial = Math.max(t.initial, required);
     },

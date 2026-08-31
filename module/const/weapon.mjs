@@ -24,34 +24,6 @@ import {defineEnum, defineIntEnum} from "./enum.mjs";
  *   WeaponTrainingTypes
  */
 
-/**
- * Training categories which apply to weapons.
- * Icons are inherited from the talent which grants each training, except for simple weapons which no talent grants.
- * Abilities name the scaling of each type's archetypal categories. They are authored rather than derived because
- * balanced categories declare two training types, which would otherwise collapse light and heavy onto one pair,
- * and because no category declares the natural or simple types at all.
- * @type {Readonly<Record<WeaponTrainingTypes, {id: string, label: string, icon: string, abilities: string[]}>>}
- **/
-export const TRAINING = defineEnum({
-  talisman: {label: "TRAINING.LABELS.talisman", short: "TRAINING.LABELS.talismanShort",
-    icon: "icons/weapons/polearms/trident-fork-white.webp", abilities: ["presence"]},
-  heavy: {label: "TRAINING.LABELS.heavy", short: "TRAINING.LABELS.heavyShort",
-    icon: "icons/skills/melee/weapons-crossed-poleaxes-white.webp", abilities: ["strength"]},
-  light: {label: "TRAINING.LABELS.light", short: "TRAINING.LABELS.lightShort",
-    icon: "icons/weapons/swords/sword-simple-white.webp", abilities: ["dexterity"]},
-  mechanical: {label: "TRAINING.LABELS.mechanical", short: "TRAINING.LABELS.mechanicalShort",
-    icon: "icons/weapons/crossbows/crossbow-white.webp", abilities: ["dexterity"]},
-  natural: {label: "TRAINING.LABELS.natural", short: "TRAINING.LABELS.naturalShort",
-    icon: "icons/creatures/abilities/cougar-pounce-stalk-black.webp", abilities: ["strength", "dexterity"]},
-  projectile: {label: "TRAINING.LABELS.projectile", short: "TRAINING.LABELS.projectileShort",
-    icon: "icons/weapons/bows/shortbow-white.webp", abilities: ["strength", "dexterity"]},
-  shield: {label: "TRAINING.LABELS.shield", short: "TRAINING.LABELS.shieldShort",
-    icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp", abilities: ["strength", "dexterity"]},
-  simple: {label: "TRAINING.LABELS.simple", short: "TRAINING.LABELS.simpleShort",
-    icon: "icons/weapons/clubs/club-simple-black.webp", abilities: ["strength"]},
-  unarmed: {label: "TRAINING.LABELS.unarmed", short: "TRAINING.LABELS.unarmedShort",
-    icon: "icons/skills/melee/unarmed-punch-fist-white.webp", abilities: ["strength", "dexterity"]}
-});
 
 // Helper function for labeling categories
 const label = (category, hands) => {
