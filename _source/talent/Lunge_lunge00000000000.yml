@@ -42,9 +42,7 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 0
-  training:
-    type: light
-    rank: 1
+  training: light
   nodes:
     - dex0b
   rune: ''

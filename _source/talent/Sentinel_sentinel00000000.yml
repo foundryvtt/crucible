@@ -14,9 +14,6 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
 effects: []
 flags: {}
 folder: 8Vb0F5R7DMUrvhfw

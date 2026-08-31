@@ -41,9 +41,6 @@ system:
   nodes:
     - dex1b
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
   rune: ''
   gesture: ''
   inflection: ''

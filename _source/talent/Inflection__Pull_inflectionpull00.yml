@@ -15,9 +15,6 @@ system:
     - wispre2
   rune: ''
   gesture: ''
-  training:
-    type: ''
-    rank: null
 effects: []
 flags:
   core: {}

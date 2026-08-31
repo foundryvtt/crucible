@@ -21,9 +21,6 @@ system:
   gesture: cone
   inflection: ''
   iconicSpells: 0
-  training:
-    type: ''
-    rank: null
 effects: []
 folder: rL8CBb8MbQi6PDS6
 ownership:

@@ -56,9 +56,7 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 0
-  training:
-    type: shield
-    rank: 1
+  training: shield
   nodes:
     - tou0a
   rune: ''
