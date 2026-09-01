@@ -821,6 +821,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareAbilities", this.abilities);
     this.#prepareFinalAbilities();
 
+    // Training, resolved before defenses because armor proficiency alters the dodge scaling threshold
+    this.parent.callActorHooks("prepareTraining", this.training);
+    this.#prepareFinalTraining();
+
     // Resource pools
     this.#prepareBaseResources();
     this.parent.callActorHooks("prepareResources", this.resources);
@@ -839,10 +843,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Resistances
     this.parent.callActorHooks("prepareResistances", this.resistances);
     this.#prepareFinalResistances();
-
-    // Training
-    this.parent.callActorHooks("prepareTraining", this.training);
-    this.#prepareFinalTraining();
 
     // Skills, a named view over the skill subset of training
     this.#prepareSkills();
@@ -1030,13 +1030,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const {equipment} = this.parent;
     const {abilities, defenses} = this;
 
-    // Armor and Dodge from equipped Armor
+    // Armor and Dodge from equipped Armor.
     const armorData = equipment.armor.system;
+    const dodgeScaling = Math.max(armorData.dodge.scaling - this.training.armor.value, 0);
     defenses.armor.base = armorData.armor.base;
     defenses.armor.bonus += armorData.armor.bonus;
     defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus += Math.max(abilities.dexterity.value - armorData.dodge.scaling, 0);
-    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.scaling);
+    defenses.dodge.bonus += Math.max(abilities.dexterity.value - dodgeScaling, 0);
+    defenses.dodge.max = defenses.dodge.base + (12 - dodgeScaling);
 
     // Block and Parry from equipped Weapons
     const weaponData = [];

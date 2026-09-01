@@ -503,25 +503,27 @@ pages:
         unit of the talent tree. Each talent grants your character-specific
         abilities or bonuses. Many Talents have requirements which must be met
         before they can be purchased, such as attaining a certain level of
-        Ability score or degree of training in a Skill.</p><h2
-        class="divider">Training Talents</h2><p>Training talents are specific
-        types of talent nodes that grant advancements to Skills, or progress
-        Weapon or Tradecraft training. Weapon or Tradecraft Training Talents
-        authorize your character to use particular weapons or to craft
-        particular types of schematics, Skill Training Talents award the
-        following benefits:</p><table><tbody><tr><th
+        Ability score or a required rank in a Proficiency.</p><h2
+        class="divider">Proficiencies</h2><p>A <strong>Proficiency</strong> is
+        something your character can be trained in: a Skill, a category of
+        weapon, a family of spellcraft, or a tradecraft. Each one holds a total
+        of training points, and the ranks below are thresholds upon that
+        total.</p><p>Training points come from three sources. Your Ancestry and
+        Background grant some freely, every Talent you own contributes a point
+        to the one Proficiency it names if it names any, and you allocate
+        Proficiency Points of your own at each level.</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
         data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
         no education or professional training related to
         it.</p></td></tr><tr><td
-        data-colwidth="50"><p>0</p></td><td><p>Novice</p></td><td><p>You have
+        data-colwidth="50"><p>0</p></td><td><p>Trained</p></td><td><p>You have
         received training in the basic practices common across all parts of that
         skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+1</p></td><td><p>Journeyman</p></td><td><p>You've
+        data-colwidth="50"><p>+1</p></td><td><p>Proficient</p></td><td><p>You've
         reached some degree of advanced training and know some of the less
         common principles of that particular skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+2</p></td><td><p>Adept</p></td><td><p>You have
+        data-colwidth="50"><p>+2</p></td><td><p>Expert</p></td><td><p>You have
         exceeded all the bounds of professional training. There is nothing more
         about your skills that you can learn from others. All that is left is to
         perfect your understanding.</p></td></tr><tr><td
@@ -674,15 +676,14 @@ pages:
         modify Backgrounds to fit the lore of their own worlds. To configure a
         Background in Crucible, create a new <strong>Item</strong> with the
         <strong>Background </strong>type. Fill out the Background configuration
-        sheet to select four acquired Skills which begin at Novice tier and one
-        acquired Talent.</p><p>Each Background includes:</p><ul><li><p>Novice
+        sheet to select four acquired Skills which begin as Trained and one
+        acquired Talent.</p><p>Each Background includes:</p><ul><li><p>Trained
         Skills (typically 2)</p></li><li><p>Knowledge Areas (typically
-        2)</p></li><li><p>Known Languages</p></li><li><p>Talents (typically at
-        least one weapon training talent and one additional
-        talent)</p></li></ul><h2 class="divider">Example Backgrounds</h2><p>The
+        2)</p></li><li><p>Known Languages</p></li><li><p>Talents (typically
+        2)</p></li></ul><h2 class="divider">Example Backgrounds</h2><p>The
         table below presents some example Backgrounds which will be familiar for
         many fantasy RPG
-        settings.</p><table><thead><tr><th>Background</th><th>Knowledge</th><th>Novice
+        settings.</p><table><thead><tr><th>Background</th><th>Knowledge</th><th>Trained
         Skills</th><th>Talents</th></tr></thead><tbody><tr><td>@UUID[Compendium.crucible.background.Item.acolyte000000000]{Acolyte}</td><td>Gods,
         Souls</td><td>Arcana,
         Medicine</td><td>@UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus},
@@ -871,11 +872,12 @@ pages:
         professional training your character has received. These Skills might
         have been learned as part of their
         @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]{Background}
-        or some other aspect of their life experience. Skills progress when a
-        character selects a Training Talent. During
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6]{Character
-        Creation}, some Training Talents are awarded during the selection of a
-        Background.</p><p>More information on Training Talents can be found in
+        or some other aspect of their life experience. A Skill is one kind of
+        Proficiency, and advances as training points accumulate in it: granted by
+        your
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]{Background},
+        contributed by Talents you own, or allocated with your own Proficiency
+        Points.</p><p>More information on Proficiencies can be found in
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talents}.</p><h2
         class="divider">Exploration
         Skills</h2><dl><dt><p>Athletics</p></dt><dd><p>The

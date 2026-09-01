@@ -14,15 +14,16 @@ import {defineEnum} from "./enum.mjs";
 /* -------------------------------------------- */
 
 /**
- * The groups into which training types are gathered for display.
- * Skills are further subdivided for display by their own SKILL.CATEGORIES, which carry their own colors.
+ * The groups into which proficiencies are gathered for display.
+ * Skills are further subdivided for display by their own SKILL_CATEGORIES, which carry their own colors.
  * @type {Readonly<Record<string, {id: string, label: string, color: string}>>}
  */
 export const GROUPS = defineEnum({
-  skill: {label: "TALENT.TRAINING.Skill", color: "#81cc44"},
-  weapon: {label: "TALENT.TRAINING.Weapon", color: "#c0553d"},
-  spell: {label: "TALENT.TRAINING.Spell", color: "#4d8fd1"},
-  craft: {label: "TALENT.TRAINING.Craft", color: "#c9a227"}
+  skill: {label: "TRAINING.GROUPS.Skill", color: "#81cc44"},
+  weapon: {label: "TRAINING.GROUPS.Weapon", color: "#c0553d"},
+  equipment: {label: "TRAINING.GROUPS.Equipment", color: "#8a8f98"},
+  spell: {label: "TRAINING.GROUPS.Spell", color: "#4d8fd1"},
+  craft: {label: "TRAINING.GROUPS.Craft", color: "#c9a227"}
 });
 
 /* -------------------------------------------- */
@@ -161,15 +162,31 @@ export const WEAPONS = defineEnum({
   mechanical: {label: "TRAINING.LABELS.mechanical", short: "TRAINING.LABELS.mechanicalShort",
     icon: "icons/weapons/crossbows/crossbow-white.webp", abilities: ["dexterity"]},
   natural: {label: "TRAINING.LABELS.natural", short: "TRAINING.LABELS.naturalShort",
-    icon: "icons/creatures/abilities/cougar-pounce-stalk-black.webp", abilities: ["strength", "dexterity"]},
+    icon: "systems/crucible/icons/proficiencies/natural-weapon.webp", abilities: ["strength", "dexterity"]},
   projectile: {label: "TRAINING.LABELS.projectile", short: "TRAINING.LABELS.projectileShort",
     icon: "icons/weapons/bows/shortbow-white.webp", abilities: ["strength", "dexterity"]},
   shield: {label: "TRAINING.LABELS.shield", short: "TRAINING.LABELS.shieldShort",
     icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp", abilities: ["strength", "dexterity"]},
   simple: {label: "TRAINING.LABELS.simple", short: "TRAINING.LABELS.simpleShort",
-    icon: "icons/weapons/clubs/club-simple-black.webp", abilities: ["strength"]},
+    icon: "icons/weapons/axes/axe-broad-white.webp", abilities: ["strength"]},
   unarmed: {label: "TRAINING.LABELS.unarmed", short: "TRAINING.LABELS.unarmedShort",
     icon: "icons/skills/melee/unarmed-punch-fist-white.webp", abilities: ["strength", "dexterity"]}
+});
+
+/* -------------------------------------------- */
+/*  Equipment                                   */
+/* -------------------------------------------- */
+
+/**
+ * Proficiencies in the use of worn or carried equipment other than weapons.
+ * Armor is deliberately one proficiency rather than one per category, since bearing armor is a single
+ * competence regardless of its weight.
+ * @type {Readonly<Record<string, {id: string, label: string, short?: string, icon: string,
+ *   abilities: string[]}>>}
+ */
+export const EQUIPMENT = defineEnum({
+  armor: {label: "TRAINING.LABELS.armor", short: "TRAINING.LABELS.armorShort",
+    icon: "systems/crucible/icons/proficiencies/armor.webp", abilities: ["strength", "toughness"]}
 });
 
 /* -------------------------------------------- */
@@ -240,6 +257,10 @@ export const PROFICIENCIES = defineEnum({
   }, {}),
   ...Object.entries(WEAPONS).reduce((obj, [id, {label, short, abilities}]) => {
     obj[id] = {group: GROUPS.weapon.label, label, short, abilities};
+    return obj;
+  }, {}),
+  ...Object.entries(EQUIPMENT).reduce((obj, [id, {label, short, abilities}]) => {
+    obj[id] = {group: GROUPS.equipment.label, label, short, abilities};
     return obj;
   }, {}),
   ...Object.entries(SPELLCRAFT).reduce((obj, [id, {label, short, abilities}]) => {
