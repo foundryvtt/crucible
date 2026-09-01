@@ -62,6 +62,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: heavy
 effects: []
 flags: {}
 _stats:

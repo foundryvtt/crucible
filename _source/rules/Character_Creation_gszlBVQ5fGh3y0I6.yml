@@ -86,15 +86,14 @@ pages:
         Background includes:</p><ul><li><p>Trained Skills (typically
         2)</p></li><li><p>Knowledge Areas (typically 2)</p></li><li><p>Known
         Languages</p></li><li><p>Starting Talents (typically
-        2)</p></li></ul><section class="foundryvtt"><p>While
-        Crucible provides a number of example backgrounds, it also allows use of
-        custom backgrounds by providing a way for GMs to configure their own
-        compendium packs to use as a source during character creation. To add
-        your compendium as a source, go to <strong>Configure Settings ➤ Crucible
-        ➤ Configure Compendium Sources</strong>.</p></section><h2
-        class="divider">Ability Scores</h2><p>After you have selected your
-        background, it is time to allocate Ability Points to determine your
-        character's starting
+        2)</p></li></ul><section class="foundryvtt"><p>While Crucible provides a
+        number of example backgrounds, it also allows use of custom backgrounds
+        by providing a way for GMs to configure their own compendium packs to
+        use as a source during character creation. To add your compendium as a
+        source, go to <strong>Configure Settings ➤ Crucible ➤ Configure
+        Compendium Sources</strong>.</p></section><h2 class="divider">Ability
+        Scores</h2><p>After you have selected your background, it is time to
+        allocate Ability Points to determine your character's starting
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Ability
         Scores}.</p><p>Each Ancestry provides a Primary Ability Score which
         begins at <strong>3</strong>, and a Secondary Ability Score which begins

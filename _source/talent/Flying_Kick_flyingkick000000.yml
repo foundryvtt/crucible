@@ -51,6 +51,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: unarmed
 _stats:
   systemId: crucible
   systemVersion: 0.9.4

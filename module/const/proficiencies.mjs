@@ -167,8 +167,6 @@ export const WEAPONS = defineEnum({
     icon: "icons/weapons/bows/shortbow-white.webp", abilities: ["strength", "dexterity"]},
   shield: {label: "TRAINING.LABELS.shield", short: "TRAINING.LABELS.shieldShort",
     icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp", abilities: ["strength", "dexterity"]},
-  simple: {label: "TRAINING.LABELS.simple", short: "TRAINING.LABELS.simpleShort",
-    icon: "icons/weapons/axes/axe-broad-white.webp", abilities: ["strength"]},
   unarmed: {label: "TRAINING.LABELS.unarmed", short: "TRAINING.LABELS.unarmedShort",
     icon: "icons/skills/melee/unarmed-punch-fist-white.webp", abilities: ["strength", "dexterity"]}
 });

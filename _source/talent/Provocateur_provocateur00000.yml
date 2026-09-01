@@ -67,6 +67,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: diplomacy
 effects: []
 ownership:
   default: 0

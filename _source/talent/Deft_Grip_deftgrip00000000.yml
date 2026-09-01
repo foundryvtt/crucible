@@ -17,6 +17,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: light
 effects: []
 sort: 0
 ownership:

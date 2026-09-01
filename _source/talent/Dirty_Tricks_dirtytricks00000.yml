@@ -63,6 +63,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: deception
 effects: []
 flags:
   core: {}

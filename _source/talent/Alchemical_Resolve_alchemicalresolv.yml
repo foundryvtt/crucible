@@ -45,6 +45,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: medicine
 effects: []
 ownership:
   default: 0
