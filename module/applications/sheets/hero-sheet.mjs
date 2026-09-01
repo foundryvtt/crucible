@@ -198,7 +198,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       color: category.color.css,
       types: Object.values(category.skills).map(s => ({...prepareType(s, category.color.css), rollable: true}))
     }));
-    for ( const [group, record] of [["weapon", SYSTEM.PROFICIENCY.WEAPONS], ["spell", SYSTEM.PROFICIENCY.SPELLCRAFT],
+    for ( const [group, record] of [["weapon", SYSTEM.PROFICIENCY.WEAPONS],
+      ["equipment", SYSTEM.PROFICIENCY.EQUIPMENT], ["spell", SYSTEM.PROFICIENCY.SPELLCRAFT],
       ["craft", SYSTEM.PROFICIENCY.TRADECRAFTS]] ) {
       const {label, color} = GROUPS[group];
       sections.push({label, color, types: Object.values(record).map(c => prepareType(c, color))});
