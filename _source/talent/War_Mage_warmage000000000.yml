@@ -11,6 +11,7 @@ system:
     attempt.</p>
   actions: []
   iconicSpells: 0
+  training: arcana
   nodes:
     - preint4
   rune: ''

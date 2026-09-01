@@ -44,6 +44,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: medicine
 _stats:
   systemId: crucible
   systemVersion: 0.9.4

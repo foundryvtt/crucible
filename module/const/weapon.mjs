@@ -20,7 +20,7 @@ import {defineEnum, defineIntEnum} from "./enum.mjs";
  */
 
 /**
- * @typedef {"talisman"|"heavy"|"light"|"mechanical"|"natural"|"projectile"|"shield"|"simple"|"unarmed"}
+ * @typedef {"talisman"|"heavy"|"light"|"mechanical"|"natural"|"projectile"|"shield"|"unarmed"}
  *   WeaponTrainingTypes
  */
 

@@ -15,6 +15,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: medicine
 effects: []
 flags: {}
 _stats:

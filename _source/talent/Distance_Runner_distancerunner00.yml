@@ -13,6 +13,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: athletics
 effects: []
 flags: {}
 _stats:

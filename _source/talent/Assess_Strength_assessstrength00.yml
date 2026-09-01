@@ -43,6 +43,7 @@ system:
   nodes:
     - wis2c
   iconicSpells: 0
+  training: science
   rune: ''
   gesture: ''
   inflection: ''

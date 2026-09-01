@@ -12,6 +12,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: arcana
 effects: []
 flags:
   core: {}

@@ -16,6 +16,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: elemental
 effects: []
 ownership:
   default: 0

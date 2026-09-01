@@ -45,6 +45,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: intimidation
 _stats:
   systemId: crucible
   systemVersion: 0.10.0

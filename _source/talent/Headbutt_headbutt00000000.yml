@@ -70,6 +70,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: natural
 effects: []
 flags: {}
 _stats:
