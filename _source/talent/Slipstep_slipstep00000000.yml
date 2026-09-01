@@ -3,7 +3,7 @@ type: talent
 img: icons/skills/movement/feet-winged-sandals-tan.webp
 system:
   nodes:
-    - dex2b
+    - dex2a
   description: >-
     <p>Your nimbleness allows you to occasionally perform exceptionally elusive
     maneuvers to evade harm on the battlefield.</p>
@@ -54,12 +54,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.2
   createdTime: 1772307160146
-  modifiedTime: 1780938060820
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788277447653
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: slipstep00000000
 sort: 0
 _key: '!items!slipstep00000000'

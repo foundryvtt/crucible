@@ -44,7 +44,7 @@ system:
         actorUuid: null
         permanent: true
   nodes:
-    - dex1b
+    - dex0b
   rune: ''
   gesture: ''
   inflection: ''
@@ -52,10 +52,10 @@ system:
   training: light
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160132
-  modifiedTime: 1773514792577
+  modifiedTime: 1788276828259
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null

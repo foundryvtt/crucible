@@ -46,7 +46,7 @@ system:
         permanent: true
       autoFavorite: false
   nodes:
-    - dextou1
+    - tou3a
   rune: ''
   gesture: ''
   inflection: ''
@@ -54,11 +54,11 @@ system:
   training: armor
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160136
-  modifiedTime: 1780514184860
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1788278674043
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

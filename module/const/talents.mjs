@@ -16,8 +16,7 @@ export const NODE_TYPES = defineEnum({
   move: {label: "TALENT.NODES.Movement", style: "rect", icon: "GlyphMovement"},
   utility: {label: "TALENT.NODES.Utility", style: "rect", icon: "GlyphUtility"},
   skill: {label: "TALENT.NODES.Skill", style: "rect", icon: "GlyphSkill"},
-  signature: {label: "TALENT.NODES.Signature", style: "largeHex", icon: "GlyphSignature", passive: false},
-  training: {label: "TALENT.NODES.Training", style: "hex", icon: "GlyphTraining", passive: true}
+  signature: {label: "TALENT.NODES.Signature", style: "largeHex", icon: "GlyphSignature", passive: false}
 });
 
 /**

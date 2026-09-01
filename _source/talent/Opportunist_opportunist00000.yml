@@ -9,7 +9,7 @@ system:
     you are otherwise <strong>Fully Engaged</strong>.</p>
   actions: []
   nodes:
-    - intdex2
+    - intdex1
   rune: ''
   gesture: ''
   inflection: ''
@@ -23,11 +23,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160140
-  modifiedTime: 1781203140541
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788278797765
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

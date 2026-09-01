@@ -39,7 +39,7 @@ system:
         permanent: true
       autoFavorite: false
   nodes:
-    - tou2c
+    - tou1b
   rune: ''
   gesture: ''
   inflection: ''
@@ -47,11 +47,11 @@ system:
   training: medicine
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160145
-  modifiedTime: 1779907167895
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1788277560168
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null
