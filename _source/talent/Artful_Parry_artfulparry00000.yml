@@ -40,7 +40,7 @@ system:
         actorUuid: null
         permanent: true
   nodes:
-    - dex2c
+    - dex3b
   rune: ''
   gesture: ''
   inflection: ''
@@ -48,10 +48,10 @@ system:
   training: performance
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160126
-  modifiedTime: 1773514792556
+  modifiedTime: 1788277226496
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

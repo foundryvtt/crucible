@@ -10,7 +10,7 @@ system:
     Grappled by, increases by 1.</p>
   actions: []
   nodes:
-    - str2c
+    - str1b
   rune: ''
   gesture: ''
   inflection: ''
@@ -25,11 +25,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1781200000000
-  modifiedTime: 1781200000000
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788278197035
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

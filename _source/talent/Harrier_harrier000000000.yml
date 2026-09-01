@@ -9,7 +9,7 @@ system:
     they make an attack that is not tagged as <strong>Melee</strong>.</p>
   actions: []
   nodes:
-    - dextou2
+    - dex4d
   rune: ''
   gesture: ''
   inflection: ''
@@ -22,11 +22,11 @@ ownership:
   default: 0
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1781203114033
-  modifiedTime: 1781203205451
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788278541515
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

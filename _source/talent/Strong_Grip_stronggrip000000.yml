@@ -11,7 +11,7 @@ system:
     off-hand.</p>
   actions: []
   nodes:
-    - str2c
+    - str1b
   rune: ''
   gesture: ''
   inflection: ''
@@ -21,11 +21,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160150
-  modifiedTime: 1780937954275
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788278260518
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

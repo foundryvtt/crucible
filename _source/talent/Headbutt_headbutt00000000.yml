@@ -65,7 +65,7 @@ system:
         actorUuid: null
         permanent: true
   nodes:
-    - toustr1
+    - tou2a
   rune: ''
   gesture: ''
   inflection: ''
@@ -77,12 +77,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.2
   createdTime: 1776117265442
-  modifiedTime: 1781395064389
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1788277749617
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
