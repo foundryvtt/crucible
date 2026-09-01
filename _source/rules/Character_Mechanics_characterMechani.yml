@@ -680,9 +680,9 @@ pages:
         acquired Talent.</p><p>Each Background includes:</p><ul><li><p>Trained
         Skills (typically 2)</p></li><li><p>Knowledge Areas (typically
         2)</p></li><li><p>Known Languages</p></li><li><p>Talents (typically
-        2)</p></li></ul><h2 class="divider">Example Backgrounds</h2><p>The
-        table below presents some example Backgrounds which will be familiar for
-        many fantasy RPG
+        2)</p></li></ul><h2 class="divider">Example Backgrounds</h2><p>The table
+        below presents some example Backgrounds which will be familiar for many
+        fantasy RPG
         settings.</p><table><thead><tr><th>Background</th><th>Knowledge</th><th>Trained
         Skills</th><th>Talents</th></tr></thead><tbody><tr><td>@UUID[Compendium.crucible.background.Item.acolyte000000000]{Acolyte}</td><td>Gods,
         Souls</td><td>Arcana,
@@ -873,8 +873,8 @@ pages:
         have been learned as part of their
         @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]{Background}
         or some other aspect of their life experience. A Skill is one kind of
-        Proficiency, and advances as training points accumulate in it: granted by
-        your
+        Proficiency, and advances as training points accumulate in it: granted
+        by your
         @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]{Background},
         contributed by Talents you own, or allocated with your own Proficiency
         Points.</p><p>More information on Proficiencies can be found in

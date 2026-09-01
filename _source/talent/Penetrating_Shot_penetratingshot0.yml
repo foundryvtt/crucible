@@ -43,6 +43,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: projectile
 effects: []
 folder: k2H23tobHffCMQCj
 sort: 200000

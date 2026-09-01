@@ -46,6 +46,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: projectile
 _stats:
   systemId: crucible
   systemVersion: 0.9.4

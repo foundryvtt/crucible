@@ -14,6 +14,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: shield
 effects: []
 flags: {}
 _stats:

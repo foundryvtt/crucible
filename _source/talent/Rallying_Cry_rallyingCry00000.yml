@@ -61,6 +61,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: diplomacy
 effects: []
 flags:
   core: {}
