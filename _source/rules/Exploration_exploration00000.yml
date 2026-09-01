@@ -229,21 +229,21 @@ pages:
         to perform an action or recall some piece of information. Each skill is
         associated with two
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Abilities}.</p><p>A
-        character's skill rank is determined by their degree of training, adding
-        a bonus to checks made for that skill. Each skill has 4 ranks as well as
-        an 'untrained' rank.</p><table><tbody><tr><th
+        character's rank in a skill is the proficiency they have attained in it,
+        adding a bonus to checks made for that skill. Each skill has 4 ranks as
+        well as an 'untrained' rank.</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
         data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
         no education or professional training related to
         it.</p></td></tr><tr><td
-        data-colwidth="50"><p>0</p></td><td><p>Novice</p></td><td><p>You have
+        data-colwidth="50"><p>0</p></td><td><p>Trained</p></td><td><p>You have
         received training in the basic practices common across all parts of that
         skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+1</p></td><td><p>Journeyman</p></td><td><p>You've
+        data-colwidth="50"><p>+1</p></td><td><p>Proficient</p></td><td><p>You've
         reached some degree of advanced training and know some of the less
         common principles of that particular skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+2</p></td><td><p>Adept</p></td><td><p>You have
+        data-colwidth="50"><p>+2</p></td><td><p>Expert</p></td><td><p>You have
         exceeded all the bounds of professional training. There is nothing more
         about your skills that you can learn from others. All that is left is to
         perfect your understanding.</p></td></tr><tr><td

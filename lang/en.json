@@ -2421,12 +2421,6 @@
       "Trained": "Trained",
       "Untrained": "Untrained"
     },
-    "TRAINING": {
-      "Craft": "Tradecraft Training",
-      "Skill": "Skill Training",
-      "Spell": "Spellcraft Training",
-      "Weapon": "Weapon Training"
-    },
     "WARNINGS": {
       "AlreadyOwned": "You already own {name} and cannot add it a second time.",
       "Banned": "You cannot purchase additional Signature talents at this node or tier.",
@@ -2701,6 +2695,8 @@
     "LABELS": {
       "alchemy": "Alchemy",
       "arcana": "Arcana",
+      "armor": "Armored Combat",
+      "armorShort": "Armor",
       "athletics": "Athletics",
       "awareness": "Awareness",
       "cooking": "Cooking",
@@ -2743,6 +2739,13 @@
       "unarmed": "Unarmed Combat",
       "unarmedShort": "Unarmed",
       "wilderness": "Wilderness"
+    },
+    "GROUPS": {
+      "Craft": "Tradecraft Proficiencies",
+      "Equipment": "Equipment Proficiencies",
+      "Skill": "Skill Proficiencies",
+      "Spell": "Spellcraft Proficiencies",
+      "Weapon": "Weapon Proficiencies"
     },
     "BonusTooltip": "Your current bonus to checks using this training.",
     "CapTooltip": "Your level presently limits any one training to {points} points.",
