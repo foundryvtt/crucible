@@ -40,7 +40,7 @@ system:
         minimum: 4
       summon: null
   nodes:
-    - str3b
+    - str2c
   rune: ''
   gesture: ''
   inflection: ''
@@ -50,10 +50,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.0
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160132
-  modifiedTime: 1781881062015
+  modifiedTime: 1788278342970
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

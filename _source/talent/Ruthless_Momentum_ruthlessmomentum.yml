@@ -40,7 +40,7 @@ system:
         - movement
       summon: null
   nodes:
-    - toustr1
+    - str2c
   rune: ''
   gesture: ''
   inflection: ''
@@ -48,9 +48,9 @@ system:
   training: intimidation
 _stats:
   systemId: crucible
-  systemVersion: 0.10.0
-  coreVersion: '14.364'
-  modifiedTime: 1781880953267
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  modifiedTime: 1788278356454
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

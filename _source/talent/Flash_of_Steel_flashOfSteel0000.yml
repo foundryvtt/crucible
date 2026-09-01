@@ -4,7 +4,7 @@ _id: flashOfSteel0000
 img: icons/skills/melee/spear-tips-double-purple.webp
 system:
   nodes:
-    - dex1a
+    - dex2c
   description: >-
     <p>You are an expert in using a thrown weapon to imbalance or expose your
     target for follow-up strikes.</p>
@@ -71,11 +71,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307160132
-  modifiedTime: 1773514792576
+  modifiedTime: 1788277364823
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 300000
 _key: '!items!flashOfSteel0000'

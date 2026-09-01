@@ -58,7 +58,7 @@ system:
         permanent: true
       autoFavorite: false
   nodes:
-    - dextou2
+    - tou2a
   rune: ''
   gesture: ''
   inflection: ''
@@ -69,11 +69,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160130
-  modifiedTime: 1780576503785
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1788277956088
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Compendium.crucible.talent.dirtytricks00000
   duplicateSource: null
   exportSource: null

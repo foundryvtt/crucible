@@ -47,7 +47,7 @@ system:
         permanent: true
       autoFavorite: false
   nodes:
-    - toustr2
+    - toustr1
   rune: ''
   gesture: ''
   inflection: ''
@@ -55,11 +55,11 @@ system:
   training: shield
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1779831851033
-  modifiedTime: 1779831851033
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788277909773
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
