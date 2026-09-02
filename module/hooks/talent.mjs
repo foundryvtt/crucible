@@ -592,6 +592,20 @@ HOOKS.echolocation0000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.eldritchBargain0 = {
+  prepareAction(_item, action) {
+    if ( !(action.cost.focus > 0) ) return;
+    const spendableFocus = action._focusBlockReason() ? 0 : this.resources.focus.value;
+    const shortfall = Math.max(0, action.cost.focus - spendableFocus);
+    if ( !shortfall ) return;
+    action.cost.focus -= shortfall;
+    action.cost.morale = (action.cost.morale ?? 0) + (shortfall * 10);
+    action.constrainResources({morale: SYSTEM.RESOURCE_CONSTRAINTS.NO_INCREASE});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.eyeofthestorm000 = {
   prepareAttack(item, action, target, rollData) {
     if ( !action.tags.has("strike") && !action.tags.has("spell") ) return;
@@ -624,6 +638,15 @@ HOOKS.evasiveArmor0000 = {
     const physicalTotal = defenseTotals.armor + defenseTotals.dodge + defenseTotals.block + defenseTotals.parry;
     const excess = defenseTotals.reflex - physicalTotal;
     if ( excess > 0 ) defenses.armor.bonus += excess;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.exploitDespair00 = {
+  prepareAttack(item, action, target, rollData) {
+    if ( !action.usage.isAttack || !target.statuses.has("broken") ) return;
+    rollData.boons.exploitDespair = {label: item.name, number: 1};
   }
 };
 

@@ -1,0 +1,65 @@
+name: Comforting Lie
+type: talent
+img: icons/commodities/treasure/mask-wood-tan.webp
+system:
+  description: >-
+    <p>The wound is not so deep. The bridge will hold. Help is closer than it
+    looks. You tell your companion whatever they need to believe, and you carry
+    the weight of knowing better.</p>
+  actions:
+    - id: comfortingLie
+      name: Comforting Lie
+      img: icons/commodities/treasure/mask-wood-tan.webp
+      condition: ''
+      description: >-
+        <p>You reassure an ally with a falsehood you know to be untrue. Spend
+        your own <strong>Morale</strong> to restore a greater amount of
+        theirs.</p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 10
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 2
+        self: false
+      effects: []
+      tags:
+        - vocal
+        - auditory
+        - rallying
+        - skill
+        - deception
+      summon: null
+  nodes:
+    - int2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: deception
+effects: []
+folder: 4Ll3b4Q4us2mp4Fu
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788364800000
+  modifiedTime: 1788364343432
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: comfortingLie000
+sort: 400000
+_key: '!items!comfortingLie000'

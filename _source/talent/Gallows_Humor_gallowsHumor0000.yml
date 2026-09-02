@@ -1,0 +1,64 @@
+name: Gallows Humor
+type: talent
+img: icons/skills/social/thumbs-up.webp
+system:
+  description: >-
+    <p>Disaster is easier borne when someone makes light of it. You have a
+    remark ready for the worst moments, and it lands exactly when it is
+    needed.</p>
+  actions:
+    - id: gallowsHumor
+      name: Gallows Humor
+      img: icons/skills/social/thumbs-up.webp
+      condition: An ally whom you can see becomes Weakened or suffers a Critical Failure.
+      description: >-
+        <p>You may react to an ally's <strong>Critical Failure</strong> with a
+        grim joke at their expense or your own, restoring some of their
+        <strong>Morale</strong>.</p>
+      cost:
+        action: 1
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 2
+        self: false
+      effects: []
+      tags:
+        - vocal
+        - auditory
+        - reaction
+        - rallying
+      summon: null
+  nodes:
+    - pre2c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: performance
+effects: []
+folder: 4Ll3b4Q4us2mp4Fu
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788364800000
+  modifiedTime: 1788363028393
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: gallowsHumor0000
+sort: 300000
+_key: '!items!gallowsHumor0000'

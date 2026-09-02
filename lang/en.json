@@ -272,6 +272,7 @@
       },
       "CostHealth": "{health}HP",
       "CostHeroism": "{heroism}H",
+      "CostMorale": "{morale}MP",
       "CostTooltip": "The Action Point or Focus Point cost of using this action.",
       "CostWeapon": "W",
       "CostWeaponAction": "W{action}A",

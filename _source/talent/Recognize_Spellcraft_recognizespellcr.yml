@@ -9,7 +9,7 @@ system:
     Rune.</p>
   actions: []
   nodes:
-    - int2b
+    - int0b
   rune: ''
   gesture: ''
   inflection: ''
@@ -23,10 +23,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160142
-  modifiedTime: 1773514792605
+  modifiedTime: 1788364279148
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.recognizespellcr
   duplicateSource: null

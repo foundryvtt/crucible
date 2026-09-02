@@ -55,9 +55,9 @@ const TIER_2A = [
   {id: "wis2a", abilities: ["wisdom"], type: "magic", connected: ["wis1a"]},
   {id: "wis2b", abilities: ["wisdom"], type: "heal", connected: ["wis1a", "wis1b", "wis2a"]},
   {id: "wis2c", abilities: ["wisdom"], type: "skill", connected: ["wis1b", "wis2b"]},
-  {id: "pre2a", abilities: ["presence"], type: "heal", connected: ["pre1a"]},
+  {id: "pre2a", abilities: ["presence"], type: "skill", connected: ["pre1a"]},
   {id: "pre2b", abilities: ["presence"], type: "magic", connected: ["pre1a", "pre1b", "pre2a"]},
-  {id: "pre2c", abilities: ["presence"], type: "skill", connected: ["pre1b", "pre2b"]},
+  {id: "pre2c", abilities: ["presence"], type: "heal", connected: ["pre1b", "pre2b"]},
   {id: "int2a", abilities: ["intellect"], type: "skill", connected: ["int1a"]},
   {id: "int2b", abilities: ["intellect"], type: "magic", connected: ["int1a", "int1b", "int2a"]},
   {id: "int2c", abilities: ["intellect"], type: "heal", connected: ["int1b", "int2b"]}

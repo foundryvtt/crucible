@@ -395,6 +395,23 @@ HOOKS.chokingAmpoule = {
 
 /* -------------------------------------------- */
 
+HOOKS.comfortingLie = {
+  // The lie costs the liar: half your Presence is spent to restore the full amount to an ally who believes it
+  prepare() {
+    this.cost.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
+    this.constrainResources({morale: SYSTEM.RESOURCE_CONSTRAINTS.NO_INCREASE});
+  },
+  postActivate() {
+    const morale = this.actor.system.abilities.presence.value;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.roll?.some(e => e.roll?.isSuccess) ) continue;
+      this.recordEvent({target, resources: [{resource: "morale", delta: morale}]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.clarifyIntent = {
   postActivate() {
     for ( const [target, events] of this.eventsByTarget ) {
@@ -1293,6 +1310,17 @@ HOOKS.extollDeeds = {
 
 /* -------------------------------------------- */
 
+HOOKS.gallowsHumor = {
+  postActivate() {
+    const morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
+    for ( const [target] of this.targets ) {
+      this.recordEvent({target, resources: [{resource: "morale", delta: morale}]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.headbutt = {
   prepare() {
     const cls = getDocumentClass("Item");
@@ -1646,9 +1674,11 @@ HOOKS.poisonIngest = {
 /* -------------------------------------------- */
 
 HOOKS.rallyingCry = {
+  // Resolute is applied by the action's own effect on a success; only a critical success also restores Morale
   postActivate() {
     const amount = this.actor.abilities.presence.value;
-    for ( const [target] of this.targets ) {
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.roll?.some(e => e.roll?.isCriticalSuccess) ) continue;
       this.recordEvent({target, resources: [{resource: "morale", delta: amount}]});
     }
   }
