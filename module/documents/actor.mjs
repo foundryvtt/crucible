@@ -194,6 +194,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * Arbitrary state which persists for the duration of a Combat encounter, cleared when that encounter ends.
+   * @type {Record<string, unknown>}
+   */
+  get encounterFlags() {
+    return this.flags.crucible?.encounter ?? {};
+  }
+
+  /**
    * The IDs of purchased talents.
    * A convenience reference to CrucibleBaseActor#talentIds
    */
@@ -1578,6 +1586,7 @@ export default class CrucibleActor extends Actor {
     const updates = {};
     if ( this.resources.heroism.value ) updates["system.resources.heroism.value"] = 0;
     if ( this.flags.crucible?.delay ) updates["flags.crucible.delay"] = _del;
+    if ( "encounter" in this.flags.crucible ) updates["flags.crucible.encounter"] = _del;
     return updates;
   }
 

@@ -27,6 +27,55 @@ function applyRuneCritEffect(actor, action, runeId, effectFactory, {condition}={
 
 /* -------------------------------------------- */
 
+/**
+ * Damage the Morale of enemies who witness a foe fall to this Action.
+ * Resource deltas are only realized once `_resolveEventStream` has run, so this must be called from `finalizeAction`.
+ * A witness is affected at most once however many foes fell, and the fallen never witness one another.
+ * @param {CrucibleActor} actor                                       The Actor whose talent is reacting
+ * @param {CrucibleAction} action                                     The Action which felled a foe
+ * @param {object} options
+ * @param {(target: CrucibleActor, deltas: Record<string, number>) => boolean} options.test  Did this target just fall?
+ * @param {number} options.radius                                     Radius in feet around each fallen foe
+ * @param {string} options.wallType                                   The wall restriction which obstructs the wave
+ * @param {number} options.amount                                     Morale damage inflicted upon each witness
+ * @param {string} options.label                                      Scrolling status text shown on each witness
+ */
+function applyMoraleWave(actor, action, {test, radius, wallType, amount, label}) {
+  if ( !action.token || !(amount > 0) ) return;
+
+  // Identify which targets this Action drove into the state, from the deltas it actually realized
+  const fallen = new Set();
+  for ( const [target, events] of action.eventsByTarget ) {
+    if ( target === actor ) continue;
+    const deltas = {};
+    for ( const event of events.all ) {
+      for ( const {resource, delta} of event.resources ) deltas[resource] = (deltas[resource] ?? 0) + delta;
+    }
+    if ( test(target, deltas) ) fallen.add(target);
+  }
+  if ( !fallen.size ) return;
+
+  // Spread the wave outward from each body, never striking the same witness twice
+  const affected = new Set();
+  for ( const target of fallen ) {
+    const token = action.targets.get(target)?.token ?? target.getActiveTokens(true, true)[0]?.document;
+    if ( !token ) continue;
+    const witnesses = crucible.api.canvas.grid.getTokensInRange(token, radius, {
+      wallType,
+      disposition: "enemy",
+      relativeTo: action.token,
+      exclude: t => (t.actor === actor) || fallen.has(t.actor) || affected.has(t.actor)
+    });
+    for ( const {token: witness} of witnesses ) {
+      affected.add(witness.actor);
+      action.recordEvent({target: witness.actor, resources: [{resource: "morale", delta: -amount}],
+        statusText: [{text: label, fillColor: SYSTEM.RESOURCES.morale.color.high.css}]});
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.acrobat000000000 = {
   defendAttack(item, action, _attacker, rollData) {
     if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
@@ -292,6 +341,25 @@ HOOKS.bloodSense000000 = {
   },
   prepareToken(_item, token) {
     token.detectionModes.bloodSense ??= {enabled: true, range: 20};
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.brutalDisplay000 = {
+  finalizeAction(item, action) {
+    applyMoraleWave(this, action, {
+      test: (target, deltas) => {
+        const {health, wounds} = target.system.resources;
+        if ( target.system.isDead ) return false; // Already a corpse before this Action landed
+        if ( wounds ) return (wounds.value + (deltas.wounds ?? 0)) >= wounds.max;
+        return (health.value + (deltas.health ?? 0)) <= 0;
+      },
+      radius: 20,
+      wallType: "sight",
+      amount: this.abilities.strength.value,
+      label: item.name
+    });
   }
 };
 
@@ -563,6 +631,27 @@ HOOKS.demolitionist000 = {
         action.usage.actorStatus.demolitionist = true;
       }
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.digIn00000000000 = {
+  _FLAG: "flags.crucible.encounter.digIn",
+  receiveAttack(item, action, roll) {
+    if ( this.encounterFlags.digIn ) return;
+    const dmg = roll.data.damage;
+    if ( !dmg?.total || dmg.restoration || (dmg.resource !== "morale") ) return;
+    const morale = this.system.resources.morale.value;
+    if ( (morale === 0) || (dmg.total < morale) ) return;
+    dmg.total = morale - 1;
+    action.recordEvent({target: this, actorUpdates: {[HOOKS.digIn00000000000._FLAG]: true},
+      statusText: [{text: item.name, fillColor: SYSTEM.RESOURCES.morale.color.heal.css}]});
+  },
+  async confirmAction(_item, action, {reverse}) {
+    if ( !reverse ) return;
+    const spent = action.eventsByActor.get(this)?.all.some(e => e.actorUpdates?.[HOOKS.digIn00000000000._FLAG]);
+    if ( spent ) await this.unsetFlag("crucible", "encounter.digIn");
   }
 };
 
@@ -1355,6 +1444,26 @@ HOOKS.resilient0000000 = {
 HOOKS.rimecaller000000 = {
   applyCriticalEffects(_item, action) {
     applyRuneCritEffect(this, action, "frost", ability => SYSTEM.EFFECTS.freezing(this, {ability}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.rout000000000000 = {
+  finalizeAction(item, action) {
+    applyMoraleWave(this, action, {
+      test: (target, deltas) => {
+        const {morale, madness} = target.system.resources;
+        const broke = (morale.value > 0) && ((morale.value + (deltas.morale ?? 0)) <= 0);
+        const maddened = !!madness && (madness.value < madness.max)
+          && ((madness.value + (deltas.madness ?? 0)) >= madness.max);
+        return broke || maddened;
+      },
+      radius: 10,
+      wallType: "sight",
+      amount: this.abilities.presence.value,
+      label: item.name
+    });
   }
 };
 

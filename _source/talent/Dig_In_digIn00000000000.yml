@@ -4,9 +4,9 @@ img: icons/magic/earth/projectile-stone-landslide.webp
 system:
   description: >-
     <p>You have been at the end of your rope before and you know the shape of
-    it. The first time in a Combat encounter that you would be reduced to zero
-    <strong>Morale</strong> and become @Condition[broken], you are only reduced
-    to <strong>1 Morale</strong> instead.</p>
+    it. The first time in a Combat encounter that an attack would reduce you to
+    zero <strong>Morale</strong> and leave you @Condition[broken], you are only
+    reduced to <strong>1 Morale</strong> instead.</p>
   actions: []
   nodes:
     - wis3a
