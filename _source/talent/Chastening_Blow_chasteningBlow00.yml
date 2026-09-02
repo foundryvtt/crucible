@@ -1,0 +1,62 @@
+name: Chastening Blow
+type: talent
+img: icons/skills/melee/hand-grip-staff-blue.webp
+system:
+  description: >-
+    <p>You have learned to strike without killing. A rap with the pommel, the
+    flat of the blade turned at the last moment, a blow placed precisely where
+    it will humble rather than harm.</p>
+  actions:
+    - id: chasteningBlow
+      name: Chastening Blow
+      img: icons/skills/melee/hand-grip-staff-blue.webp
+      condition: ''
+      description: >-
+        <p>You perform a deliberately non-lethal weapon Strike which deals its
+        damage to the target's <strong>Morale</strong> rather than their
+        Health.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - melee
+        - morale
+      summon: null
+  nodes:
+    - strwis1
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: intimidation
+effects: []
+folder: 4Ll3b4Q4us2mp4Fu
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788364800000
+  modifiedTime: 1788363803394
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: chasteningBlow00
+sort: 100000
+_key: '!items!chasteningBlow00'

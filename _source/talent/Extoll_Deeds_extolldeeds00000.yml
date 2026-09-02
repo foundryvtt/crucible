@@ -14,19 +14,17 @@ system:
     10 feet.
   actions:
     - id: extollDeeds
-      condition: >-
-        An ally whom you can see slays or scores a critical hit against an
-        enemy.
+      condition: An ally whom you can see slays an enemy or achieves a Critical Success.
       description: >-
         <p>You compose a verse, make a quip, or shout a battle cry to extoll the
         heroic deeds of one of your allies. All allies near to you regain
         <strong>Morale</strong> equal to half your <strong>Presence</strong>
         score.</p>
       tags:
+        - vocal
+        - auditory
         - reaction
         - rallying
-        - auditory
-        - vocal
       cost:
         action: 1
         focus: 1
@@ -46,11 +44,9 @@ system:
         maximum: null
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
-    - pre2a
+    - pre2c
   rune: ''
   gesture: ''
   inflection: ''
@@ -58,10 +54,10 @@ system:
   training: performance
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160131
-  modifiedTime: 1773514792573
+  modifiedTime: 1788363013462
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

@@ -3,18 +3,25 @@ type: talent
 img: icons/creatures/abilities/mouth-teeth-human.webp
 system:
   description: >-
-    <p>Your presence as a battlefield leader fortifies and restores the morale
-    of your allies.</p>
+    <p>Your presence as a battlefield leader hardens the resolve of your allies,
+    enabling them to sustain their morale in even the most harrowing of
+    circumstances.</p>
   actions:
     - id: rallyingCry
       description: >-
-        <p>You emit a courageous bellow that inspires allies within 12 feet of
-        you to remain stalwart in the face of peril. All allies within range
-        immediately recover your <strong>Presence</strong> score in
-        <strong>Morale</strong> and become @Condition[resolute] for 3
-        Rounds.</p>
+        <p>You produce a courageous bellow that inspires allies within 12 feet
+        of you to remain stalwart in the face of peril. You make an
+        <strong>Intimidation</strong> check against the
+        <strong>Rallying</strong> threshold of each ally. Upon a success, they
+        become @Condition[resolute] for 3 Rounds. Upon a Critical Success, they
+        also recover an amount of <strong>Morale</strong> equal to your
+        <strong>Presence</strong> score.</p>
       tags:
+        - vocal
+        - auditory
         - rallying
+        - skill
+        - intimidation
       cost:
         action: 1
         focus: 0
@@ -39,10 +46,15 @@ system:
             value: 3
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             changes: []
+            dc: null
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
             regions: []
             summons: []
       name: Rallying Cry
@@ -52,16 +64,14 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - pre2a
   rune: ''
   gesture: ''
   inflection: ''
   iconicSpells: 0
-  training: diplomacy
+  training: intimidation
 effects: []
 flags:
   core: {}
@@ -73,7 +83,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160142
-  modifiedTime: 1788315951761
+  modifiedTime: 1788365841776
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 folder: kvXzGhvDAbUcQsXM
 ownership:

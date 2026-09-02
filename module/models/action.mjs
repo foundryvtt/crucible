@@ -3232,7 +3232,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const label = _loc("ACTION.TAG.CostHealth", {health: cost.health});
       tags.activation.health = {label, unmet};
     }
-    if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
+    if ( Number.isFinite(cost.morale) && (cost.morale !== 0) ) {
+      const unmet = cost.morale > this.actor?.resources.morale.value; // Eldritch Bargain, for example
+      const label = _loc("ACTION.TAG.CostMorale", {morale: cost.morale});
+      tags.activation.morale = {label, unmet};
+    }
+    if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health
+      || tags.activation.morale) ) tags.activation.ap = "Free";
     if ( cost.hands ) {
       const unmet = cost.hands > this.usage.availableHands;
       const plurals = new Intl.PluralRules(game.i18n.lang);

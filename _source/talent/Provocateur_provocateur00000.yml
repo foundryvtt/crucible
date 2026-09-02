@@ -62,7 +62,7 @@ system:
         permanent: true
       autoFavorite: false
   nodes:
-    - wis2c
+    - int0b
   rune: ''
   gesture: ''
   inflection: ''
@@ -76,11 +76,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160142
-  modifiedTime: 1780578530261
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1788362427057
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.provocateur00000
   duplicateSource: null
   exportSource: null

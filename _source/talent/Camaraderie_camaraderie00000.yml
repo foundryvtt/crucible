@@ -1,0 +1,62 @@
+name: Camaraderie
+type: talent
+img: icons/skills/social/diplomacy-unity-alliance.webp
+system:
+  description: >-
+    <p>You know how soldiers and travellers of a dozen peoples take their ease:
+    which stories are told, which songs are sung, which silences are kept. Time
+    spent in your company settles the mind.</p>
+  actions:
+    - id: camaraderie
+      name: Camaraderie
+      img: icons/skills/social/diplomacy-unity-alliance.webp
+      condition: ''
+      description: >-
+        <p>Following a <strong>Rest</strong>, you share the customs of home with
+        your companions. You and each ally who rested with you reduce
+        accumulated <strong>Madness</strong>. An ally who shares your Ancestry
+        or Culture recovers more.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - rest
+      summon: null
+  nodes:
+    - wis0a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: society
+effects: []
+folder: 4Ll3b4Q4us2mp4Fu
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788364800000
+  modifiedTime: 1788364800000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: camaraderie00000
+sort: 200000
+_key: '!items!camaraderie00000'
