@@ -155,6 +155,48 @@ HOOKS.aqueousTransmission = {
 
 /* -------------------------------------------- */
 
+HOOKS.arcingBolt = {
+  async roll(target) {
+    const actor = this.actor;
+    const weapon = this.usage.weapon ?? this.usage.strikes?.[0];
+    const originToken = (this.targets?.get(target)?.token ?? target.getActiveTokens(true, true)?.[0])?.object;
+    if ( !weapon || !originToken ) return;
+
+    // The arc only springs from a bolt which connected
+    const landed = this.eventsByTarget.get(target)?.roll
+      ?.some(e => e.roll?.data?.result >= crucible.api.dice.AttackRoll.RESULT_TYPES.GLANCE);
+    if ( !landed ) return;
+
+    // Gather enemy tokens within 10 feet of the struck foe, nearest first
+    const enemyDispositions = crucible.api.documents.CrucibleActor.getDispositionGroups(actor.getDisposition()).enemy;
+    const {CrucibleMovementPolygon, grid} = crucible.api.canvas;
+    const candidates = [];
+    for ( const t of canvas.tokens.placeables ) {
+      if ( !t.actor || (t.actor === actor) || (t.actor === target) || t.actor.isIncapacitated ) continue;
+      if ( t.document.hidden || !enemyDispositions.includes(t.document.disposition) ) continue;
+      const distance = grid.getLinearRangeCost(originToken, t);
+      if ( distance > 10 ) continue;
+      candidates.push({token: t, distance});
+    }
+    candidates.sort((a, b) => a.distance - b.distance);
+
+    // The arc needs an unobstructed path from the struck foe, so take the nearest candidate which has one
+    const level = originToken.scene?.levels.get(originToken.document._source.level);
+    const origin = {x: originToken.center.x, y: originToken.center.y, elevation: originToken.document.elevation};
+    for ( const c of candidates ) {
+      const destination = {x: c.token.center.x, y: c.token.center.y, elevation: c.token.document.elevation};
+      const blocked = CrucibleMovementPolygon.testCollision(origin, destination,
+        {type: "move", mode: "any", level, excludeToken: originToken, tokenCollision: false});
+      if ( blocked ) continue;
+      const roll = await actor.weaponAttack(this, weapon, c.token.actor, {damageBonus: -2});
+      this.recordEvent({type: "strike", target: c.token.actor, roll, weapon: weapon.snapshot()});
+      return;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.armorCrusher = {
   async roll(target) {
     const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;

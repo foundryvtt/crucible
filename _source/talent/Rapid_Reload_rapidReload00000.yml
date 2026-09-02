@@ -1,4 +1,4 @@
-folder: i7WposibCJ94XpuD
+folder: yxMSffVnnwRI4wmh
 name: Rapid Reload
 type: talent
 img: icons/skills/ranged/bullet-sparks-yellow.webp
@@ -49,15 +49,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1772307160138
-  modifiedTime: 1773514792595
+  modifiedTime: 1788315041662
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: rapidReload00000
-sort: 0
+sort: 100000
 _key: '!items!rapidReload00000'

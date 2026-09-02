@@ -177,6 +177,14 @@ export const statusEffects = {
     hud: nonGroupTypes,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.exposed000000000"
   },
+  hexed: {
+    id: "hexed",
+    name: "ACTIVE_EFFECT.STATUSES.Hexed",
+    img: "systems/crucible/icons/statuses/hexed.svg",
+    hud: nonGroupTypes,
+    generator: EFFECTS.hexed,
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.hexed00000000000"
+  },
   overrun: {
     id: "overrun",
     name: "ACTIVE_EFFECT.STATUSES.Overrun",

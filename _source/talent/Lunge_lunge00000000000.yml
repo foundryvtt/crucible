@@ -1,4 +1,4 @@
-folder: i7WposibCJ94XpuD
+folder: Xg1Jww0K0CK7vUo1
 name: Lunge
 type: talent
 img: icons/skills/melee/strike-polearm-light-orange.webp
@@ -54,15 +54,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1772307160138
-  modifiedTime: 1773776810356
-  lastModifiedBy: 4uFKaoDjEQwkkXjq
+  modifiedTime: 1788315060478
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: lunge00000000000
-sort: 0
+sort: 200000
 _key: '!items!lunge00000000000'

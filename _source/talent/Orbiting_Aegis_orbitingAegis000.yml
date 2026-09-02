@@ -1,0 +1,79 @@
+name: Orbiting Aegis
+type: talent
+img: icons/magic/defensive/barrier-shield-dome-deflect-blue.webp
+system:
+  description: >-
+    <p>You can set your implement wheeling about you of its own accord, turning
+    aside blows that would otherwise land.</p>
+  actions:
+    - id: orbitingAegis
+      name: Orbiting Aegis
+      img: icons/magic/defensive/barrier-shield-dome-deflect-blue.webp
+      condition: ''
+      description: >-
+        <p>You set your Talisman into a defensive orbit which persists until you
+        dismiss it. While the Aegis turns and you have a Talisman equipped, you
+        gain a bonus to your <strong>Block</strong> defense equal to your current
+        <strong>Focus</strong>, to a maximum of +3. Each time the Aegis turns a
+        blow aside you spend 1 Focus.</p><p>Dismiss the Aegis by removing its
+        effect.</p>
+      cost:
+        action: 1
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Orbiting Aegis
+          scope: 1
+          statuses: []
+          result:
+            type: any
+            all: false
+          system:
+            changes: []
+            dc: 0
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+      tags:
+        - talisman
+      summon: null
+  nodes:
+    - pre3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: talisman
+effects: []
+folder: zQ7pKvR3mNxL8sTa
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788278400000
+  modifiedTime: 1788278400000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: orbitingAegis000
+sort: 700000
+_key: '!items!orbitingAegis000'

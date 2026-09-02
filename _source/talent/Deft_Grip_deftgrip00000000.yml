@@ -1,4 +1,4 @@
-folder: 2nepH1RWurpMYAjw
+folder: k2H23tobHffCMQCj
 name: Deft Grip
 type: talent
 _id: deftgrip00000000
@@ -19,7 +19,7 @@ system:
   iconicSpells: 0
   training: light
 effects: []
-sort: 0
+sort: 400000
 ownership:
   default: 0
   iobhrakkle3Lyj0G: 3
@@ -32,6 +32,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772713232009
-  modifiedTime: 1788277275538
+  modifiedTime: 1788315019422
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!deftgrip00000000'

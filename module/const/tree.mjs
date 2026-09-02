@@ -12,7 +12,7 @@ const TIER_0 = [
   {id: "str0b", abilities: ["strength"], type: "defense", connected: ["origin"], style: "hex"},
   {id: "wis0a", abilities: ["wisdom"], type: "heal", connected: ["origin"], style: "hex"},
   {id: "wis0b", abilities: ["wisdom"], type: "spell", connected: ["origin"], style: "hex"},
-  {id: "pre0a", abilities: ["presence"], type: "magic", connected: ["origin"], style: "hex"},
+  {id: "pre0a", abilities: ["presence"], type: "skill", connected: ["origin"], style: "hex"},
   {id: "pre0b", abilities: ["presence"], type: "spell", connected: ["origin"], style: "hex"},
   {id: "int0a", abilities: ["intellect"], type: "spell", connected: ["origin"], style: "hex"},
   {id: "int0b", abilities: ["intellect"], type: "skill", connected: ["origin"], style: "hex"}
@@ -27,7 +27,7 @@ const TIER_1A = [
   {id: "str1b", abilities: ["strength"], type: "utility", connected: ["str0b", "str1a"]},
   {id: "wis1a", abilities: ["wisdom"], type: "utility", connected: ["wis0a"]},
   {id: "wis1b", abilities: ["wisdom"], type: "spell", connected: ["wis0b", "wis1a"]},
-  {id: "pre1a", abilities: ["presence"], type: "skill", connected: ["pre0a"]},
+  {id: "pre1a", abilities: ["presence"], type: "ranged", connected: ["pre0a"]},
   {id: "pre1b", abilities: ["presence"], type: "spell", connected: ["pre0b", "pre1a"]},
   {id: "int1a", abilities: ["intellect"], type: "spell", connected: ["int0a"]},
   {id: "int1b", abilities: ["intellect"], type: "utility", connected: ["int0b", "int1a"]}
@@ -120,7 +120,7 @@ const TIER_4A = [
   {id: "wis4c", abilities: ["wisdom"], type: "spell", connected: ["sig3.wisdom", "wis3b", "wis4b"]},
   {id: "wis4d", abilities: ["wisdom"], type: "spell", connected: ["wis3b", "sig3.wisdom.presence", "wis4c"]},
   {id: "pre4a", abilities: ["presence"], type: "attack", connected: ["sig3.wisdom.presence", "pre3a"]},
-  {id: "pre4b", abilities: ["presence"], type: "skill", connected: ["pre3a", "sig3.presence", "pre4a"]},
+  {id: "pre4b", abilities: ["presence"], type: "ranged", connected: ["pre3a", "sig3.presence", "pre4a"]},
   {id: "pre4c", abilities: ["presence"], type: "spell", connected: ["sig3.presence", "pre3b", "pre4b"]},
   {id: "pre4d", abilities: ["presence"], type: "spell", connected: ["pre3b", "sig3.presence.intellect", "pre4c"]},
   {id: "int4a", abilities: ["intellect"], type: "spell", connected: ["sig3.presence.intellect", "int3a"]},

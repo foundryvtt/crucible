@@ -358,6 +358,28 @@ HOOKS.carefree00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.certainFocus0000 = {
+  rollAction(_item, action, target) {
+    if ( action.id !== "refocus" ) return;
+    const dc = target.defenses[action.usage.defenseType]?.total;
+    if ( !Number.isFinite(dc) ) return;
+    const {NumericTerm, OperatorTerm} = foundry.dice.terms;
+    for ( const event of action.eventsByTarget.get(target)?.roll ?? [] ) {
+      const roll = event.roll;
+      if ( !roll || (roll.data.result !== roll.constructor.RESULT_TYPES.RESIST) ) continue;
+      const delta = (dc + 1) - roll.total;
+      roll.data.enchantment = (roll.data.enchantment ?? 0) + delta;
+      const operator = new OperatorTerm({operator: "+"});
+      const bonus = new NumericTerm({number: delta});
+      operator._evaluated = bonus._evaluated = true;
+      roll.terms.push(operator, bonus);
+      roll.resolveDamage(this, target);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.champion00000000 = {
   _DOMINANCE_ID: "championDominanc",
   _getRival(actor) {
@@ -417,6 +439,26 @@ HOOKS.champion00000000 = {
       _id: id, name: `${_loc("ACTIONS.Challenge.Dominance")} (+${stage})`,
       flags: {crucible: {dominance: {round, stage}}}
     });
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.channeledResonan = {
+  prepareAttack(_item, action, _target, rollData) {
+    if ( this.equipment.weapons.mainhand?.category !== "talisman2" ) return;
+    if ( !action.usage.isAttack ) return;
+    const sustaining = this.parent.effects.some(e => e.active && (e.system.maintenance?.cost > 0));
+    if ( sustaining ) rollData.damageBonus += 2;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.channelersGrip00 = {
+  prepareWeapons(_item, weapons) {
+    const oneHanded = [weapons.mainhand, weapons.offhand].some(w => w?.category === "talisman1");
+    if ( oneHanded ) weapons.spellHands = Math.max(weapons.spellHands, 2);
   }
 };
 
@@ -582,6 +624,18 @@ HOOKS.evasiveArmor0000 = {
     const physicalTotal = defenseTotals.armor + defenseTotals.dodge + defenseTotals.block + defenseTotals.parry;
     const excess = defenseTotals.reflex - physicalTotal;
     if ( excess > 0 ) defenses.armor.bonus += excess;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.focalReach000000 = {
+  prepareWeapons(_item, weapons) {
+    const focus = this.resources.focus.value;
+    if ( !focus ) return;
+    for ( const w of [weapons.mainhand, weapons.offhand] ) {
+      if ( w?.config.category.training.includes("talisman") ) w.range += focus;
+    }
   }
 };
 
@@ -1015,6 +1069,32 @@ HOOKS.nosferatu0000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.orbitingAegis000 = {
+  // Action effects carry no explicit _id, so the id is derived: getEffectId("orbitingAegis", {suffix: "0"})
+  _EFFECT_ID: "orbitingAegis000",
+  prepareDefenses(_item, defenses) {
+    if ( !this.effects.has(HOOKS.orbitingAegis000._EFFECT_ID) ) return;
+    const {mainhand, offhand} = this.equipment.weapons;
+    const talisman = [mainhand, offhand].some(w => w?.config.category.training.includes("talisman"));
+    if ( !talisman ) return;
+    defenses.block.bonus += Math.min(this.resources.focus.value, 3);
+  },
+
+  // The Aegis spends Focus only when it actually turns a blow aside
+  receiveAttack(item, action, roll) {
+    if ( roll.data.result !== roll.constructor.RESULT_TYPES.BLOCK ) return;
+    if ( !this.effects.has(HOOKS.orbitingAegis000._EFFECT_ID) ) return;
+    if ( !this.resources.focus.value ) return;
+    action.recordEvent({
+      target: this,
+      resources: [{resource: "focus", delta: -1}],
+      statusText: [{text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css}]
+    });
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.operator00000000 = {
   prepareStandardCheck(item, rollData) {
     if ( !this.inCombat || !game.combat.started || this.isIncapacitated ) return;
@@ -1066,6 +1146,21 @@ HOOKS.peltast000000000 = {
     // Returning: the weapon is recalled rather than dropped, so it stays in the Peltast's grasp
     for ( const update of action.selfUpdateEvent.actorUpdates.items ?? [] ) {
       if ( update.system?.dropped ) Object.assign(update.system, {dropped: false, equipped: true});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.piercingBolts000 = {
+  rollAction(_item, action, target) {
+    const weapon = action.usage.weapon ?? action.usage.strikes?.[0];
+    if ( !weapon?.config.category.training.includes("talisman") ) return;
+    for ( const event of action.eventsByTarget.get(target)?.roll ?? [] ) {
+      const dmg = event.roll?.data.damage;
+      if ( !dmg?.resistance || dmg.restoration ) continue;
+      dmg.resistance = Math.max(dmg.resistance - 2, 0);
+      dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
     }
   }
 };
@@ -1622,6 +1717,14 @@ HOOKS.thoughtbinder000 = {
 HOOKS.truegrit00000000 = {
   prepareMovement(_item, movement) {
     movement.engagementBonus += 1;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.undaunted0000000 = {
+  prepareResources(_item, resources) {
+    resources.focus.block.broken = ""; // The Undaunted may spend Focus even while Broken
   }
 };
 

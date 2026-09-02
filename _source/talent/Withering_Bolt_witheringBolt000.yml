@@ -1,0 +1,82 @@
+name: Withering Bolt
+type: talent
+img: icons/magic/unholy/beam-impact-purple.webp
+system:
+  description: >-
+    <p>You loose a bolt of baleful magic which deals no damage, but leaves your
+    foe beset by ill fortune.</p>
+  actions:
+    - id: witheringBolt
+      name: Withering Bolt
+      img: icons/magic/unholy/beam-impact-purple.webp
+      condition: ''
+      description: >-
+        <p>You perform a <strong>Harmless</strong> Talisman attack. On a success
+        the target becomes @Condition[hexed] until the end of its next turn.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects:
+        - name: Hexed
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - hexed
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+      tags:
+        - talisman
+        - harmless
+      summon: null
+  nodes:
+    - pre1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: talisman
+effects: []
+folder: zQ7pKvR3mNxL8sTa
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788278400000
+  modifiedTime: 1788316177789
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: witheringBolt000
+sort: 200000
+_key: '!items!witheringBolt000'
