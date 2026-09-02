@@ -1,0 +1,34 @@
+name: Piercing Bolts
+type: talent
+img: icons/magic/unholy/beam-ringed-impact-purple.webp
+system:
+  description: >-
+    <p>You have learned to shape your bolts to a needle point which slips
+    between wards and scales alike. Your Talisman attacks ignore 2 points of the
+    target's Resistance.</p>
+  actions: []
+  nodes:
+    - pre1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: talisman
+effects: []
+folder: zQ7pKvR3mNxL8sTa
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788278400000
+  modifiedTime: 1788315933030
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: piercingBolts000
+sort: 500000
+_key: '!items!piercingBolts000'

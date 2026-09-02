@@ -1,0 +1,63 @@
+name: Spellcatch
+type: talent
+img: icons/magic/defensive/shield-barrier-blades-teal.webp
+system:
+  description: >-
+    <p>Where another would flinch aside, you reach out and take hold. A spell
+    meant for you is caught upon your implement and wrung dry.</p>
+  actions:
+    - id: spellcatch
+      name: Spellcatch
+      img: icons/magic/defensive/shield-barrier-blades-teal.webp
+      condition: ''
+      description: >-
+        <p>When you are targeted by a Spell you may catch it upon your Talisman.
+        The Spell has no effect upon you and you recover <strong>Focus</strong>
+        equal to the Focus which was spent to cast it.</p><h3
+        class="divider">Playtest Notes</h3><p>The reaction trigger which offers
+        this action when you are targeted by a Spell is not yet automated.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - talisman
+        - reaction
+      summon: null
+  nodes:
+    - pre4b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: talisman
+effects: []
+folder: zQ7pKvR3mNxL8sTa
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788278400000
+  modifiedTime: 1788315678415
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: spellcatch000000
+sort: 1100000
+_key: '!items!spellcatch000000'

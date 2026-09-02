@@ -1,0 +1,20 @@
+type: Item
+folder: 9ZEcuYEomBQ0JDbj
+name: Natural
+color: null
+sorting: a
+_id: pcLqaJOF9hn5ggQV
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788315070184
+  modifiedTime: 1788315070184
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!pcLqaJOF9hn5ggQV'

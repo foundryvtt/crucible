@@ -1,0 +1,20 @@
+type: Item
+folder: i7P1uwWcECj5KWfY
+name: Mechanical
+color: null
+sorting: a
+_id: yxMSffVnnwRI4wmh
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788315036439
+  modifiedTime: 1788315036439
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!yxMSffVnnwRI4wmh'

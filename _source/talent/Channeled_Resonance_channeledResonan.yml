@@ -1,0 +1,35 @@
+name: Channeled Resonance
+type: talent
+img: icons/magic/symbols/runes-star-blue.webp
+system:
+  description: >-
+    <p>A great implement held in both hands hums in sympathy with the magic you
+    sustain through it. While you are wielding a two-handed Talisman and
+    maintaining an effect which costs <strong>Focus</strong>, your Talisman
+    attacks deal +2 damage.</p>
+  actions: []
+  nodes:
+    - pre4b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: talisman
+effects: []
+folder: zQ7pKvR3mNxL8sTa
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788278400000
+  modifiedTime: 1788315641815
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: channeledResonan
+sort: 600000
+_key: '!items!channeledResonan'

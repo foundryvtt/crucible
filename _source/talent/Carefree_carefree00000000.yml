@@ -11,7 +11,7 @@ system:
     easier to heal.</p>
   actions: []
   nodes:
-    - pre2a
+    - pre3a
   rune: ''
   gesture: ''
   inflection: ''
@@ -25,10 +25,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160128
-  modifiedTime: 1773514792563
+  modifiedTime: 1788316035128
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

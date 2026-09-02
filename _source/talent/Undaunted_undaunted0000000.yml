@@ -1,0 +1,34 @@
+name: Undaunted
+type: talent
+img: icons/magic/symbols/star-rising-purple.webp
+system:
+  description: >-
+    <p>Despair takes your voice and your courage, but never your command of the
+    arcane. You may continue to spend <strong>Focus</strong> even while you are
+    @Condition[broken].</p>
+  actions: []
+  nodes:
+    - wis2b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: arcana
+effects: []
+folder: qHUCrqkzuPHtBkbG
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788278400000
+  modifiedTime: 1788315521791
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: undaunted0000000
+sort: 1200000
+_key: '!items!undaunted0000000'

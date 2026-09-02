@@ -1,0 +1,34 @@
+name: Focal Reach
+type: talent
+img: icons/magic/light/beam-horizon-strike-yellow.webp
+system:
+  description: >-
+    <p>You project your will through your implement across great distance. The
+    maximum range of your Talisman attacks is increased by an amount equal to
+    your current <strong>Focus</strong>.</p>
+  actions: []
+  nodes:
+    - pre4b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: talisman
+effects: []
+folder: zQ7pKvR3mNxL8sTa
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788278400000
+  modifiedTime: 1788315269191
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: focalReach000000
+sort: 100000
+_key: '!items!focalReach000000'
