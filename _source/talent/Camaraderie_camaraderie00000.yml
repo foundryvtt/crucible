@@ -12,10 +12,11 @@ system:
       img: icons/skills/social/diplomacy-unity-alliance.webp
       condition: ''
       description: >-
-        <p>Following a <strong>Rest</strong>, you share the customs of home with
-        your companions. You and each ally who rested with you reduce
-        accumulated <strong>Madness</strong>. An ally who shares your Ancestry
-        or Culture recovers more.</p>
+        <p>Following a <strong>Rest</strong>, you find the common ground you
+        share with each of your companions. You make a Society check against the
+        <strong>Madness</strong> threshold of each member of your party. Upon a
+        success they shed <strong>Madness</strong> equal to half your Wisdom, or
+        your full Wisdom upon a Critical Success.</p>
       cost:
         action: 0
         focus: 0
@@ -34,6 +35,8 @@ system:
       effects: []
       tags:
         - rest
+        - skill
+        - society
       summon: null
   nodes:
     - wis0a

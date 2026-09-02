@@ -12,9 +12,11 @@ system:
       img: icons/commodities/treasure/mask-wood-tan.webp
       condition: ''
       description: >-
-        <p>You reassure an ally with a falsehood you know to be untrue. Spend
-        your own <strong>Morale</strong> to restore a greater amount of
-        theirs.</p>
+        <p>You reassure an ally with a falsehood you know to be untrue, making a
+        Deception check against their <strong>Rallying</strong> threshold. Upon a
+        success they recover <strong>Morale</strong>. Should they see through
+        your fiction, you lose <strong>Morale</strong> equal to the amount by which your
+        check fell short.</p>
       cost:
         action: 2
         focus: 0

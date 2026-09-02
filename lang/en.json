@@ -471,6 +471,7 @@
       "MustFollowRanged": "You may only perform the {action} action after a ranged weapon attack.",
       "MustFollowRest": "You may only perform the {action} action immediately after a Rest.",
       "MustFollowStrike": "You may only perform the {action} action after a basic Strike action",
+      "MustJoinParty": "You may only perform the {action} action as a member of the party.",
       "MustReactHit": "You may only perform the {action} action in response to an attack that hit or glanced.",
       "MustReactSingleTarget": "You may only perform the {action} action in response to an action that had a single target.",
       "MustReactStrike": "You may only perform the {action} action in response to a weapon Strike.",
