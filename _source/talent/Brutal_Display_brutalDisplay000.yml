@@ -1,0 +1,35 @@
+name: Brutal Display
+type: talent
+img: icons/skills/wounds/injury-pain-body-orange.webp
+system:
+  description: >-
+    <p>You do not merely defeat your enemies, you make an example of them. When
+    you slay a foe, every enemy within 20 feet who can see their
+    @Condition[dead] ally suffers damage to their <strong>Morale</strong> equal
+    to your <strong>Strength </strong>score.</p>
+  actions: []
+  nodes:
+    - str3b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: intimidation
+effects: []
+folder: 4Ll3b4Q4us2mp4Fu
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788364800000
+  modifiedTime: 1788364160292
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: brutalDisplay000
+sort: 600000
+_key: '!items!brutalDisplay000'

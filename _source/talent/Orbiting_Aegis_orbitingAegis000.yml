@@ -13,10 +13,10 @@ system:
       description: >-
         <p>You set your Talisman into a defensive orbit which persists until you
         dismiss it. While the Aegis turns and you have a Talisman equipped, you
-        gain a bonus to your <strong>Block</strong> defense equal to your current
-        <strong>Focus</strong>, to a maximum of +3. Each time the Aegis turns a
-        blow aside you spend 1 Focus.</p><p>Dismiss the Aegis by removing its
-        effect.</p>
+        gain a bonus to your <strong>Block</strong> defense equal to your
+        current <strong>Focus</strong>, to a maximum of +3. Each time the Aegis
+        turns a blow aside you spend 1 Focus.</p><p>Dismiss the Aegis by
+        removing its effect.</p>
       cost:
         action: 1
         focus: 0

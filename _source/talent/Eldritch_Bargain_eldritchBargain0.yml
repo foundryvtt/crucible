@@ -1,0 +1,37 @@
+name: Eldritch Bargain
+type: talent
+img: icons/magic/unholy/hand-marked-pink.webp
+system:
+  description: >-
+    <p>There are older things than Runes, and they can lend power. When you have
+    no <strong>Focus</strong> remaining, you may spend <strong>Morale</strong>
+    in its place. Each point of insufficient <strong>Focus</strong> costs 10
+    Morale in exchange. You may still make this exchange while otherwise
+    prevented from spending Focus, for example by the @Condition[broken]
+    condition, although such a trade may incur <strong>Madness</strong>.</p>
+  actions: []
+  nodes:
+    - int2b
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: arcana
+effects: []
+folder: 4Ll3b4Q4us2mp4Fu
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788364800000
+  modifiedTime: 1788364646123
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: eldritchBargain0
+sort: 900000
+_key: '!items!eldritchBargain0'
