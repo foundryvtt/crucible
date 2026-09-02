@@ -159,39 +159,20 @@ HOOKS.arcingBolt = {
   async roll(target) {
     const actor = this.actor;
     const weapon = this.usage.weapon ?? this.usage.strikes?.[0];
-    const originToken = (this.targets?.get(target)?.token ?? target.getActiveTokens(true, true)?.[0])?.object;
-    if ( !weapon || !originToken ) return;
-
-    // The arc only springs from a bolt which connected
+    const struck = this.targets?.get(target)?.token;
+    if ( !weapon || !struck || !this.token ) return;
     const landed = this.eventsByTarget.get(target)?.roll
       ?.some(e => e.roll?.data?.result >= crucible.api.dice.AttackRoll.RESULT_TYPES.GLANCE);
     if ( !landed ) return;
-
-    // Gather enemy tokens within 10 feet of the struck foe, nearest first
-    const enemyDispositions = crucible.api.documents.CrucibleActor.getDispositionGroups(actor.getDisposition()).enemy;
-    const {CrucibleMovementPolygon, grid} = crucible.api.canvas;
-    const candidates = [];
-    for ( const t of canvas.tokens.placeables ) {
-      if ( !t.actor || (t.actor === actor) || (t.actor === target) || t.actor.isIncapacitated ) continue;
-      if ( t.document.hidden || !enemyDispositions.includes(t.document.disposition) ) continue;
-      const distance = grid.getLinearRangeCost(originToken, t);
-      if ( distance > 10 ) continue;
-      candidates.push({token: t, distance});
-    }
-    candidates.sort((a, b) => a.distance - b.distance);
-
-    // The arc needs an unobstructed path from the struck foe, so take the nearest candidate which has one
-    const level = originToken.scene?.levels.get(originToken.document._source.level);
-    const origin = {x: originToken.center.x, y: originToken.center.y, elevation: originToken.document.elevation};
-    for ( const c of candidates ) {
-      const destination = {x: c.token.center.x, y: c.token.center.y, elevation: c.token.document.elevation};
-      const blocked = CrucibleMovementPolygon.testCollision(origin, destination,
-        {type: "move", mode: "any", level, excludeToken: originToken, tokenCollision: false});
-      if ( blocked ) continue;
-      const roll = await actor.weaponAttack(this, weapon, c.token.actor, {damageBonus: -2});
-      this.recordEvent({type: "strike", target: c.token.actor, roll, weapon: weapon.snapshot()});
-      return;
-    }
+    const [next] = crucible.api.canvas.grid.getTokensInRange(struck, 10, {
+      wallType: "move",
+      disposition: "enemy",
+      relativeTo: this.token,
+      exclude: t => (t.actor === actor) || (t.actor === target) || t.actor.isIncapacitated
+    });
+    if ( !next ) return;
+    const roll = await actor.weaponAttack(this, weapon, next.token.actor, {damageBonus: -2});
+    this.recordEvent({type: "strike", target: next.token.actor, roll, weapon: weapon.snapshot()});
   }
 };
 
@@ -396,16 +377,37 @@ HOOKS.chokingAmpoule = {
 /* -------------------------------------------- */
 
 HOOKS.comfortingLie = {
-  // The lie costs the liar: half your Presence is spent to restore the full amount to an ally who believes it
+  postActivate() {
+    for ( const [, events] of this.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        const shortfall = -(event.roll?.overflow ?? 0);
+        if ( event.roll?.isSuccess || (shortfall <= 0) ) continue;
+        this.recordEvent({target: this.actor, resources: [{resource: "morale", delta: -shortfall}],
+          statusText: [{text: this.name, fillColor: SYSTEM.RESOURCES.morale.color.high.css}]});
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.camaraderie = {
+  canUse() {
+    if ( !crucible.party?.system.actors.has(this.actor) ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustJoinParty", {action: this.name}));
+    }
+  },
   prepare() {
-    this.cost.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
-    this.constrainResources({morale: SYSTEM.RESOURCE_CONSTRAINTS.NO_INCREASE});
+    this.usage.defenseType = "madness";
+    const members = crucible.party?.system.actors;
+    if ( members?.has(this.actor) ) this.usage.forcedTargets = Array.from(members);
   },
   postActivate() {
-    const morale = this.actor.system.abilities.presence.value;
+    const wisdom = this.actor.system.abilities.wisdom.value;
     for ( const [target, events] of this.eventsByTarget ) {
-      if ( !events.roll?.some(e => e.roll?.isSuccess) ) continue;
-      this.recordEvent({target, resources: [{resource: "morale", delta: morale}]});
+      if ( !events.isSuccess ) continue;
+      const amount = events.isCriticalSuccess ? wisdom : Math.ceil(wisdom / 2);
+      this.recordEvent({target, resources: [{resource: "madness", delta: -amount}]});
     }
   }
 };
@@ -2067,54 +2069,27 @@ HOOKS.ricochet = {
     const actor = this.actor;
     const intellect = actor.system.abilities.intellect.value;
     const weapon = this.usage.weapon ?? this.usage.strikes?.[0];
-    let currentToken = (this.targets?.get(target)?.token ?? target.getActiveTokens(true, true)?.[0])?.object;
-    if ( !weapon || !currentToken ) return;
+    let current = this.targets?.get(target)?.token;
+    if ( !weapon || !current || !this.token ) return;
 
-    // Bounces capped at half intellect
+    // Bounces capped at half intellect, each hop reaching at most Intellect feet
     let remaining = Math.ceil(intellect / 2);
-    if ( remaining <= 0 ) return;
-
-    // Enemy dispositions, matching the action's ENEMIES target scope
-    const enemyDispositions = crucible.api.documents.CrucibleActor.getDispositionGroups(actor.getDisposition()).enemy;
-
-    // Carom until no targets remain
-    const {CrucibleMovementPolygon, grid} = crucible.api.canvas;
-    const hopRadius = intellect; // Hop radius in feet
-    const level = currentToken.scene?.levels.get(currentToken.document._source.level);
     const visited = new Set([target]);
     let hop = 1; // Accumulating damage falloff: the second target takes -1, the third -2, and so on
+
+    // Continue carom while hops remain
     while ( remaining > 0 ) {
-
-      // Gather unvisited enemy tokens within the hop radius of the current token
-      const candidates = [];
-      for ( const t of canvas.tokens.placeables ) {
-        if ( !t.actor || (t.actor === actor) || visited.has(t.actor) || t.actor.isIncapacitated ) continue;
-        if ( t.document.hidden || !enemyDispositions.includes(t.document.disposition) ) continue;
-        const distance = grid.getLinearRangeCost(currentToken, t);
-        if ( distance > hopRadius ) continue;
-        candidates.push({token: t, distance});
-      }
-      candidates.sort((a, b) => a.distance - b.distance);
-
-      // Choose the nearest candidate to which a direct move ray is unobstructed by walls
-      const origin = {x: currentToken.center.x, y: currentToken.center.y, elevation: currentToken.document.elevation};
-      let next = null;
-      for ( const c of candidates ) {
-        const destination = {x: c.token.center.x, y: c.token.center.y, elevation: c.token.document.elevation};
-        const blocked = CrucibleMovementPolygon.testCollision(origin, destination,
-          {type: "move", mode: "any", level, excludeToken: currentToken, tokenCollision: false});
-        if ( !blocked ) {
-          next = c.token;
-          break;
-        }
-      }
+      const [next] = crucible.api.canvas.grid.getTokensInRange(current, intellect, {
+        wallType: "move",
+        disposition: "enemy",
+        relativeTo: this.token,
+        exclude: t => (t.actor === actor) || visited.has(t.actor) || t.actor.isIncapacitated
+      });
       if ( !next ) break;
-
-      // Strike the next foe with accumulating damage falloff, then carom onward from it
-      const roll = await actor.weaponAttack(this, weapon, next.actor, {damageBonus: -hop});
-      this.recordEvent({type: "strike", target: next.actor, roll, weapon: weapon.snapshot()});
-      visited.add(next.actor);
-      currentToken = next;
+      const roll = await actor.weaponAttack(this, weapon, next.token.actor, {damageBonus: -hop});
+      this.recordEvent({type: "strike", target: next.token.actor, roll, weapon: weapon.snapshot()});
+      visited.add(next.token.actor);
+      current = next.token;
       hop++;
       remaining--;
     }
