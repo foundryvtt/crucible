@@ -1,0 +1,18 @@
+type: Item
+folder: i7P1uwWcECj5KWfY
+name: Talisman
+color: null
+sorting: a
+_id: zQ7pKvR3mNxL8sTa
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  lastModifiedBy: null
+_key: '!folders!zQ7pKvR3mNxL8sTa'
