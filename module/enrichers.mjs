@@ -692,7 +692,7 @@ function enrichSkillCheck([match, terms]) {
  */
 function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   const tag = document.createElement("enriched-content");
-  tag.classList.add("skill-check", skill.category);
+  tag.classList.add("skill-check", skill.group);
   const dataset = {skillId: skill.id, dc};
   if ( group ) {
     tag.classList.add("group-check");

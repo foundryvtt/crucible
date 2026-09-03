@@ -3,20 +3,36 @@
 
     <div class="header-section flexrow">
         <div class="point-pools flexrow">
+            {{#with proficiency.pools as |pools|}}
+            {{#if pools.canAllocate}}
             <span class="label">{{localize "ACTOR.SHEET.PointsAvailable"}}</span>
-            <span class="value">{{proficiency.available}}</span>
+            <span class="value">{{pools.available}}</span>
             <span class="label">{{localize "ACTOR.SHEET.PointsSpent"}}</span>
-            <span class="value">{{proficiency.spent}}</span>
+            <span class="value">{{pools.spent}}</span>
+            {{else}}
+            <span class="label">{{localize "ACTOR.SHEET.PointsGranted"}}</span>
+            <span class="value">{{pools.granted}}</span>
+            {{/if}}
+            {{/with}}
+            {{#if proficiency.showAll}}
+            <a class="button icon fa-solid fa-filter" data-action="proficiencyFilter" data-tooltip
+               aria-label="{{localize "ACTOR.ACTIONS.ProficiencyFilterTrained"}}"></a>
+            {{else}}
+            <a class="button icon fa-solid fa-filter-circle-xmark" data-action="proficiencyFilter" data-tooltip
+               aria-label="{{localize "ACTOR.ACTIONS.ProficiencyFilterAll"}}"></a>
+            {{/if}}
+            {{#if proficiency.pools.canAllocate}}
             <a class="button icon fa-solid fa-undo" data-action="proficiencyReset"
                aria-label="{{localize "ACTOR.ACTIONS.ResetProficiency"}}" data-tooltip></a>
+            {{/if}}
         </div>
     </div>
 
     {{#each proficiency.sections as |section|}}
     <div class="sheet-section item-section flexcol">
         <h3 class="section-header">{{section.label}}</h3>
-        <ol class="items-list proficiency-list" style="--bar-color: {{section.color}}"
-            data-tooltip-direction="LEFT">
+        <ol class="items-list proficiency-list{{#unless ../proficiency.pools.canAllocate}} no-allocation{{/unless}}"
+            style="--bar-color: {{section.color}}" data-tooltip-direction="LEFT">
             {{#each section.types as |training|}}
             <li class="line-item training{{#if training.rollable}} skill{{/if}}"
                 data-training="{{training.id}}" data-skill="{{training.id}}">
@@ -54,6 +70,7 @@
                     <span class="tick cap" style="left: {{cap.left}}" data-tooltip aria-label="{{cap.label}}"></span>
                     {{/with}}
                 </div>
+                {{#if ../../proficiency.pools.canAllocate}}
                 <div class="buttons flexcol">
                     <button type="button" class="plain icon fa-solid fa-caret-up" data-action="proficiencyIncrease"
                             data-tooltip aria-label="{{localize 'TRAINING.Increase'}}"
@@ -62,13 +79,14 @@
                             data-tooltip aria-label="{{localize 'TRAINING.Decrease'}}"
                             {{#unless training.canDecrease}}disabled{{/unless}}></button>
                 </div>
+                {{/if}}
             </li>
             {{/each}}
         </ol>
     </div>
     {{/each}}
 
-    <footer class="tab-footer skills-footer flexrow">
+    <footer class="tab-footer proficiencies-footer flexrow">
         <div class="sheet-section flexcol">
             <h3>
                 {{localize "ACTOR.LABELS.Knowledge"}}
