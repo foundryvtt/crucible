@@ -1167,7 +1167,10 @@
       "Clear": "Clear Archetype",
       "RequiredComponents": "<p><strong>{spell}</strong> requires spell components not currently on this Archetype. Do you want to add them automatically?</p>",
       "Training": "Training Preference",
-      "TrainingHint": "Relative preference for each proficiency. Adversaries of this Archetype spend their training points in proportion to these weights, so only the ratios between them matter, not their absolute size."
+      "TrainingAdd": "Add a Proficiency",
+      "TrainingRemove": "Remove Proficiency",
+      "TrainingSpare": "Advanced only from points the weighted proficiencies cannot absorb.",
+      "TrainingHint": "Adversaries of this Archetype spend their training points in proportion to these weights, so only the ratios between them matter, not their absolute size. A weight of zero claims nothing until every weighted proficiency is fully trained, then shares whatever remains."
     },
     "WARNINGS": {
       "InvalidAbilities": "The sum of ability scaling values must equal 12. Currently {sum}",

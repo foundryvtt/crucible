@@ -100,14 +100,13 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /**
    * The number of training points this Adversary allocates according to Archetype preference.
-   * Beneath level 1 the award decays along the same reciprocal curve as {@link CrucibleAdversaryActor#advancement}
-   * threatLevel, so the weakest creatures still train a little rather than dropping to nothing at once.
+   * The flat grant buys the parity a level 1 hero already has from background and starting choices, above which the
+   * rate scales on effective threat so an Elite out-trains a Normal of the same level.
    * @type {number}
    */
   get trainingBudget() {
-    const {level} = this.advancement;
-    const perLevel = SYSTEM.PROFICIENCY.ADVERSARY_POINTS_PER_LEVEL;
-    return level >= 1 ? perLevel * level : Math.ceil(perLevel / (2 - level));
+    const {initial, perLevel} = SYSTEM.PROFICIENCY.ADVERSARY_POINTS;
+    return initial + Math.ceil(perLevel * this.advancement.threat);
   }
 
   /* -------------------------------------------- */
@@ -252,15 +251,32 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       natural.initial = Math.max(natural.initial, required);
     }
 
-    // Allocate the level-scaled training budget according to Archetype preference
+    // Allocate the level-scaled training budget according to Archetype preference, broken by aptitude where tied.
+    // Abilities are already resolved here, using pre-Effect values so progression cannot drift with transient buffs.
+    const budget = this.trainingBudget;
     const {trainingCap} = this.details.progression;
+    const preferences = this.details.archetype?.training ?? {};
     const weights = {};
     const caps = {};
+    const aptitude = {};
     for ( const id in SYSTEM.PROFICIENCIES ) {
-      weights[id] = this.details.archetype?.training?.[id] ?? 0;
+      weights[id] = preferences[id] ?? 0;
       caps[id] = Math.max(trainingCap - this.training[id].initial, 0);
+      aptitude[id] = this.parent.getAbilityBonus(SYSTEM.PROFICIENCIES[id].abilities);
     }
-    const increases = allocatePoints(this.trainingBudget, weights, {caps});
+    const order = SYSTEM.PROFICIENCY.getAllocationOrder(aptitude);
+    const increases = allocatePoints(budget, weights, {caps, order});
+
+    // A declared weight of zero asks for whatever survives the preferred allocation, which would otherwise be
+    // discarded once every weighted proficiency saturates. Spare proficiencies then share it as equal peers.
+    let surplus = budget;
+    for ( const id in increases ) surplus -= increases[id];
+    if ( surplus > 0 ) {
+      const spare = {};
+      for ( const id in preferences ) if ( preferences[id] === 0 ) spare[id] = 1;
+      const leftovers = allocatePoints(surplus, spare, {caps, order});
+      for ( const id in leftovers ) increases[id] += leftovers[id];
+    }
     for ( const id in SYSTEM.PROFICIENCIES ) this.training[id].increases = increases[id];
   }
 

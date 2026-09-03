@@ -10,6 +10,9 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     item: {
       type: "archetype",
       includesEquipment: true
+    },
+    actions: {
+      trainingRemove: CrucibleArchetypeItemSheet.#onTrainingRemove
     }
   };
 
@@ -44,7 +47,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
         value: context.source.system.abilities[ability.id]
       })),
 
-      trainingGroups: this.#prepareTrainingGroups(context),
+      training: this.#prepareTraining(context),
 
       // TODO: Make use of each spell's `level` in UI
       spells: await this._prepareSpells()
@@ -54,29 +57,34 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   /* -------------------------------------------- */
 
   /**
-   * Group the training weight inputs by proficiency group for rendering.
+   * Split the proficiencies into those already carrying a weight and those still available to add.
+   * Only assigned weights are rendered, keeping the list sparse against the full set of 32 proficiencies.
    * @param {object} context   The prepared sheet context
-   * @returns {{id: string, label: string, proficiencies: object[]}[]}
+   * @returns {{rows: object[], options: object[], groups: string[], field: StringField}}
    */
-  #prepareTrainingGroups(context) {
+  #prepareTraining(context) {
+    const {PROFICIENCIES, GROUPS} = SYSTEM.PROFICIENCY;
     const weights = context.source.system.training ?? {};
-    const field = context.fields.training.element;
-    const groups = {};
-    for ( const [id, config] of Object.entries(SYSTEM.PROFICIENCY.PROFICIENCIES) ) {
-      const group = groups[config.group] ??= {
-        id: config.group,
-        label: SYSTEM.PROFICIENCY.GROUPS[config.group].label,
-        proficiencies: []
-      };
-      group.proficiencies.push({
-        field,
+    const element = context.fields.training.element;
+    const rows = [];
+    const options = [];
+    for ( const [id, config] of Object.entries(PROFICIENCIES) ) {
+      if ( id in weights ) rows.push({
+        field: element,
         id,
         label: config.label,
         name: `system.training.${id}`,
-        value: weights[id] ?? 0
+        spare: weights[id] === 0, // Advanced only from whatever the weighted proficiencies leave behind
+        value: weights[id]
       });
+      else options.push({value: id, label: config.label, group: GROUPS[config.group].label});
     }
-    return Object.values(groups);
+    return {
+      rows,
+      options,
+      groups: Object.values(GROUPS).map(g => g.label),
+      field: new foundry.data.fields.StringField({required: false, blank: true})
+    };
   }
 
   /* -------------------------------------------- */
@@ -142,6 +150,22 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   /* -------------------------------------------- */
 
   /**
+   * Remove an assigned training weight, which the numeric input alone cannot express.
+   * @this {CrucibleArchetypeItemSheet}
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
+  static async #onTrainingRemove(event, target) {
+    const {proficiency} = target.closest(".training-weight").dataset;
+    const training = {...this.document._source.system.training};
+    delete training[proficiency];
+    return this._processSubmitData(event, this.form, {system: {training: _replace(training)}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Handle drop events for a spell item added to this sheet
    * @param {DragEvent} event
    * @returns {Promise<*>}
@@ -201,6 +225,20 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     } else {
       delete submitData.system.abilities;
     }
+
+    // Fold any newly selected proficiency into the weights, which replace rather than merge so removals take effect
+    const added = submitData.trainingAdd;
+    delete submitData.trainingAdd;
+    const training = {};
+    for ( const [id, weight] of Object.entries(submitData.system.training ?? {}) ) {
+      // Zero is a meaningful weight, so only a cleared input drops a row. The max attribute does not prevent a
+      // typed value, so clamp rather than fail validation.
+      if ( Number.isFinite(weight) && (weight >= 0) ) {
+        training[id] = Math.clamp(weight, 0, SYSTEM.PROFICIENCY.WEIGHT_MAX);
+      }
+    }
+    if ( added ) training[added] ??= 1;
+    submitData.system.training = _replace(training);
     return submitData;
   }
 }

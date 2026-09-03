@@ -18,21 +18,26 @@
         </div>
         <p class="hint">{{fields.abilities.hint}}</p>
     </fieldset>
-    <fieldset class="form-group training" {{fieldDisabled}}>
+    <fieldset class="training" {{fieldDisabled}}>
         <legend>{{localize "ARCHETYPE.SHEET.Training"}}</legend>
-        {{#each trainingGroups as |group|}}
-        <div class="training-group">
-            <h4 class="divider">{{group.label}}</h4>
-            <div class="form-fields">
-                {{#each group.proficiencies as |p|}}
-                <label class="training-weight">
-                    {{formInput p.field value=p.value type="number" name=p.name min=0 step=1}}
-                    {{p.label}}
-                </label>
-                {{/each}}
+        {{#if training.rows.length}}
+        <div class="form-fields">
+            {{#each training.rows as |p|}}
+            <div class="training-weight {{#if p.spare}}spare{{/if}}" data-proficiency="{{p.id}}"
+                 {{#if p.spare}}data-tooltip="ARCHETYPE.SHEET.TrainingSpare"{{/if}}>
+                {{formInput p.field value=p.value type="number" name=p.name}}
+                <span class="proficiency">{{p.label}}</span>
+                <a class="remove" data-action="trainingRemove" data-tooltip="ARCHETYPE.SHEET.TrainingRemove">
+                    <i class="fa-solid fa-times"></i>
+                </a>
             </div>
+            {{/each}}
         </div>
-        {{/each}}
+        {{/if}}
+        {{#if training.options.length}}
+        {{formInput training.field name="trainingAdd" value="" options=training.options groups=training.groups
+                    blank=(localize "ARCHETYPE.SHEET.TrainingAdd")}}
+        {{/if}}
         <p class="hint">{{localize "ARCHETYPE.SHEET.TrainingHint"}}</p>
     </fieldset>
 </section>
