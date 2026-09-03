@@ -31,11 +31,11 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.grapple000000000
       level: 0
-  skills:
-    - awareness
-    - medicine
-    - society
-    - intimidation
+  training:
+    awareness: 1
+    medicine: 1
+    society: 1
+    intimidation: 1
   spells: []
   equipment: []
 effects: []

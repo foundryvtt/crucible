@@ -15,11 +15,11 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.swoopingStrike00
       level: null
-  skills:
-    - awareness
-    - stealth
-    - deception
-    - athletics
+  training:
+    awareness: 1
+    stealth: 1
+    deception: 1
+    athletics: 1
   identifier: adultDrake
   spells: []
   equipment: []

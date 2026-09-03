@@ -44,9 +44,39 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
         value: context.source.system.abilities[ability.id]
       })),
 
+      trainingGroups: this.#prepareTrainingGroups(context),
+
       // TODO: Make use of each spell's `level` in UI
       spells: await this._prepareSpells()
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Group the training weight inputs by proficiency group for rendering.
+   * @param {object} context   The prepared sheet context
+   * @returns {{id: string, label: string, proficiencies: object[]}[]}
+   */
+  #prepareTrainingGroups(context) {
+    const weights = context.source.system.training ?? {};
+    const field = context.fields.training.element;
+    const groups = {};
+    for ( const [id, config] of Object.entries(SYSTEM.PROFICIENCY.PROFICIENCIES) ) {
+      const group = groups[config.group] ??= {
+        id: config.group,
+        label: SYSTEM.PROFICIENCY.GROUPS[config.group].label,
+        proficiencies: []
+      };
+      group.proficiencies.push({
+        field,
+        id,
+        label: config.label,
+        name: `system.training.${id}`,
+        value: weights[id] ?? 0
+      });
+    }
+    return Object.values(groups);
   }
 
   /* -------------------------------------------- */

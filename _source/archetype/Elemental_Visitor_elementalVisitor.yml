@@ -22,10 +22,10 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.gestureaspect000
       level: null
-  skills:
-    - athletics
-    - intimidation
-    - performance
+  training:
+    athletics: 1
+    intimidation: 1
+    performance: 1
   equipment: []
   spells: []
 effects: []

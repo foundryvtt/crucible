@@ -22,10 +22,10 @@ system:
     - item: Compendium.crucible.talent.Item.bulwark000000000
       level: null
   identifier: fighter
-  skills:
-    - athletics
-    - intimidation
-    - awareness
+  training:
+    athletics: 1
+    intimidation: 1
+    awareness: 1
   spells: []
   equipment: []
 effects: []

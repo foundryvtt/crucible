@@ -19,10 +19,10 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.glider0000000000
       level: null
-  skills:
-    - awareness
-    - stealth
-    - deception
+  training:
+    awareness: 1
+    stealth: 1
+    deception: 1
   identifier: drakeling
   spells: []
   equipment: []

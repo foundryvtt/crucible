@@ -26,10 +26,10 @@ system:
     - item: Compendium.crucible.talent.Item.refocus000000000
       level: null
   identifier: mage
-  skills:
-    - awareness
-    - arcana
-    - science
+  training:
+    awareness: 1
+    arcana: 1
+    science: 1
   spells: []
   equipment: []
 effects: []

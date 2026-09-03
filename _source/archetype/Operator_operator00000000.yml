@@ -23,11 +23,11 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
-  skills:
-    - awareness
-    - stealth
-    - society
-    - deception
+  training:
+    awareness: 1
+    stealth: 1
+    society: 1
+    deception: 1
   identifier: operator
   spells: []
   equipment: []

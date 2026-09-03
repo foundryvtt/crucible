@@ -46,11 +46,11 @@ system:
       level: 5
     - item: Compendium.crucible.talent.Item.counterspell0000
       level: 5
-  skills:
-    - stealth
-    - arcana
-    - deception
-    - intimidation
+  training:
+    stealth: 1
+    arcana: 1
+    deception: 1
+    intimidation: 1
   spells: []
   equipment: []
 effects: []

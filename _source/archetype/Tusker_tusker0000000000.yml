@@ -17,10 +17,10 @@ system:
   talents:
     - item: Compendium.crucible.adversary-talents.Item.tuskCharge000000
       level: null
-  skills:
-    - athletics
-    - awareness
-    - wilderness
+  training:
+    athletics: 1
+    awareness: 1
+    wilderness: 1
   identifier: tusker
   spells: []
   equipment: []

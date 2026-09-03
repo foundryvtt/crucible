@@ -27,10 +27,10 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.gesturepulse0000
       level: null
-  skills:
-    - athletics
-    - intimidation
-    - performance
+  training:
+    athletics: 1
+    intimidation: 1
+    performance: 1
   equipment: []
   spells: []
 effects: []

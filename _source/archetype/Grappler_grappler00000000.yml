@@ -23,10 +23,10 @@ system:
     - item: Compendium.crucible.talent.Item.grapple000000000
       level: null
   identifier: grappler
-  skills:
-    - athletics
-    - intimidation
-    - performance
+  training:
+    athletics: 1
+    intimidation: 1
+    performance: 1
   spells: []
   equipment: []
 effects: []
