@@ -1,6 +1,7 @@
 import CrucibleBaseActor from "./actor-base.mjs";
 import CrucibleTaxonomyItem from "./item-taxonomy.mjs";
 import CrucibleArchetypeItem from "./item-archetype.mjs";
+import {allocatePoints} from "../advancement.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Adversary type Actors.
@@ -62,6 +63,12 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * The Handlebars template path used to render an @Embed block for adversaries.
    */
   static EMBED_TEMPLATE = "systems/crucible/templates/embeds/actor-adversary.hbs";
+
+  /**
+   * The order in which abilities claim a point when automatic allocation would otherwise be tied.
+   * @type {string[]}
+   */
+  static #ABILITY_PRIORITY = ["toughness", "strength", "dexterity", "presence", "intellect", "wisdom"];
 
   /* -------------------------------------------- */
   /*  Properties                                  */
@@ -128,78 +135,25 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /** @override */
   _prepareBaseAbilities() {
-    const {archetype, taxonomy} = this.details;
+    const {archetype, taxonomy: tax} = this.details;
     const {level, threat} = this.advancement;
-    let toSpend = level > 0 ? 5 + level : Math.ceil(6 * threat);
-
-    // Assign base Taxonomy ability scores
+    const {abilityMax} = this.details.progression;
+    const budget = level > 0 ? 5 + level : Math.ceil(6 * threat);
+    const weights = {};
+    const caps = {};
     for ( const k in SYSTEM.ABILITIES ) {
       const a = this.abilities[k];
-      a.base = taxonomy.abilities[k];
+      a.base = tax.abilities[k];
       a.initial = a.increases = 0;
       a.value = a.base;
+      weights[k] = a.base > 0 ? archetype.abilities[k] : 0; // An ability the Taxonomy denies can never be raised
+      caps[k] = Math.max(abilityMax - a.base, 0);
     }
-
-    // Compute Archetype scaling
-    const abilities = {};
-    const total = {points: 0, points2: 0};
+    const order = CrucibleAdversaryActor.#ABILITY_PRIORITY.toSorted((a, b) => tax.abilities[b] - tax.abilities[a]);
+    const increases = allocatePoints(budget, weights, {caps, order});
     for ( const k in SYSTEM.ABILITIES ) {
-      const ability = {points: taxonomy.abilities[k] > 0 ? archetype.abilities[k] : 0};
-      abilities[k] = ability;
-      total.points += ability.points;
-    }
-    for ( const k in abilities ) abilities[k].weight = abilities[k].points / total.points;
-
-    // Pass 1: Unconstrained Increases
-    const nFull = Math.floor(toSpend / total.points);
-    if ( nFull > 0 ) {
-      for ( const [k, abl] of Object.entries(abilities) ) {
-        const a = this.abilities[k];
-        a.increases += (abl.points * nFull);
-        a.value = a.base + a.increases;
-      }
-      toSpend -= (nFull * total.points);
-    }
-    if ( toSpend === 0 ) return;
-
-    // Pass 2: Iterative Assignment
-    const allocation = {};
-    for ( const k in abilities ) {
-      const w = abilities[k].weight;
-      const v0 = toSpend * w;
-      const t0 = Math.min(v0, (18 - this.abilities[k].value), abilities[k].points);
-      const p0 = Math.floor(t0);
-
-      // How many more points are needed to get another +1?
-      const t1 = Math.min(v0 + 1, (18 - this.abilities[k].value), abilities[k].points);
-      const p1 = Math.floor(t1);
-      const needed = (p1 - t0) / w;
-      allocation[k] = {w, v0, t0, p0, t1, p1, needed};
-    }
-
-    // Unambiguous allocation
-    const remainder = [];
-    for ( const k in allocation ) {
-      const {p0, p1, needed} = allocation[k];
       const a = this.abilities[k];
-      a.increases += p0;
-      toSpend -= p0;
-      a.value = a.base + a.increases;
-      if ( (p1 > p0) && Number.isFinite(needed) ) remainder.push({ability: k, needed});
-    }
-    if ( toSpend === 0 ) return;
-
-    // Sort remainder
-    const tiebreaker = {toughness: 1, strength: 2, dexterity: 3, presence: 4, intellect: 5, wisdom: 6};
-    remainder.sort((a, b) => {
-      return (a.needed - b.needed)                                          // Fewest points needed
-        || (taxonomy.abilities[b.ability] - taxonomy.abilities[a.ability])     // Taxonomy preference
-        || (tiebreaker[a.ability] - tiebreaker[b.ability]);                       // Heuristic tiebreaker
-    });
-    for ( const {ability} of remainder.slice(0, toSpend) ) {
-      const a = this.abilities[ability];
-      a.increases += 1;
-      toSpend -= 1;
+      a.increases = increases[k];
       a.value = a.base + a.increases;
     }
   }
