@@ -40,7 +40,7 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       threat: SYSTEM.THREAT_RANKS[rank],
       levelDisplay: this.#getLevelDisplay(level),
       canLevelUp: level < 24,
-      canLevelDown: level > -5,
+      canLevelDown: level !== 0, // Level zero sits beneath the fractional band, not between it and level one
       importantTooltip: _loc(a.system.advancement.important ? "ADVANCEMENT.MarkNotImportant" : "ADVANCEMENT.MarkImportant")
     });
 
@@ -103,8 +103,8 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
     const l = this.actor.system.advancement.level;
     let next;
     if ( l === 1 ) next = -1;
-    else if ( l === -11 ) next = 0;
-    else next = Math.max(l - 1, -11);
+    else if ( l === -5 ) next = 0; // The schema floors the fractional band at 1/6, below which only level zero lies
+    else next = Math.max(l - 1, -5);
     return this.actor.update({"system.advancement.level": next});
   }
 
@@ -119,7 +119,7 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
   static async #onLevelIncrease(event) {
     const l = this.actor.system.advancement.level;
     let next;
-    if ( l === 0 ) next = -11;
+    if ( l === 0 ) next = -5;
     else if ( l === -1 ) next = 1;
     else next = Math.min(l + 1, 24);
     return this.actor.update({"system.advancement.level": next});

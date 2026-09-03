@@ -338,11 +338,53 @@ export const PROFICIENCY_POINTS = Object.freeze({
 });
 
 /**
- * Training points an Adversary receives per level, allocated automatically according to Archetype preference.
- * Adversaries take no training from talents, whose distribution across Archetypes is far too uneven to build on.
+ * Training points an Adversary receives, allocated automatically according to Archetype preference.
+ * Adversaries take no training from talents, whose distribution across Archetypes is far too uneven to build on, so
+ * this rate stands in for everything a hero of equal standing would draw from background, talents, and allocation
+ * together. The per-level rate scales on effective threat, while the initial grant does not.
+ * @type {Readonly<{initial: number, perLevel: number}>}
+ */
+export const ADVERSARY_POINTS = Object.freeze({
+  initial: 4,
+  perLevel: 4
+});
+
+/**
+ * The greatest preference weight an Archetype may express for a single proficiency.
+ * Matches the ceiling on Archetype ability scaling, and admits 23 distinct two-proficiency ratios where a cap of 3
+ * would admit only 7, which is the range a specialist needs to read as genuinely specialised.
  * @type {number}
  */
-export const ADVERSARY_POINTS_PER_LEVEL = 4;
+export const WEIGHT_MAX = 6;
+
+/**
+ * The order in which proficiency groups claim a tied allocation point.
+ * Combat capability decides an encounter before expertise does, and a craft never decides one at all.
+ * @type {readonly string[]}
+ */
+const ALLOCATION_GROUP_PRIORITY = Object.freeze(["weapon", "spell", "equipment", "exp", "kno", "soc", "craft"]);
+
+/**
+ * Proficiency ids in the order they claim a tied allocation point, before any Actor's aptitude is considered.
+ * The sort is stable, so proficiencies within one group retain their declaration order.
+ * @type {readonly string[]}
+ */
+export const ALLOCATION_ORDER = Object.freeze(Object.keys(PROFICIENCIES).toSorted((a, b) =>
+  ALLOCATION_GROUP_PRIORITY.indexOf(PROFICIENCIES[a].group)
+  - ALLOCATION_GROUP_PRIORITY.indexOf(PROFICIENCIES[b].group)));
+
+/**
+ * Refine the static allocation order by an Actor's aptitude for each proficiency.
+ * A creature with far more Intellect than Presence advances Elemental Spellcraft ahead of Spiritual, all else equal.
+ * Group priority still outranks aptitude, so a craft never overtakes a weapon on ability scores alone.
+ * @param {Record<string, number>} aptitude   Ability bonus keyed by proficiency id
+ * @returns {string[]}                        Proficiency ids in the order they claim a tied point
+ */
+export function getAllocationOrder(aptitude) {
+  return ALLOCATION_ORDER.toSorted((a, b) => (ALLOCATION_GROUP_PRIORITY.indexOf(PROFICIENCIES[a].group)
+    - ALLOCATION_GROUP_PRIORITY.indexOf(PROFICIENCIES[b].group))
+    || ((aptitude[b] ?? 0) - (aptitude[a] ?? 0)));
+}
 
 /**
  * The number of training points a Background is expected to grant, free of Proficiency Point cost.
