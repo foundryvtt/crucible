@@ -163,6 +163,7 @@ enriched-content.counterspell {
   --color-background-hover: #000000;
   --color-border: #000000;
   --color-border-hover: #000000;
+  --color-text-emphatic: #eee8df; // Local fallback; legible outside a themed .crucible card (e.g. RollTable draw)
 
   display: inline-flex;
   height: 1.5em;
@@ -268,6 +269,8 @@ enriched-content.counterspell {
 
 enriched-content.rule {
   font-size: 90%;
+  --color-text-emphatic: #eee8df; // Local fallback, same reasoning as .hazard-check et al above
+  --color-border: #3f3128; // Local fallback; matches --color-frame in variables.less
   color: var(--color-text-emphatic);
   border: 1px dashed var(--color-border);
   border-radius: 2px;
