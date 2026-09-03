@@ -20,11 +20,11 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.holdfast00000000
       level: 3
-  skills:
-    - athletics
-    - awareness
-    - intimidation
-    - wilderness
+  training:
+    athletics: 1
+    awareness: 1
+    intimidation: 1
+    wilderness: 1
   spells: []
   equipment: []
 effects: []

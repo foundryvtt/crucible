@@ -20,9 +20,9 @@ system:
   talents:
     - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
       level: null
-  skills:
-    - stealth
-    - performance
+  training:
+    stealth: 1
+    performance: 1
   equipment: []
   spells: []
 effects: []

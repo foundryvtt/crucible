@@ -1166,7 +1166,8 @@
       "Choose": "Choose Archetype",
       "Clear": "Clear Archetype",
       "RequiredComponents": "<p><strong>{spell}</strong> requires spell components not currently on this Archetype. Do you want to add them automatically?</p>",
-      "Skills": "Skill Progression"
+      "Training": "Training Preference",
+      "TrainingHint": "Relative preference for each proficiency. Adversaries of this Archetype spend their training points in proportion to these weights, so only the ratios between them matter, not their absolute size."
     },
     "WARNINGS": {
       "InvalidAbilities": "The sum of ability scaling values must equal 12. Currently {sum}",

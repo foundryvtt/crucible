@@ -22,10 +22,10 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.holdfast00000000
       level: null
-  skills:
-    - athletics
-    - medicine
-    - diplomacy
+  training:
+    athletics: 1
+    medicine: 1
+    diplomacy: 1
   equipment: []
   spells: []
 effects: []

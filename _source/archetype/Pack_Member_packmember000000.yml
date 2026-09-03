@@ -15,10 +15,10 @@ system:
   talents:
     - item: Compendium.crucible.adversary-talents.Item.packhunter000000
       level: null
-  skills:
-    - awareness
-    - stealth
-    - wilderness
+  training:
+    awareness: 1
+    stealth: 1
+    wilderness: 1
   identifier: packMember
   spells: []
   equipment: []

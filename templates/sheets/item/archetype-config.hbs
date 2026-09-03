@@ -18,8 +18,21 @@
         </div>
         <p class="hint">{{fields.abilities.hint}}</p>
     </fieldset>
-    <fieldset {{fieldDisabled}}>
-        <legend>{{localize "ARCHETYPE.SHEET.Skills"}}</legend>
-        {{formGroup fields.skills value=source.system.skills stacked=true type="checkboxes"}}
+    <fieldset class="form-group training" {{fieldDisabled}}>
+        <legend>{{localize "ARCHETYPE.SHEET.Training"}}</legend>
+        {{#each trainingGroups as |group|}}
+        <div class="training-group">
+            <h4 class="divider">{{group.label}}</h4>
+            <div class="form-fields">
+                {{#each group.proficiencies as |p|}}
+                <label class="training-weight">
+                    {{formInput p.field value=p.value type="number" name=p.name min=0 step=1}}
+                    {{p.label}}
+                </label>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+        <p class="hint">{{localize "ARCHETYPE.SHEET.TrainingHint"}}</p>
     </fieldset>
 </section>

@@ -31,11 +31,11 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.subtleextricatio
       level: 3
-  skills:
-    - athletics
-    - awareness
-    - stealth
-    - intimidation
+  training:
+    athletics: 1
+    awareness: 1
+    stealth: 1
+    intimidation: 1
   spells: []
   equipment: []
 effects: []

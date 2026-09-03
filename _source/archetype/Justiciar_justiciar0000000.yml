@@ -26,10 +26,10 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.seasonedveteran0
       level: null
-  skills:
-    - athletics
-    - intimidation
-    - awareness
+  training:
+    athletics: 1
+    intimidation: 1
+    awareness: 1
   equipment: []
   spells: []
 effects: []

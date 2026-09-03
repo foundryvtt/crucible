@@ -19,7 +19,7 @@ system:
     - item: Compendium.crucible.talent.Item.quickDraw0000000
       level: null
   identifier: archer
-  skills: []
+  training: {}
   spells: []
   equipment: []
 effects: []

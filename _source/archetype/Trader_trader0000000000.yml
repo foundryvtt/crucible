@@ -21,11 +21,11 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.provocateur00000
       level: null
-  skills:
-    - awareness
-    - society
-    - deception
-    - diplomacy
+  training:
+    awareness: 1
+    society: 1
+    deception: 1
+    diplomacy: 1
   identifier: trader
   spells: []
   equipment: []

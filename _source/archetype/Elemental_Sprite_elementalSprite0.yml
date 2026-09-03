@@ -19,9 +19,9 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.gesturefan000000
       level: null
-  skills:
-    - stealth
-    - performance
+  training:
+    stealth: 1
+    performance: 1
   equipment: []
   spells: []
 effects: []

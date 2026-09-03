@@ -24,11 +24,11 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.inspirator000000
       level: null
-  skills:
-    - society
-    - deception
-    - diplomacy
-    - performance
+  training:
+    society: 1
+    deception: 1
+    diplomacy: 1
+    performance: 1
   identifier: bard
   spells: []
   equipment: []

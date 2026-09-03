@@ -28,10 +28,10 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.feintingstrike00
       level: null
-  skills:
-    - awareness
-    - stealth
-    - deception
+  training:
+    awareness: 1
+    stealth: 1
+    deception: 1
   spells: []
   equipment: []
 effects: []

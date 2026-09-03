@@ -26,11 +26,11 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.refocus000000000
       level: null
-  skills:
-    - arcana
-    - medicine
-    - society
-    - diplomacy
+  training:
+    arcana: 1
+    medicine: 1
+    society: 1
+    diplomacy: 1
   spells: []
   equipment: []
 effects: []

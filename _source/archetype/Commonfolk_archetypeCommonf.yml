@@ -15,7 +15,7 @@ system:
     toughness: 2
     dexterity: 2
   talents: []
-  skills: []
+  training: {}
   spells: []
   equipment: []
 effects: []

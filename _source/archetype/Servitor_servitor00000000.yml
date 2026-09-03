@@ -18,11 +18,11 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
       level: null
-  skills:
-    - awareness
-    - stealth
-    - deception
-    - performance
+  training:
+    awareness: 1
+    stealth: 1
+    deception: 1
+    performance: 1
   spells: []
   equipment: []
 effects: []
