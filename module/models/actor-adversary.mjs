@@ -51,11 +51,12 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       languages: new fields.SetField(new fields.StringField({blank: false}))
     });
 
-    // Adversaries do not track ability advancement
+    // Adversaries do not track ability or training advancement, both being derived from Taxonomy and Archetype
     for ( const abilityField of Object.values(schema.abilities.fields) ) {
       delete abilityField.fields.base;
       delete abilityField.fields.increases;
     }
+    delete schema.training.element.fields.increases;
     return schema;
   }
 
@@ -98,6 +99,20 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   }
 
   /**
+   * The number of training points this Adversary allocates according to Archetype preference.
+   * Beneath level 1 the award decays along the same reciprocal curve as {@link CrucibleAdversaryActor#advancement}
+   * threatLevel, so the weakest creatures still train a little rather than dropping to nothing at once.
+   * @type {number}
+   */
+  get trainingBudget() {
+    const {level} = this.advancement;
+    const perLevel = SYSTEM.PROFICIENCY.ADVERSARY_POINTS_PER_LEVEL;
+    return level >= 1 ? perLevel * level : Math.ceil(perLevel / (2 - level));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Does this Adversary use physical equipment?
    * @type {boolean}
    */
@@ -120,7 +135,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       heroismMax: threatConfig.heroismMax,
       healthPerLevel: expectedSize + 2,
       moralePerLevel: expectedSize + 2,
-      abilityMax: 18
+      abilityMax: 18,
+      talentTraining: false // Talent counts vary too widely between Archetypes to serve as a progression basis
     });
 
     // Cap reserve pools for Important adversaries using the Normal threat baseline
@@ -228,20 +244,24 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   /** @inheritDoc */
   _prepareTraining() {
     super._prepareTraining();
-    const {required} = SYSTEM.PROFICIENCY.RANK_VALUES[this.advancement.autoTrainingRank];
 
     // Automatic natural weapon training if the taxonomy does not use equipment
     if ( !this.usesEquipment ) {
+      const {required} = SYSTEM.PROFICIENCY.RANK_VALUES[this.advancement.autoTrainingRank];
       const natural = this.training.natural;
       natural.initial = Math.max(natural.initial, required);
     }
 
-    // Automatic skill progression
-    const skills = this.details.archetype?.skills || [];
-    for ( const skillId of skills ) {
-      const t = this.training[skillId];
-      if ( t ) t.initial = Math.max(t.initial, required);
+    // Allocate the level-scaled training budget according to Archetype preference
+    const {trainingCap} = this.details.progression;
+    const weights = {};
+    const caps = {};
+    for ( const id in SYSTEM.PROFICIENCIES ) {
+      weights[id] = this.details.archetype?.training?.[id] ?? 0;
+      caps[id] = Math.max(trainingCap - this.training[id].initial, 0);
     }
+    const increases = allocatePoints(this.trainingBudget, weights, {caps});
+    for ( const id in SYSTEM.PROFICIENCIES ) this.training[id].increases = increases[id];
   }
 
   /* -------------------------------------------- */

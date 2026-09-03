@@ -27,11 +27,11 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
-  skills:
-    - athletics
-    - stealth
-    - deception
-    - intimidation
+  training:
+    athletics: 1
+    stealth: 1
+    deception: 1
+    intimidation: 1
   spells: []
   equipment: []
 effects: []

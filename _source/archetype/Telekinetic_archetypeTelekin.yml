@@ -31,10 +31,10 @@ system:
       level: 4
     - item: Compendium.crucible.talent.Item.inflectionReshap
       level: 6
-  skills:
-    - awareness
-    - arcana
-    - intimidation
+  training:
+    awareness: 1
+    arcana: 1
+    intimidation: 1
   spells: []
   equipment: []
 effects: []

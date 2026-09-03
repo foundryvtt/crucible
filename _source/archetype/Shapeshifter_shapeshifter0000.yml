@@ -22,11 +22,11 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.steadfast0000000
       level: null
-  skills:
-    - athletics
-    - awareness
-    - stealth
-    - wilderness
+  training:
+    athletics: 1
+    awareness: 1
+    stealth: 1
+    wilderness: 1
   identifier: shapeshifter
   spells: []
   equipment: []

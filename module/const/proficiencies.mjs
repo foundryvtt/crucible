@@ -338,6 +338,13 @@ export const PROFICIENCY_POINTS = Object.freeze({
 });
 
 /**
+ * Training points an Adversary receives per level, allocated automatically according to Archetype preference.
+ * Adversaries take no training from talents, whose distribution across Archetypes is far too uneven to build on.
+ * @type {number}
+ */
+export const ADVERSARY_POINTS_PER_LEVEL = 4;
+
+/**
  * The number of training points a Background is expected to grant, free of Proficiency Point cost.
  * @type {number}
  */

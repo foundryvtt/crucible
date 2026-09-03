@@ -22,10 +22,10 @@ system:
       level: 3
     - item: Compendium.crucible.adversary-talents.Item.swallow000000000
       level: 4
-  skills:
-    - athletics
-    - wilderness
-    - intimidation
+  training:
+    athletics: 1
+    wilderness: 1
+    intimidation: 1
   spells: []
   equipment: []
 effects: []

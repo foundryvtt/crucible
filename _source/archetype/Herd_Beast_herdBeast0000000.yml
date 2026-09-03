@@ -18,10 +18,10 @@ system:
       level: 3
     - item: Compendium.crucible.talent.Item.bullrush00000000
       level: 0
-  skills:
-    - awareness
-    - stealth
-    - wilderness
+  training:
+    awareness: 1
+    stealth: 1
+    wilderness: 1
   identifier: herdBeast
   spells: []
   equipment: []

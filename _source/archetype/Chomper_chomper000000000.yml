@@ -15,10 +15,10 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.thrash0000000000
       level: 2
-  skills:
-    - athletics
-    - awareness
-    - stealth
+  training:
+    athletics: 1
+    awareness: 1
+    stealth: 1
   identifier: chomper
   spells: []
   equipment: []

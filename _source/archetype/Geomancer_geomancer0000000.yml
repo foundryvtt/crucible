@@ -25,10 +25,10 @@ system:
       level: 0
     - item: Compendium.crucible.talent.Item.refocus000000000
       level: 0
-  skills:
-    - wilderness
-    - arcana
-    - science
+  training:
+    wilderness: 1
+    arcana: 1
+    science: 1
   spells: []
   equipment: []
 effects: []

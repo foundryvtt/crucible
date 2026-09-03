@@ -29,7 +29,7 @@ system:
       level: 0
     - item: Compendium.crucible.talent.Item.inflectionpull00
       level: 2
-  skills: []
+  training: {}
   spells:
     - item: Compendium.crucible.spell.Item.dawnBeacon000000
       level: 0

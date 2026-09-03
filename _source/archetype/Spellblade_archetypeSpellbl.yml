@@ -24,10 +24,10 @@ system:
       level: null
     - item: Compendium.crucible.talent.Item.gesturearrow0000
       level: null
-  skills:
-    - athletics
-    - arcana
-    - intimidation
+  training:
+    athletics: 1
+    arcana: 1
+    intimidation: 1
   identifier: spellblade
   spells: []
   equipment: []

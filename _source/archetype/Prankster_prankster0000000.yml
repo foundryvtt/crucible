@@ -29,11 +29,11 @@ system:
       level: 1
     - item: Compendium.crucible.talent.Item.tumblethrough000
       level: 1
-  skills:
-    - stealth
-    - deception
-    - diplomacy
-    - performance
+  training:
+    stealth: 1
+    deception: 1
+    diplomacy: 1
+    performance: 1
   spells: []
   equipment: []
 effects: []

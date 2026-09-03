@@ -366,6 +366,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       woundsMultiplier: 1.5,
       abilityMin: 1, // Excluding zero as special case
       abilityMax: 12,
+      talentTraining: true, // Adversaries decline this, allocating a level-scaled budget instead
       trainingCap: SYSTEM.PROFICIENCY.POINTS_MAX // Unpaced by default; heroes pace it by Proficiency Points received
     };
   }
@@ -431,7 +432,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       if ( !nodes.size ) this.permanentTalentIds.add(t.id); // Manual talents
 
       // Every owned talent naming a training contributes one point to it, however it was acquired
-      if ( training ) {
+      if ( training && details.progression.talentTraining ) {
         const trained = this.training[training];
         if ( trained ) trained.talents += 1;
       }
@@ -453,11 +454,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /**
    * Prepare training points granted by creation options or other features.
    * Grants accumulate, unlike talent-granted training which takes the greatest single grant.
+   * Archetype is absent here because its training numbers are allocation weights rather than point grants.
    * @protected
    */
   _prepareTraining() {
-    const {ancestry, background, archetype} = this.details;
-    for ( const source of [ancestry, background, archetype] ) {
+    const {ancestry, background} = this.details;
+    for ( const source of [ancestry, background] ) {
       for ( const [type, points] of Object.entries(source?.training ?? {}) ) {
         const t = this.training[type];
         if ( t ) t.initial += points;

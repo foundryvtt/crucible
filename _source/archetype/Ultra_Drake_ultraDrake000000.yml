@@ -32,12 +32,12 @@ system:
       level: 4
     - item: Compendium.crucible.adversary-talents.Item.tailSweep0000000
       level: null
-  skills:
-    - athletics
-    - awareness
-    - stealth
-    - wilderness
-    - deception
+  training:
+    athletics: 1
+    awareness: 1
+    stealth: 1
+    wilderness: 1
+    deception: 1
   spells: []
   equipment: []
 effects: []

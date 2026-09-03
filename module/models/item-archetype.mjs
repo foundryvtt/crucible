@@ -24,7 +24,6 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
         item: new fields.DocumentUUIDField({type: "Item"}),
         level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
       })),
-      skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
       training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false,
         integer: true, min: 0, initial: 0}), {validateKey: key => key in SYSTEM.PROFICIENCIES}),
       spells: new fields.ArrayField(new fields.SchemaField({
@@ -104,6 +103,15 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
         obj[a] = 2;
         return obj;
       }, {});
+    }
+
+    /** @deprecated since 0.9.2 */
+    if ( source.skills ) {
+      source.training ??= {};
+      for ( const skillId of source.skills ) {
+        if ( skillId in SYSTEM.PROFICIENCIES ) source.training[skillId] ??= 1;
+      }
+      delete source.skills;
     }
     return source;
   }

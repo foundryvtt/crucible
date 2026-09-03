@@ -23,10 +23,10 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.burrower00000000
       level: null
-  skills:
-    - awareness
-    - wilderness
-    - intimidation
+  training:
+    awareness: 1
+    wilderness: 1
+    intimidation: 1
   spells: []
   equipment: []
 effects: []
