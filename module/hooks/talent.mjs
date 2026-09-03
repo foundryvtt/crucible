@@ -1703,7 +1703,7 @@ HOOKS.spiritbreaker000 = {
 HOOKS.stilllake0000000 = {
   defendAttack(item, action, _origin, rollData) {
     if ( !action.tags.has("skill") ) return;
-    if ( SYSTEM.SKILLS[action.usage.skillId].category !== "soc" ) return;
+    if ( SYSTEM.SKILLS[action.usage.skillId].group !== "soc" ) return;
     rollData.banes.stillLake = {label: item.name, number: 2};
   }
 };

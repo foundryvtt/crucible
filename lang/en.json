@@ -680,6 +680,8 @@
       "IncreaseAbility": "Increase Ability Score",
       "IncreaseAbilitySpecific": "Increase {ability}",
       "LevelUp": "Level Up!",
+      "ProficiencyFilterAll": "Show All Proficiencies",
+      "ProficiencyFilterTrained": "Show Only Trained Proficiencies",
       "ResetProficiency": "Reclaim All Proficiency Points",
       "ResetProficiencyContent": "<p>Are you sure you wish to reclaim every allocated Proficiency Point? Training granted by your Ancestry, Background, or Talents is retained.</p>",
       "ResetProficiencyTitle": "Reclaim Proficiency Points: {actor}",
@@ -953,6 +955,7 @@
       "AbilityPoints": "Ability Points",
       "Defenses": "Defenses",
       "PointsAvailable": "Available",
+      "PointsGranted": "Trained",
       "PointsSpent": "Spent",
       "Resources": "Resources"
     },
@@ -963,7 +966,6 @@
       "effects": "Effects",
       "inventory": "Inventory",
       "proficiency": "Proficiency",
-      "skills": "Skills",
       "spells": "Spells",
       "talents": "Talents"
     },
@@ -2134,7 +2136,6 @@
     },
     "AcquiredRanks": "Acquired Ranks",
     "CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
-    "CategoryHeader": "{category} Skills",
     "ChoosePath": "You must choose a specialization path before advancing this Skill further.",
     "Id": "Skill ID",
     "Overview": "Skill Overview",
@@ -2744,7 +2745,9 @@
     "GROUPS": {
       "Craft": "Tradecraft Proficiencies",
       "Equipment": "Equipment Proficiencies",
-      "Skill": "Skill Proficiencies",
+      "Exploration": "Exploration Skills",
+      "Knowledge": "Knowledge Skills",
+      "Social": "Social Skills",
       "Spell": "Spellcraft Proficiencies",
       "Weapon": "Weapon Proficiencies"
     },
