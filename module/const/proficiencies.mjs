@@ -14,46 +14,39 @@ import {defineEnum} from "./enum.mjs";
 /* -------------------------------------------- */
 
 /**
- * The groups into which proficiencies are gathered for display.
- * Skills are further subdivided for display by their own SKILL_CATEGORIES, which carry their own colors.
- * @type {Readonly<Record<string, {id: string, label: string, color: string}>>}
+ * The groups into which proficiencies are gathered for display, in presentation order.
+ * The thematic skill categories are groups in their own right rather than a subdivision of one, so every proficiency
+ * belongs to exactly one group and consumers never special-case skills.
+ * @type {Readonly<Record<string, {id: string, label: string, hint?: string, defaultIcon?: string, color: Color}>>}
  */
 export const GROUPS = defineEnum({
-  skill: {label: "TRAINING.GROUPS.Skill", color: "#81cc44"},
-  weapon: {label: "TRAINING.GROUPS.Weapon", color: "#c0553d"},
-  equipment: {label: "TRAINING.GROUPS.Equipment", color: "#8a8f98"},
-  spell: {label: "TRAINING.GROUPS.Spell", color: "#4d8fd1"},
-  craft: {label: "TRAINING.GROUPS.Craft", color: "#c9a227"}
-});
-
-/* -------------------------------------------- */
-/*  Skills                                      */
-/* -------------------------------------------- */
-
-/**
- * The thematic categories of skills. Each skill belongs to one of these categories.
- * @type {Readonly<Record<string, {id: string, label: string, hint: string, defaultIcon: string, color: Color}>>}
- */
-export const SKILL_CATEGORIES = defineEnum({
   exp: {
-    label: "SKILL.CATEGORY.EXPLORATION.label",
+    label: "TRAINING.GROUPS.Exploration",
     hint: "SKILL.CATEGORY.EXPLORATION.hint",
     defaultIcon: "icons/skills/no-exp.jpg",
     color: Color.from("#81cc44")
   },
   kno: {
-    label: "SKILL.CATEGORY.KNOWLEDGE.label",
+    label: "TRAINING.GROUPS.Knowledge",
     hint: "SKILL.CATEGORY.KNOWLEDGE.hint",
     defaultIcon: "icons/skills/no-kno.jpg",
     color: Color.from("#6c6cff")
   },
   soc: {
-    label: "SKILL.CATEGORY.SOCIAL.label",
+    label: "TRAINING.GROUPS.Social",
     hint: "SKILL.CATEGORY.SOCIAL.hint",
     defaultIcon: "icons/skills/no-soc.jpg",
     color: Color.from("#ab3fe8")
-  }
+  },
+  weapon: {label: "TRAINING.GROUPS.Weapon", color: Color.from("#c0553d")},
+  equipment: {label: "TRAINING.GROUPS.Equipment", color: Color.from("#8a8f98")},
+  spell: {label: "TRAINING.GROUPS.Spell", color: Color.from("#4d8fd1")},
+  craft: {label: "TRAINING.GROUPS.Craft", color: Color.from("#c9a227")}
 });
+
+/* -------------------------------------------- */
+/*  Skills                                      */
+/* -------------------------------------------- */
 
 /**
  * The skills configured for the system.
@@ -65,25 +58,25 @@ export const SKILLS = defineEnum({
   athletics: {
     label: "TRAINING.LABELS.athletics",
     icon: "systems/crucible/icons/skills/athletics.jpg",
-    category: "exp",
+    group: "exp",
     abilities: ["strength", "dexterity"]
   },
   awareness: {
     label: "TRAINING.LABELS.awareness",
     icon: "systems/crucible/icons/skills/awareness.jpg",
-    category: "exp",
+    group: "exp",
     abilities: ["intellect", "wisdom"]
   },
   stealth: {
     label: "TRAINING.LABELS.stealth",
     icon: "systems/crucible/icons/skills/stealth.jpg",
-    category: "exp",
+    group: "exp",
     abilities: ["dexterity", "intellect"]
   },
   wilderness: {
     label: "TRAINING.LABELS.wilderness",
     icon: "systems/crucible/icons/skills/wilderness.jpg",
-    category: "exp",
+    group: "exp",
     abilities: ["toughness", "wisdom"]
   },
 
@@ -91,25 +84,25 @@ export const SKILLS = defineEnum({
   arcana: {
     label: "TRAINING.LABELS.arcana",
     icon: "systems/crucible/icons/skills/arcana.jpg",
-    category: "kno",
+    group: "kno",
     abilities: ["presence", "intellect"]
   },
   medicine: {
     label: "TRAINING.LABELS.medicine",
     icon: "systems/crucible/icons/skills/medicine.jpg",
-    category: "kno",
+    group: "kno",
     abilities: ["wisdom", "intellect"]
   },
   science: {
     label: "TRAINING.LABELS.science",
     icon: "systems/crucible/icons/skills/science.jpg",
-    category: "kno",
+    group: "kno",
     abilities: ["intellect", "wisdom"]
   },
   society: {
     label: "TRAINING.LABELS.society",
     icon: "systems/crucible/icons/skills/society.jpg",
-    category: "kno",
+    group: "kno",
     abilities: ["wisdom", "presence"]
   },
 
@@ -117,25 +110,25 @@ export const SKILLS = defineEnum({
   deception: {
     label: "TRAINING.LABELS.deception",
     icon: "systems/crucible/icons/skills/deception.jpg",
-    category: "soc",
+    group: "soc",
     abilities: ["intellect", "presence"]
   },
   diplomacy: {
     label: "TRAINING.LABELS.diplomacy",
     icon: "systems/crucible/icons/skills/diplomacy.jpg",
-    category: "soc",
+    group: "soc",
     abilities: ["wisdom", "presence"]
   },
   intimidation: {
     label: "TRAINING.LABELS.intimidation",
     icon: "systems/crucible/icons/skills/intimidation.jpg",
-    category: "soc",
+    group: "soc",
     abilities: ["presence", "toughness"]
   },
   performance: {
     label: "TRAINING.LABELS.performance",
     icon: "systems/crucible/icons/skills/performance.jpg",
-    category: "soc",
+    group: "soc",
     abilities: ["presence", "dexterity"]
   }
 });
@@ -249,27 +242,26 @@ export const TRADECRAFTS = defineEnum({
  *   abilities: string[]}>>}
  */
 export const PROFICIENCIES = defineEnum({
-  ...Object.entries(SKILLS).reduce((obj, [id, {label, short, abilities}]) => {
-    obj[id] = {group: GROUPS.skill.label, label, short, abilities};
-    return obj;
-  }, {}),
-  ...Object.entries(WEAPONS).reduce((obj, [id, {label, short, abilities}]) => {
-    obj[id] = {group: GROUPS.weapon.label, label, short, abilities};
-    return obj;
-  }, {}),
-  ...Object.entries(EQUIPMENT).reduce((obj, [id, {label, short, abilities}]) => {
-    obj[id] = {group: GROUPS.equipment.label, label, short, abilities};
-    return obj;
-  }, {}),
-  ...Object.entries(SPELLCRAFT).reduce((obj, [id, {label, short, abilities}]) => {
-    obj[id] = {group: GROUPS.spell.label, label, short, abilities};
-    return obj;
-  }, {}),
-  ...Object.entries(TRADECRAFTS).reduce((obj, [id, {label, short, abilities}]) => {
-    obj[id] = {group: GROUPS.craft.label, label, short, abilities};
-    return obj;
-  }, {})
+  ...collect(SKILLS),
+  ...collect(WEAPONS, "weapon"),
+  ...collect(EQUIPMENT, "equipment"),
+  ...collect(SPELLCRAFT, "spell"),
+  ...collect(TRADECRAFTS, "craft")
 });
+
+/**
+ * Flatten one record of proficiency configurations into entries for {@link PROFICIENCIES}.
+ * Skills declare their own group, so only the other records need one supplied.
+ * @param {Record<string, object>} record   Proficiency configurations keyed by id
+ * @param {string} [group]                  The group every member belongs to
+ * @returns {Record<string, object>}
+ */
+function collect(record, group) {
+  return Object.entries(record).reduce((obj, [id, {label, short, icon, abilities, group: own}]) => {
+    obj[id] = {group: group ?? own, label, short, icon, abilities};
+    return obj;
+  }, {});
+}
 
 /* -------------------------------------------- */
 /*  Training Progression                        */

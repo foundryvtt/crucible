@@ -233,7 +233,7 @@ export default class StandardCheckDialog extends DialogV2 {
     const actors = [];
     const skillId = this.roll.data.type;
     const skill = SYSTEM.SKILLS[skillId];
-    const resourceColor = skill ? SYSTEM.PROFICIENCY.SKILL_CATEGORIES[skill.category]?.color?.css : null;
+    const resourceColor = skill ? SYSTEM.PROFICIENCY.GROUPS[skill.group]?.color?.css : null;
     for ( const actor of this.#requestActors ) {
       const rank = actor.system.skills[skillId]?.rank ?? 0;
       const pips = Array.fromRange(SYSTEM.PROFICIENCY.RANK_MAX).map(i => i < rank ? "full" : "");
