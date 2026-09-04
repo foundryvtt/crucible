@@ -13,11 +13,17 @@ system:
   training:
     - deception
     - performance
+    - talisman
+    - physical
+    - alchemy
+    - society
   talents:
-    - item: Compendium.crucible.talent.Item.lunge00000000000
-      level: null
-    - item: Compendium.crucible.talent.Item.inspireheroism00
-      level: null
+    - item: Compendium.crucible.talent.Item.camaraderie00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.runeKinesis00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.diversionist0000
+      level: 0
   identifier: performer
   ui:
     color: '#e26ce4'
@@ -28,10 +34,10 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307157533
-  modifiedTime: 1773514792227
+  modifiedTime: 1788549018625
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
