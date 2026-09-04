@@ -44,6 +44,12 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
         autoScale: new fields.BooleanField()
       })),
       characteristics: new fields.SchemaField({
+        blooded: new fields.BooleanField({required: true, initial: source => {
+          let category;
+          if ( source?.type === "adversary" ) category = source.system.details.taxonomy?.category;
+          else category = source?.system?.category;
+          return SYSTEM.ACTOR.CREATURE_CATEGORIES[category]?.blooded ?? true;
+        }}),
         equipment: new fields.BooleanField(),
         spells: new fields.BooleanField(),
         temperature: new fields.StringField({required: true, blank: true, initial: "",

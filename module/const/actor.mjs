@@ -1,8 +1,19 @@
 import {defineEnum} from "./enum.mjs";
 
 /**
+ * @typedef CrucibleCreatureCategory
+ * @property {string} id          The id for the creature category; the key in the categories object
+ * @property {string} label       A human-readable and localized label for the creature category
+ * @property {string} skill       The id of the skill associated with knowledge of the creature category
+ * @property {string} knowledge   The id of the knowledge which would grant information about the creature category
+ * @property {string} temperature The default temperature tier for creatures of this category
+ * @property {boolean} blooded    Whether creatures of this category typically have blood
+ * @property {string} [sense]     The id of the Rune which, when used with Sense, grants detection of this category
+ */
+
+/**
  * Creature types supported by the system.
- * @type {Readonly<Record<string, {id: string, label: string, skill: string, knowledge: string, temperature: string, sense?: string}>>}
+ * @type {Readonly<Record<string, CrucibleCreatureCategory>>}
  */
 export const CREATURE_CATEGORIES = defineEnum({
   beast: {
@@ -10,6 +21,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "medicine",
     knowledge: "beasts",
     temperature: "warm",
+    blooded: true,
     sense: "life"
   },
   celestial: {
@@ -17,6 +29,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "celestials",
     temperature: "warm",
+    blooded: true,
     sense: "illumination"
   },
   construct: {
@@ -24,6 +37,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "science",
     knowledge: "machines",
     temperature: "neutral",
+    blooded: false,
     sense: "storm"
   },
   dragon: {
@@ -31,19 +45,22 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "dragons",
     temperature: "warm",
+    blooded: true,
     sense: "flame"
   },
   elemental: {
     label: "TAXONOMY.CATEGORIES.Elemental",
     skill: "arcana",
     knowledge: "elementals",
-    temperature: "neutral"
+    temperature: "neutral",
+    blooded: false
   },
   elementalEarth: {
     label: "TAXONOMY.CATEGORIES.ElementalEarth",
     skill: "arcana",
     knowledge: "elementals",
     temperature: "warm",
+    blooded: false,
     sense: "earth"
   },
   elementalFire: {
@@ -51,6 +68,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "elementals",
     temperature: "boiling",
+    blooded: false,
     sense: "flame"
   },
   elementalFrost: {
@@ -58,6 +76,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "elementals",
     temperature: "gelid",
+    blooded: false,
     sense: "frost"
   },
   elementalStorm: {
@@ -65,6 +84,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "elementals",
     temperature: "cool",
+    blooded: false,
     sense: "storm"
   },
   fey: {
@@ -72,6 +92,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "fey",
     temperature: "warm",
+    blooded: true,
     sense: "illusion"
   },
   fiend: {
@@ -79,6 +100,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "fiends",
     temperature: "cool",
+    blooded: true,
     sense: "control"
   },
   giant: {
@@ -86,6 +108,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "society",
     knowledge: "legends",
     temperature: "warm",
+    blooded: true,
     sense: "frost"
   },
   humanoid: {
@@ -93,6 +116,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "society",
     knowledge: null,
     temperature: "warm",
+    blooded: true,
     sense: "soul"
   },
   monstrosity: {
@@ -100,6 +124,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "medicine",
     knowledge: "monsters",
     temperature: "warm",
+    blooded: true,
     sense: "kinesis"
   },
   ooze: {
@@ -107,6 +132,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "science",
     knowledge: null,
     temperature: "neutral",
+    blooded: false,
     sense: "earth"
   },
   plant: {
@@ -114,6 +140,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "wilderness",
     knowledge: null,
     temperature: "neutral",
+    blooded: false,
     sense: "life"
   },
   outsider: {
@@ -121,6 +148,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "outsiders",
     temperature: "cool",
+    blooded: true,
     sense: "oblivion"
   },
   undead: {
@@ -128,6 +156,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "undeath",
     temperature: "cool",
+    blooded: true,
     sense: "death"
   }
 });

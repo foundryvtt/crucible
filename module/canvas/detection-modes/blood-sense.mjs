@@ -37,8 +37,11 @@ export default class DetectionModeBloodSense extends foundry.canvas.perception.D
     const health = target.actor?.resources?.health;
     if ( !health ) return true;
 
+    // If creature does not have blood, cannot detect
+    const detailType = (target.actor.type === "hero") ? "ancestry" : "taxonomy";
+    if ( !target.actor.system.details?.[detailType]?.characteristics?.blooded ) return false;
+
     // Otherwise, allow if any health is missing
-    // TODO: return false for non-blooded creatures, once that characteristic is implemented
     return health.value < health.max;
   }
 }

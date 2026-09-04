@@ -153,7 +153,7 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
     const fields = this.document.system.schema.fields;
-    const {abilities, resistances} = submitData.system;
+    const {abilities, resistances, category} = submitData.system;
     for ( const resType of Object.keys(SYSTEM.DAMAGE_TYPES) ) {
       resistances[resType] ??= {};
       resistances[resType].value ??= this.document.system.resistances[resType].value;
@@ -162,6 +162,9 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
     delete submitData.immunities;
     if ( fields.abilities.validate(abilities) !== undefined ) return {};
     if ( fields.resistances.validate(resistances) !== undefined ) return {};
+    if ( category !== this.document.system.category ) {
+      submitData.system.characteristics.blooded = SYSTEM.ACTOR.CREATURE_CATEGORIES[category]?.blooded ?? true;
+    }
     return submitData;
   }
 }
