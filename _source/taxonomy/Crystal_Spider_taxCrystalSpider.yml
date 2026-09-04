@@ -63,6 +63,7 @@ system:
   characteristics:
     equipment: false
     spells: false
+    blooded: true
 effects: []
 folder: NzDhqa3mUb9TQ7ub
 ownership:
@@ -73,11 +74,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307170601
-  modifiedTime: 1773514792641
+  modifiedTime: 1788547856734
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 100000
 _key: '!items!taxCrystalSpider'

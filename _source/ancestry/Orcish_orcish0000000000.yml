@@ -13,9 +13,7 @@ system:
     northern clime. Your people are known for their strength and resilience
     above all else.</p>
   identifier: orcish
-  talents:
-    - item: Compendium.crucible.talent.Item.heavyStrike00000
-      level: null
+  talents: []
   ui:
     color: '#c14425'
   abilities:
@@ -29,10 +27,10 @@ system:
     stride: 10
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307157416
-  modifiedTime: 1773514792205
+  modifiedTime: 1788548166983
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
