@@ -226,13 +226,12 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
       delete submitData.system.abilities;
     }
 
-    // Fold any newly selected proficiency into the weights, which replace rather than merge so removals take effect
+    // Weights replace rather than merge, so a removed proficiency is actually dropped
     const added = submitData.trainingAdd;
     delete submitData.trainingAdd;
     const training = {};
     for ( const [id, weight] of Object.entries(submitData.system.training ?? {}) ) {
-      // Zero is a meaningful weight, so only a cleared input drops a row. The max attribute does not prevent a
-      // typed value, so clamp rather than fail validation.
+      // A typed value can exceed the max attribute, so clamp rather than fail validation
       if ( Number.isFinite(weight) && (weight >= 0) ) {
         training[id] = Math.clamp(weight, 0, SYSTEM.PROFICIENCY.WEIGHT_MAX);
       }

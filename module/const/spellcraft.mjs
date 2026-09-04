@@ -576,13 +576,9 @@ export const COMPONENT_RECORDS = Object.freeze({rune: RUNES, gesture: GESTURES, 
 /**
  * Every spellcraft component which a Talent may grant, keyed by component id and tagged with the type of component
  * it is. Ids are unique across runes, gestures, and inflections, so one identifier names a component unambiguously.
- * @type {Readonly<Record<string, {id: string, label: string, group: string, type: "rune"|"gesture"|"inflection"}>>}
+ * @type {Record<string, {id: string, label: string, group: string, type: "rune"|"gesture"|"inflection"}>}
  */
 export const COMPONENTS = {};
-for ( const [type, group] of [["rune", "SPELL.COMPONENTS.RunePl"], ["gesture", "SPELL.COMPONENTS.GesturePl"],
-  ["inflection", "SPELL.COMPONENTS.InflectionPl"]] ) {
-  for ( const [id, c] of Object.entries(COMPONENT_RECORDS[type]) ) COMPONENTS[id] = {id, label: c.name, group, type};
-}
 
 export const GESTURE_SUMMONS = {
   create: {
@@ -627,3 +623,15 @@ export const COMPOSED_SPELL_NAMES = {
   "spell.soul.aspect.negate": "SPELL.NAMES.CurseCowardice",
   "spell.storm.aspect.negate": "SPELL.NAMES.CurseConductivity"
 };
+
+/**
+ * Rebuild the component index from the current records, called again once modules have contributed their own.
+ * Rebuilding mutates in place because Talent schema fields captured this object as their choices.
+ */
+export function initializeComponents() {
+  for ( const [type, group] of [["rune", "SPELL.COMPONENTS.RunePl"], ["gesture", "SPELL.COMPONENTS.GesturePl"],
+    ["inflection", "SPELL.COMPONENTS.InflectionPl"]] ) {
+    for ( const [id, c] of Object.entries(COMPONENT_RECORDS[type]) ) COMPONENTS[id] = {id, label: c.name, group, type};
+  }
+}
+initializeComponents();
