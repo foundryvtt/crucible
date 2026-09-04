@@ -101,7 +101,9 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /** @inheritDoc */
   _configureProgression() {
     const config = super._configureProgression();
-    config.trainingCap = Math.min(this.points.proficiency.total, SYSTEM.PROFICIENCY.POINTS_MAX);
+    const {perLevel} = SYSTEM.PROFICIENCY.PROFICIENCY_POINTS;
+    const level = Math.max(this.advancement.level, 1); // Level zero is mid-creation, not beneath level one
+    config.trainingCap = Math.min(perLevel * level, SYSTEM.PROFICIENCY.POINTS_MAX);
     return config;
   }
 

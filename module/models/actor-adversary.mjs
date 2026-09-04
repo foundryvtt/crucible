@@ -251,8 +251,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       natural.initial = Math.max(natural.initial, required);
     }
 
-    // Allocate the level-scaled training budget according to Archetype preference, broken by aptitude where tied.
-    // Abilities are already resolved here, using pre-Effect values so progression cannot drift with transient buffs.
+    // Allocate the training budget by Archetype preference, breaking ties on aptitude.
+    // Ability values are pre-Effect here, so progression cannot drift with transient buffs.
     const budget = this.trainingBudget;
     const {trainingCap} = this.details.progression;
     const preferences = this.details.archetype?.training ?? {};
@@ -267,8 +267,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     const order = SYSTEM.PROFICIENCY.getAllocationOrder(aptitude);
     const increases = allocatePoints(budget, weights, {caps, order});
 
-    // A declared weight of zero asks for whatever survives the preferred allocation, which would otherwise be
-    // discarded once every weighted proficiency saturates. Spare proficiencies then share it as equal peers.
+    // A declared weight of zero claims an equal share of whatever the weighted proficiencies cannot absorb
     let surplus = budget;
     for ( const id in increases ) surplus -= increases[id];
     if ( surplus > 0 ) {

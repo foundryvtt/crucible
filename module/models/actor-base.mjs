@@ -11,7 +11,8 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @property {number} talents    Points contributed by owned talents.
  * @property {number} increases  Points allocated with Proficiency Points.
  * @property {number} bonus      Point adjustment from Active Effects or other transient sources.
- * @property {number} points     The derived point total, clamped to this Actor's training cap.
+ * @property {number} total      The sum of every contribution, before the training cap is applied.
+ * @property {number} points     The effective point total, being `total` clamped to this Actor's training cap.
  * @property {number} value      The training rank attained at that point total.
  */
 
@@ -367,7 +368,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       abilityMin: 1, // Excluding zero as special case
       abilityMax: 12,
       talentTraining: true, // Adversaries decline this, allocating a level-scaled budget instead
-      trainingCap: SYSTEM.PROFICIENCY.POINTS_MAX // Unpaced by default; heroes pace it by Proficiency Points received
+      trainingCap: SYSTEM.PROFICIENCY.POINTS_MAX // Unpaced by default; heroes pace it by level
     };
   }
 
@@ -453,17 +454,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Prepare training points granted by creation options or other features.
-   * Grants accumulate, unlike talent-granted training which takes the greatest single grant.
-   * Archetype is absent here because its training numbers are allocation weights rather than point grants.
+   * Ancestry is biology rather than upbringing and grants none; Archetype numbers are allocation weights, not points.
    * @protected
    */
   _prepareTraining() {
-    const {ancestry, background} = this.details;
-    for ( const source of [ancestry, background] ) {
-      for ( const [type, points] of Object.entries(source?.training ?? {}) ) {
-        const t = this.training[type];
-        if ( t ) t.initial += points;
-      }
+    for ( const [type, points] of Object.entries(this.details.background?.training ?? {}) ) {
+      const t = this.training[type];
+      if ( t ) t.initial += points;
     }
   }
 
@@ -1131,7 +1128,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const ranks = Object.values(SYSTEM.PROFICIENCY.RANKS); // Ascending by points required
     const cap = this.details.progression.trainingCap;
     for ( const [id, t] of Object.entries(this.training) ) {
-      t.points = Math.clamp(t.initial + t.talents + t.increases + t.bonus, 0, cap);
+      t.total = t.initial + t.talents + t.increases + t.bonus;
+      t.points = Math.clamp(t.total, 0, cap);
       t.value = 0;
       for ( const rank of ranks ) {
         if ( t.points < rank.required ) break;
