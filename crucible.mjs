@@ -218,6 +218,7 @@ Hooks.once("init", async function() {
 
   // Spellcraft Initialization
   Hooks.callAll("crucible.initializeSpellcraft");
+  SYSTEM.SPELL.initializeComponents(); // Re-index now that modules have contributed their own components
   models.CrucibleSpellcraftGesture.initialize();
   models.CrucibleSpellcraftInflection.initialize();
   models.CrucibleSpellcraftRune.initialize();

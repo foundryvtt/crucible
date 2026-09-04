@@ -817,7 +817,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const group of Object.values(GROUPS) ) {
       const color = group.color.css;
       const types = Object.values(PROFICIENCIES)
-        .filter(p => (p.group === group.id) && (showAll || (training[p.id].points > 0)))
+        .filter(p => (p.group === group.id) && (showAll || (training[p.id].total > 0)))
         .map(p => this.#prepareProficiency(p, color, ctx));
       if ( types.length ) sections.push({label: _loc(group.label), color, types});
     }
@@ -844,12 +844,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const t = actor.system.training[config.id];
     const abilities = config.abilities ?? [];
     const rank = RANK_VALUES[t.value];
-    const atCap = (ctx.cap < POINTS_MAX) && (t.points === ctx.cap);
+    const atCap = (ctx.cap < POINTS_MAX) && (t.total >= ctx.cap);
     return {
-      ...config, color, rank, score: t.score, passive: t.passive, points: t.points,
+      ...config, color, rank, score: t.score, passive: t.passive, points: t.total,
       rollable: config.id in SYSTEM.SKILLS, // Only skills offer a check to roll from their title
       label: config.short ?? config.label, // Each row sits beneath its group heading, so shorthand reads better
-      widthPct: CrucibleBaseActorSheet.#trainingPct(t.points),
+      widthPct: CrucibleBaseActorSheet.#trainingPct(t.total),
       abilityAbbrs: abilities.map(a => SYSTEM.ABILITIES[a].abbreviation),
       hexClass: abilities.toSorted().join("-"),
       tooltips: {
@@ -887,9 +887,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( t.talents ) row("Talents", t.talents);
     if ( canAllocate ) row("Increases", t.increases);
     if ( t.bonus ) row("Bonus", t.bonus.signedString());
-    if ( (cap < POINTS_MAX) && (t.points === cap) ) row("Cap", cap);
+    const capped = (cap < POINTS_MAX) && (t.total > cap);
     // Display a total row if there are multiple sources to sum
-    if ( !canAllocate || t.initial || t.talents || t.bonus ) row("Total", t.points, {cssClass: "total"});
+    if ( capped || !canAllocate || t.initial || t.talents || t.bonus ) row("Total", t.total, {cssClass: "total"});
+    if ( capped ) row("Cap", cap, {cssClass: "cap"});
     const next = Object.values(RANKS).find(r => r.required > t.points); // Ascending by points required
     if ( next ) row("Next", next.required, {rank: _loc(next.label)});
     return `<div class="training-breakdown flexcol">${rows.join("")}</div>`;
