@@ -156,7 +156,7 @@ export const CREATURE_CATEGORIES = defineEnum({
     skill: "arcana",
     knowledge: "undeath",
     temperature: "cool",
-    blooded: true,
+    blooded: false,
     sense: "death"
   }
 });
