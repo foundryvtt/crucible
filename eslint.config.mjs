@@ -48,6 +48,7 @@ export default [
           "Macro",
           "PIXI",
           "ProseMirror",
+          "RegionBehavior",
           "Roll",
           "Scene",
           "TokenDocument",
