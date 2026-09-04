@@ -16,9 +16,12 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.packhunter000000
       level: null
   training:
-    awareness: 1
+    awareness: 3
     stealth: 1
-    wilderness: 1
+    wilderness: 2
+    intimidation: 1
+    natural: 4
+    athletics: 2
   identifier: packMember
   spells: []
   equipment: []
@@ -30,11 +33,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.360'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307157485
-  modifiedTime: 1776980332600
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788481729894
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

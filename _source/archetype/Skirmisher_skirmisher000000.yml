@@ -25,7 +25,15 @@ system:
     - item: Compendium.crucible.talent.Item.defensiveroll000
       level: null
   identifier: skirmisher
-  training: {}
+  training:
+    light: 4
+    armor: 1
+    athletics: 3
+    awareness: 2
+    stealth: 1
+    wilderness: 1
+    intimidation: 1
+    society: 0
   spells: []
   equipment: []
 effects: []

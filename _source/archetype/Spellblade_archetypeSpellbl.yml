@@ -25,9 +25,14 @@ system:
     - item: Compendium.crucible.talent.Item.gesturearrow0000
       level: null
   training:
-    athletics: 1
-    arcana: 1
-    intimidation: 1
+    heavy: 4
+    elemental: 3
+    spiritual: 1
+    armor: 1
+    arcana: 2
+    athletics: 2
+    awareness: 1
+    stealth: 0
   identifier: spellblade
   spells: []
   equipment: []

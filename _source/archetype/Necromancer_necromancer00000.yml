@@ -47,10 +47,15 @@ system:
     - item: Compendium.crucible.talent.Item.counterspell0000
       level: 5
   training:
-    stealth: 1
-    arcana: 1
+    physical: 4
+    spiritual: 2
+    talisman: 2
+    arcana: 3
+    intimidation: 2
     deception: 1
-    intimidation: 1
+    medicine: 1
+    stealth: 1
+    athletics: 0
   spells: []
   equipment: []
 effects: []

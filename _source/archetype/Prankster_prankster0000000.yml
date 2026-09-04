@@ -30,10 +30,15 @@ system:
     - item: Compendium.crucible.talent.Item.tumblethrough000
       level: 1
   training:
-    stealth: 1
-    deception: 1
+    light: 3
+    spiritual: 2
+    deception: 3
+    performance: 3
+    stealth: 2
+    athletics: 1
+    awareness: 1
     diplomacy: 1
-    performance: 1
+    intimidation: 0
   spells: []
   equipment: []
 effects: []

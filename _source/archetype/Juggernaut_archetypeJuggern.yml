@@ -27,9 +27,14 @@ system:
     - item: Compendium.crucible.talent.Item.juggernaut000000
       level: 4
   training:
-    athletics: 1
-    intimidation: 1
+    unarmed: 4
+    armor: 1
+    athletics: 3
+    intimidation: 2
     wilderness: 1
+    awareness: 1
+    stealth: 0
+    deception: 0
   spells: []
   equipment: []
 effects: []

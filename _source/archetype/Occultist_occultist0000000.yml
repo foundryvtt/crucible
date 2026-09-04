@@ -26,10 +26,15 @@ system:
       level: null
   identifier: occultist
   training:
+    spiritual: 4
+    physical: 2
+    talisman: 2
+    arcana: 3
+    deception: 2
     awareness: 1
-    arcana: 1
-    deception: 1
     intimidation: 1
+    society: 1
+    athletics: 0
   spells: []
   equipment: []
 effects: []

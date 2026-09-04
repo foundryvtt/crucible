@@ -23,9 +23,13 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.swallow000000000
       level: 4
   training:
-    athletics: 1
+    athletics: 3
+    awareness: 1
+    stealth: 2
     wilderness: 1
+    deception: 0
     intimidation: 1
+    natural: 4
   spells: []
   equipment: []
 effects: []
@@ -38,12 +42,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.2
   createdTime: 1781218465590
-  modifiedTime: 1781314867183
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788480640941
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: archetypeConstri
 sort: 800000
 _key: '!items!archetypeConstri'

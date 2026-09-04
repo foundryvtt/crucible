@@ -32,9 +32,15 @@ system:
     - item: Compendium.crucible.talent.Item.inflectionReshap
       level: 6
   training:
-    awareness: 1
-    arcana: 1
-    intimidation: 1
+    physical: 4
+    talisman: 2
+    arcana: 3
+    awareness: 2
+    intimidation: 2
+    science: 1
+    society: 1
+    athletics: 1
+    stealth: 0
   spells: []
   equipment: []
 effects: []

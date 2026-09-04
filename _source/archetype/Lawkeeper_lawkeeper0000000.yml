@@ -32,10 +32,14 @@ system:
     - item: Compendium.crucible.talent.Item.grapple000000000
       level: 0
   training:
-    awareness: 1
-    medicine: 1
-    society: 1
+    mechanical: 4
+    light: 2
+    armor: 1
+    awareness: 2
+    society: 2
     intimidation: 1
+    medicine: 1
+    deception: 0
   spells: []
   equipment: []
 effects: []

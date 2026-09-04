@@ -23,10 +23,14 @@ system:
     - item: Compendium.crucible.talent.Item.steadfast0000000
       level: null
   training:
-    athletics: 1
-    awareness: 1
+    natural: 4
+    physical: 1
+    wilderness: 3
+    athletics: 2
+    awareness: 2
     stealth: 1
-    wilderness: 1
+    medicine: 1
+    society: 0
   identifier: shapeshifter
   spells: []
   equipment: []
