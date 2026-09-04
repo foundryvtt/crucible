@@ -1,3 +1,6 @@
+/**
+ * A custom DetectionMode for perceiving blooded creatures that are wounded.
+ */
 export default class DetectionModeBloodSense extends foundry.canvas.perception.DetectionMode {
   constructor() {
     super({
@@ -35,6 +38,7 @@ export default class DetectionModeBloodSense extends foundry.canvas.perception.D
     if ( !health ) return true;
 
     // Otherwise, allow if any health is missing
+    // TODO: return false for non-blooded creatures, once that characteristic is implemented
     return health.value < health.max;
   }
 }

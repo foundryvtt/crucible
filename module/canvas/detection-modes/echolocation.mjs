@@ -1,3 +1,6 @@
+/**
+ * A custom DetectionMode for perceiving creatures via sonic pulses.
+ */
 export default class DetectionModeEcholocation extends foundry.canvas.perception.DetectionMode {
   constructor() {
     super({

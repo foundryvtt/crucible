@@ -1,3 +1,7 @@
+/**
+ * A custom DetectionMode for use with the Sense gesture. Which rune is used alongside the gesture controls
+ * which types of creatures are perceived.
+ */
 export default class DetectionModeSenseCreature extends foundry.canvas.perception.DetectionMode {
   constructor() {
     super({
