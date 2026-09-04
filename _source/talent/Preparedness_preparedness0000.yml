@@ -7,12 +7,13 @@ system:
     your free movement for the Round to instead equip an Item from your
     inventory without spending any Action points.
   nodes:
-    - wis1a
+    - wis0a
   actions: []
   rune: ''
   gesture: ''
   inflection: ''
   iconicSpells: 0
+  training: wilderness
 effects: []
 ownership:
   default: 0
@@ -21,10 +22,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160141
-  modifiedTime: 1773514792604
+  modifiedTime: 1788548897444
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.preparedness0000
   duplicateSource: null

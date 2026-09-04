@@ -13,9 +13,7 @@ system:
     genetic predisposition toward determination, with traditions that drive a
     stubborn will to survive.</p>
   identifier: human
-  talents:
-    - item: Compendium.crucible.talent.Item.intercept0000000
-      level: null
+  talents: []
   ui:
     color: '#a985d6'
   abilities:
@@ -29,10 +27,10 @@ system:
     vulnerability: ''
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307157416
-  modifiedTime: 1773514792205
+  modifiedTime: 1788548164407
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

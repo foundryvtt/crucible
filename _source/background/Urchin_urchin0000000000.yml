@@ -12,13 +12,19 @@ system:
     disloyalty, to avoid the attention of others, scavenging for scraps of food
     on the streets of some urban sprawl.</p>
   training:
+    - awareness
     - stealth
     - deception
+    - light
+    - projectile
+    - society
   talents:
+    - item: Compendium.crucible.talent.Item.diversionist0000
+      level: 0
     - item: Compendium.crucible.talent.Item.lunge00000000000
-      level: null
-    - item: Compendium.crucible.talent.Item.backstab00000000
-      level: null
+      level: 0
+    - item: Compendium.crucible.talent.Item.preparedness0000
+      level: 0
   identifier: urchin
   ui:
     color: '#84d7b7'
@@ -29,11 +35,11 @@ system:
     - common
 _stats:
   systemId: crucible
-  systemVersion: 0.8.7
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1674942420027
-  modifiedTime: 1773514792228
-  lastModifiedBy: ifaQA7jTJsr3UWFE
+  modifiedTime: 1788549470475
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
