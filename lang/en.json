@@ -1059,8 +1059,10 @@
         "label": "Identifier"
       },
       "characteristics": {
+        "blooded.hint": "Whether this Ancestry has some form of blood.",
+        "blooded.label": "Blooded",
         "label": "Ancestry Characteristics",
-        "temperature.hint": "The body temperature of this Ancestry, neutral by default.",
+        "temperature.hint": "The body temperature of this Ancestry, warm by default.",
         "temperature.label": "Body Temperature"
       },
       "movement": {
@@ -2488,6 +2490,8 @@
         "label": "Category"
       },
       "characteristics": {
+        "blooded.hint": "Whether this Taxonomy has some form of blood. Defaults to the bloodedness of the chosen creature category.",
+        "blooded.label": "Blooded",
         "equipment.label": "Can Use Equipment",
         "label": "Taxonomy Characteristics",
         "spells.label": "Can Cast Spells",
