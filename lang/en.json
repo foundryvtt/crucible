@@ -1306,16 +1306,12 @@
         "hint": "Configure languages that this Background provides automatically.",
         "label": "Known Languages"
       },
-      "skills": {
-        "hint": "Configure skills which this Background provides automatically with novice training. Typically, a Background has training in two skills.",
-        "label": "Granted Skills"
-      },
       "talents": {
-        "hint": "Configure one or more talents which this Background receives automatically. Typically, a Background receives two granted talents.",
+        "hint": "Configure one or more talents which this Background receives automatically. Typically, a Background receives three granted talents.",
         "label": "Acquired Talents"
       },
       "training": {
-        "hint": "Training points which this Background grants freely, costing no Proficiency Points and not refundable. Typically, a Background grants two points.",
+        "hint": "Proficiencies which this Background grants one training point apiece, free of Proficiency Point cost.",
         "label": "Granted Training"
       },
       "ui": {
@@ -1335,7 +1331,8 @@
       "Choose": "Choose Background",
       "Clear": "Clear Background",
       "Identity": "Identity",
-      "Skills": "Skills",
+      "Grants": "Granted by Background",
+      "GrantWarning": "{count} of {expected} {label} granted. Heroes who choose this Background will begin with less than intended.",
       "TalentAdd": "Add Talent",
       "TalentDrop": "Add a talent to this Background by dragging and dropping from the Talents compendium pack.",
       "TalentRemove": "Remove Talent"
@@ -1450,7 +1447,7 @@
     },
     "PROPERTIES": {
       "Thrown": "Thrown",
-      "ThrownTooltip":"This consumable is designed to be thrown."
+      "ThrownTooltip": "This consumable is designed to be thrown."
     },
     "SCROLL": {
       "ComponentBudget": "This scroll may provide up to {budget} spellcraft component(s). Select which components this scroll provides.",

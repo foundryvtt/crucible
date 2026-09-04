@@ -60,6 +60,7 @@ system:
   rune: ''
   gesture: ''
   inflection: ''
+  training: light
 effects: []
 ownership:
   default: 0
@@ -72,7 +73,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160134
-  modifiedTime: 1788278118215
+  modifiedTime: 1788542904436
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
 _id: hamstring0000000

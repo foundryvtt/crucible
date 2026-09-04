@@ -328,12 +328,12 @@ export const POINTS_MAX = Math.max(...Object.values(RANKS).map(r => r.required))
 
 /**
  * Proficiency Points awarded to a hero, which are allocated to advance training.
- * This rate also caps how many points a single training may hold, so allocation alone can carry exactly one
- * training to mastery; talents advance further trainings rather than carrying any one of them higher.
+ * A hero receives none at creation, where training comes entirely from their Background and chosen Talents.
+ * The per-level rate also caps how many points a single training may hold.
  * @type {Readonly<{initial: number, perLevel: number}>}
  */
 export const PROFICIENCY_POINTS = Object.freeze({
-  initial: 4,
+  initial: 0,
   perLevel: 2
 });
 
@@ -386,11 +386,6 @@ export function getAllocationOrder(aptitude) {
     || ((aptitude[b] ?? 0) - (aptitude[a] ?? 0)));
 }
 
-/**
- * The number of training points a Background is expected to grant, free of Proficiency Point cost.
- * @type {number}
- */
-export const BACKGROUND_POINTS = 2;
 
 /* -------------------------------------------- */
 /*  Knowledge                                   */

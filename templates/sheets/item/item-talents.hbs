@@ -10,7 +10,14 @@
     {{/if}}
     {{#if isEditable}}
     <div class="talent-drop droppable">
-        <p class="hint">{{localize "ITEM.SHEET.TalentDrop"}}</p>
+        <p class="hint">
+            {{localize "ITEM.SHEET.TalentDrop"}}
+            {{#if authoring.talents.warning}}
+            <span class="sum invalid" data-tooltip="{{authoring.talents.warning}}">
+                {{authoring.talents.count}} / {{authoring.talents.expected}}
+            </span>
+            {{/if}}
+        </p>
     </div>
     {{/if}}
 </section>

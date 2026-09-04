@@ -316,7 +316,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @protected
    */
   static async _initializeBackground(background) {
-    const {knowledge, skills, talents, schema, languages} = background.item.system;
+    const {knowledge, training, talents, schema, languages} = background.item.system;
 
     // Knowledge Areas
     const knowledgeTags = Array.from(knowledge.map(knowledgeId => {
@@ -338,11 +338,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       tags: languageTags
     });
 
-    // Skills, named as tags now that a trained skill grants training points rather than a talent
-    const skillTags = Array.from(skills.map(skillId => ({text: _loc(SYSTEM.SKILLS[skillId].label)})));
-    if ( skillTags.length ) background.features.push({
-      label: schema.getField("skills").label,
-      tags: skillTags
+    // Granted Training
+    const trainingTags = Array.from(training.map(id => ({text: _loc(SYSTEM.PROFICIENCIES[id].label)})));
+    if ( trainingTags.length ) background.features.push({
+      label: schema.getField("training").label,
+      tags: trainingTags
     });
 
     // Talents
