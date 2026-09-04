@@ -8,9 +8,20 @@
     </fieldset>
 
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "BACKGROUND.SHEET.Skills"}}</legend>
-        {{formGroup fields.skills value=source.system.skills stacked=true type="checkboxes"}}
-        {{formGroup fields.knowledge value=source.system.knowledge sort=true}}
-        {{formGroup fields.languages value=source.system.languages options=languages}}
+        <legend>{{localize "BACKGROUND.SHEET.Grants"}}</legend>
+        {{#each grants as |grant|}}
+        <div class="form-group">
+            <label>
+                {{grant.field.label}}
+                <span class="sum {{#if grant.warning}}invalid{{/if}}"
+                      {{#if grant.warning}}data-tooltip="{{grant.warning}}"{{/if}}>
+                    {{grant.count}} / {{grant.expected}}
+                </span>
+            </label>
+            <div class="form-fields">
+                {{formInput grant.field value=grant.value options=grant.options sort=grant.sort}}
+            </div>
+        </div>
+        {{/each}}
     </fieldset>
 </section>
