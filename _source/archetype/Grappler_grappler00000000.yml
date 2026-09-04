@@ -24,9 +24,14 @@ system:
       level: null
   identifier: grappler
   training:
-    athletics: 1
-    intimidation: 1
+    unarmed: 4
+    armor: 1
+    athletics: 3
+    intimidation: 2
+    awareness: 1
     performance: 1
+    stealth: 0
+    deception: 0
   spells: []
   equipment: []
 effects: []

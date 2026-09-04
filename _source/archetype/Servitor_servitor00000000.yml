@@ -19,10 +19,14 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
       level: null
   training:
-    awareness: 1
+    awareness: 2
     stealth: 1
     deception: 1
-    performance: 1
+    diplomacy: 1
+    intimidation: 0
+    performance: 0
+    mechanical: 3
+    natural: 3
   spells: []
   equipment: []
 effects: []
@@ -35,11 +39,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157486
-  modifiedTime: 1773514792220
+  modifiedTime: 1788481799618
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: servitor00000000
 sort: 0

@@ -28,10 +28,14 @@ system:
     - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
   training:
+    light: 4
+    mechanical: 2
+    armor: 1
+    stealth: 2
     athletics: 1
-    stealth: 1
     deception: 1
     intimidation: 1
+    society: 0
   spells: []
   equipment: []
 effects: []

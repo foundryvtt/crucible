@@ -24,10 +24,15 @@ system:
     - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
   training:
-    awareness: 1
-    stealth: 1
-    society: 1
-    deception: 1
+    light: 3
+    mechanical: 2
+    stealth: 3
+    society: 2
+    deception: 2
+    awareness: 2
+    diplomacy: 1
+    athletics: 1
+    intimidation: 0
   identifier: operator
   spells: []
   equipment: []

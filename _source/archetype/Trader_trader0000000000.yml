@@ -22,10 +22,16 @@ system:
     - item: Compendium.crucible.talent.Item.provocateur00000
       level: null
   training:
-    awareness: 1
-    society: 1
-    deception: 1
-    diplomacy: 1
+    society: 3
+    diplomacy: 3
+    deception: 2
+    awareness: 2
+    enchanting: 2
+    light: 2
+    jewelcraft: 1
+    tailoring: 1
+    medicine: 1
+    intimidation: 0
   identifier: trader
   spells: []
   equipment: []

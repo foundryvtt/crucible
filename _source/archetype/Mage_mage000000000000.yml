@@ -27,9 +27,15 @@ system:
       level: null
   identifier: mage
   training:
+    elemental: 4
+    talisman: 2
+    physical: 1
+    arcana: 3
+    science: 2
     awareness: 1
-    arcana: 1
-    science: 1
+    society: 1
+    athletics: 0
+    stealth: 0
   spells: []
   equipment: []
 effects: []

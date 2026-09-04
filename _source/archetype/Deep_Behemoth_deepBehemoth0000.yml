@@ -16,7 +16,7 @@ system:
     dexterity: 1
   talents:
     - item: Compendium.crucible.talent.Item.intimidator00000
-      level: 2
+      level: 1
     - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
       level: null
     - item: Compendium.crucible.adversary-talents.Item.rakingTalons0000
@@ -24,9 +24,13 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.burrower00000000
       level: null
   training:
+    athletics: 2
     awareness: 1
+    stealth: 1
     wilderness: 1
-    intimidation: 1
+    deception: 0
+    intimidation: 3
+    natural: 4
   spells: []
   equipment: []
 effects: []
@@ -38,12 +42,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.361'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.4
+  systemVersion: 0.10.2
   createdTime: 1779221939583
-  modifiedTime: 1779221939583
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788480390369
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
   duplicateSource: null

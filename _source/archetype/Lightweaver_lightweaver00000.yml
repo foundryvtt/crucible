@@ -29,7 +29,16 @@ system:
       level: 0
     - item: Compendium.crucible.talent.Item.inflectionpull00
       level: 2
-  training: {}
+  training:
+    spiritual: 4
+    elemental: 2
+    talisman: 2
+    physical: 1
+    arcana: 2
+    awareness: 1
+    diplomacy: 1
+    athletics: 0
+    stealth: 0
   spells:
     - item: Compendium.crucible.spell.Item.dawnBeacon000000
       level: 0

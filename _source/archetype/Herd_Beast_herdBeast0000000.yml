@@ -15,13 +15,16 @@ system:
     dexterity: 4
   talents:
     - item: Compendium.crucible.talent.Item.thickskin0000000
-      level: 3
+      level: 2
     - item: Compendium.crucible.talent.Item.bullrush00000000
       level: 0
   training:
     awareness: 1
     stealth: 1
-    wilderness: 1
+    wilderness: 2
+    natural: 4
+    athletics: 3
+    performance: 0
   identifier: herdBeast
   spells: []
   equipment: []
@@ -35,12 +38,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1774708569274
-  modifiedTime: 1776980332600
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788480477925
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
   duplicateSource: null

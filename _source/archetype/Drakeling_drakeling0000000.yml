@@ -20,9 +20,12 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.glider0000000000
       level: null
   training:
+    athletics: 2
     awareness: 1
-    stealth: 1
+    stealth: 3
+    wilderness: 1
     deception: 1
+    natural: 4
   identifier: drakeling
   spells: []
   equipment: []
@@ -36,11 +39,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157482
-  modifiedTime: 1773514792216
+  modifiedTime: 1788481835552
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: drakeling0000000
 sort: 0

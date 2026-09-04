@@ -32,10 +32,14 @@ system:
     - item: Compendium.crucible.talent.Item.subtleextricatio
       level: 3
   training:
-    athletics: 1
+    light: 4
+    mechanical: 1
+    stealth: 3
     awareness: 1
-    stealth: 1
+    athletics: 1
+    deception: 1
     intimidation: 1
+    armor: 0
   spells: []
   equipment: []
 effects: []
