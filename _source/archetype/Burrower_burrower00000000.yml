@@ -15,11 +15,14 @@ system:
     dexterity: 4
   talents:
     - item: Compendium.crucible.adversary-talents.Item.burrower00000000
-      level: null
+      level: 0
   training:
+    athletics: 1
     awareness: 1
-    stealth: 1
-    wilderness: 1
+    stealth: 3
+    wilderness: 2
+    deception: 0
+    natural: 4
   spells: []
   equipment: []
 effects: []
@@ -32,12 +35,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.360'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157482
-  modifiedTime: 1776980332599
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788480347509
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: burrower00000000
 sort: 100000
 _key: '!items!burrower00000000'

@@ -27,9 +27,14 @@ system:
     - item: Compendium.crucible.talent.Item.seasonedveteran0
       level: null
   training:
+    heavy: 4
+    armor: 3
+    spiritual: 2
+    intimidation: 2
     athletics: 1
-    intimidation: 1
     awareness: 1
+    diplomacy: 1
+    stealth: 0
   equipment: []
   spells: []
 effects: []

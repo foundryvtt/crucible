@@ -25,10 +25,15 @@ system:
     - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
   training:
-    athletics: 1
-    awareness: 1
-    stealth: 1
-    wilderness: 1
+    projectile: 4
+    mechanical: 1
+    wilderness: 3
+    stealth: 2
+    awareness: 2
+    athletics: 2
+    fletching: 1
+    medicine: 1
+    intimidation: 0
   identifier: scout
   spells: []
   equipment: []

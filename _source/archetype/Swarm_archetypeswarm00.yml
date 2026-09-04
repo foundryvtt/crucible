@@ -6,7 +6,7 @@ system:
   description: >-
     <p>This adversary represents multiple creatures that move as a single
     swarming entity, overwhelming opposition with sheer numbers.</p>
-  identifier: archetypeswarm
+  identifier: swarm
   abilities:
     wisdom: 1
     presence: 1
@@ -19,8 +19,11 @@ system:
       level: null
   training:
     athletics: 1
-    awareness: 1
-    wilderness: 1
+    awareness: 3
+    stealth: 0
+    wilderness: 2
+    intimidation: 1
+    natural: 4
   spells: []
   equipment: []
 effects: []
@@ -33,12 +36,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.10.2
   createdTime: 1776980332533
-  modifiedTime: 1776980357072
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788480589691
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
   duplicateSource: null

@@ -26,9 +26,15 @@ system:
     - item: Compendium.crucible.talent.Item.refocus000000000
       level: 0
   training:
-    wilderness: 1
-    arcana: 1
+    elemental: 4
+    talisman: 2
+    arcana: 2
+    wilderness: 2
     science: 1
+    awareness: 1
+    athletics: 1
+    stealth: 0
+    intimidation: 0
   spells: []
   equipment: []
 effects: []

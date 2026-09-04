@@ -23,9 +23,14 @@ system:
       level: null
   identifier: fighter
   training:
-    athletics: 1
-    intimidation: 1
+    heavy: 4
+    armor: 3
+    shield: 2
+    light: 1
+    athletics: 2
     awareness: 1
+    intimidation: 1
+    stealth: 0
   spells: []
   equipment: []
 effects: []

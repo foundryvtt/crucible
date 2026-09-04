@@ -29,9 +29,14 @@ system:
     - item: Compendium.crucible.talent.Item.feintingstrike00
       level: null
   training:
-    awareness: 1
-    stealth: 1
-    deception: 1
+    light: 4
+    mechanical: 1
+    stealth: 3
+    deception: 2
+    awareness: 2
+    athletics: 1
+    society: 1
+    intimidation: 0
   spells: []
   equipment: []
 effects: []

@@ -19,7 +19,16 @@ system:
     - item: Compendium.crucible.talent.Item.quickDraw0000000
       level: null
   identifier: archer
-  training: {}
+  training:
+    projectile: 4
+    mechanical: 1
+    awareness: 2
+    fletching: 2
+    athletics: 1
+    stealth: 1
+    wilderness: 1
+    armor: 0
+    intimidation: 0
   spells: []
   equipment: []
 effects: []

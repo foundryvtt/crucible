@@ -23,9 +23,14 @@ system:
     - item: Compendium.crucible.talent.Item.holdfast00000000
       level: null
   training:
-    athletics: 1
+    shield: 4
+    armor: 3
+    light: 2
+    athletics: 2
     medicine: 1
     diplomacy: 1
+    awareness: 1
+    stealth: 0
   equipment: []
   spells: []
 effects: []

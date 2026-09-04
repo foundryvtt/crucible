@@ -15,7 +15,18 @@ system:
     toughness: 2
     dexterity: 2
   talents: []
-  training: {}
+  training:
+    society: 2
+    cooking: 2
+    smithing: 1
+    tailoring: 1
+    athletics: 1
+    awareness: 1
+    medicine: 1
+    wilderness: 1
+    light: 1
+    deception: 0
+    diplomacy: 0
   spells: []
   equipment: []
 effects: []

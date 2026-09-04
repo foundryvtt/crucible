@@ -27,10 +27,15 @@ system:
     - item: Compendium.crucible.talent.Item.refocus000000000
       level: null
   training:
+    spiritual: 4
+    talisman: 2
+    armor: 1
+    medicine: 2
+    diplomacy: 2
+    society: 2
     arcana: 1
-    medicine: 1
-    society: 1
-    diplomacy: 1
+    awareness: 1
+    stealth: 0
   spells: []
   equipment: []
 effects: []

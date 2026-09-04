@@ -28,9 +28,15 @@ system:
     - item: Compendium.crucible.talent.Item.gesturepulse0000
       level: null
   training:
-    athletics: 1
+    athletics: 2
+    awareness: 1
+    stealth: 0
+    deception: 1
+    diplomacy: 1
     intimidation: 1
-    performance: 1
+    performance: 0
+    natural: 3
+    elemental: 3
   equipment: []
   spells: []
 effects: []
@@ -43,10 +49,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157483
-  modifiedTime: 1773514792217
+  modifiedTime: 1788482690935
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _key: '!items!elementalWandere'
