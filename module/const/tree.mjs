@@ -34,12 +34,12 @@ const TIER_1A = [
 ];
 
 const TIER_1B = [
-  {id: "intdex1", abilities: ["intellect", "dexterity"], type: "utility", connected: ["int1b", "dex1a"]},
-  {id: "dextou1", abilities: ["dexterity", "toughness"], type: "move", connected: ["dex1b", "tou1a"]},
-  {id: "toustr1", abilities: ["toughness", "strength"], type: "move", connected: ["tou1b", "str1a"]},
-  {id: "strwis1", abilities: ["strength", "wisdom"], type: "melee", connected: ["str1b", "wis1a"]},
-  {id: "wispre1", abilities: ["wisdom", "presence"], type: "magic", connected: ["wis1b", "pre1a"]},
-  {id: "preint1", abilities: ["presence", "intellect"], type: "magic", connected: ["pre1b", "int1a"]}
+  {id: "intdex1", abilities: ["intellect", "dexterity"], type: "utility", connected: ["int1b", "dex1a", "int0b", "dex0a"]},
+  {id: "dextou1", abilities: ["dexterity", "toughness"], type: "move", connected: ["dex1b", "tou1a", "dex0b", "tou0a"]},
+  {id: "toustr1", abilities: ["toughness", "strength"], type: "move", connected: ["tou1b", "str1a", "tou0b", "str0a"]},
+  {id: "strwis1", abilities: ["strength", "wisdom"], type: "melee", connected: ["str1b", "wis1a", "str0b", "wis0a"]},
+  {id: "wispre1", abilities: ["wisdom", "presence"], type: "magic", connected: ["wis1b", "pre1a", "wis0b", "pre0a"]},
+  {id: "preint1", abilities: ["presence", "intellect"], type: "magic", connected: ["pre1b", "int1a", "pre0b", "int0a"]}
 ];
 
 const TIER_2A = [
