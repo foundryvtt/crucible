@@ -3,8 +3,10 @@ type: talent
 img: icons/magic/light/hand-sparks-smoke-green.webp
 system:
   description: >-
-    <p>You can silently alter your spellcraft. You can apply Inflections of
-    talent tier 2 using only your hands without the need for vocalization.</p>
+    <p>You can silently alter your spellcraft. You may apply any Inflection
+    granted by a talent of tier 2 or lower using only your hands, without
+    vocalization. A spell you inflect in this way is <strong>Subtle</strong> and
+    may be cast even while you are @Condition[silenced].</p>
   actions: []
   nodes:
     - dex2b
