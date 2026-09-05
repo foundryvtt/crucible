@@ -845,7 +845,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @type {boolean}
    */
   get breaksInvisibility() {
-    if ( this.tags.has("undetectable") ) return false;
+    if ( this.tags.has("subtle") ) return false;
     if ( this.tags.has("spell") ) return true;
     return this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
   }

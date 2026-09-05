@@ -50,6 +50,7 @@ system:
             summons: []
       tags:
         - harmless
+        - vocal
       summon:
         actorUuid: null
         permanent: true

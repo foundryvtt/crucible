@@ -17,6 +17,7 @@ system:
         score in <strong>Health</strong>.</p>
       tags:
         - healing
+        - subtle
       cost:
         action: 2
         focus: 1

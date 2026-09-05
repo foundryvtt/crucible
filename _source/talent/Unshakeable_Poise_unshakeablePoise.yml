@@ -33,7 +33,8 @@ system:
         scope: 1
         self: false
       effects: []
-      tags: []
+      tags:
+        - subtle
       summon:
         actorUuid: null
         permanent: true

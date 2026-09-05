@@ -21,7 +21,7 @@ system:
         target.</p><h3 class="divider">Playtest Notes</h3><p>This action is not
         yet automated.</p>
       tags:
-        - undetectable
+        - subtle
       cost:
         action: 0
         focus: 1

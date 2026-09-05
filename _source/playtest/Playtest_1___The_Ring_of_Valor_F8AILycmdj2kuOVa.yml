@@ -11775,7 +11775,7 @@ actors:
                 class="divider">Playtest Notes</h3><p>This action is not yet
                 automated.</p>
               tags:
-                - undetectable
+                - subtle
               cost:
                 action: 0
                 focus: 1
@@ -16110,7 +16110,7 @@ actors:
                 attempting to identify a vulnerability in its defenses.</p>
               tags:
                 - harmless
-                - undetectable
+                - subtle
               cost:
                 action: 1
                 focus: 1
