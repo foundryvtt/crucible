@@ -1124,10 +1124,10 @@ export const TAGS = {
       }
     }
   },
-  undetectable: {
-    tag: "undetectable",
-    label: "ACTION.TAG.Undetectable",
-    tooltip: "ACTION.TAG.UndetectableTooltip",
+  subtle: {
+    tag: "subtle",
+    label: "ACTION.TAG.Subtle",
+    tooltip: "ACTION.TAG.SubtleTooltip",
     category: "modifiers"
   },
   weakened: {

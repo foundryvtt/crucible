@@ -51,6 +51,7 @@ system:
             summons: []
       tags:
         - healing
+        - subtle
       summon:
         actorUuid: null
         permanent: true

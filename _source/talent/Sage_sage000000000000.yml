@@ -15,7 +15,8 @@ system:
         <p>You expend <strong>Heroism</strong> and experience a sudden,
         brilliant moment of total clarity. Until the end of your next turn you
         are treated as possessing every form of <strong>Knowledge</strong>.</p>
-      tags: []
+      tags:
+        - subtle
       cost:
         action: 0
         focus: 0

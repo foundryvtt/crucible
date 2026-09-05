@@ -20,7 +20,8 @@ system:
         circumstances to restore 1 <strong>Focus</strong>, plus 1 additional
         Focus for every 25% of your maximum Health you are missing, to a maximum
         of 5.</p>
-      tags: []
+      tags:
+        - subtle
       cost:
         action: 0
         focus: 0

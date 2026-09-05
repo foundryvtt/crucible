@@ -16,7 +16,8 @@ system:
       description: >-
         <p>You survey your memories attempting to recall a clue for your current
         situation.</p>
-      tags: []
+      tags:
+        - subtle
       cost:
         action: 3
         focus: 1
