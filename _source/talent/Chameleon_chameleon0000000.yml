@@ -1,0 +1,42 @@
+name: Chameleon
+type: talent
+_id: chameleon0000000
+img: icons/magic/nature/stealth-hide-eyes-pink.webp
+system:
+  description: >-
+    <p>You blend into your surroundings so completely that motion no longer
+    betrays you. While you are concealed by
+    @Action[Compendium.crucible.talent.Item.hide000000000000 hide] your Move
+    action is <strong>Undetectable</strong>, allowing you to reposition without
+    revealing yourself.</p><h3 class="divider">Playtest Notes</h3><p>The Move
+    action gains the tag automatically while you are concealed, so repositioning
+    no longer ends your concealment. Crucible does not yet record which
+    creatures have lost track of you, so whether moving into the open reveals
+    you remains the Gamemaster's call. A forthcoming stealth effect will record
+    detection for each creature individually.</p>
+  actions: []
+  nodes:
+    - intdex4
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: stealth
+effects: []
+folder: 2MFixpDJ379KOogE
+sort: 800000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788600000000
+  modifiedTime: 1788623178950
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!chameleon0000000'

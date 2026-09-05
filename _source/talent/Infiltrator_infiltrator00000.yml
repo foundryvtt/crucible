@@ -1,0 +1,43 @@
+name: Infiltrator
+type: talent
+_id: infiltrator00000
+img: icons/magic/perception/shadow-stealth-eyes-purple.webp
+system:
+  description: >-
+    <p>You have mastered traditional stealth, using shadow and cover to slip the
+    notice of a watchful group rather than a single distracted sentry. When you
+    use @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you may
+    target up to three creatures simultaneously, resolving a separate Stealth
+    check against the Awareness of each.</p><h3 class="divider">Playtest
+    Notes</h3><p>All three checks resolve, but Crucible does not yet record
+    which creatures have lost track of you, so beating one target conceals you
+    no differently from beating all three and the Gamemaster adjudicates the
+    difference. A forthcoming stealth effect will record detection for each
+    creature and treat this talent as raising how many you may evade at
+    once.</p>
+  actions: []
+  nodes:
+    - dex4c
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: stealth
+effects: []
+folder: 2MFixpDJ379KOogE
+sort: 700000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788600000000
+  modifiedTime: 1788623298359
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!infiltrator00000'

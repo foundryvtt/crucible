@@ -1369,6 +1369,36 @@ HOOKS.hamstring = {
 
 /* -------------------------------------------- */
 
+HOOKS.hide = {
+  canUse() {
+    const token = this.actor.getActiveTokens()[0];
+    if ( token?.engagement?.enemies.size ) throw new Error(_loc("ACTION.WARNINGS.CannotHideEngaged"));
+  },
+  prepare() {
+    const token = this.actor.getActiveTokens(true)[0]?.document;
+    if ( !token ) return;
+
+    const observers = crucible.api.canvas.grid.getTokensInRange(token, this.range.maximum ?? 30, {disposition: "enemy"});
+    const actors = observers.map(t => t.actor).filter(a => a);
+
+    // With nobody positioned to notice you there is nothing to beat, so concealment is automatic
+    if ( !actors.length ) {
+      this.usage.forcedTargets = [];
+      this.usage.hasDice = false;
+      return;
+    }
+
+    // Otherwise one check is made against the most perceptive observer, and every further observer imposes a Bane
+    actors.sort((a, b) => b.skills.awareness.passive - a.skills.awareness.passive);
+    this.usage.forcedTargets = [actors[0]];
+    if ( actors.length > 1 ) {
+      this.usage.banes.observers = {label: _loc("ACTION.WARNINGS.HideObservers"), number: actors.length - 1};
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.intercept = {
   prepare() {
     if ( this.actor ) {
@@ -2129,6 +2159,24 @@ HOOKS.selfRepair = {
   postActivate() {
     const activation = this.events.find(e => e.type === "activation");
     if ( activation ) activation.resources.push({resource: "health", delta: this.actor.abilities.toughness.value});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.sneak = {
+  postActivate() {
+    // The effect is authored at one round; a Critical Success carries it through a second
+    let critical = false;
+    for ( const [, events] of this.eventsByTarget ) {
+      if ( events.isCriticalSuccess ) critical = true;
+    }
+    if ( !critical ) return;
+    for ( const event of this.events ) {
+      for ( const effect of event.effects ?? [] ) {
+        if ( effect.duration?.units === "rounds" ) effect.duration.value = 2;
+      }
+    }
   }
 };
 

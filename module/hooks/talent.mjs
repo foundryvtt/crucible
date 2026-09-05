@@ -426,6 +426,15 @@ HOOKS.carefree00000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.chameleon0000000 = {
+  prepareActions(_item, actions) {
+    if ( !this.effects.has(SYSTEM.EFFECTS.getEffectId("hide", {suffix: "0"})) ) return;
+    actions.move?.tags.add("undetectable");
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.certainFocus0000 = {
   rollAction(_item, action, target) {
     if ( action.id !== "refocus" ) return;
@@ -898,6 +907,22 @@ HOOKS.healer0000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.hide000000000000 = {
+  prepareAttack(_item, action, target, rollData) {
+    if ( action.id !== "hide" ) return;
+    rollData.defenseType = "awareness";
+    rollData.dc = target.skills.awareness.passive;
+  },
+  preActivateAction(_item, action) {
+    const effectId = SYSTEM.EFFECTS.getEffectId("hide", {suffix: "0"});
+    if ( !this.effects.has(effectId) || action.tags.has("undetectable") ) return;
+    // noinspection ES6MissingAwait
+    this.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.holdfast00000000 = {
   prepareMovement(item, movement) {
     if ( this.equipment.weapons.shield ) movement.engagementBonus += 1;
@@ -958,6 +983,15 @@ HOOKS.impenetrableGuar = {
         return;
       }
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.infiltrator00000 = {
+  prepareAction(_item, action) {
+    if ( action.id !== "sneak" ) return;
+    action.target.number = 3;
   }
 };
 
@@ -1519,6 +1553,16 @@ HOOKS.sentinel00000000 = {
 HOOKS.skirmisher000000 = {
   defendAttack(item, action, origin, rollData) {
     if ( action.id === "reactiveStrike" ) rollData.banes[item.skirmisher] = {label: item.name, number: 2};
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.sneak00000000000 = {
+  prepareAttack(_item, action, target, rollData) {
+    if ( action.id !== "sneak" ) return;
+    rollData.defenseType = "awareness";
+    rollData.dc = target.skills.awareness.passive;
   }
 };
 

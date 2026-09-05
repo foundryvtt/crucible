@@ -1,0 +1,94 @@
+name: Hide
+type: talent
+_id: hide000000000000
+img: icons/magic/nature/stealth-hide-eyes-green.webp
+system:
+  description: >-
+    <p>You use cover, shadow, and stillness to drop out of sight entirely rather
+    than evading a single pair of eyes.</p><h3 class="divider">Playtest
+    Notes</h3><p>The Stealth check resolves, marks you concealed, and that
+    concealment ends on its own once you act without the
+    <strong>Undetectable</strong> tag. Crucible does not yet record which
+    creatures have lost track of you, so the Gamemaster adjudicates that, and a
+    creature arriving after you hide is not resolved against you at all. A
+    forthcoming stealth effect will record detection for each creature and let a
+    latecomer test its own Awareness against the result you rolled.</p>
+  actions:
+    - id: hide
+      name: Hide
+      img: icons/magic/nature/stealth-hide-eyes-green.webp
+      condition: ''
+      description: >-
+        <p>You cannot Hide while engaged. You make a single Stealth check
+        against the Awareness of the most perceptive enemy within 30 feet,
+        taking <strong>+1 Bane</strong> for each further enemy who might notice
+        you. With no enemy near enough to notice you no check is required. Upon
+        a success you are concealed until you perform an action which is not
+        <strong>Undetectable</strong>.</p>
+      cost:
+        action: 2
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Hidden
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+      tags:
+        - undetectable
+        - skill
+        - stealth
+      summon: null
+  nodes:
+    - intdex1
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: stealth
+effects: []
+folder: 2MFixpDJ379KOogE
+sort: 600000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1788600000000
+  modifiedTime: 1788627278077
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!hide000000000000'
