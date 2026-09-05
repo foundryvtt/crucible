@@ -14,7 +14,8 @@ system:
         <p>You harden yourself against demoralization. Your
         <strong>Morale</strong> is increased by your <strong>Wisdom</strong>
         score and you temporarily gain the @Condition[resolute] condition.</p>
-      tags: []
+      tags:
+        - subtle
       cost:
         action: 2
         focus: 1

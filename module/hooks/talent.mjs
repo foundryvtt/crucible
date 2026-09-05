@@ -429,7 +429,7 @@ HOOKS.carefree00000000 = {
 HOOKS.chameleon0000000 = {
   prepareActions(_item, actions) {
     if ( !this.effects.has(SYSTEM.EFFECTS.getEffectId("hide", {suffix: "0"})) ) return;
-    actions.move?.tags.add("undetectable");
+    actions.move?.tags.add("subtle");
   }
 };
 
@@ -915,7 +915,7 @@ HOOKS.hide000000000000 = {
   },
   preActivateAction(_item, action) {
     const effectId = SYSTEM.EFFECTS.getEffectId("hide", {suffix: "0"});
-    if ( !this.effects.has(effectId) || action.tags.has("undetectable") ) return;
+    if ( !this.effects.has(effectId) || action.tags.has("subtle") ) return;
     // noinspection ES6MissingAwait
     this.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
   }

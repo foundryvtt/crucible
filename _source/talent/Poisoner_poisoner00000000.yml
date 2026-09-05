@@ -13,7 +13,8 @@ system:
       description: >-
         <p>You nimbly lather your blades in toxic alchemical oils which apply
         the @Condition[poisoned] condition on Critical Strikes.</p>
-      tags: []
+      tags:
+        - subtle
       cost:
         action: 2
         focus: 0

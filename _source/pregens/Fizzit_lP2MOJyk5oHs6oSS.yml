@@ -413,7 +413,7 @@ items:
             attempting to identify a vulnerability in its defenses.</p>
           tags:
             - harmless
-            - undetectable
+            - subtle
           cost:
             action: 1
             focus: 1

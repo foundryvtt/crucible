@@ -54,6 +54,7 @@ system:
       tags:
         - spell
         - harmless
+        - subtle
       summon:
         actorUuid: null
         permanent: true
