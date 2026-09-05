@@ -338,8 +338,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       tags: languageTags
     });
 
-    // Granted Training
-    const trainingTags = Array.from(training.map(id => ({text: _loc(SYSTEM.PROFICIENCIES[id].label)})));
+    // Granted Training, ordered as automatic advancement prioritises it rather than as the Background declared it
+    const trainingTags = SYSTEM.PROFICIENCY.ALLOCATION_ORDER.filter(id => training.has(id)).map(id => ({
+      text: _loc("ACTOR.TrainingSpecific", {training: SYSTEM.PROFICIENCIES[id].label, points: (1).signedString()})
+    }));
     if ( trainingTags.length ) background.features.push({
       label: schema.getField("training").label,
       tags: trainingTags
