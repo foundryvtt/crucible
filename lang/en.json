@@ -2315,7 +2315,6 @@
         "other": "The {action} spell requires {hands} free hands to cast."
       },
       "CannotUseNotComposed": "You cannot cast a Spell which has not yet been fully composed.",
-      "CannotUseSilenced": "Cannot use Inflections while Silenced.",
       "IconicAlreadyKnown": "Actor {actor} already knows the {spell} Iconic Spell.",
       "IconicNoSlots": "Actor {actor} does not have any available Iconic Spell slots.",
       "IconicNotSatisfied": "Actor {actor} does not satisfy the knowledge requirements to learn the {spell} Iconic Spell.",

@@ -44,12 +44,12 @@ export default class CrucibleSpellcraftInflection extends foundry.abstract.DataM
   /**
    * Return the minimum-tier talent (tier & uuid) which grants the given Inflection
    * @param {string} component
-   * @returns {tier: number, uuid: string}
+   * @returns {{tier: number, uuid: string}|null}
    */
   static getGrantingTalent(component) {
     const talents = CrucibleSpellcraftInflection.grantingTalents[component];
-    const minTalent = talents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t);
-    return minTalent;
+    if ( !talents?.length ) return null;
+    return talents.reduce((currMin, t) => (currMin.tier < t.tier) ? currMin : t);
   }
 
   /* -------------------------------------------- */

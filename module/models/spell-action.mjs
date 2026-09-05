@@ -280,6 +280,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
   /** @inheritDoc */
   _prepare() {
+
+    // Inflections are vocalized, so tag before super() in order that hooks observe the final tag set
+    if ( this.inflection ) this.tags.add(this.#isInflectionSubtle() ? "subtle" : "vocal");
+
     super._prepare();
 
     // Add Weapon cost
@@ -293,6 +297,18 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
       this.cost.action = this.cost.focus = this.cost.health = this.cost.heroism = this.cost.hands = 0;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does Legerdemain allow this spell's Inflection to be applied by hand alone, without vocalization?
+   * @returns {boolean}
+   */
+  #isInflectionSubtle() {
+    if ( !this.actor.talentIds.has("legerdemain00000") ) return false;
+    const talent = crucible.api.models.CrucibleSpellcraftInflection.getGrantingTalent(this.inflection.id);
+    return (talent?.tier ?? 0) <= 2;
   }
 
   /* -------------------------------------------- */
@@ -312,14 +328,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
       }
       if ( this.inflection && !g.inflections.has(this.inflection.id) ) {
         throw new Error(_loc("ACTION.WARNINGS.RequiresInflection"));
-      }
-    }
-
-    // Cannot use inflections while silenced
-    if ( this.inflection && this.actor.statuses.has("silenced") ) {
-      const inflectionTalent = crucible.api.models.CrucibleSpellcraftInflection.getGrantingTalent(this.inflection.id);
-      if ( !this.actor.talentIds.has("legerdemain00000") || ((inflectionTalent?.tier ?? 0) > 2) ) {
-        throw new Error(_loc("SPELL.WARNINGS.CannotUseSilenced"));
       }
     }
   }
@@ -437,18 +445,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.damage.healing ) tags.action.healing = _loc("ACTION.TAG.Healing");
     else tags.action.defense = SYSTEM.DEFENSES[this.usage.defenseType].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
-
-    // Show unmet for inflection if silenced
-    if ( tags.context.inflection && this.actor?.statuses.has("silenced") ) {
-      const inflectionTalent = crucible.api.models.CrucibleSpellcraftInflection.getGrantingTalent(this.inflection.id);
-      if ( !this.actor.talentIds.has("legerdemain00000") || ((inflectionTalent?.tier ?? 0) > 2) ) {
-        tags.context.inflection = {
-          label: tags.context.inflection,
-          unmet: true,
-          tooltip: _loc("SPELL.WARNINGS.CannotUseSilenced")
-        };
-      }
-    }
     return tags;
   }
 
