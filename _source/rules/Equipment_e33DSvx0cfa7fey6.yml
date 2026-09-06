@@ -101,22 +101,26 @@ pages:
         you to combat multiple foes, increasing your Engagement by +1. The
         weapon's defensive design reduces its base damage by 1 for one-handed
         weapons or 2 for two-handed weapons.</p><h4>Intuitive</h4><p>This weapon
-        is intuitive enough to be used untrained. The Skill penalty when using
-        this weapon untrained is only -1 instead of
-        -4.</p><h4>Oversized</h4><p>This weapon is large for its category and is
-        unwieldy in combat without special training. The weapon gains +1 base
-        damage for one-handed weapons or +2 for two-handed weapons, but is slow
-        and provides +2 Banes to Initiative rolls.</p><h4>Parrying</h4><p>This
-        weapon provides +1 to Parry defense while equipped and not Broken. The
-        weapon's defensive balance increases the critical hit threshold for
-        Strikes made with this weapon by +1, making critical hits harder to
-        achieve.</p><h4>Versatile</h4><p>This normally one-handed weapon can be
-        used effectively with two hands. While equipped without any item in the
-        off-hand its base damage is increased by +2 and Action cost is increased
-        by +1.</p><h4>Thrown</h4><p>This weapon can be used to Strike at range
-        up to a distance of 20 feet. When used to Strike a target that is not
-        within melee range, the Weapon becomes unequipped and must be retrieved
-        before it can be used again.</p>
+        is intuitive enough to be used untrained. You are treated as having one
+        additional point in the
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiency}
+        required for its use; a wielder with no training at all suffers only a
+        -2 penalty rather than -4. Simple and natural weapons are always
+        Intuitive.</p><h4>Oversized</h4><p>This weapon is large for its category
+        and is unwieldy in combat without special training. The weapon gains +1
+        base damage for one-handed weapons or +2 for two-handed weapons, but is
+        slow and provides +2 Banes to Initiative
+        rolls.</p><h4>Parrying</h4><p>This weapon provides +1 to Parry defense
+        while equipped and not Broken. The weapon's defensive balance increases
+        the critical hit threshold for Strikes made with this weapon by +1,
+        making critical hits harder to achieve.</p><h4>Versatile</h4><p>This
+        normally one-handed weapon can be used effectively with two hands. While
+        equipped without any item in the off-hand its base damage is increased
+        by +2 and Action cost is increased by +1.</p><h4>Thrown</h4><p>This
+        weapon can be used to Strike at range up to a distance of 20 feet. When
+        used to Strike a target that is not within melee range, the Weapon
+        becomes unequipped and must be retrieved before it can be used
+        again.</p>
       markdown: ''
     video:
       controls: true

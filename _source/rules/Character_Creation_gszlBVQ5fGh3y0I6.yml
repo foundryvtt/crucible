@@ -83,15 +83,18 @@ pages:
         career to date, or other aspects of their past before the advent of the
         campaign's storyline. Your choice of Background further augments your
         character.</p><h2 class="divider">Background Features</h2><p>Each
-        Background includes:</p><ul><li><p>Trained Skills (typically
-        2)</p></li><li><p>Knowledge Areas (typically 2)</p></li><li><p>Known
-        Languages</p></li><li><p>Starting Talents (typically
-        2)</p></li></ul><section class="foundryvtt"><p>While Crucible provides a
-        number of example backgrounds, it also allows use of custom backgrounds
-        by providing a way for GMs to configure their own compendium packs to
-        use as a source during character creation. To add your compendium as a
-        source, go to <strong>Configure Settings ➤ Crucible ➤ Configure
-        Compendium Sources</strong>.</p></section><h2 class="divider">Ability
+        Background includes:</p><ul><li><p>Six
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiencies},
+        including Weapon categories, Spellcraft disciplines, Skills, or
+        Tradecrafts, each of which receive one training
+        point.</p></li><li><p>Two Knowledge Areas</p></li><li><p>One known
+        Language</p></li><li><p>Three Starting Talents</p></li></ul><section
+        class="foundryvtt"><p>While Crucible provides a number of example
+        backgrounds, it also allows use of custom backgrounds by providing a way
+        for GMs to configure their own compendium packs to use as a source
+        during character creation. To add your compendium as a source, go to
+        <strong>Configure Settings ➤ Crucible ➤ Configure Compendium
+        Sources</strong>.</p></section><h2 class="divider">Ability
         Scores</h2><p>After you have selected your background, it is time to
         allocate Ability Points to determine your character's starting
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Ability
@@ -307,11 +310,15 @@ pages:
         selected an Ancestry and Background, each new character has 3 initial
         Talent points which can be used to select unique Skills and Abilities.
         Talents are a roadmap for your character's development, allowing you to
-        invest into unique paths that provide powerful abilities.</p><p>After
-        you have chosen your talents, the "Complete" button will appear in the
-        top right of the character creation window. After you have completed
-        creation, your character is complete and your selections are final, and
-        your newly created Actor Sheet will open.</p>
+        invest into unique paths that provide powerful abilities.</p><p>Each
+        Talent you choose also advances your training. A Talent contributes one
+        training point to the single Proficiency it names, so the talents you
+        pick here decide where your character improves beyond the six
+        Proficiencies your Background already trains.</p><p>After you have
+        chosen your talents, the "Complete" button will appear in the top right
+        of the character creation window. After you have completed creation,
+        your character is complete and your selections are final, and your newly
+        created Actor Sheet will open.</p>
     video:
       controls: true
       volume: 0.5

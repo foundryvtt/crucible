@@ -503,48 +503,28 @@ pages:
         unit of the talent tree. Each talent grants your character-specific
         abilities or bonuses. Many Talents have requirements which must be met
         before they can be purchased, such as attaining a certain level of
-        Ability score or a required rank in a Proficiency.</p><h2
-        class="divider">Proficiencies</h2><p>A <strong>Proficiency</strong> is
-        something your character can be trained in: a Skill, a category of
-        weapon, a family of spellcraft, or a tradecraft. Each one holds a total
-        of training points, and the ranks below are thresholds upon that
-        total.</p><p>Training points come from three sources. Your Ancestry and
-        Background grant some freely, every Talent you own contributes a point
-        to the one Proficiency it names if it names any, and you allocate
-        Proficiency Points of your own at each level.</p><table><tbody><tr><th
-        data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
-        data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
-        decidedly as good at this skill as the average person who has absolutely
-        no education or professional training related to
-        it.</p></td></tr><tr><td
-        data-colwidth="50"><p>0</p></td><td><p>Trained</p></td><td><p>You have
-        received training in the basic practices common across all parts of that
-        skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+1</p></td><td><p>Proficient</p></td><td><p>You've
-        reached some degree of advanced training and know some of the less
-        common principles of that particular skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+2</p></td><td><p>Expert</p></td><td><p>You have
-        exceeded all the bounds of professional training. There is nothing more
-        about your skills that you can learn from others. All that is left is to
-        perfect your understanding.</p></td></tr><tr><td
-        data-colwidth="50"><p>+3</p></td><td><p>Master</p></td><td><p>You have
-        mastered this skill. There is nothing more to learn about
-        it.</p></td></tr></tbody></table><p></p><h2 class="divider">Signature
-        Talents</h2><p>Talent nodes at the outer edges of the Talent Tree
-        contain <strong>Signature Talents</strong>, powerful bonuses that
-        "Spellblade" or "Dread Lord" which offer iconic abilities. Signature
-        Talents represent the culmination of the abilities required to select
-        them, and are mirrored across two ability scores. Taking a Signature
-        Talent forms a bridge to its paired ability score, allowing you to
-        continue your path of progression into that sextant regardless of
-        whether you have already purchased lower-tier Talents.</p><p>The number
-        of Signature Talents you may acquire is determined by your character
-        level. You acquire your first Signature Talent at level 3, and one
-        additional Signature Talent at every third level thereafter, to a
-        maximum of six Signature Talents at level 18. Within this limit there
-        are no further restrictions: you may acquire multiple Signature Talents
-        from the same node, or from nodes which share the same tier or ability
-        scores.</p>
+        Ability score or a required rank in a
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiency}.</p><h2
+        class="divider">Proficiencies</h2><p>Every Talent contributes one
+        training point to the single
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiency}
+        it names, if it names any. The talents you choose therefore decide where
+        your character improves beyond the areas your Background already
+        trains.</p><h2 class="divider">Signature Talents</h2><p>Talent nodes at
+        the outer edges of the Talent Tree contain <strong>Signature
+        Talents</strong>, powerful bonuses that "Spellblade" or "Dread Lord"
+        which offer iconic abilities. Signature Talents represent the
+        culmination of the abilities required to select them, and are mirrored
+        across two ability scores. Taking a Signature Talent forms a bridge to
+        its paired ability score, allowing you to continue your path of
+        progression into that sextant regardless of whether you have already
+        purchased lower-tier Talents.</p><p>The number of Signature Talents you
+        may acquire is determined by your character level. You acquire your
+        first Signature Talent at level 3, and one additional Signature Talent
+        at every third level thereafter, to a maximum of six Signature Talents
+        at level 18. Within this limit there are no further restrictions: you
+        may acquire multiple Signature Talents from the same node, or from nodes
+        which share the same tier or ability scores.</p>
     video:
       controls: true
       volume: 0.5
@@ -676,49 +656,74 @@ pages:
         modify Backgrounds to fit the lore of their own worlds. To configure a
         Background in Crucible, create a new <strong>Item</strong> with the
         <strong>Background </strong>type. Fill out the Background configuration
-        sheet to select four acquired Skills which begin as Trained and one
-        acquired Talent.</p><p>Each Background includes:</p><ul><li><p>Trained
-        Skills (typically 2)</p></li><li><p>Knowledge Areas (typically
-        2)</p></li><li><p>Known Languages</p></li><li><p>Talents (typically
-        2)</p></li></ul><h2 class="divider">Example Backgrounds</h2><p>The table
-        below presents some example Backgrounds which will be familiar for many
-        fantasy RPG
+        sheet to name the Proficiencies it trains, the Knowledge it confers, and
+        the Talents it grants.</p><p>Each Background includes:</p><ul><li><p>Six
+        trained Proficiencies, each receiving one training point. These need not
+        be Skills: a Background may train a weapon category, a family of
+        spellcraft, or a tradecraft.</p></li><li><p>Two Knowledge
+        Areas</p></li><li><p>One known Language</p></li><li><p>Three
+        Talents</p></li></ul><p>A Background which names fewer than six
+        Proficiencies or fewer than three Talents remains valid, but the
+        Background sheet will warn you that it is incomplete.</p><h2
+        class="divider">Example Backgrounds</h2><p>The table below presents some
+        example Backgrounds which will be familiar for many fantasy RPG
         settings.</p><table><thead><tr><th>Background</th><th>Knowledge</th><th>Trained
-        Skills</th><th>Talents</th></tr></thead><tbody><tr><td>@UUID[Compendium.crucible.background.Item.acolyte000000000]{Acolyte}</td><td>Gods,
-        Souls</td><td>Arcana,
-        Medicine</td><td>@UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus},
-        @UUID[Compendium.crucible.talent.Item.runeSoul00000000]{Rune:
-        Soul}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.constable0000000]{Constable}</td><td>Crime,
-        Forensics</td><td>Awareness,
-        Intimidation</td><td>@UUID[Compendium.crucible.talent.Item.grapple000000000]{Grapple},
-        @UUID[Compendium.crucible.talent.Item.intercept0000000]{Intercept}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.merchant00000000]{Merchant}</td><td>Crafts,
-        Trade</td><td>Society,
-        Diplomacy</td><td>@UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge},
-        @UUID[Compendium.crucible.talent.Item.preparedness0000]{Preparedness}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.performer0000000]{Performer}</td><td>Arts,
-        Rituals</td><td>Deception,Performance</td><td>@UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge},
+        Proficiencies</th><th>Talents</th></tr></thead><tbody><tr><td>@UUID[Compendium.crucible.background.Item.acolyte000000000]{Acolyte}</td><td>Gods,
+        Souls</td><td>Arcana, Medicine, Talisman Weapons, Spiritual Spellcraft,
+        Glyphweaving,
+        Performance</td><td>@UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus},
+        @UUID[Compendium.crucible.talent.Item.runeSoul00000000]{Rune: Soul},
+        @UUID[Compendium.crucible.talent.Item.recognizespellcr]{Recognize
+        Spellcraft}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.constable0000000]{Constable}</td><td>Crime,
+        Forensics</td><td>Athletics, Awareness, Intimidation, Light Weapons,
+        Unarmed Combat,
+        Science</td><td>@UUID[Compendium.crucible.talent.Item.grapple000000000]{Grapple},
+        @UUID[Compendium.crucible.talent.Item.mnemonicrealizat]{Mnemonic
+        Realization},
+        @UUID[Compendium.crucible.talent.Item.hamstring0000000]{Hamstring}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.merchant00000000]{Merchant}</td><td>Crafts,
+        Trade</td><td>Society, Deception, Diplomacy, Jewelcraft, Tailoring,
+        Awareness</td><td>@UUID[Compendium.crucible.talent.Item.camaraderie00000]{Camaraderie},
         @UUID[Compendium.crucible.talent.Item.inspireheroism00]{Inspire
-        Heroism}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.physician0000000]{Physician}</td><td>Alchemy,
-        Undeath</td><td>Medicine,
-        Science</td><td>@UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus},
-        @UUID[Compendium.crucible.talent.Item.runeLife00000000]{Rune:
-        Life}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.scholar000000000]{Scholar}</td><td>Artifacts,
-        Legends</td><td>Arcana,
-        Science</td><td>@UUID[Compendium.crucible.talent.Item.rapidReload00000]{Rapid
-        Reload}, @UUID[Compendium.crucible.talent.Item.runeKinesis00000]{Rune:
-        Kinesis}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.soldier000000000]{Soldier}</td><td>Machines,
-        Warfare</td><td>Athletics,
-        Intimidation</td><td>@UUID[Compendium.crucible.talent.Item.heavyStrike00000]{Heavy
-        Strike}, @UUID[Compendium.crucible.talent.Item.truegrit00000000]{True
-        Grit}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.urchin0000000000]{Urchin}</td><td>Crime,
-        Tracking</td><td>Stealth,
-        Deception</td><td>@UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge},
-        @UUID[Compendium.crucible.talent.Item.backstab00000000]{Backstab}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.wanderer00000000]{Wanderer}</td><td>Plants,
-        Tracking</td><td>Athletics,
-        Wilderness</td><td>@UUID[Compendium.crucible.talent.Item.quickDraw0000000]{Quick
-        Draw}, @UUID[Compendium.crucible.talent.Item.precisionshot000]{Precision
-        Shot}</td></tr></tbody></table><p>As a Game Master and storyteller, you
-        should work with your players to create backgrounds which are suitable
-        for their personal stories.</p>
+        Heroism},
+        @UUID[Compendium.crucible.talent.Item.preparedness0000]{Preparedness}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.performer0000000]{Performer}</td><td>Arts,
+        Rituals</td><td>Deception, Performance, Talisman Weapons, Kinematic
+        Spellcraft, Alchemy,
+        Society</td><td>@UUID[Compendium.crucible.talent.Item.camaraderie00000]{Camaraderie},
+        @UUID[Compendium.crucible.talent.Item.runeKinesis00000]{Rune: Kinesis},
+        @UUID[Compendium.crucible.talent.Item.diversionist0000]{Diversionist}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.physician0000000]{Physician}</td><td>Alchemy,
+        Undeath</td><td>Wilderness, Medicine, Science, Mechanical Weapons,
+        Alchemy, Kinematic
+        Spellcraft</td><td>@UUID[Compendium.crucible.talent.Item.runeLife00000000]{Rune:
+        Life}, @UUID[Compendium.crucible.talent.Item.mnemonicrealizat]{Mnemonic
+        Realization},
+        @UUID[Compendium.crucible.talent.Item.precisionshot000]{Precision
+        Shot}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.scholar000000000]{Scholar}</td><td>Artifacts,
+        Legends</td><td>Arcana, Science, Talisman Weapons, Elemental Spellcraft,
+        Enchanting,
+        Diplomacy</td><td>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Rune:
+        Flame},
+        @UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus},
+        @UUID[Compendium.crucible.talent.Item.recognizespellcr]{Recognize
+        Spellcraft}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.soldier000000000]{Soldier}</td><td>Machines,
+        Warfare</td><td>Athletics, Intimidation, Heavy Weapons, Shield Combat,
+        Armored Combat,
+        Cooking</td><td>@UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
+        Efficiency},
+        @UUID[Compendium.crucible.talent.Item.shieldBash000000]{Shield Bash},
+        @UUID[Compendium.crucible.talent.Item.intimidator00000]{Intimidator}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.urchin0000000000]{Urchin}</td><td>Crime,
+        Tracking</td><td>Awareness, Stealth, Deception, Light Weapons,
+        Projectile Weapons,
+        Society</td><td>@UUID[Compendium.crucible.talent.Item.diversionist0000]{Diversionist},
+        @UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge},
+        @UUID[Compendium.crucible.talent.Item.preparedness0000]{Preparedness}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.wanderer00000000]{Wanderer}</td><td>Plants,
+        Tracking</td><td>Athletics, Wilderness, Projectile Weapons, Elemental
+        Spellcraft, Fletching,
+        Stealth</td><td>@UUID[Compendium.crucible.talent.Item.quickDraw0000000]{Quick
+        Draw}, @UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Rune:
+        Earth},
+        @UUID[Compendium.crucible.talent.Item.preparedness0000]{Preparedness}</td></tr></tbody></table><p>As
+        a Game Master and storyteller, you should work with your players to
+        create backgrounds which are suitable for their personal stories.</p>
     video:
       controls: true
       volume: 0.5
@@ -868,17 +873,15 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Skills</strong> represent the education or degree of
-        professional training your character has received. These Skills might
-        have been learned as part of their
+        <p><strong>Skills</strong> are
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiencies}
+        which represent the education or degree of professional training your
+        character has received. These Skills might have been learned as part of
+        their
         @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]{Background}
-        or some other aspect of their life experience. A Skill is one kind of
-        Proficiency, and advances as training points accumulate in it: granted
-        by your
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.uCwStnXHoUCV2TrK]{Background},
-        contributed by Talents you own, or allocated with your own Proficiency
-        Points.</p><p>More information on Proficiencies can be found in
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talents}.</p><h2
+        or some other aspect of their life experience. A Skill advances as you
+        invest training points into it through character creation choices,
+        Talent purchases, or allocated Proficiency training points.</p><h2
         class="divider">Exploration
         Skills</h2><dl><dt><p>Athletics</p></dt><dd><p>The
         <strong>Athletics</strong> skill represents the ability to undertake and
@@ -968,13 +971,90 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.361'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1763079763956
-      modifiedTime: 1778425102084
+      modifiedTime: 1788723371609
       lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!characterMechani.skills0000000000'
+  - _id: proficiencies000
+    name: Proficiencies
+    type: text
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Proficiency</strong> is something your character can be
+        trained in: a Skill, a category of weapon, a family of spellcraft, or a
+        tradecraft. Each one holds a total of training points, and the ranks
+        below are thresholds upon that total.</p><p>Training points come from
+        three sources. Your
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]{Background}
+        grants six areas where you start your journey with some proficiency,
+        every
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
+        you own contributes a point to the one Proficiency it names if it names
+        any, and you allocate Proficiency Points of your own at each level after
+        the first.</p><table><tbody><tr><th
+        data-colwidth="50"><p>Points</p></th><th
+        data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
+        data-colwidth="50"><p>0</p></td><td
+        data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
+        decidedly as good at this skill as the average person who has absolutely
+        no education or professional training related to
+        it.</p></td></tr><tr><td data-colwidth="50"><p>2</p></td><td
+        data-colwidth="50"><p>0</p></td><td><p>Trained</p></td><td><p>You have
+        received training in the basic practices common across all parts of that
+        skill.</p></td></tr><tr><td data-colwidth="50"><p>6</p></td><td
+        data-colwidth="50"><p>+1</p></td><td><p>Proficient</p></td><td><p>You've
+        reached some degree of advanced training and know some of the less
+        common principles of that particular skill.</p></td></tr><tr><td
+        data-colwidth="50"><p>14</p></td><td
+        data-colwidth="50"><p>+2</p></td><td><p>Expert</p></td><td><p>You have
+        exceeded all the bounds of professional training. There is nothing more
+        about your skills that you can learn from others. All that is left is to
+        perfect your understanding.</p></td></tr><tr><td
+        data-colwidth="50"><p>30</p></td><td
+        data-colwidth="50"><p>+3</p></td><td><p>Master</p></td><td><p>You have
+        mastered this skill. There is nothing more to learn about
+        it.</p></td></tr></tbody></table><p>A rank is attained the moment its
+        point requirement is met.</p><h2 class="divider">Untrained
+        Penalty</h2><p>While untrained, you have an initial penalty to your
+        skill of <strong>-4</strong>. This penalty is reduced to
+        <strong>-2</strong> once you have a single Proficiency point invested,
+        and the penalty is removed altogether once you reach the
+        <strong>Trained</strong> rank with 2 points invested.</p><h2
+        class="divider">Intuitive Actions</h2><p>Some things are simple enough
+        to attempt without formal instruction. When an item you use or Action
+        you perform is <strong>Intuitive</strong> you are treated as having one
+        additional point in the Proficiency it requires, so a character with no
+        training at all suffers only a -2 penalty rather than -4.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    sort: 237500
+    ownership:
+      default: -1
+      vke929uLgNzbrY41: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1788600000000
+      modifiedTime: 1788723455219
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _key: '!journal.pages!characterMechani.proficiencies000'
 folder: MMeWpMmsLOblp07U
 categories: []
 sort: 150000

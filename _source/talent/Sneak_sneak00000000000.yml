@@ -23,8 +23,8 @@ system:
         You make a Stealth check against their Awareness. Upon a success that
         creature loses track of you until the start of your next turn, or until
         you perform an action targeting them which is not
-        <strong>Subtle</strong>. Upon a Critical Success the effect
-        instead persists for two rounds.</p>
+        <strong>Subtle</strong>. Upon a Critical Success the effect instead
+        persists for two rounds.</p>
       cost:
         action: 1
         focus: 1
