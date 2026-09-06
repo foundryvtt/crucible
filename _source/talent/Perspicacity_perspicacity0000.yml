@@ -4,9 +4,9 @@ _id: perspicacity0000
 img: icons/magic/sonic/bell-alarm-red-purple.webp
 system:
   description: >-
-    <p>You have heightened insight into aspects of your surroundings. You gain
-    +2 Boons to any <strong>Awareness</strong> skill test which does not rely
-    upon eyesight.</p>
+    <p>You take in your surroundings without needing to stop and look. You may
+    sacrifice your free movement for the Round to instead
+    @Action[default search] without spending any Action points.</p>
   actions: []
   nodes:
     - int1b

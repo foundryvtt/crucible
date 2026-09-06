@@ -79,6 +79,10 @@
         "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources.",
         "Name": "Rest"
       },
+      "Search": {
+        "Description": "<p>Carefully sweep your surroundings to uncover what others have taken pains to conceal. You perform an <strong>Awareness</strong> check, looking for concealed creatures, objects, or other secrets.</p><p>While in combat, this action can discover creatures hidden via <strong>Stealth</strong> within a visible 30 foot radius. While out of combat, you spend 10 minutes or longer thoroughly canvassing the immediately reachable area, and may additionally discover concealed traps, hidden objects, or other secrets of the environment.</p>",
+        "Name": "Search"
+      },
       "Strike": {
         "Description": "Attack a single creature or object with one of your equipped weapon.",
         "Name": "Strike"

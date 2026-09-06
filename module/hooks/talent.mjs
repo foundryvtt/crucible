@@ -1298,6 +1298,18 @@ HOOKS.peltast000000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.perspicacity0000 = {
+  prepareAction(_item, action) {
+    if ( action.id !== "search" ) return;
+    if ( action.cost.action && this.system.hasFreeMove ) {
+      action.cost.action = 0;
+      action.usage.actorStatus.hasMoved = true;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.piercingBolts000 = {
   rollAction(_item, action, target) {
     const weapon = action.usage.weapon ?? action.usage.strikes?.[0];
