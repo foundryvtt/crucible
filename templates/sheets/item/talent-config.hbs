@@ -16,4 +16,27 @@
         <legend>{{localize "ITEM.SHEET.Training"}}</legend>
         {{formGroup fields.training value=source.system.training blank=""}}
     </fieldset>
+
+    <fieldset class="training">
+        <legend>{{localize "ITEM.SHEET.TalentRequirements"}}</legend>
+        {{#if requirements.rows.length}}
+        <div class="form-fields">
+            {{#each requirements.rows as |p|}}
+            <div class="training-requirement" data-proficiency="{{p.id}}">
+                {{formInput p.field value=p.value type="number" name=p.name}}
+                <span class="proficiency">{{p.label}}</span>
+                <a class="remove" data-action="requirementRemove"
+                   data-tooltip="ITEM.SHEET.TalentRequirementRemove">
+                    <i class="fa-solid fa-times"></i>
+                </a>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+        {{#if requirements.options.length}}
+        {{formInput requirements.field name="requirementAdd" value="" options=requirements.options
+                    groups=requirements.groups blank=(localize "ITEM.SHEET.TalentRequirementAdd")}}
+        {{/if}}
+        <p class="hint">{{localize "ITEM.SHEET.TalentRequirementsHint"}}</p>
+    </fieldset>
 </section>

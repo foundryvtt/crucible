@@ -368,14 +368,6 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     delete source.rune;
     delete source.gesture;
     delete source.inflection;
-
-    /**
-     * Temporary shim. Runes ceased to be trainable individually and were aggregated into spellcraft families, so
-     * source content naming a rune would otherwise fail its choices validation and lose the whole talent.
-     * Each rune names the family it belongs to as its own training type.
-     * Remove once the talents tracked in crucible-training-content-tracker.md have been rewritten.
-     * @deprecated since 0.10.3
-     */
     const runeFamily = SYSTEM.SPELL.RUNES[source.training]?.training;
     if ( runeFamily ) source.training = runeFamily;
     return source;

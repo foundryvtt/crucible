@@ -1818,6 +1818,10 @@
       "TalentConfiguration": "Talent Configuration",
       "TalentDrop": "Add a talent by dragging and dropping a Talent item into this area.",
       "TalentRemove": "Remove Talent",
+      "TalentRequirementAdd": "Require a Proficiency",
+      "TalentRequirementRemove": "Remove Requirement",
+      "TalentRequirements": "Required Proficiencies",
+      "TalentRequirementsHint": "A rank in each of these Proficiencies is required before this Talent may be purchased.",
       "Training": "Training",
       "Type": "Equipment Type"
     },
