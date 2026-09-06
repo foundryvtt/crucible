@@ -695,6 +695,8 @@
       "ResetTalentsContent": "<p>Are you sure you wish to reset all Talents?</p>",
       "ResetTalentsTitle": "Reset Talents: {actor}",
       "RollCheck": "Roll Check",
+      "SyncTalents": "Refresh Talents",
+      "SyncTalentsResult": "Refreshed {synced} Talents for {actor}, removing {deleted}.",
       "TalentTreeClose": "Close Talent Tree",
       "TalentTreeOpen": "Open Talent Tree",
       "ToggleTree": "Toggle Talent Tree"

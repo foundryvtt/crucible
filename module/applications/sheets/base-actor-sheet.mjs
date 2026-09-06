@@ -41,10 +41,21 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       editEngagement: CrucibleBaseActorSheet.#onEditEngagement,
       editSize: CrucibleBaseActorSheet.#onEditSize,
       editStride: CrucibleBaseActorSheet.#onEditStride,
-      editDetailsProperty: CrucibleBaseActorSheet.#onEditDetailsProperty
+      editDetailsProperty: CrucibleBaseActorSheet.#onEditDetailsProperty,
+      syncTalents: CrucibleBaseActorSheet.#onSyncTalents
     },
     form: {
       submitOnChange: true
+    },
+    window: {
+      controls: [
+        {
+          action: "syncTalents",
+          icon: "fa-solid fa-rotate",
+          label: "ACTOR.ACTIONS.SyncTalents",
+          ownership: "OWNER"
+        }
+      ]
     },
     actor: {
       type: undefined // Defined by subclass
@@ -1286,6 +1297,19 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( !formData ) return;
     formData[propertyPath] = formData[propertyPath].filter(value => !toDisable.has(value));
     await this.actor.update(formData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Re-sync every Talent owned by this Actor against its current compendium source.
+   * @this {CrucibleBaseActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onSyncTalents() {
+    const {toCreate, toUpdate, toDelete} = await this.actor.syncTalents();
+    ui.notifications.info(_loc("ACTOR.ACTIONS.SyncTalentsResult", {actor: this.actor.name,
+      synced: toCreate.length + toUpdate.length, deleted: toDelete.length}));
   }
 
   /* -------------------------------------------- */

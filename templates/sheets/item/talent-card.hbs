@@ -6,6 +6,7 @@
         <div class="title">
             <h2 data-no-toc>{{source.name}}</h2>
             <div class="talent-tags tags prerequisites">
+                {{~#if origin}}<span class="tag">{{origin}}</span>{{/if~}}
                 {{~#each prerequisites as |req|}}
                 <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
                 {{/each~}}
