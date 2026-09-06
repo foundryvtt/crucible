@@ -13,28 +13,36 @@ system:
     dexterity: 0
   talents:
     - item: Compendium.crucible.talent.Item.gestureinfluence
-      level: null
+      level: 2
     - item: Compendium.crucible.talent.Item.gestureray000000
-      level: null
+      level: 2
     - item: Compendium.crucible.talent.Item.runeOblivion0000
-      level: null
+      level: 1
     - item: Compendium.crucible.talent.Item.runeSoul00000000
-      level: null
+      level: 0
     - item: Compendium.crucible.talent.Item.refocus000000000
-      level: null
+      level: 0
     - item: Compendium.crucible.talent.Item.runeDeath0000000
-      level: null
+      level: 0
+    - item: Compendium.crucible.talent.Item.witheringBolt000
+      level: 1
+    - item: Compendium.crucible.talent.Item.channelersGrip00
+      level: 2
+    - item: Compendium.crucible.talent.Item.voidcaller000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.gesturepulse0000
+      level: 4
   identifier: occultist
   training:
-    spiritual: 4
-    physical: 2
-    talisman: 2
-    arcana: 3
-    deception: 2
     awareness: 1
+    arcana: 2
+    society: 0
+    deception: 2
     intimidation: 1
-    society: 1
-    athletics: 0
+    talisman: 3
+    physical: 2
+    spiritual: 4
+    enchanting: 0
   spells: []
   equipment: []
 effects: []
@@ -46,11 +54,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.1
-  coreVersion: '14.365'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307157485
-  modifiedTime: 1785264133163
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1788726422115
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

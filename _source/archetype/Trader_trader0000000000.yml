@@ -26,12 +26,11 @@ system:
     diplomacy: 3
     deception: 2
     awareness: 2
-    enchanting: 2
     light: 2
-    jewelcraft: 1
-    tailoring: 1
+    jewelcraft: 0
+    tailoring: 2
     medicine: 1
-    intimidation: 0
+    fletching: 0
   identifier: trader
   spells: []
   equipment: []
@@ -45,11 +44,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157487
-  modifiedTime: 1773514792222
+  modifiedTime: 1788728891826
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: trader0000000000
 sort: 1500000

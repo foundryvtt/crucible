@@ -16,21 +16,22 @@ system:
     - item: Compendium.crucible.talent.Item.armoredefficienc
       level: null
     - item: Compendium.crucible.talent.Item.legsweep00000000
-      level: null
+      level: 1
     - item: Compendium.crucible.talent.Item.heavyStrike00000
       level: null
     - item: Compendium.crucible.talent.Item.bulwark000000000
       level: null
   identifier: fighter
   training:
-    heavy: 4
-    armor: 3
-    shield: 2
-    light: 1
-    athletics: 2
+    athletics: 1
     awareness: 1
     intimidation: 1
-    stealth: 0
+    heavy: 3
+    mechanical: 0
+    shield: 3
+    armor: 3
+    smithing: 0
+    medicine: 1
   spells: []
   equipment: []
 effects: []
@@ -42,10 +43,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307157483
-  modifiedTime: 1773514792218
+  modifiedTime: 1788724343817
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

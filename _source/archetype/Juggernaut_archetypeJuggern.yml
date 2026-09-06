@@ -27,14 +27,15 @@ system:
     - item: Compendium.crucible.talent.Item.juggernaut000000
       level: 4
   training:
-    unarmed: 4
-    armor: 1
-    athletics: 3
-    intimidation: 2
-    wilderness: 1
+    athletics: 2
     awareness: 1
     stealth: 0
-    deception: 0
+    wilderness: 1
+    medicine: 0
+    intimidation: 2
+    unarmed: 4
+    armor: 3
+    smithing: 0
   spells: []
   equipment: []
 effects: []
@@ -46,11 +47,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.5
-  modifiedTime: 1781218465590
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.10.2
+  modifiedTime: 1788725583055
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   createdTime: 1781218465590
 _id: archetypeJuggern

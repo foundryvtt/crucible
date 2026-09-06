@@ -14,25 +14,35 @@ system:
     dexterity: 4
   talents:
     - item: Compendium.crucible.talent.Item.operator00000000
-      level: null
+      level: 3
     - item: Compendium.crucible.talent.Item.strategicreposit
-      level: null
+      level: 3
     - item: Compendium.crucible.talent.Item.subtleextricatio
-      level: null
+      level: 1
     - item: Compendium.crucible.talent.Item.weakpoints000000
-      level: null
+      level: 2
     - item: Compendium.crucible.talent.Item.lunge00000000000
-      level: null
+      level: 0
+    - item: Compendium.crucible.talent.Item.quickDraw0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.deftgrip00000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.preternaturalins
+      level: 4
+    - item: Compendium.crucible.talent.Item.strikefirst00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.backstab00000000
+      level: 1
   training:
+    athletics: 1
+    awareness: 2
+    stealth: 3
+    society: 1
+    deception: 2
+    diplomacy: 1
+    intimidation: 0
     light: 3
     mechanical: 2
-    stealth: 3
-    society: 2
-    deception: 2
-    awareness: 2
-    diplomacy: 1
-    athletics: 1
-    intimidation: 0
   identifier: operator
   spells: []
   equipment: []
@@ -46,11 +56,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157485
-  modifiedTime: 1773514792220
+  modifiedTime: 1788726560390
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: operator00000000
 sort: 1300000

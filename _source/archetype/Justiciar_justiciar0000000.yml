@@ -27,14 +27,15 @@ system:
     - item: Compendium.crucible.talent.Item.seasonedveteran0
       level: null
   training:
+    athletics: 1
+    awareness: 1
+    stealth: 0
+    arcana: 0
+    diplomacy: 1
+    intimidation: 2
     heavy: 4
     armor: 3
     spiritual: 2
-    intimidation: 2
-    athletics: 1
-    awareness: 1
-    diplomacy: 1
-    stealth: 0
   equipment: []
   spells: []
 effects: []
@@ -47,11 +48,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157483
-  modifiedTime: 1773514792218
+  modifiedTime: 1788725613262
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: justiciar0000000
 sort: 100000

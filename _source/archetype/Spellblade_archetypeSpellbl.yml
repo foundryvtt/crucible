@@ -15,24 +15,35 @@ system:
     dexterity: 1
   talents:
     - item: Compendium.crucible.talent.Item.spellblade000000
-      level: null
+      level: 3
     - item: Compendium.crucible.talent.Item.gesturestrike000
-      level: null
+      level: 2
     - item: Compendium.crucible.talent.Item.opportunisticspe
-      level: null
+      level: 2
     - item: Compendium.crucible.talent.Item.stronggrip000000
-      level: null
+      level: 0
     - item: Compendium.crucible.talent.Item.gesturearrow0000
-      level: null
+      level: 2
+    - item: Compendium.crucible.talent.Item.runeStorm0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.runeFlame0000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.recognizespellcr
+      level: 1
+    - item: Compendium.crucible.talent.Item.uppercut00000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.armoredefficienc
+      level: 1
   training:
-    heavy: 4
-    elemental: 3
-    spiritual: 1
-    armor: 1
-    arcana: 2
     athletics: 2
     awareness: 1
     stealth: 0
+    arcana: 2
+    performance: 0
+    heavy: 3
+    armor: 2
+    elemental: 3
+    enchanting: 0
   identifier: spellblade
   spells: []
   equipment: []
@@ -46,11 +57,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157481
-  modifiedTime: 1773514792215
+  modifiedTime: 1788728341178
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 sort: 900000
 _key: '!items!archetypeSpellbl'

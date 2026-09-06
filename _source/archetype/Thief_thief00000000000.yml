@@ -29,14 +29,15 @@ system:
     - item: Compendium.crucible.talent.Item.feintingstrike00
       level: null
   training:
-    light: 4
-    mechanical: 1
-    stealth: 3
-    deception: 2
-    awareness: 2
     athletics: 1
+    awareness: 2
+    stealth: 3
     society: 1
+    deception: 2
     intimidation: 0
+    light: 4
+    mechanical: 2
+    jewelcraft: 0
   spells: []
   equipment: []
 effects: []
@@ -49,12 +50,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.10.0
+  systemVersion: 0.10.2
   createdTime: 1772307157487
-  modifiedTime: 1781538683930
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788728848778
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: thief00000000000
 sort: 500000
 _key: '!items!thief00000000000'
