@@ -230,27 +230,11 @@ pages:
         associated with two
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Abilities}.</p><p>A
         character's rank in a skill is the proficiency they have attained in it,
-        adding a bonus to checks made for that skill. Each skill has 4 ranks as
-        well as an 'untrained' rank.</p><table><tbody><tr><th
-        data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
-        data-colwidth="50"><p>-4</p></td><td><p>Untrained</p></td><td><p>You are
-        decidedly as good at this skill as the average person who has absolutely
-        no education or professional training related to
-        it.</p></td></tr><tr><td
-        data-colwidth="50"><p>0</p></td><td><p>Trained</p></td><td><p>You have
-        received training in the basic practices common across all parts of that
-        skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+1</p></td><td><p>Proficient</p></td><td><p>You've
-        reached some degree of advanced training and know some of the less
-        common principles of that particular skill.</p></td></tr><tr><td
-        data-colwidth="50"><p>+2</p></td><td><p>Expert</p></td><td><p>You have
-        exceeded all the bounds of professional training. There is nothing more
-        about your skills that you can learn from others. All that is left is to
-        perfect your understanding.</p></td></tr><tr><td
-        data-colwidth="50"><p>+3</p></td><td><p>Master</p></td><td><p>You have
-        mastered this skill. There is nothing more to learn about
-        it.</p></td></tr></tbody></table><h2 class="divider">Individual Skill
-        Checks</h2><p>Skill checks use the same equation for calculation that a
+        adding a bonus to checks made for that skill. Skill ranks, and the
+        training points which attain them, are described under
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiencies}.</p><h2
+        class="divider">Individual Skill Checks</h2><p>Skill checks use the same
+        equation for calculation that a
         @UUID[Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt#standard-check]{Standard
         Check} does. Like all Standard Checks, skill checks can result in a
         <strong>Critical Success</strong> if the total exceeds the DC by more
