@@ -57,11 +57,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: kinesis
+  spellcraft: kinesis
   nodes:
     - pre0b
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: physical
 effects: []

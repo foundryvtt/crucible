@@ -53,12 +53,10 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: storm
+  spellcraft: storm
   training: elemental
   nodes:
     - int0a
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

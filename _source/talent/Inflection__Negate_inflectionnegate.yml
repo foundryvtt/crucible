@@ -11,12 +11,10 @@ system:
     as an example of the intended direction for the Spellcraft
     system.</p></section>
   actions: []
-  inflection: negate
+  spellcraft: negate
   iconicSpells: 1
   nodes:
     - preint2
-  rune: ''
-  gesture: ''
 effects: []
 flags:
   core: {}

@@ -8,12 +8,10 @@ system:
     <p>Enhance a spell to make it more difficult to counter. Any attempt to
     Counter-Spell this spell is made with +2 Banes.</p>
   actions: []
-  inflection: determine
+  spellcraft: determine
   iconicSpells: 1
   nodes:
     - preint2
-  rune: ''
-  gesture: ''
 effects: []
 sort: 300000
 ownership:

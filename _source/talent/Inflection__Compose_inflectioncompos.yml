@@ -8,12 +8,10 @@ system:
     <strong>Focus</strong> cost of a spell by 1 while increasing its
     <strong>Action</strong> cost by 1 in exchange.</p>
   actions: []
-  inflection: compose
+  spellcraft: compose
   iconicSpells: 1
   nodes:
     - wispre2
-  rune: ''
-  gesture: ''
 effects: []
 ownership:
   default: 0

@@ -9,9 +9,7 @@ system:
     to some other action that you observe. The React inflection increases the
     <strong>Focus</strong> cost of a spell by 2.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: react
+  spellcraft: react
   iconicSpells: 1
 effects: []
 folder: mFfsius4gpT45Q2R

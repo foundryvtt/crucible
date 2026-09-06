@@ -49,11 +49,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: flame
+  spellcraft: flame
   nodes:
     - int0a
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: elemental
 effects: []

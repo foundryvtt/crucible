@@ -22,9 +22,7 @@ system:
     coming in Foundry VTT version 14. Automation of the Aura gesture will occur
     once Crucible depends on Foundry VTT version 14.</p>
   actions: []
-  rune: ''
-  gesture: aura
-  inflection: ''
+  spellcraft: aura
   iconicSpells: 0
 effects: []
 folder: rL8CBb8MbQi6PDS6

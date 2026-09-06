@@ -9,12 +9,10 @@ system:
     Bonus that applied to the Spell, potentially colliding with walls or other
     movement-blocking obstacles.</p>
   actions: []
-  inflection: push
+  spellcraft: push
   iconicSpells: 1
   nodes:
     - wispre2
-  rune: ''
-  gesture: ''
 effects: []
 flags:
   core: {}

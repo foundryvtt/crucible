@@ -11,11 +11,9 @@ system:
     has a base cost of <strong>3 Action</strong> and <strong>1
     Focus</strong>.</p>
   actions: []
-  gesture: fan
+  spellcraft: fan
   nodes:
     - int1a
-  rune: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:
