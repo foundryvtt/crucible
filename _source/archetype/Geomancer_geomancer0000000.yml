@@ -18,23 +18,23 @@ system:
     - item: Compendium.crucible.talent.Item.runeEarth0000000
       level: 0
     - item: Compendium.crucible.talent.Item.gesturearrow0000
-      level: 0
+      level: 1
     - item: Compendium.crucible.talent.Item.gesturestrike000
       level: 2
     - item: Compendium.crucible.talent.Item.gestureinfluence
-      level: 0
+      level: 1
     - item: Compendium.crucible.talent.Item.refocus000000000
       level: 0
   training:
-    elemental: 4
-    talisman: 2
-    arcana: 2
-    wilderness: 2
-    science: 1
     awareness: 1
-    athletics: 1
-    stealth: 0
+    wilderness: 1
+    arcana: 2
+    science: 1
     intimidation: 0
+    talisman: 3
+    elemental: 4
+    jewelcraft: 0
+    athletics: 1
   spells: []
   equipment: []
 effects: []
@@ -46,12 +46,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.357'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1774708620340
-  modifiedTime: 1774708621815
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788724416898
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
   duplicateSource: null

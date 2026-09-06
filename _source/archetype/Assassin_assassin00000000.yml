@@ -32,13 +32,14 @@ system:
     - item: Compendium.crucible.talent.Item.subtleextricatio
       level: 3
   training:
-    light: 4
-    mechanical: 1
-    stealth: 3
-    awareness: 1
     athletics: 1
+    awareness: 1
+    stealth: 3
+    medicine: 1
     deception: 1
-    intimidation: 1
+    intimidation: 0
+    light: 3
+    mechanical: 2
     armor: 0
   spells: []
   equipment: []
@@ -52,12 +53,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.361'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.3
+  systemVersion: 0.10.2
   createdTime: 1778766727099
-  modifiedTime: 1778766727100
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788723861332
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
   duplicateSource: null

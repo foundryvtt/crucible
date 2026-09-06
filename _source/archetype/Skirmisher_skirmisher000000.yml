@@ -17,23 +17,34 @@ system:
     - item: Compendium.crucible.talent.Item.flurry0000000000
       level: null
     - item: Compendium.crucible.talent.Item.skirmisher000000
-      level: null
+      level: 3
     - item: Compendium.crucible.talent.Item.lunge00000000000
       level: null
     - item: Compendium.crucible.talent.Item.dualWield0000000
       level: null
     - item: Compendium.crucible.talent.Item.defensiveroll000
-      level: null
+      level: 2
+    - item: Compendium.crucible.talent.Item.subtleextricatio
+      level: 2
+    - item: Compendium.crucible.talent.Item.feintingstrike00
+      level: 2
+    - item: Compendium.crucible.talent.Item.weakpoints000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.strikefirst00000
+      level: 1
+    - item: Compendium.crucible.talent.Item.deftgrip00000000
+      level: 3
   identifier: skirmisher
   training:
-    light: 4
-    armor: 1
-    athletics: 3
+    athletics: 2
     awareness: 2
-    stealth: 1
+    stealth: 2
     wilderness: 1
-    intimidation: 1
     society: 0
+    intimidation: 0
+    light: 4
+    projectile: 2
+    armor: 1
   spells: []
   equipment: []
 effects: []
@@ -45,10 +56,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307157486
-  modifiedTime: 1773514792221
+  modifiedTime: 1788728152369
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

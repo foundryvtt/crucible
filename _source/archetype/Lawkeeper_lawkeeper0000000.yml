@@ -31,15 +31,20 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.grapple000000000
       level: 0
+    - item: Compendium.crucible.talent.Item.forensicreconstr
+      level: 1
+    - item: Compendium.crucible.talent.Item.perspicacity0000
+      level: 0
   training:
-    mechanical: 4
-    light: 2
-    armor: 1
     awareness: 2
-    society: 2
-    intimidation: 1
     medicine: 1
+    society: 2
     deception: 0
+    diplomacy: 0
+    intimidation: 1
+    light: 2
+    mechanical: 3
+    armor: 1
   spells: []
   equipment: []
 effects: []
@@ -52,12 +57,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.8.7
+  systemVersion: 0.10.2
   createdTime: 1771961150981
-  modifiedTime: 1773514792219
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788727702336
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: lawkeeper0000000
 sort: 0
 _key: '!items!lawkeeper0000000'

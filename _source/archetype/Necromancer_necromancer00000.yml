@@ -47,15 +47,15 @@ system:
     - item: Compendium.crucible.talent.Item.counterspell0000
       level: 5
   training:
+    stealth: 0
+    arcana: 3
+    medicine: 1
+    deception: 1
+    intimidation: 1
+    talisman: 3
     physical: 4
     spiritual: 2
-    talisman: 2
-    arcana: 3
-    intimidation: 2
-    deception: 1
-    medicine: 1
-    stealth: 1
-    athletics: 0
+    glyphweaving: 0
   spells: []
   equipment: []
 effects: []
@@ -68,12 +68,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.8.7
+  systemVersion: 0.10.2
   createdTime: 1771797216892
-  modifiedTime: 1773514792219
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788726265076
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: necromancer00000
 sort: 0
 _key: '!items!necromancer00000'
