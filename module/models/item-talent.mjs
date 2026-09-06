@@ -78,6 +78,14 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
   static CARD_TEMPLATE_PATH = "systems/crucible/templates/sheets/item/talent-card.hbs";
 
   /**
+   * Is this talent provided by the origin node?
+   * @type {boolean}
+   */
+  get isOrigin() {
+    return [...this.nodes].some(n => n.type === "origin");
+  }
+
+  /**
    * Is this a signature talent?
    * @type {boolean}
    */
@@ -150,6 +158,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    */
   getTags() {
     const tags = {};
+    if ( this.isOrigin ) tags.origin = _loc("TALENT.NODES.Origin");
     for ( const [k, v] of Object.entries(this.prerequisites || {}) ) {
       tags[k] = `${v.label} ${v.value}`;
     }
@@ -318,6 +327,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       actions: await talent.prepareActionsContext(),
       tags: this.getTags(),
       prerequisites: reqs,
+      origin: this.isOrigin ? _loc("TALENT.NODES.Origin") : null,
       training: this.training
         ? _loc("TALENT.TrainingGrant", {training: _loc(SYSTEM.PROFICIENCIES[this.training].label)})
         : null
