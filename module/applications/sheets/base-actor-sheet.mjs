@@ -843,7 +843,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const actor = this.actor;
     const t = actor.system.training[config.id];
     const abilities = config.abilities ?? [];
-    const rank = RANK_VALUES[t.value];
+    const rank = RANK_VALUES[t.rank];
     const atCap = (ctx.cap < POINTS_MAX) && (t.total >= ctx.cap);
     return {
       ...config, color, rank, score: t.score, passive: t.passive, points: t.total,
