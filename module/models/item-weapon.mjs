@@ -131,6 +131,11 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     // Weapon stats derive from the active category, which Versatile swaps for the sibling in the alternate grip
     const category = this.activeCategory;
 
+    // Simple and natural weapons are intuitive by their nature
+    if ( ["simple1", "simple2"].includes(category.id) || this.properties.has("natural") ) {
+      this.properties.add("intuitive");
+    }
+
     // Weapon Damage
     this.damage = this.#prepareDamage();
 
@@ -172,10 +177,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
     // Skill Bonus
     const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
-    const isIntuitive = ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive");
-    let b = actor.getSkillBonus(trainingTypes);
-    if ( isIntuitive ) b = Math.max(b, SYSTEM.INTUITIVE_MINIMUM_BONUS);
-    this.actionBonuses.skill = b;
+    this.actionBonuses.skill = actor.getSkillBonus(trainingTypes, {intuitive: this.properties.has("intuitive")});
 
     // Populate current damage bonus
     const actorBonuses = actor.system.rollBonuses.damage || {};
@@ -327,7 +329,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   _getUntrainedTooltip(actor) {
     const category = this.config.category;
-    if ( ["simple1", "simple2"].includes(category.id) || this.properties.has("intuitive") ) return null;
+    if ( this.properties.has("intuitive") ) return null;
     const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
     if ( actor.getSkillBonus(trainingTypes) >= 0 ) return null;
     const labels = trainingTypes.map(t => _loc(SYSTEM.PROFICIENCY.WEAPONS[t].label));

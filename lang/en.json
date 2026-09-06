@@ -2815,7 +2815,7 @@
       "Engaging": "Engaging",
       "EngagingTooltip": "Weapons in this category allow you to better combat multiple foes, increasing your Engagement by +1.",
       "Intuitive": "Intuitive",
-      "IntuitiveTooltip": "This weapon is intuitive enough to be used untrained. The Skill penalty when using this weapon untrained is only -1 instead of -4.",
+      "IntuitiveTooltip": "This weapon is easily understood and can be used without formal training. You are treated as having one additional point of proficiency when wielding it.",
       "Keen": "Keen",
       "KeenTooltip": "This weapon is particularly deadly when it achieves a critical hit. IMPORTANT NOTE - the keen property is not yet implemented in the playtest.",
       "Natural": "Natural",
@@ -2834,7 +2834,7 @@
       "ReturningTooltip": "This weapon is magically or mechanically engineered to return to your hand after being thrown. Using the Throw Weapon action with this weapon does not result in it becoming Dropped.",
       "Thrown": "Thrown",
       "ThrownTooltip": "This weapon is designed to be suitable for throwing and does not suffer the Banes penalty that is usually applied to the Throw Weapon action.",
-      "UntrainedTooltip": "Your character lacks {training} weapon training and suffers a -4 Skill penalty when attacking with this weapon.",
+      "UntrainedTooltip": "Your character is not fully Trained in the use of {training} weapons, and suffers a penalty when attacking.",
       "Versatile": "Versatile",
       "VersatileTooltip": "This weapon can be wielded with either one or two hands, switching between grips without any Action Point cost. In its alternate grip it functions as the corresponding weapon of its kind: a one-handed weapon becomes the larger two-handed weapon, and a two-handed weapon becomes the smaller one-handed weapon."
     }

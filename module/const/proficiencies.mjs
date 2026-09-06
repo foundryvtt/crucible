@@ -329,12 +329,16 @@ export const POINTS_MAX = Math.max(...Object.values(RANKS).map(r => r.required))
 /* -------------------------------------------- */
 
 /**
- * Resolve the bonus conferred by an attained rank and the points invested toward the next one.
- * @param {number} rank     The attained training rank
+ * Resolve the bonus conferred by a number of training points.
  * @param {number} points   Training points invested
  * @returns {number}
  */
-export function getRankBonus(rank, points) {
+export function getRankBonus(points) {
+  let rank = 0;
+  for ( const r of Object.values(RANKS) ) {
+    if ( points < r.required ) break;
+    rank = r.rank;
+  }
   const current = RANK_VALUES[rank];
   const next = RANK_VALUES[rank + 1];
   if ( !next ) return current.bonus;

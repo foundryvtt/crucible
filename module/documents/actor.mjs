@@ -368,14 +368,17 @@ export default class CrucibleActor extends Actor {
   /**
    * Get the skill bonus that this Actor has in a certain training area.
    * @param {string[]} training
+   * @param {object} [options]
+   * @param {boolean} [options.intuitive]   Resolve the bonus as though one further training point were invested
    * @returns {number}
    */
-  getSkillBonus(training) {
-    const untrained = SYSTEM.PROFICIENCY.RANKS.untrained.bonus;
-    let bonus = training.length ? untrained : 0; // Does the skill require training?
+  getSkillBonus(training, {intuitive=false}={}) {
+    if ( !training.length ) return 0; // A use which demands no training is never penalized for lacking it
+    const points = intuitive ? 1 : 0;
+    let bonus = -Infinity;
     for ( const t of training ) {
-      const b = this.system.training[t]?.skillBonus ?? untrained;
-      if ( b > bonus ) bonus = b;
+      const invested = this.system.training[t]?.points ?? 0;
+      bonus = Math.max(bonus, SYSTEM.PROFICIENCY.getRankBonus(invested + points));
     }
     return bonus;
   }
