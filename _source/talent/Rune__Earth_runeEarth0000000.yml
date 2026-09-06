@@ -50,11 +50,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: earth
+  spellcraft: earth
   nodes:
     - wis0b
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: elemental
 effects: []

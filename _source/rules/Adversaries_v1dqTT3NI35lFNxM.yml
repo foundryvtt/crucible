@@ -102,18 +102,17 @@ pages:
         attained, and are removed automatically if its Level is later reduced
         below that threshold.</p></section><p>Adversaries may also be assigned
         additional bespoke Talents beyond those provided by their Taxonomy and
-        Archetype at the Gamemaster's discretion.</p><h2 class="divider">Proficiency
-        Progression</h2><p>An Adversary's @UUID[.O8IesdQo8SQpIKbo]{Archetype}
-        assigns a weight to each
+        Archetype at the Gamemaster's discretion.</p><h2
+        class="divider">Proficiency Progression</h2><p>An Adversary's
+        @UUID[.O8IesdQo8SQpIKbo]{Archetype} assigns a weight to each
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiency}
-        favored by its combat style. The
-        Adversary receives a budget of training points determined by its Level
-        and Threat, and that budget is divided among its desired Proficiencies
-        in proportion to assigned weights. A heavier weight receives a larger share of whatever the Adversary has to spend. A Proficiency weighted zero receives points only if any
-        are left over.</p>
-        <h2 class="divider">Equipment
-        Progression</h2><p>An Adversary may be granted equipment by its
-        @UUID[.qSeJNy28eK9axO7C]{Taxonomy} or
+        favored by its combat style. The Adversary receives a budget of training
+        points determined by its Level and Threat, and that budget is divided
+        among its desired Proficiencies in proportion to assigned weights. A
+        heavier weight receives a larger share of whatever the Adversary has to
+        spend. A Proficiency weighted zero receives points only if any are left
+        over.</p> <h2 class="divider">Equipment Progression</h2><p>An Adversary
+        may be granted equipment by its @UUID[.qSeJNy28eK9axO7C]{Taxonomy} or
         @UUID[.O8IesdQo8SQpIKbo]{Archetype}, each item with a configured
         quantity and equipped state. If the Taxonomy cannot use typical humanoid
         equipment, granted equipment is limited to <strong>Natural

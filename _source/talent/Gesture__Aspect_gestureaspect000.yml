@@ -14,11 +14,9 @@ system:
     to cast and has a base cost of <strong>2 Action</strong> and <strong>1
     Focus</strong>.</p>
   actions: []
-  gesture: aspect
+  spellcraft: aspect
   nodes:
     - pre1b
-  rune: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

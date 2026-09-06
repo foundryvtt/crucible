@@ -58,11 +58,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: illusion
+  spellcraft: illusion
   nodes:
     - int0a
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: spiritual
 effects: []

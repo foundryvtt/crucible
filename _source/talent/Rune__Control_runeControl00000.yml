@@ -51,11 +51,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: control
+  spellcraft: control
   nodes:
     - wis0b
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: physical
 effects: []

@@ -52,11 +52,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: frost
+  spellcraft: frost
   nodes:
     - wis0b
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: elemental
 effects: []

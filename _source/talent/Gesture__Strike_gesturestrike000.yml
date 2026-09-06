@@ -10,11 +10,9 @@ system:
     does not require any free hand and has a base cost of <strong>1
     Focus</strong> in addition to the cost of your weapon Strike.</p>
   actions: []
-  gesture: strike
+  spellcraft: strike
   nodes:
     - str2b
-  rune: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

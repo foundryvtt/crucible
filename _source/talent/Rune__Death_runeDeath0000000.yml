@@ -53,11 +53,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: death
+  spellcraft: death
   nodes:
     - pre0b
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: physical
 effects: []

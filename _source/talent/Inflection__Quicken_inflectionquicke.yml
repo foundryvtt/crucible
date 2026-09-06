@@ -8,12 +8,10 @@ system:
     <strong>Action</strong> cost of a spell by 1 while increasing its
     <strong>Focus</strong> cost by 1 in exchange.</p>
   actions: []
-  inflection: quicken
+  spellcraft: quicken
   iconicSpells: 1
   nodes:
     - preint2
-  rune: ''
-  gesture: ''
 effects: []
 ownership:
   default: 0

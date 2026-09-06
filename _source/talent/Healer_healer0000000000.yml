@@ -61,11 +61,9 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 1
-  rune: life
+  spellcraft: life
   nodes:
     - sig3.wisdom.presence
-  gesture: ''
-  inflection: ''
 effects: []
 ownership:
   default: 0

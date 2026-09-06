@@ -12,11 +12,9 @@ system:
     gesture requires <strong>1 Hand</strong> to cast and has a base cost of
     <strong>2 Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
-  gesture: ward
+  spellcraft: ward
   nodes:
     - tou2b
-  rune: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

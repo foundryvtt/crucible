@@ -14,11 +14,9 @@ system:
     not yet automated and must be manually performed as a consequence of the
     spell.</p>
   actions: []
-  gesture: step
+  spellcraft: step
   nodes:
     - dex2b
-  rune: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

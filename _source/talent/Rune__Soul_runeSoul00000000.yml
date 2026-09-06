@@ -52,11 +52,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: soul
+  spellcraft: soul
   nodes:
     - pre0b
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: spiritual
 effects: []

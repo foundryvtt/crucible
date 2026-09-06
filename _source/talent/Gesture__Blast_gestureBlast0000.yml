@@ -17,9 +17,7 @@ system:
     higher level (probably Level 6 required). It is currently available "early"
     for testing.</p>
   actions: []
-  rune: ''
-  gesture: blast
-  inflection: ''
+  spellcraft: blast
   iconicSpells: 0
 effects: []
 folder: rL8CBb8MbQi6PDS6

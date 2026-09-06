@@ -10,12 +10,10 @@ system:
     reactions that involve Strike attacks, regardless of the results of the
     spell.</p>
   actions: []
-  inflection: eluding
+  spellcraft: eluding
   iconicSpells: 1
   nodes:
     - dex2b
-  rune: ''
-  gesture: ''
 effects: []
 sort: 400000
 ownership:

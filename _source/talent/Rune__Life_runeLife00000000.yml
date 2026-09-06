@@ -50,12 +50,10 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: life
+  spellcraft: life
   training: physical
   nodes:
     - wis0b
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

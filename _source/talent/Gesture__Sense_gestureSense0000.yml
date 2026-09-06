@@ -29,9 +29,7 @@ system:
     Elementals</p></li><li><p><strong>Oblivion</strong>:
     Outsiders</p></li><li><p><strong>Soul</strong>: Humanoids</p></li></ul>
   actions: []
-  rune: ''
-  gesture: sense
-  inflection: ''
+  spellcraft: sense
   iconicSpells: 0
 effects: []
 folder: hKkLXAoC3ygmEtEf

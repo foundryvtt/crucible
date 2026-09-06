@@ -10,12 +10,10 @@ system:
     are not yet automated in Playtest 1. This inflection is included as an
     example of the intended direction for the Spellcraft system.</p></section>
   actions: []
-  inflection: extend
+  spellcraft: extend
   iconicSpells: 1
   nodes:
     - wispre2
-  rune: ''
-  gesture: ''
 effects: []
 flags:
   core: {}

@@ -11,11 +11,9 @@ system:
     requires <strong>1 Hand</strong> to cast and has a base cost of <strong>4
     Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
-  gesture: ray
+  spellcraft: ray
   nodes:
     - wis1b
-  rune: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

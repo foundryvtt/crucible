@@ -16,11 +16,9 @@ system:
     Creation will — for now — manifest
     a@UUID[Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI].</p>
   actions: []
-  gesture: create
+  spellcraft: create
   nodes:
     - wis1b
-  rune: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

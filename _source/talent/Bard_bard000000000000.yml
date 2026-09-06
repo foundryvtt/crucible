@@ -70,9 +70,7 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: soul
-  gesture: ''
-  inflection: ''
+  spellcraft: soul
   iconicSpells: 0
 effects: []
 folder: fOYHlZJEWUukD7yr

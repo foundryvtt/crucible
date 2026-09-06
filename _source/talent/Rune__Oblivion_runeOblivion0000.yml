@@ -52,11 +52,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
-  rune: oblivion
+  spellcraft: oblivion
   nodes:
     - int0a
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: spiritual
 effects: []

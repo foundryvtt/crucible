@@ -12,11 +12,9 @@ system:
     target spells do not incur any Banes due to intervening creatures.</p>
   actions: []
   iconicSpells: 1
-  inflection: reshape
+  spellcraft: reshape
   nodes:
     - wispre4
-  rune: ''
-  gesture: ''
 effects: []
 sort: 100000
 ownership:
