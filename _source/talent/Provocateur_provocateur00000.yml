@@ -62,7 +62,7 @@ system:
         permanent: true
       autoFavorite: false
   nodes:
-    - int0b
+    - pre0a
   rune: ''
   gesture: ''
   inflection: ''
@@ -79,7 +79,7 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160142
-  modifiedTime: 1788362427057
+  modifiedTime: 1788733236992
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.provocateur00000
   duplicateSource: null
