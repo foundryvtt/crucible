@@ -1137,7 +1137,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       }
       t.rank = t.value; // Talent requirement paths address this as "value"; skill consumers name it "rank"
       t.abilityBonus = this.parent.getAbilityBonus(SYSTEM.PROFICIENCIES[id].abilities);
-      t.skillBonus = SYSTEM.PROFICIENCY.RANK_VALUES[t.value].bonus;
+      t.skillBonus = SYSTEM.PROFICIENCY.getRankBonus(t.value, t.points);
       t.enchantmentBonus = 0;
     }
   }
