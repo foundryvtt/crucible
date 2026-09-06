@@ -251,8 +251,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _configureUsage() {
     super._configureUsage();
 
-    // A rune cannot be cast unless it is known, so casting is intuitive even while its training area is untrained
-    this.usage.bonuses.skill = Math.max(this.usage.bonuses.skill, SYSTEM.INTUITIVE_MINIMUM_BONUS);
+    // Spellcasting is always Intuitive if you know the rune
+    this.usage.bonuses.skill = this.actor.getSkillBonus(this.training, {intuitive: true});
 
     // The base class resets cost fields from _source, but for composed spells the action cost is computed
     // dynamically from gesture and inflection components and is not stored in _source (which retains schema
