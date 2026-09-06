@@ -102,20 +102,16 @@ pages:
         attained, and are removed automatically if its Level is later reduced
         below that threshold.</p></section><p>Adversaries may also be assigned
         additional bespoke Talents beyond those provided by their Taxonomy and
-        Archetype at the Gamemaster's discretion.</p><h2 class="divider">Skill
+        Archetype at the Gamemaster's discretion.</p><h2 class="divider">Proficiency
         Progression</h2><p>An Adversary's @UUID[.O8IesdQo8SQpIKbo]{Archetype}
-        designates the skills favored by its combat style. The Adversary's
-        training rank in each designated skill advances automatically as it
-        increases in Level, one rank every 6
-        levels:</p><table><thead><tr><th><p>Training
-        Rank</p></th><th><p>Level</p></th></tr></thead><tbody><tr><td><p>Trained</p></td><td><p>5
-        or lower</p></td></tr><tr><td><p>Proficient</p></td><td><p>6 to
-        11</p></td></tr><tr><td><p>Expert</p></td><td><p>12 to
-        17</p></td></tr><tr><td><p>Master</p></td><td><p>18+</p></td></tr></tbody></table><p>Automatic
-        skill progression establishes a minimum training rank; it never reduces
-        a higher rank which has been manually assigned. This same progression
-        advances the <strong>Natural</strong> weapon training of Adversaries
-        whose Taxonomy cannot use equipment.</p><h2 class="divider">Equipment
+        assigns a weight to each
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiency}
+        favored by its combat style. The
+        Adversary receives a budget of training points determined by its Level
+        and Threat, and that budget is divided among its desired Proficiencies
+        in proportion to assigned weights. A heavier weight receives a larger share of whatever the Adversary has to spend. A Proficiency weighted zero receives points only if any
+        are left over.</p>
+        <h2 class="divider">Equipment
         Progression</h2><p>An Adversary may be granted equipment by its
         @UUID[.qSeJNy28eK9axO7C]{Taxonomy} or
         @UUID[.O8IesdQo8SQpIKbo]{Archetype}, each item with a configured

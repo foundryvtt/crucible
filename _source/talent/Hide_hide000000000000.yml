@@ -8,11 +8,12 @@ system:
     than evading a single pair of eyes.</p><h3 class="divider">Playtest
     Notes</h3><p>The Stealth check resolves, marks you concealed, and that
     concealment ends on its own once you act without the <strong>Subtle</strong>
-    tag. Crucible does not yet record which creatures have lost track of you, so
-    the Gamemaster adjudicates that, and a creature arriving after you hide is
-    not resolved against you at all. A forthcoming stealth effect will record
-    detection for each creature and let a latecomer test its own Awareness
-    against the result you rolled.</p>
+    tag. Your Stealth result is recorded, so anyone who later
+    @Action[default search]es for you tests their Awareness against it. Crucible
+    does not yet record which creatures individually have lost track of you, so
+    beating one observer conceals you from all of them and the Gamemaster
+    adjudicates the difference. A forthcoming stealth effect will track
+    detection per creature.</p>
   actions:
     - id: hide
       name: Hide
