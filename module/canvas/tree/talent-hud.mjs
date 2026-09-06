@@ -26,7 +26,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
       template: "systems/crucible/templates/hud/talent-tree-node.hbs"
     },
     talent: {
-      template: "systems/crucible/templates/hud/talent-tree-talent.hbs",
+      template: CrucibleTalentItem.CARD_TEMPLATE_PATH,
       templates: ["systems/crucible/templates/sheets/item/talent-summary.hbs"]
     }
   };
@@ -128,6 +128,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     const training = talent.system.training;
     return {
       source: talent.toObject(),
+      uuid: talent.uuid,
       descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description, {relativeTo: talent}),
       actions: await talent.prepareActionsContext(),
       prerequisites: reqs,

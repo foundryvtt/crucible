@@ -1031,7 +1031,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Armor and Dodge from equipped Armor.
     const armorData = equipment.armor.system;
-    const dodgeScaling = Math.max(armorData.dodge.scaling - this.training.armor.value, 0);
+    const dodgeScaling = Math.max(armorData.dodge.scaling - this.training.armor.rank, 0);
     defenses.armor.base = armorData.armor.base;
     defenses.armor.bonus += armorData.armor.bonus;
     defenses.dodge.base = armorData.dodge.base;
@@ -1130,12 +1130,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const [id, t] of Object.entries(this.training) ) {
       t.total = t.initial + t.talents + t.increases + t.bonus;
       t.points = Math.clamp(t.total, 0, cap);
-      t.value = 0;
+      t.rank = 0;
       for ( const rank of ranks ) {
         if ( t.points < rank.required ) break;
-        t.value = rank.rank;
+        t.rank = rank.rank;
       }
-      t.rank = t.value; // Talent requirement paths address this as "value"; skill consumers name it "rank"
       t.abilityBonus = this.parent.getAbilityBonus(SYSTEM.PROFICIENCIES[id].abilities);
       t.skillBonus = SYSTEM.PROFICIENCY.getRankBonus(t.points);
       t.enchantmentBonus = 0;

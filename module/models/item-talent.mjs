@@ -134,10 +134,8 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     for ( const node of this.nodes ) {
       Object.assign(requirements, foundry.utils.deepClone(node.requirements));
     }
-
-    // Training requirements declared by the talent itself, which take precedence
     for ( const [type, rank] of Object.entries(this.requirements.training) ) {
-      foundry.utils.setProperty(requirements, `training.${type}.value`, rank);
+      foundry.utils.setProperty(requirements, `training.${type}.rank`, rank);
     }
     return CrucibleTalentNode.preparePrerequisites(requirements);
   }

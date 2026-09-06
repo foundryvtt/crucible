@@ -1813,8 +1813,8 @@ export default class CrucibleActor extends Actor {
       // Known talent ID migration
       if ( item._id in migrations ) {
         const uuid = migrations[item._id];
-        talent = await fromUuid(uuid);
-        if ( (uuid === null) || this.items.has(talent.id) ) {
+        talent = uuid ? await fromUuid(uuid) : null;
+        if ( !talent || this.items.has(talent.id) ) {
           toDelete.push(item._id);
           continue;
         }
@@ -2232,7 +2232,7 @@ export default class CrucibleActor extends Actor {
 
       // Grant Equipment
       for ( const {item: uuid, quantity, equipped, autoScale} of (detail.equipment || []) ) {
-        const item = await fromUuid(uuid);
+        const item = await CrucibleActor.#resolveGrant(this, uuid, "Equipment");
         if ( !item ) continue;
         const itemData = this._cleanItemData(item);
         Object.assign(itemData.system, {quantity, equipped});
@@ -2246,9 +2246,7 @@ export default class CrucibleActor extends Actor {
 
       // Grant Spells
       for ( const {item: uuid} of (detail.spells || []) ) {
-
-        // TODO: Respect level when granting
-        const item = await fromUuid(uuid);
+        const item = await CrucibleActor.#resolveGrant(this, uuid, "Spell"); // TODO: Respect level when granting
         if ( !item ) continue;
         if ( this.items.has(item.id) ) deleteItemIds.delete(item.id); // Spell already known
         else updateItems.push(this._cleanItemData(item));             // Add new Spell
@@ -3154,6 +3152,22 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Resolve a granted item, reporting rather than passing over one which cannot be found.
+   * Retired grants are dropped by {@link migrateTalentGrants}, so anything unresolved here is a broken reference.
+   * @param {CrucibleActor} actor   The actor receiving the grant
+   * @param {string} uuid           UUID of the granted item
+   * @param {string} type           The kind of grant, named in the warning
+   * @returns {Promise<CrucibleItem|null>}
+   */
+  static async #resolveGrant(actor, uuid, type) {
+    const item = await fromUuid(uuid);
+    if ( !item ) console.warn(`Unresolved ${type} grant "${uuid}" for Actor "${actor.name}" [${actor.uuid}]`);
+    return item;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Given a list of Talent UUIDs & their associated levels, return which should be deleted from the actor,
    * which should be kept on the actor, and which should be added to the actor
    * @param {{item: string, level: number|null}[]} talents
@@ -3165,7 +3179,7 @@ export default class CrucibleActor extends Actor {
     const toCreate = [];
     const effectiveLevel = Math.max(0, this.system.advancement.level);
     for ( const {item: uuid, level} of talents ) {
-      const talent = await fromUuid(uuid);
+      const talent = await CrucibleActor.#resolveGrant(this, uuid, "Talent");
       if ( !talent ) continue;
       const hasTalent = this.items.has(talent.id);
       if ( level > effectiveLevel && hasTalent ) toDelete.add(talent.id);

@@ -1,10 +1,10 @@
 <div class="crucible-item-card line-item talent" data-uuid="{{uuid}}">
     <header class="flexrow">
         <div class="icon-frame">
-            <img class="icon" src="{{img}}" alt="{{name}}">
+            <img class="icon" src="{{source.img}}" alt="{{source.name}}">
         </div>
         <div class="title">
-            <h2 data-no-toc>{{name}}</h2>
+            <h2 data-no-toc>{{source.name}}</h2>
             <div class="talent-tags tags prerequisites">
                 {{~#each prerequisites as |req|}}
                 <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
