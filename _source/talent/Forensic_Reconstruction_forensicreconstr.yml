@@ -1,0 +1,79 @@
+name: Forensic Reconstruction
+type: talent
+img: icons/magic/perception/orb-eye-scrying.webp
+system:
+  nodes:
+    - wis1a
+  description: >-
+    <p>You treat a room as a body of evidence. Dust disturbed and dust
+    undisturbed, the angle of a dropped object, a scuff running the wrong way,
+    the one thing that ought to be here and is not: you assemble such facts into
+    an account of what happened.</p>
+  actions:
+    - id: reconstruct
+      name: Reconstruct
+      img: icons/magic/perception/orb-eye-scrying.webp
+      condition: ''
+      description: >-
+        <p>Name aloud a theory of what happened in this place. If the Gamemaster
+        judges that the place could bear your theory out or contradict it,
+        perform an <strong>Awareness</strong> check against <strong>DC
+        14</strong>.</p><ul><li><p><strong>+2 Boons</strong> if your theory
+        follows from evidence you have already
+        gathered.</p></li><li><p><strong>+2 Banes</strong> if it is conjecture,
+        or if the place has been cleaned, trampled, or reoccupied
+        since.</p></li></ul><p>Upon a <strong>Success</strong> you deduce one
+        true thing bearing upon your theory, which may support or refute it.
+        Upon a <strong>Critical Success</strong> you deduce a second, which the
+        Gamemaster may draw from what your theory did not think to ask.</p><p>A
+        theory may only be investigated once. A failed investigation does not
+        mean the theory is incorrect, only that no corroborating evidence was
+        found.</p><p>The place answers in physical fact alone: it never names a
+        culprit, a motive, or a word that was spoken.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - awareness
+        - noncombat
+      summon:
+        actorUuid: null
+        permanent: true
+      autoFavorite: false
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training: awareness
+effects: []
+folder: F5y85kE9ocaa5R4R
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788600000000
+  modifiedTime: 1788600000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: forensicreconstr
+sort: 100000
+_key: '!items!forensicreconstr'

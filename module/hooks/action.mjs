@@ -1369,10 +1369,43 @@ HOOKS.hamstring = {
 
 /* -------------------------------------------- */
 
+/**
+ * The ActiveEffect ids which represent concealment, resolved lazily because SYSTEM initializes after this module.
+ * @returns {string[]}
+ */
+function _concealmentEffectIds() {
+  return ["hide", "sneak"].map(id => SYSTEM.EFFECTS.getEffectId(id, {suffix: "0"}));
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Stamp the Stealth result onto the concealment effect so a later Search can be resolved against it.
+ * @param {CrucibleAction} action
+ */
+function _recordConcealmentDC(action) {
+  const totals = [];
+  for ( const event of action.events ) {
+    if ( (event.type === "check") && Number.isFinite(event.roll?.total) ) totals.push(event.roll.total);
+  }
+  const dc = totals.length ? Math.min(...totals) : action.actor.skills.stealth.passive;
+  for ( const event of action.events ) {
+    for ( const effect of event.effects ?? [] ) {
+      effect.system ??= {};
+      effect.system.dc = dc;
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.hide = {
   canUse() {
     const token = this.actor.getActiveTokens()[0];
     if ( token?.engagement?.enemies.size ) throw new Error(_loc("ACTION.WARNINGS.CannotHideEngaged"));
+  },
+  postActivate() {
+    _recordConcealmentDC(this);
   },
   prepare() {
     const token = this.actor.getActiveTokens(true)[0]?.document;
@@ -1863,6 +1896,16 @@ HOOKS.investiture = {
 
 /* -------------------------------------------- */
 
+HOOKS.reconstruct = {
+  prepare() {
+    // No entity in the world carries the difficulty of reading a scene, so the bar is flat and situation is
+    // expressed through Boons and Banes instead
+    this.usage.dc = 14;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.recover = {
   canUse() {
     if ( this.actor.system.isDead || this.actor.system.isInsane ) {
@@ -2143,6 +2186,39 @@ HOOKS.ruthlessMomentum = {
 
 /* -------------------------------------------- */
 
+HOOKS.search = {
+  _concealed(action) {
+    const token = action.actor.getActiveTokens(true)[0]?.document;
+    if ( !token ) return [];
+    const ids = _concealmentEffectIds();
+    const range = action.range.maximum ?? 30;
+    const found = [];
+    for ( const t of crucible.api.canvas.grid.getTokensInRange(token, range) ) {
+      if ( !t.actor ) continue;
+      for ( const id of ids ) {
+        const effect = t.actor.effects.get(id);
+        if ( effect && Number.isFinite(effect.system.dc) ) found.push({actor: t.actor, effect});
+      }
+    }
+    return found;
+  },
+  prepare() {
+    if ( !this.actor.inCombat ) this.cost.action = 0;
+    const concealed = HOOKS.search._concealed(this);
+    this.usage.dc = concealed.length ? Math.min(...concealed.map(c => c.effect.system.dc)) : 14;
+  },
+  roll(target) {
+    const check = this.events.find(e => (e.type === "check") && (e.target === target));
+    if ( !check?.roll ) return;
+    for ( const {actor, effect} of HOOKS.search._concealed(this) ) {
+      if ( check.roll.total <= effect.system.dc ) continue;
+      this.recordEvent({type: "effect", target: actor, effects: [{_id: effect.id, _action: "delete"}]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.secondWind = {
   prepare() {
     this.usage.hasDice = false;
@@ -2166,6 +2242,8 @@ HOOKS.selfRepair = {
 
 HOOKS.sneak = {
   postActivate() {
+    _recordConcealmentDC(this);
+
     // The effect is authored at one round; a Critical Success carries it through a second
     let critical = false;
     for ( const [, events] of this.eventsByTarget ) {

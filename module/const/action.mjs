@@ -1584,7 +1584,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     autoFavorite: true
   },
 
-  // Rest (never auto-favorited; rests are managed through the party UI)
+  // Rest (never auto-favorite; rests are managed through the party UI)
   {
     id: "rest",
     name: "ACTION.DEFAULT_ACTIONS.Rest.Name",
@@ -1599,6 +1599,26 @@ export const DEFAULT_ACTIONS = Object.freeze([
       action: 0
     },
     tags: ["noncombat"]
+  },
+
+  // Search
+  {
+    id: "search",
+    name: "ACTION.DEFAULT_ACTIONS.Search.Name",
+    img: "icons/creatures/eyes/human-single-blue.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Search.Description",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    range: {
+      maximum: 30
+    },
+    cost: {
+      action: 3
+    },
+    tags: ["awareness", "subtle"]
   },
 
   // Basic Strike
