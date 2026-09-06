@@ -326,6 +326,25 @@ export const RANK_MAX = Math.max(...Object.values(RANKS).map(r => r.rank));
  */
 export const POINTS_MAX = Math.max(...Object.values(RANKS).map(r => r.required));
 
+/* -------------------------------------------- */
+
+/**
+ * Resolve the bonus conferred by an attained rank and the points invested toward the next one.
+ * @param {number} rank     The attained training rank
+ * @param {number} points   Training points invested
+ * @returns {number}
+ */
+export function getRankBonus(rank, points) {
+  const current = RANK_VALUES[rank];
+  const next = RANK_VALUES[rank + 1];
+  if ( !next ) return current.bonus;
+  const steps = next.bonus - current.bonus;
+  if ( steps <= 1 ) return current.bonus;
+  return current.bonus + Math.floor((steps * (points - current.required)) / (next.required - current.required));
+}
+
+/* -------------------------------------------- */
+
 /**
  * Proficiency Points awarded to a hero, which are allocated to advance training.
  * A hero receives none at creation, where training comes entirely from their Background and chosen Talents.
@@ -372,6 +391,8 @@ const ALLOCATION_GROUP_PRIORITY = Object.freeze(["weapon", "spell", "equipment",
 export const ALLOCATION_ORDER = Object.freeze(Object.keys(PROFICIENCIES).toSorted((a, b) =>
   ALLOCATION_GROUP_PRIORITY.indexOf(PROFICIENCIES[a].group)
   - ALLOCATION_GROUP_PRIORITY.indexOf(PROFICIENCIES[b].group)));
+
+/* -------------------------------------------- */
 
 /**
  * Refine the static allocation order by an Actor's aptitude for each proficiency.
