@@ -259,7 +259,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     recipientIds ||= Array.from(this.memberIds);
     for ( const id of recipientIds ) {
       const actor = game.actors.get(id);
-      if ( !actor || (actor.type !== "hero") ) throw new Error(_loc("AWARD.WARNINGS.InvalidMilestoneRecipient", {id}));
+      if ( actor?.type !== "hero" ) continue; // Companions and other non-hero members do not advance
       recipientHTML.push(`<li>${actor.name}</li>`);
       const actorMilestones = actor.system._source.advancement.milestones + number;
       actorUpdates.push({_id: id, system: {advancement: {milestones: actorMilestones}}});
@@ -312,7 +312,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     recipientIds ||= Array.from(this.memberIds);
     for ( const id of recipientIds ) {
       const actor = game.actors.get(id);
-      if ( !actor || (actor.type !== "hero") ) throw new Error(_loc("AWARD.WARNINGS.InvalidMilestoneRevokee", {id}));
+      if ( actor?.type !== "hero" ) continue; // Companions and other non-hero members do not advance
       recipientHTML.push(`<li>${actor.name}</li>`);
       const actorMilestones = Math.max(actor.system._source.advancement.milestones - number, 0);
       actorUpdates.push({_id: id, system: {advancement: {milestones: actorMilestones}}});

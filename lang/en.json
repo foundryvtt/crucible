@@ -1285,8 +1285,6 @@
       "CannotRevokeMilestone": "There is no milestone award with identifier \"{identifier}\" on group \"{group}\"",
       "DuplicateMilestone": "A milestone with identifier \"{identifier}\" has already been awarded to group \"{group}\"",
       "InvalidMilestoneNumber": "The number of milestones awarded must be a positive integer",
-      "InvalidMilestoneRecipient": "Actor ID \"{id}\" cannot be awarded a milestone",
-      "InvalidMilestoneRevokee": "Actor ID \"{id}\" cannot have a milestone revoked",
       "InvalidTerms": "Unable to parse {terms} as valid award terms.",
       "RequiresGM": "You must be a Gamemaster to use Award enrichers."
     },
