@@ -11,10 +11,11 @@ system:
       condition: Your target can hear and understand you.
       description: >-
         <p>You exaggerate your opponent's shortcomings with a scathing bon mot,
-        performing a <strong>Diplomacy</strong> skill attack against your
+        improvising a <strong>Performance</strong> skill attack against your
         target's <strong>Willpower</strong>. On a success they suffer modest
-        <strong>Psychic</strong> damage to <strong>Morale</strong> and become
-        @Condition[enraged] for 1 Round.</p>
+        <strong>Psychic</strong> damage to <strong>Morale</strong>.</p><p>On a
+        <strong>Critical Success</strong>, they also become @Condition[enraged]
+        for 1 Round.</p>
       tags:
         - weakened
         - willpower
@@ -37,7 +38,7 @@ system:
         - name: ''
           scope: 3
           result:
-            type: success
+            type: successCritical
             all: false
           statuses:
             - enraged
@@ -48,8 +49,12 @@ system:
             expired: false
           system:
             changes: []
+            dc: null
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
             regions: []
             summons: []
       img: icons/magic/control/mouth-smile-deception-purple.webp
@@ -57,10 +62,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - pre0a
   rune: ''
@@ -79,7 +81,7 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160142
-  modifiedTime: 1788733236992
+  modifiedTime: 1788802541854
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.provocateur00000
   duplicateSource: null
