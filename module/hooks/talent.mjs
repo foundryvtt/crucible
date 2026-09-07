@@ -1229,7 +1229,7 @@ HOOKS.neverYield000000 = {
 
 HOOKS.necromancer00000 = {
   applyCriticalEffects(_item, action) {
-    applyRuneCritEffect(this, action, "death", ability => SYSTEM.EFFECTS.decay(this, {ability}));
+    applyRuneCritEffect(this, action, "death", ability => SYSTEM.EFFECTS.decaying(this, {ability}));
   }
 };
 
