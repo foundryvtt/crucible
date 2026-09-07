@@ -750,6 +750,18 @@ HOOKS.exploitDespair00 = {
 
 /* -------------------------------------------- */
 
+HOOKS.feralBrawler0000 = {
+  prepareWeapons(_item, weapons) {
+    for ( const w of [weapons.mainhand, weapons.offhand] ) {
+      if ( w?.category !== "unarmed" ) continue;
+      w.system.properties.add("natural");
+      w.system.proficiencies.push("natural");
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.focalReach000000 = {
   prepareWeapons(_item, weapons) {
     const focus = this.resources.focus.value;
@@ -1157,6 +1169,22 @@ HOOKS.lesserregenerati = {
 HOOKS.lightbringer0000 = {
   applyCriticalEffects(_item, action) {
     applyRuneCritEffect(this, action, "illumination", ability => SYSTEM.EFFECTS.irradiated(this, {ability}));
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.martialartist000 = {
+  prepareWeapons(_item, weapons) {
+    const fine = SYSTEM.ITEM.QUALITY_TIERS.fine;
+    for ( const w of [weapons.mainhand, weapons.offhand] ) {
+      if ( w?.category !== "unarmed" ) continue;
+      const quality = w.system.config.quality;
+      if ( quality.bonus >= fine.bonus ) continue; // Already Fine or better from another source
+      w.system.damage.weapon += (fine.bonus - quality.bonus);
+      w.system.rarity += (fine.rarity - quality.rarity);
+      w.system.config.quality = fine;
+    }
   }
 };
 

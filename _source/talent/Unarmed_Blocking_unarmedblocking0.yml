@@ -10,7 +10,7 @@ system:
     <strong>Block</strong> defense.
   actions: []
   nodes:
-    - tou1a
+    - tou0a
   rune: ''
   gesture: ''
   inflection: ''
@@ -20,10 +20,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160153
-  modifiedTime: 1773514792625
+  modifiedTime: 1788801343038
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

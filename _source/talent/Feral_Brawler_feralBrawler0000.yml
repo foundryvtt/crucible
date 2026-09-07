@@ -1,0 +1,38 @@
+folder: pcLqaJOF9hn5ggQV
+name: Feral Brawler
+type: talent
+img: icons/creatures/claws/claw-bear-paw-swipe-brown.webp
+system:
+  description: >-
+    <p>You fight with your bare hands the way a beast fights with claw and jaw,
+    committing to a savagery that trained fighters are taught out of.</p>
+
+    <p>Your bare hands count as <strong>Natural</strong> weapons in addition to
+    <strong>Unarmed</strong> ones. You may use them for any action which
+    requires a Natural weapon, and they are wielded using whichever of your
+    <strong>Natural</strong> or <strong>Unarmed</strong> proficiencies serves
+    you better.</p>
+  actions: []
+  nodes:
+    - tou1a
+  spellcraft: ''
+  iconicSpells: 0
+  training: natural
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788690000000
+  modifiedTime: 1788801268773
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: feralBrawler0000
+sort: 100000
+_key: '!items!feralBrawler0000'
