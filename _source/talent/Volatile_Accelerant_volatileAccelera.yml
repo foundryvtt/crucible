@@ -5,8 +5,8 @@ img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
 system:
   description: >-
     <p>A reaction already underway needs very little encouragement. It wants
-    fuel, or air, or a conductor, and you carry everything that is needed 
-    to make acceleration happen.</p>
+    fuel, or air, or a conductor, and you carry everything that is needed  to
+    make acceleration happen.</p>
   actions:
     - id: volatileAccelerant
       name: Volatile Accelerant
@@ -21,13 +21,13 @@ system:
         <strong>Success</strong> they sustain damage of the same type, and to
         the same resource, as the reaction you fed, and its remaining duration
         is extended by <strong>1 Round</strong>. Upon a <strong>Critical
-        Success</strong> the reaction
-        also burns hotter, increasing the damage it deals each round by
-        <strong>1</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This
-        action is intended to consume a unit of alchemical reagent from your
-        inventory, offering an alternative use for the same ingredients you
-        would otherwise craft with. That requirement is not yet implemented and
-        awaits the design of the crafting system.</p>
+        Success</strong> the reaction also burns hotter, increasing the damage
+        it deals each round by <strong>1</strong>.</p><h3
+        class="divider">Playtest Notes</h3><p>This action is intended to consume
+        a unit of alchemical reagent from your inventory, offering an
+        alternative use for the same ingredients you would otherwise craft with.
+        That requirement is not yet implemented and awaits the design of the
+        crafting system.</p>
       cost:
         action: 2
         focus: 1

@@ -1,0 +1,35 @@
+folder: MqZKCMx5KrZQffGU
+name: Breakfall
+type: talent
+img: icons/skills/movement/arrow-down-pink.webp
+system:
+  description: >-
+    <p>You've fallen from heights enough times to stop treating it like an
+    emergency. You tuck your chin and spread the impact along your limbs to meet
+    the ground with familiar grace. </p><p>You gain <strong>+4 Reflex</strong>
+    defense when defending against damage from a fall of <strong>30
+    feet</strong> or less.</p>
+  actions: []
+  nodes:
+    - dextou1
+  spellcraft: ''
+  iconicSpells: 0
+  training: athletics
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788820000000
+  modifiedTime: 1788808761996
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: breakfall0000000
+sort: 100000
+_key: '!items!breakfall0000000'
