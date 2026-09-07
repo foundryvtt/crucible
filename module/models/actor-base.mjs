@@ -787,7 +787,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const itemCls = /** @type {typeof CrucibleItem} */ getDocumentClass("Item");
     const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
     data.name = _loc(data.name);
-    if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine"; // TODO move to talent hook
     const unarmed = new itemCls(data, {parent: this.parent});
     unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
     return unarmed;

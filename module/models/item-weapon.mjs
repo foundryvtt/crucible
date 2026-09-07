@@ -7,6 +7,9 @@ import {SYSTEM} from "../const/system.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
+ *
+ * @property {string[]} proficiencies   Proficiencies which wield this weapon effectively, the best of which supplies
+ *                                      its skill bonus. Mutable by `prepareWeapons` hooks.
  */
 export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
@@ -136,6 +139,10 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
       this.properties.add("intuitive");
     }
 
+    // Proficiencies which wield this weapon effectively. A natural weapon answers to Natural rather than to its
+    // category. Prepared rather than derived at the point of use so that `prepareWeapons` hooks may extend it
+    this.proficiencies = this.properties.has("natural") ? ["natural"] : [...category.training];
+
     // Weapon Damage
     this.damage = this.#prepareDamage();
 
@@ -176,8 +183,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     this.actionBonuses.ability = actor.getAbilityBonus(category.scaling.split("."));
 
     // Skill Bonus
-    const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
-    this.actionBonuses.skill = actor.getSkillBonus(trainingTypes, {intuitive: this.properties.has("intuitive")});
+    this.actionBonuses.skill = actor.getSkillBonus(this.proficiencies, {intuitive: this.properties.has("intuitive")});
 
     // Populate current damage bonus
     const actorBonuses = actor.system.rollBonuses.damage || {};
@@ -328,11 +334,9 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    * @internal
    */
   _getUntrainedTooltip(actor) {
-    const category = this.config.category;
     if ( this.properties.has("intuitive") ) return null;
-    const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
-    if ( actor.getSkillBonus(trainingTypes) >= 0 ) return null;
-    const labels = trainingTypes.map(t => _loc(SYSTEM.PROFICIENCY.WEAPONS[t].label));
+    if ( actor.getSkillBonus(this.proficiencies) >= 0 ) return null;
+    const labels = this.proficiencies.map(t => _loc(SYSTEM.PROFICIENCY.WEAPONS[t].label));
     const training = game.i18n.getListFormatter({type: "disjunction"}).format(labels);
     return _loc("WEAPON.TAGS.UntrainedTooltip", {training});
   }

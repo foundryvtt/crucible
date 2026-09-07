@@ -21,7 +21,7 @@ system:
         - psychic
         - morale
         - skill
-        - diplomacy
+        - performance
       cost:
         action: 1
         focus: 1
@@ -67,7 +67,7 @@ system:
   gesture: ''
   inflection: ''
   iconicSpells: 0
-  training: diplomacy
+  training: performance
 effects: []
 ownership:
   default: 0
