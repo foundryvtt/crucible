@@ -32,6 +32,12 @@ const {DialogV2} = foundry.applications.api;
 export default class CrucibleActor extends Actor {
 
   /**
+   * The Item types which are stored as a data snapshot under `system.details` rather than as an owned Item.
+   * @type {readonly string[]}
+   */
+  static #DETAIL_ITEM_TYPES = Object.freeze(["ancestry", "archetype", "background", "taxonomy"]);
+
+  /**
    * The Actions which this Actor has available to use.
    */
   get actions() {
@@ -1788,6 +1794,52 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Re-apply this Actor's detail items from the current compendium versions of the documents they were built from.
+   * Detail items are rediscovered by their `system.identifier` among the configured packs.
+   * A detail which cannot be rediscovered is left alone and not replaced.
+   * @param {object} [options]
+   * @param {boolean} [options.performUpdates=true]   Whether to actually apply the resolved detail items
+   * @returns {Promise<{applied: string[], unresolved: string[]}>}   Detail types which were and were not rediscovered
+   */
+  async syncDetailItems({performUpdates=true}={}) {
+    const applied = [];
+    const unresolved = [];
+    for ( const type of CrucibleActor.#DETAIL_ITEM_TYPES ) {
+      const detail = this.system.details[type];
+      if ( !detail?.identifier ) continue;
+      const item = await CrucibleActor.#findDetailItem(type, detail.identifier);
+      if ( !item ) {
+        unresolved.push(type);
+        continue;
+      }
+      applied.push(type);
+      if ( performUpdates ) await this._applyDetailItem(item, {type, notify: false});
+    }
+    return {applied, unresolved};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Find the compendium document which a detail snapshot was built from, matching on `system.identifier`.
+   * @param {string} type           The detail item type
+   * @param {string} identifier     The identifier recorded on the Actor's detail snapshot
+   * @returns {Promise<CrucibleItem|null>}
+   */
+  static async #findDetailItem(type, identifier) {
+    for ( const packId of crucible.CONFIG.packs[type] ?? [] ) {
+      const pack = game.packs.get(packId);
+      if ( !pack ) continue;
+      await pack.getIndex();
+      const entry = pack.index.find(e => (e.type === type) && (e.system?.identifier === identifier));
+      if ( entry ) return pack.getDocument(entry._id);
+    }
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Re-sync all Talent data on this actor with updated source data.
    * @param {object} [options]
    * @param {boolean} [options.performUpdates]   Whether to actually perform the updates
@@ -1837,8 +1889,8 @@ export default class CrucibleActor extends Actor {
       }
     }
 
-    // Ensure all details "items" are using migrated versions of uuids
-    const detailItemTypes = ["ancestry", "archetype", "background", "taxonomy"];
+    // Ensure all details "items" are using migrated UUID values
+    const detailItemTypes = CrucibleActor.#DETAIL_ITEM_TYPES;
     for ( const detailType of detailItemTypes ) {
       const oldTalents = this.system.details[detailType]?.talents;
       if ( !oldTalents ) continue;
@@ -1847,8 +1899,6 @@ export default class CrucibleActor extends Actor {
       for ( const {item, level} of oldTalents ) {
         const talentId = foundry.utils.parseUuid(item).id;
         const migratedUuid = migrations[talentId];
-
-        // If undefined, no migration. If null, talent was deleted, and we should remove. Otherwise use new uuid
         if ( migratedUuid !== undefined ) {
           needsUpdate ||= true;
           if ( migratedUuid ) talents.push({item: migratedUuid, level});
@@ -2320,10 +2370,9 @@ export default class CrucibleActor extends Actor {
       return;
     }
 
-    // Browse compendium pack
+    // Browse every configured compendium pack for the detail item type
     if ( this.isL0 || !data?.name ) {
-      const pack = game.packs.get(SYSTEM.COMPENDIUM_PACKS[type]);
-      pack.render(true);
+      for ( const packId of crucible.CONFIG.packs[type] ?? [] ) game.packs.get(packId)?.render(true);
     }
   }
 
@@ -2726,8 +2775,13 @@ export default class CrucibleActor extends Actor {
     const abl1 = data.system?.abilities;
     const abilityChange = !!abl1 && Object.keys(SYSTEM.ABILITIES).some(k => !foundry.utils.isEmpty(abl1[k]));
 
+    // Detail item changes, which shift ability scores indirectly and therefore resource pool maximums
+    const det1 = data.system?.details;
+    const detailChange = !!det1 && CrucibleActor.#DETAIL_ITEM_TYPES.some(k => k in det1);
+
     // Simulate changes on a cloned actor?
-    const simulate = (levelChange || abilityChange) && (options.characterCreation || (options.recursive !== false));
+    const simulate = (levelChange || abilityChange || detailChange)
+      && (options.characterCreation || (options.recursive !== false));
     let clone;
     if ( simulate ) {
       try {
@@ -2738,8 +2792,9 @@ export default class CrucibleActor extends Actor {
               health: {value: 1}, // Clear weakened
               morale: {value: 1}  // Clear broken
             }
-          }
-        }, {inplace: false});
+          },
+          items: globalThis._del
+        }, {inplace: false, applyOperators: true});
         clone.updateSource(simulateData);
       } finally {
         if ( !clone ) return;
@@ -3119,7 +3174,7 @@ export default class CrucibleActor extends Actor {
     const deleteItemIds = new Set();
     const keepItemIds = new Set();
     const createItems = [];
-    for ( const itemType of ["ancestry", "archetype", "background", "taxonomy"] ) {
+    for ( const itemType of CrucibleActor.#DETAIL_ITEM_TYPES ) {
       const detail = this.system.details[itemType];
       if ( !detail ) continue;
       const {toDelete, toKeep, toCreate} = await this.#prepareGrantedDetailTalents(detail.talents);
