@@ -1786,10 +1786,6 @@
   },
   "SKILL": {
     "CATEGORY": {
-      "CRAFTING": {
-        "hint": "Handwerkliche Fertigkeiten, die die Fähigkeit deines Charakters widerspiegeln, Gegenstände oder Ausrüstung herzustellen.",
-        "label": "Handwerk"
-      },
       "EXPLORATION": {
         "hint": "Erkundungsfertigkeiten betreffen deine Fähigkeit, die Welt zu bereisen und ihren Herausforderungen zu begegnen.",
         "label": "Erkundung"
@@ -1801,6 +1797,10 @@
       "SOCIAL": {
         "hint": "Soziale Fertigkeiten betreffen die Fähigkeit deines Charakters, mit anderen Personen oder Gruppen zu interagieren.",
         "label": "Sozial"
+      },
+      "TRADE": {
+        "hint": "Handwerkliche Fertigkeiten, die die Fähigkeit deines Charakters widerspiegeln, Gegenstände oder Ausrüstung herzustellen.",
+        "label": "Handwerk"
       }
     },
     "LABELS": {

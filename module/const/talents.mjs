@@ -158,7 +158,7 @@ export const TALENT_ID_MIGRATIONS = {
   wildernessAdept0: null,
   wildernessMaster: null,
 
-  // Tradecraft ladders
+  // Trade Skill ladders
   alchemyNovice000: null,
   alchemyJourneyma: null,
   cookingNovice000: null,

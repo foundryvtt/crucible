@@ -1367,8 +1367,9 @@ TAGS.skill = {
   category: "skills"
 };
 
-// Specific Skills
-for ( const {id, abilities, label} of Object.values(SKILLS) ) {
+// Specific Skills. Trade Skills produce artifacts rather than resolve contests, so they never back an attack
+for ( const {id, abilities, label, group} of Object.values(SKILLS) ) {
+  if ( group === "trade" ) continue;
   TAGS[id] = {
     tag: id,
     label,

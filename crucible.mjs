@@ -578,9 +578,6 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.CONSUMABLE.CATEGORIES);
   localizeConfigObject(SYSTEM.CONSUMABLE.PROPERTIES, ["label", "tooltip"]);
 
-  // Crafting
-  localizeConfigObject(SYSTEM.PROFICIENCY.TRADECRAFTS);
-
   // Effects
   localizeConfigObject(SYSTEM.EFFECTS.PROPERTIES, ["label", "tooltip"]);
 
@@ -597,7 +594,6 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.PROFICIENCY.SKILLS, ["label", "short"]);
   localizeConfigObject(SYSTEM.PROFICIENCY.WEAPONS, ["label", "short"]);
   localizeConfigObject(SYSTEM.PROFICIENCY.EQUIPMENT, ["label", "short"]);
-  localizeConfigObject(SYSTEM.PROFICIENCY.TRADECRAFTS, ["label", "short"]);
   localizeConfigObject(SYSTEM.PROFICIENCY.PROFICIENCIES, ["label", "short"]);
 
   // Spellcraft

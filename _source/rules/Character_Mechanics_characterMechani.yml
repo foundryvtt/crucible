@@ -659,8 +659,8 @@ pages:
         sheet to name the Proficiencies it trains, the Knowledge it confers, and
         the Talents it grants.</p><p>Each Background includes:</p><ul><li><p>Six
         trained Proficiencies, each receiving one training point. These need not
-        be Skills: a Background may train a weapon category, a family of
-        spellcraft, or a tradecraft.</p></li><li><p>Two Knowledge
+        be Skills: a Background may train a weapon category or a family of
+        spellcraft.</p></li><li><p>Two Knowledge
         Areas</p></li><li><p>One known Language</p></li><li><p>Three
         Talents</p></li></ul><p>A Background which names fewer than six
         Proficiencies or fewer than three Talents remains valid, but the
@@ -990,8 +990,8 @@ pages:
       format: 1
       content: >-
         <p>A <strong>Proficiency</strong> is something your character can be
-        trained in: a Skill, a category of weapon, a family of spellcraft, or a
-        tradecraft. Each one holds a total of training points, and the ranks
+        trained in: a Skill, a category of weapon, or a family of spellcraft.
+        Each one holds a total of training points, and the ranks
         below are thresholds upon that total.</p><p>Training points come from
         three sources. Your
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]{Background}
