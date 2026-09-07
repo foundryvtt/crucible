@@ -1,0 +1,35 @@
+folder: p4F0SmUoKJr0riBd
+name: Second Skin
+type: talent
+img: icons/equipment/chest/riot.webp
+system:
+  description: >-
+    <p>You have worn harness long enough that it no longer feels like a piece of
+    equipment to lug around. The straps sit where they should, the load rides on
+    your frame rather than your shoulders, and you stopped noticing the
+    difference years ago.</p><p>Your equipped <strong>Armor</strong> counts only
+    half its weight towards the load you can carry.</p>
+  actions: []
+  nodes:
+    - str1b
+  spellcraft: ''
+  iconicSpells: 0
+  training: armor
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788820000000
+  modifiedTime: 1788808755493
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: secondSkin000000
+sort: 100000
+_key: '!items!secondSkin000000'

@@ -346,6 +346,15 @@ HOOKS.bloodSense000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.breakfall0000000 = {
+  defendAttack(_item, action, _origin, rollData) {
+    if ( (action.id !== "fall") || (rollData.defenseType !== "reflex") ) return;
+    rollData.dc += 4;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.brutalDisplay000 = {
   finalizeAction(item, action) {
     applyMoraleWave(this, action, {
@@ -1679,6 +1688,16 @@ HOOKS.corrosiveStrikes = {
         break;
       }
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.secondSkin000000 = {
+  prepareMovement() {
+    const armor = this.equipment.armor;
+    if ( !armor || !this.system.capacity ) return;
+    this.system.capacity.value -= Math.floor((armor.system.weight * armor.system.quantity) / 2);
   }
 };
 
