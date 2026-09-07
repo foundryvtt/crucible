@@ -451,6 +451,7 @@
       "CannotUseReason": "{name} nie spełnia warunków koniecznych do skorzystania z {action}: {reason}",
       "CannotUseTagGeneric": "z tagiem {tag}",
       "DirectMovementOnly": "Ta akcja wymaga bezpośredniej ścieżki ruchu bez punktów pośrednich.",
+      "GemConjuredFlameShoddy": "Klejnot wywołanego płomienia tandetnej jakości nie pozwala przywołać żadnego żywiołaka.",
       "IncorrectTargets": "Możesz wyznaczyć maksymalnie {number} celów {type} dla {action}!",
       "InvalidTarget": "Musisz wyznaczyć co najmniej jeden cel {type} dla {action}!",
       "InvalidTargetScope": "To stworzenie nie jest prawidłowym celem dla akcji {action}.",
@@ -480,6 +481,7 @@
       "NoAbility": "{actor} nie ma wartości {ability}, dlatego nie może wykonać {action}.",
       "NoConsumable": "Nie znaleziono żadnego materiału eksploatacyjnego dla akcji „{action}”",
       "NoConsumableUses": "Przedmiot eksploatacyjny „{item}” nie ma już żadnych pozostałych zastosowań dla akcji „{action}”",
+      "NoLanternOil": "Aby zapalić latarnię, musisz mieć w ekwipunku butelkę oleju do latarni.",
       "NonCombat": "Nie możesz wykonać {action} podczas walki.",
       "NoReloadRequired": "Twoja broń nie wymaga przeładowania",
       "NotFlanked": "{action} wymaga oskrzydlenia celu. Cel „{target}” nie jest oskrzydlony.",
@@ -498,6 +500,7 @@
       "RequiresTalisman": "{action} wymaga użycia broni typu Talisman.",
       "RequiresTwoHanded": "Aby wykonać tę akcję, musisz mieć wyposażoną broń dwuręczną.",
       "RequireTemplate": "Musisz umieścić szablon pomiarowy, aby wskazać obszar działania {action}.",
+      "RestRecoverIncapacitated": "Nie możesz Odpoczywać ani używać Odzyskiwanie, gdy jesteś Martwy lub Obłąkany.",
       "Restrained": "Nie możesz się ruszać, gdy jesteś Unieruchomiony!",
       "Silenced": "Nie możesz użyć tej akcji, gdy jesteś Wyciszony.",
       "TargetTooLarge": "Cel „{target}” jest zbyt duży dla {action}.",
@@ -1651,12 +1654,7 @@
   },
   "HOOKS": {
     "NoModuleHooks": "Dla tego identyfikatora nie zarejestrowano żadnych uchwytów modułu.",
-    "ToggleSource": "Zmień źródło",
-    "WARNINGS": {
-      "GemConjuredFlameShoddy": "Klejnot wywołanego płomienia tandetnej jakości nie pozwala przywołać żadnego żywiołaka.",
-      "NoLanternOil": "Aby zapalić latarnię, musisz mieć w ekwipunku butelkę oleju do latarni.",
-      "RestRecoverIncapacitated": "Nie możesz Odpoczywać ani używać Odzyskiwanie, gdy jesteś Martwy lub Obłąkany."
-    }
+    "ToggleSource": "Zmień źródło"
   },
   "HAZARD": {
     "DefaultActor": "Środowisko",

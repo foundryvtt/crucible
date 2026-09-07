@@ -969,7 +969,7 @@ HOOKS.fontOfLife = {
 HOOKS.gemOfConjuredFlame = {
   canUse() {
     if ( this.item.system.quality === "shoddy" ) {
-      throw new Error(_loc("HOOKS.WARNINGS.GemConjuredFlameShoddy"));
+      throw new Error(_loc("ACTION.WARNINGS.GemConjuredFlameShoddy"));
     }
   },
   prepare() {
@@ -1738,8 +1738,76 @@ HOOKS.poisonIngest = {
 
 /* -------------------------------------------- */
 
+HOOKS.volatileAccelerant = {
+  canUse() {
+    if ( !this.actor.equipment.toolbelt.some(t => t.system.identifier === "toolKitAlchemy") ) {
+      throw new Error(_loc("ACTION.WARNINGS.RequiresAlchemistsToolkit"));
+    }
+  },
+  preActivate(targets) {
+    // The reagent feeds whichever reaction is already underway, so the burst matches that reaction in both damage
+    // type and resource. Resolved before the roll, which cannot be assembled without them
+    const {conditions} = SYSTEM.DAMAGE_CATEGORIES.elemental;
+    const target = targets[0]?.actor;
+    const afflictions = target?.effects.filter(e => e.active && conditions.some(c => e.statuses.has(c))) ?? [];
+    if ( !afflictions.length ) {
+      throw new Error(_loc("ACTION.WARNINGS.RequiresElementalCondition", {target: target?.name}));
+    }
+    const effect = afflictions.reduce((best, e) => (e.duration.remaining > best.duration.remaining) ? e : best);
+    const [dot] = effect.system.dot;
+    this.usage.damageType = dot.damageType;
+    this.usage.resource = dot.resource;
+  },
+  postActivate() {
+    const {conditions} = SYSTEM.DAMAGE_CATEGORIES.elemental;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.isSuccess ) continue;
+      const afflictions = target.effects.filter(e => e.active && conditions.some(c => e.statuses.has(c)));
+      if ( !afflictions.length ) continue;
+
+      // Feed the longest-running reaction, which is the one most worth prolonging
+      const effect = afflictions.reduce((best, e) => (e.duration.remaining > best.duration.remaining) ? e : best);
+      const update = {
+        _id: effect.id,
+        _action: "update",
+        duration: {rounds: (effect.duration.rounds ?? 0) + 1}
+      };
+
+      // A critical feeds the reaction itself rather than merely its duration
+      if ( events.isCriticalSuccess ) {
+        update.system = {dot: effect.system.dot.map(d => ({...d, amount: d.amount + 1}))};
+      }
+      this.recordEvent({type: "effect", target, effects: [update]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.rapidCountermeasure = {
+  canUse() {
+    if ( !this.actor.equipment.toolbelt.some(t => t.system.identifier === "toolKitAlchemy") ) {
+      throw new Error(_loc("ACTION.WARNINGS.RequiresAlchemistsToolkit"));
+    }
+  },
+  postActivate() {
+    const {conditions} = SYSTEM.DAMAGE_CATEGORIES.elemental;
+    for ( const [target] of this.eventsByTarget ) {
+      const afflictions = target.effects.filter(e => e.active && conditions.some(c => e.statuses.has(c)));
+      if ( !afflictions.length ) {
+        throw new Error(_loc("ACTION.WARNINGS.RequiresElementalCondition", {target: target.name}));
+      }
+
+      // Answer the most urgent reaction, which is the one with the most turns left to run
+      const effect = afflictions.reduce((best, e) => (e.duration.remaining > best.duration.remaining) ? e : best);
+      this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "delete"}]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.rallyingCry = {
-  // Resolute is applied by the action's own effect on a success; only a critical success also restores Morale
   postActivate() {
     const amount = this.actor.abilities.presence.value;
     for ( const [target, events] of this.eventsByTarget ) {
@@ -1909,7 +1977,7 @@ HOOKS.reconstruct = {
 HOOKS.recover = {
   canUse() {
     if ( this.actor.system.isDead || this.actor.system.isInsane ) {
-      throw new Error(_loc("HOOKS.WARNINGS.RestRecoverIncapacitated"));
+      throw new Error(_loc("ACTION.WARNINGS.RestRecoverIncapacitated"));
     }
   },
   postActivate() {
@@ -1960,7 +2028,7 @@ HOOKS.repercussiveBlock = {
 HOOKS.rest = {
   canUse() {
     if ( this.actor.system.isDead || this.actor.system.isInsane ) {
-      throw new Error(_loc("HOOKS.WARNINGS.RestRecoverIncapacitated"));
+      throw new Error(_loc("ACTION.WARNINGS.RestRecoverIncapacitated"));
     }
   },
   postActivate() {
@@ -2305,7 +2373,7 @@ HOOKS.lightLantern = {
   preActivate() {
     // Validate that the actor has Lantern Oil to consume
     const oil = this.actor.items.find(i => (i.system.identifier === "lanternOil") && (i.system.quantity > 0));
-    if ( !oil ) throw new Error(_loc("HOOKS.WARNINGS.NoLanternOil"));
+    if ( !oil ) throw new Error(_loc("ACTION.WARNINGS.NoLanternOil"));
 
     // Scale ignition duration with the quality of the consumed oil
     const hours = {shoddy: 1, standard: 4, fine: 12, superior: 24, masterwork: 48}[oil.system.quality] ?? 4;

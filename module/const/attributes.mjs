@@ -91,7 +91,8 @@ export const DAMAGE_CATEGORIES = defineEnum({
     label: "DAMAGE.Physical"
   },
   elemental: {
-    label: "DAMAGE.Elemental"
+    label: "DAMAGE.Elemental",
+    conditions: ["burning", "freezing", "corroding", "shocked"]
   },
   spiritual: {
     label: "DAMAGE.Spiritual"
