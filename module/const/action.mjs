@@ -264,7 +264,8 @@ export const TAGS = {
       }
     },
     canUse() {
-      if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("dexterity")) ) {
+      const weaponsUsed = this.usage.strikes?.length ? this.usage.strikes : [this.actor.equipment.weapons.mainhand];
+      if ( !weaponsUsed.every(w => w?.config.category.scaling.includes("dexterity")) ) {
         throw new Error(_loc("ACTION.WARNINGS.MustScaleDex"));
       }
     }
@@ -283,7 +284,8 @@ export const TAGS = {
       }
     },
     canUse() {
-      if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("strength")) ) {
+      const weaponsUsed = this.usage.strikes?.length ? this.usage.strikes : [this.actor.equipment.weapons.mainhand];
+      if ( !weaponsUsed.every(w => w?.config.category.scaling.includes("strength")) ) {
         throw new Error(_loc("ACTION.WARNINGS.MustScaleStrength"));
       }
     }
