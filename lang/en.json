@@ -694,6 +694,7 @@
       "ResetTalents": "Reset All Talents",
       "ResetTalentsContent": "<p>Are you sure you wish to reset all Talents?</p>",
       "ResetTalentsTitle": "Reset Talents: {actor}",
+      "ResolveProgress": "Go to the next progression step",
       "RollCheck": "Roll Check",
       "SyncTalents": "Refresh Talents",
       "SyncTalentsResult": "Refreshed {synced} Talents for {actor}, removing {deleted}.",
@@ -985,8 +986,10 @@
       "NoBackground": "Choose a Background",
       "NoDragTalent": "Talents can only be added to a Hero Actor via the Talent Tree.",
       "OverspentAbility": "Too many Ability Points have been spent",
+      "OverspentProficiency": "Too many Proficiency Points have been spent",
       "OverspentTalent": "Too many Talents have been taken",
       "UnderspentAbility": "Spend Ability Points",
+      "UnderspentProficiency": "Spend Proficiency Points",
       "UnderspentTalent": "Spend Talent Points"
     },
     "Details": "Details",
