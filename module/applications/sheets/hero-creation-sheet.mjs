@@ -1199,20 +1199,20 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
       if ( quantity <= 0 ) continue;
       const itemData = this._clone._cleanItemData(item);
-      delete itemData._id
+      delete itemData._id;
+
+      // Unstack individual units of an item so they can each have different stateful properties
+      let units;
       if ( itemData.system.properties.includes("stackable") ) {
         itemData.system.quantity = quantity;
-        creationData.items.push(itemData);
+        units = [itemData];
       }
-      else {
-        // Deep clone each unit so that can have different stateful properties
-        const units = Array.from({length: quantity}, () => foundry.utils.deepClone(itemData));
-        creationData.items.push(...units);
+      else units = Array.from({length: quantity}, () => foundry.utils.deepClone(itemData));
+      creationData.items.push(...units);
 
-        // Each individually equippable unit of a purchased Weapon or Armor is a candidate for auto-equip
-        if ( ["weapon", "armor"].includes(item.type) ) {
-          for ( const unitData of units ) autoEquipCandidates.push({itemData: unitData, sourceItem: item, scaledPrice});
-        }
+      // Each individually equippable unit of purchased gear is a candidate for auto-equip
+      if ( ["weapon", "armor", "tool", "consumable", "accessory"].includes(item.type) ) {
+        for ( const unitData of units ) autoEquipCandidates.push({itemData: unitData, sourceItem: item, scaledPrice});
       }
       spent += scaledPrice * quantity;
     }
@@ -1225,22 +1225,22 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
-   * Auto-equips purchased Weapons and Armor, favoring higher-value items.
-   * Armor occupies a single slot; Weapons are assigned to available hand slots according to their category.
+   * Auto-equips purchased gear, favoring higher-value items. Armor occupies a single slot.
+   * Weapons are assigned to available hand slots according to their category.
+   * Tools and Consumables fill the Toolbelt, and Accessories fill the Accessory slots.
    * @param {{itemData: object, sourceItem: CrucibleItem, scaledPrice: number}[]} candidates
    * @protected
    */
-   _autoEquipPurchasedItems(candidates) {
+  _autoEquipPurchasedItems(candidates) {
     const SLOTS = SYSTEM.WEAPON.SLOTS;
-    const byHighestValue = (a, b) => (b.scaledPrice - a.scaledPrice) || a.sourceItem.name.localeCompare(b.sourceItem.name);
+    const byHighestValue = (a, b) => {
+      return (b.scaledPrice - a.scaledPrice) || a.sourceItem.name.localeCompare(b.sourceItem.name);
+    };
 
     // Armor: equip the single highest-value Armor unit, if any was purchased
     const armors = candidates.filter(c => c.sourceItem.type === "armor").sort(byHighestValue);
     const bestArmor = armors[0];
-    if ( bestArmor ) {
-      bestArmor.itemData.system.equipped = true;
-      if ( bestArmor.sourceItem.system.requiresInvestment ) bestArmor.itemData.system.invested = true;
-    }
+    if ( bestArmor ) bestArmor.itemData.system.equipped = true;
 
     // Weapons: greedily fill the Mainhand, Offhand, and Twohand slots with the highest-value options that fit
     const weapons = candidates.filter(c => c.sourceItem.type === "weapon").sort(byHighestValue);
@@ -1257,7 +1257,6 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         if ( !(mainhandFree && offhandFree) ) continue;
         itemData.system.equipped = true;
         itemData.system.slot = SLOTS.TWOHAND;
-        if ( sourceItem.system.requiresInvestment ) itemData.system.invested = true;
         mainhandFree = offhandFree = false;
       }
 
@@ -1265,15 +1264,27 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       else if ( category.main && mainhandFree ) {
         itemData.system.equipped = true;
         itemData.system.slot = SLOTS.MAINHAND;
-        if ( sourceItem.system.requiresInvestment ) itemData.system.invested = true;
         mainhandFree = false;
       }
       else if ( category.off && offhandFree ) {
         itemData.system.equipped = true;
         itemData.system.slot = SLOTS.OFFHAND;
-        if ( sourceItem.system.requiresInvestment ) itemData.system.invested = true;
         offhandFree = false;
       }
+    }
+
+    // Fill the Toolbelt with highest-value Tools and Consumables. A stack occupies one slot regardless of quantity
+    const {accessorySlots, toolbeltSlots} = this._clone.equipment;
+    const toolbelt = candidates.filter(c => ["consumable", "tool"].includes(c.sourceItem.type)).sort(byHighestValue);
+    for ( const {itemData} of toolbelt.slice(0, toolbeltSlots) ) itemData.system.equipped = true;
+
+    // Fill the Accessory slots with the highest-value options
+    const accessories = candidates.filter(c => c.sourceItem.type === "accessory").sort(byHighestValue);
+    for ( const {itemData} of accessories.slice(0, accessorySlots) ) itemData.system.equipped = true;
+
+    // Any equipped items that required investment start in the invested state
+    for ( const {itemData, sourceItem} of candidates ) {
+      if ( itemData.system.equipped && sourceItem.system.requiresInvestment ) itemData.system.invested = true;
     }
   }
 
