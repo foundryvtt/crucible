@@ -471,6 +471,71 @@ pages:
       modifiedTime: 1762044030322
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.obtainingIngredi'
+  - sort: 1100000
+    name: Repair
+    type: text
+    category: UbGiQAlGSH8iwZhE
+    _id: repair0000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Equipment may become <strong>Broken</strong> through use, misfortune,
+        or the passage of time. A Broken item still functions, but poorly, and
+        its Rarity is reduced by 2 for as long as it remains Broken.</p><p>Any
+        character may attempt a repair. Doing so requires an appropriate
+        workbench and a check of the same Trade Skill which would be used to
+        create the item, against a difficulty set by the Rarity that item will
+        have once repaired:</p><section class="formula"><p class="value">Repair
+        Difficulty</p><p class="equals">=</p><p class="equation">12 + (2 x
+        Rarity)</p></section><p>The result of that check determines what becomes
+        of the
+        item:</p><table><thead><tr><th><p>Result</p></th><th><p>Outcome</p></th></tr></thead><tbody><tr><td><p><strong>Critical
+        Success</strong></p></td><td><p>The item is repaired and keeps its
+        quality
+        tier.</p></td></tr><tr><td><p><strong>Success</strong></p></td><td><p>The
+        item is repaired, but drops one quality
+        tier.</p></td></tr><tr><td><p><strong>Failure</strong></p></td><td><p>The
+        item remains Broken and drops one quality
+        tier.</p></td></tr><tr><td><p><strong>Critical
+        Failure</strong></p></td><td><p>The item is destroyed
+        permanently.</p></td></tr></tbody></table><p>An item of
+        <strong>Shoddy</strong> quality has no lower tier to lose. A Failure
+        leaves such an item Broken and otherwise unchanged, and the repair may
+        be attempted again.</p><section class="gameplay"><p>A
+        Broken Masterwork longsword bearing three tiers of affixes will have a
+        Rarity of 7 once repaired, and so asks a Smithing check against
+        <strong>DC 26</strong>. A Broken Standard shortbow, at Rarity 0, asks a
+        Fletching check against <strong>DC 12</strong>. The finer the item, the
+        more it demands of the hand which mends it.</p></section><h2
+        class="divider">Expert Repair</h2><p>Certain Talents grant
+        <strong>Expert Repair</strong> within a single trade. A character who
+        has it may attempt repairs of that trade without a workbench, though
+        such attempts are <strong>Difficult</strong>, and their successful
+        repairs never cost the item a quality tier.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1788830000000
+      modifiedTime: 1788830000000
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _key: '!journal.pages!crucibleCrafting.repair0000000000'
   - sort: 0
     name: Trade Skills Overview
     type: text

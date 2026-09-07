@@ -76,9 +76,9 @@ pages:
         Weapons</h4><p>During the course of use, or over the passage of time,
         weapons may become <strong>Broken</strong>. Weapons which are Broken
         deal half their normal damage and cannot contribute to Block or Parry
-        defenses. Repairing a Broken weapon restores it to its original quality
-        tier or a lesser quality tier depending on the result of the
-        <strong>Trade </strong>skill check to repair the weapon.</p><h2
+        defenses. See
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
+        for the rules which govern mending a Broken item.</p><h2
         class="divider">Enchantment Tier</h2><p><strong>Enchantment</strong> of
         a Weapon describes its level of magical imbuement. Enchantment tiers
         provide an additional bonus to attack rolls of the weapon and contribute
@@ -360,7 +360,9 @@ pages:
         Modifier</p></th></tr></thead><tbody><tr><td><p>Mundane</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Minor</p></td><td><p>+1</p></td><td><p>+2</p></td></tr><tr><td><p>Major</p></td><td><p>+2</p></td><td><p>+4</p></td></tr><tr><td><p>Legendary</p></td><td><p>+3</p></td><td><p>+6</p></td></tr></tbody></table><h2
         class="divider">Broken Armor</h2><p>During the course of use, or over
         the passage of time, Armor may become <strong>Broken</strong>. Armor
-        which is Broken only benefits from half its normal Armor Defense.</p><h2
+        which is Broken only benefits from half its normal Armor Defense. See
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
+        for the rules which govern mending a Broken item.</p><h2
         class="divider">Armor Properties</h2><p>Some Armor may have one or
         multiple of the following special properties. Each property describes
         some physical characteristic of the armor. While all properties provide
