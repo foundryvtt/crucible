@@ -42,7 +42,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       editSize: CrucibleBaseActorSheet.#onEditSize,
       editStride: CrucibleBaseActorSheet.#onEditStride,
       editDetailsProperty: CrucibleBaseActorSheet.#onEditDetailsProperty,
-      syncTalents: CrucibleBaseActorSheet.#onSyncTalents
+      syncActor: CrucibleBaseActorSheet.#onSyncActor
     },
     form: {
       submitOnChange: true
@@ -50,9 +50,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     window: {
       controls: [
         {
-          action: "syncTalents",
+          action: "syncActor",
           icon: "fa-solid fa-rotate",
-          label: "ACTOR.ACTIONS.SyncTalents",
+          label: "ACTOR.ACTIONS.SyncActor",
           ownership: "OWNER"
         }
       ]
@@ -1302,14 +1302,22 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
-   * Re-sync every Talent owned by this Actor against its current compendium source.
+   * Re-sync this Actor's Talents and detail items against their current compendium sources.
    * @this {CrucibleBaseActorSheet}
    * @type {ApplicationClickAction}
    */
-  static async #onSyncTalents() {
+  static async #onSyncActor() {
+    const confirm = await api.DialogV2.confirm({
+      window: {title: _loc("ACTOR.ACTIONS.SyncActorTitle", {actor: this.actor.name})},
+      content: _loc("ACTOR.ACTIONS.SyncActorContent")
+    });
+    if ( !confirm ) return;
     const {toCreate, toUpdate, toDelete} = await this.actor.syncTalents();
-    ui.notifications.info(_loc("ACTOR.ACTIONS.SyncTalentsResult", {actor: this.actor.name,
-      synced: toCreate.length + toUpdate.length, deleted: toDelete.length}));
+    const {applied, unresolved} = await this.actor.syncDetailItems();
+    ui.notifications.info(_loc("ACTOR.ACTIONS.SyncActorResult", {actor: this.actor.name,
+      synced: toCreate.length + toUpdate.length, deleted: toDelete.length, details: applied.length}));
+    if ( unresolved.length ) ui.notifications.warn(_loc("ACTOR.ACTIONS.SyncActorUnresolved", {actor: this.actor.name,
+      details: unresolved.join(", ")}));
   }
 
   /* -------------------------------------------- */

@@ -696,8 +696,11 @@
       "ResetTalentsTitle": "Reset Talents: {actor}",
       "ResolveProgress": "Go to the next progression step",
       "RollCheck": "Roll Check",
-      "SyncTalents": "Refresh Talents",
-      "SyncTalentsResult": "Refreshed {synced} Talents for {actor}, removing {deleted}.",
+      "SyncActor": "Sync from Compendium",
+      "SyncActorContent": "<p>Re-apply this Actor's Talents, Ancestry, Background, Taxonomy, and Archetype from their current compendium versions.</p><p><strong>Any customizations made to those items on this Actor will be overwritten with the compendium defaults.</strong> Granted Talents, equipment, and spells which the sources no longer provide will be removed.</p>",
+      "SyncActorResult": "Synced {actor}: refreshed {synced} Talents, removed {deleted}, re-applied {details} detail items.",
+      "SyncActorTitle": "Sync from Compendium: {actor}",
+      "SyncActorUnresolved": "No compendium source was found for the {details} of {actor}. Those were left unchanged.",
       "TalentTreeClose": "Close Talent Tree",
       "TalentTreeOpen": "Open Talent Tree",
       "ToggleTree": "Toggle Talent Tree"
@@ -2068,6 +2071,10 @@
         "hint": "Which packs will be used as sources of ancestries during character creation.",
         "label": "Ancestry Sources"
       },
+      "archetype": {
+        "hint": "Which packs will be used as sources of adversary archetypes.",
+        "label": "Archetype Sources"
+      },
       "background": {
         "hint": "Which packs will be used as sources of backgrounds during character creation.",
         "label": "Background Sources"
@@ -2086,6 +2093,10 @@
       "talent": {
         "hint": "Which packs will be used as sources of talents for the talent tree.",
         "label": "Talent Sources"
+      },
+      "taxonomy": {
+        "hint": "Which packs will be used as sources of adversary taxonomies.",
+        "label": "Taxonomy Sources"
       }
     },
     "AutoConfirmAll": "Auto-Confirm All Actions",

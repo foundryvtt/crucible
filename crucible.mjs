@@ -418,18 +418,22 @@ Hooks.once("init", async function() {
     type: new fields.SchemaField({
       affix: fieldForType("ActiveEffect", "affix"),
       ancestry: fieldForType("Item", "ancestry"),
+      archetype: fieldForType("Item", "archetype"),
       background: fieldForType("Item", "background"),
       equipment: fieldForType("Item", null, "equipment"),
       spell: fieldForType("Item", "spell"),
-      talent: fieldForType("Item", "talent")
+      talent: fieldForType("Item", "talent"),
+      taxonomy: fieldForType("Item", "taxonomy")
     }),
     default: {
       affix: [SYSTEM.COMPENDIUM_PACKS.affix],
       ancestry: [SYSTEM.COMPENDIUM_PACKS.ancestry],
+      archetype: [SYSTEM.COMPENDIUM_PACKS.archetype],
       background: [SYSTEM.COMPENDIUM_PACKS.background],
       equipment: [SYSTEM.COMPENDIUM_PACKS.equipment],
       spell: [SYSTEM.COMPENDIUM_PACKS.spell],
-      talent: [SYSTEM.COMPENDIUM_PACKS.talent]
+      talent: [SYSTEM.COMPENDIUM_PACKS.talent],
+      taxonomy: [SYSTEM.COMPENDIUM_PACKS.taxonomy]
     },
     requiresReload: true
   });
