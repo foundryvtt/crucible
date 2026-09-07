@@ -1,8 +1,8 @@
 import {defineEnum} from "./enum.mjs";
 
 /**
- * Proficiencies are the things a character can be trained in: skills, weapon categories, spellcraft
- * families, and tradecrafts. Training is the process by which a proficiency is advanced, granted by
+ * Proficiencies are the things a character can be trained in: skills, weapon categories, and spellcraft
+ * families. Training is the process by which a proficiency is advanced, granted by
  * talents and creation options and allocated with Proficiency Points.
  *
  * Every proficiency lives here rather than beside the subsystem it belongs to, so the full set is
@@ -41,7 +41,11 @@ export const GROUPS = defineEnum({
   weapon: {label: "TRAINING.GROUPS.Weapon", color: Color.from("#c0553d")},
   equipment: {label: "TRAINING.GROUPS.Equipment", color: Color.from("#8a8f98")},
   spell: {label: "TRAINING.GROUPS.Spell", color: Color.from("#4d8fd1")},
-  craft: {label: "TRAINING.GROUPS.Craft", color: Color.from("#c9a227")}
+  trade: {
+    label: "TRAINING.GROUPS.Trade",
+    hint: "SKILL.CATEGORY.TRADE.hint",
+    color: Color.from("#c9a227")
+  }
 });
 
 /* -------------------------------------------- */
@@ -130,6 +134,56 @@ export const SKILLS = defineEnum({
     icon: "systems/crucible/icons/skills/performance.jpg",
     group: "soc",
     abilities: ["presence", "dexterity"]
+  },
+
+  // Trade Skills
+  alchemy: {
+    label: "TRAINING.LABELS.alchemy",
+    icon: "icons/consumables/potions/flask-corked-blue-glow.webp",
+    group: "trade",
+    abilities: ["intellect", "toughness"]
+  },
+  cooking: {
+    label: "TRAINING.LABELS.cooking",
+    icon: "icons/tools/cooking/pot-camping-iron-black.webp",
+    group: "trade",
+    abilities: ["wisdom", "toughness"]
+  },
+  enchanting: {
+    label: "TRAINING.LABELS.enchanting",
+    icon: "icons/magic/symbols/runes-triangle-blue.webp",
+    group: "trade",
+    abilities: ["intellect", "presence"]
+  },
+  fletching: {
+    label: "TRAINING.LABELS.fletching",
+    icon: "icons/weapons/ammunition/arrows-fletching.webp",
+    group: "trade",
+    abilities: ["strength", "wisdom"]
+  },
+  jewelcraft: {
+    label: "TRAINING.LABELS.jewelcraft",
+    icon: "icons/commodities/gems/gem-faceted-teardrop-blue.webp",
+    group: "trade",
+    abilities: ["wisdom", "strength"]
+  },
+  glyphweaving: {
+    label: "TRAINING.LABELS.glyphweaving",
+    icon: "icons/magic/symbols/rune-sigil-black-pink.webp",
+    group: "trade",
+    abilities: ["presence", "dexterity"]
+  },
+  smithing: {
+    label: "TRAINING.LABELS.smithing",
+    icon: "icons/skills/trades/smithing-anvil-silver-red.webp",
+    group: "trade",
+    abilities: ["strength", "intellect"]
+  },
+  tailoring: {
+    label: "TRAINING.LABELS.tailoring",
+    icon: "icons/commodities/cloth/thread-spindle-white.webp",
+    group: "trade",
+    abilities: ["dexterity", "presence"]
   }
 });
 
@@ -203,34 +257,6 @@ export const SPELLCRAFT = {
 };
 
 /* -------------------------------------------- */
-/*  Tradecrafts                                 */
-/* -------------------------------------------- */
-
-/**
- * Training categories which apply to tradecraft.
- * Icons are inherited from the talent which grants each training.
- * @type {Readonly<Record<string, {id: string, label: string, icon: string, abilities: string[]}>>}
- **/
-export const TRADECRAFTS = defineEnum({
-  alchemy: {label: "TRAINING.LABELS.alchemy", icon: "icons/consumables/potions/flask-corked-blue-glow.webp",
-    abilities: ["intellect", "toughness"]},
-  cooking: {label: "TRAINING.LABELS.cooking", icon: "icons/tools/cooking/pot-camping-iron-black.webp",
-    abilities: ["wisdom", "toughness"]},
-  enchanting: {label: "TRAINING.LABELS.enchanting", icon: "icons/magic/symbols/runes-triangle-blue.webp",
-    abilities: ["intellect", "presence"]},
-  fletching: {label: "TRAINING.LABELS.fletching", icon: "icons/weapons/ammunition/arrows-fletching.webp",
-    abilities: ["strength", "wisdom"]},
-  jewelcraft: {label: "TRAINING.LABELS.jewelcraft", icon: "icons/commodities/gems/gem-faceted-teardrop-blue.webp",
-    abilities: ["wisdom", "strength"]},
-  glyphweaving: {label: "TRAINING.LABELS.glyphweaving", icon: "icons/magic/symbols/rune-sigil-black-pink.webp",
-    abilities: ["presence", "dexterity"]},
-  smithing: {label: "TRAINING.LABELS.smithing", icon: "icons/skills/trades/smithing-anvil-silver-red.webp",
-    abilities: ["strength", "intellect"]},
-  tailoring: {label: "TRAINING.LABELS.tailoring", icon: "icons/commodities/cloth/thread-spindle-white.webp",
-    abilities: ["dexterity", "presence"]}
-});
-
-/* -------------------------------------------- */
 /*  The Full Set                                */
 /* -------------------------------------------- */
 
@@ -245,8 +271,7 @@ export const PROFICIENCIES = defineEnum({
   ...collect(SKILLS),
   ...collect(WEAPONS, "weapon"),
   ...collect(EQUIPMENT, "equipment"),
-  ...collect(SPELLCRAFT, "spell"),
-  ...collect(TRADECRAFTS, "craft")
+  ...collect(SPELLCRAFT, "spell")
 });
 
 /**
@@ -385,7 +410,7 @@ export const WEIGHT_MAX = 6;
  * Combat capability decides an encounter before expertise does, and a craft never decides one at all.
  * @type {readonly string[]}
  */
-const ALLOCATION_GROUP_PRIORITY = Object.freeze(["weapon", "spell", "equipment", "exp", "kno", "soc", "craft"]);
+const ALLOCATION_GROUP_PRIORITY = Object.freeze(["weapon", "spell", "equipment", "exp", "kno", "soc", "trade"]);
 
 /**
  * Proficiency ids in the order they claim a tied allocation point, before any Actor's aptitude is considered.

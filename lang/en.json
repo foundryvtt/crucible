@@ -2113,10 +2113,6 @@
   },
   "SKILL": {
     "CATEGORY": {
-      "CRAFTING": {
-        "hint": "Artisanal skills reflecting your character's ability to create items or equipment.",
-        "label": "Tradecraft"
-      },
       "EXPLORATION": {
         "hint": "Exploration skills pertain to your ability to traverse the world and meet its challenges.",
         "label": "Exploration"
@@ -2128,6 +2124,10 @@
       "SOCIAL": {
         "hint": "Social skills pertain to your character's ability to interact with other people or groups.",
         "label": "Social"
+      },
+      "TRADE": {
+        "hint": "Artisanal skills reflecting your character's ability to create items or equipment.",
+        "label": "Trade"
       }
     },
     "RANKS": {
@@ -2639,7 +2639,7 @@
     },
     "FIELDS": {
       "skills": {
-        "hint": "Identify skills or tradecraft which involves usage of this particular tool.",
+        "hint": "Identify skills which involve usage of this particular tool.",
         "label": "Related Skills"
       }
     }
@@ -2768,12 +2768,12 @@
       "wilderness": "Wilderness"
     },
     "GROUPS": {
-      "Craft": "Tradecraft Proficiencies",
       "Equipment": "Equipment Proficiencies",
       "Exploration": "Exploration Skills",
       "Knowledge": "Knowledge Skills",
       "Social": "Social Skills",
       "Spell": "Spellcraft Proficiencies",
+      "Trade": "Trade Skills",
       "Weapon": "Weapon Proficiencies"
     },
     "BonusTooltip": "Your current bonus to checks using this training.",

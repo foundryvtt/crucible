@@ -78,7 +78,7 @@ pages:
         deal half their normal damage and cannot contribute to Block or Parry
         defenses. Repairing a Broken weapon restores it to its original quality
         tier or a lesser quality tier depending on the result of the
-        <strong>Tradecraft </strong>skill check to repair the weapon.</p><h2
+        <strong>Trade </strong>skill check to repair the weapon.</p><h2
         class="divider">Enchantment Tier</h2><p><strong>Enchantment</strong> of
         a Weapon describes its level of magical imbuement. Enchantment tiers
         provide an additional bonus to attack rolls of the weapon and contribute
@@ -413,7 +413,7 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweaving}
         and
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.enchanting000000]{Enchanting}
-        tradeskills.</p><h2 class="divider">Prefix and Suffix</h2><p>Every affix
+        Trade Skills.</p><h2 class="divider">Prefix and Suffix</h2><p>Every affix
         is categorized as either a <strong>Prefix</strong> or a
         <strong>Suffix</strong>. This categorization determines how the affix
         contributes to the item's enchantment budget and how it modifies the

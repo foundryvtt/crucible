@@ -2070,10 +2070,6 @@
   },
   "SKILL": {
     "CATEGORY": {
-      "CRAFTING": {
-        "hint": "Umiejętności rzemieślnicze odzwierciedlające zdolność twojej postaci do tworzenia przedmiotów lub wyposażenia.",
-        "label": "Rzemiosło"
-      },
       "EXPLORATION": {
         "hint": "Umiejętności eksploracyjne odnoszą się do Twojej zdolności do przemierzania świata i stawiania czoła wyzwaniom, jakie on stawia.",
         "label": "Eksploracji"
@@ -2085,6 +2081,10 @@
       "SOCIAL": {
         "hint": "Umiejętności społeczne odnoszą się do zdolności twojej postaci do interakcji z innymi ludźmi lub grupami.",
         "label": "Społeczne"
+      },
+      "TRADE": {
+        "hint": "Umiejętności rzemieślnicze odzwierciedlające zdolność twojej postaci do tworzenia przedmiotów lub wyposażenia.",
+        "label": "Rzemiosło"
       }
     },
     "LABELS": {

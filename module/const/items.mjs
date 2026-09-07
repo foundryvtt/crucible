@@ -191,7 +191,7 @@ export const AFFIX_TYPES = Object.freeze({
 
 /**
  * The categories of "schematic" items which are allowed.
- * These categories map 1:1 to the tradecraft skills which are available in the system.
+ * These categories map 1:1 to the Trade Skills which are available in the system.
  * @type {Readonly<Record<string, CrucibleItemCategory>>}
  */
 export const SCHEMATIC_CATEGORIES = defineEnum({

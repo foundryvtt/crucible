@@ -57,7 +57,7 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Cooking</strong> is the tradecraft of combining commonly
+        <p><strong>Cooking</strong> is the craft of combining commonly
         available ingredients in order to prepare a consumable meal for
         sustenance. Well trained cooks can prepare hearty meals that bolster
         party performance and aid in the recovery of morale.</p>
@@ -322,10 +322,10 @@ pages:
         <p><strong>Schematics</strong> are items in Crucible which define the
         rules by which input items (often called "ingredients") are transformed
         into output items (often called "products") using the crafting system
-        and its set of Trades@UUID[.tradeskillsOverv]{Tradeskills}.</p><h2
+        and its set of @UUID[.tradeskillsOverv]{Trade Skills}.</p><h2
         class="divider">Schematic Definition</h2><p>Schematics have the
         following components:</p><dl><dt><p>Category</p></dt><dd><p>The category
-        of a schematic defines which Tradeskill is required to manufacture
+        of a schematic defines which Trade Skill is required to manufacture
         it.</p></dd><dt><p>Inputs</p></dt><dd><p>Schematic inputs define a set
         of ingredients which are required in order to manufacture it.
         Ingredients can be specified in groups, with each group having a
@@ -472,7 +472,7 @@ pages:
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!crucibleCrafting.obtainingIngredi'
   - sort: 0
-    name: Tradeskills Overview
+    name: Trade Skills Overview
     type: text
     category: UaoYAtq1fyu6uiPf
     _id: tradeskillsOverv
@@ -485,7 +485,7 @@ pages:
       format: 1
       content: >-
         <p></p><p><strong>Crafting</strong> in Crucible is performed using a set
-        of <strong>Tradeskills</strong> which, similar to adventuring
+        of <strong>Trade Skills</strong> which, like adventuring
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000]{Skills},
         are invested aspects of your character's identity obtained through
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
@@ -494,14 +494,14 @@ pages:
         class="construction"><p>The crafting system is under active development.
         Rules described here represent the intended design, but some details may
         not yet be fully automated.</p></section><section class="gameplay"><p>It
-        is not required for any character to invest into mastery of a
-        tradeskill, however it is generally recommended to select at least one
-        tradeskill to pursue in order to enjoy a well-rounded experience playing
+        is not required for any character to invest into mastery of a Trade
+        Skill, however it is generally recommended to select at least one Trade
+        Skill to pursue in order to enjoy a well-rounded experience playing
         Crucible, particularly if your game is a long-form
         campaign.</p></section><p>The information in this journal describes each
-        of the tradeskills, how schematics are defined and obtained, and how the
+        of the Trade Skills, how schematics are defined and obtained, and how the
         crafting process functions when using a schematic to turn input
-        ingredients into produced items.</p><h2 class="divider">Tradeskills
+        ingredients into produced items.</p><h2 class="divider">Trade Skills
         Table</h2><table><tbody><tr><th><p>Skill</p></th><th><p>Primary
         Ability</p></th><th><p>Secondary Ability</p></th><th><p>General
         Usage</p></th></tr><tr><td><p>@UUID[.alchemy000000000]</p></td><td><p>Intellect</p></td><td><p>Toughness</p></td><td><p>Potions,
@@ -541,7 +541,7 @@ pages:
     _key: '!journal.pages!crucibleCrafting.tradeskillsOverv'
 folder: MMeWpMmsLOblp07U
 categories:
-  - name: Tradeskills
+  - name: Trade Skills
     sort: 100000
     _id: UaoYAtq1fyu6uiPf
     flags: {}
