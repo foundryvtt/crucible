@@ -11,13 +11,20 @@ system:
   weight: 10
   description:
     public: >-
-      <p>A wooden box wrapped in leather containing a stone mortar and pestle,
-      spaces for securing several stoppered vials, a wooden spoon, and a small
-      collapsible iron frame and small brass pot for combining ingredients above
-      a fire.</p>
+      <p>A wooden box wrapped in leather containing a stone mortar and pestle, a
+      wooden spoon, and a small collapsible iron frame and brass pot for
+      combining ingredients above a fire.</p><p>Its real worth is what fills the
+      rest of it: stoppered vials of clear and cloudy liquid, twists of paper
+      holding powders, pouches of coarse salts, a stub of chalk, a sealed jar of
+      something that smells faintly of lightning. Each is racked in its own
+      place and labelled in a hand only its owner can read.</p><p>Carrying the
+      kit in your Toolbelt means those reagents are at your fingertips rather
+      than at the bottom of a pack, which is the difference between knowing the
+      answer and being able to apply it.</p>
     private: ''
   skills:
     - alchemy
+    - science
   broken: false
   equipped: false
   invested: false

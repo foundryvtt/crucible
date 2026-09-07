@@ -1,0 +1,61 @@
+folder: 4Ll3b4Q4us2mp4Fu
+name: Rapid Countermeasure
+type: talent
+img: icons/consumables/potions/bottle-conical-corked-blue.webp
+system:
+  description: >-
+    <p>Fire, frost, acid and the arc each obey rules, and those rules say what
+    answers them. Any student of the sciences can recite the list. Fewer can
+    find the right vial by touch while a companion is still burning.</p>
+  actions:
+    - id: rapidCountermeasure
+      name: Rapid Countermeasure
+      img: icons/consumables/potions/bottle-conical-corked-blue.webp
+      condition: You must have an Alchemist's Toolkit equipped in your Toolbelt.
+      description: >-
+        <p>You smother, douse, neutralize, or earth an elemental reaction
+        afflicting an ally you can touch. Remove one instance of
+        @Condition[burning], @Condition[freezing], @Condition[corroding], or
+        @Condition[shocked] from the target.</p><p>The reagents are drawn from
+        your Toolkit and are not otherwise tracked.</p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 2
+        self: true
+      effects: []
+      tags: []
+      summon: null
+  nodes:
+    - int1b
+  spellcraft: ''
+  iconicSpells: 0
+  training: science
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788810000000
+  modifiedTime: 1788810000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: rapidCountermeas
+sort: 100000
+_key: '!items!rapidCountermeas'

@@ -457,6 +457,7 @@
       "CannotUseTagGeneric": "with tag {tag}",
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "CannotHideEngaged": "You cannot Hide while you are engaged with an enemy.",
+      "GemConjuredFlameShoddy": "A Shoddy quality Gem of Conjured Flame fails to summon any elemental.",
       "HideObservers": "Additional Observers",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",
@@ -488,6 +489,7 @@
       "NoAbility": "{actor} has no {ability} score, and therefore cannot use {action}.",
       "NoConsumable": "No consumable Item identified for action \"{action}\"",
       "NoConsumableUses": "Consumable item \"{item}\" has no uses remaining for Action \"{action}\"",
+      "NoLanternOil": "You must have a unit of Lantern Oil in your inventory to light a lantern.",
       "NonCombat": "You may not use {action} during Combat.",
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
@@ -495,6 +497,8 @@
       "OncePerRound": "You may only perform the {action} action once per round.",
       "OncePerTurn": "You may only perform the {action} action once per turn.",
       "ReactionUnaware": "You may not use a reaction while Unaware!",
+      "RequiresAlchemistsToolkit": "You must have an Alchemist's Toolkit equipped in your Toolbelt.",
+      "RequiresElementalCondition": "{target} does not suffer an elemental condition which this action can affect.",
       "RequiresGesture": "You must know the Gesture required by this action.",
       "RequiresInflection": "You must know the Inflection required by this action.",
       "RequiresMelee": "You must have melee weapons equipped to use this action.",
@@ -506,6 +510,7 @@
       "RequiresTalisman": "{action} requires use of a Talisman weapon.",
       "RequiresTwoHanded": "This action requires a two-handed weapon equipped.",
       "RequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
+      "RestRecoverIncapacitated": "You may not Rest or Recover while Dead or Insane.",
       "Restrained": "You may not move while Restrained!",
       "Silenced": "You cannot use this action while Silenced.",
       "TargetTooLarge": "Target \"{target}\" is too large for {action}.",
@@ -1677,12 +1682,7 @@
   },
   "HOOKS": {
     "NoModuleHooks": "No module hooks are registered for this identifier.",
-    "ToggleSource": "Toggle Source",
-    "WARNINGS": {
-      "GemConjuredFlameShoddy": "A Shoddy quality Gem of Conjured Flame fails to summon any elemental.",
-      "NoLanternOil": "You must have a unit of Lantern Oil in your inventory to light a lantern.",
-      "RestRecoverIncapacitated": "You may not Rest or Recover while Dead or Insane."
-    }
+    "ToggleSource": "Toggle Source"
   },
   "HAZARD": {
     "DefaultActor": "Environment",

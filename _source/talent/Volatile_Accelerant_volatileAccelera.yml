@@ -1,0 +1,74 @@
+folder: 4Ll3b4Q4us2mp4Fu
+name: Volatile Accelerant
+type: talent
+img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+system:
+  description: >-
+    <p>A reaction already underway needs very little encouragement. It wants
+    fuel, or air, or a conductor, and you carry everything that is needed 
+    to make acceleration happen.</p>
+  actions:
+    - id: volatileAccelerant
+      name: Volatile Accelerant
+      img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+      condition: You must have an Alchemist's Toolkit equipped in your Toolbelt.
+      description: >-
+        <p>You throw a measure of oil, powdered metal, or biting salts onto an
+        enemy already suffering @Condition[burning], @Condition[freezing],
+        @Condition[corroding], or @Condition[shocked], performing a
+        <strong>Science</strong> skill attack against their
+        <strong>Fortitude</strong> defense.</p><p>Upon a
+        <strong>Success</strong> they sustain damage of the same type, and to
+        the same resource, as the reaction you fed, and its remaining duration
+        is extended by <strong>1 Round</strong>. Upon a <strong>Critical
+        Success</strong> the reaction
+        also burns hotter, increasing the damage it deals each round by
+        <strong>1</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This
+        action is intended to consume a unit of alchemical reagent from your
+        inventory, offering an alternative use for the same ingredients you
+        would otherwise craft with. That requirement is not yet implemented and
+        awaits the design of the crafting system.</p>
+      cost:
+        action: 2
+        focus: 1
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 5
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - fortitude
+        - skill
+        - science
+      summon: null
+  nodes:
+    - int2c
+  spellcraft: ''
+  iconicSpells: 0
+  training: science
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788810000000
+  modifiedTime: 1788810000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: volatileAccelera
+sort: 200000
+_key: '!items!volatileAccelera'
