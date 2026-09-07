@@ -287,7 +287,7 @@ export const statusEffects = {
     name: "ACTIVE_EFFECT.STATUSES.Decaying",
     img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     hud: false,
-    generator: EFFECTS.decay,
+    generator: EFFECTS.decaying,
     page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.decaying00000000"
   },
   dominated: {

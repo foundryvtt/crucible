@@ -151,6 +151,7 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
     img: "icons/magic/earth/orb-stone-smoke-teal.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
+    statuses: ["corroding"],
     system: {
       dot: [{
         amount,
@@ -162,12 +163,12 @@ export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
 }
 
 /**
- * Generate a standardized decay effect, dealing half-Presence in corruption damage to Health.
+ * Generate a standardized decaying effect, dealing half-Presence in corruption damage to Health.
  * @param {Actor} actor
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function decay(actor, {ability="presence", amount, turns=3}={}) {
+export function decaying(actor, {ability="presence", amount, turns=3}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Decaying"),
@@ -175,6 +176,7 @@ export function decay(actor, {ability="presence", amount, turns=3}={}) {
     img: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
+    statuses: ["decaying"],
     system: {
       dot: [{
         amount,
@@ -224,6 +226,7 @@ export function irradiated(actor, {ability="presence", amount, turns=1}={}) {
     img: "icons/magic/light/beams-rays-orange-purple-large.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
+    statuses: ["irradiated"],
     system: {
       dot: [{
         amount,
@@ -253,6 +256,7 @@ export function mending(actor, {ability="wisdom", amount, turns=1}={}) {
     img: "icons/magic/life/cross-beam-green.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
+    statuses: ["mending"],
     system: {
       dot: [{
         amount,
@@ -277,6 +281,7 @@ export function inspired(actor, {ability="presence", amount, turns=1}={}) {
     img: "icons/magic/light/explosion-star-glow-silhouette.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
+    statuses: ["inspired"],
     system: {
       dot: [{
         amount,
