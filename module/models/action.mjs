@@ -790,6 +790,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #sheet;
 
   /**
+   * Requirement tags this actor fails, keyed by tag id, with a reason as the value. Evaluated lazily.
+   * @type {Record<string, string>}
+   */
+  get unmetRequirements() {
+    return this._unmetRequirements ??= this.#testRequirements();
+  }
+
+  /**
+   * Cleared during _prepare, which the parent constructor reaches before subclass fields initialize, so the
+   * declaration must preserve whatever value was already written.
+   * @internal
+   */
+  _unmetRequirements = this._unmetRequirements;
+
+  /**
    * Has this action been prepared for a given Actor to use?
    * @internal
    */
@@ -2399,6 +2414,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _prepare() {
+    this._unmetRequirements = undefined;
 
     // Global preparation rules
     if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
@@ -2428,6 +2444,26 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         this.cost.heroism += shortfall;
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test which requirement tags this actor fails.
+   * @returns {Record<string, string>}
+   */
+  #testRequirements() {
+    const unmet = {};
+    if ( !this.actor ) return unmet;
+    for ( const tag of this.tags.tags() ) {
+      if ( !(tag.canUse instanceof Function) ) continue;
+      try {
+        if ( tag.canUse.call(this) === false ) unmet[tag.tag] = tag.tooltip ? _loc(tag.tooltip) : "";
+      } catch(err) {
+        unmet[tag.tag] = err.message;
+      }
+    }
+    return unmet;
   }
 
   /* -------------------------------------------- */
@@ -3180,7 +3216,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const t of this.tags ) {
       const tag = SYSTEM.ACTION.TAGS[t];
       if ( tag.internal ) continue;
-      else tags.action[tag.tag] = _loc(tag.label);
+      tags.action[tag.tag] = this.#formatActionTag(tag);
     }
 
     // Context Tags
@@ -3246,6 +3282,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       tags.activation.hands = {label, unmet};
     }
     return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render one action tag, marking it unmet if this actor fails its requirement.
+   * @param {ActionTag} tag   The tag configuration being rendered
+   * @returns {string|{label: string, unmet: boolean, tooltip: string}}
+   */
+  #formatActionTag(tag) {
+    const label = _loc(tag.label);
+    if ( !this.actor || !(tag.canUse instanceof Function) ) return label;
+    const reason = this.unmetRequirements[tag.tag];
+    if ( reason === undefined ) return label;
+    return {label, unmet: true, tooltip: reason || undefined};
   }
 
   /* -------------------------------------------- */
