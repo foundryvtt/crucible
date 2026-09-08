@@ -903,7 +903,6 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Cause this actor to receive the effects of an Action.
-   * This is used for cases like environmental hazards where the incoming action is not caused by a specific Actor.
    * @param {CrucibleAction} action                   The action being received
    * @param {Partial<AttackRollData>} [options]       Per-attack options that override action-level defaults
    * @returns {Promise<AttackRoll>}
@@ -930,14 +929,13 @@ export default class CrucibleActor extends Actor {
       multiplier: options.multiplier || 1
     };
 
-    // Target configuration (no attacker/hooks for hazards)
+    // Defender configuration, which may handle special cases like the "Environment" or the actor attacking themselves
     this._configureTargetRollData(action, rollData);
+    this.callActorHooks("defendAttack", action, action.actor, rollData);
 
-    // Create and evaluate the AttackRoll instance
+    // Create and evaluate the AttackRoll instance, resolving its outcome and damage result
     const roll = new AttackRoll(rollData);
     await roll.evaluate();
-
-    // Resolve the attack outcome and structured damage
     roll.resolveDamage(null, this, {
       multiplier: rollData.multiplier,
       base: bonuses.base ?? 0,

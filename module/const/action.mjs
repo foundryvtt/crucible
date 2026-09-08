@@ -2,7 +2,6 @@ import {SKILLS} from "./proficiencies.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import {MOVEMENT_ACTIONS} from "./actor.mjs";
 import {defineEnum, defineIntEnum} from "./enum.mjs";
-import AttackRoll from "../dice/attack-roll.mjs";
 
 /**
  * The different required conditions under which an Active Effect can be applied from an Action.
@@ -983,30 +982,8 @@ export const TAGS = {
       this.usage.damageType ??= "void";
     },
     async roll(target) {
-      const {bonuses, damageType, defenseType, resource} = this.usage;
-
-      // Create and evaluate a generic roll
-      const roll = new AttackRoll({
-        actorId: this.id,
-        target: target.uuid,
-        ability: bonuses.ability ?? 0,
-        skill: bonuses.skill ?? 0,
-        enchantment: bonuses.enchantment,
-        defenseType,
-        damageType,
-        dc: target.defenses[defenseType].total
-      });
-      await roll.evaluate();
-
-      // Resolve the outcome and structured damage against the target's defenses
-      roll.resolveDamage(this.actor, target, {
-        multiplier: bonuses.multiplier ?? 1,
-        base: bonuses.base ?? 0,
-        bonus: bonuses.damageBonus ?? 0,
-        resource,
-        damageType,
-        restoration: this.usage.restoration ?? false
-      });
+      const {multiplier, damageBonus} = this.usage.bonuses;
+      const roll = await target.receiveAttack(this, {multiplier, damageBonus});
       this.recordEvent({type: "strike", target, roll});
     }
   },
