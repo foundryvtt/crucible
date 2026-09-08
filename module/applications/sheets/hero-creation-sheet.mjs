@@ -287,10 +287,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     });
 
     // Talents
-    ancestry.features.push({
+    const talentItems = await Promise.all(talents.map(({item: uuid}) => this._renderFeatureItem(uuid)));
+    if ( talentItems.length ) ancestry.features.push({
       id: "talents",
       label: schema.getField("talents").label,
-      items: await Promise.all(talents.map(({item: uuid}) => this._renderFeatureItem(uuid)))
+      items: talentItems
     });
   }
 
