@@ -1374,7 +1374,7 @@ HOOKS.hamstring = {
  * @returns {string[]}
  */
 function _concealmentEffectIds() {
-  return ["hide", "sneak"].map(id => SYSTEM.EFFECTS.getEffectId(id, {suffix: "0"}));
+  return ["hide", "sneak"].map(id => SYSTEM.EFFECTS.getEffectId(id));
 }
 
 /* -------------------------------------------- */

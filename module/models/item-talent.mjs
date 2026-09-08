@@ -329,7 +329,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       prerequisites: reqs,
       origin: this.isOrigin ? _loc("TALENT.NODES.Origin") : null,
       training: this.training
-        ? _loc("TALENT.TrainingGrant", {training: _loc(SYSTEM.PROFICIENCIES[this.training].label)})
+        ? _loc("TALENT.TrainingGrant", {training: SYSTEM.PROFICIENCIES[this.training].label})
         : null
     });
   }

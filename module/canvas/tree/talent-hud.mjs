@@ -133,7 +133,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
       actions: await talent.prepareActionsContext(),
       prerequisites: reqs,
       training: training
-        ? _loc("TALENT.TrainingGrant", {training: _loc(SYSTEM.PROFICIENCIES[training].label)})
+        ? _loc("TALENT.TrainingGrant", {training: SYSTEM.PROFICIENCIES[training].label})
         : null
     };
   }
