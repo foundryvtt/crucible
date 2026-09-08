@@ -28,12 +28,15 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     talent: {
       template: "systems/crucible/templates/hud/talent-tree-talent.hbs",
       templates: ["systems/crucible/templates/sheets/item/talent-summary.hbs"]
+    },
+    ability: {
+      template: "systems/crucible/templates/hud/talent-tree-ability.hbs"
     }
   };
 
   /**
-   * The target of the HUD, either a Node or a Talent
-   * @type {CrucibleTalentTreeNode|CrucibleTalentTreeTalent}
+   * The target of the HUD: a Node, a Talent, or an ability score text.
+   * @type {CrucibleTalentTreeNode|CrucibleTalentTreeTalent|foundry.canvas.containers.PreciseText}
    */
   target;
 
@@ -42,8 +45,18 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
   /** @override */
   _configureRenderParts(options) {
     const parts = foundry.utils.deepClone(this.constructor.PARTS);
-    if ( this.target instanceof CrucibleTalentTreeNode ) delete parts.talent;
-    else delete parts.node;
+    if ( this.target instanceof CrucibleTalentTreeNode ) {
+      delete parts.talent;
+      delete parts.ability;
+    }
+    else if ( this.target instanceof CrucibleTalentTreeTalent ) {
+      delete parts.node;
+      delete parts.ability;
+    }
+    else {
+      delete parts.node;
+      delete parts.talent;
+    }
     return parts;
   }
 
@@ -52,7 +65,8 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
   /** @inheritDoc */
   async _prepareContext(_options) {
     if ( this.target instanceof CrucibleTalentTreeNode ) return this.#getNodeContext();
-    else return this.#getTalentContext();
+    if ( this.target instanceof CrucibleTalentTreeTalent ) return this.#getTalentContext();
+    return this.#getAbilityContext();
   }
 
   /* -------------------------------------------- */
@@ -98,6 +112,21 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
       tags: reqTags
     });
     return {id: node.id, tagGroups};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare rendering context data for an ability score.
+   * @returns {object}
+   */
+  #getAbilityContext() {
+    const cfg = SYSTEM.ABILITIES[this.target.abilityId];
+    const tooltipHTML = _loc(cfg.tooltip);
+    return {
+      label: cfg.label,
+      descriptionHTML: tooltipHTML.replace(/^<h3[\s\S]*?<\/h3>\s*/, "")
+    };
   }
 
   /* -------------------------------------------- */
@@ -175,7 +204,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
 
   /**
    * Activate this HUD element, binding it to a target.
-   * @param {CrucibleTalentTreeNode|CrucibleTalentTreeTalent} target    The target for the HUD
+   * @param {CrucibleTalentTreeNode|CrucibleTalentTreeTalent|foundry.canvas.containers.PreciseText} target
    * @returns {Promise<*>}
    */
   async activate(target) {

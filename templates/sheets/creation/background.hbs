@@ -48,8 +48,8 @@
         <p id="ability-points"><span class="points">{{abilities.points.pool}}</span> {{localize "TALENT.LABELS.Points.other"}}</p>
         {{#each abilities.abilities as |ability|}}
         <div class="ability flexrow" data-ability="{{ability.id}}">
-            <h4>{{ability.label}}</h4>
-            <span class="score hex {{ability.group}}">{{ability.total}}</span>
+            <h4 data-tooltip="{{ability.tooltip}}" data-tooltip-class="crucible crucible-tooltip">{{ability.label}}</h4>
+            <span class="score hex {{ability.group}}" data-tooltip="{{ability.tooltip}}" data-tooltip-class="crucible crucible-tooltip">{{ability.total}}</span>
             <span class="increases">{{ability.increases}}</span>
             <div class="buttons flexcol">
                 <button type="button" class="plain icon fa-solid fa-caret-up" data-action="abilityIncrease"
