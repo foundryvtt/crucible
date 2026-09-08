@@ -628,9 +628,9 @@ export const COMPOSED_SPELL_NAMES = {
  * Rebuilding mutates in place because Talent schema fields captured this object as their choices.
  */
 export function initializeComponents() {
-  for ( const [type, group] of [["rune", "SPELL.COMPONENTS.RunePl"], ["gesture", "SPELL.COMPONENTS.GesturePl"],
-    ["inflection", "SPELL.COMPONENTS.InflectionPl"]] ) {
-    for ( const [id, c] of Object.entries(COMPONENT_RECORDS[type]) ) COMPONENTS[id] = {id, label: c.name, group, type};
+  for ( const [type, records] of Object.entries(COMPONENT_RECORDS) ) {
+    const group = `SPELL.COMPONENTS.${type.capitalize()}Pl`;
+    for ( const [id, c] of Object.entries(records) ) COMPONENTS[id] = {id, label: c.name, group, type};
   }
 }
 initializeComponents();

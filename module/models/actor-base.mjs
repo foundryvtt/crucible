@@ -453,16 +453,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Grant one training point for each proficiency a Background names.
-   * Ancestry is biology rather than upbringing and grants none; Archetype numbers are allocation weights, not points.
+   * Prepare training for all Actor subtypes.
    * @protected
    */
-  _prepareTraining() {
-    for ( const type of this.details.background?.training ?? [] ) {
-      const t = this.training[type];
-      if ( t ) t.initial += 1;
-    }
-  }
+  _prepareTraining() {}
 
   /* -------------------------------------------- */
 
