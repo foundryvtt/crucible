@@ -401,14 +401,13 @@ export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
 }
 
 /**
- * Generate a standardized hexed effect, applying the hexed status condition to the target.
- * Change keys are resolved against the Document, so the "system." prefix is required.
+ * Generate a standardized hexed effect.
  * @param {Actor} actor
  * @param {{turns?: number}} [options]
  * @returns {Partial<ActiveEffectData>}
  */
 export function hexed(actor, {turns=1}={}) {
-  let {name, img} = CONFIG.statusEffects.hexed.name;
+  let {name, img} = CONFIG.statusEffects.hexed;
   name = _loc(name);
   return {
     _id: getEffectId("Hexed"),
@@ -429,7 +428,7 @@ export function hexed(actor, {turns=1}={}) {
 /**
  * Generate a standardized staggered effect, applying the staggered status condition to the target.
  * @param {Actor} actor
- * @param {CrucibleDoTConfig} options
+ * @param {{turns?: number}} [options]
  * @returns {Partial<ActiveEffectData>}
  */
 export function staggered(actor, {turns=1}={}) {

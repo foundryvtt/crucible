@@ -106,7 +106,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
       }, {});
     }
 
-    /** @deprecated since 0.9.2 */
+    /** @deprecated since 0.10.3 */
     if ( source.skills ) {
       source.training ??= {};
       for ( const skillId of source.skills ) {

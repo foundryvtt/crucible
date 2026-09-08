@@ -80,12 +80,7 @@ export const TALENT_ID_MIGRATIONS = {
   runetime00000000: "Compendium.crucible.talent.Item.runeIllusion0000",
   runevoid00000000: "Compendium.crucible.talent.Item.runeOblivion0000",
 
-  /*
-   * Weapon Trainings, renamed to the action each carries. Training ceased to be the point of these talents,
-   * so each is now named for what it actually does and contributes its training point as a side effect.
-   * Two of the ids they reclaim, lunge and shieldBash, were previously migrated away from and now point at
-   * themselves once more, so those entries are gone rather than inverted.
-   */
+  // Weapon Trainings
   heavystrike00000: "Compendium.crucible.talent.Item.heavyStrike00000",
   heavyWeaponTrain: "Compendium.crucible.talent.Item.heavyStrike00000",
   lightWeaponTrain: "Compendium.crucible.talent.Item.lunge00000000000",

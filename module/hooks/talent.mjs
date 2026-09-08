@@ -437,7 +437,7 @@ HOOKS.carefree00000000 = {
 
 HOOKS.chameleon0000000 = {
   prepareActions(_item, actions) {
-    if ( !this.effects.has(SYSTEM.EFFECTS.getEffectId("hide", {suffix: "0"})) ) return;
+    if ( !this.effects.has(SYSTEM.EFFECTS.getEffectId("hide")) ) return;
     actions.move?.tags.add("subtle");
   }
 };
@@ -935,7 +935,7 @@ HOOKS.hide000000000000 = {
     rollData.dc = target.skills.awareness.passive;
   },
   preActivateAction(_item, action) {
-    const effectId = SYSTEM.EFFECTS.getEffectId("hide", {suffix: "0"});
+    const effectId = SYSTEM.EFFECTS.getEffectId("hide");
     if ( !this.effects.has(effectId) || action.tags.has("subtle") ) return;
     // noinspection ES6MissingAwait
     this.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
@@ -1253,7 +1253,6 @@ HOOKS.nosferatu0000000 = {
 /* -------------------------------------------- */
 
 HOOKS.orbitingAegis000 = {
-  // Action effects carry no explicit _id, so the id is derived: getEffectId("orbitingAegis", {suffix: "0"})
   _EFFECT_ID: "orbitingAegis000",
   prepareDefenses(_item, defenses) {
     if ( !this.effects.has(HOOKS.orbitingAegis000._EFFECT_ID) ) return;
