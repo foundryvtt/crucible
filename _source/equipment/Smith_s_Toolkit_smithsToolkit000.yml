@@ -11,8 +11,9 @@ system:
   weight: 12
   description:
     public: >-
-      <p>A leather-bound wooden kitbag. Contains awls, pincers, scrap metal and
-      a small anvil as well as space for storing bits of scrap metal.</p>
+      <p>A leather-bound wooden kitbag containing awls, pincers, a small hammer,
+      sharpening stones and a grinder, and a small anvil, with space set aside
+      for storing bits of scrap metal.</p>
     private: ''
   skills:
     - smithing

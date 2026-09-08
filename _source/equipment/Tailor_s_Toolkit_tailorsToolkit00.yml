@@ -11,9 +11,9 @@ system:
   weight: 20
   description:
     public: >-
-      <p>A leather-bound wooden kitbag containing spools for thread, suitable
-      needles and pins, a skinning knife awls, suitable for working with cloth
-      and leather.</p>
+      <p>A leather-bound wooden kitbag containing spools of thread, needles and
+      pins, scissors, a skinning knife, and awls, with space set aside for
+      scraps of cloth and leather.</p>
     private: ''
   skills:
     - tailoring
