@@ -844,7 +844,9 @@
         "cyclePace": "Cycle Pace",
         "medianLevel": "Median Level",
         "recover": "Recover",
-        "rest": "Rest"
+        "recoverTooltip": "<h3 class=\"tooltip-title divider\">Recover</h3><p>A short rest requiring 10 minutes. All group members fully replenish Health, Morale, Action, and Focus. Any existing Heroism is removed. Temporary effects with a short duration end. Recover does not reduce Wounds or Madness.</p>",
+        "rest": "Rest",
+        "restTooltip": "<h3 class=\"tooltip-title divider\">Rest</h3><p>A long rest requiring 10 hours. Delivers all Recover benefits, and heroes reduce accumulated Wounds and Madness by their character level. Temporary effects with a longer duration also end.</p>"
       },
       "REST": {
         "FIELDS": {
