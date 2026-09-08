@@ -8,7 +8,6 @@ export default class CrucibleBackgroundItem extends foundry.abstract.TypeDataMod
   /**
    * How many of each grant a Background is expected to provide. Training and Talents are capped at these numbers,
    * since a hero's whole starting allotment comes from them; Knowledge and Languages are advisory.
-   * A single training point is half a rank at level 1, so each leaves a stub which one Talent completes.
    * @type {Readonly<Record<string, number>>}
    */
   static GRANTS = Object.freeze({

@@ -156,15 +156,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   };
 
   /**
-   * Express a point total as a percentage of the maximum any training may hold, for use as a CSS width.
-   * @param {number} points
-   * @returns {string}
-   */
-  static #trainingPct(points) {
-    return `${(Math.clamp(points / SYSTEM.PROFICIENCY.POINTS_MAX, 0, 1) * 100).toFixed(2)}%`;
-  }
-
-  /**
    * The number of resource pips rendered for each resource.
    * @type {Record<string, number>}
    */
@@ -864,13 +855,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       abilityAbbrs: abilities.map(a => SYSTEM.ABILITIES[a].abbreviation),
       hexClass: abilities.toSorted().join("-"),
       tooltips: {
-        value: _loc("TRAINING.TooltipCheck", {
-          abilities: abilities.map(a => `${actor.system.abilities[a].value} ${SYSTEM.ABILITIES[a].abbreviation}`)
-            .join(" + "),
-          divisor: abilities.length * 2,
-          rank: rank.label, skill: t.skillBonus.signedString(), enchantment: t.enchantmentBonus.signedString()
-        }),
-        passive: _loc("TRAINING.TooltipPassive", {score: t.score}),
+        value: CrucibleBaseActorSheet.#sumExpression([
+          // Only the labels within the formula are localized; its notation is arithmetic, not prose
+          `[(${abilities.map(a => `${actor.system.abilities[a].value} ${SYSTEM.ABILITIES[a].abbreviation}`)
+            .join(" + ")}) / ${abilities.length * 2}]`,
+          t.skillBonus, rank.label,
+          t.enchantmentBonus, _loc("DICE.Enchantment")
+        ]),
+        passive: CrucibleBaseActorSheet.#sumExpression([SYSTEM.PASSIVE_BASE, t.score]),
         points: this.#prepareTrainingBreakdown(t, ctx)
       },
       capTick: atCap ? {left: CrucibleBaseActorSheet.#trainingPct(ctx.cap), label: ctx.capLabel} : null,
@@ -1314,10 +1306,13 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( !confirm ) return;
     const {toCreate, toUpdate, toDelete} = await this.actor.syncTalents();
     const {applied, unresolved} = await this.actor.syncDetailItems();
-    ui.notifications.info(_loc("ACTOR.ACTIONS.SyncActorResult", {actor: this.actor.name,
-      synced: toCreate.length + toUpdate.length, deleted: toDelete.length, details: applied.length}));
-    if ( unresolved.length ) ui.notifications.warn(_loc("ACTOR.ACTIONS.SyncActorUnresolved", {actor: this.actor.name,
-      details: unresolved.join(", ")}));
+    ui.notifications.info(_loc("ACTOR.ACTIONS.SyncActorResult", {
+      actor: this.actor.name, synced: toCreate.length + toUpdate.length, deleted: toDelete.length,
+      details: applied.length
+    }));
+    if ( unresolved.length ) ui.notifications.warn(_loc("ACTOR.ACTIONS.SyncActorUnresolved", {
+      actor: this.actor.name, details: unresolved.join(", ")
+    }));
   }
 
   /* -------------------------------------------- */
@@ -1450,5 +1445,34 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Create the new item
     const itemData = this.actor._cleanItemData(item);
     await Item.implementation.create(itemData, {parent: this.actor, keepId: !isPhysical});
+  }
+
+  /* -------------------------------------------- */
+  /*  Formatting Helpers                          */
+  /* -------------------------------------------- */
+
+  /**
+   * Express a point total as a percentage of the maximum any training may hold, for use as a CSS width.
+   * @param {number} points
+   * @returns {string}
+   */
+  static #trainingPct(points) {
+    return `${(Math.clamp(points / SYSTEM.PROFICIENCY.POINTS_MAX, 0, 1) * 100).toFixed(2)}%`;
+  }
+
+  /* -------------------------------------------- */
+  /**
+   * Join terms into an additive expression, each operator taking the sign of the term which follows it.
+   * @param {Array<string|number>} terms   Terms in display order
+   * @returns {string}                     For example "12 - 3"
+   */
+  static #sumExpression(terms) {
+    let expression = "";
+    for ( const term of terms ) {
+      if ( !expression ) expression = String(term);
+      else if ( typeof term === "string" ) expression += ` ${term}`;
+      else expression += ` ${term < 0 ? "-" : "+"} ${Math.abs(term)}`;
+    }
+    return expression;
   }
 }

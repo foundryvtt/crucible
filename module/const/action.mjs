@@ -422,7 +422,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.VocalTooltip",
     category: "requirements",
     canUse() {
-      if ( this.actor.statuses.has("silenced") ) throw new Error(game.i18n.localize("ACTION.WARNINGS.Silenced"));
+      if ( this.actor.statuses.has("silenced") ) throw new Error(_loc("ACTION.WARNINGS.Silenced"));
     }
   },
 

@@ -1023,7 +1023,16 @@ pages:
         data-colwidth="50"><p>+3</p></td><td><p>Master</p></td><td><p>You have
         mastered this skill. There is nothing more to learn about
         it.</p></td></tr></tbody></table><p>A rank is attained the moment its
-        point requirement is met.</p><h2 class="divider">Untrained
+        point requirement is met.</p><h2 class="divider">Training Cap</h2><p>A
+        single Proficiency may hold no more than <strong>two points per
+        character level</strong>. You may not allocate a Proficiency Point into
+        a training which has already reached that limit, though points granted
+        by your Background, your Talents, or another bonus may still carry a
+        training past it. Points above the cap are retained and begin to count
+        as your level rises, but until then they contribute neither rank nor
+        bonus.</p><p>The cap stops rising at <strong>30</strong> points, the
+        requirement for <strong>Master</strong>, which is therefore out of reach
+        until level 15.</p><h2 class="divider">Untrained
         Penalty</h2><p>While untrained, you have an initial penalty to your
         skill of <strong>-4</strong>. This penalty is reduced to
         <strong>-2</strong> once you have a single Proficiency point invested,
