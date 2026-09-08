@@ -95,8 +95,8 @@
         <h3>{{localize "ACTOR.SHEET.Abilities"}}</h3>
         {{#each abilityScores as |ability|}}
         <div class="ability {{ability.id}} {{ability.type}} flexcol" data-ability="{{ability.id}}">
-            <h4 class="label">{{ability.label}}</h4>
-            <span class="input score">{{ability.value}}</span>
+            <h4 class="label" data-tooltip="{{ability.tooltip}}" data-tooltip-class="crucible crucible-tooltip">{{ability.label}}</h4>
+            <span class="input score" data-tooltip="{{ability.tooltip}}" data-tooltip-class="crucible crucible-tooltip">{{ability.value}}</span>
         </div>
         {{/each}}
     </div>

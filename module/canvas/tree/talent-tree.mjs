@@ -224,6 +224,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
       const angle = 30 + (i * 60);
       const r = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), 220);
       text.position.set(r.B.x, r.B.y);
+      text.abilityId = abilityId;
+      text.hitArea = new PIXI.Circle(0, 0, 24);
       this.background.addChild(text);
       scores[abilityId] = text;
     }
@@ -590,6 +592,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.nodes.eventMode = "passive";       // Capture hover/click events on nodes
     this.background.backdrop.eventMode = "static"; // Capture drag events on the backdrop
     this.foreground.eventMode = "passive";  // Capture hover/click events on the wheel
+    this.#activateAbilityScoreTooltips();
 
     // Mouse Interaction Manager
     this.interactionManager = new foundry.canvas.interaction.MouseInteractionManager(this, this, {}, {
@@ -607,6 +610,44 @@ export default class CrucibleTalentTree extends PIXI.Container {
     window.addEventListener("resize", this.#onResize.bind(this));
     window.addEventListener("wheel", this.#onWheel.bind(this), {passive: false});
     this.#onResize();  // Set initial dimensions
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Activate pointer events on talent-tree ability score numbers.
+   */
+  #activateAbilityScoreTooltips() {
+    for ( const abilityId of CrucibleTalentTree.#SEXTANT_ABILITIES ) {
+      const text = this.abilities[abilityId];
+      text.removeAllListeners();
+      text.eventMode = "static";
+      text.cursor = "pointer";
+      text.on("pointerover", this.#onAbilityPointerOver.bind(this));
+      text.on("pointerout", this.#onAbilityPointerOut.bind(this));
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle pointer-over events on an ability score.
+   * @param {PIXI.FederatedEvent} event
+   */
+  #onAbilityPointerOver(event) {
+    if ( !this.rendering || (event.nativeEvent.target !== this.canvas) || this.hud.target?.isLocked ) return;
+    this.hud.activate(event.currentTarget);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle pointer-out events on an ability score.
+   * @param {PIXI.FederatedEvent} event
+   */
+  #onAbilityPointerOut(event) {
+    if ( !this.rendering || (event.nativeEvent.target !== this.canvas) || this.hud.target?.isLocked ) return;
+    this.hud.clear();
   }
 
   /* -------------------------------------------- */

@@ -3,12 +3,12 @@ import {defineEnum} from "./enum.mjs";
 /**
  * The primary attributes which are called abilities.
  * @type {{
- *   strength: {id: string, label: string, abbreviation: string},
- *   toughness: {id: string, label: string, abbreviation: string},
- *   dexterity: {id: string, label: string, abbreviation: string},
- *   intellect: {id: string, label: string, abbreviation: string},
- *   presence: {id: string, label: string, abbreviation: string},
- *   wisdom: {id: string, label: string, abbreviation: string}
+ *   strength: {id: string, label: string, abbreviation: string, tooltip: string},
+ *   toughness: {id: string, label: string, abbreviation: string, tooltip: string},
+ *   dexterity: {id: string, label: string, abbreviation: string, tooltip: string},
+ *   intellect: {id: string, label: string, abbreviation: string, tooltip: string},
+ *   presence: {id: string, label: string, abbreviation: string, tooltip: string},
+ *   wisdom: {id: string, label: string, abbreviation: string, tooltip: string}
  * }}
  */
 export const ABILITIES = Object.freeze({
@@ -16,6 +16,7 @@ export const ABILITIES = Object.freeze({
     id: "wisdom",
     label: "ABILITIES.Wisdom",
     abbreviation: "ABILITIES.WisdomAbbr",
+    tooltip: "ABILITIES.TOOLTIPS.Wisdom",
     type: "mental",
     group: "ABILITIES.GROUPS.Power",
     groupInternal: "power",
@@ -27,6 +28,7 @@ export const ABILITIES = Object.freeze({
     id: "presence",
     label: "ABILITIES.Presence",
     abbreviation: "ABILITIES.PresenceAbbr",
+    tooltip: "ABILITIES.TOOLTIPS.Presence",
     type: "mental",
     group: "ABILITIES.GROUPS.Resilience",
     groupInternal: "resilience",
@@ -38,6 +40,7 @@ export const ABILITIES = Object.freeze({
     id: "intellect",
     label: "ABILITIES.Intellect",
     abbreviation: "ABILITIES.IntellectAbbr",
+    tooltip: "ABILITIES.TOOLTIPS.Intellect",
     type: "mental",
     group: "ABILITIES.GROUPS.Speed",
     groupInternal: "speed",
@@ -49,6 +52,7 @@ export const ABILITIES = Object.freeze({
     id: "strength",
     label: "ABILITIES.Strength",
     abbreviation: "ABILITIES.StrengthAbbr",
+    tooltip: "ABILITIES.TOOLTIPS.Strength",
     type: "physical",
     group: "ABILITIES.GROUPS.Power",
     groupInternal: "power",
@@ -60,6 +64,7 @@ export const ABILITIES = Object.freeze({
     id: "toughness",
     label: "ABILITIES.Toughness",
     abbreviation: "ABILITIES.ToughnessAbbr",
+    tooltip: "ABILITIES.TOOLTIPS.Toughness",
     type: "physical",
     group: "ABILITIES.GROUPS.Resilience",
     groupInternal: "resilience",
@@ -71,6 +76,7 @@ export const ABILITIES = Object.freeze({
     id: "dexterity",
     label: "ABILITIES.Dexterity",
     abbreviation: "ABILITIES.DexterityAbbr",
+    tooltip: "ABILITIES.TOOLTIPS.Dexterity",
     type: "physical",
     group: "ABILITIES.GROUPS.Speed",
     groupInternal: "speed",
