@@ -2781,9 +2781,7 @@
     "Decrease": "Reclaim a Proficiency Point",
     "Increase": "Allocate a Proficiency Point",
     "PassiveTooltip": "Your passive score for this training.",
-    "PointsTooltip": "{points} training points accumulated, from every source.",
-    "TooltipCheck": "[({abilities}) / {divisor}] {skill} {rank} {enchantment} Enchantment",
-    "TooltipPassive": "12 + {score}"
+    "PointsTooltip": "{points} training points accumulated, from every source."
   },
   "WEAPON": {
     "CATEGORIES": {
