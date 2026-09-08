@@ -1598,7 +1598,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 3
     },
-    tags: ["awareness", "subtle"]
+    tags: ["awareness", "subtle", "harmless"]
   },
 
   // Basic Strike
