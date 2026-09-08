@@ -28,48 +28,61 @@ function applyRuneCritEffect(actor, action, runeId, effectFactory, {condition}={
 /* -------------------------------------------- */
 
 /**
- * Damage the Morale of enemies who witness a foe fall to this Action.
- * Resource deltas are only realized once `_resolveEventStream` has run, so this must be called from `finalizeAction`.
- * A witness is affected at most once however many foes fell, and the fallen never witness one another.
- * @param {CrucibleActor} actor                                       The Actor whose talent is reacting
- * @param {CrucibleAction} action                                     The Action which felled a foe
- * @param {object} options
- * @param {(target: CrucibleActor, deltas: Record<string, number>) => boolean} options.test  Did this target just fall?
- * @param {number} options.radius                                     Radius in feet around each fallen foe
- * @param {string} options.wallType                                   The wall restriction which obstructs the wave
- * @param {number} options.amount                                     Morale damage inflicted upon each witness
- * @param {string} options.label                                      Scrolling status text shown on each witness
+ * @typedef {(actor: CrucibleActor, deltas: Record<string, number>) => boolean} MoraleWaveTest
  */
-function applyMoraleWave(actor, action, {test, radius, wallType, amount, label}) {
-  if ( !action.token || !(amount > 0) ) return;
 
-  // Identify which targets this Action drove into the state, from the deltas it actually realized
-  const fallen = new Set();
-  for ( const [target, events] of action.eventsByTarget ) {
-    if ( target === actor ) continue;
+/**
+ * Damage or restore the Morale of enemies or allies who witness a specific outcome from an Action.
+ * Resource deltas are only realized once `_resolveEventStream` has run, so this must be called from `finalizeAction`.
+ * A witness is affected at most once for a given wave, though if the action results in multiple waves, they may
+ * potentially be affected by each. A wave source is never considered a witness to its wave, nor is the originator of
+ * the action.
+ * @param {CrucibleActor} actor                         The Actor whose talent is reacting
+ * @param {CrucibleAction} action                       The Action which prompts the wave
+ * @param {object} options
+ * @param {MoraleWaveTest} options.test                 Is this actor a wave source?
+ * @param {number} options.radius                       Radius in feet around each wave source
+ * @param {number} options.amount                       Morale damage/recovery applied to each witness
+ * @param {string} options.label                        Scrolling status text shown on each witness
+ * @param {string} [options.wallType]                   The wall restriction which obstructs the wave
+ * @param {"ally"|"enemy"|"all"} [options.disposition]  Which disposition (relative to action-taking token) to affect
+ * @param {boolean} [options.restoration]               Whether the morale change should be restoration
+ * @param {"targets"|"any"} [options.sources]           Which actors may source a wave. Defaults to targets of the
+ *                                                      Action, since a side effect upon a bystander should not radiate
+ */
+function applyMoraleWave(actor, action, {test, radius, amount, label, wallType="sight", disposition="enemy",
+  restoration=false, sources="targets"}) {
+  if ( !action.token || !(amount > 0) ) return;
+  const delta = amount * (restoration ? 1 : -1);
+
+  // Identify which actors this Action drove into the state, from the deltas it actually realized
+  const waveSources = new Set();
+  for ( const [candidate, events] of action.eventsByActor ) {
+    if ( (sources === "targets") && !events.isTarget ) continue;
     const deltas = {};
     for ( const event of events.all ) {
       for ( const {resource, delta} of event.resources ) deltas[resource] = (deltas[resource] ?? 0) + delta;
     }
-    if ( test(target, deltas) ) fallen.add(target);
+    if ( test(candidate, deltas) ) waveSources.add(candidate);
   }
-  if ( !fallen.size ) return;
+  if ( !waveSources.size ) return;
 
-  // Spread the wave outward from each body, never striking the same witness twice
+  // Spread the wave outward from each source, never affecting the same witness twice
   const affected = new Set();
-  for ( const target of fallen ) {
-    const token = action.targets.get(target)?.token ?? target.getActiveTokens(true, true)[0]?.document;
+  for ( const source of waveSources ) {
+    const token = source === action.actor ? action.token
+      : (action.targets.get(source)?.token ?? source.getActiveTokens(true, true)[0]);
     if ( !token ) continue;
     const witnesses = crucible.api.canvas.grid.getTokensInRange(token, radius, {
       wallType,
-      disposition: "enemy",
+      disposition,
       relativeTo: action.token,
-      exclude: t => (t.actor === actor) || fallen.has(t.actor) || affected.has(t.actor)
+      exclude: t => (t.actor === actor) || waveSources.has(t.actor) || affected.has(t.actor)
     });
     for ( const {token: witness} of witnesses ) {
       affected.add(witness.actor);
-      action.recordEvent({target: witness.actor, resources: [{resource: "morale", delta: -amount}],
-        statusText: [{text: label, fillColor: SYSTEM.RESOURCES.morale.color.high.css}]});
+      action.recordEvent({target: witness.actor, resources: [{resource: "morale", delta}],
+        statusText: [{text: label, fillColor: SYSTEM.RESOURCES.morale.color[restoration ? "heal" : "high"].css}]});
     }
   }
 }
@@ -1894,6 +1907,25 @@ HOOKS.swashbuckler0000 = {
       target: attacker,
       resources: [{resource: "morale", delta: -morale}],
       statusText: [{text: item.name, fillColor: SYSTEM.RESOURCES.morale.color.high.css}]
+    });
+  },
+  finalizeAction(item, action) {
+    let isCrit = false;
+    for ( const [target, events] of action.eventsByTarget ) {
+      if ( !events.isCriticalSuccess || (target === action.actor) ) continue;
+      isCrit = true;
+      break;
+    }
+    if ( !isCrit ) return;
+    applyMoraleWave(this, action, {
+      test: actor => actor === action.actor,
+      radius: 30,
+      wallType: "sight",
+      amount: this.abilities.presence.value,
+      label: item.name,
+      disposition: "ally",
+      restoration: true,
+      sources: "any" // The wave radiates from the Swashbuckler, who is never a target of their own Action
     });
   }
 };
