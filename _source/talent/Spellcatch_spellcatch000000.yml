@@ -3,8 +3,9 @@ type: talent
 img: icons/magic/defensive/shield-barrier-blades-teal.webp
 system:
   description: >-
-    <p>Where another would flinch aside, you reach out and take hold. A spell
-    meant for you is caught upon your implement and wrung dry.</p>
+    <p>A spell cast towards you is something to grasp rather than avoid. You
+    have learned a technique to catch an incoming spell
+    with your Talisman and extract its essence for your own purposes.</p>
   actions:
     - id: spellcatch
       name: Spellcatch
@@ -53,7 +54,7 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788315678415
+  modifiedTime: 1788877658777
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

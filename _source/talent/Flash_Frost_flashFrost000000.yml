@@ -5,9 +5,9 @@ system:
   nodes:
     - int4a
   description: >-
-    <p>You freeze with the speed of thought, cold striking in an instant rather
-    than creeping in slowly. Your usage of the <strong>Rune of Frost</strong>
-    scales with <strong>Intellect</strong> instead of
+    <p>You freeze with the speed of thought, creating cold that arrives all at
+    once. Your usage of the <strong>Rune of
+    Frost</strong> scales with <strong>Intellect</strong> instead of
     <strong>Wisdom</strong>.</p>
   actions: []
   rune: ''
@@ -25,12 +25,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.2
   createdTime: 1765571304162
-  modifiedTime: 1781027689603
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788877854657
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: flashFrost000000
 sort: 0
 _key: '!items!flashFrost000000'

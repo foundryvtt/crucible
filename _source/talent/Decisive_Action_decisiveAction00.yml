@@ -6,7 +6,7 @@ system:
     - int2c
   description: >-
     <p>Your sharpened mind thinks quickly amidst the maelstrom of combat,
-    identifying and seizing opportunities that others might miss.</p>
+    identifying and seizing opportunities the moment they appear.</p>
   actions:
     - id: decisiveAction
       name: Decisive Action
@@ -56,7 +56,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160129
-  modifiedTime: 1788364259615
+  modifiedTime: 1788877961600
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: decisiveAction00
 sort: 300000
