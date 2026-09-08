@@ -5,12 +5,12 @@ system:
   description: >-
     <p>Your bravado inspires your allies and cowes your enemies. When you Dodge
     or Parry a Strike, the attacker loses Morale equal to your Presence
-    attribute. When you achieve a Critical Hit, all nearby allies who can see
-    you gain Morale equal to your Presence attribute.</p>
+    attribute. When you achieve a Critical Hit, all allies within 30 feet who
+    can see you gain Morale equal to your Presence attribute.</p>
   actions: []
   nodes:
-    - sig3.presence
     - sig3.dexterity
+    - sig3.presence
   rune: ''
   gesture: ''
   inflection: ''
@@ -23,11 +23,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160150
-  modifiedTime: 1773514792620
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1788896071443
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.swashbuckler0000
   duplicateSource: null
   exportSource: null
