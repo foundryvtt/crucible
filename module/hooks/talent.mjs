@@ -361,7 +361,7 @@ HOOKS.brutalDisplay000 = {
       test: (target, deltas) => {
         const {health, wounds} = target.system.resources;
         if ( target.system.isDead ) return false; // Already a corpse before this Action landed
-        if ( wounds ) return (wounds.value + (deltas.wounds ?? 0)) >= wounds.max;
+        if ( target.system.usesReserveResources ) return (wounds.value + (deltas.wounds ?? 0)) >= wounds.max;
         return (health.value + (deltas.health ?? 0)) <= 0;
       },
       radius: 20,
@@ -776,7 +776,7 @@ HOOKS.focalReach000000 = {
     const focus = this.resources.focus.value;
     if ( !focus ) return;
     for ( const w of [weapons.mainhand, weapons.offhand] ) {
-      if ( w?.config.category.training.includes("talisman") ) w.range += focus;
+      if ( w?.config.category.training.includes("talisman") ) w.system.range += focus;
     }
   }
 };
@@ -937,8 +937,7 @@ HOOKS.hide000000000000 = {
   preActivateAction(_item, action) {
     const effectId = SYSTEM.EFFECTS.getEffectId("hide", {suffix: "0"});
     if ( !this.effects.has(effectId) || action.tags.has("subtle") ) return;
-    // noinspection ES6MissingAwait
-    this.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
+    action.recordEvent({type: "effect", target: this, effects: [{_id: effectId, _action: "delete"}]});
   }
 };
 
@@ -1353,7 +1352,7 @@ HOOKS.piercingBolts000 = {
     if ( !weapon?.config.category.training.includes("talisman") ) return;
     for ( const event of action.eventsByTarget.get(target)?.roll ?? [] ) {
       const dmg = event.roll?.data.damage;
-      if ( !dmg?.resistance || dmg.restoration ) continue;
+      if ( !dmg || (dmg.resistance <= 0) || dmg.restoration ) continue;
       dmg.resistance = Math.max(dmg.resistance - 2, 0);
       dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
     }

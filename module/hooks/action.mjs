@@ -1393,6 +1393,7 @@ function _recordConcealmentDC(action) {
     for ( const effect of event.effects ?? [] ) {
       effect.system ??= {};
       effect.system.dc = dc;
+      effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
     }
   }
 }
@@ -1412,7 +1413,7 @@ HOOKS.hide = {
     if ( !token ) return;
 
     const observers = crucible.api.canvas.grid.getTokensInRange(token, this.range.maximum ?? 30, {disposition: "enemy"});
-    const actors = observers.map(t => t.actor).filter(a => a);
+    const actors = observers.map(t => t.token.actor).filter(a => a);
 
     // With nobody positioned to notice you there is nothing to beat, so concealment is automatic
     if ( !actors.length ) {
@@ -2261,7 +2262,7 @@ HOOKS.search = {
     const ids = _concealmentEffectIds();
     const range = action.range.maximum ?? 30;
     const found = [];
-    for ( const t of crucible.api.canvas.grid.getTokensInRange(token, range) ) {
+    for ( const {token: t} of crucible.api.canvas.grid.getTokensInRange(token, range) ) {
       if ( !t.actor ) continue;
       for ( const id of ids ) {
         const effect = t.actor.effects.get(id);
