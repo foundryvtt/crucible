@@ -18,14 +18,13 @@ system:
     - id: hide
       name: Hide
       img: icons/magic/nature/stealth-hide-eyes-green.webp
-      condition: ''
+      condition: You are not engaged.
       description: >-
-        <p>You cannot Hide while engaged. You make a single Stealth check
-        against the Awareness of the most perceptive enemy within 30 feet,
-        taking <strong>+1 Bane</strong> for each further enemy who might notice
-        you. With no enemy near enough to notice you no check is required. Upon
-        a success you are concealed until you perform an action which is not
-        <strong>Subtle</strong>.</p>
+        <p>You make a single Stealth check against the Awareness of the most
+        perceptive enemy within 30 feet, taking <strong>+1 Bane</strong> for
+        each further enemy who might notice you. With no enemy near enough to
+        notice you no check is required. Upon a success you are concealed until
+        you perform an action which is not @Rule[action.subtle].</p>
       cost:
         action: 2
         focus: 1
@@ -67,6 +66,7 @@ system:
         - subtle
         - skill
         - stealth
+        - harmless
       summon: null
   nodes:
     - intdex1
@@ -87,8 +87,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788600000000
-  modifiedTime: 1788877781111
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1788886518116
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
