@@ -15,23 +15,26 @@ system:
       description: >-
         <p>Cloth tells you where it was woven, who wore it, and where it will
         give. Working with what you carry, you may produce one of the following
-        effects:</p><ul><li><p><strong>Read</strong> the garments and worn gear
-        of a creature you can clearly see within <strong>30 feet</strong>. You
-        learn the quality tier of what it wears, whether those garments were
-        tailored for that wearer or altered from another's, and what size of
-        garment or armor would fit that
-        creature.</p></li><li><p><strong>Seamless.</strong> Conceal an object
-        weighing <strong>1 pound or less</strong>, such as a letter, a vial, or
-        a stiletto, within a garment, pack, or bedroll you can handle. It is
-        found only by a search which beats your passive Tailoring. Anyone who
-        knows where it lies may retrieve it, though only your hand can reopen
-        and close the seam without leaving a
-        sign.</p></li><li><p><strong>Rework</strong> a garment you can handle
-        into the dress of a specific people, household, or order whose attire
-        you have seen firsthand. The work takes ten minutes and holds until the
-        garment is closely handled or cleaned.</p></li></ul><p>You may attempt
-        other uses similar to those above, the effectiveness of which is decided
-        by the Gamemaster.</p>
+        effects:</p><ul><li><p><strong>Read.</strong> You study the garments and
+        worn gear of a creature which you can clearly see within <strong>30
+        feet</strong>, learning the <strong>Quality</strong> tier of what it
+        wears, whether those garments were tailored for that wearer or altered
+        from another's, and what size of garment or armor would fit
+        it.</p></li><li><p><strong>Destroy.</strong> You instantaneously sever a
+        non-magical garment, strap, or binding in your possession so that it
+        comes apart cleanly in your hands without a blade. Alternatively you may
+        spend 10 minutes to sabotage a non-magical work of leather or fabric so
+        that it fails at a future moment under conditions which you specify.
+        Your sabotage is discovered only by an intentional Awareness check which
+        beats your passive Tailoring.</p></li><li><p><strong>Create.</strong>
+        You spend 10 minutes to rework a garment which you can handle into the
+        dress of a specific people, household, or order whose attire you have
+        seen firsthand, which holds until the garment is closely handled or
+        cleaned. While you work you may sew into it an object weighing a pound
+        or less, discovered only by an intentional Awareness check which beats
+        your passive Tailoring.</p></li></ul><p>You may attempt other uses
+        similar to those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
       cost:
         action: 3
         focus: 0

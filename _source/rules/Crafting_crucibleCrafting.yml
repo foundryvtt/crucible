@@ -57,10 +57,10 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Cooking</strong> is the craft of combining commonly
-        available ingredients in order to prepare a consumable meal for
-        sustenance. Well trained cooks can prepare hearty meals that bolster
-        party performance and aid in the recovery of morale.</p>
+        <p><strong>Cooking</strong> is the craft of combining commonly available
+        ingredients in order to prepare a consumable meal for sustenance. Well
+        trained cooks can prepare hearty meals that bolster party performance
+        and aid in the recovery of morale.</p>
     video:
       controls: true
       volume: 0.5
@@ -506,17 +506,17 @@ pages:
         permanently.</p></td></tr></tbody></table><p>An item of
         <strong>Shoddy</strong> quality has no lower tier to lose. A Failure
         leaves such an item Broken and otherwise unchanged, and the repair may
-        be attempted again.</p><section class="gameplay"><p>A
-        Broken Masterwork longsword bearing three tiers of affixes will have a
-        Rarity of 7 once repaired, and so asks a Smithing check against
-        <strong>DC 26</strong>. A Broken Standard shortbow, at Rarity 0, asks a
-        Fletching check against <strong>DC 12</strong>. The finer the item, the
-        more it demands of the hand which mends it.</p></section><h2
-        class="divider">Expert Repair</h2><p>Certain Talents grant
-        <strong>Expert Repair</strong> within a single trade. A character who
-        has it may attempt repairs of that trade without a workbench, though
-        such attempts are <strong>Difficult</strong>, and their successful
-        repairs never cost the item a quality tier.</p>
+        be attempted again.</p><section class="gameplay"><p>A Broken Masterwork
+        longsword bearing three tiers of affixes will have a Rarity of 7 once
+        repaired, and so asks a Smithing check against <strong>DC 26</strong>. A
+        Broken Standard shortbow, at Rarity 0, asks a Fletching check against
+        <strong>DC 12</strong>. The finer the item, the more it demands of the
+        hand which mends it.</p></section><h2 class="divider">Expert
+        Repair</h2><p>Certain Talents grant <strong>Expert Repair</strong>
+        within a single trade. A character who has it may attempt repairs of
+        that trade without a workbench, though such attempts are
+        <strong>Difficult</strong>, and their successful repairs never cost the
+        item a quality tier.</p>
     video:
       controls: true
       volume: 0.5
@@ -564,8 +564,8 @@ pages:
         Skill to pursue in order to enjoy a well-rounded experience playing
         Crucible, particularly if your game is a long-form
         campaign.</p></section><p>The information in this journal describes each
-        of the Trade Skills, how schematics are defined and obtained, and how the
-        crafting process functions when using a schematic to turn input
+        of the Trade Skills, how schematics are defined and obtained, and how
+        the crafting process functions when using a schematic to turn input
         ingredients into produced items.</p><h2 class="divider">Trade Skills
         Table</h2><table><tbody><tr><th><p>Skill</p></th><th><p>Primary
         Ability</p></th><th><p>Secondary Ability</p></th><th><p>General

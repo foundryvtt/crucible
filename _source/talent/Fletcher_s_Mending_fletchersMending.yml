@@ -1,0 +1,41 @@
+folder: 2MFixpDJ379KOogE
+name: Fletcher's Mending
+type: talent
+img: icons/skills/trades/fletching-bowyery-arrow-tan.webp
+system:
+  description: >-
+    <p>You have straightened enough warped staves and rebuilt enough ruined
+    shafts to know that wood asks only to be given back its line.</p>
+
+    <p>The repairs you make using the <strong>Fletching</strong> trade benefit
+    from <strong>Expert Repair</strong>. You may attempt such repairs without a
+    workbench, though attempts made without one are <strong>Difficult</strong>,
+    and a repair you succeed at never costs the item a <strong>Quality</strong>
+    tier.</p><h3 class="divider">Playtest Notes</h3><p>Repair is not yet
+    automated. The rules it follows are described in the
+    @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
+    journal.</p>
+  actions: []
+  nodes:
+    - wis4b
+  spellcraft: ''
+  iconicSpells: 0
+  training: fletching
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788926400000
+  modifiedTime: 1788926400000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: fletchersMending
+sort: 100000
+_key: '!items!fletchersMending'

@@ -1,0 +1,81 @@
+folder: 2MFixpDJ379KOogE
+name: Grainwork
+type: talent
+img: icons/skills/trades/woodcutting-logging-saw.webp
+system:
+  description: >-
+    <p>Wood is never uniform. You read the grain the way another reads a page,
+    and you know that every stave, haft, and shaft holds one line along which it
+    wants to part.</p>
+  actions:
+    - id: grainwork
+      name: Grainwork
+      img: icons/skills/trades/woodcutting-logging-saw.webp
+      condition: ''
+      description: >-
+        <p>Wood tells you where it grew, how it was seasoned, and where it will
+        give. Working with what you carry, you may produce one of the following
+        effects:</p><ul><li><p><strong>Read.</strong> You study a wooden weapon,
+        shield, or talisman which you can clearly see within <strong>30
+        feet</strong>, learning its <strong>Quality</strong> tier, whether it is
+        <strong>Broken</strong>, and whether its wood was properly seasoned.
+        From a projectile lodged in a body or a surface you also learn the
+        direction it was loosed from and how far it flew. You learn nothing of
+        enchantment, affixes, or
+        history.</p></li><li><p><strong>Destroy.</strong> You instantaneously
+        split a non-magical wooden object along its grain, whether a fixture
+        which you can physically touch such as a door bar, a ladder rung, or a
+        cart axle, or a wooden weapon, shield, or talisman in your possession
+        which is not equipped, parting it in one silent motion where an axe
+        would want a minute and a great deal of noise. Alternatively you may
+        spend 10 minutes to sabotage such a work of wood so that it fails at a
+        future moment under conditions which you specify. Your sabotage is
+        discovered only by an intentional Awareness check which beats your
+        passive Fletching.</p></li><li><p><strong>Create.</strong> You spend 10
+        minutes and sound wood to fashion a brace which holds a door or shores a
+        sagging beam, a replacement spoke, oar, or axle pin which returns a
+        vehicle to travel, or a fistful of arrows cut green, which fly true for
+        one battle before they warp.</p></li></ul><p>You may attempt other uses
+        similar to those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: none
+        number: 0
+        scope: 0
+        self: false
+      effects: []
+      tags: []
+      summon: null
+  nodes:
+    - str2a
+  spellcraft: ''
+  iconicSpells: 0
+  training: fletching
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788926400000
+  modifiedTime: 1788902562192
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: grainwork0000000
+sort: 100000
+_key: '!items!grainwork0000000'
