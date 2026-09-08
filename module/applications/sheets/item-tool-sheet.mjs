@@ -33,7 +33,7 @@ export default class CrucibleToolItemSheet extends CrucibleBaseItemSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.skillOptions = Object.values(SYSTEM.SKILLS).map(({id: value, label, group}) => {
-      return {value, label, group: _loc(SYSTEM.PROFICIENCY.GROUPS[group].label)};
+      return {value, label, group: SYSTEM.PROFICIENCY.GROUPS[group].label};
     });
     return context;
   }

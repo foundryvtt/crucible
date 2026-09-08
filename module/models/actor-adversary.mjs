@@ -100,7 +100,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /**
    * The number of training points this Adversary allocates according to Archetype preference.
-   * The flat grant buys the parity a level 1 hero already has from background and starting choices, above which the
+   * The flat grant buys parity with a level 1 hero's points from background and starting choices, above which the
    * rate scales on effective threat so an Elite out-trains a Normal of the same level.
    * @type {number}
    */
@@ -251,8 +251,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       natural.initial = Math.max(natural.initial, required);
     }
 
-    // Allocate the training budget by Archetype preference, breaking ties on aptitude.
-    // Ability values are pre-Effect here, so progression cannot drift with transient buffs.
+    // Allocate the training budget by Archetype preference, breaking ties on aptitude
     const budget = this.trainingBudget;
     const {trainingCap} = this.details.progression;
     const preferences = this.details.archetype?.training ?? {};

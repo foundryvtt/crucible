@@ -2791,7 +2791,7 @@ export default class CrucibleActor extends Actor {
               morale: {value: 1}  // Clear broken
             }
           },
-          items: globalThis._del
+          items: _del
         }, {inplace: false, applyOperators: true});
         clone.updateSource(simulateData);
       } finally {

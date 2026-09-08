@@ -1028,7 +1028,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const {equipment} = this.parent;
     const {abilities, defenses} = this;
 
-    // Armor and Dodge from equipped Armor.
+    // Armor and Dodge from equipped Armor
     const armorData = equipment.armor.system;
     const dodgeScaling = Math.max(armorData.dodge.scaling - this.training.armor.rank, 0);
     defenses.armor.base = armorData.armor.base;
@@ -1140,8 +1140,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     }
   }
 
-  /* -------------------------------------------- */
-  /*  Skill Preparation                           */
   /* -------------------------------------------- */
 
   /**

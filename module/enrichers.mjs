@@ -514,14 +514,14 @@ function enrichHazard([_match, terms, name]) {
   const listFormatter = game.i18n.getListFormatter({style: "short", type: "unit"});
   const hazardRank = _loc("HAZARD.Rank", {danger});
   const parenthetical = name ? [hazardRank] : [];
-  if ( tags.includes("severe") ) parenthetical.push(_loc(SYSTEM.ACTION.TAGS.severe.label));
+  if ( tags.includes("severe") ) parenthetical.push(SYSTEM.ACTION.TAGS.severe.label);
   let label = name || hazardRank;
   if ( parenthetical.length ) label = _loc("HAZARD.Parenthetical", {label, tags: listFormatter.format(parenthetical)});
 
   // Prepare tooltip
-  const defenseLabel = _loc(SYSTEM.DEFENSES[defenseType]?.label);
-  const resourceLabel = _loc(SYSTEM.RESOURCES[resource]?.label);
-  const damageLabel = _loc(SYSTEM.DAMAGE_TYPES[damageType]?.label) || "";
+  const defenseLabel = SYSTEM.DEFENSES[defenseType]?.label;
+  const resourceLabel = SYSTEM.RESOURCES[resource]?.label;
+  const damageLabel = SYSTEM.DAMAGE_TYPES[damageType]?.label || "";
   let tooltip = restoration
     ? _loc("HAZARD.TooltipRestoration", {rank: hazardRank, defense: defenseLabel, resource: resourceLabel})
     : _loc("HAZARD.TooltipDamage", {rank: hazardRank, defense: defenseLabel, damage: damageLabel, resource: resourceLabel});

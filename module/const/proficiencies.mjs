@@ -200,22 +200,54 @@ export const SKILLS = defineEnum({
  * @type {Readonly<Record<WeaponTrainingTypes, {id: string, label: string, icon: string, abilities: string[]}>>}
  **/
 export const WEAPONS = defineEnum({
-  talisman: {label: "TRAINING.LABELS.talisman", short: "TRAINING.LABELS.talismanShort",
-    icon: "icons/weapons/polearms/trident-fork-white.webp", abilities: ["presence"]},
-  heavy: {label: "TRAINING.LABELS.heavy", short: "TRAINING.LABELS.heavyShort",
-    icon: "icons/skills/melee/weapons-crossed-poleaxes-white.webp", abilities: ["strength"]},
-  light: {label: "TRAINING.LABELS.light", short: "TRAINING.LABELS.lightShort",
-    icon: "icons/weapons/swords/sword-simple-white.webp", abilities: ["dexterity"]},
-  mechanical: {label: "TRAINING.LABELS.mechanical", short: "TRAINING.LABELS.mechanicalShort",
-    icon: "icons/weapons/crossbows/crossbow-white.webp", abilities: ["dexterity"]},
-  natural: {label: "TRAINING.LABELS.natural", short: "TRAINING.LABELS.naturalShort",
-    icon: "systems/crucible/icons/proficiencies/natural-weapon.webp", abilities: ["strength", "dexterity"]},
-  projectile: {label: "TRAINING.LABELS.projectile", short: "TRAINING.LABELS.projectileShort",
-    icon: "icons/weapons/bows/shortbow-white.webp", abilities: ["strength", "dexterity"]},
-  shield: {label: "TRAINING.LABELS.shield", short: "TRAINING.LABELS.shieldShort",
-    icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp", abilities: ["strength", "dexterity"]},
-  unarmed: {label: "TRAINING.LABELS.unarmed", short: "TRAINING.LABELS.unarmedShort",
-    icon: "icons/skills/melee/unarmed-punch-fist-white.webp", abilities: ["strength", "dexterity"]}
+  talisman: {
+    label: "TRAINING.LABELS.talisman",
+    short: "TRAINING.LABELS.talismanShort",
+    icon: "icons/weapons/polearms/trident-fork-white.webp",
+    abilities: ["presence"]
+  },
+  heavy: {
+    label: "TRAINING.LABELS.heavy",
+    short: "TRAINING.LABELS.heavyShort",
+    icon: "icons/skills/melee/weapons-crossed-poleaxes-white.webp",
+    abilities: ["strength"]
+  },
+  light: {
+    label: "TRAINING.LABELS.light",
+    short: "TRAINING.LABELS.lightShort",
+    icon: "icons/weapons/swords/sword-simple-white.webp",
+    abilities: ["dexterity"]
+  },
+  mechanical: {
+    label: "TRAINING.LABELS.mechanical",
+    short: "TRAINING.LABELS.mechanicalShort",
+    icon: "icons/weapons/crossbows/crossbow-white.webp",
+    abilities: ["dexterity"]
+  },
+  natural: {
+    label: "TRAINING.LABELS.natural",
+    short: "TRAINING.LABELS.naturalShort",
+    icon: "systems/crucible/icons/proficiencies/natural-weapon.webp",
+    abilities: ["strength", "dexterity"]
+  },
+  projectile: {
+    label: "TRAINING.LABELS.projectile",
+    short: "TRAINING.LABELS.projectileShort",
+    icon: "icons/weapons/bows/shortbow-white.webp",
+    abilities: ["strength", "dexterity"]
+  },
+  shield: {
+    label: "TRAINING.LABELS.shield",
+    short: "TRAINING.LABELS.shieldShort",
+    icon: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
+    abilities: ["strength", "dexterity"]
+  },
+  unarmed: {
+    label: "TRAINING.LABELS.unarmed",
+    short: "TRAINING.LABELS.unarmedShort",
+    icon: "icons/skills/melee/unarmed-punch-fist-white.webp",
+    abilities: ["strength", "dexterity"]
+  }
 });
 
 /* -------------------------------------------- */
@@ -230,8 +262,12 @@ export const WEAPONS = defineEnum({
  *   abilities: string[]}>>}
  */
 export const EQUIPMENT = defineEnum({
-  armor: {label: "TRAINING.LABELS.armor", short: "TRAINING.LABELS.armorShort",
-    icon: "systems/crucible/icons/proficiencies/armor.webp", abilities: ["strength", "toughness"]}
+  armor: {
+    label: "TRAINING.LABELS.armor",
+    short: "TRAINING.LABELS.armorShort",
+    icon: "systems/crucible/icons/proficiencies/armor.webp",
+    abilities: ["strength", "toughness"]
+  }
 });
 
 /* -------------------------------------------- */
@@ -245,15 +281,24 @@ export const EQUIPMENT = defineEnum({
  * @type {Readonly<Record<string, {id: string, label: string, icon: string, abilities: string[]}>>}
  */
 export const SPELLCRAFT = {
-  physical: {id: "physical", label: "TRAINING.LABELS.physical", short: "TRAINING.LABELS.physicalShort",
+  physical: {id: "physical",
+    label: "TRAINING.LABELS.physical",
+    short: "TRAINING.LABELS.physicalShort",
     icon: "icons/magic/movement/pinwheel-turning-blue.webp",
-    abilities: ["wisdom", "presence"]},
-  elemental: {id: "elemental", label: "TRAINING.LABELS.elemental", short: "TRAINING.LABELS.elementalShort",
+    abilities: ["wisdom", "presence"]
+  },
+  elemental: {id: "elemental",
+    label: "TRAINING.LABELS.elemental",
+    short: "TRAINING.LABELS.elementalShort",
     icon: "icons/magic/symbols/elements-air-earth-fire-water.webp",
-    abilities: ["wisdom", "intellect"]},
-  spiritual: {id: "spiritual", label: "TRAINING.LABELS.spiritual", short: "TRAINING.LABELS.spiritualShort",
+    abilities: ["wisdom", "intellect"]
+  },
+  spiritual: {id: "spiritual",
+    label: "TRAINING.LABELS.spiritual",
+    short: "TRAINING.LABELS.spiritualShort",
     icon: "icons/magic/light/projectile-halo-teal.webp",
-    abilities: ["intellect", "presence"]}
+    abilities: ["intellect", "presence"]
+  }
 };
 
 /* -------------------------------------------- */

@@ -158,7 +158,6 @@ export const RUNES = {
   }
 };
 
-
 /**
  * The Somatic Gestures which exist in the Crucible spellcraft system.
  * These config objects are instantiated as CrucibleSpellcraftGesture instances during system initialization.
