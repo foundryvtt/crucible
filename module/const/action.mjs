@@ -344,7 +344,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.TalismanTooltip",
     category: "requirements",
     priority: 5,
-    propagate: ["strike"],
+    propagate: ["ranged"],
     prepare() {
       for ( const c of this.usage.weaponChoices ?? [] ) {
         if ( !c.item.config.category.training.includes("talisman") ) c.viable = false;
