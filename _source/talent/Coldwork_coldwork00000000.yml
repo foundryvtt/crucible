@@ -16,23 +16,25 @@ system:
         <p>You know metal by feel: where it was worked, where it has been
         mended, and where a single blow will part it. Working with what you
         carry, you may produce one of the following
-        effects:</p><ul><li><p><strong>Part</strong> a non-enchanted iron or
-        steel fitting no thicker than your thumb, such as a chain link, shackle,
-        manacle, padlock, or hasp, or a weapon or armor in your possession which
-        is not equipped. You strike where it was welded, pinned, or tempered.
-        The item is destroyed and cannot be
-        repaired.</p></li><li><p><strong>Foul</strong> the workings of a
-        non-magical mechanism which weighs less than your carrying capacity and
-        whose moving parts you can reach, such as a lock, a latch, a trap, or
-        the hinge of a door. It seizes and cannot be operated by anyone,
-        yourself included, until repaired with ten minutes of work and a Smith's
-        Toolkit.</p></li><li><p><strong>Read</strong> a metal object you can
-        clearly see within <strong>30 feet</strong> to learn its quality tier
-        and whether it is <strong>Broken</strong>. You learn nothing of its
-        enchantment, its affixes, or its history.</p></li></ul><p>Part and Foul
-        may only affect an object you can physically touch. You may attempt
-        other uses similar to those above, the effectiveness of which is decided
-        by the Gamemaster.</p>
+        effects:</p><ul><li><p><strong>Read.</strong> You study a metal object
+        which you can clearly see within <strong>30 feet</strong>, learning its
+        <strong>Quality</strong> tier and whether it is <strong>Broken</strong>.
+        You learn nothing of its enchantment, its affixes, or its
+        history.</p></li><li><p><strong>Destroy.</strong> You instantaneously
+        sunder a non-magical iron or steel fitting no thicker than your thumb
+        which you can physically touch, such as a chain link, a padlock, or a
+        manacle, or a non-magical weapon, shield, or suit of armor in your
+        possession which is not equipped, striking where it was welded, pinned,
+        or tempered. Alternatively you may spend 10 minutes to sabotage such a
+        work of iron or steel so that it fails at a future moment under
+        conditions which you specify. Your sabotage is discovered only by an
+        intentional Awareness check which beats your passive
+        Smithing.</p></li><li><p><strong>Create.</strong> You spend 10 minutes
+        and materials at hand to forge a working copy of a non-magical key which
+        you hold, a copy of a seal or signet which you can handle, or
+        serviceable field iron such as caltrops, climbing spikes, or a grapple
+        hook.</p></li></ul><p>You may attempt other uses similar to those above,
+        the effectiveness of which is decided by the Gamemaster.</p>
       cost:
         action: 3
         focus: 0

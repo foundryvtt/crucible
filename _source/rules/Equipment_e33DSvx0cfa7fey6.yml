@@ -415,8 +415,8 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweaving}
         and
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.enchanting000000]{Enchanting}
-        Trade Skills.</p><h2 class="divider">Prefix and Suffix</h2><p>Every affix
-        is categorized as either a <strong>Prefix</strong> or a
+        Trade Skills.</p><h2 class="divider">Prefix and Suffix</h2><p>Every
+        affix is categorized as either a <strong>Prefix</strong> or a
         <strong>Suffix</strong>. This categorization determines how the affix
         contributes to the item's enchantment budget and how it modifies the
         item's name.</p><p>Crafted items can (optionally) be automatically named

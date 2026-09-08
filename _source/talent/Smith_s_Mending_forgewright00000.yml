@@ -1,5 +1,5 @@
 folder: 2MFixpDJ379KOogE
-name: Forgewright
+name: Smith's Mending
 type: talent
 img: icons/skills/trades/smithing-anvil-silver-red.webp
 system:
@@ -8,12 +8,12 @@ system:
     metal telling you how it was made. Given a hammer and an hour, you can
     persuade it back.</p>
 
-    <p>You gain <strong>Expert Repair</strong> for metal weapons, armor, and
-    shields. You may attempt such repairs without a workbench, though attempts
-    made without one are <strong>Difficult</strong>, and a repair you succeed at
-    never costs the item a quality tier.</p><h3 class="divider">Playtest
-    Notes</h3><p>Repair is not yet automated. The rules it follows are described
-    in the
+    <p>The repairs you make using the <strong>Smithing</strong> trade benefit
+    from <strong>Expert Repair</strong>. You may attempt such repairs without a
+    workbench, though attempts made without one are <strong>Difficult</strong>,
+    and a repair you succeed at never costs the item a <strong>Quality</strong>
+    tier.</p><h3 class="divider">Playtest Notes</h3><p>Repair is not yet
+    automated. The rules it follows are described in the
     @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
     journal.</p>
   actions: []

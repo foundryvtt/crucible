@@ -6,9 +6,8 @@ system:
     - int4a
   description: >-
     <p>You freeze with the speed of thought, creating cold that arrives all at
-    once. Your usage of the <strong>Rune of
-    Frost</strong> scales with <strong>Intellect</strong> instead of
-    <strong>Wisdom</strong>.</p>
+    once. Your usage of the <strong>Rune of Frost</strong> scales with
+    <strong>Intellect</strong> instead of <strong>Wisdom</strong>.</p>
   actions: []
   rune: ''
   gesture: ''

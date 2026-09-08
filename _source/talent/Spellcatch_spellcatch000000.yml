@@ -4,8 +4,8 @@ img: icons/magic/defensive/shield-barrier-blades-teal.webp
 system:
   description: >-
     <p>A spell cast towards you is something to grasp rather than avoid. You
-    have learned a technique to catch an incoming spell
-    with your Talisman and extract its essence for your own purposes.</p>
+    have learned a technique to catch an incoming spell with your Talisman and
+    extract its essence for your own purposes.</p>
   actions:
     - id: spellcatch
       name: Spellcatch

@@ -660,13 +660,13 @@ pages:
         the Talents it grants.</p><p>Each Background includes:</p><ul><li><p>Six
         trained Proficiencies, each receiving one training point. These need not
         be Skills: a Background may train a weapon category or a family of
-        spellcraft.</p></li><li><p>Two Knowledge
-        Areas</p></li><li><p>One known Language</p></li><li><p>Three
-        Talents</p></li></ul><p>A Background which names fewer than six
-        Proficiencies or fewer than three Talents remains valid, but the
-        Background sheet will warn you that it is incomplete.</p><h2
-        class="divider">Example Backgrounds</h2><p>The table below presents some
-        example Backgrounds which will be familiar for many fantasy RPG
+        spellcraft.</p></li><li><p>Two Knowledge Areas</p></li><li><p>One known
+        Language</p></li><li><p>Three Talents</p></li></ul><p>A Background which
+        names fewer than six Proficiencies or fewer than three Talents remains
+        valid, but the Background sheet will warn you that it is
+        incomplete.</p><h2 class="divider">Example Backgrounds</h2><p>The table
+        below presents some example Backgrounds which will be familiar for many
+        fantasy RPG
         settings.</p><table><thead><tr><th>Background</th><th>Knowledge</th><th>Trained
         Proficiencies</th><th>Talents</th></tr></thead><tbody><tr><td>@UUID[Compendium.crucible.background.Item.acolyte000000000]{Acolyte}</td><td>Gods,
         Souls</td><td>Arcana, Medicine, Talisman Weapons, Spiritual Spellcraft,
@@ -991,9 +991,9 @@ pages:
       content: >-
         <p>A <strong>Proficiency</strong> is something your character can be
         trained in: a Skill, a category of weapon, or a family of spellcraft.
-        Each one holds a total of training points, and the ranks
-        below are thresholds upon that total.</p><p>Training points come from
-        three sources. Your
+        Each one holds a total of training points, and the ranks below are
+        thresholds upon that total.</p><p>Training points come from three
+        sources. Your
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]{Background}
         grants six areas where you start your journey with some proficiency,
         every
