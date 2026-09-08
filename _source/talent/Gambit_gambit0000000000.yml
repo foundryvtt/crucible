@@ -4,17 +4,17 @@ _id: gambit0000000000
 img: icons/sundries/gaming/dice-pair-white-green.webp
 system:
   description: >-
-    <p>Some fight by the book, you fight by the odds. Every exchange is a wager:
-    you read your opponent's intent, make risky bets to goad them into
-    overcommitting, then stake everything on a game-changing payout. You trust
-    your gut, wits, and some arcane chicanery to tilt the odds in your favor,
-    gaining the following benefits:</p><ul><li><p><em>The Tell.</em> You see a
-    blow before it is thrown. Your <strong>Dodge</strong> defense is calculated
-    using your <strong>Intellect</strong> instead of <strong>Dexterity</strong>,
-    if your <strong>Intellect</strong> is higher.</p></li><li><p><em>Loaded
-    Dice.</em> Fortune bends to those who help it along. Once per round, the
-    first time you roll a 1 on any die, that die is rerolled and you keep the
-    new result.</p></li><li><p><em>Ante Up.</em> When you make a @Action[default
+    <p>You fight by the odds and every exchange is a wager. You read your
+    opponent's intent, make risky bets to goad them into overcommitting, then
+    stake everything on a game-changing payout. You trust your gut, wits, and
+    some arcane chicanery to tilt the odds in your favor, gaining the following
+    benefits:</p><ul><li><p><em>The Tell.</em> You see a blow before it is
+    thrown. Your <strong>Dodge</strong> defense is calculated using your
+    <strong>Intellect</strong> instead of <strong>Dexterity</strong>, if your
+    <strong>Intellect</strong> is higher.</p></li><li><p><em>Loaded Dice.</em>
+    Fortune bends to those who help it along. Once per round, the first time you
+    roll a 1 on any die, that die is rerolled and you keep the new
+    result.</p></li><li><p><em>Ante Up.</em> When you make a @Action[default
     strike], you can choose to wager additional <strong>Banes</strong> against
     yourself. If the Strike hits an enemy, you gain <strong>Gambit</strong>
     charges equal to the number of Banes you wagered. These charges accumulate
@@ -68,11 +68,11 @@ ownership:
   default: 0
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1781400000000
-  modifiedTime: 1781366663838
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1788877515362
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null

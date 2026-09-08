@@ -4,8 +4,8 @@ _id: hide000000000000
 img: icons/magic/nature/stealth-hide-eyes-green.webp
 system:
   description: >-
-    <p>You use cover, shadow, and stillness to drop out of sight entirely rather
-    than evading a single pair of eyes.</p><h3 class="divider">Playtest
+    <p>You use cover, shadow, and stillness to drop out of sight entirely, to
+    avoid detection or to lay in ambush.</p><h3 class="divider">Playtest
     Notes</h3><p>The Stealth check resolves, marks you concealed, and that
     concealment ends on its own once you act without the <strong>Subtle</strong>
     tag. Your Stealth result is recorded, so anyone who later @Action[default
@@ -87,7 +87,7 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788600000000
-  modifiedTime: 1788627278077
+  modifiedTime: 1788877781111
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

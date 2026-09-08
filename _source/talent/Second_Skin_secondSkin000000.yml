@@ -6,12 +6,12 @@ system:
   description: >-
     <p>You have worn harness long enough that it no longer feels like a piece of
     equipment to lug around. The straps sit where they should, the load rides on
-    your frame rather than your shoulders, and you stopped noticing the
-    difference years ago.</p><p>Your equipped <strong>Armor</strong> counts only
-    half its weight towards the load you can carry.</p>
+    your frame, and you stopped noticing the weight of your armor years
+    ago.</p><p>Your equipped <strong>Armor</strong> counts only half its weight
+    towards the load you can carry.</p>
   actions: []
   nodes:
-    - str1b
+    - toustr2
   spellcraft: ''
   iconicSpells: 0
   training: armor
@@ -28,7 +28,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1788820000000
-  modifiedTime: 1788808755493
+  modifiedTime: 1788877914608
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: secondSkin000000
 sort: 100000

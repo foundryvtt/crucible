@@ -5,8 +5,8 @@ img: icons/magic/perception/shadow-stealth-eyes-purple.webp
 system:
   description: >-
     <p>You have mastered traditional stealth, using shadow and cover to slip the
-    notice of a watchful group rather than a single distracted sentry. When you
-    use @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you may
+    notice of watchful sentries. When you use
+    @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you may
     target up to three creatures simultaneously, resolving a separate Stealth
     check against the Awareness of each.</p><h3 class="divider">Playtest
     Notes</h3><p>All three checks resolve, but Crucible does not yet record
@@ -35,7 +35,7 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788600000000
-  modifiedTime: 1788623298359
+  modifiedTime: 1788877803344
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

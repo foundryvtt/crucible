@@ -1,0 +1,75 @@
+folder: 2MFixpDJ379KOogE
+name: Whipstitch
+type: talent
+img: icons/commodities/cloth/thread-spindle-white.webp
+system:
+  description: >-
+    <p>A tailor's eye misses nothing about a garment: the loom it came from, the
+    hand that altered it, and the body it was cut for. A tailor's hand leaves
+    nothing behind.</p>
+  actions:
+    - id: whipstitch
+      name: Whipstitch
+      img: icons/commodities/cloth/thread-spindle-white.webp
+      condition: ''
+      description: >-
+        <p>Cloth tells you where it was woven, who wore it, and where it will
+        give. Working with what you carry, you may produce one of the following
+        effects:</p><ul><li><p><strong>Read</strong> the garments and worn gear
+        of a creature you can clearly see within <strong>30 feet</strong>. You
+        learn the quality tier of what it wears, whether those garments were
+        tailored for that wearer or altered from another's, and what size of
+        garment or armor would fit that
+        creature.</p></li><li><p><strong>Seamless.</strong> Conceal an object
+        weighing <strong>1 pound or less</strong>, such as a letter, a vial, or
+        a stiletto, within a garment, pack, or bedroll you can handle. It is
+        found only by a search which beats your passive Tailoring. Anyone who
+        knows where it lies may retrieve it, though only your hand can reopen
+        and close the seam without leaving a
+        sign.</p></li><li><p><strong>Rework</strong> a garment you can handle
+        into the dress of a specific people, household, or order whose attire
+        you have seen firsthand. The work takes ten minutes and holds until the
+        garment is closely handled or cleaned.</p></li></ul><p>You may attempt
+        other uses similar to those above, the effectiveness of which is decided
+        by the Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: none
+        number: 0
+        scope: 0
+        self: false
+      effects: []
+      tags: []
+      summon: null
+  nodes:
+    - dex2a
+  spellcraft: ''
+  iconicSpells: 0
+  training: tailoring
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1788840000000
+  modifiedTime: 1788840000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: whipstitch000000
+sort: 100000
+_key: '!items!whipstitch000000'

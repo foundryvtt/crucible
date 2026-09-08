@@ -4,11 +4,11 @@ type: talent
 img: icons/skills/melee/sword-twirl-orange.webp
 system:
   description: >-
-    <p>You have drilled the showy cuts that duelists perform for a crowd. Turned
-    upon an opponent rather than an audience, the display advertises how
-    dangerous you are, causing them to worry whether it is true.</p><p>A steady
-    opponent reads the motion as empty theatre, an enemy who flinches imagines
-    the point of your blade.</p>
+    <p>You have drilled the showy cuts that duelists perform for a crowd.
+    Directed towards your opponent, the display advertises how dangerous you
+    are, causing them to worry whether it is true.</p><p>A steady opponent reads
+    the motion as empty theatre, an enemy who flinches imagines the point of
+    your blade.</p>
   actions:
     - id: flourish
       name: Flourish
@@ -62,7 +62,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1788700000000
-  modifiedTime: 1788803420041
+  modifiedTime: 1788877827651
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: flourish00000000
 sort: 100000
