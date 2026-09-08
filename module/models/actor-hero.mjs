@@ -231,6 +231,19 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _prepareTraining() {
+    super._prepareTraining();
+
+    // Grant one training point for each proficiency a Background names
+    for ( const type of this.details.background?.training ?? [] ) {
+      const t = this.training[type];
+      if ( t ) t.initial += 1;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   _prepareEquipment(items) {
     super._prepareEquipment(items);
     this._prepareCapacity(items);
