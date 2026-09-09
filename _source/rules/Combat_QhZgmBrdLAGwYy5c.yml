@@ -763,8 +763,9 @@ pages:
         Combatants that you can simultaneously battle against without becoming
         more vulnerable. The base Engagement for <strong>Hero</strong>
         characters is <strong>1</strong>, while the base Engagement for
-        <strong>Adversary</strong> characters is equal to their <strong>Size -
-        2</strong> with a minimum of <strong>1</strong>.</p><p>When a character
+        <strong>Adversary</strong> characters starts at <strong>1</strong> and
+        adds <strong>+1 for every 2 Size above 4</strong>, rounded
+        up.</p><p>When a character
         is adjacent to multiple enemies where the number of engaged enemies
         equals or exceeds their Engagement score, that character is said to be
         <strong>Fully Engaged</strong>. Some conditions or action prerequisites
