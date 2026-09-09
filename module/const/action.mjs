@@ -561,8 +561,9 @@ export const TAGS = {
       this.usage.context.tags.gesture = _loc("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture.name});
       if ( this.inflection ) this.usage.context.tags.inflection = _loc("SPELL.COMPONENTS.InflectionSpecific", {inflection: this.inflection.name});
       this.usage.actorFlags.lastSpell = this.id;
-      this.usage.isAttack = true;
-      this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
+      const isSelf = this.gesture.target.type === "self";
+      this.usage.isAttack = !isSelf;
+      this.usage.isRanged = !isSelf && (this.range.maximum > 1);
     },
     configureVFX(vfxConfig) {
       return crucible.api.canvas.vfx.spells.configureSpellVFXEffect(this, vfxConfig);
@@ -713,15 +714,15 @@ export const TAGS = {
       this.usage.weapon ??= strikes[0];
 
       // Record usage properties
-      this.usage.actorStatus.hasAttacked = true;
+      const isSelf = this.target.type === "self";
       this.usage.hasDice = true;
-      this.usage.isAttack = true;
+      this.usage.isAttack = !isSelf; // Self-target actions do not count as attacks, even if they make attack rolls
       if ( this.tags.has("ranged") ) {
-        if ( strikes.every(w => w.config.category.ranged) ) this.usage.isRanged = true;
+        if ( strikes.every(w => w.config.category.ranged) ) this.usage.isRanged = this.usage.isAttack;
         else this.tags.delete("ranged");
       }
       if ( this.tags.has("melee") ) {
-        if ( strikes.every(w => !w.config.category.ranged) ) this.usage.isMelee = true;
+        if ( strikes.every(w => !w.config.category.ranged) ) this.usage.isMelee = this.usage.isAttack;
         else this.tags.delete("melee");
       }
       this.usage.defenseType ??= "physical";
@@ -765,6 +766,11 @@ export const TAGS = {
           this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
         }
       }
+
+      // Record actor status flags
+      if ( this.usage.isAttack ) this.usage.actorStatus.hasAttacked = true;
+      if ( this.usage.isMelee ) this.usage.actorStatus.meleeAttack = true;
+      if ( this.usage.isRanged ) this.usage.actorStatus.rangedAttack = true;
     },
     acquireTargets(targets) {
       const weapon = this.usage.strikes[0];
@@ -834,8 +840,6 @@ export const TAGS = {
       }
     },
     prepare() {
-      this.usage.actorStatus.rangedAttack = true;
-
       // A ranged action cannot use a melee weapon unless the action is also melee-capable
       if ( !this.tags.has("melee") ) {
         for ( const c of this.usage.weaponChoices ?? [] ) {

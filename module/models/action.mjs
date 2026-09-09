@@ -44,6 +44,8 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {Record<string, string|false>} focusBlock  Per-action Focus block overrides, keyed by reason, which
  *   supersede the actor's prepared availability. Provide a string localization key for a blocking reason, or false.
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
+ * @property {boolean} isAttack             Is this an attack made upon another creature (other than self)?
+ * @property {boolean} isRanged             Is this an attack (defined by isAttack) made at range?
  * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
