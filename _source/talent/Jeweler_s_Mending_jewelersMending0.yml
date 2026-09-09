@@ -1,0 +1,41 @@
+folder: 2MFixpDJ379KOogE
+name: Jeweler's Mending
+type: talent
+img: icons/commodities/gems/gem-fragments-turquoise.webp
+system:
+  description: >-
+    <p>A loosened setting, a cracked band, a stone parted from its claw. You
+    have put back together finer work than most people will ever hold.</p>
+
+    <p>The repairs you make using the <strong>Jewelcraft</strong> trade benefit
+    from <strong>Expert Repair</strong>. You may attempt such repairs without a
+    workbench, though attempts made without one are <strong>Difficult</strong>,
+    and a repair you succeed at never costs the item a <strong>Quality</strong>
+    tier.</p><h3 class="divider">Playtest Notes</h3><p>Repair is not yet
+    automated. The rules it follows are described in the
+    @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
+    journal.</p>
+  actions: []
+  nodes:
+    - wis4c
+  spellcraft: ''
+  iconicSpells: 0
+  training: jewelcraft
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789012800000
+  modifiedTime: 1788996271957
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: jewelersMending0
+sort: 100000
+_key: '!items!jewelersMending0'

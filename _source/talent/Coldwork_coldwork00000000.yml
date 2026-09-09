@@ -11,11 +11,11 @@ system:
     - id: coldwork
       name: Coldwork
       img: icons/skills/trades/smithing-tongs-metal-red.webp
-      condition: ''
+      condition: You have a Smith's Toolkit equipped.
       description: >-
         <p>You know metal by feel: where it was worked, where it has been
-        mended, and where a single blow will part it. Working with what you
-        carry, you may produce one of the following
+        mended, and where a single blow will part it. With a Smith's Toolkit
+        equipped, you can produce any one of the following
         effects:</p><ul><li><p><strong>Read.</strong> You study a metal object
         which you can clearly see within <strong>30 feet</strong>, learning its
         <strong>Quality</strong> tier and whether it is <strong>Broken</strong>.
@@ -26,15 +26,15 @@ system:
         manacle, or a non-magical weapon, shield, or suit of armor in your
         possession which is not equipped, striking where it was welded, pinned,
         or tempered. Alternatively you may spend 10 minutes to sabotage such a
-        work of iron or steel so that it fails at a future moment under
-        conditions which you specify. Your sabotage is discovered only by an
-        intentional Awareness check which beats your passive
-        Smithing.</p></li><li><p><strong>Create.</strong> You spend 10 minutes
-        and materials at hand to forge a working copy of a non-magical key which
-        you hold, a copy of a seal or signet which you can handle, or
-        serviceable field iron such as caltrops, climbing spikes, or a grapple
-        hook.</p></li></ul><p>You may attempt other uses similar to those above,
-        the effectiveness of which is decided by the Gamemaster.</p>
+        work of iron or steel. You name the condition under which it fails; when
+        that condition is met, the Gamemaster decides the consequences. Your
+        sabotage is discovered only by an intentional Awareness check which
+        beats your passive Smithing.</p></li><li><p><strong>Create.</strong> You
+        spend 10 minutes and materials at hand to forge a working copy of a
+        non-magical key which you hold, or serviceable field iron such as
+        caltrops, climbing spikes, or a grapple hook.</p></li></ul><p>You may
+        attempt other uses similar to those above, the effectiveness of which is
+        decided by the Gamemaster.</p>
       cost:
         action: 3
         focus: 0

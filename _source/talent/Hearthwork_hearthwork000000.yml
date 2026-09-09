@@ -11,10 +11,10 @@ system:
     - id: hearthwork
       name: Hearthwork
       img: icons/tools/cooking/oven-stone-grey.webp
-      condition: ''
+      condition: You have a Cook's Toolkit equipped.
       description: >-
-        <p>Food carries the history of what was done to it. Working with what
-        you carry, you may produce one of the following
+        <p>Food carries the history of what was done to it. With a Cook's
+        Toolkit equipped, you can produce any one of the following
         effects:</p><ul><li><p><strong>Read.</strong> You study food, drink, a
         poison, or a drug which you can clearly see within <strong>30
         feet</strong>, learning its <strong>Quality</strong> tier, whether it
@@ -24,8 +24,9 @@ system:
         spoil non-magical food or drink which you can physically touch, turning
         a dish, a cask, or a company's rations rancid beyond salvage.
         Alternatively, in the course of preparing food or drink yourself, you
-        may make it look and smell wholesome while leaving whoever eats it
-        nauseous and sick for hours afterward. Your work is discovered only by
+        may sabotage it while leaving it looking and smelling wholesome. You
+        name the condition under which it fails; when that condition is met, the
+        Gamemaster decides the consequences. Your sabotage is discovered only by
         an intentional Awareness check which beats your passive
         Cooking.</p></li><li><p><strong>Create.</strong> Given time and
         reasonable access to ingredients, you may prepare any food or drink you

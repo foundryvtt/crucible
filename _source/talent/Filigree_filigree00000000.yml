@@ -1,0 +1,77 @@
+folder: 2MFixpDJ379KOogE
+name: Filigree
+type: talent
+img: icons/commodities/gems/gem-cut-faceted-square-purple.webp
+system:
+  description: >-
+    <p>A loupe, a wheel, and a steady hand. You can tell a stone's worth across
+    a table, and what it will become once you have had it a while.</p>
+  actions:
+    - id: filigree
+      name: Filigree
+      img: icons/commodities/gems/gem-cut-faceted-square-purple.webp
+      condition: You have a Jeweler's Toolkit equipped.
+      description: >-
+        <p>Every stone has a grain and a flaw. With a Jeweler's Toolkit
+        equipped, you can produce any one of the following
+        effects:</p><ul><li><p><strong>Read.</strong> You study a gemstone, or
+        an item created by jewelcraft, which you can handle, learning its
+        <strong>Quality</strong> tier, whether its stones are genuine or paste,
+        whether any has been replaced since it was made, and what it is honestly
+        worth.</p></li><li><p><strong>Destroy.</strong> You instantaneously
+        strike the flaw in a non-magical gemstone or ornament which you can
+        physically touch, shattering it into fragments worth nothing.
+        Alternatively, in the course of setting a stone yourself, you may seat
+        it so that it works loose and is lost under a condition you name. Your
+        sabotage is discovered only by an intentional Awareness check which
+        beats your passive Jewelcraft.</p></li><li><p><strong>Create.</strong>
+        Given time and reasonable access to materials, you may make any small
+        work of fine metal or stone you can picture: a puzzle box which opens
+        one way only, a locket with a compartment nobody would find, a signet
+        cut to match a seal you have handled, a clockwork bird that sings once
+        when wound, spectacles ground to one particular pair of eyes. Explicitly
+        defined crafting recipes must still be rolled, but you can successfully
+        make any such trinket outside of this system without requiring a dice
+        roll.</p></li></ul><p>You may attempt other uses similar to those above,
+        the effectiveness of which is decided by the Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: none
+        number: 0
+        scope: 0
+        self: false
+      effects: []
+      tags: []
+      summon: null
+  nodes:
+    - str2c
+  spellcraft: ''
+  iconicSpells: 0
+  training: jewelcraft
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789012800000
+  modifiedTime: 1789012800000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: filigree00000000
+sort: 100000
+_key: '!items!filigree00000000'

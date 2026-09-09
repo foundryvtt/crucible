@@ -1,0 +1,78 @@
+folder: 2MFixpDJ379KOogE
+name: Tracery
+type: talent
+img: icons/tools/scribal/ink-quill-pink.webp
+system:
+  description: >-
+    <p>Years of quillwork have steadied your hand. Whether you are inscribing a
+    glyph or illuminating a manuscript, your strokes are immaculate and
+    measured.</p>
+  actions:
+    - id: tracery
+      name: Tracery
+      img: icons/tools/scribal/ink-quill-pink.webp
+      condition: You have a Glyphweaver's Toolkit equipped.
+      description: >-
+        <p>With a Glyphweaver's Toolkit equipped, you can produce any one of the
+        following effects:</p><ul><li><p><strong>Read.</strong> You study a
+        glyph or a spell scroll which you can handle, learning its
+        <strong>Quality</strong> tier and which affix or spellcraft components
+        it would impart. You may also study a written or painted work, learning
+        whether it has been altered since it was made, unless it was altered by
+        someone whose passive Glyphweaving exceeds your
+        own.</p></li><li><p><strong>Destroy.</strong> You instantaneously spoil
+        a glyph, a spell scroll, or a written work which you can physically
+        touch, marring it so that it can no longer be read or used.
+        Alternatively, you may alter a document you can handle, changing a
+        single letter within each word and leaving no obvious trace of your
+        work. Your alteration is discovered only by an intentional Awareness
+        check which beats your passive
+        Glyphweaving.</p></li><li><p><strong>Create.</strong> Given time and
+        materials, you may produce any written or painted work you can picture
+        which carries no affix: a letter in another's hand down to the tremor in
+        it, a portrait that flatters without lying, a seal across a door which
+        cannot be rejoined once broken, a mark on a trail only your companions
+        will notice, a line of chalk that glows faintly for an
+        hour.</p></li></ul><p>You may attempt other uses similar to those above,
+        the effectiveness of which is decided by the Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: none
+        number: 0
+        scope: 0
+        self: false
+      effects: []
+      tags: []
+      summon: null
+  nodes:
+    - dex2b
+  spellcraft: ''
+  iconicSpells: 0
+  training: glyphweaving
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789012800000
+  modifiedTime: 1789012800000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: tracery000000000
+sort: 100000
+_key: '!items!tracery000000000'
