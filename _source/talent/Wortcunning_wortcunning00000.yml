@@ -4,17 +4,17 @@ type: talent
 img: icons/tools/laboratory/bowl-herbs-green.webp
 system:
   description: >-
-    <p>A still, a mortar, and a row of stoppered jars labelled in your own hand.
+    <p>A still, a mortar, and a row of stoppered jars labeled in your own hand.
     You have never met a substance you were not curious about, and few that kept
     their secrets from you.</p>
   actions:
     - id: wortcunning
       name: Wortcunning
       img: icons/tools/laboratory/bowl-herbs-green.webp
-      condition: ''
+      condition: You have an Alchemist's Toolkit equipped.
       description: >-
-        <p>Every preparation leaves its signature. Working with what you carry,
-        you may produce one of the following
+        <p>Every preparation leaves its signature. With an Alchemist's Toolkit
+        equipped, you can produce any one of the following
         effects:</p><ul><li><p><strong>Read.</strong> You study an item created
         by alchemy which you can handle, learning its <strong>Quality</strong>
         tier, what it will do, and whether it has degraded past use. From
@@ -30,9 +30,9 @@ system:
         Given time and reasonable access to ingredients, you may prepare any
         minor alchemical work you are familiar with: inks and dyes, a glue that
         holds under water, a perfume that lingers a full day, fireworks in three
-        colours, acid enough to etch a name in steel. Explicitly defined
-        crafting recipes must still be rolled, but you can successfully prepare
-        any such work outside of this system without requiring a dice
+        colors, acid enough to etch a name in steel. Explicitly defined crafting
+        recipes must still be rolled, but you can successfully prepare any such
+        work outside of this system without requiring a dice
         roll.</p></li></ul><p>You may attempt other uses similar to those above,
         the effectiveness of which is decided by the Gamemaster.</p>
       cost:

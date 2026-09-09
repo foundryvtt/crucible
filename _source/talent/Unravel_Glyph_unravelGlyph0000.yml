@@ -1,0 +1,39 @@
+folder: 2MFixpDJ379KOogE
+name: Unravel Glyph
+type: talent
+img: icons/magic/symbols/rune-sigil-green-purple.webp
+system:
+  description: >-
+    <p>You can take a finished glyph apart stroke by stroke and see exactly how
+    it was made. What you learn stays with you. The glyph does not.</p>
+
+    <p>You may spend an hour to unravel a glyph in your possession, destroying
+    it. You thereafter know the schematic which produces that glyph and may
+    craft it without holding a physical copy, as though you had already crafted
+    it successfully.</p><h3 class="divider">Playtest Notes</h3><p>The crafting
+    system is in early development and schematic knowledge is not yet tracked.
+    This talent describes how Glyphweaving will behave once it is.</p>
+  actions: []
+  nodes:
+    - pre4c
+  spellcraft: ''
+  iconicSpells: 0
+  training: glyphweaving
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789012800000
+  modifiedTime: 1788996077487
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: unravelGlyph0000
+sort: 100000
+_key: '!items!unravelGlyph0000'
