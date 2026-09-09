@@ -20,7 +20,7 @@
             <h4 class="label below" data-tooltip="{{resources.wounds.tooltip}}">{{resources.wounds.label}}</h4>
             {{/if}}
             {{/if}}
-            <div class="hex small threshold wounds" data-tooltip="{{defenses.wounds.tooltip}}">
+            <div class="hex small threshold wounds" data-crucible-tooltip="tag" data-rule-id="defense.wounds">
                 <span class="value">{{defenses.wounds.total}}</span>
             </div>
         </div>
@@ -85,7 +85,7 @@
             <h4 class="label below" data-tooltip="{{resources.madness.tooltip}}">{{resources.madness.label}}</h4>
             {{/if}}
             {{/if}}
-            <div class="hex small threshold madness" data-tooltip="{{defenses.madness.tooltip}}">
+            <div class="hex small threshold madness" data-crucible-tooltip="tag" data-rule-id="defense.madness">
                 <span class="value">{{defenses.madness.total}}</span>
             </div>
         </div>
@@ -105,13 +105,13 @@
         <h3>{{localize "ACTOR.SHEET.Defenses"}}</h3>
         <div class="physical flexrow">
             <div class="defense total">
-                <h4 class="label">{{defenses.physical.label}}</h4>
+                <h4 class="label" data-crucible-tooltip="tag" data-rule-id="defense.physical">{{defenses.physical.label}}</h4>
                 <span class="value">{{defenses.physical.value}}</span>
             </div>
             {{#each defenses.physical.components as |c id|}}
             <span class="sep">{{c.separator}}</span>
             <div class="defense component {{id}} {{c.cssClass}}">
-                <h4 class="label">{{c.label}}</h4>
+                <h4 class="label" data-crucible-tooltip="tag" data-rule-id="defense.{{id}}">{{c.label}}</h4>
                 <span class="value">{{c.value}}</span>
                 <span class="pct">{{c.pct}}%</span>
             </div>
@@ -128,15 +128,15 @@
                 </h4>
             </div>
             <div class="defense fortitude">
-                <h4 class="label" data-tooltip="{{defenses.fortitude.tooltip}}">{{defenses.fortitude.label}}</h4>
+                <h4 class="label" data-crucible-tooltip="tag" data-rule-id="defense.fortitude">{{defenses.fortitude.label}}</h4>
                 <span class="value">{{defenses.fortitude.total}}</span>
             </div>
             <div class="defense willpower">
-                <h4 class="label" data-tooltip="{{defenses.willpower.tooltip}}">{{defenses.willpower.label}}</h4>
+                <h4 class="label" data-crucible-tooltip="tag" data-rule-id="defense.willpower">{{defenses.willpower.label}}</h4>
                 <span class="value">{{defenses.willpower.total}}</span>
             </div>
             <div class="defense reflex">
-                <h4 class="label" data-tooltip="{{defenses.reflex.tooltip}}">{{defenses.reflex.label}}</h4>
+                <h4 class="label" data-crucible-tooltip="tag" data-rule-id="defense.reflex">{{defenses.reflex.label}}</h4>
                 <span class="value">{{defenses.reflex.total}}</span>
             </div>
             <div class="defense extra stride">

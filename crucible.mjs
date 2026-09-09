@@ -550,7 +550,7 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.ABILITIES, ["abbreviation", "label", "group", "tooltip"]);
   localizeConfigObject(SYSTEM.DAMAGE_CATEGORIES);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
-  localizeConfigObject(SYSTEM.DEFENSES, ["label", "shortLabel"]);
+  localizeConfigObject(SYSTEM.DEFENSES, ["label", "shortLabel", "tooltip"]);
   localizeConfigObject(SYSTEM.RESOURCES);
   localizeConfigObject(SYSTEM.TEMPERATURE_TIERS);
   localizeConfigObject(SYSTEM.THREAT_RANKS);

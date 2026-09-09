@@ -276,32 +276,43 @@ export const DEFENSES = {
   physical: {
     id: "physical",
     label: "DEFENSES.Physical",
+    formula: "DEFENSES.FORMULAS.Physical",
+    tooltip: "DEFENSES.TOOLTIPS.Physical",
     type: "physical"
   },
   armor: {
     id: "armor",
     label: "DEFENSES.Armor",
+    formula: "DEFENSES.FORMULAS.Armor",
+    tooltip: "DEFENSES.TOOLTIPS.Armor",
     type: "physical"
   },
   block: {
     id: "block",
     label: "DEFENSES.Block",
+    formula: "DEFENSES.FORMULAS.Block",
+    tooltip: "DEFENSES.TOOLTIPS.Block",
     type: "physical"
   },
   dodge: {
     id: "dodge",
     label: "DEFENSES.Dodge",
+    formula: "DEFENSES.FORMULAS.Dodge",
+    tooltip: "DEFENSES.TOOLTIPS.Dodge",
     type: "physical"
   },
   parry: {
     id: "parry",
     label: "DEFENSES.Parry",
+    formula: "DEFENSES.FORMULAS.Parry",
+    tooltip: "DEFENSES.TOOLTIPS.Parry",
     type: "physical"
   },
   fortitude: {
     id: "fortitude",
     label: "DEFENSES.Fortitude",
     abilities: ["strength", "wisdom"],
+    formula: "DEFENSES.FORMULAS.Fortitude",
     tooltip: "DEFENSES.TOOLTIPS.Fortitude",
     type: "save"
   },
@@ -309,6 +320,7 @@ export const DEFENSES = {
     id: "willpower",
     label: "DEFENSES.Willpower",
     abilities: ["toughness", "presence"],
+    formula: "DEFENSES.FORMULAS.Willpower",
     tooltip: "DEFENSES.TOOLTIPS.Willpower",
     type: "save"
   },
@@ -316,6 +328,7 @@ export const DEFENSES = {
     id: "reflex",
     label: "DEFENSES.Reflex",
     abilities: ["dexterity", "intellect"],
+    formula: "DEFENSES.FORMULAS.Reflex",
     tooltip: "DEFENSES.TOOLTIPS.Reflex",
     type: "save"
   },
@@ -323,6 +336,7 @@ export const DEFENSES = {
     id: "wounds",
     label: "DEFENSES.Wounds",
     shortLabel: "DEFENSES.WoundsShort",
+    formula: "DEFENSES.FORMULAS.Wounds",
     tooltip: "DEFENSES.TOOLTIPS.Wounds",
     type: "threshold"
   },
@@ -330,6 +344,7 @@ export const DEFENSES = {
     id: "madness",
     label: "DEFENSES.Madness",
     shortLabel: "DEFENSES.MadnessShort",
+    formula: "DEFENSES.FORMULAS.Madness",
     tooltip: "DEFENSES.TOOLTIPS.Madness",
     type: "threshold"
   }

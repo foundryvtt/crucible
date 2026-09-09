@@ -337,13 +337,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( defense.type === "physical" ) continue;
       const d = foundry.utils.mergeObject(defense, data[id], {inplace: false});
-      d.tooltip = _loc(d.tooltip, {base: SYSTEM.PASSIVE_BASE});
       d.id = id;
-      if ( d.bonus !== 0 ) {
-        const sign = d.bonus > 0 ? "+" : "-";
-        d.tooltip += ` ${sign} ${Math.abs(d.bonus)}`;
-      }
-      if ( ["wounds", "madness"].includes(id) ) d.tooltip = `${d.label}<br>${d.tooltip}`;
       defenses[id] = d;
     }
     return defenses;
@@ -1218,7 +1212,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       minValue: 0,
       editLabel: "ACTOR.ACTIONS.EditEngagement",
       baseLabel: "ACTOR.FIELDS.movement.engagement.base",
-      baseHint: _loc("ACTOR.FIELDS.movement.engagement.tooltip").split("<br>")[0]
+      baseHint: "ACTOR.FIELDS.movement.engagement.hint"
     });
   }
 
@@ -1254,7 +1248,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       minValue: 0,
       editLabel: "ACTOR.ACTIONS.EditMovement",
       baseLabel: "ACTOR.FIELDS.movement.stride.base",
-      baseHint: "ACTOR.FIELDS.movement.stride.tooltip"
+      baseHint: "ACTOR.FIELDS.movement.stride.hint"
     });
   }
 

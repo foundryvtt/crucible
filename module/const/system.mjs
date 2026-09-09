@@ -215,7 +215,8 @@ export const RULES = {
   ability: ATTRIBUTES.ABILITIES,
   action: ACTION.TAGS, // Tags which pertain to an action; `reload`, `rest`, and `strike` also exist under `actions`
   actions: Object.fromEntries(ACTION.DEFAULT_ACTIONS.map(a => [a.id, a])),
-  condition: {...statusEffects, ...derivedConditions} // Encompasses everything `@Condition` may link to
+  condition: {...statusEffects, ...derivedConditions}, // Encompasses everything `@Condition` may link to
+  defense: ATTRIBUTES.DEFENSES
 };
 
 /* -------------------------------------------- */
