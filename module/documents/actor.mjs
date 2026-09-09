@@ -614,16 +614,27 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Find a connected player who can roll for this actor, preferring an assigned character match then any
+   * non-GM owner. Unlike {@link CrucibleActor#getDesignatedUser}, this does not fall back to the GM.
+   * @returns {User|null}    The active player, or null if none is connected
+   */
+  getActivePlayerUser() {
+    const assigned = game.users.find(user => user.active && (user.character === this));
+    return assigned ?? game.users.getDesignatedUser(user => {
+      if ( !user.active || user.isGM ) return false;
+      return this.testUserPermission(user, "OWNER");
+    }) ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Find the best active user to roll on this actor's behalf, preferring an assigned character match then any
    * owner, falling back to the active GM.
    * @returns {User|null}    The designated user, or null if none is found
    */
   getDesignatedUser() {
-    const assigned = game.users.find(user => user.active && (user.character === this));
-    return assigned ?? game.users.getDesignatedUser(user => {
-      if ( !user.active || user.isGM ) return false;
-      return this.testUserPermission(user, "OWNER");
-    }) ?? game.users.activeGM;
+    return this.getActivePlayerUser() ?? game.users.activeGM;
   }
 
   /* -------------------------------------------- */
