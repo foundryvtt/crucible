@@ -1,0 +1,78 @@
+folder: 2MFixpDJ379KOogE
+name: Wortcunning
+type: talent
+img: icons/tools/laboratory/bowl-herbs-green.webp
+system:
+  description: >-
+    <p>A still, a mortar, and a row of stoppered jars labelled in your own hand.
+    You have never met a substance you were not curious about, and few that kept
+    their secrets from you.</p>
+  actions:
+    - id: wortcunning
+      name: Wortcunning
+      img: icons/tools/laboratory/bowl-herbs-green.webp
+      condition: ''
+      description: >-
+        <p>Every preparation leaves its signature. Working with what you carry,
+        you may produce one of the following
+        effects:</p><ul><li><p><strong>Read.</strong> You study an item created
+        by alchemy which you can handle, learning its <strong>Quality</strong>
+        tier, what it will do, and whether it has degraded past use. From
+        residue alone, a stain, a shattered flask, a scorch on stone, you
+        identify what was prepared there if you know its
+        recipe.</p></li><li><p><strong>Destroy.</strong> You spend 10 minutes to
+        spoil a non-magical item created by alchemy which you can physically
+        touch, leaving a potion inert and a bomb a dud. Alternatively, in the
+        course of preparing such a work yourself, you may leave it appearing
+        sound while ensuring it does nothing at all when next relied upon. Your
+        sabotage is discovered only by an intentional Awareness check which
+        beats your passive Alchemy.</p></li><li><p><strong>Create.</strong>
+        Given time and reasonable access to ingredients, you may prepare any
+        minor alchemical work you are familiar with: inks and dyes, a glue that
+        holds under water, a perfume that lingers a full day, fireworks in three
+        colours, acid enough to etch a name in steel. Explicitly defined
+        crafting recipes must still be rolled, but you can successfully prepare
+        any such work outside of this system without requiring a dice
+        roll.</p></li></ul><p>You may attempt other uses similar to those above,
+        the effectiveness of which is decided by the Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: none
+        number: 0
+        scope: 0
+        self: false
+      effects: []
+      tags: []
+      summon: null
+  nodes:
+    - int2a
+  spellcraft: ''
+  iconicSpells: 0
+  training: alchemy
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789012800000
+  modifiedTime: 1788979697373
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: wortcunning00000
+sort: 100000
+_key: '!items!wortcunning00000'
