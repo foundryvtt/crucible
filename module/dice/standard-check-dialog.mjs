@@ -565,18 +565,18 @@ export default class StandardCheckDialog extends DialogV2 {
   /* -------------------------------------------- */
 
   /**
-   * Handle clicks to add party to requested actors
+   * Toggle the request tray between online party members and the full party.
+   * Online-first: an incomplete tray fills with connected players; a second click expands to everyone;
+   * a further click collapses back to online only. If nobody is online the tray is filled with everyone.
+   * Non-party actors already in the tray are left untouched.
    * @this StandardCheckDialog
    * @param {PointerEvent} _event
    * @returns {Promise<void>}
    */
   static async #onRequestParty(_event) {
-    const members = crucible.party?.system.actors;
-    if ( !members?.size ) {
-      ui.notifications.warn(_loc("WARNING.NoParty"));
-      return;
-    }
-    for ( const m of members ) this.#requestActors.add(m);
+    const party = crucible.api.models.CrucibleGroupActor.getParty();
+    if ( !party ) return;
+    party.toggleOnlineActors(this.#requestActors);
     await this.render({window: {title: this.title}});
   }
 

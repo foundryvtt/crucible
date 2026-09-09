@@ -137,6 +137,61 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
+   * The configured primary party, or `null` after warning if none is set or it has no members.
+   * @returns {CrucibleGroupActor|null}
+   */
+  static getParty() {
+    const party = crucible.party?.system;
+    if ( party?.actors?.size ) return party;
+    ui.notifications.warn(_loc("WARNING.NoParty"));
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Members of this group whose player is currently connected.
+   * @returns {CrucibleActor[]}
+   */
+  getOnlineActors() {
+    const online = [];
+    for ( const actor of this.actors ) {
+      if ( actor.getActivePlayerUser() ) online.push(actor);
+    }
+    return online;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Members for an initial party fill: connected players, or everyone if nobody is online.
+   * @returns {CrucibleActor[]}
+   */
+  getPreferredActors() {
+    const online = this.getOnlineActors();
+    return online.length ? online : Array.from(this.actors);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Replace this group's members in `selected` with the next online-first fill.
+   * Incomplete → preferred; preferred complete → everyone; everyone → preferred.
+   * Unrelated actors are left in place.
+   * @param {Set<CrucibleActor>} selected
+   */
+  toggleOnlineActors(selected) {
+    const has = actors => actors.length > 0 && actors.every(actor => selected.has(actor));
+    const preferred = this.getPreferredActors();
+    const all = Array.from(this.actors);
+    const keep = has(preferred) && !has(all) ? all : preferred;
+    for ( const actor of this.actors ) selected.delete(actor);
+    for ( const actor of keep ) selected.add(actor);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Add a new member to this group.
    * If the new member is a single Actor (hero or adversary), the group gains `quantity` that Actor.
    * If the new member is a group, this group is merged with the membership of the other group.

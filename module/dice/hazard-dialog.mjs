@@ -272,18 +272,15 @@ export default class HazardDialog extends ActionUseDialog {
   /* -------------------------------------------- */
 
   /**
-   * Add the configured party members to the targets list.
+   * Toggle party members in the targets list, online-first.
    * @this {HazardDialog}
    * @param {Event} _event
    */
   static async #onTargetsParty(_event) {
-    const members = crucible.party?.system.actors;
-    if ( !members?.size ) {
-      ui.notifications.warn(_loc("WARNING.NoParty"));
-      return;
-    }
+    const party = crucible.api.models.CrucibleGroupActor.getParty();
+    if ( !party ) return;
     const current = new Set(this.action.usage.forcedTargets ?? []);
-    for ( const a of members ) current.add(a);
+    party.toggleOnlineActors(current);
     this.action.usage.forcedTargets = Array.from(current);
     this.action.acquireTargets({strict: false});
     await this.render({window: {title: this.title}});
@@ -343,6 +340,6 @@ export default class HazardDialog extends ActionUseDialog {
     const expand = crucible.api.documents.CrucibleActor.expandGroups;
     if ( game.user.targets?.size ) return expand(Array.from(game.user.targets).map(t => t.actor));
     if ( canvas.ready && canvas.tokens.controlled.length ) return expand(canvas.tokens.controlled.map(t => t.actor));
-    return crucible.party?.system.members.map(m => m.actor).filter(Boolean) ?? [];
+    return crucible.party?.system?.getPreferredActors() ?? [];
   }
 }
