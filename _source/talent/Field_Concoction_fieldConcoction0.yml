@@ -1,0 +1,39 @@
+folder: 2MFixpDJ379KOogE
+name: Field Concoction
+type: talent
+img: icons/tools/laboratory/mortar-powder-green.webp
+system:
+  description: >-
+    <p>Others need a laboratory. You need a fire, a flat rock, and whatever the
+    roadside provided.</p>
+
+    <p>You may perform alchemical crafting without a facility, though attempts
+    made without one are <strong>Difficult</strong>. You may include one
+    ingredient in a recipe which is a single quality tier lower than that recipe
+    calls for without penalty.</p><h3 class="divider">Playtest Notes</h3><p>The
+    crafting system is in early development. This talent describes how Alchemy
+    will behave once facilities and ingredient quality are enforced.</p>
+  actions: []
+  nodes:
+    - tou4d
+  spellcraft: ''
+  iconicSpells: 0
+  training: alchemy
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789012800000
+  modifiedTime: 1788979653468
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: fieldConcoction0
+sort: 100000
+_key: '!items!fieldConcoction0'
