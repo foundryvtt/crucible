@@ -1,0 +1,79 @@
+folder: 2MFixpDJ379KOogE
+name: Hearthwork
+type: talent
+img: icons/tools/cooking/oven-stone-grey.webp
+system:
+  description: >-
+    <p>You are the one who makes sure everyone has eaten. A hot bowl pressed
+    into the hands of a companion at the end of a bad day is the whole of your
+    craft, and you have never let one go to sleep hungry.</p>
+  actions:
+    - id: hearthwork
+      name: Hearthwork
+      img: icons/tools/cooking/oven-stone-grey.webp
+      condition: ''
+      description: >-
+        <p>Food carries the history of what was done to it. Working with what
+        you carry, you may produce one of the following
+        effects:</p><ul><li><p><strong>Read.</strong> You study food, drink, a
+        poison, or a drug which you can clearly see within <strong>30
+        feet</strong>, learning its <strong>Quality</strong> tier, whether it
+        has spoiled, and what has been added to it. When you eat something
+        prepared by another hand, you learn its
+        recipe.</p></li><li><p><strong>Destroy.</strong> You instantaneously
+        spoil non-magical food or drink which you can physically touch, turning
+        a dish, a cask, or a company's rations rancid beyond salvage.
+        Alternatively, in the course of preparing food or drink yourself, you
+        may make it look and smell wholesome while leaving whoever eats it
+        nauseous and sick for hours afterward. Your work is discovered only by
+        an intentional Awareness check which beats your passive
+        Cooking.</p></li><li><p><strong>Create.</strong> Given time and
+        reasonable access to ingredients, you may prepare any food or drink you
+        are familiar with and have it come out as you intended, from field
+        porridge to a wedding cake to a cordial you tasted once in another
+        country. Explicitly defined crafting recipes must still be rolled, but
+        you can successfully prepare any dish outside of this system without
+        requiring a dice roll.</p></li></ul><p>You may attempt other uses
+        similar to those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: none
+        number: 0
+        scope: 0
+        self: false
+      effects: []
+      tags: []
+      summon: null
+  nodes:
+    - wis2c
+  spellcraft: ''
+  iconicSpells: 0
+  training: cooking
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789012800000
+  modifiedTime: 1788970629736
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: hearthwork000000
+sort: 100000
+_key: '!items!hearthwork000000'

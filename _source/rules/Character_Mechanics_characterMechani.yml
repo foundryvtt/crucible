@@ -1032,17 +1032,17 @@ pages:
         as your level rises, but until then they contribute neither rank nor
         bonus.</p><p>The cap stops rising at <strong>30</strong> points, the
         requirement for <strong>Master</strong>, which is therefore out of reach
-        until level 15.</p><h2 class="divider">Untrained
-        Penalty</h2><p>While untrained, you have an initial penalty to your
-        skill of <strong>-4</strong>. This penalty is reduced to
-        <strong>-2</strong> once you have a single Proficiency point invested,
-        and the penalty is removed altogether once you reach the
-        <strong>Trained</strong> rank with 2 points invested.</p><h2
-        class="divider">Intuitive Actions</h2><p>Some things are simple enough
-        to attempt without formal instruction. When an item you use or Action
-        you perform is <strong>Intuitive</strong> you are treated as having one
-        additional point in the Proficiency it requires, so a character with no
-        training at all suffers only a -2 penalty rather than -4.</p>
+        until level 15.</p><h2 class="divider">Untrained Penalty</h2><p>While
+        untrained, you have an initial penalty to your skill of
+        <strong>-4</strong>. This penalty is reduced to <strong>-2</strong> once
+        you have a single Proficiency point invested, and the penalty is removed
+        altogether once you reach the <strong>Trained</strong> rank with 2
+        points invested.</p><h2 class="divider">Intuitive Actions</h2><p>Some
+        things are simple enough to attempt without formal instruction. When an
+        item you use or Action you perform is <strong>Intuitive</strong> you are
+        treated as having one additional point in the Proficiency it requires,
+        so a character with no training at all suffers only a -2 penalty rather
+        than -4.</p>
     video:
       controls: true
       volume: 0.5
