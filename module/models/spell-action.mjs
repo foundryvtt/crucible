@@ -128,6 +128,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.isComposed ) {
       this.cost = CrucibleSpellAction.#prepareCost.call(this);
       this.target = {...this.gesture.target};
+      if ( this.rune.restoration && (this.target.type === "single") ) this.target.self = true;
       this.range = this.gesture.range;
       if ( this.composition >= STATES.COMPOSING ) {
         this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
@@ -201,8 +202,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       base: this.gesture.damage.base ?? 0,
       bonus: this.gesture.damage.bonus ?? 0,
       multiplier: 1,
-      type: this.damageType ?? this.rune.damageType,
-      restoration: this.rune.restoration
+      type: this.damageType ?? this.rune.damageType
     };
   }
 
@@ -251,8 +251,9 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _configureUsage() {
     super._configureUsage();
 
-    // A spell's Rune determines restoration, which the healing and rallying tags may later also assert
-    this.usage.restoration = !!this.rune.restoration;
+    // A composed spell is its components, so its Rune determines restoration. An iconic spell's components are only
+    // prerequisites for knowing it, so it must declare restoration explicitly with the healing or rallying tag.
+    if ( this.isComposed ) this.usage.restoration = !!this.rune.restoration;
 
     // Spellcasting is always Intuitive if you know the rune
     this.usage.bonuses.skill = this.actor.getSkillBonus(this.training, {intuitive: true});
