@@ -12,6 +12,7 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  * @property {string} damageType              The type of damage dealt (e.g. "slashing", "fire")
  * @property {number} damageBonus             Additive damage bonus
  * @property {number} multiplier              Damage overflow multiplier
+ * @property {boolean} restoration            Does this roll restore the targeted resource rather than diminish it?
  * @property {number} flanked                 The degree to which the target is flanked by the attacker
  * @property {number} [result]                The result code in AttackRoll.RESULT_TYPES, undefined before evaluation
  * @property {DamageData} [damage]            The resolved damage of the roll, undefined before evaluation
@@ -51,7 +52,8 @@ export default class AttackRoll extends StandardCheck {
     damageBonus: 0,
     flanked: 0,
     resource: "health",
-    damageType: undefined
+    damageType: undefined,
+    restoration: false
   });
 
   /**
@@ -119,7 +121,7 @@ export default class AttackRoll extends StandardCheck {
    * @param {number} [config.bonus=0]            Additive damage bonus
    * @param {string} [config.resource="health"]  The resource damaged
    * @param {string} [config.damageType]         The damage type dealt
-   * @param {boolean} [config.restoration=false] Resolve the result as restoration rather than damage?
+   * @param {boolean} [config.restoration]       Resolve as restoration; defaults to the roll's configured intent
    * @returns {number}                           The resolved result type in {@link AttackRoll.RESULT_TYPES}
    */
   resolveDamage(actor, target, config) {
@@ -128,7 +130,7 @@ export default class AttackRoll extends StandardCheck {
 
     // First resolution supplies a config; a re-derivation reuses the configuration retained on the damage record
     const d = config ?? this.data.damage ?? {};
-    const {multiplier=1, base=0, bonus=0, resource="health", restoration=false} = d;
+    const {multiplier=1, base=0, bonus=0, resource="health", restoration=this.data.restoration} = d;
     const damageType = d.damageType ?? d.type;
 
     // Test the defense and structure the damage; a non-connecting attack retains its configuration with a zero total

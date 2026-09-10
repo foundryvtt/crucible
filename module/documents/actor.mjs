@@ -438,14 +438,14 @@ export default class CrucibleActor extends Actor {
    * @internal
    */
   _configureTargetRollData(action, rollData) {
-    const {boons, banes} = rollData;
+    const {boons, banes, restoration=false} = rollData;
     const {isAttack=false, isRanged=false} = action.usage;
     const statuses = CONFIG.statusEffects;
 
     // Attack-related conditions
     if ( isAttack ) {
       if ( this.statuses.has("blinded") ) boons.blind = {label: statuses.blinded.name, number: 2};
-      if ( this.statuses.has("guarded") && !(action.damage?.restoration) ) {
+      if ( this.statuses.has("guarded") && !restoration ) {
         banes.guarded = {label: statuses.guarded.name, number: 1};
       }
       if ( this.statuses.has("prone") ) {
@@ -868,7 +868,8 @@ export default class CrucibleActor extends Actor {
       resource: options.resource || spell.rune.resource,
       damageType: options.damageType || spell.damage.type,
       damageBonus: options.damageBonus || spell.damage.bonus || 0,
-      multiplier: options.multiplier || spell.damage.multiplier || 1
+      multiplier: options.multiplier || spell.damage.multiplier || 1,
+      restoration: options.restoration ?? spell.usage.restoration
     };
 
     // Actor configuration and hooks
@@ -883,7 +884,7 @@ export default class CrucibleActor extends Actor {
       bonus: rollData.damageBonus + (this.system.rollBonuses.damage?.[rollData.damageType] ?? 0),
       resource: rollData.resource,
       damageType: rollData.damageType,
-      restoration: spell.damage.restoration
+      restoration: rollData.restoration
     });
     target.callActorHooks("receiveAttack", spell, roll);
     return roll;
@@ -911,7 +912,7 @@ export default class CrucibleActor extends Actor {
    */
   async receiveAttack(action, options={}) {
     if ( !(action instanceof CrucibleAction) ) throw new Error("The provided action must be a CrucibleAction instance");
-    const {bonuses, restoration} = action.usage;
+    const {bonuses} = action.usage;
 
     // Coalesce AttackRollData from action usage and per-attack options
     const defenseType = options.defenseType || action.usage.defenseType;
@@ -928,7 +929,8 @@ export default class CrucibleActor extends Actor {
       resource: options.resource || action.usage.resource || "health",
       damageType: options.damageType || action.usage.damageType,
       damageBonus: options.damageBonus || 0,
-      multiplier: options.multiplier || 1
+      multiplier: options.multiplier || 1,
+      restoration: options.restoration ?? action.usage.restoration
     };
 
     // Defender configuration, which may handle special cases like the "Environment" or the actor attacking themselves
@@ -944,7 +946,7 @@ export default class CrucibleActor extends Actor {
       bonus: rollData.damageBonus,
       resource: rollData.resource,
       damageType: rollData.damageType,
-      restoration: !!restoration
+      restoration: rollData.restoration
     });
     return roll;
   }
@@ -959,7 +961,7 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<AttackRoll|null>}                  A created AttackRoll instance or null
    */
   async skillAttack(action, target, options={}) {
-    const {bonuses, restoration, skillId} = action.usage;
+    const {bonuses, skillId} = action.usage;
 
     // Coalesce AttackRollData from action usage and per-attack options
     let defenseType = options.defenseType || action.usage.defenseType;
@@ -983,7 +985,8 @@ export default class CrucibleActor extends Actor {
       resource: options.resource || action.usage.resource || "health",
       damageType: options.damageType || action.usage.damageType,
       damageBonus: options.damageBonus || bonuses.damageBonus || 0,
-      multiplier: options.multiplier || bonuses.multiplier || 1
+      multiplier: options.multiplier || bonuses.multiplier || 1,
+      restoration: options.restoration ?? action.usage.restoration
     };
 
     // Actor configuration and hooks
@@ -998,7 +1001,7 @@ export default class CrucibleActor extends Actor {
       bonus: rollData.damageBonus,
       resource: rollData.resource,
       damageType: rollData.damageType,
-      restoration
+      restoration: rollData.restoration
     });
     target.callActorHooks("receiveAttack", action, roll);
     return roll;
@@ -1038,7 +1041,8 @@ export default class CrucibleActor extends Actor {
       resource: options.resource || action.usage.resource || "health",
       damageType: options.damageType || action.usage.damageType || weapon.system.damageType,
       damageBonus: options.damageBonus || action.usage.bonuses.damageBonus || 0,
-      multiplier: options.multiplier || action.usage.bonuses.multiplier || 1
+      multiplier: options.multiplier || action.usage.bonuses.multiplier || 1,
+      restoration: options.restoration ?? action.usage.restoration
     };
 
     // Actor configuration and hooks
@@ -1052,7 +1056,8 @@ export default class CrucibleActor extends Actor {
       base: weapon.system.damage.weapon,
       bonus: weapon.system.damage.bonus + rollData.damageBonus,
       resource: rollData.resource,
-      damageType: rollData.damageType
+      damageType: rollData.damageType,
+      restoration: rollData.restoration
     });
 
     // Finalize the attack and return; hooks fire for every result so talents can react to misses, dodges, and parries
