@@ -609,17 +609,37 @@ class CrucibleActionTags extends Set {
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
+    const makeEffectsSchema = () => {
+      // Configure allowed duration properties
+      const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
+      const durationUnits = CONST.ACTIVE_EFFECT_DURATION_UNITS;
+      aeDuration.extendFields({
+        units: new fields.StringField({required: true, blank: true, initial: "", choices: durationUnits})
+      });
+      for ( const fieldName of ["value", "units", "expiry"] ) {
+        aeDuration.fields[fieldName].label = _loc(`EFFECT.FIELDS.duration.${fieldName}.label`);
+      }
 
-    // Configure allowed duration properties
-    const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
-    const durationUnits = CONST.ACTIVE_EFFECT_DURATION_UNITS;
-    aeDuration.extendFields({
-      units: new fields.StringField({required: true, blank: true, initial: "", choices: durationUnits})
-    });
+      // Limit allowed effect scopes
+      const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
+      delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
 
-    // Limit allowed effect scopes
-    const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
-    delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
+      // Must manually set label, as these'll exist both here and under Action Region Behavior schema
+      const makeLabel = fieldName => _loc(`ACTION.FIELDS.effects.element.${fieldName}.label`);
+      return new fields.ArrayField(new fields.SchemaField({
+        name: new fields.StringField({blank: true, initial: "", label: makeLabel("name")}),
+        scope: new fields.NumberField({choices: effectScopes, label: makeLabel("scope")}),
+        result: new fields.SchemaField({
+          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
+          all: new fields.BooleanField({initial: false, label: makeLabel("result.all")}),
+        }, {label: makeLabel("result")}),
+        statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects}, {
+          label: makeLabel("statuses")
+        })),
+        duration: aeDuration,
+        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
+      }));
+    };
 
     // Return action schema
     return {
@@ -655,17 +675,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         permanent: new fields.BooleanField({initial: true}),
         combatant: new fields.BooleanField({initial: true})
       }, {nullable: true, initial: null}),
-      effects: new fields.ArrayField(new fields.SchemaField({
-        name: new fields.StringField({blank: true, initial: ""}),
-        scope: new fields.NumberField({choices: effectScopes}),
-        result: new fields.SchemaField({
-          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
-          all: new fields.BooleanField({initial: false})
-        }),
-        statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
-        duration: aeDuration,
-        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
-      })),
+      effects: makeEffectsSchema(),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     };
   }
