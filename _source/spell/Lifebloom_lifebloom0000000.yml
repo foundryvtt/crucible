@@ -68,6 +68,7 @@ system:
         - spell
         - iconicSpell
         - maintained
+        - healing
       summon:
         actorUuid: null
         permanent: true

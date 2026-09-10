@@ -1736,7 +1736,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       targets.push(t);
       if ( !this.token ) continue;
       // `token` is a placeable from game.user.targets while this.token is a TokenDocument, so compare by id
-      if ( (token.id === this.token.id) && !this.damage?.restoration ) {
+      if ( (token.id === this.token.id) && !this.target.self ) {
         t.error = _loc("ACTION.WARNINGS.CannotTargetSelf");
         continue;
       }
