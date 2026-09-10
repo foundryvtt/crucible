@@ -14,11 +14,11 @@ system:
       bonus: 0
     intellect:
       base: 1
-      increases: 1
+      increases: 0
       bonus: 0
     strength:
       base: 1
-      increases: 0
+      increases: 1
       bonus: 0
     toughness:
       base: 2
@@ -30,8 +30,8 @@ system:
       bonus: 0
   advancement:
     level: 6
+    milestones: 18
     talentNodes: []
-    milestones: 0
   defenses:
     armor:
       bonus: 0
@@ -60,9 +60,7 @@ system:
         people known most for their physical resilience and the deep well of
         their knowledge. You have inherited the strength of mountains.</p>
       identifier: giantkin
-      talents:
-        - item: Compendium.crucible.talent.Item.runeEarth0000000
-          level: null
+      talents: []
       ui:
         color: '#acd7dd'
       abilities:
@@ -74,24 +72,31 @@ system:
       movement:
         size: 5
         stride: 10
+      characteristics:
+        blooded: true
+        temperature: ''
       name: Giantkin
       img: icons/environment/wilderness/tree-oak.webp
-      characteristics:
-        temperature: ''
     background:
       description: >-
         <p>You were a healer or medical professional of some variety. You have
         spent a portion of your life learning medical science, and you have a
         propensity for noticing illness in others. You know how to treat wounds,
         diseases, and how to identify their sources.</p>
-      skills:
+      training:
+        - wilderness
         - medicine
         - science
+        - mechanical
+        - alchemy
+        - physical
       talents:
-        - item: Compendium.crucible.talent.Item.talismanWeaponTr
-          level: null
         - item: Compendium.crucible.talent.Item.runeLife00000000
-          level: null
+          level: 0
+        - item: Compendium.crucible.talent.Item.mnemonicrealizat
+          level: 0
+        - item: Compendium.crucible.talent.Item.precisionshot000
+          level: 0
       identifier: physician
       ui:
         color: '#fe4d4d'
@@ -111,11 +116,10 @@ system:
       age: ''
       height: ''
       weight: ''
-      appearance: ''
       pronouns: ''
-    languages:
-      - common
+      appearance: ''
     knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -174,12 +178,35 @@ system:
     engagementBonus: 0
   status: null
   favorites:
-    - defend
-    - refocus
-    - strike
     - cast
+    - defend
+    - strike
+    - beastShape
+    - wildStrike
     - fontOfLife
-  currency: 25000
+  currency: 0
+  training:
+    natural:
+      increases: 4
+      bonus: 0
+    physical:
+      increases: 2
+      bonus: 0
+    spiritual:
+      increases: 1
+      bonus: 0
+    cooking:
+      increases: 0
+      bonus: 0
+    wilderness:
+      increases: 0
+      bonus: 0
+    arcana:
+      increases: 1
+      bonus: 0
+    athletics:
+      increases: 2
+      bonus: 0
 prototypeToken:
   name: Kagura
   displayName: 20
@@ -260,50 +287,8 @@ prototypeToken:
   movementAction: null
   depth: 5
 items:
-  - folder: uvvY6c0nbJBhAjM6
-    name: Ice Staff
-    type: weapon
-    _id: teHqGUKkPcrk8Pvm
-    img: icons/weapons/staves/staff-ornate-engraved-blue.webp
-    system:
-      category: talisman2
-      quantity: 1
-      weight: 4
-      price: 640
-      quality: standard
-      broken: false
-      enchantment: mundane
-      equipped: true
-      properties: []
-      damageType: cold
-      description:
-        public: >-
-          <p>This mage staff is a talisman to assist with spellcraft or hurl
-          blasts of frigid ice towards enemies.</p>
-        private: ''
-      actions: []
-      slot: 3
-      dropped: false
-      identifier: iceStaff
-      invested: false
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233414
-      modifiedTime: 1783344233414
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    sort: 500000
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.teHqGUKkPcrk8Pvm'
   - _id: Jucaft0kqe7QBfgY
-    name: Scale Mail
+    name: Fine Scale Mail
     type: armor
     img: icons/equipment/chest/breastplate-banded-steel-studded.webp
     effects: []
@@ -314,7 +299,7 @@ items:
       quantity: 1
       weight: 30
       price: 2400
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties:
@@ -328,15 +313,15 @@ items:
       armor:
         base: 13
       broken: false
-      actions: []
       identifier: scaleMail
       invested: false
+      actions: []
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233414
-      modifiedTime: 1783344233414
+      systemVersion: 0.10.2
+      createdTime: 1789073933682
+      modifiedTime: 1789073933682
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -346,48 +331,204 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.Jucaft0kqe7QBfgY'
-  - name: 'Gesture: Influence'
+  - name: 'Rune: Life'
     type: talent
-    img: icons/magic/light/orbs-firefly-hand-yellow.webp
+    img: icons/magic/life/heart-shadow-red.webp
     system:
       description: >-
-        <p>You intensify the arcane power of a Rune into a concentrated direct
-        contact which is generally a more powerful evolution of the basic Touch
-        gesture.</p><p>The Influence gesture scales using
-        <strong>Presence</strong> and targets a single adjacent creature. It
-        deals <strong>10 Base Damage</strong> to targets which fail to Resist
-        the spell. This gesture requires <strong>1 Hand</strong> to cast and has
-        a base cost of <strong>3 Action</strong> and <strong>1
-        Focus</strong>.</p>
-      actions: []
-      gesture: influence
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+        <p>A chaotic force of creation, responsible for living matter. The Life
+        rune governs health and matters relating to biological growth.</p><p>The
+        Life rune scales using <strong>Wisdom</strong> and provides
+        <strong>Restoration</strong> of <strong>Health</strong>. In special
+        circumstances it may be used to inflict <strong>Poison</strong> damage
+        opposed by <strong>Fortitude</strong>. It is opposed by the orderly rune
+        of <strong>Death</strong>.</p>
+      actions:
+        - id: bloom
+          name: Bloom
+          img: icons/magic/life/heart-shadow-red.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Life allows you to stimulate
+            biological growth and nourish physical health, producing one of the
+            following effects:</p><ul><li><p>Cultivate 1 cubic foot of existing
+            plants or fungus to rapidly grow to a healthy, blossoming, or
+            harvestable state.</p></li><li><p>Identify a negative physical
+            condition that is affecting a creature such as @Condition[diseased],
+            @Condition[poisoned], @Condition[bleeding], or
+            @Condition[weakened].</p></li><li><p>Verify whether a portion of
+            food or drink is free of contamination from bacteria, parasites, or
+            poison.</p></li></ul><p>Bloom may only affect a creature or object
+            you can physically touch. You may attempt other uses similar those
+            above, the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          summon: null
+      spellcraft: life
+      training: physical
       nodes:
-        - pre1b
-      rune: ''
-      inflection: ''
+        - wis0b
+      iconicSpells: 0
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233414
+      systemVersion: 0.10.2
+      createdTime: 1789073933682
+      modifiedTime: 1789073933682
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233414
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: gestureinfluence
-    folder: D14x9AJ0TgXKtnzu
-    sort: 500000
+    _id: runeLife00000000
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.gestureinfluence'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeLife00000000'
+  - name: Mnemonic Realization
+    type: talent
+    _id: mnemonicrealizat
+    img: icons/magic/perception/eye-ringed-green.webp
+    system:
+      description: >-
+        <p>Your sharpened mind is full of secrets and techniques to remember
+        them. Once per Day you may focus your thoughts and attempt to recall a
+        word that sparks your memory.</p>
+
+        <p>The Gamemaster must provide you with a one-word clue that is
+        appropriate for your direction of inquiry. It is left to Gamemaster
+        discretion how direct or vague to be with the clue they provide.</p>
+      actions:
+        - id: mnemonicRealization
+          description: >-
+            <p>You survey your memories attempting to recall a clue for your
+            current situation.</p>
+          tags:
+            - subtle
+          cost:
+            action: 3
+            focus: 1
+            weapon: false
+            heroism: 0
+            hands: 0
+          target:
+            type: self
+            number: 0
+            scope: 1
+            self: false
+          effects: []
+          name: Mnemonic Realization
+          img: icons/magic/perception/eye-ringed-green.webp
+          condition: ''
+          range:
+            maximum: 1
+            weapon: false
+            minimum: null
+          summon: null
+      nodes:
+        - int0b
+      iconicSpells: 0
+      training: science
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.mnemonicrealizat'
+  - _id: precisionshot000
+    name: Precision Shot
+    type: talent
+    img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
+    effects: []
+    flags: {}
+    system:
+      description: >-
+        You take time to steady your aim and target the weakest point of a foe.
+        You may only get one shot, but you make it count.
+      actions:
+        - id: precisionShot
+          condition: ''
+          description: <p>You steady your aim and fire a single accurate shot.</p>
+          tags:
+            - ranged
+            - accurate
+          cost:
+            action: 1
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          name: Precision Shot
+          img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon: null
+      nodes:
+        - dex0a
+      iconicSpells: 0
+      training: mechanical
+      spellcraft: ''
+      requirements:
+        training: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.precisionshot000'
   - name: 'Gesture: Ray'
     type: talent
     img: icons/magic/light/beam-rays-blue.webp
@@ -401,71 +542,267 @@ items:
         requires <strong>1 Hand</strong> to cast and has a base cost of
         <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
-      gesture: ray
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ray
       nodes:
         - wis1b
-      rune: ''
-      inflection: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233415
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933683
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233415
+      createdTime: 1789073933683
       compendiumSource: null
       duplicateSource: null
       exportSource: null
     _id: gestureray000000
-    folder: D14x9AJ0TgXKtnzu
-    sort: 600000
+    folder: null
+    sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.gestureray000000'
-  - name: Conserve Effort
+  - name: Wildspeaker
     type: talent
-    img: icons/magic/time/arrows-circling-pink.webp
+    img: icons/skills/social/diplomacy-peace-alliance.webp
     system:
-      description: >-
-        <p>You find calmness and focus in conserving your effort in battle. When
-        you end your <strong>Turn</strong> with un-spent Action you gain
-        <strong>+1 Focus</strong>.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
       nodes:
-        - wis2a
-      rune: ''
-      gesture: ''
-      inflection: ''
+        - wis1a
+      description: >-
+        <p>You have a preternatural knack for communicating with animals.
+        Through body language and sounds, you are capable of interpreting and
+        communicating in the language of the wilderness.</p>
+      actions:
+        - id: wildspeak
+          name: Wildspeak
+          img: icons/skills/social/diplomacy-peace-alliance.webp
+          condition: ''
+          description: >-
+            <p>If you succeed on a [[/skillCheck wilderness 14]] check, you may
+            pose simple questions to a <strong>Beast</strong> which can perceive
+            you. As long as the creature is not hostile it will respond
+            accurately within the limits of its own
+            knowledge.</p><ul><li><p>Beasts with an <strong>Intellect</strong>
+            score of zero are incapable of understanding
+            you.</p></li><li><p>Beasts with an <strong>Intellect</strong> score
+            of 1 can only respond with "yes" or "no"
+            responses.</p></li><li><p>Beasts with an <strong>Intellect</strong>
+            score greater than 1 can provide simple multi-word
+            responses.</p></li></ul>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 0
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - noncombat
+          summon: null
+      iconicSpells: 0
+      training: wilderness
+      spellcraft: ''
+      requirements:
+        training: {}
     effects: []
-    flags:
-      core: {}
+    flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233415
+      systemVersion: 0.10.2
+      createdTime: 1789073933683
+      modifiedTime: 1789073933683
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233415
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: conserveeffort00
-    folder: qHUCrqkzuPHtBkbG
-    sort: 150000
+    _id: wildspeaker00000
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.conserveeffort00'
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.wildspeaker00000'
+  - name: Primordial Seed
+    type: weapon
+    img: icons/equipment/neck/pendant-rough-copper-green.webp
+    system:
+      identifier: primordialSeed
+      category: talisman1
+      quantity: 1
+      weight: 2
+      price: 320
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: false
+      invested: false
+      properties: []
+      description:
+        public: >-
+          <p>This talisman, favored by druidic adherants attuned to the power of
+          the land, aids in the practice of spellcraft or can be used in combat
+          to direct a gout of poisonous spores towards an enemy.</p>
+        private: ''
+      actions: []
+      damageType: poison
+      dropped: false
+      slot: 1
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: bZMrylhhkvq5QkFL
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.bZMrylhhkvq5QkFL'
+  - name: Hearthwork
+    type: talent
+    img: icons/tools/cooking/oven-stone-grey.webp
+    system:
+      description: >-
+        <p>You are the one who makes sure everyone has eaten. A hot bowl pressed
+        into the hands of a companion at the end of a bad day is the whole of
+        your craft, and you have never let one go to sleep hungry.</p>
+      actions:
+        - id: hearthwork
+          name: Hearthwork
+          img: icons/tools/cooking/oven-stone-grey.webp
+          condition: You have a Cook's Toolkit equipped.
+          description: >-
+            <p>Food carries the history of what was done to it. With a Cook's
+            Toolkit equipped, you can produce any one of the following
+            effects:</p><ul><li><p><strong>Read.</strong> You study an item
+            created by cooking which you can clearly see within <strong>30
+            feet</strong>, learning its <strong>Quality</strong> tier, whether
+            it has spoiled, and what has been added to it. When you eat
+            something prepared by another hand, you learn its
+            recipe.</p></li><li><p><strong>Destroy.</strong> You instantaneously
+            spoil non-magical food or drink which you can physically touch,
+            turning a dish, a cask, or a company's rations rancid beyond
+            salvage. Alternatively, in the course of preparing food or drink
+            yourself, you may sabotage it while leaving it looking and smelling
+            wholesome. You name the condition under which it fails; when that
+            condition is met, the Gamemaster decides the consequences. Your
+            sabotage is discovered only by an intentional Awareness check which
+            beats your passive Cooking.</p></li><li><p><strong>Create.</strong>
+            Given time and reasonable access to ingredients, you may prepare any
+            food or drink you are familiar with and have it come out as you
+            intended, from field porridge to a wedding cake to a cordial you
+            tasted once in another country. Explicitly defined crafting recipes
+            must still be rolled, but you can successfully prepare any dish
+            outside of this system without requiring a dice
+            roll.</p></li></ul><p>You may attempt other uses similar to those
+            above, the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            hands: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: 30
+            weapon: false
+          target:
+            type: none
+            number: 0
+            scope: 0
+            self: false
+          effects: []
+          tags: []
+          summon: null
+      nodes:
+        - wis2c
+      spellcraft: ''
+      iconicSpells: 0
+      training: cooking
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: hearthwork000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.hearthwork000000'
+  - name: Mender
+    type: talent
+    _id: mender0000000000
+    img: icons/magic/life/cross-beam-green.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Life. When you cast a
+        Spell or use an action that involves this Rune, your Critical Hits which
+        restore Health cause the @Condition[mending] condition.</p><p>The
+        Mending effect lasts for <strong>1 Round</strong> and deals the ability
+        score your <strong>Rune of Life</strong> scales with as additional
+        <strong>Restoration</strong> to <strong>Health</strong>.</p>
+      actions: []
+      nodes:
+        - wis3b
+      iconicSpells: 0
+      training: physical
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933683
+      modifiedTime: 1789073933683
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.mender0000000000'
   - name: Healer
     type: talent
     img: icons/magic/life/heart-hand-gold-green-light.webp
@@ -533,70 +870,528 @@ items:
             description.</strong></p>
           summon: null
       iconicSpells: 1
-      rune: life
+      spellcraft: life
       nodes:
         - sig3.wisdom.presence
-      gesture: ''
-      inflection: ''
-      training:
-        type: ''
-        rank: null
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233415
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933686
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233415
+      createdTime: 1789073933686
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    folder: fOYHlZJEWUukD7yr
+    folder: null
     _id: healer0000000000
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.healer0000000000'
-  - folder: Md0gbb0qzKkjEDju
-    name: Mental Fortress
+  - name: Shapeshifter
     type: talent
-    img: icons/magic/holy/barrier-shield-winged-blue.webp
+    img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
     system:
       description: >-
-        <p>Your strong will makes you exceedingly difficult to influence. You
-        gain +1 to your <strong>Willpower</strong> defense and +5 resistance to
-        <strong>Psychic</strong> damage.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+        <p>You possess supernatural ability to transform your body into the
+        shapes of beasts.</p>
+
+        <p>You undergo a transformation where you assume the form of a beast
+        that you are familiar with and which is half your level or less. While
+        transformed you have the exact attributes and abilities of the chosen
+        beast.</p>
+
+        <p>Your equipment is magically incorporated into the form that you take,
+        however you gain no benefit from that equipment while transformed.</p>
+
+        <p>If your bestial form becomes @Condition[incapacitated] you revert
+        back to your normal form with any excess damage becoming
+        <strong>Wounds</strong>. If your <strong>Morale</strong> is
+        @Condition[broken] while in beast form your transformation ends and any
+        excess damage becomes <strong>Madness</strong>.</p>
+
+        <h3 class="divider">Playtest Notes</h3>
+
+        <p>This talent and its associated actions are not yet automated.</p>
+      actions:
+        - id: beastShape
+          name: Beast Shape
+          description: >-
+            <p>You assume the form of a beast that you are familiar with of
+            one-half your level or less.</p>
+          tags: []
+          cost:
+            action: 3
+            focus: 3
+            heroism: 0
+            hands: 0
+            weapon: false
+          target:
+            type: self
+            scope: 1
+            number: 1
+            self: false
+          effects:
+            - name: Beast Shape
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: 60
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+          img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
+          condition: ''
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          summon: null
+        - id: beastShapeRevert
+          name: Revert Shape
+          description: >-
+            <p>You end your bestial transformation, returning to your normal
+            form.</p>
+          tags: []
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: false
+          target:
+            type: self
+            scope: 1
+            number: 1
+            self: false
+          effects: []
+          img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
+          condition: ''
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          summon: null
       nodes:
-        - pre3a
-      rune: ''
-      gesture: ''
-      inflection: ''
+        - sig3.toughness
+        - sig3.wisdom
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233415
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233415
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: mentalfortress00
-    sort: 100000
+    _id: shapeshifter0000
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.mentalfortress00'
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.shapeshifter0000'
+  - name: Wild Strike
+    type: talent
+    img: icons/creatures/abilities/fangs-teeth-bite.webp
+    system:
+      description: >-
+        <p>You have a developed familiarity with using features of your own body
+        as natural weapons including claws, jaws, tails, or other mechanisms of
+        self-defense.</p>
+      actions:
+        - id: wildStrike
+          img: icons/creatures/abilities/fangs-teeth-bite.webp
+          cost:
+            action: -1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - afterStrike
+            - melee
+            - natural
+          name: Wild Strike
+          condition: ''
+          description: >-
+            <p>Immediately after you perform a basic Strike, you perform a
+            reduced-cost follow-up <strong>Strike</strong> against the same
+            target using a different <strong>Natural</strong> weapon that you
+            have access to.</p>
+          summon: null
+      iconicSpells: 0
+      training: natural
+      nodes:
+        - tou0b
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: wildStrike000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.wildStrike000000'
+  - name: Unarmed Blocking
+    type: talent
+    _id: unarmedblocking0
+    img: icons/magic/earth/strike-fist-stone-light.webp
+    system:
+      description: >-
+        <p>Through long practice and toughened resolve you are able to Block
+        enemy blows using your bare limbs. While <strong>Unarmed</strong> or
+        wielding only natural weapons, half your <strong>Toughness</strong>
+        score contributes to your <strong>Block</strong> defense.</p>
+      actions: []
+      nodes:
+        - tou0a
+      iconicSpells: 0
+      training: unarmed
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.unarmedblocking0'
+  - name: Feral Brawler
+    type: talent
+    img: icons/creatures/claws/claw-bear-paw-swipe-brown.webp
+    system:
+      description: >-
+        <p>You fight with your bare hands the way a beast fights with claw and
+        jaw, committing to a savagery that trained fighters are taught out
+        of.</p>
+
+        <p>Your bare hands count as <strong>Natural</strong> weapons in addition
+        to <strong>Unarmed</strong> ones. You may use them for any action which
+        requires a Natural weapon, and they are wielded using whichever of your
+        <strong>Natural</strong> or <strong>Unarmed</strong> proficiencies
+        serves you better.</p>
+      actions: []
+      nodes:
+        - tou1a
+      spellcraft: ''
+      iconicSpells: 0
+      training: natural
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: feralBrawler0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.feralBrawler0000'
+  - name: Thick Skin
+    type: talent
+    img: icons/magic/defensive/armor-stone-skin.webp
+    system:
+      description: >-
+        Your physical toughness makes you more resistant to harm. You gain +2
+        Resistance to Bludgeoning, Slashing, and Piercing damage.
+      actions: []
+      nodes:
+        - tou3b
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: thickskin0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.thickskin0000000'
+  - name: Lesser Regeneration
+    type: talent
+    _id: lesserregenerati
+    img: icons/magic/life/crosses-trio-red.webp
+    system:
+      description: >-
+        <p>Your prodigious hardiness conveys a supernatural capability to
+        recover from wounds quickly. At the start of your turn if you are not
+        @Condition[weakened] you gain <strong>+1 Health</strong>.</p>
+      actions: []
+      nodes:
+        - tou2c
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.lesserregenerati'
+  - name: Battle-Worn
+    type: talent
+    img: icons/skills/wounds/injury-stapled-flesh-tan.webp
+    system:
+      description: >-
+        <p>Your body has endured so many injuries that it has learned how to
+        mend itself with remarkable efficiency. When you perform the
+        <strong>Rest</strong> action, you recover additional
+        <strong>Wounds</strong> equal to half your <strong>Toughness</strong>
+        score (rounded down).</p>
+      actions: []
+      nodes:
+        - tou1b
+      iconicSpells: 0
+      training: medicine
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: battleWorn000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.battleWorn000000'
+  - name: Slow Simmer
+    type: talent
+    img: icons/tools/cooking/bowl-steaming-brown.webp
+    system:
+      description: >-
+        <p>You keep the fire and the pot, and you have the ingenuity to cook
+        meals in circumstances that are far from ideal.</p>
+
+        <p>A meal you prepare lasts <strong>16 hours</strong> rather than 8.
+        Those who eat it recover an additional amount of <strong>Wounds</strong>
+        and <strong>Madness</strong> equal to half your <strong>Wisdom</strong>
+        when the Rest concludes. You may prepare a meal wherever the party is
+        able to Rest at all, without fire or shelter.</p><h3
+        class="divider">Playtest Notes</h3><p>Meals are not yet implemented.
+        This talent describes how the Cooking trade will behave once meal
+        preparation is a Rest activity.</p>
+      actions: []
+      nodes:
+        - tou4d
+      spellcraft: ''
+      iconicSpells: 0
+      training: cooking
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: slowSimmer000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.slowSimmer000000'
+  - name: 'Rune: Control'
+    type: talent
+    img: icons/magic/control/hypnosis-mesmerism-eye.webp
+    system:
+      description: >-
+        <p>The orderly force of discipline and permanence. The Control rune
+        governs thought, reason, and persistence.</p><p>The Control rune scales
+        using <strong>Wisdom</strong>, targets <strong>Willpower</strong>, and
+        deals <strong>Psychic</strong> damage to <strong>Morale</strong>. It is
+        opposed by the chaotic rune of <strong>Kinesis</strong>.</p>
+      actions:
+        - id: motivate
+          img: icons/magic/control/hypnosis-mesmerism-eye.webp
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          name: Motivate
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Control allows you to affect the
+            decision making of others in basic ways, producing one of the
+            following effects:</p><ul><li><p>Moderately intensify or dampen the
+            primary emotion being felt by a creature you touch. If the creature
+            is intelligent enough to be aware of the laws governing spellcraft,
+            they are aware of your actions.</p></li><li><p>Understand the
+            abstract motivations of another living creature which allows you to
+            touch it. You are able to intuit their immediate goals expressed in
+            the form of a single verb.</p></li><li><p>Intensely focus on your
+            current objective and the means of achieving it. You receive a brief
+            hint or reminder from the Gamemaster about that objective containing
+            only information which you have previously
+            learned.</p></li></ul><p>Motivate may only affect a creature or
+            object which you can physically touch. You may attempt other uses
+            similar those above, the effectiveness of which is decided by the
+            Gamemaster.</p>
+          summon: null
+      spellcraft: control
+      nodes:
+        - wis0b
+      iconicSpells: 0
+      training: physical
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: runeControl00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeControl00000'
   - name: 'Inflection: Compose'
     type: talent
     img: icons/magic/symbols/arrowhead-green.webp
@@ -607,643 +1402,76 @@ items:
         <strong>Focus</strong> cost of a spell by 1 while increasing its
         <strong>Action</strong> cost by 1 in exchange.</p>
       actions: []
-      inflection: compose
+      spellcraft: compose
       iconicSpells: 1
-      training:
-        type: ''
-        rank: null
       nodes:
         - wispre2
-      rune: ''
-      gesture: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233415
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933688
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233415
+      createdTime: 1789073933688
       compendiumSource: null
       duplicateSource: null
       exportSource: null
     _id: inflectioncompos
-    folder: mFfsius4gpT45Q2R
-    sort: 100000
+    folder: null
+    sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.inflectioncompos'
-  - name: Dustbinder
+  - name: 'Gesture: Surge'
     type: talent
-    img: icons/magic/earth/orb-stone-smoke-teal.webp
-    system:
-      description: >-
-        <p>You are highly skilled in weaving the Rune of Earth. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
-        deal damage cause the @Condition[corroding] condition.</p><p>The
-        Corroding effect lasts for <strong>3 Rounds</strong> and deals half the
-        ability score your <strong>Rune of Earth</strong> scales with as
-        <strong>Acid</strong> damage to <strong>Health</strong> each Round.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - wis3b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233416
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233416
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: dustbinder000000
-    folder: c0nl6X8tp4Of0Y4O
-    sort: -100000
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.dustbinder000000'
-  - folder: i7WposibCJ94XpuD
-    name: Talisman Weapon Training
-    type: talent
-    img: icons/weapons/polearms/trident-fork-white.webp
-    system:
-      description: >-
-        <p>You understand the arcane usage of talismans, orbs, foci, or other
-        similar implements to channel magic or empower spellcraft. You are
-        <strong>Trained</strong> with weapons in the <strong>Talisman</strong>
-        categories.</p>
-      actions:
-        - id: refocus
-          name: Refocus
-          img: icons/magic/light/orb-shadow-blue.webp
-          condition: ''
-          description: >-
-            <p>You use your equipped Talisman to attempt to regain some
-            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
-            <strong>Strike</strong> against your own <strong>Rallying</strong>
-            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
-            if using a one-handed Talisman and <strong>+2 Focus</strong> if
-            using a two-handed Talisman. On a critical success the amount of
-            Focus recovered increases by an additional +1.</p>
-          cost:
-            action: 0
-            focus: 0
-            heroism: 0
-            hands: 0
-            weapon: true
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          target:
-            type: self
-            number: 1
-            scope: 1
-            self: false
-          effects: []
-          tags:
-            - talisman
-            - harmless
-            - rallying
-          summon: null
-      iconicSpells: 0
-      training:
-        type: talisman
-        rank: 1
-      nodes:
-        - pre0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 0
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1783344233416
-      createdTime: 1783344233416
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: talismanWeaponTr
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.talismanWeaponTr'
-  - name: Runewarden
-    type: talent
-    img: icons/magic/defensive/shield-barrier-flaming-diamond-purple-orange.webp
-    system:
-      description: >-
-        <p>Your mastery of the arcane makes you more resilient to elemental and
-        spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
-        half your Wisdom for each Elemental or Spiritual damage type where you
-        know the Arcane Rune attuned to that damage type.</p><p>When you use the
-        <strong>Ward</strong> gesture, the Resistance provided by your Ward also
-        increases by half your Wisdom.</p>
-      actions: []
-      iconicSpells: 1
-      nodes:
-        - sig3.toughness
-        - sig3.wisdom
-      training:
-        type: ''
-        rank: null
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233416
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233416
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: runewarden000000
-    folder: fOYHlZJEWUukD7yr
-    sort: 306250
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runewarden000000'
-  - name: Wildspeaker
-    type: talent
-    img: icons/skills/social/diplomacy-peace-alliance.webp
+    img: icons/magic/water/wave-water-blue.webp
     system:
       nodes:
-        - wis1a
+        - wis4d
       description: >-
-        <p>You have a preternatural knack for communicating with animals.
-        Through body language and sounds, you are capable of interpreting and
-        communicating in the language of the wilderness.</p>
-      actions:
-        - id: wildspeak
-          name: Wildspeak
-          img: icons/skills/social/diplomacy-peace-alliance.webp
-          condition: ''
-          description: >-
-            <p>If you succeed on a [[/skillCheck wilderness 14]] check, you may
-            pose simple questions to a <strong>Beast</strong> which can perceive
-            you. As long as the creature is not hostile it will respond
-            accurately within the limits of its own
-            knowledge.</p><ul><li><p>Beasts with an <strong>Intellect</strong>
-            score of zero are incapable of understanding
-            you.</p></li><li><p>Beasts with an <strong>Intellect</strong> score
-            of 1 can only respond with "yes" or "no"
-            responses.</p></li><li><p>Beasts with an <strong>Intellect</strong>
-            score greater than 1 can provide simple multi-word
-            responses.</p></li></ul>
-          cost:
-            action: 0
-            focus: 0
-            heroism: 0
-            weapon: false
-            hands: 0
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          target:
-            type: self
-            number: 1
-            scope: 1
-            self: false
-          effects: []
-          tags:
-            - noncombat
-          summon: null
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233417
-      modifiedTime: 1783344233417
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: wildspeaker00000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.wildspeaker00000'
-  - name: Healing Elixir Formula
-    type: schematic
-    system:
-      identifier: healingElixirRecipe
-      category: alchemy
-      quantity: 1
-      weight: 1
-      price: 7500
-      quality: standard
-      properties:
-        - common
-      description:
-        public: A commonly known recipe for creating a basic healing potion.
-        private: >-
-          You can turn particular healing herbs found in the wild into a bottled
-          elixir using Alchemists Tools.
-      inputs:
-        - mode: ANY
-          ingredients:
-            - quantity: 1
-              item: Item.healingHerbs0000
-              quality: ''
-              consumed: true
-            - quantity: 1
-              item: Item.alchemicalVial00
-              quality: ''
-              consumed: true
-            - quantity: 1
-              item: Item.alchemistsTools0
-              quality: standard
-              consumed: false
-          currency: 1500
-      outputs:
-        - - quantity: 1
-            item: Compendium.crucible.equipment.Item.healingElixir000
-      dc: 15
-      hours: 4
-    img: icons/sundries/documents/document-symbol-person-brown.webp
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233417
-      modifiedTime: 1783344233417
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: JRqc3sRONMGAfSZ0
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.JRqc3sRONMGAfSZ0'
-  - name: Healing Elixir Formula
-    type: schematic
-    system:
-      identifier: healingElixirRecipe
-      category: alchemy
-      quantity: 1
-      weight: 1
-      price: 7500
-      quality: standard
-      properties:
-        - common
-      description:
-        public: A commonly known recipe for creating a basic healing potion.
-        private: >-
-          You can turn particular healing herbs found in the wild into a bottled
-          elixir using Alchemists Tools.
-      inputs:
-        - mode: ANY
-          ingredients:
-            - quantity: 1
-              item: Item.healingHerbs0000
-              quality: ''
-              consumed: true
-            - quantity: 1
-              item: Item.alchemicalVial00
-              quality: ''
-              consumed: true
-            - quantity: 1
-              item: Item.alchemistsTools0
-              quality: standard
-              consumed: false
-          currency: 1500
-      outputs:
-        - - quantity: 1
-            item: Compendium.crucible.equipment.Item.healingElixir000
-      dc: 15
-      hours: 4
-    img: icons/sundries/documents/document-symbol-person-brown.webp
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233417
-      modifiedTime: 1783344233417
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: 7Gh7o63Ny3uN81vM
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.7Gh7o63Ny3uN81vM'
-  - name: Versatile Translator
-    type: talent
-    img: icons/skills/trades/academics-book-study-runes.webp
-    system:
-      nodes:
-        - int1b
-      description: >-
-        <p>You have a scholarly background in linguistics or an intuitive knack
-        for languages. Your capabilities enable you to decipher the basic
-        meaning of text written in a variety of languages.</p><p>You can
-        translate text of a language you do not know that is written using a
-        common set of glyphs or characters to a language that you do know.
-        Creating such a translation requires spending one minute per word to
-        transcribe the text into a language which you understand.</p><p>Your
-        translations are rudimentary and often lack nuance, but they do contain
-        all essential points of the text.</p>
-      actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233418
-      modifiedTime: 1783344233418
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: versatileTransla
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.versatileTransla'
-  - name: Soothe
-    type: talent
-    _id: soothe0000000000
-    img: icons/magic/life/heart-cross-strong-blue.webp
-    system:
-      description: >-
-        You administer a soothing Performance which rallies your allies,
-        restoring Morale.
-      actions:
-        - id: soothe
-          description: >-
-            <p>You perform a calming verse, benefiting all allies who can
-            perceive you within 12 feet. Make a <strong>Performance
-            Check</strong> against the Madness threshold of each ally. On
-            success, each ally's Morale is restored.</p>
-          tags:
-            - rallying
-            - morale
-            - performance
-          cost:
-            action: 3
-            focus: 1
-            weapon: false
-            heroism: 0
-            hands: 0
-          target:
-            type: pulse
-            number: 1
-            scope: 2
-            size: 12
-            self: false
-          effects: []
-          name: Soothe
-          img: icons/magic/life/heart-cross-strong-blue.webp
-          condition: ''
-          range:
-            maximum: null
-            weapon: false
-            minimum: null
-          summon: null
-      nodes:
-        - pre2a
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233418
-      modifiedTime: 1783344233418
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.soothe0000000000'
-  - name: 'Gesture: Pulse'
-    type: talent
-    _id: gesturepulse0000
-    img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
-    system:
-      description: >-
-        <p>Expel the arcane power of a Rune in a radius that travels outward
-        with you at its center.</p><p>The Pulse gesture scales using
-        <strong>Presence</strong> and produces an emanation with 10 foot radius,
-        dealing <strong>8 Base Damage</strong> to targets which fail to Resist
-        the spell. The gesture requires <strong>2 Hands</strong> to cast and has
-        a base cost of <strong>5 Action</strong> and <strong>2
+        <p>You channel the arcane power of a Rune into a rushing wave of energy
+        that surges forward from your current position.</p><p>The Surge gesture
+        scales with <strong>Wisdom</strong> and produces a line that is 10 feet
+        wide and 15 feet long originating from the spellcaster, dealing
+        <strong>8 Base Damage</strong> to targets which fail to Resist the
+        spell. The gesture requires <strong>2 Hands</strong> to cast and has a
+        base cost of <strong>5 Action</strong> and <strong>2
         Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
         is currently placed at a <strong>Tier 4</strong> node. It will
         eventually only be attainable at a higher level (probably Level 6
         required). It is currently available "early" for testing.</p>
       actions: []
-      gesture: pulse
-      nodes:
-        - pre4d
-      rune: ''
-      inflection: ''
+      spellcraft: surge
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233418
-      modifiedTime: 1783344233418
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+    _id: gestureSurge0000
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.gesturepulse0000'
-  - name: Inspirator
-    type: talent
-    _id: inspirator000000
-    img: icons/magic/light/explosion-star-glow-silhouette.webp
-    system:
-      description: >-
-        <p>You are highly skilled in weaving the Rune of Soul. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
-        restore Morale cause the @Condition[inspired] condition.</p><p>The
-        Inspired effect lasts for <strong>1 Round</strong> and deals the ability
-        score your <strong>Rune of Soul</strong> scales with as additional
-        <strong>Restoration</strong> to <strong>Morale</strong>.</p>
-      actions: []
-      nodes:
-        - pre3b
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233418
-      modifiedTime: 1783344233418
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.inspirator000000'
-  - name: Mender
-    type: talent
-    _id: mender0000000000
-    img: icons/magic/life/cross-beam-green.webp
-    system:
-      description: >-
-        <p>You are highly skilled in weaving the Rune of Life. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
-        restore Health cause the @Condition[mending] condition.</p><p>The
-        Mending effect lasts for <strong>1 Round</strong> and deals the ability
-        score your <strong>Rune of Life</strong> scales with as additional
-        <strong>Restoration</strong> to <strong>Health</strong>.</p>
-      actions: []
-      nodes:
-        - wis3b
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233419
-      modifiedTime: 1783344233419
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.mender0000000000'
-  - name: Arcana Novice
-    type: talent
-    _id: arcanaNovice0000
-    img: systems/crucible/icons/skills/arcana.jpg
-    system:
-      description: >-
-        <p>Your education covered the fundamentals of metaphysics and magical
-        theory, the relationship between the runes, the opposing nature of order
-        and chaos, and a cursory introduction to spiritual beings including the
-        most commonly known deified and demonized figures of worship. You gain
-        the <strong>Novice</strong> rank in the <strong>Arcana </strong>skill
-        and are no longer considered <strong>Untrained</strong> in that
-        skill.</p><p>Your rudimentary understanding of the principle grammar of
-        magic is sufficient to identify which lesser rune a spell or ritual may
-        be using, as well as the gesture used (if not the inflection). You can
-        identify whether a figure is influenced more by chaos or by order, and
-        can spot the signs of common spirits (both lesser and greater). You know
-        enough about religious customs to communicate with those who worship a
-        particular spirit or deity without embarrassing yourself.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: arcana
-        rank: 1
-      nodes:
-        - pre0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233419
-      modifiedTime: 1783344233419
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.arcanaNovice0000'
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.gestureSurge0000'
   - name: 'Rune: Soul'
     type: talent
     img: icons/magic/light/projectile-halo-teal.webp
@@ -1297,24 +1525,22 @@ items:
             other uses similar those above, the effectiveness of which is
             decided by the Gamemaster.</p>
           summon: null
-      rune: soul
+      spellcraft: soul
       nodes:
         - pre0b
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: soul
-        rank: 1
+      training: spiritual
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233419
-      modifiedTime: 1783344233419
+      systemVersion: 0.10.2
+      createdTime: 1789073933688
+      modifiedTime: 1789073933688
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1324,117 +1550,422 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeSoul00000000'
-  - name: Irrepressible Spirit
+  - name: Undaunted
     type: talent
-    img: icons/magic/light/projectile-smoke-pink.webp
+    img: icons/magic/symbols/star-rising-purple.webp
     system:
       description: >-
-        Your tenacity gives you an irrepressible spirit which resists the onset
-        of despair. At the start of your turn if you are not @Condition[broken]
-        you gain 1 Morale.
+        <p>Despair takes your voice and your courage, but never your command of
+        the arcane. You may continue to spend <strong>Focus</strong> even while
+        you are @Condition[broken].</p>
       actions: []
       nodes:
         - wis2b
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233420
-      modifiedTime: 1783344233420
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: irrepressiblespi
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.irrepressiblespi'
-  - name: Eye of the Storm
-    type: talent
-    _id: eyeofthestorm000
-    img: icons/magic/water/wave-water-explosion.webp
-    system:
-      description: >-
-        <p>After you Delay your Turn, gain +2 Boons on any Strike or Spell
-        attack against an enemy that you allowed to act before you that
-        Round.</p><p>TODO: Needs automation. For now apply boons manually.</p>
-      actions: []
-      nodes:
-        - wis1a
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      training: arcana
+      spellcraft: ''
+      requirements:
+        training: {}
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233420
-      modifiedTime: 1783344233420
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+    _id: undaunted0000000
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.eyeofthestorm000'
-  - name: 'Rune: Earth'
-    type: talent
-    img: icons/magic/earth/projectile-boulder-debris.webp
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.undaunted0000000'
+  - name: Amulet of Nimbleness
+    type: accessory
+    img: icons/equipment/neck/necklace-runed-sowelu-teal.webp
     system:
-      description: >-
-        <p>The orderly force of elemental earth, responsible for physical
-        matter. The Earth rune governs minerals, metals, soils, and other
-        physical compounds.</p><p>The Earth rune scales using
-        <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Storm</strong>.</p>
+      identifier: amuletNimbleness
+      category: jewelry
+      quantity: 1
+      weight: 0
+      price: 20
+      quality: fine
+      broken: false
+      enchantment: minor
+      equipped: true
+      invested: true
+      properties:
+        - investment
+      description:
+        public: >-
+          <blockquote><p>This brightly colored necklace holds a stone amulet
+          that glows with a rune that crackles faintly with electrical
+          resonance. While holding it you have the surreal sensation of the
+          world around you slowing down ever so
+          slightly.</p></blockquote><p>This enchanted amulet provides a bonus to
+          <strong>Reflex</strong> defense.</p>
+        private: >-
+          <p>This item is presented as an example of a Fine Amulet with the
+          @UUID[Compendium.crucible.affixes.ActiveEffect.nimbleness000000]{Nimbleness}
+          suffix.</p><p>This affix can be applied to any armor or accessory and
+          this amulet could be further enchanted with a Tier 1 prefix.</p>
+      actions: []
+    effects:
+      - name: Nimbleness
+        type: affix
+        duration:
+          value: null
+          units: seconds
+          expiry: null
+          expired: false
+        system:
+          adjective: Nimbleness
+          identifier: nimbleness
+          changes: []
+          affixType: suffix
+          tier:
+            min: 1
+            max: 3
+            value: 1
+          itemTypes:
+            - accessory
+            - armor
+          actions: []
+        _id: nimbleness000000
+        img: icons/magic/movement/abstract-ribbons-red-orange.webp
+        disabled: false
+        start: null
+        description: >-
+          <p>Increase <strong>Reflex</strong> defense by 1 for each
+          <strong>Tier</strong> of this suffix.</p>
+        origin: null
+        tint: '#ffffff'
+        transfer: false
+        statuses: []
+        showIcon: 1
+        folder: Lw2f7XpDAHZxckl7
+        sort: -100000
+        flags: {}
+        _stats:
+          coreVersion: '14.367'
+          systemId: crucible
+          systemVersion: 0.10.2
+          createdTime: 1789073933681
+          modifiedTime: 1789073933681
+          lastModifiedBy: WRGzDgYAt3ZuX6TU
+          compendiumSource: null
+          duplicateSource: null
+          exportSource: null
+        _key: >-
+          !actors.items.effects!Il4NDaNBdHNcjJ9d.LeCFAttAPVRRRK19.nimbleness000000
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: LeCFAttAPVRRRK19
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.LeCFAttAPVRRRK19'
+  - name: Charm of Tenacity
+    type: accessory
+    img: icons/equipment/neck/necklace-carved-stone-spiral.webp
+    system:
+      identifier: amuletTenacity
+      category: jewelry
+      quantity: 1
+      weight: 0
+      price: 20
+      quality: fine
+      broken: false
+      enchantment: minor
+      equipped: true
+      invested: true
+      properties:
+        - investment
+      description:
+        public: >-
+          <blockquote><p>This charm-covered necklace looks rustic, but upon
+          close inspection you notice a delicate craft imbued within its
+          workmanship. While holding it you feel your breaths deepen and the
+          minor aches within your muscles dissipate.</p></blockquote><p>This
+          enchanted charm provides a bonus to <strong>Fortitude</strong>
+          defense.</p>
+        private: >-
+          <p>This item is presented as an example of a Fine Charm with the
+          @UUID[Compendium.crucible.affixes.ActiveEffect.tenacity00000000]{Tenacity}
+          suffix.</p><p>This affix can be applied to any armor or accessory and
+          this charm could be further enchanted with a Tier 1 prefix.</p>
+      actions: []
+    effects:
+      - name: Tenacity
+        type: affix
+        duration:
+          value: null
+          units: seconds
+          expiry: null
+          expired: false
+        system:
+          adjective: Tenacity
+          identifier: tenacity
+          changes: []
+          affixType: suffix
+          tier:
+            min: 1
+            max: 3
+            value: 1
+          itemTypes:
+            - accessory
+            - armor
+          actions: []
+        _id: tenacity00000000
+        img: icons/magic/symbols/mask-metal-silver-white.webp
+        disabled: false
+        start: null
+        description: >-
+          <p>Increase <strong>Fortitude</strong> defense by 1 per each
+          <strong>Tier</strong> of this suffix.</p>
+        origin: null
+        tint: '#ffffff'
+        transfer: false
+        statuses: []
+        showIcon: 1
+        folder: Lw2f7XpDAHZxckl7
+        sort: 100000
+        flags: {}
+        _stats:
+          coreVersion: '14.367'
+          systemId: crucible
+          systemVersion: 0.10.2
+          createdTime: 1789073933681
+          modifiedTime: 1789073933681
+          lastModifiedBy: WRGzDgYAt3ZuX6TU
+          compendiumSource: null
+          duplicateSource: null
+          exportSource: null
+        _key: >-
+          !actors.items.effects!Il4NDaNBdHNcjJ9d.boHBwA4YbTpmsmIh.tenacity00000000
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: boHBwA4YbTpmsmIh
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.boHBwA4YbTpmsmIh'
+  - name: Steel-Jaw Trap
+    type: consumable
+    img: icons/environment/traps/trap-jaw-steel.webp
+    system:
+      identifier: steelJawTrap
+      category: trap
+      quantity: 1
+      weight: 20
+      price: 300
+      quality: standard
+      broken: false
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+      description:
+        public: >-
+          <p>A particularly cruel and sharp mechanical trap designed to
+          immobilize and kill the unwary. A saw-toothed steel ring that snaps
+          shut when a creature steps on a pressure plate in the center</p>
+        private: ''
       actions:
-        - id: mould
-          name: Mould
-          img: icons/magic/earth/projectile-boulder-debris.webp
+        - id: steelJawArm
+          name: Arm Steel-Jaw Trap
+          img: icons/environment/traps/trap-jaw-steel.webp
           condition: ''
           description: >-
-            <p>Your command of the Rune of Earth allows you to manipulate raw
-            forces of rock, mineral, and soil in basic ways, producing one of
-            the following effects:</p><ul><li><p>Quickly shape up to one cubic
-            foot of available material into a simple geometric form like a
-            cuboid, ellipsoid, or polyhedron.</p></li><li><p>Precisely copy the
-            physical shape of a held object that is smaller than a 6-inch cube,
-            reproducing it from available clay, stone, or metal. The replica
-            retains no useful properties except for its physical
-            form.</p></li><li><p>Separate and collect earthen particles from the
-            surface of an object, creature, or liquid that you touch, rendering
-            the subject completely cleaned or purified in
-            moments.</p></li></ul><p>Mould may only affect a creature or object
-            you can physically touch. You may attempt other uses similar those
-            above, the effectiveness of which is decided by the Gamemaster.</p>
+            <p>Setting the trap places a dangerous hazard that deals significant
+            damage if triggered. It must be affixed by heavy chain to an
+            immobile object, such as a tree or spike driven into the ground. The
+            area of the trap is a circle with a radius of 2 feet.</p>
           cost:
-            action: 3
+            action: 4
+            focus: 0
+            heroism: 0
+            hands: 2
+            weapon: false
+          range:
+            minimum: null
+            maximum: 4
+            weapon: false
+          target:
+            type: blast
+            number: 1
+            scope: 0
+            self: false
+            size: 2
+          effects: []
+          tags:
+            - consume
+          summon: null
+        - id: steelJawTrigger
+          name: Trigger Steel-Jaw Trap
+          img: icons/environment/traps/trap-jaw-steel.webp
+          condition: ''
+          description: >-
+            <p>When triggered the creature that set the trap makes a
+            <strong>Wilderness</strong> skill attack against the
+            <strong>Reflex</strong> defense of a single target which triggered
+            the trap. If not resisted, it deals piercing damage and applies the
+            @Condition[restrained] condition. The base damage dealt by the trap
+            varies according to the quality of the
+            trap.</p><ul><li><p><strong>Shoddy</strong> - 1
+            damage</p></li><li><p><strong>Standard</strong> - 2
+            damage</p></li><li><p><strong>Fine</strong> - 4
+            damage</p></li><li><p><strong>Superior</strong> - 8
+            damage</p></li><li><p><strong>Masterwork</strong> - 16
+            damage</p></li></ul><p></p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects:
+            - name: Steel-Jaw Trap
+              scope: 3
+              result:
+                type: success
+                all: false
+              statuses:
+                - restrained
+              system:
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                changes: []
+                dc: null
+                properties: []
+              duration:
+                value: null
+                units: ''
+                expiry: null
+                expired: false
+          tags:
+            - reflex
+            - piercing
+            - skill
+            - wilderness
+          summon: null
+      uses:
+        value: 1
+        max: 1
+      scroll:
+        runes: []
+        gestures: []
+        inflections: []
+    effects: []
+    flags:
+      dnd5e:
+        riders:
+          activity: []
+          effect: []
+      ember:
+        crucibleOverride: true
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: xu20LRuea9Ti2TQ2
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.xu20LRuea9Ti2TQ2'
+  - name: Rallying Elixir
+    type: consumable
+    img: icons/consumables/potions/bottle-bulb-corked-purple.webp
+    system:
+      identifier: rallyingElixir
+      category: flask
+      quantity: 1
+      weight: 1
+      price: 400
+      quality: standard
+      broken: false
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+      description:
+        public: >-
+          <p>This potion contains a specialized alchemical formula to rapidly
+          fortify the psyche and improve morale.</p>
+        private: ''
+      actions:
+        - id: rallyingElixir
+          name: Rallying Elixir
+          img: icons/consumables/potions/bottle-bulb-corked-purple.webp
+          condition: ''
+          description: >-
+            <p>Immediately recover an amount of <strong>Morale
+            </strong>dependant on the quality of the
+            elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
+            <strong>Morale</strong>.</p></li><li><p><strong>Standard</strong> -
+            Immediately heals 12
+            <strong>Morale</strong>.</p></li><li><p><strong>Fine</strong> -
+            Immediately heals 24
+            <strong>Morale</strong>.</p></li><li><p><strong>Superior</strong> -
+            Immediately heals 48
+            <strong>Morale</strong>.</p></li><li><p><strong>Masterwork</strong>
+            - Immediately heals 96 <strong>Morale</strong>.</p></li></ul>
+          cost:
+            action: 2
             focus: 0
             heroism: 0
             weapon: false
-            hands: 1
+            hands: 0
           range:
             minimum: null
             maximum: 1
@@ -1443,118 +1974,38 @@ items:
             type: single
             number: 1
             scope: 4
-            self: false
+            self: true
           effects: []
           tags:
-            - spell
-            - harmless
+            - consume
+            - rallying
           summon: null
-      rune: earth
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: earth
-        rank: 1
+      uses:
+        value: 1
+        max: 1
+      scroll:
+        runes: []
+        gestures: []
+        inflections: []
     effects: []
-    flags:
-      core: {}
+    flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233420
-      modifiedTime: 1783344233420
+      systemVersion: 0.10.2
+      createdTime: 1789073933681
+      modifiedTime: 1789073933681
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: runeEarth0000000
+    _id: 1HsyuXXEvN5gQWfa
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeEarth0000000'
-  - name: 'Rune: Life'
-    type: talent
-    img: icons/magic/life/heart-shadow-red.webp
-    system:
-      description: >-
-        <p>A chaotic force of creation, responsible for living matter. The Life
-        rune governs health and matters relating to biological growth.</p><p>The
-        Life rune scales using <strong>Wisdom</strong> and provides
-        <strong>Restoration</strong> of <strong>Health</strong>. In special
-        circumstances it may be used to inflict <strong>Poison</strong> damage
-        opposed by <strong>Fortitude</strong>. It is opposed by the orderly rune
-        of <strong>Death</strong>.</p>
-      actions:
-        - id: bloom
-          name: Bloom
-          img: icons/magic/life/heart-shadow-red.webp
-          condition: ''
-          description: >-
-            <p>Your command of the Rune of Life allows you to stimulate
-            biological growth and nourish physical health, producing one of the
-            following effects:</p><ul><li><p>Cultivate 1 cubic foot of existing
-            plants or fungus to rapidly grow to a healthy, blossoming, or
-            harvestable state.</p></li><li><p>Identify a negative physical
-            condition that is affecting a creature such as @Condition[diseased],
-            @Condition[poisoned], @Condition[bleeding], or
-            @Condition[weakened].</p></li><li><p>Verify whether a portion of
-            food or drink is free of contamination from bacteria, parasites, or
-            poison.</p></li></ul><p>Bloom may only affect a creature or object
-            you can physically touch. You may attempt other uses similar those
-            above, the effectiveness of which is decided by the Gamemaster.</p>
-          cost:
-            action: 3
-            focus: 1
-            heroism: 0
-            weapon: false
-            hands: 1
-          range:
-            minimum: null
-            maximum: 1
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          tags:
-            - spell
-            - harmless
-          summon: null
-      rune: life
-      training:
-        type: life
-        rank: 1
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233420
-      modifiedTime: 1783344233420
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: runeLife00000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeLife00000000'
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.1HsyuXXEvN5gQWfa'
 effects: []
 flags:
   core: {}
@@ -1646,11 +2097,11 @@ flags:
         messageId: OhEmh4Wf2BjFDsk2
         combat: null
 _stats:
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.10.1
-  createdTime: 1783344233412
-  modifiedTime: 1783344233412
+  systemVersion: 0.10.2
+  createdTime: 1789073933681
+  modifiedTime: 1789073933681
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

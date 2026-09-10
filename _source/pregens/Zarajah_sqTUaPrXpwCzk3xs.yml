@@ -61,9 +61,7 @@ system:
         fire does little to dissuade people from thinking you are an actual
         devil.</p>
       identifier: devilkin
-      talents:
-        - item: Compendium.crucible.talent.Item.runeFlame0000000
-          level: null
+      talents: []
       ui:
         color: '#c72950'
       abilities:
@@ -75,24 +73,31 @@ system:
       movement:
         size: 4
         stride: 10
+      characteristics:
+        blooded: true
+        temperature: ''
       name: Devilkin
       img: icons/magic/unholy/silhouette-evil-horned-giant.webp
-      characteristics:
-        temperature: ''
     background:
       description: >-
         You were a travelling entertainer. You learned to be comfortable
         attending a variety of social functions, how to play to your audience,
         embellishing details of your performance to evoke particular emotional
         responses.
-      skills:
+      training:
         - deception
         - performance
+        - talisman
+        - physical
+        - alchemy
+        - society
       talents:
-        - item: Compendium.crucible.talent.Item.lightWeaponTrain
-          level: null
-        - item: Compendium.crucible.talent.Item.inspireheroism00
-          level: null
+        - item: Compendium.crucible.talent.Item.camaraderie00000
+          level: 0
+        - item: Compendium.crucible.talent.Item.runeKinesis00000
+          level: 0
+        - item: Compendium.crucible.talent.Item.diversionist0000
+          level: 0
       identifier: performer
       ui:
         color: '#e26ce4'
@@ -179,6 +184,7 @@ system:
     - strike
     - cast
   currency: 0
+  training: {}
 prototypeToken:
   name: Zarajah
   displayName: 20
@@ -265,6 +271,7 @@ items:
     _id: 5HWc3RX8F46IJt9g
     img: icons/weapons/staves/staff-engraved-red.webp
     system:
+      identifier: flameStaff
       category: talisman2
       quantity: 1
       weight: 4
@@ -273,26 +280,25 @@ items:
       broken: false
       enchantment: mundane
       equipped: true
+      invested: false
       properties: []
-      damageType: fire
       description:
         public: >-
           <p>This mage staff is a talisman to assist with spellcraft or hurl
           gouts of arcane flame at enemies.</p>
         private: ''
       actions: []
-      slot: 3
-      identifier: flameStaff
-      invested: false
+      damageType: fire
       dropped: false
+      slot: 3
     effects: []
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.1
-      coreVersion: '14.364'
-      createdTime: 1783344224745
-      modifiedTime: 1783344224745
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789065725057
+      modifiedTime: 1789065725057
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -327,15 +333,15 @@ items:
       armor:
         base: 10
       broken: false
-      actions: []
       identifier: ringMail
       invested: false
+      actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.10.1
-      coreVersion: '14.364'
-      createdTime: 1783344224746
-      modifiedTime: 1783344224746
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789065725058
+      modifiedTime: 1789065725058
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -345,234 +351,110 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!sqTUaPrXpwCzk3xs.DTvwKvvLLEhvJ7ER'
-  - _id: inspireheroism00
-    name: Inspire Heroism
+  - name: Camaraderie
     type: talent
-    img: icons/skills/social/intimidation-impressing.webp
-    effects: []
-    flags:
-      core: {}
+    img: icons/skills/social/diplomacy-unity-alliance.webp
     system:
       description: >-
-        Your courageous presence inspires your nearby allies to strike with
-        confidence.
+        <p>You know how soldiers and travellers of a dozen peoples take their
+        ease: which stories are told, which songs are sung, which silences are
+        kept. Time spent in your company settles the mind.</p>
       actions:
-        - id: inspireHeroism
-          name: Inspire Heroism
-          img: icons/skills/social/intimidation-impressing.webp
+        - id: camaraderie
+          name: Camaraderie
+          img: icons/skills/social/diplomacy-unity-alliance.webp
           condition: ''
           description: >-
-            <p>Each ally, excluding yourself, within <strong>10 Feet</strong>
-            gains <strong>+1 Boon</strong> to actions performed until the end of
-            their next Turn.</p>
-          tags: []
-          cost:
-            action: 3
-            focus: 1
-            weapon: false
-            heroism: 0
-            hands: 0
-          target:
-            type: pulse
-            number: 1
-            scope: 2
-            size: 10
-            self: false
-          effects:
-            - name: Inspire Heroism
-              scope: 2
-              statuses: []
-              duration:
-                value: 1
-                units: rounds
-                expiry: turnEnd
-                expired: false
-              result:
-                type: success
-                all: false
-              system:
-                changes: []
-                dot: []
-                maintenance:
-                  cost: null
-                  hands: 0
-                regions: []
-                summons: []
-                dc: null
-                properties: []
-          range:
-            maximum: null
-            weapon: false
-            minimum: null
-          summon: null
-      nodes:
-        - pre1a
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344224746
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344224746
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: 4Ll3b4Q4us2mp4Fu
-    sort: -300000
-    ownership:
-      default: 0
-    _key: '!actors.items!sqTUaPrXpwCzk3xs.inspireheroism00'
-  - name: 'Gesture: Influence'
-    type: talent
-    img: icons/magic/light/orbs-firefly-hand-yellow.webp
-    system:
-      description: >-
-        <p>You intensify the arcane power of a Rune into a concentrated direct
-        contact which is generally a more powerful evolution of the basic Touch
-        gesture.</p><p>The Influence gesture scales using
-        <strong>Presence</strong> and targets a single adjacent creature. It
-        deals <strong>10 Base Damage</strong> to targets which fail to Resist
-        the spell. This gesture requires <strong>1 Hand</strong> to cast and has
-        a base cost of <strong>3 Action</strong> and <strong>1
-        Focus</strong>.</p>
-      actions: []
-      gesture: influence
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - pre1b
-      rune: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344224746
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344224746
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: gestureinfluence
-    folder: D14x9AJ0TgXKtnzu
-    sort: 500000
-    ownership:
-      default: 0
-    _key: '!actors.items!sqTUaPrXpwCzk3xs.gestureinfluence'
-  - folder: i7WposibCJ94XpuD
-    name: Light Weapon Training
-    type: talent
-    img: icons/weapons/swords/sword-simple-white.webp
-    system:
-      description: >-
-        <p>You know how to wield light weapons fluidly with a high degree of
-        maneuverability and grace in combat. You are <strong>Trained</strong>
-        with all weapons in the <strong>Light</strong> and
-        <strong>Balanced</strong> categories.</p>
-      actions:
-        - id: lunge
-          name: Lunge
-          img: icons/skills/melee/strike-polearm-light-orange.webp
-          condition: ''
-          description: >-
-            <p>You dart forward nimbly, making a strike with sudden and
-            unexpected swiftness to perform a <strong>Strike </strong>with a
-            weapon which scales using <strong>Dexterity</strong> against a
-            single target, with an increased range of <strong>+2
-            feet</strong>.</p><p>The attack is <strong>Difficult</strong>, but
-            you do not move from your current position nor does this attack
-            provoke Disengagement.</p>
+            <p>Following a <strong>Rest</strong>, you find the common ground you
+            share with each of your companions. You make a Society check against
+            the <strong>Madness</strong> threshold of each member of your party.
+            Upon a success they shed <strong>Madness</strong> equal to half your
+            Wisdom, or your full Wisdom upon a Critical Success.</p>
           cost:
             action: 0
             focus: 0
             heroism: 0
             hands: 0
-            weapon: true
+            weapon: false
           range:
             minimum: null
-            maximum: 2
-            weapon: true
+            maximum: null
+            weapon: false
           target:
-            type: single
+            type: self
             number: 1
-            scope: 3
+            scope: 1
             self: false
           effects: []
           tags:
-            - finesse
-            - melee
-            - difficult
+            - rest
+            - skill
+            - society
           summon: null
-      iconicSpells: 0
-      training:
-        type: light
-        rank: 1
       nodes:
-        - dex0b
-      rune: ''
-      gesture: ''
-      inflection: ''
+        - wis0a
+      iconicSpells: 0
+      training: society
+      spellcraft: ''
+      requirements:
+        training: {}
     effects: []
-    sort: 200000
     flags: {}
     _stats:
-      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.1
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789065725057
+      modifiedTime: 1789065725057
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1783344224746
-      createdTime: 1783344224746
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: lightWeaponTrain
+    _id: camaraderie00000
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!sqTUaPrXpwCzk3xs.lightWeaponTrain'
-  - name: 'Rune: Oblivion'
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.camaraderie00000'
+  - name: 'Rune: Kinesis'
     type: talent
-    img: icons/magic/unholy/orb-rays-blue.webp
+    img: icons/magic/movement/pinwheel-turning-blue.webp
     system:
       description: >-
-        <p>A chaotic force of destruction and annihilation of existence. The
-        Oblivion rune governs unmaking of matter or decoherence of
-        spirit.</p><p>The Oblivion rune scales using <strong>Intellect</strong>,
-        targets <strong>Willpower</strong>, and deals <strong>Void</strong>
-        damage to <strong>Morale</strong>. It is opposed by the orderly rune of
-        <strong>Soul</strong>.</p>
+        <p>The chaotic force of space and physical movement. The Kinesis rune
+        governs all things related to the act of movement and
+        physicality.</p><p>The Kinesis rune scales using
+        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
       actions:
-        - id: erase
-          name: Erase
-          img: icons/magic/unholy/orb-rays-blue.webp
+        - id: propel
+          name: Propel
+          img: icons/magic/movement/pinwheel-turning-blue.webp
           condition: ''
           description: >-
-            <p>Your command of the Rune of Oblivion allows you to unravel tiny
-            holes in the fabric of existence, producing one of the following
-            effects:</p><ul><li><p>Disintegrate a non-magical object you hold
-            smaller than a 6-inch cube, sundering it to a fine particulate dust
-            of its component elements.</p></li><li><p>Anesthetize the ability to
-            feel emotion from yourself or a willing target that you touch,
-            causing it to enter a placid, stoic, or dispassionate state. This
-            effect can be maintained as long as you make no further
-            <strong>Action</strong>.</p></li><li><p>Subdue the potency of a
-            light source, causing its visible radius to be reduced by half for
-            as long as you maintain physical contact with it. Only one light
-            source may be dampened in this way at a given
-            time.</p></li></ul><p>Erase may only affect a creature or object you
-            can physically touch. You may attempt other uses similar those
-            above, the effectiveness of which is decided by the Gamemaster.</p>
+            <p>Your command of the Rune of Kinesis allows you to exert local
+            control over gravitational forces to perform basic telekinetic
+            manipulations, producing one of the following
+            effects:</p><ul><li><p>Pull an unsecured object within 15 feet and
+            with weight no greater than 1 towards you and catch it. An object
+            that is equipped or possessed by a creature is never treated as
+            unsecured unless that creature is willing to release
+            it.</p></li><li><p>Flick an object that you hold with weight no
+            greater than 1 towards a target up to 30 feet away. The object flies
+            unerringly in a straight line towards that target at a moderate
+            speed. Any creature along the object's path can react to catch it as
+            long as they have a free hand with which to do
+            so.</p></li><li><p>Suspend in midair an object or willing creature
+            that you touch with weight less than or equal to 10 times your
+            <strong>Presence</strong>, altering its position up to 20 feet in
+            any direction from its original location. You can maintain this
+            suspension indefinitely as long as you take no further Action and
+            are not @Condition[incapacitated].</p></li></ul><p>Propel may only
+            affect a creature or object you can physically touch unless
+            otherwise specified. You may attempt other uses similar those above,
+            the effectiveness of which is decided by the Gamemaster.</p>
           cost:
             action: 3
             focus: 1
@@ -593,34 +475,162 @@ items:
             - spell
             - harmless
           summon: null
-      rune: oblivion
+      spellcraft: kinesis
       nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
+        - pre0b
       iconicSpells: 0
-      training:
-        type: oblivion
-        rank: 1
+      training: physical
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344224747
-      modifiedTime: 1783344224747
+      systemVersion: 0.10.2
+      createdTime: 1789065725057
+      modifiedTime: 1789065725057
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: runeOblivion0000
+    _id: runeKinesis00000
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!sqTUaPrXpwCzk3xs.runeOblivion0000'
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.runeKinesis00000'
+  - name: Diversionist
+    type: talent
+    _id: diversionist0000
+    img: icons/skills/social/peace-luck-insult.webp
+    system:
+      description: >-
+        <p>You specialize in using subterfuge to distract or trick your opponent
+        during combat.</p>
+      actions:
+        - id: distract
+          name: Distract
+          condition: ''
+          description: >-
+            <p>You make a <strong>Deception</strong> based <strong>Skill
+            Attack</strong> against the <strong>Willpower </strong>defense of a
+            target within 30 feet which can see or hear you. On a success, the
+            target loses <strong>1 Focus</strong>.</p>
+          tags:
+            - void
+            - skill
+            - deception
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          img: icons/skills/social/peace-luck-insult.webp
+          range:
+            minimum: null
+            maximum: 30
+            weapon: false
+          summon: null
+      nodes:
+        - int0b
+      iconicSpells: 0
+      training: deception
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789065725057
+      modifiedTime: 1789065725057
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.diversionist0000'
+  - name: Refocus
+    type: talent
+    img: icons/magic/light/orb-shadow-blue.webp
+    system:
+      description: >-
+        <p>You understand the arcane usage of talismans, orbs, foci, or other
+        similar implements to channel magic or empower spellcraft.</p>
+      actions:
+        - id: refocus
+          name: Refocus
+          img: icons/magic/light/orb-shadow-blue.webp
+          condition: ''
+          description: >-
+            <p>You use your equipped Talisman to attempt to regain some
+            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
+            <strong>Strike</strong> against your own <strong>Rallying</strong>
+            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
+            if using a one-handed Talisman and <strong>+2 Focus</strong> if
+            using a two-handed Talisman. On a critical success the amount of
+            Focus recovered increases by an additional +1.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - talisman
+            - harmless
+            - rallying
+          summon: null
+      iconicSpells: 0
+      training: talisman
+      nodes:
+        - pre0a
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789065725057
+      modifiedTime: 1789065725057
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: refocus000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.refocus000000000'
   - name: 'Rune: Flame'
     type: talent
     img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
@@ -670,25 +680,23 @@ items:
             - spell
             - harmless
           summon: null
-      rune: flame
+      spellcraft: flame
       nodes:
         - int0a
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: flame
-        rank: 1
+      training: elemental
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1783344224747
-      createdTime: 1783344224747
+      modifiedTime: 1789065725059
+      createdTime: 1789065725059
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -697,6 +705,7 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!sqTUaPrXpwCzk3xs.runeFlame0000000'
   - name: 'Gesture: Arrow'
     type: talent
@@ -711,24 +720,22 @@ items:
         Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
         and <strong>1 Focus</strong>.</p>
       actions: []
-      gesture: arrow
+      spellcraft: arrow
       nodes:
         - int1a
-      rune: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344224748
-      modifiedTime: 1783344224748
+      systemVersion: 0.10.2
+      createdTime: 1789065725059
+      modifiedTime: 1789065725059
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -738,6 +745,7 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!sqTUaPrXpwCzk3xs.gesturearrow0000'
 effects: []
 flags:
@@ -746,10 +754,10 @@ flags:
     lastSpell: spell.flame.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.10.1
-  coreVersion: '14.364'
-  createdTime: 1783344224745
-  modifiedTime: 1783344224745
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1789065725057
+  modifiedTime: 1789065725057
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
