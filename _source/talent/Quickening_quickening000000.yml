@@ -1,0 +1,74 @@
+folder: fldEnchanting000
+name: Quickening
+type: talent
+img: icons/magic/symbols/rune-sigil-horned-blue.webp
+system:
+  description: >-
+    <p>Years of binding have taught your hands to feel magic through leather and
+    steel. Whether a glyph was freshly set or has long since sunk into the
+    grain, you know that it is there.</p>
+  actions:
+    - id: quickening
+      name: Quickening
+      img: icons/magic/symbols/rune-sigil-horned-blue.webp
+      condition: You have an Enchanter's Toolkit equipped.
+      description: >-
+        <p>With an Enchanter's Toolkit equipped, you can produce any one of the
+        following effects:</p><ul><li><p><strong>Read.</strong> You need only
+        touch an item to know whether it is enchanted, whether or not it belongs
+        to you. Handling it at length tells you which affixes it bears and how
+        much of its capacity remains
+        unspent.</p></li><li><p><strong>Destroy.</strong> You touch an object
+        bearing a minor enchantment which still waits upon its condition,
+        whether your own work or another enchanter's, and unmake it. The object
+        itself is unharmed. Alternatively you may conceal an item's enchantment
+        for <strong>10 minutes</strong>, so that it reads as mundane to anyone
+        whose passive Enchanting does not exceed your own, though it loses
+        nothing of its power.</p></li><li><p><strong>Create.</strong> You imbue
+        a <strong>Rune</strong> you know into an object no larger than a foot in
+        any dimension, empowering it to perform one simple task under a
+        condition you name. The enchantment lasts until the object has performed
+        that task once, or until 24 hours have passed.</p></li></ul><p>You may
+        attempt other uses similar to those above, the effectiveness of which is
+        decided by the Gamemaster.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: none
+        number: 0
+        scope: 0
+        self: false
+      effects: []
+      tags: []
+      summon: null
+  nodes:
+    - pre2a
+  spellcraft: ''
+  iconicSpells: 0
+  training: enchanting
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789099200000
+  modifiedTime: 1789056385991
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: quickening000000
+sort: 100000
+_key: '!items!quickening000000'

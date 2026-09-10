@@ -1,0 +1,37 @@
+folder: fldEnchanting000
+name: Open Vessel
+type: talent
+img: icons/magic/symbols/circled-gem-pink.webp
+system:
+  description: >-
+    <p>You have set the first glyph into a hundred mundane things, and you know
+    how readily unspoiled work accepts it.</p>
+
+    <p>You gain <strong>+2 Boons</strong> when binding an affix to an item which
+    bears no enchantment.</p><h3 class="divider">Playtest Notes</h3><p>The
+    crafting system is in early development. This talent describes how
+    Enchanting will behave once glyph binding is implemented.</p>
+  actions: []
+  nodes:
+    - int4b
+  spellcraft: ''
+  iconicSpells: 0
+  training: enchanting
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.10.2
+  createdTime: 1789099200000
+  modifiedTime: 1789099200000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: openVessel000000
+sort: 100000
+_key: '!items!openVessel000000'
