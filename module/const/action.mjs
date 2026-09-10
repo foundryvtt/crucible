@@ -203,7 +203,7 @@ export const TAG_CATEGORIES = defineEnum({
  * @property {string} label           A short label for this tag
  * @property {string} [tooltip]       A tooltip displayed when this tag is hovered
  * @property {string[]} propagate     Propagate this tag to also apply other tags
- * @property {number} [priority]      A priority that this tag should be resolved in. Lower values are higher priority
+ * @property {number} [priority=0]    A priority that this tag should be resolved in. Lower values are higher priority
  * @property {number} [category]      A category that determines how this tag is grouped and sorted
  * @property {(this: CrucibleAction) => void} [initialize]
  * @property {(this: CrucibleAction) => void} [prepare]

@@ -43,8 +43,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
         - harmless
         - willpower
       summon:

@@ -50,8 +50,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
         - harmless
       summon:
         actorUuid: null

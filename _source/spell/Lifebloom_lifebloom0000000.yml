@@ -65,8 +65,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
         - maintained
         - healing
       summon:

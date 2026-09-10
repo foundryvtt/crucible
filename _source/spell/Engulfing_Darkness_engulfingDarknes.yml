@@ -42,7 +42,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - iconicSpell
       summon:
         actorUuid: null
         permanent: true
