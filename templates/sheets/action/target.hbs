@@ -34,4 +34,14 @@
         {{formGroup fields.summon.fields.combatant value=action.summon.combatant}}
     </fieldset>
     {{/if}}
+
+    {{#if hasRegionBehavior}}
+    <fieldset>
+        <legend>{{fields.regionBehavior.label}}</legend>
+        <button type="button" class="frame-brown" data-action="editRegionBehavior">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>{{localize "ACTION.ACTIONS.EditRegionBehavior"}}</span>
+        </button>
+    </fieldset>
+    {{/if}}
 </section>
