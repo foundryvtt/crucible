@@ -114,7 +114,7 @@ HOOKS.react = {
 
 HOOKS.reshape = {
   prepare() {
-    if ( this.damage.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
+    if ( this.rune.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
     else this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ENEMIES;
   }
 };

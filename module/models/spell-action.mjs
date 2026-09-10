@@ -251,6 +251,9 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _configureUsage() {
     super._configureUsage();
 
+    // A spell's Rune determines restoration, which the healing and rallying tags may later also assert
+    this.usage.restoration = !!this.rune.restoration;
+
     // Spellcasting is always Intuitive if you know the rune
     this.usage.bonuses.skill = this.actor.getSkillBonus(this.training, {intuitive: true});
 

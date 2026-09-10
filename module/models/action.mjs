@@ -47,6 +47,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {boolean} isAttack             Is this an attack made upon another creature (other than self)?
  * @property {boolean} isRanged             Is this an attack (defined by isAttack) made at range?
  * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
+ * @property {boolean} restoration          Default {@link AttackRollData#restoration} seeding this action's rolls
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
  * @property {string} [defenseType]         A special defense type being targeted
@@ -1054,7 +1055,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       isMelee: false,
       isRanged: false,
       movement: {},
-      region: {}
+      region: {},
+      restoration: false
     }, {inplace: true, overwrite: false})});
   }
 
@@ -2075,7 +2077,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( !damage.harmless ) {
           const resource = damage.resource ?? "health";
           const cfg = SYSTEM.RESOURCES[resource];
-          const restoration = !!(damage.restoration ?? this.damage?.restoration);
+          const restoration = !!damage.restoration;
           intended[resource] = (intended[resource] ?? 0) + ((damage.total ?? 0) * (restoration ? 1 : -1)
             * (cfg.type === "reserve" ? -1 : 1));
           annotations[resource] = {damageType: damage.type, restoration}; // Damage type annotation, see GH #1204
@@ -2376,6 +2378,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   _configureUsage() {
     // Reset flags that are determined during action preparation
     this.usage.hasDice = this.usage.isAttack = this.usage.isMelee = this.usage.isRanged = false;
+    this.usage.restoration = false;
 
     // Reset cost fields to their source values so that repeated prepare() calls do not accumulate costs
     const sc = this._source.cost;
@@ -3052,12 +3055,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #canGenerateHeroism() {
     if ( !this.actor.inCombat ) return false;
     if ( !this.actor.abilities.wisdom.value ) return false;
-    const isRestoration = !!this.damage?.restoration;
     for ( const event of this.events ) {
       if ( event.target === this.actor ) continue;
-      if ( event.effects.length ) return true;
-      if ( isRestoration && event.isHealing ) return true;
-      else if ( !isRestoration && event.isDamage ) return true;
+      if ( event.effects.length || event.isHealing || event.isDamage ) return true;
     }
     return false;
   }

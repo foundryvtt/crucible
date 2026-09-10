@@ -64,12 +64,12 @@ system:
       summon:
         actorUuid: null
         permanent: true
-      rune: control
+      rune: life
       gesture: influence
       inflection: push
   runes:
-    - control
     - life
+    - control
   gestures:
     - influence
   inflections:
