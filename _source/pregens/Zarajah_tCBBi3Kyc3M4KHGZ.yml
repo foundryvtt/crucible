@@ -6,7 +6,7 @@ system:
   abilities:
     wisdom:
       base: 0
-      increases: 1
+      increases: 2
       bonus: 0
     presence:
       base: 2
@@ -26,11 +26,11 @@ system:
       bonus: 0
     dexterity:
       base: 2
-      increases: 1
+      increases: 0
       bonus: 0
   advancement:
     level: 6
-    milestones: 0
+    milestones: 18
     talentNodes: []
   defenses:
     armor:
@@ -61,9 +61,7 @@ system:
         fire does little to dissuade people from thinking you are an actual
         devil.</p>
       identifier: devilkin
-      talents:
-        - item: Compendium.crucible.talent.Item.runeFlame0000000
-          level: null
+      talents: []
       ui:
         color: '#c72950'
       abilities:
@@ -75,24 +73,31 @@ system:
       movement:
         size: 4
         stride: 10
+      characteristics:
+        blooded: true
+        temperature: ''
       name: Devilkin
       img: icons/magic/unholy/silhouette-evil-horned-giant.webp
-      characteristics:
-        temperature: ''
     background:
       description: >-
         You were a travelling entertainer. You learned to be comfortable
         attending a variety of social functions, how to play to your audience,
         embellishing details of your performance to evoke particular emotional
         responses.
-      skills:
+      training:
         - deception
         - performance
+        - talisman
+        - physical
+        - alchemy
+        - society
       talents:
-        - item: Compendium.crucible.talent.Item.lightWeaponTrain
-          level: null
-        - item: Compendium.crucible.talent.Item.inspireheroism00
-          level: null
+        - item: Compendium.crucible.talent.Item.camaraderie00000
+          level: 0
+        - item: Compendium.crucible.talent.Item.runeKinesis00000
+          level: 0
+        - item: Compendium.crucible.talent.Item.diversionist0000
+          level: 0
       identifier: performer
       ui:
         color: '#e26ce4'
@@ -176,12 +181,27 @@ system:
   favorites:
     - cast
     - defend
-    - refocus
     - strike
-    - inspireHeroism
-    - counterspell
+    - propel
+    - refocus
     - enkindle
+    - intuitWeakness
+    - counterspell
+    - distract
   currency: 0
+  training:
+    talisman:
+      increases: 2
+      bonus: 0
+    physical:
+      increases: 3
+      bonus: 0
+    elemental:
+      increases: 4
+      bonus: 0
+    enchanting:
+      increases: 1
+      bonus: 0
 prototypeToken:
   name: Zarajah
   displayName: 20
@@ -263,39 +283,39 @@ prototypeToken:
   depth: 4
 items:
   - folder: uvvY6c0nbJBhAjM6
-    name: Flame Staff
+    name: Fine Flame Staff
     type: weapon
     _id: 5HWc3RX8F46IJt9g
     img: icons/weapons/staves/staff-engraved-red.webp
     system:
+      identifier: flameStaff
       category: talisman2
       quantity: 1
       weight: 4
       price: 640
-      quality: standard
+      quality: fine
       broken: false
       enchantment: mundane
       equipped: true
+      invested: false
       properties: []
-      damageType: fire
       description:
         public: >-
           <p>This mage staff is a talisman to assist with spellcraft or hurl
           gouts of arcane flame at enemies.</p>
         private: ''
       actions: []
-      slot: 3
-      identifier: flameStaff
-      invested: false
+      damageType: fire
       dropped: false
+      slot: 3
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233385
-      modifiedTime: 1783344233385
+      systemVersion: 0.10.2
+      createdTime: 1789073933662
+      modifiedTime: 1789073933662
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -305,7 +325,7 @@ items:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.5HWc3RX8F46IJt9g'
   - _id: DTvwKvvLLEhvJ7ER
-    name: Ring Mail
+    name: Fine Ring Mail
     type: armor
     img: icons/equipment/chest/breastplate-layered-leather-studded-black.webp
     effects: []
@@ -316,7 +336,7 @@ items:
       quantity: 1
       weight: 20
       price: 800
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties:
@@ -330,15 +350,15 @@ items:
       armor:
         base: 10
       broken: false
-      actions: []
       identifier: ringMail
       invested: false
+      actions: []
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233386
-      modifiedTime: 1783344233386
+      systemVersion: 0.10.2
+      createdTime: 1789073933662
+      modifiedTime: 1789073933662
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -348,961 +368,71 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.DTvwKvvLLEhvJ7ER'
-  - _id: inspireheroism00
-    name: Inspire Heroism
+  - name: Camaraderie
     type: talent
-    img: icons/skills/social/intimidation-impressing.webp
-    effects: []
-    flags:
-      core: {}
+    img: icons/skills/social/diplomacy-unity-alliance.webp
     system:
       description: >-
-        Your courageous presence inspires your nearby allies to strike with
-        confidence.
+        <p>You know how soldiers and travellers of a dozen peoples take their
+        ease: which stories are told, which songs are sung, which silences are
+        kept. Time spent in your company settles the mind.</p>
       actions:
-        - id: inspireHeroism
-          name: Inspire Heroism
-          img: icons/skills/social/intimidation-impressing.webp
+        - id: camaraderie
+          name: Camaraderie
+          img: icons/skills/social/diplomacy-unity-alliance.webp
           condition: ''
           description: >-
-            <p>Each ally, excluding yourself, within <strong>10 Feet</strong>
-            gains <strong>+1 Boon</strong> to actions performed until the end of
-            their next Turn.</p>
-          tags: []
-          cost:
-            action: 3
-            focus: 1
-            weapon: false
-            heroism: 0
-            hands: 0
-          target:
-            type: pulse
-            number: 1
-            scope: 2
-            size: 10
-            self: false
-          effects:
-            - name: Inspire Heroism
-              scope: 2
-              statuses: []
-              duration:
-                value: 1
-                units: rounds
-                expiry: turnEnd
-                expired: false
-              result:
-                type: success
-                all: false
-              system:
-                changes: []
-                dot: []
-                maintenance:
-                  cost: null
-                  hands: 0
-                regions: []
-                summons: []
-                dc: null
-                properties: []
-          range:
-            maximum: null
-            weapon: false
-            minimum: null
-          summon: null
-      nodes:
-        - pre1a
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233386
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233386
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: 4Ll3b4Q4us2mp4Fu
-    sort: -300000
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inspireheroism00'
-  - name: 'Gesture: Influence'
-    type: talent
-    img: icons/magic/light/orbs-firefly-hand-yellow.webp
-    system:
-      description: >-
-        <p>You intensify the arcane power of a Rune into a concentrated direct
-        contact which is generally a more powerful evolution of the basic Touch
-        gesture.</p><p>The Influence gesture scales using
-        <strong>Presence</strong> and targets a single adjacent creature. It
-        deals <strong>10 Base Damage</strong> to targets which fail to Resist
-        the spell. This gesture requires <strong>1 Hand</strong> to cast and has
-        a base cost of <strong>3 Action</strong> and <strong>1
-        Focus</strong>.</p>
-      actions: []
-      gesture: influence
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - pre1b
-      rune: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233386
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233386
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: gestureinfluence
-    folder: D14x9AJ0TgXKtnzu
-    sort: 500000
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gestureinfluence'
-  - name: War Mage
-    type: talent
-    img: icons/magic/defensive/barrier-shield-dome-deflect-teal.webp
-    system:
-      description: >-
-        <p>Your spellcraft is honed as a weapon of war to thwart the
-        incantations of other magi. You may ask the Gamemaster if you know a
-        <strong>Rune</strong> capable of countering an enemy spell, even if you
-        do not recognize the spell being cast. You gain +2 Boons to any
-        @Action[Compendium.crucible.talent.Item.counterspell0000 counterspell]
-        attempt.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - preint4
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233387
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233387
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: warmage000000000
-    folder: fOYHlZJEWUukD7yr
-    sort: 237500
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.warmage000000000'
-  - name: 'Gesture: Arrow'
-    type: talent
-    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
-    system:
-      description: >-
-        <p>You hurl a projectile imbued with the magical power of a Rune at a
-        distant target.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a single creature up to a
-        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
-        which fail to Resist the spell. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
-        and <strong>1 Focus</strong>.</p>
-      actions: []
-      gesture: arrow
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int1a
-      rune: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233387
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233387
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: gesturearrow0000
-    folder: D14x9AJ0TgXKtnzu
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gesturearrow0000'
-  - name: Impetus
-    type: talent
-    _id: impetus000000000
-    img: icons/magic/movement/trail-streak-zigzag-yellow.webp
-    system:
-      description: >-
-        <p>You are gifted at exploiting the slowness with which others think. If
-        you are first in Initiative order during a round of Combat, you gain +1
-        current and maximum Action.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - intdex4
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    folder: BevAJzzLeFbSaVic
-    sort: -75000
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233387
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233387
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.impetus000000000'
-  - name: Opportunistic Spellcraft
-    type: talent
-    _id: opportunisticspe
-    img: icons/magic/unholy/strike-hand-glow-pink.webp
-    system:
-      description: >-
-        <p>Your quick thinking can weave magic to exploit brief windows of
-        opportunity. You may make a <strong>Disengagement Attack</strong> using
-        the <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int2b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    folder: aB808IWOdgwmFCIF
-    sort: 300000
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233387
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233387
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.opportunisticspe'
-  - name: Pyromancer
-    type: talent
-    img: icons/magic/fire/projectile-smoke-swirl-red.webp
-    system:
-      description: >-
-        <p>You are highly skilled in weaving the Rune of Flame. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
-        deal damage cause the @Condition[burning] condition.</p><p>The Burning
-        effect lasts for <strong>3 Rounds</strong> and deals half the ability
-        score your <strong>Rune of Flame</strong> scales with as
-        <strong>Fire</strong> damage to both <strong>Health</strong> and
-        <strong>Morale</strong>.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - int3a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233388
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233388
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: pyromancer000000
-    folder: c0nl6X8tp4Of0Y4O
-    sort: -400000
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.pyromancer000000'
-  - name: 'Gesture: Pulse'
-    type: talent
-    _id: gesturepulse0000
-    img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
-    system:
-      description: >-
-        <p>Expel the arcane power of a Rune in a radius that travels outward
-        with you at its center.</p><p>The Pulse gesture scales using
-        <strong>Presence</strong> and produces an emanation with 10 foot radius,
-        dealing <strong>8 Base Damage</strong> to targets which fail to Resist
-        the spell. The gesture requires <strong>2 Hands</strong> to cast and has
-        a base cost of <strong>5 Action</strong> and <strong>2
-        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
-        is currently placed at a <strong>Tier 4</strong> node. It will
-        eventually only be attainable at a higher level (probably Level 6
-        required). It is currently available "early" for testing.</p>
-      actions: []
-      gesture: pulse
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - pre4d
-      rune: ''
-      inflection: ''
-    effects: []
-    folder: D14x9AJ0TgXKtnzu
-    sort: 1000000
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233388
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233388
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gesturepulse0000'
-  - folder: i7WposibCJ94XpuD
-    name: Light Weapon Training
-    type: talent
-    img: icons/weapons/swords/sword-simple-white.webp
-    system:
-      description: >-
-        <p>You know how to wield light weapons fluidly with a high degree of
-        maneuverability and grace in combat. You are <strong>Trained</strong>
-        with all weapons in the <strong>Light</strong> and
-        <strong>Balanced</strong> categories.</p>
-      actions:
-        - id: lunge
-          name: Lunge
-          img: icons/skills/melee/strike-polearm-light-orange.webp
-          condition: ''
-          description: >-
-            <p>You dart forward nimbly, making a strike with sudden and
-            unexpected swiftness to perform a <strong>Strike </strong>with a
-            weapon which scales using <strong>Dexterity</strong> against a
-            single target, with an increased range of <strong>+2
-            feet</strong>.</p><p>The attack is <strong>Difficult</strong>, but
-            you do not move from your current position nor does this attack
-            provoke Disengagement.</p>
+            <p>Following a <strong>Rest</strong>, you find the common ground you
+            share with each of your companions. You make a Society check against
+            the <strong>Madness</strong> threshold of each member of your party.
+            Upon a success they shed <strong>Madness</strong> equal to half your
+            Wisdom, or your full Wisdom upon a Critical Success.</p>
           cost:
             action: 0
             focus: 0
             heroism: 0
             hands: 0
-            weapon: true
+            weapon: false
           range:
             minimum: null
-            maximum: 2
-            weapon: true
+            maximum: null
+            weapon: false
           target:
-            type: single
+            type: self
             number: 1
-            scope: 3
+            scope: 1
             self: false
           effects: []
           tags:
-            - finesse
-            - melee
-            - difficult
+            - rest
+            - skill
+            - society
           summon: null
-      iconicSpells: 0
-      training:
-        type: light
-        rank: 1
       nodes:
-        - dex0b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 200000
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1783344233388
-      createdTime: 1783344233388
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: lightWeaponTrain
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.lightWeaponTrain'
-  - name: Arcana Novice
-    type: talent
-    _id: arcanaNovice0000
-    img: systems/crucible/icons/skills/arcana.jpg
-    system:
-      description: >-
-        <p>Your education covered the fundamentals of metaphysics and magical
-        theory, the relationship between the runes, the opposing nature of order
-        and chaos, and a cursory introduction to spiritual beings including the
-        most commonly known deified and demonized figures of worship. You gain
-        the <strong>Novice</strong> rank in the <strong>Arcana </strong>skill
-        and are no longer considered <strong>Untrained</strong> in that
-        skill.</p><p>Your rudimentary understanding of the principle grammar of
-        magic is sufficient to identify which lesser rune a spell or ritual may
-        be using, as well as the gesture used (if not the inflection). You can
-        identify whether a figure is influenced more by chaos or by order, and
-        can spot the signs of common spirits (both lesser and greater). You know
-        enough about religious customs to communicate with those who worship a
-        particular spirit or deity without embarrassing yourself.</p>
-      actions: []
+        - wis0a
       iconicSpells: 0
-      training:
-        type: arcana
-        rank: 1
-      nodes:
-        - pre0a
-      rune: ''
-      gesture: ''
-      inflection: ''
+      training: society
+      spellcraft: ''
+      requirements:
+        training: {}
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233389
-      modifiedTime: 1783344233389
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+    _id: camaraderie00000
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.arcanaNovice0000'
-  - name: Strategic Repositioning
-    type: talent
-    img: icons/sundries/gaming/chess-knight-white.webp
-    system:
-      description: >-
-        <p>You are always thinking ahead about where to position yourself should
-        danger loom. Before <strong>Turn 1</strong> of a Combat encounter,
-        provided that you are not @Condition[unaware], you may immediately move
-        4 feet in any permitted direction.</p><p>If multiple combatants have
-        this feature, repositioning occurs in reverse order of
-        Initiative.</p><h3 class="divider">Playtest Notes</h3><p>This talent is
-        not yet automated.</p>
-      actions: []
-      nodes:
-        - int3b
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233389
-      modifiedTime: 1783344233389
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: strategicreposit
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.strategicreposit'
-  - name: Lightbringer
-    type: talent
-    img: icons/magic/light/beams-rays-orange-purple-large.webp
-    system:
-      description: >-
-        <p>You are highly skilled in weaving the Rune of Illumination. When you
-        cast a Spell or use an action that involves this Rune, your Critical
-        Hits which deal damage cause the @Condition[irradiated]
-        condition.</p><p>The Irradiated effect lasts for <strong>1
-        Round</strong> and deals the ability score your <strong>Rune of
-        Illumination</strong> scales with as <strong>Radiant</strong> damage to
-        both <strong>Health</strong> and <strong>Morale</strong>.</p>
-      actions: []
-      nodes:
-        - pre3b
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233389
-      modifiedTime: 1783344233389
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: lightbringer0000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.lightbringer0000'
-  - name: Awareness Novice
-    type: talent
-    _id: awarenessNovice0
-    img: systems/crucible/icons/skills/awareness.jpg
-    system:
-      description: >-
-        <p>You have been trained in the basics of situational awareness, and are
-        able to notice important details about your environment. You gain the
-        <strong>Novice</strong> rank in the <strong>Awareness </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</p><p>You know to check for exits when you enter a room, and how
-        to look for concealed weapons, hidden traps, and other threats. You know
-        how to spot when you are being followed, and how to search for common
-        hiding places.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: awareness
-        rank: 1
-      nodes:
-        - int0b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233389
-      modifiedTime: 1783344233389
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.awarenessNovice0'
-  - name: Versatile Translator
-    type: talent
-    img: icons/skills/trades/academics-book-study-runes.webp
-    system:
-      nodes:
-        - int1b
-      description: >-
-        <p>You have a scholarly background in linguistics or an intuitive knack
-        for languages. Your capabilities enable you to decipher the basic
-        meaning of text written in a variety of languages.</p><p>You can
-        translate text of a language you do not know that is written using a
-        common set of glyphs or characters to a language that you do know.
-        Creating such a translation requires spending one minute per word to
-        transcribe the text into a language which you understand.</p><p>Your
-        translations are rudimentary and often lack nuance, but they do contain
-        all essential points of the text.</p>
-      actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233390
-      modifiedTime: 1783344233390
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: versatileTransla
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.versatileTransla'
-  - name: 'Rune: Oblivion'
-    type: talent
-    img: icons/magic/unholy/orb-rays-blue.webp
-    system:
-      description: >-
-        <p>A chaotic force of destruction and annihilation of existence. The
-        Oblivion rune governs unmaking of matter or decoherence of
-        spirit.</p><p>The Oblivion rune scales using <strong>Intellect</strong>,
-        targets <strong>Willpower</strong>, and deals <strong>Void</strong>
-        damage to <strong>Morale</strong>. It is opposed by the orderly rune of
-        <strong>Soul</strong>.</p>
-      actions:
-        - id: erase
-          name: Erase
-          img: icons/magic/unholy/orb-rays-blue.webp
-          condition: ''
-          description: >-
-            <p>Your command of the Rune of Oblivion allows you to unravel tiny
-            holes in the fabric of existence, producing one of the following
-            effects:</p><ul><li><p>Disintegrate a non-magical object you hold
-            smaller than a 6-inch cube, sundering it to a fine particulate dust
-            of its component elements.</p></li><li><p>Anesthetize the ability to
-            feel emotion from yourself or a willing target that you touch,
-            causing it to enter a placid, stoic, or dispassionate state. This
-            effect can be maintained as long as you make no further
-            <strong>Action</strong>.</p></li><li><p>Subdue the potency of a
-            light source, causing its visible radius to be reduced by half for
-            as long as you maintain physical contact with it. Only one light
-            source may be dampened in this way at a given
-            time.</p></li></ul><p>Erase may only affect a creature or object you
-            can physically touch. You may attempt other uses similar those
-            above, the effectiveness of which is decided by the Gamemaster.</p>
-          cost:
-            action: 3
-            focus: 1
-            heroism: 0
-            weapon: false
-            hands: 1
-          range:
-            minimum: null
-            maximum: 1
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          tags:
-            - spell
-            - harmless
-          summon: null
-      rune: oblivion
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: oblivion
-        rank: 1
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233390
-      modifiedTime: 1783344233390
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: runeOblivion0000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.runeOblivion0000'
-  - name: Iramancer
-    type: talent
-    _id: iramancer0000000
-    img: icons/magic/unholy/hand-claw-glow-orange.webp
-    system:
-      description: >-
-        <p>Your feats of arcana are fueled by anger. While @Condition[enraged]
-        you may still spend <strong>Focus</strong> and you deal 2 additional
-        damage to all spell attacks.</p>
-      actions: []
-      nodes:
-        - pre2b
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233390
-      modifiedTime: 1783344233390
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.iramancer0000000'
-  - name: Counterspell
-    type: talent
-    img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
-    system:
-      description: >-
-        <p>You immediately react to a spell being cast and compose a rune and
-        gesture designed to unravel and negate the spellcraft of an enemy
-        mage.</p>
-      actions:
-        - id: counterspell
-          condition: Another creature which you can see is casting a spell.
-          description: >-
-            <p>You form arcane energy into a countervailing spellcraft,
-            targeting a spellcaster you can see within 30 feet.</p><p>Designate
-            a <strong>Rune</strong> and <strong>Gesture</strong> which you know
-            to attempt to counter the spell. Choosing a Rune which is opposed to
-            one used in the spell grants <strong>+2 Boons</strong> to your
-            attempt. Selecting the identical Gesture as the one being cast also
-            adds <strong>+2 Boons</strong> to your attempt.</p><p>Perform a
-            harmless Spell Attack against your target's
-            <strong>Willpower</strong> defense. If your roll exceeds their
-            defense, the spell is countered and its magic is nullified,
-            producing no effects.</p>
-          tags:
-            - reaction
-            - spell
-            - harmless
-          cost:
-            action: 1
-            focus: 1
-            heroism: 0
-            weapon: false
-            hands: 1
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          name: Counterspell
-          img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
-          range:
-            minimum: null
-            maximum: 30
-            weapon: false
-          rune: storm
-          gesture: touch
-          composition: 1
-          summon: null
-          inflection: ''
-      nodes:
-        - preint1
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233390
-      modifiedTime: 1783344233390
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: counterspell0000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.counterspell0000'
-  - name: 'Rune: Flame'
-    type: talent
-    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
-    system:
-      description: >-
-        <p>The chaotic force of elemental, thermal energy. The Flame rune
-        governs fire and heat.</p><p>The Flame rune scales using
-        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Fire</strong> damage to <strong>Health</strong>. It is opposed
-        by the orderly rune of <strong>Frost</strong>.</p>
-      actions:
-        - id: enkindle
-          name: Enkindle
-          img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
-          condition: ''
-          description: >-
-            <p>Your command of the Rune of Flame allows you to manipulate fire
-            and thermal energy in creative ways, producing one of the following
-            effects:</p><ul><li><p>Manifest a burst of elemental flame in one
-            inch sphere which can ignite a candle, torch, or other flammable
-            materials.</p></li><li><p>Imbue your body with momentary thermal
-            shielding which provides you with immunity to fire damage on an
-            immediately subsequent action that costs <strong>1 Action</strong>
-            or less.</p></li><li><p>Control the movement of flames within a
-            small area, causing them to flicker, dance, or shift in an animated
-            performance of light and shadow.</p></li></ul><p>Enkindle may only
-            affect a creature or object you can physically touch. You may
-            attempt other uses similar those above, the effectiveness of which
-            is decided by the Gamemaster.</p>
-          cost:
-            action: 3
-            focus: 1
-            heroism: 0
-            weapon: false
-            hands: 1
-          range:
-            minimum: null
-            maximum: 1
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          tags:
-            - spell
-            - harmless
-          summon: null
-      rune: flame
-      nodes:
-        - int0a
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: flame
-        rank: 1
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1783344233390
-      createdTime: 1783344233390
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: runeFlame0000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.runeFlame0000000'
-  - name: Flame Proficiency
-    type: talent
-    _id: flameProficiency
-    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
-    system:
-      nodes:
-        - int4b
-      description: >-
-        <p>You have fluency in weaving spellcraft using the Rune of Flame. You
-        gain a <strong>+1 Skill Bonus</strong> for spells cast using this
-        Rune.</p><h3 class="divider">Playtest Notes</h3><p>This talent will
-        eventually also provide an upgrade to the
-        @Action[Compendium.crucible.talent.Item.runeFlame0000000 enkindle]
-        action, expanding its effectiveness or including new options for how to
-        use it.</p>
-      actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: flame
-        rank: 2
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233391
-      modifiedTime: 1783344233391
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.flameProficiency'
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.camaraderie00000'
   - name: 'Rune: Kinesis'
     type: talent
     img: icons/magic/movement/pinwheel-turning-blue.webp
@@ -1362,24 +492,22 @@ items:
             - spell
             - harmless
           summon: null
-      rune: kinesis
+      spellcraft: kinesis
       nodes:
         - pre0b
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: kinesis
-        rank: 1
+      training: physical
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233391
-      modifiedTime: 1783344233391
+      systemVersion: 0.10.2
+      createdTime: 1789073933662
+      modifiedTime: 1789073933662
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1390,6 +518,881 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.runeKinesis00000'
+  - name: Diversionist
+    type: talent
+    _id: diversionist0000
+    img: icons/skills/social/peace-luck-insult.webp
+    system:
+      description: >-
+        <p>You specialize in using subterfuge to distract or trick your opponent
+        during combat.</p>
+      actions:
+        - id: distract
+          name: Distract
+          condition: ''
+          description: >-
+            <p>You make a <strong>Deception</strong> based <strong>Skill
+            Attack</strong> against the <strong>Willpower </strong>defense of a
+            target within 30 feet which can see or hear you. On a success, the
+            target loses <strong>1 Focus</strong>.</p>
+          tags:
+            - void
+            - skill
+            - deception
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          img: icons/skills/social/peace-luck-insult.webp
+          range:
+            minimum: null
+            maximum: 30
+            weapon: false
+          summon: null
+      nodes:
+        - int0b
+      iconicSpells: 0
+      training: deception
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.diversionist0000'
+  - name: Refocus
+    type: talent
+    img: icons/magic/light/orb-shadow-blue.webp
+    system:
+      description: >-
+        <p>You understand the arcane usage of talismans, orbs, foci, or other
+        similar implements to channel magic or empower spellcraft.</p>
+      actions:
+        - id: refocus
+          name: Refocus
+          img: icons/magic/light/orb-shadow-blue.webp
+          condition: ''
+          description: >-
+            <p>You use your equipped Talisman to attempt to regain some
+            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
+            <strong>Strike</strong> against your own <strong>Rallying</strong>
+            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
+            if using a one-handed Talisman and <strong>+2 Focus</strong> if
+            using a two-handed Talisman. On a critical success the amount of
+            Focus recovered increases by an additional +1.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - talisman
+            - harmless
+            - rallying
+          summon: null
+      iconicSpells: 0
+      training: talisman
+      nodes:
+        - pre0a
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: refocus000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.refocus000000000'
+  - name: 'Rune: Flame'
+    type: talent
+    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+    system:
+      description: >-
+        <p>The chaotic force of elemental, thermal energy. The Flame rune
+        governs fire and heat.</p><p>The Flame rune scales using
+        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
+        <strong>Fire</strong> damage to <strong>Health</strong>. It is opposed
+        by the orderly rune of <strong>Frost</strong>.</p>
+      actions:
+        - id: enkindle
+          name: Enkindle
+          img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Flame allows you to manipulate fire
+            and thermal energy in creative ways, producing one of the following
+            effects:</p><ul><li><p>Manifest a burst of elemental flame in one
+            inch sphere which can ignite a candle, torch, or other flammable
+            materials.</p></li><li><p>Imbue your body with momentary thermal
+            shielding which provides you with immunity to fire damage on an
+            immediately subsequent action that costs <strong>1 Action</strong>
+            or less.</p></li><li><p>Control the movement of flames within a
+            small area, causing them to flicker, dance, or shift in an animated
+            performance of light and shadow.</p></li></ul><p>Enkindle may only
+            affect a creature or object you can physically touch. You may
+            attempt other uses similar those above, the effectiveness of which
+            is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          summon: null
+      spellcraft: flame
+      nodes:
+        - int0a
+      iconicSpells: 0
+      training: elemental
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1789073933663
+      createdTime: 1789073933663
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: runeFlame0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.runeFlame0000000'
+  - name: 'Gesture: Arrow'
+    type: talent
+    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+    system:
+      description: >-
+        <p>You hurl a projectile imbued with the magical power of a Rune at a
+        distant target.</p><p>The Arrow gesture scales using
+        <strong>Intellect</strong> and targets a single creature up to a
+        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
+        which fail to Resist the spell. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
+        and <strong>1 Focus</strong>.</p>
+      actions: []
+      spellcraft: arrow
+      nodes:
+        - int1a
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933663
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1789073933663
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: gesturearrow0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gesturearrow0000'
+  - name: Opportunistic Spellcraft
+    type: talent
+    _id: opportunisticspe
+    img: icons/magic/unholy/strike-hand-glow-pink.webp
+    system:
+      description: >-
+        <p>Your quick thinking can weave magic to exploit brief windows of
+        opportunity. You may make a <strong>Disengagement Attack</strong> using
+        the <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
+      actions: []
+      nodes:
+        - int2b
+      iconicSpells: 0
+      training: arcana
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    folder: null
+    sort: 0
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933663
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1789073933663
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.opportunisticspe'
+  - name: Opportunist
+    type: talent
+    _id: opportunist00000
+    img: icons/skills/melee/spear-tips-three-green.webp
+    system:
+      description: >-
+        <p>You seize any opportunity you can to capitalize on an enemy who turns
+        their back on you. You may make a @Action[default reactiveStrike] even
+        if you are otherwise <strong>Fully Engaged</strong>.</p>
+      actions: []
+      nodes:
+        - intdex1
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.opportunist00000'
+  - name: Intuit Weakness
+    type: talent
+    _id: intuitweakness00
+    img: icons/magic/perception/orb-eye-scrying.webp
+    system:
+      description: >-
+        <p>You calm your mind and study the physiology of your foe, seeking a
+        vulnerability in its defenses.</p><p>Perform a <strong>Knowledge
+        Test</strong> using an appropriate Skill chosen by the Gamemaster. On a
+        success, you learn the Damage type that the creature has the greatest
+        vulnerability towards, if any. On a Critical Success you learn the two
+        Damage types which have the largest vulnerability.</p>
+      actions:
+        - id: intuitWeakness
+          description: >-
+            <p>You still your mind and study the physiology of your foe,
+            attempting to identify a vulnerability in its defenses.</p>
+          tags:
+            - harmless
+            - subtle
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          name: Intuit Weakness
+          img: icons/magic/perception/orb-eye-scrying.webp
+          condition: ''
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          summon: null
+      nodes:
+        - int2a
+      iconicSpells: 0
+      training: science
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.intuitweakness00'
+  - name: Counterspell
+    type: talent
+    img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
+    system:
+      description: >-
+        <p>You immediately react to a spell being cast and compose a rune and
+        gesture designed to unravel and negate the spellcraft of an enemy
+        mage.</p>
+      actions:
+        - id: counterspell
+          condition: Another creature which you can see is casting a spell.
+          description: >-
+            <p>You form arcane energy into a countervailing spellcraft,
+            targeting a spellcaster you can see within 30 feet.</p><p>Designate
+            a <strong>Rune</strong> and <strong>Gesture</strong> which you know
+            to attempt to counter the spell. Choosing a Rune which is opposed to
+            one used in the spell grants <strong>+2 Boons</strong> to your
+            attempt. Selecting the identical Gesture as the one being cast also
+            adds <strong>+2 Boons</strong> to your attempt.</p><p>Perform a
+            harmless Spell Attack against your target's
+            <strong>Willpower</strong> defense. If your roll exceeds their
+            defense, the spell is countered and its magic is nullified,
+            producing no effects.</p>
+          tags:
+            - reaction
+            - spell
+            - harmless
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          name: Counterspell
+          img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
+          range:
+            minimum: null
+            maximum: 30
+            weapon: false
+          rune: storm
+          gesture: touch
+          composition: 1
+          summon: null
+          inflection: ''
+      nodes:
+        - preint1
+      iconicSpells: 0
+      training: arcana
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933664
+      modifiedTime: 1789073933664
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: counterspell0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.counterspell0000'
+  - name: 'Inflection: Quicken'
+    type: talent
+    img: icons/magic/time/hourglass-tilted-glowing-gold.webp
+    system:
+      description: >-
+        <p>Enhance a spell by hastening the speed with which it can be cast, at
+        the expense of increased Focus. The Quicken inflection reduces the
+        <strong>Action</strong> cost of a spell by 1 while increasing its
+        <strong>Focus</strong> cost by 1 in exchange.</p>
+      actions: []
+      spellcraft: quicken
+      iconicSpells: 1
+      nodes:
+        - preint2
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: inflectionquicke
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectionquicke'
+  - name: Pyromancer
+    type: talent
+    img: icons/magic/fire/projectile-smoke-swirl-red.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Flame. When you cast a
+        Spell or use an action that involves this Rune, your Critical Hits which
+        deal damage cause the @Condition[burning] condition.</p><p>The Burning
+        effect lasts for <strong>3 Rounds</strong> and deals half the ability
+        score your <strong>Rune of Flame</strong> scales with as
+        <strong>Fire</strong> damage to both <strong>Health</strong> and
+        <strong>Morale</strong>.</p>
+      actions: []
+      nodes:
+        - int3a
+      iconicSpells: 0
+      training: elemental
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933664
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1789073933664
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: pyromancer000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.pyromancer000000'
+  - name: Sorcerer
+    type: talent
+    img: icons/magic/lightning/projectile-tendrils-red.webp
+    system:
+      nodes:
+        - sig3.presence.intellect
+      description: >-
+        <p>Your magic is deeply instinctual and your practice of spellcraft
+        defies traditional academic understanding.</p><p>You cannot cast
+        <strong>Iconic Spells</strong>, but when you cast a spell using an
+        <strong>Inflection</strong> it deals an additional <strong>+1
+        Damage</strong> per Iconic Spell slot that you have.</p>
+      actions: []
+      iconicSpells: 1
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: sorcerer00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.sorcerer00000000'
+  - name: Piercing Bolts
+    type: talent
+    img: icons/magic/unholy/beam-ringed-impact-purple.webp
+    system:
+      description: >-
+        <p>You have learned to shape your bolts to a needle point which slips
+        between wards and scales alike. Your Talisman attacks ignore 2 points of
+        the target's Resistance.</p>
+      actions: []
+      nodes:
+        - pre1a
+      iconicSpells: 0
+      training: talisman
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: piercingBolts000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.piercingBolts000'
+  - name: Quickening
+    type: talent
+    img: icons/magic/symbols/rune-sigil-horned-blue.webp
+    system:
+      description: >-
+        <p>Years of binding have taught your hands to feel magic through leather
+        and steel. Whether a glyph was freshly set or has long since sunk into
+        the grain, you know that it is there.</p>
+      actions:
+        - id: quickening
+          name: Quickening
+          img: icons/magic/symbols/rune-sigil-horned-blue.webp
+          condition: You have an Enchanter's Toolkit equipped.
+          description: >-
+            <p>With an Enchanter's Toolkit equipped, you can produce any one of
+            the following effects:</p><ul><li><p><strong>Read.</strong> You need
+            only touch an item to know whether it is enchanted, whether or not
+            it belongs to you. Handling it at length tells you which affixes it
+            bears and how much of its capacity remains
+            unspent.</p></li><li><p><strong>Destroy.</strong> You touch an
+            object bearing a minor enchantment which still waits upon its
+            condition, whether your own work or another enchanter's, and unmake
+            it. The object itself is unharmed. Alternatively you may conceal an
+            item's enchantment for <strong>10 minutes</strong>, so that it reads
+            as mundane to anyone whose passive Enchanting does not exceed your
+            own, though it loses nothing of its
+            power.</p></li><li><p><strong>Create.</strong> You imbue a
+            <strong>Rune</strong> you know into an object no larger than a foot
+            in any dimension, empowering it to perform one simple task under a
+            condition you name. The enchantment lasts until the object has
+            performed that task once, or until 24 hours have
+            passed.</p></li></ul><p>You may attempt other uses similar to those
+            above, the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            hands: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: none
+            number: 0
+            scope: 0
+            self: false
+          effects: []
+          tags: []
+          summon: null
+      nodes:
+        - pre2a
+      spellcraft: ''
+      iconicSpells: 0
+      training: enchanting
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: quickening000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.quickening000000'
+  - name: 'Inflection: Compose'
+    type: talent
+    img: icons/magic/symbols/arrowhead-green.webp
+    system:
+      description: >-
+        <p>Enhance a spell by taking extra time in its formation, reducing other
+        resource costs in exchange. The Compose inflection reduces the
+        <strong>Focus</strong> cost of a spell by 1 while increasing its
+        <strong>Action</strong> cost by 1 in exchange.</p>
+      actions: []
+      spellcraft: compose
+      iconicSpells: 1
+      nodes:
+        - wispre2
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: inflectioncompos
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectioncompos'
+  - name: 'Inflection: Push'
+    type: talent
+    img: icons/magic/sonic/projectile-shock-wave-blue.webp
+    system:
+      description: >-
+        <p>Empower a spell to repel affected creatures away from the caster.
+        Creatures affected by a spell with the <strong>Push</strong> inflection
+        are forcibly moved a distance away from the spellcaster equal to the
+        Ability Bonus that applied to the Spell, potentially colliding with
+        walls or other movement-blocking obstacles.</p>
+      actions: []
+      spellcraft: push
+      iconicSpells: 1
+      nodes:
+        - wispre2
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: inflectionpush00
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectionpush00'
+  - name: Certain Focus
+    type: talent
+    img: icons/magic/symbols/runes-star-orange.webp
+    system:
+      description: >-
+        <p>Drawing your reserves back into yourself has become as reliable as
+        breathing. Your
+        @UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus} action
+        can no longer fail, though it may still critically succeed.</p>
+      actions: []
+      nodes:
+        - pre2b
+      iconicSpells: 0
+      training: talisman
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: certainFocus0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.certainFocus0000'
+  - name: Kineturge
+    type: talent
+    img: icons/skills/ranged/bullets-triple-ball-yellow.webp
+    system:
+      nodes:
+        - pre3b
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Kinesis. When you cast
+        a Spell or use an action that involves this Rune, your Critical Hits
+        which deal damage cause the @Condition[bleeding] condition.</p><p>The
+        Bleeding effect lasts for <strong>1 Round</strong> and deals the ability
+        score your <strong>Rune of Kinesis</strong> scales with as additional
+        <strong>Piercing</strong> damage to <strong>Health</strong>.</p>
+      actions: []
+      iconicSpells: 0
+      training: physical
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: kineturge0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.kineturge0000000'
+  - name: 'Gesture: Pulse'
+    type: talent
+    _id: gesturepulse0000
+    img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
+    system:
+      description: >-
+        <p>Expel the arcane power of a Rune in a radius that travels outward
+        with you at its center.</p><p>The Pulse gesture scales using
+        <strong>Presence</strong> and produces an emanation with 10 foot radius,
+        dealing <strong>8 Base Damage</strong> to targets which fail to Resist
+        the spell. The gesture requires <strong>2 Hands</strong> to cast and has
+        a base cost of <strong>5 Action</strong> and <strong>2
+        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
+        is currently placed at a <strong>Tier 4</strong> node. It will
+        eventually only be attainable at a higher level (probably Level 6
+        required). It is currently available "early" for testing.</p>
+      actions: []
+      spellcraft: pulse
+      nodes:
+        - pre4d
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    folder: null
+    sort: 0
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933665
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1789073933665
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gesturepulse0000'
   - name: 'Gesture: Blast'
     type: talent
     img: icons/magic/fire/barrier-wall-explosion-orange.webp
@@ -1409,21 +1412,19 @@ items:
         eventually only be attainable at a higher level (probably Level 6
         required). It is currently available "early" for testing.</p>
       actions: []
-      rune: ''
-      gesture: blast
-      inflection: ''
+      spellcraft: blast
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233391
-      modifiedTime: 1783344233391
+      systemVersion: 0.10.2
+      createdTime: 1789073933665
+      modifiedTime: 1789073933665
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1433,7 +1434,603 @@ items:
     sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gestureBlast0000'
+  - name: Gem of Illumination
+    type: accessory
+    img: icons/commodities/gems/gem-faceted-octagon-yellow.webp
+    system:
+      identifier: gemIllumination
+      category: trinket
+      quantity: 1
+      weight: 1
+      price: 200
+      quality: fine
+      broken: false
+      enchantment: minor
+      equipped: true
+      invested: true
+      properties:
+        - investment
+      description:
+        public: >-
+          <blockquote><p>This carefully faceted gemstone glows faintly with warm
+          light, and feels warm to the touch.</p></blockquote><p>This enchanted
+          gem grants its bearer the <strong>Activate Illumination</strong>
+          action, shedding an otherworldly light in a wide radius until
+          dismissed.</p>
+        private: >-
+          <p>This item is presented as an example of a Fine Gem with the
+          @UUID[Compendium.crucible.affixes.ActiveEffect.luminous00000000]{Luminous}
+          prefix.</p><p>This affix can be applied to any accessory and this gem
+          could be further enchanted with a Tier 1 suffix.</p>
+      actions: []
+    effects:
+      - name: Luminous
+        type: affix
+        duration:
+          value: null
+          units: seconds
+          expiry: null
+          expired: false
+        system:
+          adjective: Luminous
+          identifier: luminous
+          changes: []
+          affixType: prefix
+          tier:
+            min: 1
+            max: 3
+            value: 1
+          itemTypes:
+            - accessory
+          actions:
+            - id: affixLuminous
+              name: Activate Illumination
+              img: icons/magic/light/orb-shadow-blue.webp
+              condition: ''
+              description: >-
+                <p>You speak the command word and the @ref[item.name]{item}
+                kindles into a steady otherworldly glow. The radius of bright
+                light shed depends on the <strong>Tier</strong> of this prefix,
+                with an additional radius of dim light extending an equal
+                distance beyond.</p><ul><li><p><strong>Tier 1:</strong> 20 feet
+                of bright light, 40 feet of dim
+                light.</p></li><li><p><strong>Tier 2:</strong> 40 feet of bright
+                light, 80 feet of dim light.</p></li><li><p><strong>Tier
+                3:</strong> 60 feet of bright light, 120 feet of dim
+                light.</p></li></ul><p>The light persists until you dismiss the
+                effect or remove the item.</p>
+              cost:
+                action: 1
+                focus: 0
+                heroism: 0
+                hands: 0
+                weapon: false
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              target:
+                type: self
+                number: 1
+                scope: 1
+                self: false
+              effects:
+                - name: Luminous
+                  scope: 1
+                  result:
+                    type: any
+                    all: false
+                  statuses: []
+                  system:
+                    changes: []
+                    dot: []
+                    maintenance:
+                      cost: null
+                      hands: 0
+                    regions: []
+                    summons: []
+                    dc: null
+                    properties: []
+                  duration:
+                    value: null
+                    units: ''
+                    expiry: null
+                    expired: false
+              tags: []
+              summon: null
+        _id: luminous00000000
+        img: icons/magic/light/orb-shadow-blue.webp
+        disabled: false
+        start: null
+        description: >-
+          <p>Grants the <strong>Activate Illumination</strong> action, allowing
+          the bearer to shed an otherworldly light. The radius of light scales
+          with the <strong>Tier</strong> of this affix.</p>
+        origin: null
+        tint: '#ffffff'
+        transfer: false
+        statuses: []
+        showIcon: 1
+        folder: lCO6ziuWen5phfix
+        sort: 100000
+        flags: {}
+        _stats:
+          coreVersion: '14.367'
+          systemId: crucible
+          systemVersion: 0.10.2
+          createdTime: 1789073933661
+          modifiedTime: 1789073933661
+          lastModifiedBy: WRGzDgYAt3ZuX6TU
+          compendiumSource: null
+          duplicateSource: null
+          exportSource: null
+        _key: >-
+          !actors.items.effects!tCBBi3Kyc3M4KHGZ.oP0XGz1QD2ZKZDfQ.luminous00000000
+    flags:
+      ember:
+        crucibleOverride: true
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: oP0XGz1QD2ZKZDfQ
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.oP0XGz1QD2ZKZDfQ'
+  - name: Spellband
+    type: accessory
+    img: icons/equipment/finger/ring-stone-leaves-grey.webp
+    system:
+      identifier: ringFocusing
+      category: jewelry
+      quantity: 1
+      weight: 1
+      price: 20
+      quality: fine
+      broken: false
+      enchantment: minor
+      equipped: true
+      invested: true
+      properties:
+        - investment
+      description:
+        public: >-
+          <blockquote><p>This ring made of an opaque stone that has been
+          carefully carved with graceful, sweeping layers evoking an ancient
+          aesthetic. The ring serves as a powerful spellcasting focus for the
+          <strong>Invested</strong> wearer.</p></blockquote><p>This enchanted
+          ring grants the ability to withdraw an additional reserve of
+          <strong>Focus</strong> in moments of duress.</p>
+        private: >-
+          <p>This item is presented as an example of a Fine Ring with the
+          @UUID[Compendium.crucible.affixes.ActiveEffect.focusing00000000]{Reserved
+          Focus} prefix.</p><p>This affix can be applied to any accessory and
+          this ring could be further enchanted with a Tier 1 suffix.</p>
+      actions: []
+    effects:
+      - name: Focusing
+        type: affix
+        duration:
+          value: null
+          units: seconds
+          expiry: null
+          expired: false
+        system:
+          adjective: Focusing
+          identifier: focusing
+          changes: []
+          affixType: prefix
+          tier:
+            min: 1
+            max: 3
+            value: 1
+          itemTypes:
+            - accessory
+          actions:
+            - id: affixFocusing
+              name: Replenish Focus
+              img: icons/magic/control/orb-web-hold.webp
+              condition: ''
+              description: >-
+                <p>In moments of duress you can withdraw an additional reserve
+                of <strong>Focus</strong> from this item. The amount of Focus
+                restored depends on the <strong>Tier</strong> of this
+                prefix.</p><ul><li><p><strong>Tier 1:</strong> <strong>4
+                Focus</strong></p></li><li><p><strong>Tier 2:</strong> <strong>6
+                Focus</strong></p></li><li><p><strong>Tier 3:</strong> <strong>8
+                Focus</strong></p></li></ul>
+              cost:
+                action: 2
+                focus: 0
+                heroism: 1
+                hands: 0
+                weapon: false
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              target:
+                type: self
+                number: 1
+                scope: 1
+                self: false
+              effects: []
+              tags: []
+              summon: null
+        _id: focusing00000000
+        img: icons/magic/control/orb-web-hold.webp
+        disabled: false
+        start: null
+        description: >-
+          <p>Grants the <strong>Replenish Focus</strong> action, allowing the
+          bearer to restore <strong>Focus</strong> in moments of duress. The
+          amount restored scales with the <strong>Tier</strong> of this
+          affix.</p>
+        origin: null
+        tint: '#ffffff'
+        transfer: false
+        statuses: []
+        showIcon: 1
+        folder: hd7WNbghiYX3GDXN
+        sort: 200000
+        flags: {}
+        _stats:
+          coreVersion: '14.367'
+          systemId: crucible
+          systemVersion: 0.10.2
+          createdTime: 1789073933661
+          modifiedTime: 1789073933661
+          lastModifiedBy: WRGzDgYAt3ZuX6TU
+          compendiumSource: null
+          duplicateSource: null
+          exportSource: null
+        _key: >-
+          !actors.items.effects!tCBBi3Kyc3M4KHGZ.GVmmPchPHHyBvEFf.focusing00000000
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: GVmmPchPHHyBvEFf
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.GVmmPchPHHyBvEFf'
+  - name: Frostdrop Phial
+    type: consumable
+    img: icons/consumables/potions/flask-corked-blue-glow.webp
+    system:
+      identifier: frostdropPhial
+      category: bomb
+      quantity: 1
+      weight: 1
+      price: 250
+      quality: standard
+      broken: false
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+        - thrown
+      description:
+        public: >-
+          <p>A suspension of white crystal inside a blue liquid contained within
+          a sealed glass container. Its contents rapidly evaporate when exposed
+          to air, creating a small blast of freezing liquid that coats nearby
+          matter in an icy film.</p>
+        private: >-
+          <p></p><p>Primarily used to rapidly cool metallurgical compounds in
+          advanced smithing, these alchemical phials can be quite dangerous to
+          living tissue if exposed for a long period of time.</p>
+      actions:
+        - id: frostFlask
+          name: Frostdrop Phial
+          img: icons/consumables/potions/flask-corked-blue-glow.webp
+          condition: ''
+          description: >-
+            <p>You throw the @ref[item.name], dealing weakened <strong>Cold
+            </strong>damage to all enemies in the radius of the explosion who
+            fail to avoid the attack and causing them to be @Condition[slowed]
+            briefly. The radius of the <strong>Blast</strong> depends on the
+            quality of the bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
+            feet</p></li><li><p><strong>Standard</strong> - 4
+            feet</p></li><li><p><strong>Fine</strong> - 6
+            feet</p></li><li><p><strong>Superior</strong> - 8
+            feet</p></li><li><p><strong>Masterwork</strong> - 10
+            feet</p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 20
+            weapon: false
+          target:
+            type: blast
+            number: 1
+            scope: 4
+            self: true
+            size: 4
+          effects:
+            - name: ''
+              scope: 4
+              result:
+                type: success
+                all: false
+              statuses:
+                - slowed
+              duration:
+                value: 1
+                units: rounds
+                expiry: null
+                expired: false
+              system:
+                changes: []
+                dc: null
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - consume
+            - weakened
+            - reflex
+            - cold
+            - skill
+            - athletics
+          summon: null
+      uses:
+        value: 1
+        max: 1
+      scroll:
+        runes: []
+        gestures: []
+        inflections: []
+    effects: []
+    flags:
+      dnd5e:
+        riders:
+          activity: []
+          effect: []
+      ember:
+        crucibleOverride: true
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: KAFgBhsOG630iidJ
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.KAFgBhsOG630iidJ'
+  - name: Alchemist's Fire
+    type: consumable
+    img: icons/consumables/potions/bottle-round-corked-yellow.webp
+    system:
+      identifier: alchemistsFire
+      category: bomb
+      quantity: 1
+      weight: 1
+      price: 250
+      quality: standard
+      broken: false
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+        - thrown
+      description:
+        public: >-
+          <p>A flammable concoction that ignites upon impact and burns intensely
+          for a short time.</p>
+        private: ''
+      actions:
+        - id: alchemistsFire
+          name: Alchemist's Fire
+          img: icons/consumables/potions/bottle-round-corked-yellow.webp
+          condition: ''
+          description: >-
+            <p>You hurl the @ref[item.name], dealing @Rule[action.weakened]
+            immediate <strong>Fire</strong> damage but causing the
+            @Condition[burning] condition to all enemies in a 4 foot radius
+            <strong>Blast</strong> who fail to avoid the attack.</p><p>The
+            amount of burning damage and its duration is dependent on the
+            quality of the
+            @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage
+            for 2 rounds</p></li><li><p><strong>Standard</strong> - 3 damage for
+            3 rounds</p></li><li><p><strong>Fine</strong> - 4 damage for 4
+            rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
+            rounds</p></li><li><p><strong>Masterwork</strong> - 8 damage for 6
+            rounds</p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 20
+            weapon: false
+          target:
+            type: blast
+            number: 1
+            scope: 4
+            self: true
+            size: 4
+          effects:
+            - name: Alchemist's Fire
+              scope: 4
+              result:
+                type: success
+                all: false
+              statuses:
+                - burning
+              duration:
+                value: 3
+                units: rounds
+                expiry: turnEnd
+                expired: false
+              system:
+                changes: []
+                dc: null
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - consume
+            - weakened
+            - reflex
+            - fire
+            - skill
+            - athletics
+          summon: null
+      uses:
+        value: 1
+        max: 1
+      scroll:
+        runes: []
+        gestures: []
+        inflections: []
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: xGL2Udr15JpyhbZC
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.xGL2Udr15JpyhbZC'
+  - name: Healing Elixir
+    type: consumable
+    img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+    system:
+      identifier: healingElixir
+      category: flask
+      quantity: 1
+      weight: 1
+      price: 400
+      quality: standard
+      broken: false
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+      description:
+        public: >-
+          <p>This potion contains a specialized alchemical formula to rapidly
+          close wounds and improve bodily health.</p>
+        private: ''
+      actions:
+        - id: healingElixir
+          name: Healing Elixir
+          img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+          condition: ''
+          description: >-
+            <p>Immediately recover an amount of <strong>Health</strong>
+            dependant on the quality of the
+            elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
+            <strong>Health</strong>.</p></li><li><p><strong>Standard</strong> -
+            Immediately heals 12
+            <strong>Health</strong>.</p></li><li><p><strong>Fine</strong> -
+            Immediately heals 24
+            <strong>Health</strong>.</p></li><li><p><strong>Superior</strong> -
+            Immediately heals 48
+            <strong>Health</strong>.</p></li><li><p><strong>Masterwork</strong>
+            - Immediately heals 96 <strong>Health</strong>.</p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 0
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: true
+          effects: []
+          tags:
+            - consume
+            - healing
+          summon: null
+      uses:
+        value: 1
+        max: 1
+      scroll:
+        runes: []
+        gestures: []
+        inflections: []
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933661
+      modifiedTime: 1789073933661
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: VuFOOr2Ee3N0e70z
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.VuFOOr2Ee3N0e70z'
 effects: []
 flags:
   core: {}
@@ -1449,11 +2046,11 @@ flags:
           combatantId: IVxZ7pdZO88zAAQ7
           tokenId: L62zbZZ3PjGIAKO5
 _stats:
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.10.1
-  createdTime: 1783344233384
-  modifiedTime: 1783344233384
+  systemVersion: 0.10.2
+  createdTime: 1789073933661
+  modifiedTime: 1789073933661
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

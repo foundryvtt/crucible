@@ -10,7 +10,7 @@ system:
       bonus: 0
     presence:
       base: 0
-      increases: 0
+      increases: 1
       bonus: 0
     intellect:
       base: 3
@@ -26,7 +26,7 @@ system:
       bonus: 0
     dexterity:
       base: 3
-      increases: 3
+      increases: 2
       bonus: 0
   advancement:
     level: 6
@@ -60,9 +60,7 @@ system:
         a genetic predisposition toward determination, with traditions that
         drive a stubborn will to survive.</p>
       identifier: human
-      talents:
-        - item: Compendium.crucible.talent.Item.intercept0000000
-          level: null
+      talents: []
       ui:
         color: '#a985d6'
       abilities:
@@ -74,33 +72,41 @@ system:
       resistances:
         resistance: ''
         vulnerability: ''
+      characteristics:
+        blooded: true
+        temperature: ''
       name: Human
       img: icons/skills/social/diplomacy-handshake.webp
-      characteristics:
-        temperature: ''
     background:
       description: >-
         <p>Few learn to survive the way you did. Yours was a harsh education in
         distrust. You learned to watch others for the telltale signs of danger
         or disloyalty, to avoid the attention of others, scavenging for scraps
         of food on the streets of some urban sprawl.</p>
+      training:
+        - awareness
+        - stealth
+        - deception
+        - light
+        - projectile
+        - society
       talents:
-        - item: Compendium.crucible.talent.Item.stealthNovice000
-          level: null
-        - item: Compendium.crucible.talent.Item.deceptionNovice0
-          level: null
-        - item: Compendium.crucible.talent.Item.lightWeaponTrain
-          level: null
-        - item: Compendium.crucible.talent.Item.lightWeaponTrain
-          level: null
+        - item: Compendium.crucible.talent.Item.diversionist0000
+          level: 0
+        - item: Compendium.crucible.talent.Item.lunge00000000000
+          level: 0
+        - item: Compendium.crucible.talent.Item.preparedness0000
+          level: 0
       identifier: urchin
       ui:
         color: '#84d7b7'
+      knowledge:
+        - crime
+        - tracking
+      languages:
+        - common
       name: Urchin
       img: icons/skills/social/theft-pickpocket-bribery-brown.webp
-      knowledge: []
-      languages: []
-      skills: []
     biography:
       public: >-
         <p>Belladonna is a cunning rogue who fights with two daggers, dealing a
@@ -110,8 +116,8 @@ system:
       age: ''
       height: ''
       weight: ''
-      appearance: ''
       pronouns: ''
+      appearance: ''
     knowledge: []
     languages: []
   resistances:
@@ -176,15 +182,36 @@ system:
     - reactiveStrike
     - strike
     - distract
-    - offhandStrike
-    - flurry
-    - counterEvade
-    - defensiveRoll
     - backstab
-    - healingElixir
-    - poisonIngest
-    - antitoxin
+    - lunge
+    - sneak
+    - counterEvade
+    - volatileAccelerant
+    - rapidCountermeasure
+    - feintingStrike
+    - anticipateHarm
+    - interruptingThrow
+    - markForDeath
   currency: 0
+  training:
+    light:
+      increases: 2
+      bonus: 0
+    alchemy:
+      increases: 1
+      bonus: 0
+    tailoring:
+      increases: 0
+      bonus: 0
+    stealth:
+      increases: 3
+      bonus: 0
+    science:
+      increases: 3
+      bonus: 0
+    athletics:
+      increases: 1
+      bonus: 0
 prototypeToken:
   name: Belladonna
   displayName: 20
@@ -266,7 +293,7 @@ prototypeToken:
   depth: 4
 items:
   - _id: YBeEb4tg4QxDtNIx
-    name: Dagger
+    name: Fine Dagger
     type: weapon
     img: icons/weapons/daggers/dagger-straight-blue.webp
     effects: []
@@ -277,13 +304,13 @@ items:
       quantity: 1
       weight: 1
       price: 80
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties:
         - ambush
-        - thrown
         - intuitive
+        - thrown
       description:
         public: >-
           <p>Small, swift, and deadly, the dagger slips between ribs or into
@@ -292,17 +319,17 @@ items:
         private: ''
       damageType: piercing
       broken: false
-      actions: []
-      slot: 2
       identifier: dagger
       invested: false
+      actions: []
       dropped: false
+      slot: 2
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233423
-      modifiedTime: 1783344233423
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -312,7 +339,7 @@ items:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.YBeEb4tg4QxDtNIx'
   - _id: U0pzlydffRGomINf
-    name: Dagger
+    name: Fine Dagger
     type: weapon
     img: icons/weapons/daggers/dagger-straight-blue.webp
     effects: []
@@ -323,13 +350,13 @@ items:
       quantity: 1
       weight: 1
       price: 80
-      quality: standard
+      quality: fine
       enchantment: mundane
-      equipped: false
+      equipped: true
       properties:
         - ambush
-        - thrown
         - intuitive
+        - thrown
       description:
         public: >-
           <p>Small, swift, and deadly, the dagger slips between ribs or into
@@ -338,17 +365,17 @@ items:
         private: ''
       damageType: piercing
       broken: false
-      actions: []
-      slot: 0
       identifier: dagger
       invested: false
+      actions: []
       dropped: false
+      slot: 1
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233424
-      modifiedTime: 1783344233424
+      systemVersion: 0.10.2
+      createdTime: 1789073933705
+      modifiedTime: 1789073933705
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -358,7 +385,7 @@ items:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.U0pzlydffRGomINf'
   - _id: ut0qt0eL6mEmlbNr
-    name: Studded Leather Armor
+    name: Fine Studded Leather Armor
     type: armor
     img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
     effects: []
@@ -369,7 +396,7 @@ items:
       quantity: 1
       weight: 16
       price: 640
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties: []
@@ -382,15 +409,15 @@ items:
       armor:
         base: 8
       broken: false
-      actions: []
       identifier: studdedLeatherArmor
       invested: false
+      actions: []
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233424
-      modifiedTime: 1783344233424
+      systemVersion: 0.10.2
+      createdTime: 1789073933705
+      modifiedTime: 1789073933705
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -438,59 +465,251 @@ items:
             maximum: 30
             weapon: false
           summon: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
       nodes:
-        - int2a
-      rune: ''
-      gesture: ''
-      inflection: ''
+        - int0b
+      iconicSpells: 0
+      training: deception
+      spellcraft: ''
+      requirements:
+        training: {}
     effects: []
     folder: 2MFixpDJ379KOogE
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233424
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933705
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233424
+      createdTime: 1789073933705
       compendiumSource: null
       duplicateSource: null
       exportSource: null
     ownership:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.diversionist0000'
-  - _id: flurry0000000000
-    name: Flurry
+  - name: Lunge
     type: talent
-    img: icons/skills/melee/blade-tips-triple-steel.webp
+    img: icons/skills/melee/strike-polearm-light-orange.webp
+    system:
+      description: >-
+        <p>You know how to wield light weapons fluidly with a high degree of
+        maneuverability and grace in combat.</p>
+      actions:
+        - id: lunge
+          name: Lunge
+          img: icons/skills/melee/strike-polearm-light-orange.webp
+          condition: ''
+          description: >-
+            <p>You dart forward nimbly, making a strike with sudden and
+            unexpected swiftness to perform a <strong>Strike </strong>with a
+            weapon which scales using <strong>Dexterity</strong> against a
+            single target, with an increased range of <strong>+2
+            feet</strong>.</p><p>The attack is <strong>Difficult</strong>, but
+            you do not move from your current position nor does this attack
+            provoke Disengagement.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: 2
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          tags:
+            - finesse
+            - melee
+            - difficult
+          summon: null
+      iconicSpells: 0
+      training: light
+      nodes:
+        - dex0b
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: lunge00000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.lunge00000000000'
+  - name: Preparedness
+    type: talent
+    img: icons/sundries/survival/rope-wrapped-purple.webp
+    system:
+      description: >-
+        You seem to always be prepared for the moment at hand. You may sacrifice
+        your free movement for the Round to instead equip an Item from your
+        inventory without spending any Action points.
+      nodes:
+        - wis0a
+      actions: []
+      iconicSpells: 0
+      training: wilderness
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: preparedness0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.preparedness0000'
+  - name: Sneak
+    type: talent
+    _id: sneak00000000000
+    img: icons/magic/perception/shadow-stealth-eyes-purple.webp
+    system:
+      description: >-
+        <p>You move quietly and cautiously to break one opponent's awareness of
+        your position, slipping out of their notice while they remain occupied
+        elsewhere.</p><h3 class="divider">Playtest Notes</h3><p>The Stealth
+        check resolves and marks you concealed for its duration. Crucible does
+        not yet record which creatures have lost track of you, so the Gamemaster
+        adjudicates that: your target is treated as @Condition[unaware] of you
+        for actions which check that condition, though the status itself is not
+        applied and token visibility does not change. A forthcoming stealth
+        effect will record detection for each creature individually.</p>
+      actions:
+        - id: sneak
+          name: Sneak
+          img: icons/magic/perception/shadow-stealth-eyes-purple.webp
+          condition: ''
+          description: >-
+            <p>Target one enemy which you can see at a distance of at least 20
+            feet. You make a Stealth check against their Awareness. Upon a
+            success that creature loses track of you until the start of your
+            next turn, or until you perform an action targeting them which is
+            not <strong>Subtle</strong>. Upon a Critical Success the effect
+            instead persists for two rounds.</p>
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: 20
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects:
+            - name: Sneaking
+              scope: 1
+              result:
+                type: success
+                all: false
+              statuses: []
+              duration:
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+          tags:
+            - subtle
+            - skill
+            - stealth
+          summon: null
+      nodes:
+        - dex0a
+      iconicSpells: 0
+      training: stealth
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.sneak00000000000'
+  - name: Backstab
+    type: talent
+    img: icons/skills/melee/strike-dagger-white-orange.webp
     effects: []
     flags:
       core: {}
     system:
       description: >-
-        <p>A martial technique using two weapons to overwhelm a single target
-        with a relentless sequence of attacks.</p>
+        <p>You focus your cunning instincts on exploiting the weak points of a
+        flanked target. You identify an opportunity and strike with deadly
+        efficiency.</p>
       actions:
-        - id: flurry
-          name: Flurry
-          img: icons/skills/melee/blade-tips-triple-steel.webp
-          condition: ''
+        - id: backstab
+          condition: You are attacking a target with the Flanked condition.
           description: >-
-            <p>You <strong>Strike</strong> twice with each weapon, but each
-            strike is <strong>Difficult</strong>.</p>
+            <p>You <strong>Strike</strong> with your weapon against a
+            @Condition[flanked] target, dealing <strong>Deadly</strong>
+            damage.</p>
           tags:
-            - dualwield
+            - finesse
+            - flanking
             - melee
-            - mainhand
-            - offhand
-            - difficult
+            - deadly
           cost:
-            action: 1
+            action: 0
             focus: 0
             weapon: true
             heroism: 0
@@ -498,78 +717,75 @@ items:
           target:
             type: single
             number: 1
-            scope: 0
-            multiple: 2
+            scope: 3
             self: false
           effects: []
+          name: Backstab
+          img: icons/skills/melee/strike-dagger-white-orange.webp
           range:
             maximum: null
             weapon: true
             minimum: null
           summon: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
       nodes:
         - dex1b
-      rune: ''
-      gesture: ''
-      inflection: ''
+      iconicSpells: 0
+      training: light
+      spellcraft: ''
+      requirements:
+        training: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233425
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933706
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233425
+      createdTime: 1789073933706
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    folder: cW6bwHXBB9pMcwva
-    sort: 300000
+    _id: backstab00000000
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.flurry0000000000'
-  - name: Bloodletter
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.backstab00000000'
+  - name: Perspicacity
     type: talent
-    img: icons/skills/wounds/blood-spurt-spray-red.webp
+    _id: perspicacity0000
+    img: icons/magic/sonic/bell-alarm-red-purple.webp
     system:
       description: >-
-        <p>Your precision with weapons which deal Slashing or Piercing damage
-        can cause the @Condition[bleeding] condition on Critical Hits which deal
-        damage to Health.</p><p>The @Condition[bleeding] effect lasts for 3
-        rounds and deals your Dexterity score as additional damage to
-        Health.</p>
+        <p>You take in your surroundings without needing to stop and look. You
+        may sacrifice your free movement for the Round to instead
+        @Action[default search] without spending any Action points.</p>
       actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
       nodes:
-        - dex4d
-      rune: ''
-      gesture: ''
-      inflection: ''
+        - wis0a
+      iconicSpells: 0
+      training: awareness
+      spellcraft: ''
+      requirements:
+        training: {}
     effects: []
-    flags:
-      core: {}
+    flags: {}
     _stats:
-      coreVersion: '14.364'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233425
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233425
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: bloodletter00000
-    folder: c0nl6X8tp4Of0Y4O
-    sort: 100000
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.bloodletter00000'
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.perspicacity0000'
   - _id: counterevade0000
     name: Counter Evade
     type: talent
@@ -611,30 +827,64 @@ items:
             weapon: true
             minimum: null
           summon: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
       nodes:
         - dex2c
-      rune: ''
-      gesture: ''
-      inflection: ''
+      iconicSpells: 0
+      training: light
+      spellcraft: ''
+      requirements:
+        training: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233425
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933706
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233425
+      createdTime: 1789073933706
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    folder: JzAnF4yKIgvElwCJ
-    sort: 100000
+    folder: null
+    sort: 0
     ownership:
       default: 0
+      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.counterevade0000'
+  - name: Skirmisher
+    type: talent
+    _id: skirmisher000000
+    img: icons/skills/movement/arrow-upward-yellow.webp
+    system:
+      description: >-
+        <p>You are adept at entering and exiting the fray. When moving out of
+        the <strong>Engagement</strong> radius of an enemy, that enemy has 2
+        Banes to any @Action[default reactiveStrike] against you.</p>
+      nodes:
+        - dex3b
+      actions: []
+      iconicSpells: 0
+      training: athletics
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933706
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1789073933706
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.skirmisher000000'
   - name: Strike First
     type: talent
     _id: strikefirst00000
@@ -645,92 +895,265 @@ items:
         any Strike or Spell attack against an enemy whose initiative score is
         lower than your own.
       actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
       nodes:
-        - intdex2
-      rune: ''
-      gesture: ''
-      inflection: ''
+        - intdex1
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233425
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933707
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233425
+      createdTime: 1789073933707
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    folder: BevAJzzLeFbSaVic
-    sort: -100000
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.strikefirst00000'
-  - name: Preternatural Instinct
-    type: talent
-    _id: preternaturalins
-    img: icons/magic/movement/trail-streak-zigzag-teal.webp
-    system:
-      description: >-
-        Your quickness of mind and body are equally impressive. You gain +2
-        Boons to all Initiative checks.
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - intdex4
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233426
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233426
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: BevAJzzLeFbSaVic
+    folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.preternaturalins'
-  - _id: defensiveroll000
-    name: Defensive Roll
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.strikefirst00000'
+  - name: Volatile Accelerant
     type: talent
-    img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
+    img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+    system:
+      description: >-
+        <p>A reaction already underway needs very little encouragement. It wants
+        fuel, or air, or a conductor, and you carry everything that is needed 
+        to make acceleration happen.</p>
+      actions:
+        - id: volatileAccelerant
+          name: Volatile Accelerant
+          img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+          condition: You must have an Alchemist's Toolkit equipped in your Toolbelt.
+          description: >-
+            <p>You throw a measure of oil, powdered metal, or biting salts onto
+            an enemy already suffering @Condition[burning],
+            @Condition[freezing], @Condition[corroding], or @Condition[shocked],
+            performing a <strong>Science</strong> skill attack against their
+            <strong>Fortitude</strong> defense.</p><p>Upon a
+            <strong>Success</strong> they sustain damage of the same type, and
+            to the same resource, as the reaction you fed, and its remaining
+            duration is extended by <strong>1 Round</strong>. Upon a
+            <strong>Critical Success</strong> the reaction also burns hotter,
+            increasing the damage it deals each round by
+            <strong>1</strong>.</p><h3 class="divider">Playtest
+            Notes</h3><p>This action is intended to consume a unit of alchemical
+            reagent from your inventory, offering an alternative use for the
+            same ingredients you would otherwise craft with. That requirement is
+            not yet implemented and awaits the design of the crafting
+            system.</p>
+          cost:
+            action: 2
+            focus: 1
+            heroism: 0
+            hands: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: 5
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          tags:
+            - fortitude
+            - skill
+            - science
+          summon: null
+      nodes:
+        - int2c
+      spellcraft: ''
+      iconicSpells: 0
+      training: science
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: volatileAccelera
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.volatileAccelera'
+  - name: Rapid Countermeasure
+    type: talent
+    img: icons/consumables/potions/bottle-conical-corked-blue.webp
+    system:
+      description: >-
+        <p>Fire, frost, acid and the arc each obey rules, and those rules say
+        what answers them. Any student of the sciences can recite the list.
+        Fewer can find the right vial by touch while a companion is still
+        burning.</p>
+      actions:
+        - id: rapidCountermeasure
+          name: Rapid Countermeasure
+          img: icons/consumables/potions/bottle-conical-corked-blue.webp
+          condition: You must have an Alchemist's Toolkit equipped in your Toolbelt.
+          description: >-
+            <p>You smother, douse, neutralize, or earth an elemental reaction
+            afflicting an ally you can touch. Remove one instance of
+            @Condition[burning], @Condition[freezing], @Condition[corroding], or
+            @Condition[shocked] from the target.</p><p>The reagents are drawn
+            from your Toolkit and are not otherwise tracked.</p>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            hands: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 2
+            self: true
+          effects: []
+          tags: []
+          summon: null
+      nodes:
+        - int1b
+      spellcraft: ''
+      iconicSpells: 0
+      training: science
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: rapidCountermeas
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.rapidCountermeas'
+  - _id: feintingstrike00
+    name: Feinting Strike
+    type: talent
+    img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
     effects: []
     flags:
       core: {}
     system:
       description: >-
-        <p>You are a nimble skirmisher, always in movement to stay one step
-        ahead of your enemies in combat.</p>
+        <p>A two-weapon technique which makes a feint with your primary weapon,
+        exposing your target for an off-hand attack.</p>
       actions:
-        - id: defensiveRoll
-          name: Defensive Roll
-          img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
-          condition: You Dodge an incoming melee Strike.
-          description: >-
-            <p>When you <strong>Dodge</strong> a melee attack you can expend
-            <strong>Focus</strong> to leap into a defensive roll, moving up to
-            your <strong>Size</strong> in any direction.</p>
+        - id: feintingStrike
           tags:
-            - reaction
-            - movement
+            - dualwield
+            - melee
+            - offhand
+            - skill
+            - deception
+            - reflex
           cost:
-            action: 0
+            action: 1
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          name: Feinting Strike
+          img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+          condition: ''
+          description: >-
+            <p>You feint with your mainhand weapon, making a
+            <strong>Deception</strong> attack against the target's
+            <strong>Reflex</strong> defense. You immediately make a
+            <strong>Strike</strong> with your <strong>offhand</strong>
+            weapon.</p><p>If your Deception was successful, you gain <strong>+2
+            Boons</strong> to your Strike and it deals an additional <strong>+6
+            Damage</strong>.</p>
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon: null
+      nodes:
+        - intdex2
+      iconicSpells: 0
+      training: deception
+      spellcraft: ''
+      requirements:
+        training: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.feintingstrike00'
+  - name: Anticipate Harm
+    type: talent
+    _id: anticipateharm00
+    img: icons/magic/movement/trail-streak-impact-blue.webp
+    system:
+      description: >-
+        Your keen reflexes and acuity allow you to anticipate imminent danger
+        and react to avoid it.
+      actions:
+        - id: anticipateHarm
+          condition: >-
+            You are targeted by an area-of-effect attack, the source of which
+            you can see.
+          description: >-
+            <p>You may immediately move 4 feet after the area-of-effect of the
+            attack is declared. If this movement escapes the area of the attack,
+            you are unaffected.</p>
+          tags:
+            - movement
+            - reaction
+          cost:
+            action: 1
             focus: 1
             weapon: false
             heroism: 0
@@ -741,373 +1164,527 @@ items:
             scope: 0
             self: false
           effects: []
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          summon: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - dex2a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233426
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233426
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: JzAnF4yKIgvElwCJ
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.defensiveroll000'
-  - name: Skirmisher
-    type: talent
-    _id: skirmisher000000
-    img: icons/skills/movement/arrow-upward-yellow.webp
-    system:
-      description: >-
-        <p>You are adept at entering and exiting the fray. When moving out of
-        the <strong>Engagement</strong> radius of an enemy, that enemy has 2
-        Banes to any @Action[default reactiveStrike] against you.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - dex3b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233426
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233426
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: MqZKCMx5KrZQffGU
-    sort: 106250
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.skirmisher000000'
-  - name: Impetus
-    type: talent
-    _id: impetus000000000
-    img: icons/magic/movement/trail-streak-zigzag-yellow.webp
-    system:
-      description: >-
-        <p>You are gifted at exploiting the slowness with which others think. If
-        you are first in Initiative order during a round of Combat, you gain +1
-        current and maximum Action.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - intdex4
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    folder: BevAJzzLeFbSaVic
-    sort: -75000
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233426
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233426
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.impetus000000000'
-  - folder: i7WposibCJ94XpuD
-    name: Light Weapon Training
-    type: talent
-    _id: lightWeaponTrain
-    img: icons/weapons/swords/sword-simple-white.webp
-    system:
-      description: >-
-        <p>You know how to wield light weapons fluidly with a high degree of
-        maneuverability and grace in combat. You are <strong>Trained</strong>
-        with all weapons in the <strong>Light</strong> and
-        <strong>Balanced</strong> categories.</p>
-      actions:
-        - id: lunge
-          name: Lunge
-          img: icons/skills/melee/strike-polearm-light-orange.webp
-          condition: ''
-          description: >-
-            <p>You dart forward nimbly, making a strike with sudden and
-            unexpected swiftness to perform a <strong>Strike </strong>with a
-            weapon which scales using <strong>Dexterity</strong> against a
-            single target, with an increased range of <strong>+2
-            feet</strong>.</p><p>The attack is <strong>Difficult</strong>, but
-            you do not move from your current position nor does this attack
-            provoke Disengagement.</p>
-          cost:
-            action: 0
-            focus: 0
-            heroism: 0
-            hands: 0
-            weapon: true
-          range:
-            minimum: null
-            maximum: 2
-            weapon: true
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects: []
-          tags:
-            - finesse
-            - melee
-            - difficult
-          summon: null
-      iconicSpells: 0
-      training:
-        type: light
-        rank: 1
-      nodes:
-        - dex0b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 200000
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233427
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233427
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.lightWeaponTrain'
-  - name: Intercept
-    type: talent
-    img: icons/skills/melee/shield-block-gray-orange.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        <p>You protect your allies, intercepting blows that might otherwise be
-        directed towards your companions.</p>
-      actions:
-        - id: intercept
-          condition: An enemy moves into or through your Engagement radius.
-          description: >-
-            <p>You intercept the path of an enemy which enters your
-            <strong>Engagement</strong> radius, immediately moving up to your
-            <strong>Stride</strong> to interpose yourself and block their
-            path.</p><p>If the enemy moves out of your Engagement radius or
-            attacks any other creature during their turn, you may make a
-            @Action[default reactiveStrike] against them.</p><h3
-            class="divider">Playtest Notes</h3><p>The interruption of enemy
-            movement is not yet automated.</p>
-          tags:
-            - reaction
-            - movement
-          cost:
-            action: 0
-            focus: 1
-            weapon: false
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects: []
-          name: Intercept
-          img: icons/skills/melee/shield-block-gray-orange.webp
+          name: Anticipate Harm
+          img: icons/magic/movement/trail-streak-impact-blue.webp
           range:
             maximum: 4
             weapon: false
             minimum: null
           summon: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
       nodes:
-        - dextou1
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1783344233427
-      createdTime: 1783344233427
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: intercept0000000
-    folder: MqZKCMx5KrZQffGU
-    sort: -100000
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.intercept0000000'
-  - folder: ghRKqdzq279SH1lt
-    name: Stealth Novice
-    type: talent
-    _id: stealthNovice000
-    img: systems/crucible/icons/skills/stealth.jpg
-    system:
-      description: >-
-        <p>You have received training in the basics of stealth, infiltration,
-        and subterfuge. You gain the <strong>Novice</strong> rank in the
-        <strong>Stealth </strong>skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</p><p>You know how to use
-        light and shadow to mask your presence, to distribute your weight when
-        walking in order to move more quietly, and you have learned a few tricks
-        of disguise in order to blend into a crowd. You can appear unsuspicious
-        when surrounded by others, hide in a darkened room, and can move
-        silently enough to avoid detection by the average person.</p>
-      actions: []
+        - int3b
       iconicSpells: 0
-      training:
-        type: stealth
-        rank: 1
-      nodes:
-        - dex0b
-      rune: ''
-      gesture: ''
-      inflection: ''
+      training: awareness
+      spellcraft: ''
+      requirements:
+        training: {}
     effects: []
-    sort: 400000
     flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
+      systemVersion: 0.10.2
+      createdTime: 1789073933707
+      modifiedTime: 1789073933707
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1783344233427
-      createdTime: 1783344233427
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.stealthNovice000'
-  - folder: ghRKqdzq279SH1lt
-    name: Deception Novice
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.anticipateharm00'
+  - name: Assassin
     type: talent
-    _id: deceptionNovice0
-    img: systems/crucible/icons/skills/deception.jpg
+    img: icons/magic/death/skull-humanoid-white-blue.webp
     system:
       description: >-
-        <p>You are a liar and manipulator, and deception is a skill you've
-        practiced. You gain the <strong>Novice</strong> rank in the
-        <strong>Deception </strong>skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</p><p>You know how to
-        construct basic lies and cons, and the telltale signs that tend to give
-        away poor liars. You can construct a basic forgery for most common
-        documents, but they won't stand up to any measure of close scrutiny.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: deception
-        rank: 1
+        <p>You specialize in bringing death the the unwary. Any
+        <strong>Strike</strong> or <strong>Spell</strong> attack against an
+        @Condition[unaware] target becomes <strong>Deadly</strong>.</p><p>An
+        <strong>Unaware</strong> creature hit by your attack may not alert its
+        allies until its own turn in <strong>Combat</strong>.</p>
+      actions:
+        - id: markForDeath
+          name: Mark For Death
+          img: icons/magic/death/skull-humanoid-white-blue.webp
+          condition: You are unobserved.
+          description: >-
+            <p>You spend 1 minute studying a creature. Perform a Knowledge Test
+            about your target. If successful, you learn all damage types against
+            which the target is Vulnerable. Your minimum Initiative during the
+            first round of Combat becomes one greater than the Initiative of
+            your marked target.</p><h3 class="divider">Playtest
+            Notes</h3><p>This action is not yet automated.</p>
+          tags:
+            - subtle
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            hands: 0
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          summon: null
       nodes:
-        - int0b
-      rune: ''
-      gesture: ''
-      inflection: ''
+        - sig3.intellect.dexterity
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
-    sort: 120000
-    flags: {}
+    flags:
+      core: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
+      systemVersion: 0.10.2
+      createdTime: 1789073933707
+      modifiedTime: 1789073933707
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1783344233427
-      createdTime: 1783344233427
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+    _id: assassin00000000
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.deceptionNovice0'
-  - name: Stiletto
-    type: weapon
-    img: icons/weapons/daggers/dagger-straight-thin-black.webp
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.assassin00000000'
+  - name: Interrupting Throw
+    type: talent
+    _id: interruptingDagg
+    img: icons/skills/melee/strike-dagger-arcane-pink.webp
     system:
-      category: light1
+      nodes:
+        - dex4a
+      description: >-
+        <p>You are alert and prepared to use your equipped weapon to interrupt
+        enemy spellcraft.</p>
+      actions:
+        - id: interruptingThrow
+          name: Interrupting Throw
+          img: icons/skills/melee/strike-dagger-arcane-pink.webp
+          condition: An enemy you can see casts a Spell which costs 3 Action or greater.
+          description: >-
+            <p>When an enemy that you can see casts a <strong>Spell</strong>
+            which costs <strong>3 Action</strong> or greater, you can make a
+            <strong>Reaction</strong> to perform a <strong>Thrown</strong>
+            weapon attack against the caster. If your attack results in a
+            <strong>Critical Hit</strong> the spell is interrupted and its magic
+            is lost.</p>
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            weapon: true
+            hands: 0
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - reaction
+            - melee
+            - thrown
+          summon: null
+      iconicSpells: 0
+      training: light
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933708
+      modifiedTime: 1789073933708
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.interruptingDagg'
+  - name: Focused Anticipation
+    type: talent
+    _id: focusedanticipat
+    img: icons/magic/light/circle-window-clock-blue.webp
+    system:
+      description: >-
+        Anticipation leads to decisive action. When you have the highest
+        <strong>Initiative</strong> score for a Round of combat, you gain
+        <strong>+1 Focus</strong>.<p></p>
+      nodes:
+        - int4d
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.focusedanticipat'
+  - name: Intellectual Superiority
+    type: talent
+    _id: intellectualsupe
+    img: icons/magic/light/projectile-smoke-blue-light.webp
+    system:
+      description: >-
+        It is sometimes a marvel how slowly others around you think. You gain
+        <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
+        lower than you in Initiative order.
+      actions: []
+      nodes:
+        - int4d
+      iconicSpells: 0
+      training: science
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.intellectualsupe'
+  - name: Infiltrator
+    type: talent
+    _id: infiltrator00000
+    img: icons/magic/perception/shadow-stealth-eyes-purple.webp
+    system:
+      description: >-
+        <p>You have mastered traditional stealth, using shadow and cover to slip
+        the notice of watchful sentries. When you use
+        @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you may
+        target up to three creatures simultaneously, resolving a separate
+        Stealth check against the Awareness of each.</p><h3
+        class="divider">Playtest Notes</h3><p>All three checks resolve, but
+        Crucible does not yet record which creatures have lost track of you, so
+        beating one target conceals you no differently from beating all three
+        and the Gamemaster adjudicates the difference. A forthcoming stealth
+        effect will record detection for each creature and treat this talent as
+        raising how many you may evade at once.</p>
+      actions: []
+      nodes:
+        - dex4c
+      iconicSpells: 0
+      training: stealth
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.infiltrator00000'
+  - name: Bloodletter
+    type: talent
+    img: icons/skills/wounds/blood-spurt-spray-red.webp
+    system:
+      description: >-
+        <p>Your precision with weapons which deal Slashing or Piercing damage
+        can cause the @Condition[bleeding] condition on Critical Hits which deal
+        damage to Health.</p><p>The @Condition[bleeding] effect lasts for 3
+        rounds and deals your Dexterity score as additional damage to
+        Health.</p>
+      actions: []
+      nodes:
+        - dex4d
+      iconicSpells: 0
+      training: light
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      modifiedTime: 1789073933708
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1789073933708
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: bloodletter00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.bloodletter00000'
+  - name: Eldritch Bargain
+    type: talent
+    img: icons/magic/unholy/hand-marked-pink.webp
+    system:
+      description: >-
+        <p>There are older things than Runes, and they can lend power. When you
+        have no <strong>Focus</strong> remaining, you may spend
+        <strong>Morale</strong> in its place. Each point of insufficient
+        <strong>Focus</strong> costs 10 Morale in exchange. You may still make
+        this exchange while otherwise prevented from spending Focus, for example
+        by the @Condition[broken] condition, although such a trade may incur
+        <strong>Madness</strong>.</p>
+      actions: []
+      nodes:
+        - int2b
+      iconicSpells: 0
+      training: arcana
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.10.2
+      coreVersion: '14.367'
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: eldritchBargain0
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.eldritchBargain0'
+  - name: Wortcunning
+    type: talent
+    img: icons/tools/laboratory/bowl-herbs-green.webp
+    system:
+      description: >-
+        <p>You know what things are made of. Years at the still and the mortar
+        have taught you to draw an essence out of a root, and to read what
+        another hand has put into a flask.</p>
+      actions:
+        - id: wortcunning
+          name: Wortcunning
+          img: icons/tools/laboratory/bowl-herbs-green.webp
+          condition: You have an Alchemist's Toolkit equipped.
+          description: >-
+            <p>Every preparation leaves its signature. With an Alchemist's
+            Toolkit equipped, you can produce any one of the following
+            effects:</p><ul><li><p><strong>Read.</strong> You study an item
+            created by alchemy which you can handle, learning its
+            <strong>Quality</strong> tier, what it will do, and whether it has
+            degraded past use. From residue alone, a stain, a shattered flask, a
+            scorch on stone, you identify what was prepared there if you know
+            its recipe.</p></li><li><p><strong>Destroy.</strong> You spend 10
+            minutes to spoil a non-magical item created by alchemy which you can
+            physically touch, leaving a potion inert and a bomb a dud.
+            Alternatively, in the course of preparing such a work yourself, you
+            may leave it appearing sound while ensuring it does nothing at all
+            when next relied upon. Your sabotage is discovered only by an
+            intentional Awareness check which beats your passive
+            Alchemy.</p></li><li><p><strong>Create.</strong> Given time and
+            reasonable access to ingredients, you may prepare any minor
+            alchemical work you are familiar with: inks and dyes, a glue that
+            holds under water, a perfume that lingers a full day, fireworks in
+            three colors, acid enough to etch a name in steel. Explicitly
+            defined crafting recipes must still be rolled, but you can
+            successfully prepare any such work outside of this system without
+            requiring a dice roll.</p></li></ul><p>You may attempt other uses
+            similar to those above, the effectiveness of which is decided by the
+            Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            hands: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: none
+            number: 0
+            scope: 0
+            self: false
+          effects: []
+          tags: []
+          summon: null
+      nodes:
+        - int2a
+      spellcraft: ''
+      iconicSpells: 0
+      training: alchemy
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: wortcunning00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.wortcunning00000'
+  - name: Rallying Elixir
+    type: consumable
+    img: icons/consumables/potions/bottle-bulb-corked-purple.webp
+    system:
+      identifier: rallyingElixir
+      category: flask
       quantity: 1
       weight: 1
-      price: 80
+      price: 400
       quality: standard
       broken: false
-      enchantment: mundane
-      equipped: true
-      properties:
-        - ambush
-        - intuitive
-      damageType: piercing
-      identifier: stiletto
+      equipped: false
       invested: false
+      properties:
+        - stackable
       description:
         public: >-
-          <p>Thin, tapered, and made for piercing, the stiletto is a killer’s
-          weapon — designed to slide between ribs or gaps in armor and leave
-          barely a trace.</p>
+          <p>This potion contains a specialized alchemical formula to rapidly
+          fortify the psyche and improve morale.</p>
         private: ''
-      actions: []
-      dropped: false
-      slot: 1
+      actions:
+        - id: rallyingElixir
+          name: Rallying Elixir
+          img: icons/consumables/potions/bottle-bulb-corked-purple.webp
+          condition: ''
+          description: >-
+            <p>Immediately recover an amount of <strong>Morale
+            </strong>dependant on the quality of the
+            elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
+            <strong>Morale</strong>.</p></li><li><p><strong>Standard</strong> -
+            Immediately heals 12
+            <strong>Morale</strong>.</p></li><li><p><strong>Fine</strong> -
+            Immediately heals 24
+            <strong>Morale</strong>.</p></li><li><p><strong>Superior</strong> -
+            Immediately heals 48
+            <strong>Morale</strong>.</p></li><li><p><strong>Masterwork</strong>
+            - Immediately heals 96 <strong>Morale</strong>.</p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 0
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: true
+          effects: []
+          tags:
+            - consume
+            - rallying
+          summon: null
+      uses:
+        value: 1
+        max: 1
+      scroll:
+        runes: []
+        gestures: []
+        inflections: []
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233428
-      modifiedTime: 1783344233428
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: ot5RNLZzivbxcMTH
-    folder: 3BDkyJ5nPk8nVa81
-    sort: 100000
+    _id: Zi4l2jTOzPSUJPJm
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.ot5RNLZzivbxcMTH'
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.Zi4l2jTOzPSUJPJm'
   - name: Healing Elixir
     type: consumable
     img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
@@ -1119,7 +1696,6 @@ items:
       price: 400
       quality: standard
       broken: false
-      enchantment: mundane
       equipped: true
       invested: false
       properties:
@@ -1176,795 +1752,333 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233428
-      modifiedTime: 1783344233428
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: xAsUuqGIEB5i6bL0
-    folder: WqUGvC0ubhjrpvz9
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.xAsUuqGIEB5i6bL0'
-  - name: Antitoxin
-    type: consumable
-    img: icons/consumables/potions/potion-vial-tube-yellow.webp
-    system:
-      identifier: antitoxin
-      category: flask
-      quantity: 1
-      weight: 1
-      price: 250
-      quality: standard
-      broken: false
-      enchantment: mundane
-      equipped: true
-      invested: false
-      properties:
-        - stackable
-      description:
-        public: >-
-          <p>A slender phial that contains a slightly golden-colored liquid. It
-          smells foul, but contains the alchemical agents necessary to
-          neutralize a wide variety of toxins.</p>
-        private: ''
-      actions:
-        - id: antitoxin
-          name: Antitoxin
-          img: icons/consumables/potions/potion-vial-tube-yellow.webp
-          condition: ''
-          description: >-
-            <p>Consuming this @ref[item.name] is able to neutralize any
-            @Condition[poisoned] conditions affecting the target. Stronger
-            poisons require a stronger antitoxin to neutralize.</p><p>The
-            category of poison negated by this @ref[item.name] depends on its
-            quality:</p><ul><li><p><strong>Shoddy</strong> - Poisons dealing 3
-            damage or less per round</p></li><li><p><strong>Standard</strong> -
-            Poisons dealing 5 damage or less per
-            round</p></li><li><p><strong>Fine</strong> - Poisons dealing 7
-            damage or less per round</p></li><li><p><strong>Superior</strong> -
-            Poisons dealing 9 damage or less per
-            round</p></li><li><p><strong>Masterwork</strong> - Poisons dealing
-            11 damage or less per round</p></li></ul>
-          cost:
-            action: 2
-            focus: 0
-            heroism: 0
-            weapon: false
-            hands: 0
-          range:
-            minimum: null
-            maximum: 1
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: true
-          effects: []
-          tags:
-            - consume
-            - healing
-          summon: null
-      uses:
-        value: 1
-        max: 1
-      scroll:
-        runes: []
-        gestures: []
-        inflections: []
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233428
-      modifiedTime: 1783344233428
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: obqSWKWIYSOhAMVb
-    folder: jbap2z8839rf6CuO
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.obqSWKWIYSOhAMVb'
-  - name: Poison Vial
-    type: consumable
-    img: icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
-    system:
-      identifier: poisonVial
-      category: flask
-      quantity: 1
-      weight: 1
-      price: 250
-      quality: standard
-      broken: false
-      enchantment: mundane
-      equipped: true
-      invested: false
-      properties:
-        - stackable
-      description:
-        public: >-
-          <p>This small vial contains murky liquid that is noticeably thicker
-          than water. It emits a disconcerting scent that evokes a sense of
-          wrongness.</p>
-        private: ''
-      actions:
-        - id: poisonIngest
-          name: Ingest Poison
-          img: >-
-            icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
-          condition: ''
-          description: >-
-            <p>When this toxin is ingested or otherwise enters the bloodstream
-            of a creature, it is initially <strong>Harmless</strong>, but the
-            target must defend an attack against its <strong>Fortitude</strong>
-            or become @Condition[poisoned].</p><p>The amount of poison damage
-            and its duration is dependent on the quality of the
-            @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage
-            for 4 rounds</p></li><li><p><strong>Standard</strong> - 4 damage for
-            6 rounds</p></li><li><p><strong>Fine</strong> - 6 damage for 8
-            rounds</p></li><li><p><strong>Superior</strong> - 8 damage for 10
-            rounds</p></li><li><p><strong>Masterwork</strong> - 10 damage for 12
-            rounds</p></li></ul><p><em>This action should be used when the
-            poison is ingested rather than when it is first applied.</em></p>
-          cost:
-            action: 0
-            focus: 0
-            heroism: 0
-            weapon: false
-            hands: 0
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects:
-            - name: Poisoned
-              scope: 4
-              statuses:
-                - poisoned
-              duration:
-                value: 6
-                units: rounds
-                expiry: turnEnd
-                expired: false
-              result:
-                type: success
-                all: false
-              system:
-                changes: []
-                dot: []
-                maintenance:
-                  cost: null
-                  hands: 0
-                regions: []
-                summons: []
-                dc: null
-                properties: []
-          tags:
-            - harmless
-            - fortitude
-            - skill
-            - medicine
-          summon: null
-        - id: poisonApply
-          name: Apply Poison
-          img: >-
-            icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
-          condition: ''
-          description: >-
-            <p>The contents of this vial can be added to food, drink, smeared
-            upon a bladed weapon, or combined with some alternative delivery
-            mechanism.</p><p><em>This action, which consumes the available usage
-            of the poison, should be used when it is first applied.</em></p>
-          cost:
-            action: 2
-            focus: 0
-            heroism: 0
-            weapon: false
-            hands: 1
-          range:
-            minimum: null
-            maximum: 1
-            weapon: false
-          target:
-            type: none
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          tags:
-            - consume
-          summon: null
-      uses:
-        value: 1
-        max: 1
-      scroll:
-        runes: []
-        gestures: []
-        inflections: []
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233429
-      modifiedTime: 1783344233429
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: C2nqdDmFeaYv6E7m
-    folder: jbap2z8839rf6CuO
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.C2nqdDmFeaYv6E7m'
-  - name: Medicine Novice
-    type: talent
-    _id: medicineNovice00
-    img: systems/crucible/icons/skills/medicine.jpg
-    system:
-      description: >-
-        <p>You have a basic education in anatomy, physiology, and medicine. You
-        gain the <strong>Novice</strong> rank in the <strong>Medicine
-        </strong>skill and are no longer considered <strong>Untrained</strong>
-        in that skill.</p><p>You’ve learned the basics of treating common wounds
-        and illnesses, and keep a running list of known alchemical and herbal
-        compounds that can be used for treating particular illnesses. With a
-        little time studying an injured, diseased, or otherwise ill individual
-        you can perform a basic diagnosis and treat accordingly.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: medicine
-        rank: 1
-      nodes:
-        - wis0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233429
-      modifiedTime: 1783344233429
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.medicineNovice00'
-  - name: Flash of Steel
-    type: talent
-    _id: flashOfSteel0000
-    img: icons/skills/melee/spear-tips-double-purple.webp
-    system:
-      nodes:
-        - dex1a
-      description: >-
-        <p>You are an expert in using a thrown weapon to imbalance or expose
-        your target for follow-up strikes.</p>
-      actions:
-        - id: flashOfSteel
-          name: Flash of Steel
-          img: icons/skills/melee/spear-tips-double-purple.webp
-          condition: ''
-          description: >-
-            <p>You make a <strong>Thrown </strong>weapon attack, targeting a
-            weak point in your enemy's defences. If the attack hits, the target
-            becomes @Condition[exposed] until the start of their next Turn.</p>
-          cost:
-            action: 0
-            focus: 1
-            heroism: 0
-            weapon: true
-            hands: 0
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects:
-            - name: Flash of Steel
-              scope: 3
-              statuses:
-                - exposed
-              duration:
-                value: 1
-                units: rounds
-                expiry: turnEnd
-                expired: false
-              result:
-                type: success
-                all: false
-              system:
-                changes: []
-                dot: []
-                maintenance:
-                  cost: null
-                  hands: 0
-                regions: []
-                summons: []
-                dc: null
-                properties: []
-          tags:
-            - melee
-            - thrown
-          summon: null
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233429
-      modifiedTime: 1783344233429
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.flashOfSteel0000'
-  - name: Anticipate Harm
-    type: talent
-    _id: anticipateharm00
-    img: icons/magic/movement/trail-streak-impact-blue.webp
-    system:
-      description: >-
-        Your keen reflexes and acuity allow you to anticipate imminent danger
-        and react to avoid it.
-      actions:
-        - id: anticipateHarm
-          condition: >-
-            You are targeted by an area-of-effect attack, the source of which
-            you can see.
-          description: >-
-            <p>You may immediately move 4 feet after the area-of-effect of the
-            attack is declared. If this movement escapes the area of the attack,
-            you are unaffected.</p>
-          tags:
-            - movement
-            - reaction
-          cost:
-            action: 1
-            focus: 1
-            weapon: false
-            heroism: 0
-            hands: 0
-          target:
-            type: self
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          name: Anticipate Harm
-          img: icons/magic/movement/trail-streak-impact-blue.webp
-          range:
-            maximum: 4
-            weapon: false
-            minimum: null
-          summon: null
-      nodes:
-        - int3b
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233429
-      modifiedTime: 1783344233429
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.anticipateharm00'
-  - name: Assassin
-    type: talent
-    img: icons/magic/death/skull-humanoid-white-blue.webp
-    system:
-      description: >-
-        <p>You specialize in bringing death the the unwary. Any
-        <strong>Strike</strong> or <strong>Spell</strong> attack against an
-        @Condition[unaware] target becomes <strong>Deadly</strong>.</p><p>An
-        <strong>Unaware</strong> creature hit by your attack may not alert its
-        allies until its own turn in <strong>Combat</strong>.</p>
-      actions:
-        - id: markForDeath
-          name: Mark For Death
-          img: icons/magic/death/skull-humanoid-white-blue.webp
-          condition: You are unobserved.
-          description: >-
-            <p>You spend 1 minute studying a creature. Perform a Knowledge Test
-            about your target. If successful, you learn all damage types against
-            which the target is Vulnerable. Your minimum Initiative during the
-            first round of Combat becomes one greater than the Initiative of
-            your marked target.</p><h3 class="divider">Playtest
-            Notes</h3><p>This action is not yet automated.</p>
-          tags:
-            - subtle
-          cost:
-            action: 0
-            focus: 1
-            heroism: 0
-            hands: 0
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          summon: null
-      nodes:
-        - sig3.intellect.dexterity
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233430
-      modifiedTime: 1783344233430
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: assassin00000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.assassin00000000'
-  - name: Interrupting Throw
-    type: talent
-    _id: interruptingDagg
-    img: icons/skills/melee/strike-dagger-arcane-pink.webp
-    system:
-      nodes:
-        - dex4a
-      description: >-
-        <p>You are alert and prepared to use your equipped weapon to interrupt
-        enemy spellcraft.</p>
-      actions:
-        - id: interruptingThrow
-          name: Interrupting Throw
-          img: icons/skills/melee/strike-dagger-arcane-pink.webp
-          condition: An enemy you can see casts a Spell which costs 3 Action or greater.
-          description: >-
-            <p>When an enemy that you can see casts a <strong>Spell</strong>
-            which costs <strong>3 Action</strong> or greater, you can make a
-            <strong>Reaction</strong> to perform a <strong>Thrown</strong>
-            weapon attack against the caster. If your attack results in a
-            <strong>Critical Hit</strong> the spell is interrupted and its magic
-            is lost.</p>
-          cost:
-            action: 0
-            focus: 1
-            heroism: 0
-            weapon: true
-            hands: 0
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          tags:
-            - reaction
-            - melee
-            - thrown
-          summon: null
-      rune: ''
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233430
-      modifiedTime: 1783344233430
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.interruptingDagg'
-  - name: Light Weapon Proficiency
-    type: talent
-    img: icons/weapons/swords/sword-simple-white.webp
-    system:
-      description: >-
-        <p>You have a fluent education in the use of martial weaponry. You gain
-        the <strong>Journeyman</strong> training rank and a <strong>+1 Skill
-        Bonus</strong> with weapons in the <strong>Light</strong> and
-        <strong>Balanced</strong> categories.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: light
-        rank: 2
-      nodes:
-        - dex4b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233430
-      modifiedTime: 1783344233430
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: lightWeaponProfi
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.lightWeaponProfi'
-  - name: Awareness Novice
-    type: talent
-    _id: awarenessNovice0
-    img: systems/crucible/icons/skills/awareness.jpg
-    system:
-      description: >-
-        <p>You have been trained in the basics of situational awareness, and are
-        able to notice important details about your environment. You gain the
-        <strong>Novice</strong> rank in the <strong>Awareness </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</p><p>You know to check for exits when you enter a room, and how
-        to look for concealed weapons, hidden traps, and other threats. You know
-        how to spot when you are being followed, and how to search for common
-        hiding places.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: awareness
-        rank: 1
-      nodes:
-        - int0b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233431
-      modifiedTime: 1783344233431
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.awarenessNovice0'
-  - name: Backstab
-    type: talent
-    img: icons/skills/melee/strike-dagger-white-orange.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        <p>You focus your cunning instincts on exploiting the weak points of a
-        flanked target. You identify an opportunity and strike with deadly
-        efficiency.</p>
-      actions:
-        - id: backstab
-          condition: You are attacking a target with the Flanked condition.
-          description: >-
-            <p>You <strong>Strike</strong> with your weapon against a
-            @Condition[flanked] target, dealing <strong>Deadly</strong>
-            damage.</p>
-          tags:
-            - finesse
-            - flanking
-            - melee
-            - deadly
-          cost:
-            action: 0
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects: []
-          name: Backstab
-          img: icons/skills/melee/strike-dagger-white-orange.webp
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-          summon: null
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - dex1b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      coreVersion: '14.364'
-      systemId: crucible
-      systemVersion: 0.10.1
-      modifiedTime: 1783344233431
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1783344233431
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: backstab00000000
+    _id: vZoPESW8graPB9cb
     folder: null
     sort: 0
     ownership:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.backstab00000000'
-  - name: Dual Wield
-    type: talent
-    img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.vZoPESW8graPB9cb'
+  - name: Lockpicks
+    img: icons/tools/hand/lockpicks-steel-grey.webp
+    type: tool
     system:
-      description: >-
-        <p>You are adept at fighting with two weapons simultaneously. You can
-        weave attacks together to strike more rapidly than possible with a
-        single weapon.</p>
-      actions:
-        - id: offhandStrike
-          name: Offhand Strike
-          description: >-
-            <p>Immediately after you perform a basic Strike with your mainhand
-            weapon, you make a reduced-cost follow-up <strong>Strike</strong>
-            with your <strong>offhand</strong> weapon.</p>
-          tags:
-            - afterStrike
-            - offhand
-          cost:
-            action: -1
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-          condition: ''
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-          summon: null
-      nodes:
-        - dex1b
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      rune: ''
-      gesture: ''
-      inflection: ''
+      identifier: lockpicks
+      category: implement
+      enchantment: mundane
+      quality: standard
+      price: 100
+      quantity: 1
+      weight: 1
+      description:
+        public: >-
+          <p>A set of long thin metal pins with slightly hooked ends designed to
+          manipulate the internal mechanisms of locks and a metal bar for
+          applying torsion. In the right hands, these can be used to open locks
+          just as well as any key.</p>
+        private: ''
+      skills:
+        - stealth
+      broken: false
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+      actions: []
     effects: []
-    flags:
-      core: {}
+    flags: {}
     _stats:
-      coreVersion: '14.364'
+      coreVersion: '14.367'
       systemId: crucible
-      systemVersion: 0.10.1
-      createdTime: 1783344233431
-      modifiedTime: 1783344233431
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: dualWield0000000
+    _id: IIV6FjpwNKw5HBA4
     folder: null
     sort: 0
     ownership:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.dualWield0000000'
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.IIV6FjpwNKw5HBA4'
+  - name: Alchemist's Toolkit
+    img: icons/containers/bags/case-embossed-leather-tan.webp
+    type: tool
+    system:
+      identifier: toolKitAlchemy
+      category: crafting
+      enchantment: mundane
+      quality: standard
+      price: 1750
+      quantity: 1
+      weight: 10
+      description:
+        public: >-
+          <p>A wooden box wrapped in leather containing a stone mortar and
+          pestle, a wooden spoon, and a small collapsible iron frame and brass
+          pot for combining ingredients above a fire.</p><p>Its real worth is
+          what fills the rest of it: stoppered vials of clear and cloudy liquid,
+          twists of paper holding powders, pouches of coarse salts, a stub of
+          chalk, a sealed jar of something that smells faintly of lightning.
+          Each is racked in its own place and labelled in a hand only its owner
+          can read.</p><p>Carrying the kit in your Toolbelt means those reagents
+          are at your fingertips rather than at the bottom of a pack, which is
+          the difference between knowing the answer and being able to apply
+          it.</p>
+        private: ''
+      skills:
+        - alchemy
+        - science
+      broken: false
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+      actions: []
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: pOvyiwN5NbC9lsWJ
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.pOvyiwN5NbC9lsWJ'
+  - name: Ring of Reinforcement
+    type: accessory
+    img: icons/equipment/finger/ring-shield-silver.webp
+    system:
+      identifier: ringReinforcement
+      category: jewelry
+      quantity: 1
+      weight: 0
+      price: 20
+      quality: fine
+      broken: false
+      enchantment: minor
+      equipped: true
+      invested: true
+      properties:
+        - investment
+      description:
+        public: >-
+          <blockquote><p>This steel ring feels permanently cool to the touch and
+          gives the sensation of weighing more than expected given its narrow
+          band.</p></blockquote><p>This enchanted ring provides a bonus to
+          <strong>Armor</strong> defense.</p>
+        private: >-
+          <p>This item is presented as an example of a Fine Ring with the
+          @UUID[Compendium.crucible.affixes.ActiveEffect.reinforcement000]{Reinforcement}
+          suffix.</p><p>This affix can be applied to any armor or accessory and
+          this ring could be further enchanted with a Tier 1 prefix.</p>
+      actions: []
+    effects:
+      - name: Reinforcement
+        type: affix
+        duration:
+          value: null
+          units: seconds
+          expiry: null
+          expired: false
+        system:
+          adjective: Reinforcement
+          identifier: reinforcement
+          changes: []
+          affixType: suffix
+          tier:
+            min: 1
+            max: 3
+            value: 1
+          itemTypes:
+            - accessory
+            - armor
+          actions: []
+        _id: reinforcement000
+        img: icons/magic/defensive/shield-barrier-blue.webp
+        disabled: false
+        start: null
+        description: >-
+          <p>Increase <strong>Armor</strong> defense by 1 for each
+          <strong>Tier</strong> of this suffix.</p>
+        origin: null
+        tint: '#ffffff'
+        transfer: false
+        statuses: []
+        showIcon: 1
+        folder: Lw2f7XpDAHZxckl7
+        sort: 0
+        flags: {}
+        _stats:
+          coreVersion: '14.367'
+          systemId: crucible
+          systemVersion: 0.10.2
+          createdTime: 1789073933704
+          modifiedTime: 1789073933704
+          lastModifiedBy: WRGzDgYAt3ZuX6TU
+          compendiumSource: null
+          duplicateSource: null
+          exportSource: null
+        _key: >-
+          !actors.items.effects!0crVYYsPvV9KDEJ2.XFSqOGnYk6IMcKST.reinforcement000
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: XFSqOGnYk6IMcKST
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.XFSqOGnYk6IMcKST'
+  - name: Charm of Tenacity
+    type: accessory
+    img: icons/equipment/neck/necklace-carved-stone-spiral.webp
+    system:
+      identifier: amuletTenacity
+      category: jewelry
+      quantity: 1
+      weight: 0
+      price: 20
+      quality: fine
+      broken: false
+      enchantment: minor
+      equipped: true
+      invested: true
+      properties:
+        - investment
+      description:
+        public: >-
+          <blockquote><p>This charm-covered necklace looks rustic, but upon
+          close inspection you notice a delicate craft imbued within its
+          workmanship. While holding it you feel your breaths deepen and the
+          minor aches within your muscles dissipate.</p></blockquote><p>This
+          enchanted charm provides a bonus to <strong>Fortitude</strong>
+          defense.</p>
+        private: >-
+          <p>This item is presented as an example of a Fine Charm with the
+          @UUID[Compendium.crucible.affixes.ActiveEffect.tenacity00000000]{Tenacity}
+          suffix.</p><p>This affix can be applied to any armor or accessory and
+          this charm could be further enchanted with a Tier 1 prefix.</p>
+      actions: []
+    effects:
+      - name: Tenacity
+        type: affix
+        duration:
+          value: null
+          units: seconds
+          expiry: null
+          expired: false
+        system:
+          adjective: Tenacity
+          identifier: tenacity
+          changes: []
+          affixType: suffix
+          tier:
+            min: 1
+            max: 3
+            value: 1
+          itemTypes:
+            - accessory
+            - armor
+          actions: []
+        _id: tenacity00000000
+        img: icons/magic/symbols/mask-metal-silver-white.webp
+        disabled: false
+        start: null
+        description: >-
+          <p>Increase <strong>Fortitude</strong> defense by 1 per each
+          <strong>Tier</strong> of this suffix.</p>
+        origin: null
+        tint: '#ffffff'
+        transfer: false
+        statuses: []
+        showIcon: 1
+        folder: Lw2f7XpDAHZxckl7
+        sort: 100000
+        flags: {}
+        _stats:
+          coreVersion: '14.367'
+          systemId: crucible
+          systemVersion: 0.10.2
+          createdTime: 1789073933704
+          modifiedTime: 1789073933704
+          lastModifiedBy: WRGzDgYAt3ZuX6TU
+          compendiumSource: null
+          duplicateSource: null
+          exportSource: null
+        _key: >-
+          !actors.items.effects!0crVYYsPvV9KDEJ2.ln4ZHW3Q0aq8xMcQ.tenacity00000000
+    flags: {}
+    _stats:
+      coreVersion: '14.367'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789073933704
+      modifiedTime: 1789073933704
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: ln4ZHW3Q0aq8xMcQ
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.ln4ZHW3Q0aq8xMcQ'
 effects: []
 flags:
   core: {}
   crucible:
-    actionHistory: []
+    actionHistory:
+      - id: rest
+        messageId: zeEweSBcpfinoTaZ
+        combat: null
+      - id: strike
+        messageId: aGNV6TwhWukqAx9m
+        combat: null
+      - id: backstab
+        messageId: fNkgOffLImfU6CmE
+        combat: null
+      - id: strike
+        messageId: NyMamjAxcFOXQ601
+        combat: null
 _stats:
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.10.1
-  createdTime: 1783344233422
-  modifiedTime: 1783344233422
+  systemVersion: 0.10.2
+  createdTime: 1789073933704
+  modifiedTime: 1789073933704
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
