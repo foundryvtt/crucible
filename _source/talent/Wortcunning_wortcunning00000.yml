@@ -4,9 +4,9 @@ type: talent
 img: icons/tools/laboratory/bowl-herbs-green.webp
 system:
   description: >-
-    <p>A still, a mortar, and a row of stoppered jars labeled in your own hand.
-    You have never met a substance you were not curious about, and few that kept
-    their secrets from you.</p>
+    <p>You know what things are made of. Years at the still and the mortar have
+    taught you to draw an essence out of a root, and to read what another hand
+    has put into a flask.</p>
   actions:
     - id: wortcunning
       name: Wortcunning
