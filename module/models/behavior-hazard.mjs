@@ -3,15 +3,27 @@ export default class CrucibleHazardRegionBehavior extends foundry.data.regionBeh
   /** @override */
   static LOCALIZATION_PREFIXES = ["REGION_BEHAVIORS.HAZARD"];
 
+  /**
+   * Valid subset of triggering events
+   * @type {string[]}
+   */
+  static #VALID_EVENTS = [
+    CONST.REGION_EVENTS.TOKEN_ENTER,
+    CONST.REGION_EVENTS.TOKEN_EXIT,
+    CONST.REGION_EVENTS.TOKEN_MOVE_IN,
+    CONST.REGION_EVENTS.TOKEN_MOVE_OUT,
+    CONST.REGION_EVENTS.TOKEN_MOVE_WITHIN,
+    CONST.REGION_EVENTS.TOKEN_TURN_START,
+    CONST.REGION_EVENTS.TOKEN_TURN_END,
+    CONST.REGION_EVENTS.TOKEN_ROUND_START,
+    CONST.REGION_EVENTS.TOKEN_ROUND_END
+  ];
+
   /* -------------------------------------------- */
 
   /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
-    const {TOKEN_ENTER, TOKEN_EXIT, TOKEN_MOVE_IN, TOKEN_MOVE_OUT, TOKEN_MOVE_WITHIN,
-      TOKEN_TURN_START, TOKEN_TURN_END, TOKEN_ROUND_START, TOKEN_ROUND_END} = CONST.REGION_EVENTS;
-    const validEvents = [TOKEN_ENTER, TOKEN_EXIT, TOKEN_MOVE_IN, TOKEN_MOVE_OUT, TOKEN_MOVE_WITHIN,
-      TOKEN_TURN_START, TOKEN_TURN_END, TOKEN_ROUND_START, TOKEN_ROUND_END];
     const {armor, block, dodge, parry, ...defenseTypes} = foundry.utils.deepClone(SYSTEM.DEFENSES);
     const {action, focus, heroism, ...resources} = foundry.utils.deepClone(SYSTEM.RESOURCES);
     const tags = Object.values(SYSTEM.ACTION.TAGS).reduce((acc, t) => {
@@ -33,7 +45,7 @@ export default class CrucibleHazardRegionBehavior extends foundry.data.regionBeh
       resource: new fields.StringField({initial: "health", choices: resources, required: true}),
       tags: new fields.SetField(new fields.StringField({required: true, choices: tags})),
       promptGM: new fields.BooleanField({initial: false}),
-      events: this._createEventsField({events: validEvents, initial: ["tokenEnter"]})
+      events: this._createEventsField({events: this.#VALID_EVENTS, initial: ["tokenEnter"]})
     };
   }
 
