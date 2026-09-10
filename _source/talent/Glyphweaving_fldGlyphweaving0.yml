@@ -1,0 +1,16 @@
+name: Glyphweaving
+sorting: a
+folder: 2MFixpDJ379KOogE
+type: Item
+_id: fldGlyphweaving0
+sort: 0
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+_key: '!folders!fldGlyphweaving0'
