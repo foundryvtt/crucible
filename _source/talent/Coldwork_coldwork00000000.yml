@@ -16,25 +16,29 @@ system:
         <p>You know metal by feel: where it was worked, where it has been
         mended, and where a single blow will part it. With a Smith's Toolkit
         equipped, you can produce any one of the following
-        effects:</p><ul><li><p><strong>Read.</strong> You study a metal object
-        which you can clearly see within <strong>30 feet</strong>, learning its
-        <strong>Quality</strong> tier and whether it is <strong>Broken</strong>.
-        You learn nothing of its enchantment, its affixes, or its
-        history.</p></li><li><p><strong>Destroy.</strong> You instantaneously
-        sunder a non-magical iron or steel fitting no thicker than your thumb
-        which you can physically touch, such as a chain link, a padlock, or a
-        manacle, or a non-magical weapon, shield, or suit of armor in your
-        possession which is not equipped, striking where it was welded, pinned,
-        or tempered. Alternatively you may spend 10 minutes to sabotage such a
-        work of iron or steel. You name the condition under which it fails; when
-        that condition is met, the Gamemaster decides the consequences. Your
-        sabotage is discovered only by an intentional Awareness check which
-        beats your passive Smithing.</p></li><li><p><strong>Create.</strong> You
-        spend 10 minutes and materials at hand to forge a working copy of a
-        non-magical key which you hold, or serviceable field iron such as
-        caltrops, climbing spikes, or a grapple hook.</p></li></ul><p>You may
-        attempt other uses similar to those above, the effectiveness of which is
-        decided by the Gamemaster.</p>
+        effects:</p><ul><li><p><strong>Read.</strong> You study an item created
+        by smithing which you can clearly see within <strong>30 feet</strong>,
+        learning its <strong>Quality</strong> tier and whether it is
+        <strong>Broken</strong>. You learn nothing of its enchantment, its
+        affixes, or its history.</p></li><li><p><strong>Destroy.</strong> You
+        instantaneously sunder a non-magical iron or steel fitting no thicker
+        than your thumb which you can physically touch, such as a chain link, a
+        padlock, or a manacle, or a non-magical weapon, shield, or suit of armor
+        in your possession which is not equipped, striking where it was welded,
+        pinned, or tempered. Alternatively you may spend 10 minutes to sabotage
+        such a work of iron or steel. You name the condition under which it
+        fails; when that condition is met, the Gamemaster decides the
+        consequences. Your sabotage is discovered only by an intentional
+        Awareness check which beats your passive
+        Smithing.</p></li><li><p><strong>Create.</strong> Given time and
+        reasonable access to materials, you may forge any small work of iron or
+        steel you are familiar with: a working copy of a non-magical key which
+        you hold, a set of climbing spikes, a scatter of caltrops, a grapple
+        hook. Explicitly defined crafting recipes must still be rolled, but you
+        can successfully forge any such work outside of this system without
+        requiring a dice roll.</p></li></ul><p>You may attempt other uses
+        similar to those above, the effectiveness of which is decided by the
+        Gamemaster.</p>
       cost:
         action: 3
         focus: 0

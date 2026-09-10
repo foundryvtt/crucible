@@ -4,8 +4,9 @@ type: talent
 img: icons/commodities/gems/gem-cut-faceted-square-purple.webp
 system:
   description: >-
-    <p>A loupe, a wheel, and a steady hand. You can tell a stone's worth across
-    a table, and what it will become once you have had it a while.</p>
+    <p>Your eye is exact and your hand is steady. You can judge a rough stone
+    across a table and tell what it will become once you have had it a
+    while.</p>
   actions:
     - id: filigree
       name: Filigree

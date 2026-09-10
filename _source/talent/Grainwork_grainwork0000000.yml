@@ -15,13 +15,13 @@ system:
       description: >-
         <p>Wood tells you where it grew, how it was seasoned, and where it will
         give. With a Fletcher's Toolkit equipped, you can produce any one of the
-        following effects:</p><ul><li><p><strong>Read.</strong> You study a
-        wooden weapon, shield, or talisman which you can clearly see within
-        <strong>30 feet</strong>, learning its <strong>Quality</strong> tier,
-        whether it is <strong>Broken</strong>, and whether its wood was properly
-        seasoned. From a projectile lodged in a body or a surface you also learn
-        the direction it was loosed from and how far it flew. You learn nothing
-        of enchantment, affixes, or
+        following effects:</p><ul><li><p><strong>Read.</strong> You study an
+        item created by fletching which you can clearly see within <strong>30
+        feet</strong>, learning its <strong>Quality</strong> tier, whether it is
+        <strong>Broken</strong>, and whether its wood was properly seasoned.
+        From a projectile lodged in a body or a surface you also learn the
+        direction it was loosed from and how far it flew. You learn nothing of
+        enchantment, affixes, or
         history.</p></li><li><p><strong>Destroy.</strong> You instantaneously
         split a non-magical wooden object along its grain, whether a fixture
         which you can physically touch such as a door bar, a ladder rung, or a
@@ -32,12 +32,15 @@ system:
         under which it fails; when that condition is met, the Gamemaster decides
         the consequences. Your sabotage is discovered only by an intentional
         Awareness check which beats your passive
-        Fletching.</p></li><li><p><strong>Create.</strong> You spend 10 minutes
-        and sound wood to fashion a brace which holds a door or shores a sagging
-        beam, a replacement spoke, oar, or axle pin which returns a vehicle to
-        travel, or a fistful of arrows cut green, which fly true for one battle
-        before they warp.</p></li></ul><p>You may attempt other uses similar to
-        those above, the effectiveness of which is decided by the
+        Fletching.</p></li><li><p><strong>Create.</strong> Given time and
+        reasonable access to sound wood, you may fashion any work of wood you
+        are familiar with: a brace which holds a door or shores a sagging beam,
+        a replacement spoke, oar, or axle pin which returns a vehicle to travel,
+        a fistful of arrows cut green which fly true for one battle before they
+        warp. Explicitly defined crafting recipes must still be rolled, but you
+        can successfully fashion any such work outside of this system without
+        requiring a dice roll.</p></li></ul><p>You may attempt other uses
+        similar to those above, the effectiveness of which is decided by the
         Gamemaster.</p>
       cost:
         action: 3

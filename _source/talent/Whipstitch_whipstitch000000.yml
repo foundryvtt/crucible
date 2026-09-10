@@ -15,26 +15,30 @@ system:
       description: >-
         <p>Cloth tells you where it was woven, who wore it, and where it will
         give. With a Tailor's Toolkit equipped, you can produce any one of the
-        following effects:</p><ul><li><p><strong>Read.</strong> You study the
-        garments and worn gear of a creature which you can clearly see within
-        <strong>30 feet</strong>, learning the <strong>Quality</strong> tier of
-        what it wears, whether those garments were tailored for that wearer or
-        altered from another's, and what size of garment or armor would fit
-        it.</p></li><li><p><strong>Destroy.</strong> You instantaneously sever a
-        non-magical garment, strap, or binding in your possession so that it
-        comes apart cleanly in your hands without a blade. Alternatively you may
-        spend 10 minutes to sabotage a non-magical work of leather or fabric.
-        You name the condition under which it fails; when that condition is met,
-        the Gamemaster decides the consequences. Your sabotage is discovered
+        following effects:</p><ul><li><p><strong>Read.</strong> You study an
+        item created by tailoring which you can clearly see within <strong>30
+        feet</strong>, including one a creature is wearing, learning its
+        <strong>Quality</strong> tier, whether it was made for its current
+        wearer or altered from another's, and what size of garment or armor
+        would fit them.</p></li><li><p><strong>Destroy.</strong> You
+        instantaneously sever a non-magical garment, strap, or binding in your
+        possession so that it comes apart cleanly in your hands without a blade.
+        Alternatively you may spend 10 minutes to sabotage a non-magical work of
+        leather or fabric. You name the condition under which it fails; when
+        that condition is met, the Gamemaster decides the consequences. Your
+        sabotage is discovered only by an intentional Awareness check which
+        beats your passive Tailoring.</p></li><li><p><strong>Create.</strong>
+        Given time and reasonable access to cloth and leather, you may make or
+        remake any garment you are familiar with, including the dress of a
+        specific people, household, or order whose attire you have seen
+        firsthand, which holds until the garment is closely handled or cleaned.
+        As you work you may sew in an object weighing a pound or less, found
         only by an intentional Awareness check which beats your passive
-        Tailoring.</p></li><li><p><strong>Create.</strong> You spend 10 minutes
-        to rework a garment which you can handle into the dress of a specific
-        people, household, or order whose attire you have seen firsthand, which
-        holds until the garment is closely handled or cleaned. While you work
-        you may sew into it an object weighing a pound or less, discovered only
-        by an intentional Awareness check which beats your passive
-        Tailoring.</p></li></ul><p>You may attempt other uses similar to those
-        above, the effectiveness of which is decided by the Gamemaster.</p>
+        Tailoring. Explicitly defined crafting recipes must still be rolled, but
+        you can successfully make any such garment outside of this system
+        without requiring a dice roll.</p></li></ul><p>You may attempt other
+        uses similar to those above, the effectiveness of which is decided by
+        the Gamemaster.</p>
       cost:
         action: 3
         focus: 0
