@@ -35,10 +35,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
-        - spell
-        - iconicSpell
       summon:
         actorUuid: null
         permanent: true
@@ -65,8 +61,6 @@ system:
         self: false
       effects: []
       tags:
-        - spell
-        - iconicSpell
         - spell
         - iconicSpell
       condition: ''

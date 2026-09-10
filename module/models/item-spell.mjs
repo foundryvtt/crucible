@@ -63,7 +63,7 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
 
     // Configure spell-provided actions
     for ( const action of source.actions ) {
-      action.tags.unshift("spell", "iconicSpell");
+      action.tags = Array.from(new Set(["spell", "iconicSpell", ...action.tags]));
       action.rune = runes[0]; // TODO eventually support multi-component spell actions?
       action.gesture = gestures[0];
       action.inflection = inflections[0];

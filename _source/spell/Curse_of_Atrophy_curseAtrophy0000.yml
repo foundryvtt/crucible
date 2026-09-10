@@ -51,8 +51,6 @@ system:
       tags:
         - spell
         - iconicSpell
-        - spell
-        - iconicSpell
         - fortitude
         - harmless
       summon:

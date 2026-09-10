@@ -455,7 +455,7 @@ class CrucibleActionTags extends Set {
   #sort() {
     if ( !this.#sorted ) return;
     const TAGS = SYSTEM.ACTION.TAGS;
-    this.#sorted = Array.from(this).sort((a, b) => TAGS[a].priority - TAGS[b].priority);
+    this.#sorted = Array.from(this).sort((a, b) => (TAGS[a].priority ?? 0) - (TAGS[b].priority ?? 0));
   }
 
   /* -------------------------------------------- */
