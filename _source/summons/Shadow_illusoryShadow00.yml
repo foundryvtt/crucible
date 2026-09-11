@@ -1,0 +1,277 @@
+folder: 5oBBNdq95OvvXx3e
+name: Shadow
+type: adversary
+img: systems/crucible/assets/tokens/creations/Shadow.webp
+_id: illusoryShadow00
+system:
+  abilities:
+    strength:
+      bonus: 0
+    toughness:
+      bonus: 0
+    dexterity:
+      bonus: 0
+    intellect:
+      bonus: 0
+    presence:
+      bonus: 0
+    wisdom:
+      bonus: 0
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    reflex:
+      bonus: 0
+    willpower:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  details:
+    archetype:
+      description: >-
+        <p>A decoupled shadow is not a creature at all, but a falsehood given
+        temporary shape. It mimics the movements of its caster and cannot act
+        of its own volition.</p>
+      identifier: illusoryShadow
+      abilities:
+        wisdom: 1
+        presence: 1
+        intellect: 1
+        strength: 1
+        toughness: 1
+        dexterity: 1
+      talents: []
+      skills: []
+      equipment: []
+      spells: []
+      name: Illusory Shadow
+      img: icons/magic/perception/silhouette-stealth-shadow.webp
+    taxonomy:
+      description: >-
+        <p>A shadow severed from its caster by the Rune of Illusion. It is a
+        fabrication of light and misdirection with no true substance to harm,
+        maintained only for as long as its caster sustains the illusion.</p>
+      category: construct
+      abilities:
+        wisdom: 1
+        presence: 1
+        intellect: 1
+        strength: 1
+        toughness: 1
+        dexterity: 1
+      resistances:
+        bludgeoning:
+          value: 0
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        piercing:
+          value: 0
+          immune: false
+        slashing:
+          value: 0
+          immune: false
+        poison:
+          value: 0
+          immune: false
+        acid:
+          value: 0
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        cold:
+          value: 0
+          immune: false
+        electricity:
+          value: 0
+          immune: false
+        psychic:
+          value: 0
+          immune: false
+        radiant:
+          value: 0
+          immune: false
+        void:
+          value: 0
+          immune: false
+      characteristics:
+        spells: false
+        equipment: false
+      movement:
+        size: 3
+        stride: 8
+      talents: []
+      name: Shadow
+      img: icons/magic/perception/silhouette-stealth-shadow.webp
+      identifier: shadow
+    biography:
+      public: ''
+      private: ''
+      appearance: ''
+    languages: []
+  resistances:
+    bludgeoning:
+      bonus: 0
+      immune: false
+    piercing:
+      bonus: 0
+      immune: false
+    slashing:
+      bonus: 0
+      immune: false
+    poison:
+      bonus: 0
+      immune: false
+    acid:
+      bonus: 0
+      immune: false
+    fire:
+      bonus: 0
+      immune: false
+    psychic:
+      bonus: 0
+      immune: false
+    radiant:
+      bonus: 0
+      immune: false
+    void:
+      bonus: 0
+      immune: false
+    corruption:
+      bonus: 0
+      immune: false
+    cold:
+      bonus: 0
+      immune: false
+    electricity:
+      bonus: 0
+      immune: false
+  resources:
+    health:
+      value: 1
+    morale:
+      value: 1
+    action:
+      value: 2
+    focus:
+      value: 0
+    heroism:
+      value: 0
+  status: null
+  movement:
+    sizeBonus: 0
+    strideBonus: 0
+    engagementBonus: 0
+  advancement:
+    level: 1
+    rank: minion
+  favorites: []
+  currency: 0
+prototypeToken:
+  name: Shadow
+  displayName: 30
+  actorLink: false
+  appendNumber: false
+  prependAdjective: false
+  texture:
+    src: systems/crucible/assets/tokens/creations/Shadow.webp
+    scaleX: 1
+    scaleY: 1
+    tint: '#ffffff'
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    alphaThreshold: 0.75
+  width: 3
+  height: 3
+  lockRotation: false
+  rotation: 0
+  alpha: 0.85
+  disposition: 1
+  displayBars: 40
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    alpha: 0.9
+    angle: 360
+    bright: 0
+    color: null
+    coloration: 1
+    dim: 4
+    attenuation: 0.5
+    luminosity: 0
+    saturation: 0
+    contrast: 0
+    shadows: 0
+    animation:
+      type: null
+      speed: 5
+      intensity: 5
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+    negative: true
+    priority: 0
+  sight:
+    enabled: false
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: {}
+  flags: {}
+  randomImg: false
+  occludable:
+    radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+      effects: 0
+    subject:
+      scale: 1
+      texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
+  movementAction: null
+  depth: 3
+items: []
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.356'
+  createdTime: 1789200000000
+  modifiedTime: 1789200000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 210000
+ownership:
+  default: 0
+_key: '!actors!illusoryShadow00'

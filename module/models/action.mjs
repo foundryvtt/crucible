@@ -106,6 +106,9 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {number} [initiative=1]
  * @property {boolean} [permanent=true]     Is this summoned creature permanent until killed? Otherwise, a corresponding
  *                                          active effect must exist to track its duration.
+ * @property {number} [leash]               Maximum distance in grid units the summoned creature may move from its
+ *                                          summoner. Using the action again displaces the previous leashed summon.
+ * @property {boolean} [matchCasterSize=false]  Size the summoned creature's token footprint to match its summoner's.
  */
 
 /**
@@ -393,7 +396,8 @@ class CrucibleActionEvent {
  * @property {ActionCost} cost              Cost data for the action
  * @property {ActionTarget} target          Target data for the action
  * @property {ActionRange} range            Range data for the action
- * @property {{actorUuid?: string, permanent?: boolean}} summon  Summon configuration embedded in this action
+ * @property {{actorUuid?: string, permanent?: boolean, leash?: number}} summon
+ *                                          Summon configuration embedded in this action
  * @property {ActionEffect[]} effects       Active effect templates applied when this action is used
  */
 
@@ -653,7 +657,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       summon: new fields.SchemaField({
         actorUuid: new fields.DocumentUUIDField({type: "Actor"}),
         permanent: new fields.BooleanField({initial: true}),
-        combatant: new fields.BooleanField({initial: true})
+        combatant: new fields.BooleanField({initial: true}),
+        leash: new fields.NumberField({required: false, nullable: true, integer: true, min: 0, initial: null}),
+        matchCasterSize: new fields.BooleanField({initial: false})
       }, {nullable: true, initial: null}),
       effects: new fields.ArrayField(new fields.SchemaField({
         name: new fields.StringField({blank: true, initial: ""}),

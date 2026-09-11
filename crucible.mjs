@@ -742,6 +742,7 @@ Hooks.on("renderChatMessageHTML", documents.CrucibleChatMessage.onRenderHTML);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
 Hooks.on("targetToken", () => canvas.CrucibleTokenObject.refreshFlankingVisualization());
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
+Hooks.on("preMoveToken", canvas.movement.enforceSummonLeash);
 Hooks.on("getSceneControlButtons", controls => {
   controls.tokens.tools.forcedMovement = {
     name: "forcedMovement",
