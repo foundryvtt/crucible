@@ -1909,7 +1909,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           img: this.img,
           origin: this.actor.uuid,
           duration: effectDuration,
-          system
+          system,
+          // TODO: Store more action information than just identifier, likely on data model rather than flags
+          flags: {crucible: {originAction: this.id}}
         };
         if ( showIcon !== undefined ) effect.showIcon = showIcon; // Honor a per-effect icon-visibility override
 
@@ -1939,7 +1941,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           img: this.img,
           origin: this.actor.uuid,
           showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
-          system: {}
+          system: {},
+          // TODO: Store more action information than just identifier, likely on data model rather than flags
+          flags: {crucible: {originAction: this.id}}
         }]});
       }
     }
@@ -2791,7 +2795,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const textEvents = this.#composeTextEvents(actor, batch.events, {reverse});
       const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
       await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
-      if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, {reverse, originAction: this});
+      if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, {reverse});
     }
   }
 
