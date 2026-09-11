@@ -178,9 +178,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     if ( this.node.id === "origin" ) return;
     const actor = game.system.tree.actor;
     const purchased = this.node.isPurchased(actor);
-
-    // Refunding an isolated empty node is always permitted so points may be recovered, but purchasing
-    // requires available Talent points, a purchased neighbor node, and met tier prerequisites
+    // Special case checks when purchasing an empty node
     if ( !purchased ) {
       if ( !actor.points.talent.available ) return;
       const {unlocked} = this.node.getState(actor);
