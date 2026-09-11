@@ -1217,11 +1217,11 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Apply or reverse ActiveEffect changes from an action's event stream.
-   * @param {ActionEffect[]} effects            The effect data array to apply
-   * @param {object} [options]                  Options which configure how the effects are applied
-   * @param {boolean} [options.reverse=false]     Reverse the effects instead of applying them?
-   * @param {boolean} [options.commit=true]       When false, apply to this document's source in-memory and re-derive,
-   *                                              without persistence, for ephemeral simulation.
+   * @param {ActionEffect[]} effects                The effect data array to apply
+   * @param {object} [options]                      Options which configure how the effects are applied
+   * @param {boolean} [options.reverse=false]       Reverse the effects instead of applying them?
+   * @param {boolean} [options.commit=true]         When false, apply to this document's source in-memory and
+   *                                                re-derive, without persistence, for ephemeral simulation
    * @returns {Promise<void>}
    * @internal
    */

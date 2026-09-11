@@ -1,4 +1,9 @@
 /**
+ * @import CrucibleAction from "./action.mjs";
+ * @import {CrucibleActionContext} from "./action.mjs";
+ */
+
+/**
  * Active Effect subtype containing crucible-specific system schema.
  */
 export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectTypeDataModel {
@@ -59,5 +64,25 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
     for ( const p of this.properties ) tags[p] = SYSTEM.EFFECTS.PROPERTIES[p]?.label ?? p;
     if ( Number.isFinite(this.dc) ) tags.difficulty = _loc("BASE_EFFECT.Difficulty", {dc: this.dc});
     return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Retrieve the action which caused the creation of this effect.
+   * TODO: Once storing more complete action data, make this more robust; this is mainly a placeholder proof of concept
+   * @param {object} [options]
+   * @param {CrucibleActionContext} [options.actionContext] Specific action context, if any
+   * @returns {CrucibleAction|undefined}
+   */
+  getOriginAction({actionContext={}}={}) {
+    const actor = fromUuidSync(this.parent.origin);
+    if ( !(actor?.system instanceof crucible.api.models.CrucibleBaseActor) ) return;
+    const actionId = this.parent.flags?.crucible?.originAction;
+    if ( !actionId ) return;
+    actionContext.lazy ??= true;
+    return actionId.startsWith("spell.")
+      ? crucible.api.models.CrucibleSpellAction.fromId(actionId, {actor, ...actionContext})
+      : actor.actions[actionId]?.clone({}, {actor, ...actionContext});
   }
 }
