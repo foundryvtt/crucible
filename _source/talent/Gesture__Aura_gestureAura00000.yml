@@ -14,13 +14,7 @@ system:
     Aura. This gesture requires <strong>2 Hands</strong> to cast, has a base
     cost of <strong>5 Action</strong> and <strong>1 Focus</strong>, and must be
     <strong>Maintained</strong> costing an additional <strong>1 Focus</strong>
-    every subsequent round.</p><h3 class="divider">Playtest Notes</h3><p>This
-    talent is currently placed at a <strong>Tier 4</strong> node. It will
-    eventually only be attainable at a higher level (probably Level 6 required).
-    It is currently available "early" for testing.</p><p>Emanation templates
-    which are linked to the Token and move when the Token moves are a feature
-    coming in Foundry VTT version 14. Automation of the Aura gesture will occur
-    once Crucible depends on Foundry VTT version 14.</p>
+    every subsequent round.</p>
   actions: []
   rune: ''
   gesture: aura
@@ -39,12 +33,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1762792947816
-  modifiedTime: 1773514792578
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1789086319443
+  lastModifiedBy: QLUPZeHlypK652Ps
 _id: gestureAura00000
 sort: 0
 _key: '!items!gestureAura00000'
