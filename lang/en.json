@@ -31,6 +31,7 @@
       "AddFavorite": "Add Favorite",
       "Delete": "Delete Action: {name}",
       "DeleteConfirm": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?",
+      "EditRegionBehavior": "Edit Region Behavior",
       "RemoveFavorite": "Remove Favorite"
     },
     "DEFAULT_ACTIONS": {
@@ -180,6 +181,10 @@
           "hint": "The range of this action is defined by the effective range of the used weapon.",
           "label": "Use Weapon Range"
         }
+      },
+      "regionBehavior": {
+        "hint": "The region behavior which controls how the region persisted by this action behaves.",
+        "label": "Region Behavior"
       },
       "summon": {
         "actorUuid": {
