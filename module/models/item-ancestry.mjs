@@ -123,7 +123,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
       characteristics: {
         equipment: true,
         spells: true,
-        temperature: characteristics.temperature
+        ...characteristics
       },
       talents
     };
