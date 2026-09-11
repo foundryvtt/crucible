@@ -956,7 +956,48 @@ pages:
         storytelling, or other forms of artistic expression.. Performers learn
         verse and music, use of pigment and light, poetry and story, dance and
         even physical feats to evoke emotional reactions in
-        others.</p></dd></dl>
+        others.</p></dd></dl><h2 class="divider">Trade Skills</h2><p>Trade
+        Skills are Proficiencies used to make things rather than to overcome
+        them. Each is described in full, with its abilities and example
+        products, within the
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tradeskillsOverv]{Crafting}
+        journal.</p><dl><dt><p>Alchemy</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.alchemy000000000]{Alchemy}
+        reduces botanicals and minerals to their virtues and recombines them
+        into something which can be drunk, smeared upon a blade, or thrown. Its
+        products are consumables, made to be spent rather than kept, and its
+        practitioners refine the reagents other trades depend
+        upon.</p></dd><dt><p>Cooking</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.cooking000000000]{Cooking}
+        is the trade of what goes into people: the meals which carry a company
+        from one hardship to the next, and also the poisons and drugs which do
+        nothing of the sort. A cook produces all three; anyone at all may use
+        them.</p></dd><dt><p>Enchanting</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.enchanting000000]{Enchanting}
+        binds a Glyph into a finished object so that it holds a magical property
+        permanently. An enchanter makes nothing alone, depending upon a
+        glyphweaver for the Glyph and upon another crafter for a base item fine
+        enough to hold
+        it.</p></dd><dt><p>Fletching</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.fletching0000000]{Fletching}
+        is the working of wood. It is best known for bows and their ammunition,
+        but extends to every wooden implement a company carries: staves and
+        cudgels, light shields, wooden talismans, and the seasoned stock other
+        crafters
+        require.</p></dd><dt><p>Glyphweaving</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweaving}
+        inscribes a metaphysical Rune into a physical Glyph which can be
+        carried, traded, and eventually bound into equipment. The same
+        discipline governs mundane inscription: letters and records, painted
+        work, and the spell scrolls a caster
+        spends.</p></dd><dt><p>Jewelcraft</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.jewelcraft000000]{Jewelcraft}
+        is the cutting of stones and the raising of settings to hold them. Its
+        products are rings, amulets and other ornaments worn in an accessory
+        slot, along with the cut gems other trades require for their finest
+        work.</p></dd><dt><p>Smithing</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.smithing00000000]{Smithing}
+        is the working of base metals and alloys into arms and armor. A smith
+        produces metal weapons of every category, metal armor and heavy shields,
+        and is the trade a company relies upon most directly when a fight goes
+        badly.</p></dd><dt><p>Tailoring</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tailoring0000000]{Tailoring}
+        works fabric, fur and leather. It covers cloth and leather armor and
+        clothing of every kind, but reaches far past what is worn: packs and
+        boots, belts and straps, scabbards and grips are all a tailor's
+        work.</p></dd></dl>
     video:
       controls: true
       volume: 0.5
