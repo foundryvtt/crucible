@@ -178,7 +178,15 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     if ( this.node.id === "origin" ) return;
     const actor = game.system.tree.actor;
     const purchased = this.node.isPurchased(actor);
-    if ( !purchased && !actor.points.talent.available ) return;
+
+    // Refunding an isolated empty node is always permitted so points may be recovered, but purchasing
+    // requires available Talent points, a purchased neighbor node, and met tier prerequisites
+    if ( !purchased ) {
+      if ( !actor.points.talent.available ) return;
+      const {unlocked} = this.node.getState(actor);
+      if ( !unlocked || !this.node.isConnected(actor) ) return;
+    }
+
     const talents = new Set(actor.system.advancement.talentNodes);
     const msgKey = purchased ? "TALENT.ACTIONS.PurchaseNodeReverse" : "TALENT.ACTIONS.PurchaseNode";
     const confirm = await foundry.applications.api.DialogV2.confirm({
