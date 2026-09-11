@@ -4,6 +4,7 @@
  */
 
 import CrucibleMovementPolygon from "./movement-polygon.mjs";
+import {getLinearRange} from "./grid/_module.mjs";
 
 /**
  * @import {ElevatedPoint, Point} from "@common/_types.mjs";
@@ -261,4 +262,33 @@ function _snapTopLeftSafely(tokenObject, ray, topLeft, halfW, halfH, originEleva
     if ( distFromOrigin < (gridSize / 2) ) return null;
   }
   return snapped;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Block movement of a leashed summon beyond the leash distance from its summoner.
+ * Bound to the "preMoveToken" hook; the summon's leash is stamped onto its token when the summoning action is used.
+ * @param {TokenDocument} document   The token attempting to move
+ * @param {object} move              The proposed movement operation (see "preMoveToken")
+ * @returns {boolean|undefined}      False to reject the movement
+ */
+export function enforceSummonLeash(document, move) {
+  const leash = document.flags?.crucible?.leash;
+  if ( !leash?.distance ) return;
+  if ( !canvas.ready ) return;
+  const source = canvas.scene.tokens.get(leash.sourceTokenId);
+  if ( !source ) return; // The summoner is gone, severing the leash
+
+  // Measure the completed move to its destination footprint
+  const destination = move.destination;
+  if ( !destination ) return;
+  const footprint = {x: destination.x, y: destination.y, width: destination.width ?? document.width,
+    height: destination.height ?? document.height, depth: destination.depth ?? document.width,
+    elevation: destination.elevation ?? document.elevation ?? 0};
+  const origin = {x: source.x, y: source.y, width: source.width, height: source.height,
+    depth: source.depth ?? source.width, elevation: source.elevation ?? 0};
+  if ( getLinearRange(origin, footprint) <= leash.distance ) return;
+  ui.notifications.warn(_loc("ACTION.WARNINGS.SummonLeash", {distance: leash.distance}));
+  return false;
 }

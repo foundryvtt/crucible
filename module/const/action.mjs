@@ -588,6 +588,13 @@ export const TAGS = {
     label: "ACTION.TAG.Summon",
     tooltip: "ACTION.TAG.SummonTooltip",
     category: "special",
+    initialize() {
+      // Size the summon's token footprint to the summoner when configured (e.g. a decoupled shadow)
+      if ( this.summon?.matchCasterSize && this.token ) {
+        this.usage.summons[0].tokenData = {...(this.usage.summons[0].tokenData ?? {}),
+          width: this.token.width, height: this.token.height};
+      }
+    },
     canUse() {
       if ( !this.usage.summons?.length || this.usage.summons.some(s => !s.actorUuid) ) {
         throw new Error(_loc("ACTION.WARNINGS.MisconfiguredSummon", { action: this.name }));
@@ -606,6 +613,14 @@ export const TAGS = {
           event.summon.tokenData.elevation ??= this.token.elevation;
           event.summon.tokenData.level ??= this.token.level;
         }
+        // Stamp leashed summons with a movement leash bound to the summoning token
+        if ( event.summon.leash && this.token ) {
+          event.summon.tokenData.flags = {crucible: {leash: {
+            sourceTokenId: this.token.id,
+            itemUuid: this.item?.uuid ?? null,
+            distance: event.summon.leash
+          }}};
+        }
         if ( (event.summon.permanent === false) && !effectEvents.length ) {
           throw new Error(_loc("ACTION.WARNINGS.MissingSummonEffect", {action: this.id}));
         }
@@ -617,10 +632,30 @@ export const TAGS = {
       const summonEvents = this.events.filter(e => e.type === "summon");
       if ( !summonEvents.length ) return;
 
+      // A summoner sustains only one leashed summon per action; displace any previous one
+      for ( const event of summonEvents ) {
+        if ( !event.summon.leash ) continue;
+        const itemUuid = this.item?.uuid ?? null;
+        const stale = canvas.scene.tokens.filter(t => {
+          const leash = t.flags?.crucible?.leash;
+          return (leash?.sourceTokenId === this.token.id) && (leash?.itemUuid === itemUuid);
+        });
+        for ( const t of stale ) {
+          if ( t.canUserModify(game.user, "delete") ) {
+            await canvas.scene.deleteEmbeddedDocuments("Token", [t.id]);
+          }
+        }
+      }
+
       // Create summoned tokens, track non-permanent ones
       const summonedTokens = [];
       for ( const event of summonEvents ) {
         const summon = event.summon;
+
+        // Token dimensions do not survive chat message serialization: re-apply caster size matching at confirm time
+        if ( summon.matchCasterSize && this.token ) {
+          summon.tokenData = {...(summon.tokenData ?? {}), width: this.token.width, height: this.token.height};
+        }
 
         // Get or create a world level Actor for the summons
         const sourceActor = await fromUuid(summon.actorUuid);
@@ -653,6 +688,13 @@ export const TAGS = {
         const preparedToken = await worldActor.getTokenDocument(tokenData, {parent: this.token.parent});
         const token = await TokenDocument.implementation.create(preparedToken, {parent: this.token.parent});
         if ( !event.summon.permanent ) summonedTokens.push(token.uuid);
+
+        // Token creation enforces the Actor's own size: resize to the summoner's footprint afterwards
+        if ( summon.matchCasterSize && this.token && (token.width !== this.token.width) ) {
+          const halfDelta = ((this.token.width - token.width) * canvas.grid.size) / 2;
+          await token.update({width: this.token.width, height: this.token.height,
+            depth: this.token.depth ?? this.token.width, x: token.x - halfDelta, y: token.y - halfDelta});
+        }
 
         // Create a Combatant, unless opted-out
         if ( this.actor.inCombat && (event.summon.combatant !== false) ) {
