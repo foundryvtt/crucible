@@ -931,7 +931,7 @@ export const TAGS = {
     propagate: ["melee"],
     priority: 9,
     canUse() {
-      if ( !this.usage.strikes.every(w => w.system.properties.has("natural")) ) {
+      if ( !this.usage.strikes.length || !this.usage.strikes.every(w => w.system.properties.has("natural")) ) {
         throw new Error(_loc("ACTION.WARNINGS.RequiresNatural"));
       }
     },
