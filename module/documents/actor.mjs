@@ -1832,12 +1832,20 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<CrucibleItem|null>}
    */
   static async #findDetailItem(type, identifier) {
+
+    // Scan each configured pack for a matching detail item
     for ( const packId of crucible.CONFIG.packs[type] ?? [] ) {
       const pack = game.packs.get(packId);
       if ( !pack ) continue;
       await pack.getIndex();
       const entry = pack.index.find(e => (e.type === type) && (e.system?.identifier === identifier));
       if ( entry ) return pack.getDocument(entry._id);
+    }
+
+    // If no taxonomy was provided, check if it was converted from an ancestry
+    if ( type === "taxonomy" ) {
+      const entry = await CrucibleActor.#findDetailItem("ancestry", identifier);
+      if ( entry ) return entry.system.toTaxonomy();
     }
     return null;
   }

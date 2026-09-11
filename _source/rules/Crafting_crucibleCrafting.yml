@@ -14,17 +14,46 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Alchemy</strong> is the scientific practice of combining
-        ingredients such as botanicals and minerals in order to produce
-        consumable medicines, poisons, and explosives through zymurgy,
-        distillation, or homogenization.</p><p>An alchemist can combine commonly
-        available ingredients to produce consumable potions such
-        as@UUID[Compendium.crucible.equipment.Item.healingTonic0000]{Healing
-        Tonic} or
-        @UUID[Compendium.crucible.equipment.Item.poisonVial000000]{Poison Vial},
-        as well as throwable weapons such as
-        @UUID[Compendium.crucible.equipment.Item.KdlUUFhAnpv6YIHT]{Blast
-        Flask}.</p>
+        <p><strong>Alchemy</strong> reduces botanicals and minerals to their
+        virtues and recombines them into something which can be drunk, smeared
+        upon a blade, or thrown. Its products are consumables, made to be spent
+        rather than kept, and its practitioners refine the reagents other trades
+        depend upon once their work rises past Standard quality.</p><section
+        class="gameplay"><p>Everything is a mixture, and a patient hand may take
+        it apart and put it back together with its virtues rearranged. That is
+        the whole of the art. The rest is heat, time, and exact proportion. A
+        still that drips with measured slowness, minerals ground to finest
+        powder, heat applied intensely until the exact moment a solution turns
+        color and is perfected. Nothing we make is meant to last, only to
+        change.</p><p>- Ysolde Marrant, alchemist, in her opening
+        lecture</p></section><p>Alchemy checks are scaled by
+        <strong>Intellect</strong> and <strong>Toughness</strong>: the learning
+        to know what a reaction will do, and the constitution to breathe the
+        fumes while finding out. Field work requires an
+        @UUID[Compendium.crucible.equipment.Item.alchemistsToolki]{Alchemist's
+        Toolkit} carried in your Toolbelt. Anything more demanding wants a
+        laboratory, or an
+        @UUID[Compendium.crucible.equipment.Item.alchemistsPortab]{Alchemist's
+        Portable Workbench} standing in for one.</p><h4>Example
+        Products</h4><p>Among many other products, an alchemist may
+        create:</p><ul><li><p>@UUID[Compendium.crucible.equipment.Item.healingTonic0000]{Healing
+        Tonic} and
+        @UUID[Compendium.crucible.equipment.Item.healingElixir000]{Healing
+        Elixir}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.antitoxin0000000]{Antitoxin}
+        and @UUID[Compendium.crucible.equipment.Item.omniglotDecoctio]{Omniglot
+        Decoction}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.alchemistsFire00]{Alchemist's
+        Fire}, @UUID[Compendium.crucible.equipment.Item.KdlUUFhAnpv6YIHT]{Blast
+        Flask}, and
+        @UUID[Compendium.crucible.equipment.Item.frostdropFlask00]{Frostdrop
+        Phial}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.lanternOil000000]{Lantern
+        Oil} and other refined stock</p></li><li><p>More examples as the
+        crafting system matures.</p></li></ul><h2
+        class="divider">Improvisational Alchemy</h2><p>While not required to use
+        the Alchemy skill, the <strong>Wortcunning</strong> talent provides an
+        aspiring alchemist with added versatility that enables Alchemy to be
+        used for a wider variety of improvisational
+        uses.</p><p>@Embed[Compendium.crucible.talent.Item.wortcunning00000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -37,12 +66,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1760019612404
-      modifiedTime: 1762045173067
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789146255609
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.alchemy000000000'
   - sort: 200000
     name: Cooking
@@ -57,10 +86,37 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Cooking</strong> is the craft of combining commonly available
-        ingredients in order to prepare a consumable meal for sustenance. Well
-        trained cooks can prepare hearty meals that bolster party performance
-        and aid in the recovery of morale.</p>
+        <p><strong>Cooking</strong> is the trade of what goes into people: the
+        meals which carry a company from one hardship to the next, and also the
+        poisons and drugs which do nothing of the sort. A cook produces all
+        three; anyone at all may use them.</p><section class="gameplay"><p>Fire,
+        patience, and knowing how to pair ingredients. Which cuts reward long
+        heat, which herbs turn bitter if boiled, how a sack of provisions
+        transforms into a memorable meal. Alongside the knowledge of how to
+        delight the palate run darker currents — there is no place easier than
+        beneath the savory aroma of a stew to conceal a nefarious
+        ingredient.</p><p>- Bregan Oale, kitchenmaster, to his
+        apprentices</p></section><p>Cooking checks are scaled by
+        <strong>Wisdom</strong> and <strong>Toughness</strong>: the judgment to
+        know when a thing is ready, and the stomach to taste what you are not
+        yet sure of. Field work requires a
+        @UUID[Compendium.crucible.equipment.Item.cooksToolkit0000]{Cook's
+        Toolkit} carried in your Toolbelt, which is enough for a campfire.
+        Ambitious work requires a proper kitchen.</p><h4>Example
+        Products</h4><p>Among many other products, a cook may
+        create:</p><ul><li><p>Meals prepared and eaten during a
+        Rest</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.rations000000000]{Rations}
+        for the
+        road</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.poisonVial000000]{Poison
+        Vial}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.paralyticVial000]{Paralytic
+        Vial}</p></li><li><p>More examples as the crafting system
+        matures.</p></li></ul><h2 class="divider">Improvisational
+        Cooking</h2><p>While not required to use the Cooking skill, the
+        <strong>Hearthwork</strong> talent provides an aspiring cook with added
+        versatility that enables Cooking to be used for a wider variety of
+        improvisational
+        uses.</p><p>@Embed[Compendium.crucible.talent.Item.hearthwork000000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -73,12 +129,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1760019624267
-      modifiedTime: 1762042294802
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789146307880
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.cooking000000000'
   - sort: 300000
     name: Enchanting
@@ -93,19 +149,49 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Enchanting</strong> is the art of combining existing Glyphs
-        (created by
-        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweavers})
-        with equipment created by other crafters (such as
-        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.smithing00000000]{Smiths},
-        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tailoring0000000]{Tailors},
-        and
-        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.jewelcraft000000]{Jewelcrafters})
-        in order to imbue those items with permanent magical properties. The
-        process of enchanting an item typically involves some additional
-        sympathetic material components which are used in a ritual to bind the
-        magical effect to a non-magical item, typically one of at least Fine
-        quality.</p>
+        <p><strong>Enchanting</strong> binds a Glyph into a finished object so
+        that it holds a magical property permanently. An enchanter makes nothing
+        alone, depending upon a glyphweaver for the Glyph and upon another
+        crafter for a base item fine enough to hold it.</p><section
+        class="gameplay"><p>We are the final hands to touch a blade or armor,
+        transforming it from a work of masterful craftsmanship into a legendary
+        artifact whose powers will alter the course of history. The work is a
+        binding, and that binding requires persuasive negotiation with arcane
+        forces that govern the universe. When a glyph is imbued it becomes
+        permanent; when the ritual fails precious materials are lost. If you pay
+        attention, you will delight your patrons. If you are lax, your failure
+        will infuriate them.</p><p>- Callem Ternes, court
+        enchanter</p></section><p>Enchanting makes nothing of its own. The Glyph
+        comes from a @UUID[.glyphweaving0000]{Glyphweaver} and the item beneath
+        it from a @UUID[.smithing00000000]{Smith},
+        @UUID[.tailoring0000000]{Tailor}, @UUID[.fletching0000000]{Fletcher}, or
+        @UUID[.jewelcraft000000]{Jewelcrafter}. Only work of
+        <strong>Fine</strong> quality or better will hold an enchantment at all,
+        and the finer the piece the more it can carry before it is
+        full.</p><p>Enchanting checks are scaled by <strong>Intellect</strong>
+        and <strong>Presence</strong>: the study to understand what a Glyph will
+        do, and the force of self to make it stay. Field work requires an
+        @UUID[Compendium.crucible.equipment.Item.enchantersToolki]{Enchanter's
+        Toolkit} carried in your Toolbelt. Binding of any permanence wants a
+        sanctum, or an
+        @UUID[Compendium.crucible.equipment.Item.enchantersPortab]{Enchanter's
+        Portable Workbench} standing in for one.</p><h4>Example
+        Products</h4><p>Among many other products, an enchanter may
+        create:</p><ul><li><p>@UUID[Compendium.crucible.equipment.Item.amuletOfNimblene]{Amulet
+        of Nimbleness} and
+        @UUID[Compendium.crucible.equipment.Item.ringOfEvasion000]{Ring of
+        Evasion}, from a jewelcrafter's
+        work</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.cloakOfKindlyVis]{Cloak
+        of Kindly Visage}, from a tailor's
+        work</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.flameStaff000000]{Flame
+        Staff}, from a fletcher's work</p></li><li><p>More examples as the
+        crafting system matures.</p></li></ul><h2
+        class="divider">Improvisational Enchanting</h2><p>While not required to
+        use the Enchanting skill, the <strong>Quickening</strong> talent
+        provides an aspiring enchanter with added versatility that enables
+        Enchanting to be used for a wider variety of improvisational
+        uses.</p><p>@Embed[Compendium.crucible.talent.Item.quickening000000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -118,12 +204,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1760019631366
-      modifiedTime: 1762042663876
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789146684054
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.enchanting000000'
   - sort: 400000
     name: Fletching
@@ -138,11 +224,43 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Fletching</strong> is the skill of combining commonly
-        available components such as wood, leather, plant fibers and feathers to
-        create bows and ammunition. A Fletcher is capable of crafting and
-        repairing bows, and ensuring that they don't run out of suitable supply
-        of arrows.</p>
+        <p><strong>Fletching</strong> is the working of wood. It is best known
+        for bows and their ammunition, but extends to every wooden implement a
+        company carries: staves and cudgels, light shields, wooden talismans,
+        and the seasoned stock other crafters require. Where a piece is mostly
+        wood it is a fletcher's work, and a cracked stave comes back to the
+        fletcher to be @UUID[.repair0000000000]{repaired}.</p><section
+        class="gameplay"><p>Wood is not uniform, nor does it behave as if it
+        were. That is the first thing you must unlearn. Read the stave before
+        you cut it. Find where the grain runs true, where a knot will throw a
+        shaft off its line, how long a length of ash must season before it can
+        be trusted to hold a draw. A masterfully crafted bow deserves its
+        reputation, but this is no mere archer's trade. You will spend your
+        careers making everything from wheels to shields.</p><p>- Hesken Dray,
+        bowyer</p></section><p>Fletching checks are scaled by
+        <strong>Strength</strong> and <strong>Wisdom</strong>: the arms to work
+        a stave, and the eye to know which one is worth working. Field work
+        requires a
+        @UUID[Compendium.crucible.equipment.Item.fletchersToolkit]{Fletcher's
+        Toolkit} carried in your Toolbelt. Shaping a bow properly wants a
+        workshop.</p><h4>Example Products</h4><p>Among many others, a fletcher
+        makes:</p><ul><li><p>@UUID[Compendium.crucible.equipment.Item.longbow000000000]{Longbow},
+        @UUID[Compendium.crucible.equipment.Item.shortbow00000000]{Shortbow},
+        and @UUID[Compendium.crucible.equipment.Item.handCrossbow0000]{Hand
+        Crossbow}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.quarterstaff0000]{Quarterstaff},
+        @UUID[Compendium.crucible.equipment.Item.boStaff000000000]{Bo Staff},
+        and
+        @UUID[Compendium.crucible.equipment.Item.greatclub0000000]{Greatclub}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.buckler000000000]{Buckler}
+        and @UUID[Compendium.crucible.equipment.Item.roundShield00000]{Round
+        Shield}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.flameStaff000000]{Flame
+        Staff} and other wooden talismans</p></li><li><p>More examples as the
+        crafting system matures.</p></li></ul><h2
+        class="divider">Improvisational Fletching</h2><p>While not required to
+        use the Fletching skill, the <strong>Grainwork</strong> talent provides
+        an aspiring fletcher with added versatility that enables Fletching to be
+        used for a wider variety of improvisational
+        uses.</p><p>@Embed[Compendium.crucible.talent.Item.grainwork0000000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -155,12 +273,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1760019636916
-      modifiedTime: 1762043455282
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789146921140
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.fletching0000000'
   - sort: 500000
     name: Jewelcraft
@@ -175,10 +293,43 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Jewelcrafting</strong> is the art of combining decorative
-        metals and rare crystalized minerals to compose rings, bracelets, and
-        necklaces as well as the insetting of decorative (and potentially
-        magical) gems into these and other pieces of equipment.</p>
+        <p><strong>Jewelcraft</strong> is the cutting of stones and the raising
+        of settings to hold them. Its products are rings, amulets and other
+        ornaments worn in an accessory slot, along with the cut gems other
+        trades require for their finest work. Any magic in a gem was put there
+        by an enchanter. A parted setting is the jewelcrafter's to
+        @UUID[.repair0000000000]{repair}.</p><section class="gameplay"><p>We
+        work at a scale where a hair's breadth is a visible error. Read the
+        rough stone for the flaw which will either ruin it or, struck at exactly
+        the correct angle, release the shape waiting inside. Then raise a
+        setting fine enough to flatter what you have freed and strong enough
+        that it never moves again. Your creations may adorn the brow of rulers
+        or be passed through a family for generations. Ours is the most patient
+        of trades and your work will hold meaning far longer than you draw
+        breath.</p><p>- Aurelie Sondt, lapidary</p></section><p>Jewelcraft
+        checks are scaled by <strong>Wisdom</strong> and
+        <strong>Strength</strong>: the discernment to see what a stone will
+        become, and the steadiness to hold a tool against it for hours. Field
+        work requires a
+        @UUID[Compendium.crucible.equipment.Item.jewelersToolkit0]{Jeweler's
+        Toolkit} carried in your Toolbelt. Cutting and setting want a bench, or
+        a @UUID[Compendium.crucible.equipment.Item.jewelersPortable]{Jeweler's
+        Portable Workbench} standing in for one.</p><h4>Example
+        Products</h4><p>Among many others, a jewelcrafter
+        makes:</p><ul><li><p>@UUID[Compendium.crucible.equipment.Item.ring000000000000]{Ring}
+        and
+        @UUID[Compendium.crucible.equipment.Item.amulet0000000000]{Amulet}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.spellband0000000]{Spellband}
+        and @UUID[Compendium.crucible.equipment.Item.focusingPearl000]{Focusing
+        Pearl}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.gemOfIlluminatio]{Gem
+        of Illumination} and similar trinkets</p></li><li><p>Cut gems and
+        stones, as ingredients for other trades</p></li><li><p>More examples as
+        the crafting system matures.</p></li></ul><h2
+        class="divider">Improvisational Jewelcraft</h2><p>While not required to
+        use the Jewelcraft skill, the <strong>Filigree</strong> talent provides
+        an aspiring jewelcrafter with added versatility that enables Jewelcraft
+        to be used for a wider variety of improvisational
+        uses.</p><p>@Embed[Compendium.crucible.talent.Item.filigree00000000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -191,12 +342,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1760019645799
-      modifiedTime: 1762043017588
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789147135707
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.jewelcraft000000'
   - sort: 600000
     name: Glyphweaving
@@ -211,11 +362,48 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Glyphweaving</strong> is the arcane science of inscribing
-        physical manifestations of metaphysical
-        @UUID[Compendium.crucible.rules.JournalEntry.qjTSKlh59JhtUuEr.JournalEntryPage.p3hKRiZN3x0DEtyG]{Runes}
-        to create Glyphs. Glyphs can be used to imbue magical properties into
-        non-magical materials or as a component to aid ritual magic.</p>
+        <p><strong>Glyphweaving</strong> inscribes a metaphysical
+        @UUID[Compendium.crucible.rules.JournalEntry.qjTSKlh59JhtUuEr.JournalEntryPage.p3hKRiZN3x0DEtyG]{Rune}
+        into a physical Glyph which can be carried, traded, and eventually bound
+        into equipment. The same discipline governs mundane inscription: letters
+        and records, painted work, and the spell scrolls a caster
+        spends.</p><section class="gameplay"><p>Mages will weave Runes and
+        Gestures into works of spellcraft that can carry incredible power, but
+        their work is only ever temporary. A glyphweaver forms those threads
+        into a body through the art of inscription. We trace lines in chalk,
+        ink, metal, and mineral that allow magic to bind. What results is a
+        strange thing; weighing almost nothing and inert to the senses, but
+        replete with the power of great magic, waiting to be imbued. Ours is the
+        quiet art that gives magic physical form, and without our weaving the
+        glorified enchanters of the world would be nothing but impotent
+        mystics.</p><p>- Nerith Vaugh, glyphweaver</p></section><p>Glyphweaving
+        also answers for inscription with no magic in it whatsoever: letters and
+        records, painted and lettered work, and the spell scrolls a caster reads
+        once and spends. A Glyph does nothing on its own; an
+        @UUID[.enchanting000000]{Enchanter} binds it into equipment, or a ritual
+        consumes it instead.</p><p>Glyphweaving checks are scaled by
+        <strong>Presence</strong> and <strong>Dexterity</strong>: the will to
+        hold a Rune steady in the mind, and the hand to lay it down without a
+        tremor. Field work requires a
+        @UUID[Compendium.crucible.equipment.Item.glyphweaversTool]{Glyphweaver's
+        Toolkit} carried in your Toolbelt. Work of any permanence wants a
+        scriptorium, or a
+        @UUID[Compendium.crucible.equipment.Item.glyphweaversPort]{Glyphweaver's
+        Portable Workbench} standing in for one.</p><h4>Example
+        Products</h4><p>Among many others, a glyphweaver
+        makes:</p><ul><li><p>Glyphs, each holding one affix in
+        waiting</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.spellScrollFine0]{Spell
+        Scroll (Fine)} and its finer
+        grades</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.ink0000000000000]{Ink}
+        and other inscribing stock</p></li><li><p>Letters, ledgers, maps, and
+        painted work</p></li><li><p>More examples as the crafting system
+        matures.</p></li></ul><h2 class="divider">Improvisational
+        Glyphweaving</h2><p>While not required to use the Glyphweaving skill,
+        the <strong>Tracery</strong> talent provides an aspiring glyphweaver
+        with added versatility that enables Glyphweaving to be used for a wider
+        variety of improvisational
+        uses.</p><p>@Embed[Compendium.crucible.talent.Item.tracery000000000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -228,12 +416,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1760019652880
-      modifiedTime: 1762043223896
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789147949378
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.glyphweaving0000'
   - sort: 700000
     name: Smithing
@@ -248,9 +436,48 @@ pages:
     text:
       format: 1
       content: >-
-        <p>Smithing is the skill of working to combine base metals and alloys in
-        the production of tools, armor, and weapons as well as the repair and
-        maintenance of metal-crafted items and equipment.</p>
+        <p><strong>Smithing</strong> is the working of base metals and alloys
+        into arms and armor. A smith produces metal weapons of every category,
+        metal armor and heavy shields, and is the trade a company relies upon
+        most directly when a fight goes badly.</p><section
+        class="gameplay"><p>Our work begins as a dull ingot and ends with a
+        gleaming edge. Heat and repetition, the simplest recipe and yet few can
+        master its technique. The difference between a blade which holds and one
+        which shatters was decided long before anybody unsheathes it. No craft
+        has stakes as vital as ours. As you forge the metal, so too will you
+        forge a reputation as either a savior whose work is to be prized or a
+        charlatan whose slag can never be trusted.</p><p>- Duregar Molt,
+        smith</p></section><p>Smithing also answers for any talisman cut from
+        metal. At the higher grades the work stops being solitary: a masterwork
+        blade wants a tailor's treated leather at the grip and a jewelcrafter's
+        cut stone in the pommel. Metal that breaks is a smith's to
+        @UUID[.repair0000000000]{mend}.</p><p>Smithing checks are scaled by
+        <strong>Strength</strong> and <strong>Intellect</strong>: the power to
+        move metal, and the understanding of what the heat has done to it. Field
+        work requires a
+        @UUID[Compendium.crucible.equipment.Item.smithsToolkit000]{Smith's
+        Toolkit} carried in your Toolbelt. Forging wants a proper forge, or a
+        @UUID[Compendium.crucible.equipment.Item.smithsPortableFo]{Smith's
+        Portable Forge} standing in for one.</p><h4>Example
+        Products</h4><p>Among many others, a smith
+        makes:</p><ul><li><p>@UUID[Compendium.crucible.equipment.Item.longsword0000000]{Longsword},
+        @UUID[Compendium.crucible.equipment.Item.greatsword000000]{Greatsword},
+        and @UUID[Compendium.crucible.equipment.Item.battleAxe0000000]{Battle
+        Axe}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.chainMail0000000]{Chain
+        Mail} and
+        @UUID[Compendium.crucible.equipment.Item.plateMail0000000]{Plate
+        Mail}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.kiteShield000000]{Kite
+        Shield} and
+        @UUID[Compendium.crucible.equipment.Item.towerShield00000]{Tower
+        Shield}</p></li><li><p>Ingots and metal fittings, as ingredients for
+        other trades</p></li><li><p>More examples as the crafting system
+        matures.</p></li></ul><h2 class="divider">Improvisational
+        Smithing</h2><p>While not required to use the Smithing skill, the
+        <strong>Coldwork</strong> talent provides an aspiring smith with added
+        versatility that enables Smithing to be used for a wider variety of
+        improvisational
+        uses.</p><p>@Embed[Compendium.crucible.talent.Item.coldwork00000000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -263,12 +490,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1760019659133
-      modifiedTime: 1762043510621
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789148491044
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.smithing00000000'
   - sort: 800000
     name: Tailoring
@@ -283,10 +510,48 @@ pages:
     text:
       format: 1
       content: >-
-        <p>Tailoring is the art of working to combine fabrics, furs and leathers
-        in the production of clothing and armor as well as the repair and
-        maintenance of items and equipment crafted from natural fibers and
-        skins.</p>
+        <p><strong>Tailoring</strong> works fabric, fur and leather. It covers
+        cloth and leather armor and clothing of every kind, but reaches far past
+        what is worn: packs and boots, belts and straps, scabbards and grips are
+        all a tailor's work. Treated leather is a tailor's own to supply, and
+        torn work returns to the tailor to be
+        @UUID[.repair0000000000]{mended}.</p><section class="gameplay"><p>The
+        experience one has in this world is conditioned on their manners. The
+        attire in which you garb yourself is the most outward pronouncement of
+        those manners possible. Your dress precedes your demeanor and your
+        words; either reinforcing your position or sabotaging it. From kings to
+        paupers, all have need of a tailor's art whether they realize it or not.
+        And yes, I am measuring you from across this room, and I have already
+        decided what you ought to be wearing instead.</p><p>- Emeraude Fisk,
+        tailor</p></section><p>Tailoring checks are scaled by
+        <strong>Dexterity</strong> and <strong>Presence</strong>: the fingers to
+        set a stitch nobody can see, and the sense of how a thing ought to look
+        on the person wearing it. Field work requires a
+        @UUID[Compendium.crucible.equipment.Item.tailorsToolkit00]{Tailor's
+        Toolkit} carried in your Toolbelt. Cutting a garment from bolt cloth
+        wants a bench, or a
+        @UUID[Compendium.crucible.equipment.Item.tailorsPortableW]{Tailor's
+        Portable Workbench} standing in for one.</p><h4>Example
+        Products</h4><p>Among many others, a tailor
+        makes:</p><ul><li><p>@UUID[Compendium.crucible.equipment.Item.leatherArmor0000]{Leather
+        Armor},
+        @UUID[Compendium.crucible.equipment.Item.studdedLeatherAr]{Studded
+        Leather Armor}, and
+        @UUID[Compendium.crucible.equipment.Item.paddedArmor00000]{Padded
+        Armor}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.commonClothing00]{Common
+        Clothing} and
+        @UUID[Compendium.crucible.equipment.Item.weatherClothing0]{Weather
+        Clothing}</p></li><li><p>@UUID[Compendium.crucible.equipment.Item.cloak00000000000]{Cloak},
+        @UUID[Compendium.crucible.equipment.Item.belt000000000000]{Belt}, and
+        @UUID[Compendium.crucible.equipment.Item.bracer0000000000]{Bracer}</p></li><li><p>Treated
+        leather, as an ingredient for other trades</p></li><li><p>More examples
+        as the crafting system matures.</p></li></ul><h2
+        class="divider">Improvisational Tailoring</h2><p>While not required to
+        use the Tailoring skill, the <strong>Whipstitch</strong> talent provides
+        an aspiring tailor with added versatility that enables Tailoring to be
+        used for a wider variety of improvisational
+        uses.</p><p>@Embed[Compendium.crucible.talent.Item.whipstitch000000
+        inline]</p>
     video:
       controls: true
       volume: 0.5
@@ -299,12 +564,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1760019666038
-      modifiedTime: 1762043630273
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789150844916
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.tailoring0000000'
   - sort: 900000
     name: Schematics
@@ -549,42 +814,273 @@ pages:
     text:
       format: 1
       content: >-
-        <p></p><p><strong>Crafting</strong> in Crucible is performed using a set
-        of <strong>Trade Skills</strong> which, like adventuring
+        <p><strong>Crafting</strong> in Crucible is performed using a set of
+        <strong>Trade Skills</strong> which, like adventuring
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000]{Skills},
         are invested aspects of your character's identity obtained through
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talent}
         progression and through the accumulation of knowledge in the form of
-        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.schematicDefinit]{Schematics}.</p><section
-        class="construction"><p>The crafting system is under active development.
-        Rules described here represent the intended design, but some details may
-        not yet be fully automated.</p></section><section class="gameplay"><p>It
-        is not required for any character to invest into mastery of a Trade
-        Skill, however it is generally recommended to select at least one Trade
-        Skill to pursue in order to enjoy a well-rounded experience playing
-        Crucible, particularly if your game is a long-form
-        campaign.</p></section><p>The information in this journal describes each
-        of the Trade Skills, how schematics are defined and obtained, and how
-        the crafting process functions when using a schematic to turn input
-        ingredients into produced items.</p><h2 class="divider">Trade Skills
-        Table</h2><table><tbody><tr><th><p>Skill</p></th><th><p>Primary
-        Ability</p></th><th><p>Secondary Ability</p></th><th><p>General
-        Usage</p></th></tr><tr><td><p>@UUID[.alchemy000000000]</p></td><td><p>Intellect</p></td><td><p>Toughness</p></td><td><p>Potions,
-        elixirs, oils, and
-        salves</p></td></tr><tr><td><p>@UUID[.cooking000000000]</p></td><td><p>Wisdom</p></td><td><p>Toughness</p></td><td><p>Food
-        and
-        drink</p></td></tr><tr><td><p>@UUID[.enchanting000000]</p></td><td><p>Intellect</p></td><td><p>Presence</p></td><td><p>Applying
-        Runes to
-        equipment</p></td></tr><tr><td><p>@UUID[.fletching0000000]</p></td><td><p>Strength</p></td><td><p>Wisdom</p></td><td><p>Bows,
-        staves, and
-        ammunition</p></td></tr><tr><td><p>@UUID[.jewelcraft000000]</p></td><td><p>Wisdom</p></td><td><p>Strength</p></td><td><p>Jewelry
-        and other
-        accessories</p></td></tr><tr><td><p>@UUID[.glyphweaving0000]</p></td><td><p>Presence</p></td><td><p>Dexterity</p></td><td><p>Runes
-        used to
-        enchant</p></td></tr><tr><td><p>@UUID[.smithing00000000]</p></td><td><p>Strength</p></td><td><p>Intellect</p></td><td><p>Metal
-        arms and
-        armor</p></td></tr><tr><td><p>@UUID[.tailoring0000000]</p></td><td><p>Dexterity</p></td><td><p>Presence</p></td><td><p>Clothing
-        and light armor</p></td></tr></tbody></table>
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.schematicDefinit]{Schematics}.</p>
+
+        <section class="construction">
+            <p>The crafting system is under active development. Rules described here represent the intended design, but some details may not yet be fully automated.</p>
+        </section>
+
+        <section class="gameplay">
+            <p>It is not required for any character to invest into mastery of a Trade Skill, however it is generally recommended to select at least one Trade Skill to pursue in order to enjoy a well-rounded experience playing Crucible, particularly if your game is a long-form campaign.</p>
+        </section>
+
+        <p>The information in this journal describes each of the Trade Skills,
+        how schematics are defined and obtained, and how the crafting process
+        functions when using a schematic to turn input ingredients into produced
+        items.</p>
+
+        <h2 class="divider">Trade Skills Table</h2>
+
+        <p>Your <strong>Ability Bonus</strong> with every Trade Skill is
+        governed by a pair of ability scores and oversees a certain domain of
+        materials and products which they create.</p>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>
+                        <p>Skill</p>
+                    </th>
+                    <th colspan="2">
+                        <p>Ability Scores</p>
+                    </th>
+                    <th>
+                        <p>General Usage</p>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.alchemy000000000]</p>
+                    </td>
+                    <td>
+                        <p>Intellect</p>
+                    </td>
+                    <td>
+                        <p>Toughness</p>
+                    </td>
+                    <td>
+                        <p>Potions, elixirs, oils, and bombs</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.cooking000000000]</p>
+                    </td>
+                    <td>
+                        <p>Wisdom</p>
+                    </td>
+                    <td>
+                        <p>Toughness</p>
+                    </td>
+                    <td>
+                        <p>Meals, poisons, and drugs</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.enchanting000000]</p>
+                    </td>
+                    <td>
+                        <p>Intellect</p>
+                    </td>
+                    <td>
+                        <p>Presence</p>
+                    </td>
+                    <td>
+                        <p>Imbuing glyphs onto equipment</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.fletching0000000]</p>
+                    </td>
+                    <td>
+                        <p>Strength</p>
+                    </td>
+                    <td>
+                        <p>Wisdom</p>
+                    </td>
+                    <td>
+                        <p>Bows, wooden arms, and light shields</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.jewelcraft000000]</p>
+                    </td>
+                    <td>
+                        <p>Wisdom</p>
+                    </td>
+                    <td>
+                        <p>Strength</p>
+                    </td>
+                    <td>
+                        <p>Jewelry, accessories, and cut stones</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.glyphweaving0000]</p>
+                    </td>
+                    <td>
+                        <p>Presence</p>
+                    </td>
+                    <td>
+                        <p>Dexterity</p>
+                    </td>
+                    <td>
+                        <p>Inscription of glyphs</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.smithing00000000]</p>
+                    </td>
+                    <td>
+                        <p>Strength</p>
+                    </td>
+                    <td>
+                        <p>Intellect</p>
+                    </td>
+                    <td>
+                        <p>Metal arms, armor, and heavy shields</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.tailoring0000000]</p>
+                    </td>
+                    <td>
+                        <p>Dexterity</p>
+                    </td>
+                    <td>
+                        <p>Presence</p>
+                    </td>
+                    <td>
+                        <p>Cloth and leather goods</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="divider">Domains of Responsibility</h2>
+
+        <p>Each trade occupies a territory of its own, some create base
+        equipment that is worn or wielded, while others create supporting goods
+        that are helpful for adventurers during their travels. Every trade
+        produces intermediate outputs that are used by other trades as inputs to
+        advanced recipes. Every physical item in the game is designated as being
+        produced by one specific trade skill.</p>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>
+                        <p>Skill</p>
+                    </th>
+                    <th>
+                        <p>Inputs</p>
+                    </th>
+                    <th>
+                        <p>Outputs</p>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.alchemy000000000]</p>
+                    </td>
+                    <td>
+                        <p>Botanical, chemical, and mineral reagents</p>
+                    </td>
+                    <td>
+                        <p>Potions and elixirs, weapon oils, thrown flasks and bombs, refined reagents</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.cooking000000000]</p>
+                    </td>
+                    <td>
+                        <p>Meats, vegetables, spices, and other organic ingredients</p>
+                    </td>
+                    <td>
+                        <p>Meals eaten during a Rest, poisons applied to a weapon, drugs taken for a short and costly burst</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.enchanting000000]</p>
+                    </td>
+                    <td>
+                        <p>Glyphs inscribed by a Glyphweaver and arcane solvents to imbue them</p>
+                    </td>
+                    <td>
+                        <p>Magical effects imbued into equipment as Affixes</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.fletching0000000]</p>
+                    </td>
+                    <td>
+                        <p>Wood, lumber, refined metal, treated leather, woven cloth, ornamental inputs</p>
+                    </td>
+                    <td>
+                        <p>Bows and crossbows, arrows and bolts, quarterstaves, cudgels and mauls, light shields, wooden talismans, seasoned wood for other trades.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.glyphweaving0000]</p>
+                    </td>
+                    <td>
+                        <p>Spellcraft runes and magical chalks, inks, fabrics, and dyes</p>
+                    </td>
+                    <td>
+                        <p>Glyphs, and inscribed or painted work carrying no magic at all</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.jewelcraft000000]</p>
+                    </td>
+                    <td>
+                        <p>Uncut gemstones, refined metal, treated leather, woven cloth</p>
+                    </td>
+                    <td>
+                        <p>Rings, amulets, pendants and ornaments, certain talismans, and ornamental inputs for other trades.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.smithing00000000]</p>
+                    </td>
+                    <td>
+                        <p>Unrefined metal, refined ingots, seasoned wood, treated leather, woven cloth, ornamental inputs</p>
+                    </td>
+                    <td>
+                        <p>Metal weapons of every category, metal armor, heavy shields, metal talismans, ingots</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@UUID[.tailoring0000000]</p>
+                    </td>
+                    <td>
+                        <p>Bolts of cloth, untreated leather, decorative metal, ornamental inputs.</p>
+                    </td>
+                    <td>
+                        <p>Cloth and leather armor, clothing, packs, boots, belts, straps, scabbards, grips, treated leather</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     video:
       controls: true
       volume: 0.5
@@ -597,12 +1093,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1760019765630
-      modifiedTime: 1763154304530
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789144574767
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!crucibleCrafting.tradeskillsOverv'
 folder: MMeWpMmsLOblp07U
 categories:
