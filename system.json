@@ -260,6 +260,9 @@
       "skill": {}
     },
     "RegionBehavior": {
+      "crucible.action": {
+        "htmlFields": ["action.description"]
+      },
       "crucible.hazard": {
         "htmlFields": ["description"]
       }

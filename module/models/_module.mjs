@@ -38,6 +38,7 @@ export {default as CrucibleTaxonomyItem} from "./item-taxonomy.mjs";
 export {default as CrucibleWeaponItem} from "./item-weapon.mjs";
 
 // Region Behavior
+export {default as CrucibleActionRegionBehavior} from "./behavior-action.mjs";
 export {default as CrucibleHazardRegionBehavior} from "./behavior-hazard.mjs";
 
 // Spellcraft
