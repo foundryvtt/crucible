@@ -1222,19 +1222,15 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.reverse=false]       Reverse the effects instead of applying them?
    * @param {boolean} [options.commit=true]         When false, apply to this document's source in-memory and
    *                                                re-derive, without persistence, for ephemeral simulation
-   * @param {CrucibleAction} [options.originAction] The Action responsible for the application of this effect
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyActionEffects(effects, {reverse=false, commit=true, originAction}={}) {
+  async _applyActionEffects(effects, {reverse=false, commit=true}={}) {
     if ( !effects.length ) return;
     const toCreate = [];
     const toUpdate = [];
     const toDelete = [];
     for ( const effectData of effects ) {
-
-      // TODO: Store more action information than just identifier, likely on data model rather than flags
-      if ( originAction ) foundry.utils.setProperty(effectData, "flags.crucible.originAction", originAction.id);
       const existing = this.effects.get(effectData._id);
       const forceDelete = effectData._action === "delete";
       const forceUpdate = effectData._action === "update";

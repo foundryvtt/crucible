@@ -1,4 +1,9 @@
 /**
+ * @import CrucibleAction from "./action.mjs";
+ * @import {CrucibleActionContext} from "./action.mjs";
+ */
+
+/**
  * Active Effect subtype containing crucible-specific system schema.
  */
 export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectTypeDataModel {
@@ -75,6 +80,7 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
     if ( !(actor?.system instanceof crucible.api.models.CrucibleBaseActor) ) return;
     const actionId = this.parent.flags?.crucible?.originAction;
     if ( !actionId ) return;
+    actionContext.lazy ??= true;
     return actionId.startsWith("spell.")
       ? crucible.api.models.CrucibleSpellAction.fromId(actionId, {actor, ...actionContext})
       : actor.actions[actionId]?.clone({}, {actor, ...actionContext});
