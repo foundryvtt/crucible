@@ -1301,6 +1301,12 @@ export default class CrucibleActor extends Actor {
     const {round, from, to} = this.flags.crucible?.delay || {};
     if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative === to) ) return;
 
+    // Skip turn start workflows which have already been performed for this round & turn, so rewinding the Combat and
+    // advancing again does not trigger effects such as damage-over-time multiple times (GH #1028)
+    const turnMarker = `${context.round}.${context.turn}`;
+    const startedTurns = this.getFlag("crucible", "turnStarts") ?? [];
+    if ( startedTurns.includes(turnMarker) ) return;
+
     // Plan actor changes
     const statusText = [];
     const resourceChanges = {action: [{label: null, amount: Infinity}]};
@@ -1311,7 +1317,8 @@ export default class CrucibleActor extends Actor {
     });
 
     // Plan turn start workflows
-    const actorUpdates = {system: {status: null}, flags: {crucible: {actionHistory: []}}};
+    const actorUpdates = {system: {status: null},
+      flags: {crucible: {actionHistory: [], turnStarts: [...startedTurns, turnMarker]}}};
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: [], toExpire: []};
     const turnStartConfig = /** @type {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} */ {resourceChanges,
       actorUpdates, effectChanges, statusText, dot: []};
