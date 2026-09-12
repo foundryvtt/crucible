@@ -13,15 +13,15 @@ for ( const [type, cfg] of Object.entries(DAMAGE_TYPES) ) {
   const dmgId = `${type}Damage`;
   HOOKS[dmgId] = {
     prepareWeapons(item) {
-      const tier = item.system.affixes[dmgId].system.tier.value;
-      item.system.damage.bonus += (2 * tier);
+      const affix = item.system.affixes[dmgId].system;
+      item.system.damage.bonus += (2 * affix.tier.value * affix.sign);
     }
   };
   const resId = `${type}Resistance`;
   HOOKS[resId] = {
     prepareResistances(item, resistances) {
-      const tier = item.system.affixes[resId].system.tier.value;
-      resistances[type].bonus += (3 * tier);
+      const affix = item.system.affixes[resId].system;
+      resistances[type].bonus += (3 * affix.tier.value * affix.sign);
     }
   };
   if ( !["bludgeoning", "piercing", "slashing"].includes(type) ) {
@@ -43,8 +43,10 @@ for ( const runeId of Object.keys(RUNES) ) {
   HOOKS[id] = {
     prepareAttack(item, action, target, rollData) {
       if ( action.rune?.id !== runeId ) return;
-      const tier = item.system.affixes[id].system.tier.value;
-      rollData.enchantment = Math.max(rollData.enchantment, tier);
+      const affix = item.system.affixes[id].system;
+      rollData.enchantment = affix.cursed
+        ? Math.min(rollData.enchantment, -affix.tier.value)
+        : Math.max(rollData.enchantment, affix.tier.value);
     }
   };
 }
@@ -98,8 +100,10 @@ for ( const skillId of Object.keys(SKILLS) ) {
   const id = `${skillId}Skill`;
   HOOKS[id] = {
     prepareSkills(item, skills) {
-      const tier = item.system.affixes[id].system.tier.value;
-      skills[skillId].enchantmentBonus = Math.max(skills[skillId].enchantmentBonus, tier);
+      const affix = item.system.affixes[id].system;
+      skills[skillId].enchantmentBonus = affix.cursed
+        ? Math.min(skills[skillId].enchantmentBonus, -affix.tier.value)
+        : Math.max(skills[skillId].enchantmentBonus, affix.tier.value);
     }
   };
 }
@@ -112,8 +116,8 @@ for ( const skillId of Object.keys(SKILLS) ) {
 HOOKS.keen = {
   prepareAttack(item, action, target, rollData) {
     if ( rollData.itemId !== item.id ) return; // Only apply to the correct weapon
-    const tier = item.system.affixes.keen.system.tier.value;
-    rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - tier;
+    const affix = item.system.affixes.keen.system;
+    rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - (affix.tier.value * affix.sign);
   }
 };
 
@@ -150,8 +154,8 @@ HOOKS.vicious = {
  */
 HOOKS.tenacity = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.tenacity.system.tier.value;
-    defenses.fortitude.bonus += tier;
+    const affix = item.system.affixes.tenacity.system;
+    defenses.fortitude.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -159,9 +163,9 @@ HOOKS.tenacity = {
 
 HOOKS.reach = {
   prepareWeapons(item, weapons) {
-    const tier = item.system.affixes.reach.system.tier.value;
+    const affix = item.system.affixes.reach.system;
     const category = item.system.config.category;
-    item.system.range += category.ranged ? (10 * tier) : tier;
+    item.system.range += (category.ranged ? 10 : 1) * affix.tier.value * affix.sign;
   }
 };
 
@@ -169,8 +173,8 @@ HOOKS.reach = {
 
 HOOKS.reliable = {
   prepareAttack(item, action, target, rollData) {
-    const tier = item.system.affixes.reliable.system.tier.value;
-    rollData.criticalFailureThreshold = 6 - tier;
+    const affix = item.system.affixes.reliable.system;
+    rollData.criticalFailureThreshold = 6 - (affix.tier.value * affix.sign);
   }
 };
 
@@ -192,8 +196,8 @@ HOOKS.returning = {
 
 HOOKS.weaponPotency = {
   prepareWeapons(item, weapons) {
-    const tier = item.system.affixes.weaponPotency.system.tier.value;
-    item.system.actionBonuses.enchantment += tier;
+    const affix = item.system.affixes.weaponPotency.system;
+    item.system.actionBonuses.enchantment += (affix.tier.value * affix.sign);
   }
 };
 
@@ -201,8 +205,8 @@ HOOKS.weaponPotency = {
 
 HOOKS.deflection = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.deflection.system.tier.value;
-    defenses.parry.bonus += tier;
+    const affix = item.system.affixes.deflection.system;
+    defenses.parry.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -232,8 +236,8 @@ HOOKS.luminous = {
 
 HOOKS.guarding = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.guarding.system.tier.value;
-    defenses.block.bonus += tier;
+    const affix = item.system.affixes.guarding.system;
+    defenses.block.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -243,8 +247,8 @@ HOOKS.guarding = {
 
 HOOKS.determination = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.determination.system.tier.value;
-    defenses.willpower.bonus += tier;
+    const affix = item.system.affixes.determination.system;
+    defenses.willpower.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -252,8 +256,8 @@ HOOKS.determination = {
 
 HOOKS.evasion = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.evasion.system.tier.value;
-    defenses.dodge.bonus += tier;
+    const affix = item.system.affixes.evasion.system;
+    defenses.dodge.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -261,8 +265,8 @@ HOOKS.evasion = {
 
 HOOKS.nimbleness = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.nimbleness.system.tier.value;
-    defenses.reflex.bonus += tier;
+    const affix = item.system.affixes.nimbleness.system;
+    defenses.reflex.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -270,15 +274,15 @@ HOOKS.nimbleness = {
 
 HOOKS.reinforcement = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.reinforcement.system.tier.value;
-    defenses.armor.bonus += tier;
+    const affix = item.system.affixes.reinforcement.system;
+    defenses.armor.bonus += (affix.tier.value * affix.sign);
   }
 };
 
 HOOKS.hale = {
   prepareResources(item, resources) {
-    const tier = item.system.affixes.hale.system.tier.value;
-    resources.health.bonus += (6 * tier);
+    const affix = item.system.affixes.hale.system;
+    resources.health.bonus += (6 * affix.tier.value * affix.sign);
   }
 };
 
@@ -286,8 +290,8 @@ HOOKS.hale = {
 
 HOOKS.spirited = {
   prepareResources(item, resources) {
-    const tier = item.system.affixes.spirited.system.tier.value;
-    resources.morale.bonus += (6 * tier);
+    const affix = item.system.affixes.spirited.system;
+    resources.morale.bonus += (6 * affix.tier.value * affix.sign);
   }
 };
 
@@ -297,8 +301,8 @@ HOOKS.spirited = {
 
 HOOKS.mending = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.mending.system.tier.value;
-    defenses.wounds.bonus -= tier;
+    const affix = item.system.affixes.mending.system;
+    defenses.wounds.bonus -= (affix.tier.value * affix.sign);
   }
 };
 
@@ -308,8 +312,8 @@ HOOKS.nonchalant = {
   defendAttack(item, action, attacker, rollData) {
     const resource = action.usage?.resource || action.rune?.resource || "health";
     if ( resource === "morale" ) {
-      const tier = item.system.affixes.nonchalant.system.tier.value;
-      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + tier;
+      const affix = item.system.affixes.nonchalant.system;
+      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + (affix.tier.value * affix.sign);
     }
   }
 };
@@ -318,8 +322,8 @@ HOOKS.nonchalant = {
 
 HOOKS.rallying = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.rallying.system.tier.value;
-    defenses.madness.bonus -= tier;
+    const affix = item.system.affixes.rallying.system;
+    defenses.madness.bonus -= (affix.tier.value * affix.sign);
   }
 };
 
@@ -329,8 +333,8 @@ HOOKS.unshakeable = {
   defendAttack(item, action, attacker, rollData) {
     const resource = action.usage?.resource || action.rune?.resource || "health";
     if ( resource === "health" ) {
-      const tier = item.system.affixes.unshakeable.system.tier.value;
-      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + tier;
+      const affix = item.system.affixes.unshakeable.system;
+      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + (affix.tier.value * affix.sign);
     }
   }
 };
@@ -342,8 +346,9 @@ HOOKS.unshakeable = {
 HOOKS.luminary = {
   prepareAction(item, action) {
     if ( !action.tags.has("composed") || !action.inflection?.id ) return;
-    const tier = item.system.affixes.luminary.system.tier.value;
-    action.usage.boons[item.system.identifier] = {label: item.name, number: tier};
+    const affix = item.system.affixes.luminary.system;
+    const pool = affix.cursed ? action.usage.banes : action.usage.boons;
+    pool[item.system.identifier] = {label: item.name, number: affix.tier.value};
   }
 };
 
@@ -358,8 +363,9 @@ for ( const categoryId of Object.keys(CREATURE_CATEGORIES) ) {
     prepareAttack(item, action, target, rollData) {
       if ( item.id !== rollData.itemId ) return;
       if ( target.system.details.taxonomy?.category !== categoryId ) return;
-      const tier = item.system.affixes[id].system.tier.value;
-      rollData.boons[id] = {label: item.name, number: tier};
+      const affix = item.system.affixes[id].system;
+      const pool = affix.cursed ? rollData.banes : rollData.boons;
+      pool[id] = {label: item.name, number: affix.tier.value};
     }
   };
 }

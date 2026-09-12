@@ -161,6 +161,7 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
    */
   #prepareTags() {
     const tags = {};
+    if ( this.document.system.cursed ) tags.cursed = _loc("AFFIX.Cursed");
     const affixType = SYSTEM.ITEM.AFFIX_TYPES[this.document.system.affixType];
     if ( affixType ) tags.affixType = _loc(affixType);
     const tier = this.document.system.tier;

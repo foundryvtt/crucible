@@ -3,6 +3,9 @@
     <div class="title">
         <h4>{{affix.name}} {{affix.tierRoman}}</h4>
     </div>
+    {{#if affix.cursed}}
+    <i class="cursed-indicator fa-solid fa-skull" data-tooltip="{{localize "AFFIX.Cursed"}}"></i>
+    {{/if}}
     {{#if isEditable}}
     <div class="controls">
         <a class="button icon fa-solid fa-edit" data-action="affixEdit" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Edit"}}" data-tooltip></a>

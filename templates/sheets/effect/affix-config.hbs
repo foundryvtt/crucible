@@ -21,4 +21,9 @@
             <p class="hint">{{fields.tier.hint}}</p>
         </div>
     </fieldset>
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "AFFIX.ConfigCurse"}}</legend>
+        {{formGroup fields.cursed value=source.system.cursed}}
+    </fieldset>
 </section>

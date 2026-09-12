@@ -257,7 +257,7 @@ export default class StandardCheck extends Roll {
 
     // Construct the formula
     const terms = pool.map(p => `1d${p}`).concat([data.ability, data.skill]);
-    if ( data.enchantment > 0 ) terms.push(data.enchantment);
+    if ( data.enchantment !== 0 ) terms.push(data.enchantment);
     const formula = terms.join(" + ");
     return super.parse(formula, data);
   }
