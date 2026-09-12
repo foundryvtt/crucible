@@ -341,7 +341,7 @@ class CrucibleActionEvent {
     if ( this.negated ) obj.negated = true;
     for ( const effect of obj.effects ) {
       if ( !effect.system ) continue;
-      for ( const setKey of ["regions", "summons"] ) {
+      for ( const setKey of ["regions", "summons", "lights"] ) {
         if ( setKey in effect.system ) effect.system[setKey] = Array.from(effect.system[setKey]);
       }
     }

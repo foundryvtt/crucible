@@ -20,7 +20,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * Document types the owned-reference deletion cascade is permitted to delete.
    * @type {Set<string>}
    */
-  static #DELETABLE_TYPES = new Set(["Token", "Region"]);
+  static #DELETABLE_TYPES = new Set(["Token", "Region", "AmbientLight"]);
 
   /**
    * The UUIDs of the Tokens and Regions this effect owns. Cached from the effect's own persisted data.
@@ -76,8 +76,8 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   isStatusOnly(statusId) {
     if ( !((this.statuses.size === 1) && this.statuses.has(statusId)) ) return false;
     if ( this.type !== "base" ) return false; // Only base-type effects can be status-only
-    const {changes, dot, summons, regions, maintenance} = this.system;
-    return !(changes.length || dot.length || summons.size || regions.size
+    const {changes, dot, summons, regions, lights, maintenance} = this.system;
+    return !(changes.length || dot.length || summons.size || regions.size || lights.size
       || maintenance.cost || maintenance.hands);
   }
 
@@ -88,7 +88,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @returns {Set<string>}
    */
   #collectOwnedReferences() {
-    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? [])]);
+    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? []), ...(this.system.lights ?? [])]);
   }
 
   /* -------------------------------------------- */
@@ -193,6 +193,61 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
         return false;
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the center point of this effect's owning actor's primary active token, in canvas pixel coordinates,
+   * along with the Scene that token belongs to.
+   * @returns {{scene: Scene, x: number, y: number}|null}
+   */
+  #getOwnerTokenPlacement() {
+    if ( !(this.parent instanceof foundry.documents.Actor) ) return null;
+    const token = this.parent.getActiveTokens(true, true)[0];
+    if ( !token || !token.parent ) return null;
+    const center = token.getCenterPoint ? token.getCenterPoint() : (token.object?.center ?? null);
+    if ( !center ) return null;
+    return {scene: token.parent, x: center.x, y: center.y};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Conjure the AmbientLight declared by this effect's system.light template, if one is configured and this
+   * effect does not already own a live light. The created light's UUID is recorded to system.lights so the
+   * existing owned-reference cascade deletes it automatically whenever this effect is deleted or updated to
+   * no longer reference it - no bespoke reverse/cleanup path is required by the effect's own hook code.
+   * Only the active GM performs the creation, mirroring #deleteOwnedReferences.
+   * @returns {Promise<void>}
+   */
+  async #createOwnedLight() {
+    if ( !game.user.isActiveGM ) return;
+    if ( !this.system.light ) return;
+
+    // Skip if a currently-referenced light already exists (e.g. a reconstructed/reversed effect whose light
+    // was never actually destroyed) - only conjure a replacement when none of the tracked references resolve.
+    for ( const uuid of this.system.lights ?? [] ) {
+      if ( await fromUuid(uuid) ) return;
+    }
+
+    const placement = this.#getOwnerTokenPlacement();
+    if ( !placement ) return;
+    const {scene, x, y} = placement;
+    try {
+      const [light] = await scene.createEmbeddedDocuments("AmbientLight", [{x, y, config: {...this.system.light}}]);
+      if ( light ) await this.update({"system.lights": [...this.system.lights, light.uuid]});
+    } catch(err) {
+      console.error(`${this.name} | failed to create owned AmbientLight`, err);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onCreate(data, options, userId) {
+    await super._onCreate(data, options, userId);
+    await this.#createOwnedLight();
   }
 
   /* -------------------------------------------- */
