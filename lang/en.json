@@ -71,6 +71,10 @@
         "Description": "Spend 10 minutes outside of Combat recovering from exertion to fully restore Health, Morale, Action, and Focus.",
         "Name": "Recover"
       },
+      "Maintain": {
+        "Description": "Spend the Focus cost of a maintained effect to sustain it for another round.",
+        "Name": "Maintain"
+      },
       "Reload": {
         "Description": "Reload a ranged weapon which features a reloading time.",
         "Name": "Reload Weapon"
@@ -434,6 +438,7 @@
       "AuraNoToken": "You cannot use an Aura-target action without having a token on the scene!",
       "BadStatus": "You may not perform {action} while {status}.",
       "CannotAffordCost": "{name} has insufficient {resource} to use {action}!",
+      "NoMaintainedEffect": "You have no effect which can be maintained!",
       "CannotAffordHands": {
         "zero": "{name} must have {hands} free hands to use {action}!",
         "one": "{name} must have {hands} free hand to use {action}!",
@@ -520,8 +525,8 @@
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Until Ended",
     "EffectSpecific": "Effect: {effect}",
-    "MaintainContent": "<p>Spend {cost} Focus to maintain {effect}?</p>",
-    "MaintainTitle": "Maintain Focus: {effect}",
+    "MaintainReplaceContent": "<p>Using {action} will end your maintained {effect} at the end of this action.</p>",
+    "MaintainReplaceTitle": "Replace Maintained Effect",
     "NoTargets": "No Targets",
     "Overview": "Action Overview",
     "PlanMovement": "Plan Movement",
@@ -1387,7 +1392,6 @@
       "EffectGainedDuration": "Gained ({duration})",
       "HeaderEnd": "{actor} - Turn End",
       "HeaderStart": "{actor} - Turn Start",
-      "Maintaining": "{effect} (Maintaining)",
       "TableTitleEffects": "Effect Changes",
       "TableTitleResources": "Resource Changes"
     },

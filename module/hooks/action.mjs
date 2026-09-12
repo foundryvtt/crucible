@@ -1820,6 +1820,25 @@ HOOKS.rest = {
   }
 };
 
+/* -------------------------------------------- */
+
+HOOKS.maintain = {
+  canUse() {
+    if ( !this.actor.maintainedEffect ) throw new Error(_loc("ACTION.WARNINGS.NoMaintainedEffect"));
+  },
+  postActivate() {
+    const effect = this.actor.maintainedEffect;
+    const combat = game.combat;
+    if ( !effect || !combat?.started ) return;
+
+    // Re-anchor the maintained effect's duration to this round, deferring its expiry until the start of the next turn
+    const combatant = combat.getCombatantsByActor(this.actor)[0];
+    const activation = this.selfEvents.activation;
+    activation.effects.push({_id: effect.id, _action: "update",
+      start: {combat: combat.id, combatant: combatant?.id ?? null, round: combat.round, turn: combat.turn}});
+  }
+};
+
 /**
  * Shared event recorder used by the rest and recover action postActivate hooks.
  * @param {CrucibleAction} action

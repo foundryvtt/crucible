@@ -187,6 +187,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * The singleton effect which this Actor is maintaining, if any.
+   * @type {CrucibleActiveEffect|null}
+   */
+  get maintainedEffect() {
+    return this.system.maintainedEffect;
+  }
+
+  /**
    * The prepared object of actor status data
    * @returns {ActorRoundStatus}
    */
@@ -1368,14 +1376,14 @@ export default class CrucibleActor extends Actor {
   /**
    * Identify changes to ActiveEffects which occur at the start of a Combatant's turn.
    * Damage-over-time effects are identified.
-   * Effects which core will expire are identified.
+   * Effects which core will expire are identified, including maintained effects which were not sustained by the
+   * Maintain action.
    * Unaware effect is primed for deletion.
-   * Effects with a maintenance cost are checked here; effects without sufficient focus are primed for deletion.
    * @param {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} turnStartConfig
    * @param {CombatTurnEventContext} context
    */
   async #prepareTurnStartConfig(turnStartConfig, context) {
-    const {effectChanges, resourceChanges, dot} = turnStartConfig;
+    const {effectChanges, dot} = turnStartConfig;
     for ( const effect of this.effects ) {
 
       // Gather damage-over-time effects
@@ -1384,37 +1392,13 @@ export default class CrucibleActor extends Actor {
       // Gather effects which are about to expire naturally
       if ( (effect.updateDuration(context).remaining <= 0) && effect.isExpiryEvent("turnStart", context) ) {
         effectChanges.toExpire.push(effect.id);
-        continue; // No need to maintain an effect which is about to expire naturally
+        continue;
       }
 
       // Remove unaware at turn start
       if ( effect.isStatusOnly("unaware") ) {
         effectChanges.toDelete.push(effect.id);
         continue;
-      }
-
-      // Identify maintained effects (only base-type effects carry maintenance data)
-      if ( effect.type !== "base" ) continue;
-      const maintainedCost = effect.system.maintenance.cost;
-      if ( maintainedCost ) {
-        if ( maintainedCost > this.resources.focus.value ) {
-          effectChanges.toDelete.push(effect.id);
-          continue;
-        }
-        const confirm = await DialogV2.query(this.getDesignatedUser(), "confirm", {
-          window: {
-            title: _loc("ACTION.MaintainTitle", {effect: effect.name})
-          },
-          content: _loc("ACTION.MaintainContent", {cost: maintainedCost, effect: effect.name})
-        });
-        if ( confirm ) {
-          resourceChanges.focus.push({
-            label: _loc("COMBAT.SUMMARY.Maintaining", {effect: effect.name}),
-            amount: -maintainedCost
-          });
-        } else {
-          effectChanges.toDelete.push(effect.id);
-        }
       }
     }
   }
