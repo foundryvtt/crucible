@@ -350,7 +350,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         description: await editorCls.enrichHTML(affix.description, {relativeTo: affix, secrets: this.document.isOwner}),
         tier: tierValue,
         tierRoman: ["", "I", "II", "III"][tierValue] ?? tierValue,
-        // Only reveal cursed affixes to GMs, preserving the surprise for players until the item is invested
         cursed: game.user.isGM && affix.system.cursed
       };
       if ( affix.system.affixType === "prefix" ) prefixes.push(data);

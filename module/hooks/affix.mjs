@@ -6,19 +6,6 @@ import {GESTURES, INFLECTIONS, RUNES} from "../const/spellcraft.mjs";
 const HOOKS = {};
 
 /* -------------------------------------------- */
-/*  Cursed Affixes                              */
-/* -------------------------------------------- */
-
-/**
- * Affixes with the `cursed` flag invert their benefit, hindering the bearer instead of helping them. Because cursed
- * variants of an affix share its identifier, each hook implementation reads the flag from the applied affix effect at
- * runtime and inverts its contribution. Numeric bonuses apply their sign; "best-of" bonuses apply a negative best-of;
- * boon-granting affixes grant banes instead. Affixes whose effect has no meaningful inverse (e.g. Returning, damage
- * type Conversion, Spellcraft knowledge) ignore the flag.
- * ---------------------------------------------
- */
-
-/* -------------------------------------------- */
 /*  Damage Type Affixes                         */
 /* -------------------------------------------- */
 
@@ -125,7 +112,6 @@ for ( const skillId of Object.keys(SKILLS) ) {
 
 /**
  * Keen: reduce the critical success threshold by 1 per tier for attacks with this weapon, stacking with other reducers.
- * Cursed: the threshold is instead increased, making critical hits harder to score.
  */
 HOOKS.keen = {
   prepareAttack(item, action, target, rollData) {
@@ -164,7 +150,7 @@ HOOKS.vicious = {
 /* -------------------------------------------- */
 
 /**
- * Tenacity: Increase Fortitude defense by the affix tier. Cursed: decrease it instead.
+ * Tenacity: Increase Fortitude defense by the affix tier.
  */
 HOOKS.tenacity = {
   prepareDefenses(item, defenses) {
@@ -185,9 +171,6 @@ HOOKS.reach = {
 
 /* -------------------------------------------- */
 
-/**
- * Reliable: reduce the critical failure threshold for attacks with this weapon. Cursed: increase it instead.
- */
 HOOKS.reliable = {
   prepareAttack(item, action, target, rollData) {
     const affix = item.system.affixes.reliable.system;
@@ -220,9 +203,6 @@ HOOKS.weaponPotency = {
 
 /* -------------------------------------------- */
 
-/**
- * Deflection: Increase Parry defense by the affix tier. Cursed: decrease it instead.
- */
 HOOKS.deflection = {
   prepareDefenses(item, defenses) {
     const affix = item.system.affixes.deflection.system;
@@ -254,9 +234,6 @@ HOOKS.luminous = {
 
 /* -------------------------------------------- */
 
-/**
- * Guarding: Increase Block defense by the affix tier. Cursed: decrease it instead.
- */
 HOOKS.guarding = {
   prepareDefenses(item, defenses) {
     const affix = item.system.affixes.guarding.system;
@@ -268,9 +245,6 @@ HOOKS.guarding = {
 /*  Accessory and Armor Affixes                 */
 /* -------------------------------------------- */
 
-/**
- * Determination: Increase Willpower defense by the affix tier. Cursed: decrease it instead.
- */
 HOOKS.determination = {
   prepareDefenses(item, defenses) {
     const affix = item.system.affixes.determination.system;
@@ -280,9 +254,6 @@ HOOKS.determination = {
 
 /* -------------------------------------------- */
 
-/**
- * Evasion: Increase Dodge defense by the affix tier. Cursed: decrease it instead.
- */
 HOOKS.evasion = {
   prepareDefenses(item, defenses) {
     const affix = item.system.affixes.evasion.system;
@@ -292,9 +263,6 @@ HOOKS.evasion = {
 
 /* -------------------------------------------- */
 
-/**
- * Nimbleness: Increase Reflex defense by the affix tier. Cursed: decrease it instead.
- */
 HOOKS.nimbleness = {
   prepareDefenses(item, defenses) {
     const affix = item.system.affixes.nimbleness.system;
@@ -304,9 +272,6 @@ HOOKS.nimbleness = {
 
 /* -------------------------------------------- */
 
-/**
- * Reinforcement: Increase Armor defense by the affix tier. Cursed: decrease it instead.
- */
 HOOKS.reinforcement = {
   prepareDefenses(item, defenses) {
     const affix = item.system.affixes.reinforcement.system;
@@ -314,9 +279,6 @@ HOOKS.reinforcement = {
   }
 };
 
-/**
- * Hale: Increase Health maximum by 6 per tier. Cursed: decrease it instead.
- */
 HOOKS.hale = {
   prepareResources(item, resources) {
     const affix = item.system.affixes.hale.system;
@@ -326,9 +288,6 @@ HOOKS.hale = {
 
 /* -------------------------------------------- */
 
-/**
- * Spirited: Increase Morale maximum by 6 per tier. Cursed: decrease it instead.
- */
 HOOKS.spirited = {
   prepareResources(item, resources) {
     const affix = item.system.affixes.spirited.system;
@@ -340,10 +299,6 @@ HOOKS.spirited = {
 /*  Armor-Only Affixes                          */
 /* -------------------------------------------- */
 
-/**
- * Mending: Reduce the Wounds threshold, making the wearer easier to heal from wounds.
- * Cursed: raise the threshold instead.
- */
 HOOKS.mending = {
   prepareDefenses(item, defenses) {
     const affix = item.system.affixes.mending.system;
@@ -353,10 +308,6 @@ HOOKS.mending = {
 
 /* -------------------------------------------- */
 
-/**
- * Nonchalant: raise the attacker's critical success threshold when defending with Morale.
- * Cursed: lower the threshold instead, making critical hits against the wearer easier.
- */
 HOOKS.nonchalant = {
   defendAttack(item, action, attacker, rollData) {
     const resource = action.usage?.resource || action.rune?.resource || "health";
@@ -369,10 +320,6 @@ HOOKS.nonchalant = {
 
 /* -------------------------------------------- */
 
-/**
- * Rallying: Reduce the Madness threshold, making the wearer easier to heal from madness.
- * Cursed: raise the threshold instead.
- */
 HOOKS.rallying = {
   prepareDefenses(item, defenses) {
     const affix = item.system.affixes.rallying.system;
@@ -382,10 +329,6 @@ HOOKS.rallying = {
 
 /* -------------------------------------------- */
 
-/**
- * Unshakeable: raise the attacker's critical success threshold when defending with Health.
- * Cursed: lower the threshold instead, making critical hits against the wearer easier.
- */
 HOOKS.unshakeable = {
   defendAttack(item, action, attacker, rollData) {
     const resource = action.usage?.resource || action.rune?.resource || "health";
@@ -400,9 +343,6 @@ HOOKS.unshakeable = {
 /*  Accessory-Only Affixes                      */
 /* -------------------------------------------- */
 
-/**
- * Luminary: grant Boons to composed spell actions. Cursed: inflict Banes instead.
- */
 HOOKS.luminary = {
   prepareAction(item, action) {
     if ( !action.tags.has("composed") || !action.inflection?.id ) return;
