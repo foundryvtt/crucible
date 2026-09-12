@@ -23,11 +23,9 @@ img: icons/magic/death/undead-skeleton-energy-green.webp
 disabled: false
 start: null
 description: >-
-  <p>A mockery of true enchantment. To all inspection this affix appears as a
-  genuine <strong>Acid-Warding</strong> blessing, but once the item is
-  <strong>Invested</strong> the curse takes hold: <strong>Acid</strong>
-  resistance is <em>reduced</em> by 3 for each <strong>Tier</strong> of this
-  prefix, leaving the bearer vulnerable to acid.</p>
+  <p>Decrease <strong>Acid</strong> resistance by 3 for each
+  <strong>Tier</strong> of this prefix. This curse is indistinguishable from
+  its uncorrupted blessing until the item is <strong>Invested</strong>.</p>
 origin: null
 tint: '#ffffff'
 transfer: false

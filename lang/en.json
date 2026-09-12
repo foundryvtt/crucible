@@ -1017,7 +1017,7 @@
       },
       "cursed": {
         "label": "Cursed",
-        "hint": "A cursed affix inverts its benefit and hinders the bearer instead: numeric bonuses are applied negatively, and affixes which grant Boons inflict Banes. The curse takes hold once the item is invested."
+        "hint": "Cursed affixes invert their benefit and hinder the bearer instead. The curse takes hold once the item is invested."
       }
     },
     "ConfigIdentity": "Affix Identity",

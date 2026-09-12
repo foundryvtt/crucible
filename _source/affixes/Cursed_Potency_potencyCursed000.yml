@@ -22,11 +22,10 @@ img: icons/magic/unholy/orb-beam-pink.webp
 disabled: false
 start: null
 description: >-
-  <p>A hollow promise of strength. To all inspection this affix appears as a
-  genuine <strong>Potency</strong> enchantment, but once the weapon is
-  <strong>Invested</strong> the curse takes hold: <strong>Strikes</strong>
-  made with this weapon suffer an <strong>Enchantment Penalty</strong> equal
-  to the <strong>Tier</strong> of this suffix.</p>
+  <p><strong>Strikes</strong> made with this weapon suffer an
+  <strong>Enchantment Penalty</strong> equal to the <strong>Tier</strong> of
+  this suffix. This curse is indistinguishable from its uncorrupted blessing
+  until the item is <strong>Invested</strong>.</p>
 origin: null
 tint: '#ffffff'
 transfer: false

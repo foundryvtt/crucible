@@ -22,12 +22,10 @@ img: icons/creatures/unholy/demon-fire-horned-mask.webp
 disabled: false
 start: null
 description: >-
-  <p>A corrupted hunter's blessing. To all inspection this affix appears as a
-  genuine <strong>Beast-Bane</strong> enchantment, but once the weapon is
-  <strong>Invested</strong> the curse takes hold: <strong>Strikes</strong>
-  made against <strong>Beast</strong> creatures suffer a penalty of
-  <strong>Banes</strong> equal to the <strong>Tier</strong> of this
-  prefix.</p>
+  <p><strong>Strikes</strong> made against <strong>Beast</strong> creatures
+  suffer a penalty of <strong>Banes</strong> equal to the <strong>Tier</strong>
+  of this prefix. This curse is indistinguishable from its uncorrupted
+  blessing until the item is <strong>Invested</strong>.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
