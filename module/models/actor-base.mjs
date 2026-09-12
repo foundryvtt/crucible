@@ -153,6 +153,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   equipment = this.equipment;
 
   /**
+   * The singleton effect currently being maintained by this Actor, or null.
+   * @type {CrucibleActiveEffect|null}
+   */
+  maintainedEffect = null;
+
+  /**
    * The grimoire of known spellcraft components.
    * @type {CrucibleActorGrimoire}
    */
@@ -810,6 +816,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.#finalizeGrimoire();
     this.parent.callActorHooks("prepareSpells", this.grimoire);
 
+    // Maintained Effect
+    this.#prepareMaintainedEffect();
+
     // Prepare Equipped Items
     this.#prepareEquippedItems();
 
@@ -1107,6 +1116,21 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
+   * Identify the singleton effect which this Actor is maintaining, if any.
+   * Maintained effects expire at the start of the Actor's turn unless sustained through the Maintain action.
+   */
+  #prepareMaintainedEffect() {
+    this.maintainedEffect = null;
+    for ( const effect of this.parent.effects ) {
+      if ( !effect.active || (effect.type !== "base") ) continue;
+      if ( effect.system.maintenance.cost ) {
+        this.maintainedEffect = effect;
+        break;
+      }
+    }
+  }
+
+  /**
    * Prepare Actions which this Actor may actively use.
    */
   #prepareActions() {
@@ -1131,6 +1155,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
         case "cast":
           if ( !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
           break;
+        case "maintain":
+          if ( !this.maintainedEffect ) continue;
+          break;
         case "reload":
           if ( !w.reload ) continue;
           break;
@@ -1142,6 +1169,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       // Action data
       ad = foundry.utils.deepClone(ad);
       ad.tags ||= [];
+
+      // The Maintain action incurs the focus cost of the effect it sustains
+      if ( ad.id === "maintain" ) ad.cost.focus = this.maintainedEffect.system.maintenance.cost ?? 0;
 
       // Customize strike tags
       if ( ["strike", "reactiveStrike"].includes(ad.id) ) {

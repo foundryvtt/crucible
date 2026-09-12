@@ -1238,7 +1238,15 @@ export const TAGS = {
       const selfEffectEvent = this.events.find(e => (e.target === this.actor) && e.effects.length);
       if ( !selfEffectEvent ) return;
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
-      selfEffectEvent.effects[0].system.maintenance = {cost: maintainedCost};
+      const effect = selfEffectEvent.effects[0];
+      effect.system.maintenance = {cost: maintainedCost};
+
+      // Maintained effects expire at the start of the Actor's turn after next unless sustained by the Maintain action
+      effect.duration = {value: 2, units: "rounds", expiry: "turnStart"};
+
+      // Only one effect may be maintained at a time; end any currently maintained effect
+      const current = this.actor.maintainedEffect;
+      if ( current ) selfEffectEvent.effects.push({_id: current.id, _action: "delete"});
     }
   },
 
@@ -1566,6 +1574,24 @@ export const DEFAULT_ACTIONS = Object.freeze([
       const r = action.actor.system.resources;
       return (r.health.value < r.health.max) || (r.morale.value < r.morale.max) || (r.focus.value < r.focus.max);
     }
+  },
+
+  // Maintain (only added while the Actor has a maintained effect; its focus cost is drawn from that effect)
+  {
+    id: "maintain",
+    name: "ACTION.DEFAULT_ACTIONS.Maintain.Name",
+    img: "icons/magic/time/clock-stopwatch-white-blue.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Maintain.Description",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    cost: {
+      action: 0
+    },
+    tags: [],
+    autoFavorite: true
   },
 
   // Reload
