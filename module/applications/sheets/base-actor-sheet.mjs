@@ -271,11 +271,13 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       physical: {
         value: data.physical.total,
         label: SYSTEM.DEFENSES.physical.label,
+        tooltip: SYSTEM.DEFENSES.physical.tooltip,
         subtitle: this.actor.equipment.armor.name,
         components: {
           armor: {
             value: data.armor.total,
             label: SYSTEM.DEFENSES.armor.label,
+            tooltip: SYSTEM.DEFENSES.armor.tooltip,
             pct: Math.round(data.armor.total * 100 / safeTotal),
             cssClass: data.armor.total > 0 ? "active" : "inactive",
             separator: "="
@@ -283,6 +285,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           dodge: {
             value: data.dodge.total,
             label: SYSTEM.DEFENSES.dodge.label,
+            tooltip: SYSTEM.DEFENSES.dodge.tooltip,
             pct: Math.round(data.dodge.total * 100 / safeTotal),
             cssClass: data.dodge.total > 0 ? "active" : "inactive",
             separator: "+"
@@ -290,6 +293,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           parry: {
             value: data.parry.total,
             label: SYSTEM.DEFENSES.parry.label,
+            tooltip: SYSTEM.DEFENSES.parry.tooltip,
             pct: Math.round(data.parry.total * 100 / safeTotal),
             cssClass: data.parry.total > 0 ? "active" : "inactive",
             separator: "+"
@@ -297,6 +301,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           block: {
             value: data.block.total,
             label: SYSTEM.DEFENSES.block.label,
+            tooltip: SYSTEM.DEFENSES.block.tooltip,
             pct: Math.round(data.block.total * 100 / safeTotal),
             cssClass: data.block.total > 0 ? "active" : "inactive",
             separator: "+"
@@ -315,7 +320,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         const sign = d.bonus > 0 ? "+" : "-";
         d.tooltip += ` ${sign} ${Math.abs(d.bonus)}`;
       }
-      if ( ["wounds", "madness"].includes(id) ) d.tooltip = `${d.label}<br>${d.tooltip}`;
       defenses[id] = d;
     }
     return defenses;
@@ -1128,7 +1132,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       minValue: 0,
       editLabel: "ACTOR.ACTIONS.EditEngagement",
       baseLabel: "ACTOR.FIELDS.movement.engagement.base",
-      baseHint: _loc("ACTOR.FIELDS.movement.engagement.tooltip").split("<br>")[0]
+      baseHint: "ACTOR.FIELDS.movement.engagement.hint"
     });
   }
 
@@ -1164,7 +1168,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       minValue: 0,
       editLabel: "ACTOR.ACTIONS.EditMovement",
       baseLabel: "ACTOR.FIELDS.movement.stride.base",
-      baseHint: "ACTOR.FIELDS.movement.stride.tooltip"
+      baseHint: "ACTOR.FIELDS.movement.stride.hint"
     });
   }
 

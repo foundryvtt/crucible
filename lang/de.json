@@ -637,9 +637,10 @@
       "movement": {
         "engagement": {
           "base": "Basisbindung",
+          "hint": "Anzahl gebundener Feinde",
           "label": "Bindung",
           "labelShort": "Bind.",
-          "tooltip": "Anzahl gebundener Feinde<br>(Größe - 2) + Bindungsbonus"
+          "tooltip": "Bindung beschreibt, gegen wie viele gegnerische Kämpfer du gleichzeitig vorgehen kannst, ohne verwundbarer zu werden. Helden haben eine Basis von 1. Widersacher starten bei 1 und erhalten +1 für je 2 Größe über 4, aufgerundet.<br>Basisbindung + Bindungsbonus"
         },
         "engagementBonus": {
           "hint": "Ein additiver Modifikator auf die Basisbindung.",
@@ -656,8 +657,9 @@
         },
         "stride": {
           "base": "Basis-Bewegungsrate",
+          "hint": "Bewegungsdistanz pro ausgegebenem Aktionspunkt.",
           "label": "Bewegungsrate",
-          "tooltip": "Bewegungsdistanz pro ausgegebenem Aktionspunkt."
+          "tooltip": "Bewegungsaktionen erlauben dir, dich um eine Distanz bis zu deiner Bewegungsrate in Fuß zu bewegen. Diese Bewegung kann nicht unterbrochen werden, und restliche Distanz wird nicht über Aktionen hinweg gespeichert, wenn du weniger als deine Bewegungsrate zurücklegst.<br>Abstammungs-/Taxonomie-Basisbewegungsrate + Bewegungsbonus"
         },
         "strideBonus": {
           "hint": "Ein additiver Modifikator auf die Bewegungsrate der Figur, definiert durch Abstammung oder Taxonomie.",
@@ -1334,11 +1336,16 @@
   },
   "DEFENSES": {
     "TOOLTIPS": {
-      "Fortitude": "{base} + ((Stärke + Weisheit) / 4)",
-      "Madness": "{base} + (Wahnsinn / 10)",
-      "Reflex": "{base} + ((Geschicklichkeit + Intelligenz) / 4)",
-      "Willpower": "{base} + ((Zähigkeit + Präsenz) / 4)",
-      "Wounds": "{base} + (Wunden / 10)"
+      "Armor": "Schutz durch getragene Ausrüstung oder natürliche Eigenschaften wie Schuppen oder Chitin. Treffer, die nicht ausgewichen, pariert oder geblockt werden, werden bei einem Streiftreffer zu einem Treffer mit reduziertem Schaden oder bei einem kritischen Fehlschlag vollständig absorbiert.<br>Rüstungsbasis + Qualitätsbonus",
+      "Block": "Schutz durch Abwehr eines Angriffs mit einem ausgerüsteten Schild oder einer blockenden Waffe. Blockierte Angriffe verursachen keinen Schaden und ermöglichen Reaktionen auf Basis von Block.<br>Summe des Blocks aller ausgerüsteten Waffen",
+      "Dodge": "Schutz durch körperliche Schnelligkeit und Gewandtheit. Ausgewichene Angriffe verursachen keinen Schaden und ermöglichen Reaktionen auf Basis von Ausweichen.<br>Rüstungs-Basisausweichen + max(Geschicklichkeit - Skalierung, 0) + Verzauberung",
+      "Fortitude": "Standhaftigkeit beschreibt die Fähigkeit eines Charakters, körperlichen Schaden auszuhalten. Sie wird durch Stärke und Weisheit modifiziert, die für körperliche Widerstandskraft bzw. mentale Belastbarkeit stehen.<br>{base} + ((Stärke + Weisheit) / 4)",
+      "Madness": "Die Mobilisierungsschwelle beschreibt, wie schwierig es ist, die Moral einer Kreatur wiederherzustellen. Je stärker eine Kreatur psychisch belastet ist, desto schwieriger lässt sie sich wieder aufrichten.<br>{base} + (Wahnsinn / 10)",
+      "Parry": "Schutz durch Abwehr eines Angriffs mit einer ausgerüsteten Waffe. Parierte Angriffe verursachen keinen Schaden und ermöglichen Reaktionen auf Basis von Parade.<br>Summe der Parade aller ausgerüsteten Waffen",
+      "Physical": "Physische Verteidigung beschreibt, wie schwierig es ist, eine Kreatur mit physischen Angriffen zu treffen, typischerweise mit Nahkampf- oder Fernkampfwaffen.<br>Rüstung + Ausweichen + Parieren + Block",
+      "Reflex": "Reflexverteidigung beschreibt die Fähigkeit eines Charakters, Schaden zu vermeiden, der andernfalls einen bestimmten Bereich betreffen würde. Sie wird durch Geschicklichkeit und Intellekt modifiziert, die für körperliche Schnelligkeit bzw. die Geschwindigkeit des Denkens stehen.<br>{base} + ((Geschicklichkeit + Intellekt) / 4)",
+      "Willpower": "Die Willenskraft beschreibt die Fähigkeit, mentalen oder emotionalen Angriffen standzuhalten. Sie wird durch Zähigkeit und Präsenz modifiziert, die körperliche Hartnäckigkeit und geistige Entschlossenheit darstellen.<br>{base} + ((Zähigkeit + Präsenz) / 4)",
+      "Wounds": "Die Heilungsschwelle beschreibt, wie schwierig es ist, die Gesundheit einer Kreatur wiederherzustellen. Je schwerer verwundet eine Kreatur ist, desto schwieriger wird sie zu heilen.<br>{base} + (Wunden / 10)"
     },
     "Armor": "Rüstung",
     "Block": "Block",

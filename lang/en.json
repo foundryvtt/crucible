@@ -759,9 +759,10 @@
       "movement": {
         "engagement": {
           "base": "Base Engagement",
+          "hint": "Number of Enemies able to be Engaged",
           "label": "Engagement",
           "labelShort": "Engage",
-          "tooltip": "Number of Enemies able to be Engaged<br>(Size - 2) + Engagement Bonus"
+          "tooltip": "Engagement describes the total number of opposing Combatants that you can simultaneously battle against without becoming more vulnerable. Heroes have a base of 1. Adversaries start at 1 and add +1 for every 2 Size above 4, rounded up.<br>Base Engagement + Engagement Bonus"
         },
         "engagementBonus": {
           "hint": "An additive modifier to base engagement.",
@@ -778,8 +779,9 @@
         },
         "stride": {
           "base": "Base Stride",
+          "hint": "Movement distance per spent Action Point.",
           "label": "Stride",
-          "tooltip": "Movement distance per spent Action Point."
+          "tooltip": "Movement actions allow you to move a number of feet up to your Stride. This movement cannot be broken up, and leftover distance is not saved across actions if you move less than your Stride.<br>Ancestry/Taxonomy Base Stride + Stride Bonus"
         },
         "strideBonus": {
           "hint": "An additive modifier to Stride speed of the Actor defined by Ancestry or Taxonomy.",
@@ -1526,11 +1528,16 @@
   },
   "DEFENSES": {
     "TOOLTIPS": {
-      "Fortitude": "{base} + ((Strength + Wisdom) / 4)",
-      "Madness": "{base} + (Madness / 10)",
-      "Reflex": "{base} + ((Dexterity + Intellect) / 4)",
-      "Willpower": "{base} + ((Toughness + Presence) / 4)",
-      "Wounds": "{base} + (Wounds / 10)"
+      "Armor": "Protection offered by worn equipment or organic attributes like scales or chitin. Misses that are not Dodged, Parried, or Blocked become a Glance (reduced damage) or are fully absorbed on a Critical Failure.<br>Armor Base + Quality Bonus",
+      "Block": "Protection offered by guarding against an attack using an equipped shield or blocking weapon. Blocked attacks deal no damage and provide opportunity for block-based reactions.<br>Sum of equipped weapon Block",
+      "Dodge": "Protection offered by physical quickness and agility. Dodged attacks deal no damage and provide opportunity for dodge-based reactions.<br>Armor Base Dodge + max(Dexterity - Scaling, 0) + Enchantment",
+      "Fortitude": "Fortitude Defense describes a character's ability to withstand bodily harm. It is modified by Strength and Wisdom, representing physical resistance and mental resilience respectively.<br>{base} + ((Strength + Wisdom) / 4)",
+      "Madness": "Rallying Threshold describes how difficult it is to restore the Morale of a creature. As creatures become more psychologically damaged they become more difficult to rally.<br>{base} + (Madness / 10)",
+      "Parry": "Protection offered by guarding against an attack using an equipped weapon. Parried attacks deal no damage and provide opportunity for parry-based reactions.<br>Sum of equipped weapon Parry",
+      "Physical": "Physical Defense describes how difficult the creature is to hit with physical attacks, typically melee or ranged weapon strikes.<br>Armor + Dodge + Parry + Block",
+      "Reflex": "Reflex Defense describes a character's ability to avoid harm that would otherwise occur in a specific area. It is modified by Dexterity and Intellect, representing quickness of body and rapidity of thought respectively.<br>{base} + ((Dexterity + Intellect) / 4)",
+      "Willpower": "Willpower Defense describes a character's ability to withstand mental or emotional attacks. It is modified by Toughness and Presence, representing physical grit and mental determination respectively.<br>{base} + ((Toughness + Presence) / 4)",
+      "Wounds": "Healing Threshold describes how difficult it is to restore the Health of a creature. As creatures become more severely wounded, they grow more difficult to heal.<br>{base} + (Wounds / 10)"
     },
     "Armor": "Armor",
     "Block": "Block",

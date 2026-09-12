@@ -105,13 +105,13 @@
         <h3>{{localize "ACTOR.SHEET.Defenses"}}</h3>
         <div class="physical flexrow">
             <div class="defense total">
-                <h4 class="label">{{defenses.physical.label}}</h4>
+                <h4 class="label" data-tooltip="{{defenses.physical.tooltip}}">{{defenses.physical.label}}</h4>
                 <span class="value">{{defenses.physical.value}}</span>
             </div>
             {{#each defenses.physical.components as |c id|}}
             <span class="sep">{{c.separator}}</span>
             <div class="defense component {{id}} {{c.cssClass}}">
-                <h4 class="label">{{c.label}}</h4>
+                <h4 class="label" data-tooltip="{{c.tooltip}}">{{c.label}}</h4>
                 <span class="value">{{c.value}}</span>
                 <span class="pct">{{c.pct}}%</span>
             </div>
