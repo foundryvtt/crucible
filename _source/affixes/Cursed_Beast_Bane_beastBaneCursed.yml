@@ -1,0 +1,49 @@
+name: Cursed Beast Bane
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Beast-Bane
+  identifier: beastBane
+  changes: []
+  cursed: true
+  affixType: prefix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes:
+    - weapon
+_id: beastBaneCursed0
+img: icons/creatures/unholy/demon-fire-horned-mask.webp
+disabled: false
+start: null
+description: >-
+  <p>A corrupted hunter's blessing. To all inspection this affix appears as a
+  genuine <strong>Beast-Bane</strong> enchantment, but once the weapon is
+  <strong>Invested</strong> the curse takes hold: <strong>Strikes</strong>
+  made against <strong>Beast</strong> creatures suffer a penalty of
+  <strong>Banes</strong> equal to the <strong>Tier</strong> of this
+  prefix.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: creatureBane0000
+sort: 500000
+flags: {}
+_stats:
+  coreVersion: '14.359'
+  systemId: crucible
+  systemVersion: 0.9.1
+  createdTime: 1775502000000
+  modifiedTime: 1775502000000
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!beastBaneCursed0'

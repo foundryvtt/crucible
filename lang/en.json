@@ -1014,10 +1014,16 @@
           "label": "Affix Tier",
           "hint": "The tier of this affix applied to the item."
         }
+      },
+      "cursed": {
+        "label": "Cursed",
+        "hint": "A cursed affix inverts its benefit and hinders the bearer instead: numeric bonuses are applied negatively, and affixes which grant Boons inflict Banes. The curse takes hold once the item is invested."
       }
     },
     "ConfigIdentity": "Affix Identity",
     "ConfigTier": "Tier Configuration",
+    "ConfigCurse": "Curse",
+    "Cursed": "Cursed",
     "TierRestriction": "Tier Range",
     "Prefixes": "Prefixes",
     "Suffixes": "Suffixes",

@@ -6,6 +6,19 @@ import {GESTURES, INFLECTIONS, RUNES} from "../const/spellcraft.mjs";
 const HOOKS = {};
 
 /* -------------------------------------------- */
+/*  Cursed Affixes                              */
+/* -------------------------------------------- */
+
+/**
+ * Affixes with the `cursed` flag invert their benefit, hindering the bearer instead of helping them. Because cursed
+ * variants of an affix share its identifier, each hook implementation reads the flag from the applied affix effect at
+ * runtime and inverts its contribution. Numeric bonuses apply their sign; "best-of" bonuses apply a negative best-of;
+ * boon-granting affixes grant banes instead. Affixes whose effect has no meaningful inverse (e.g. Returning, damage
+ * type Conversion, Spellcraft knowledge) ignore the flag.
+ * ---------------------------------------------
+ */
+
+/* -------------------------------------------- */
 /*  Damage Type Affixes                         */
 /* -------------------------------------------- */
 
@@ -13,15 +26,15 @@ for ( const [type, cfg] of Object.entries(DAMAGE_TYPES) ) {
   const dmgId = `${type}Damage`;
   HOOKS[dmgId] = {
     prepareWeapons(item) {
-      const tier = item.system.affixes[dmgId].system.tier.value;
-      item.system.damage.bonus += (2 * tier);
+      const affix = item.system.affixes[dmgId].system;
+      item.system.damage.bonus += (2 * affix.tier.value * affix.sign);
     }
   };
   const resId = `${type}Resistance`;
   HOOKS[resId] = {
     prepareResistances(item, resistances) {
-      const tier = item.system.affixes[resId].system.tier.value;
-      resistances[type].bonus += (3 * tier);
+      const affix = item.system.affixes[resId].system;
+      resistances[type].bonus += (3 * affix.tier.value * affix.sign);
     }
   };
   if ( !["bludgeoning", "piercing", "slashing"].includes(type) ) {
@@ -43,8 +56,10 @@ for ( const runeId of Object.keys(RUNES) ) {
   HOOKS[id] = {
     prepareAttack(item, action, target, rollData) {
       if ( action.rune?.id !== runeId ) return;
-      const tier = item.system.affixes[id].system.tier.value;
-      rollData.enchantment = Math.max(rollData.enchantment, tier);
+      const affix = item.system.affixes[id].system;
+      rollData.enchantment = affix.cursed
+        ? Math.min(rollData.enchantment, -affix.tier.value)
+        : Math.max(rollData.enchantment, affix.tier.value);
     }
   };
 }
@@ -98,8 +113,10 @@ for ( const skillId of Object.keys(SKILLS) ) {
   const id = `${skillId}Skill`;
   HOOKS[id] = {
     prepareSkills(item, skills) {
-      const tier = item.system.affixes[id].system.tier.value;
-      skills[skillId].enchantmentBonus = Math.max(skills[skillId].enchantmentBonus, tier);
+      const affix = item.system.affixes[id].system;
+      skills[skillId].enchantmentBonus = affix.cursed
+        ? Math.min(skills[skillId].enchantmentBonus, -affix.tier.value)
+        : Math.max(skills[skillId].enchantmentBonus, affix.tier.value);
     }
   };
 }
@@ -108,12 +125,13 @@ for ( const skillId of Object.keys(SKILLS) ) {
 
 /**
  * Keen: reduce the critical success threshold by 1 per tier for attacks with this weapon, stacking with other reducers.
+ * Cursed: the threshold is instead increased, making critical hits harder to score.
  */
 HOOKS.keen = {
   prepareAttack(item, action, target, rollData) {
     if ( rollData.itemId !== item.id ) return; // Only apply to the correct weapon
-    const tier = item.system.affixes.keen.system.tier.value;
-    rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - tier;
+    const affix = item.system.affixes.keen.system;
+    rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - (affix.tier.value * affix.sign);
   }
 };
 
@@ -146,12 +164,12 @@ HOOKS.vicious = {
 /* -------------------------------------------- */
 
 /**
- * Tenacity: Increase Fortitude defense by the affix tier.
+ * Tenacity: Increase Fortitude defense by the affix tier. Cursed: decrease it instead.
  */
 HOOKS.tenacity = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.tenacity.system.tier.value;
-    defenses.fortitude.bonus += tier;
+    const affix = item.system.affixes.tenacity.system;
+    defenses.fortitude.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -159,18 +177,21 @@ HOOKS.tenacity = {
 
 HOOKS.reach = {
   prepareWeapons(item, weapons) {
-    const tier = item.system.affixes.reach.system.tier.value;
+    const affix = item.system.affixes.reach.system;
     const category = item.system.config.category;
-    item.system.range += category.ranged ? (10 * tier) : tier;
+    item.system.range += (category.ranged ? 10 : 1) * affix.tier.value * affix.sign;
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Reliable: reduce the critical failure threshold for attacks with this weapon. Cursed: increase it instead.
+ */
 HOOKS.reliable = {
   prepareAttack(item, action, target, rollData) {
-    const tier = item.system.affixes.reliable.system.tier.value;
-    rollData.criticalFailureThreshold = 6 - tier;
+    const affix = item.system.affixes.reliable.system;
+    rollData.criticalFailureThreshold = 6 - (affix.tier.value * affix.sign);
   }
 };
 
@@ -192,17 +213,20 @@ HOOKS.returning = {
 
 HOOKS.weaponPotency = {
   prepareWeapons(item, weapons) {
-    const tier = item.system.affixes.weaponPotency.system.tier.value;
-    item.system.actionBonuses.enchantment += tier;
+    const affix = item.system.affixes.weaponPotency.system;
+    item.system.actionBonuses.enchantment += (affix.tier.value * affix.sign);
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Deflection: Increase Parry defense by the affix tier. Cursed: decrease it instead.
+ */
 HOOKS.deflection = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.deflection.system.tier.value;
-    defenses.parry.bonus += tier;
+    const affix = item.system.affixes.deflection.system;
+    defenses.parry.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -230,10 +254,13 @@ HOOKS.luminous = {
 
 /* -------------------------------------------- */
 
+/**
+ * Guarding: Increase Block defense by the affix tier. Cursed: decrease it instead.
+ */
 HOOKS.guarding = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.guarding.system.tier.value;
-    defenses.block.bonus += tier;
+    const affix = item.system.affixes.guarding.system;
+    defenses.block.bonus += (affix.tier.value * affix.sign);
   }
 };
 
@@ -241,53 +268,71 @@ HOOKS.guarding = {
 /*  Accessory and Armor Affixes                 */
 /* -------------------------------------------- */
 
+/**
+ * Determination: Increase Willpower defense by the affix tier. Cursed: decrease it instead.
+ */
 HOOKS.determination = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.determination.system.tier.value;
-    defenses.willpower.bonus += tier;
+    const affix = item.system.affixes.determination.system;
+    defenses.willpower.bonus += (affix.tier.value * affix.sign);
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Evasion: Increase Dodge defense by the affix tier. Cursed: decrease it instead.
+ */
 HOOKS.evasion = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.evasion.system.tier.value;
-    defenses.dodge.bonus += tier;
+    const affix = item.system.affixes.evasion.system;
+    defenses.dodge.bonus += (affix.tier.value * affix.sign);
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Nimbleness: Increase Reflex defense by the affix tier. Cursed: decrease it instead.
+ */
 HOOKS.nimbleness = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.nimbleness.system.tier.value;
-    defenses.reflex.bonus += tier;
+    const affix = item.system.affixes.nimbleness.system;
+    defenses.reflex.bonus += (affix.tier.value * affix.sign);
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Reinforcement: Increase Armor defense by the affix tier. Cursed: decrease it instead.
+ */
 HOOKS.reinforcement = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.reinforcement.system.tier.value;
-    defenses.armor.bonus += tier;
+    const affix = item.system.affixes.reinforcement.system;
+    defenses.armor.bonus += (affix.tier.value * affix.sign);
   }
 };
 
+/**
+ * Hale: Increase Health maximum by 6 per tier. Cursed: decrease it instead.
+ */
 HOOKS.hale = {
   prepareResources(item, resources) {
-    const tier = item.system.affixes.hale.system.tier.value;
-    resources.health.bonus += (6 * tier);
+    const affix = item.system.affixes.hale.system;
+    resources.health.bonus += (6 * affix.tier.value * affix.sign);
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Spirited: Increase Morale maximum by 6 per tier. Cursed: decrease it instead.
+ */
 HOOKS.spirited = {
   prepareResources(item, resources) {
-    const tier = item.system.affixes.spirited.system.tier.value;
-    resources.morale.bonus += (6 * tier);
+    const affix = item.system.affixes.spirited.system;
+    resources.morale.bonus += (6 * affix.tier.value * affix.sign);
   }
 };
 
@@ -295,42 +340,58 @@ HOOKS.spirited = {
 /*  Armor-Only Affixes                          */
 /* -------------------------------------------- */
 
+/**
+ * Mending: Reduce the Wounds threshold, making the wearer easier to heal from wounds.
+ * Cursed: raise the threshold instead.
+ */
 HOOKS.mending = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.mending.system.tier.value;
-    defenses.wounds.bonus -= tier;
+    const affix = item.system.affixes.mending.system;
+    defenses.wounds.bonus -= (affix.tier.value * affix.sign);
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Nonchalant: raise the attacker's critical success threshold when defending with Morale.
+ * Cursed: lower the threshold instead, making critical hits against the wearer easier.
+ */
 HOOKS.nonchalant = {
   defendAttack(item, action, attacker, rollData) {
     const resource = action.usage?.resource || action.rune?.resource || "health";
     if ( resource === "morale" ) {
-      const tier = item.system.affixes.nonchalant.system.tier.value;
-      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + tier;
+      const affix = item.system.affixes.nonchalant.system;
+      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + (affix.tier.value * affix.sign);
     }
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Rallying: Reduce the Madness threshold, making the wearer easier to heal from madness.
+ * Cursed: raise the threshold instead.
+ */
 HOOKS.rallying = {
   prepareDefenses(item, defenses) {
-    const tier = item.system.affixes.rallying.system.tier.value;
-    defenses.madness.bonus -= tier;
+    const affix = item.system.affixes.rallying.system;
+    defenses.madness.bonus -= (affix.tier.value * affix.sign);
   }
 };
 
 /* -------------------------------------------- */
 
+/**
+ * Unshakeable: raise the attacker's critical success threshold when defending with Health.
+ * Cursed: lower the threshold instead, making critical hits against the wearer easier.
+ */
 HOOKS.unshakeable = {
   defendAttack(item, action, attacker, rollData) {
     const resource = action.usage?.resource || action.rune?.resource || "health";
     if ( resource === "health" ) {
-      const tier = item.system.affixes.unshakeable.system.tier.value;
-      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + tier;
+      const affix = item.system.affixes.unshakeable.system;
+      rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) + (affix.tier.value * affix.sign);
     }
   }
 };
@@ -339,11 +400,15 @@ HOOKS.unshakeable = {
 /*  Accessory-Only Affixes                      */
 /* -------------------------------------------- */
 
+/**
+ * Luminary: grant Boons to composed spell actions. Cursed: inflict Banes instead.
+ */
 HOOKS.luminary = {
   prepareAction(item, action) {
     if ( !action.tags.has("composed") || !action.inflection?.id ) return;
-    const tier = item.system.affixes.luminary.system.tier.value;
-    action.usage.boons[item.system.identifier] = {label: item.name, number: tier};
+    const affix = item.system.affixes.luminary.system;
+    const pool = affix.cursed ? action.usage.banes : action.usage.boons;
+    pool[item.system.identifier] = {label: item.name, number: affix.tier.value};
   }
 };
 
@@ -358,8 +423,9 @@ for ( const categoryId of Object.keys(CREATURE_CATEGORIES) ) {
     prepareAttack(item, action, target, rollData) {
       if ( item.id !== rollData.itemId ) return;
       if ( target.system.details.taxonomy?.category !== categoryId ) return;
-      const tier = item.system.affixes[id].system.tier.value;
-      rollData.boons[id] = {label: item.name, number: tier};
+      const affix = item.system.affixes[id].system;
+      const pool = affix.cursed ? rollData.banes : rollData.boons;
+      pool[id] = {label: item.name, number: affix.tier.value};
     }
   };
 }
