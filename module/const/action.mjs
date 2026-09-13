@@ -110,9 +110,9 @@ export const TARGET_TYPES = defineEnum({
   pulse: {
     label: "ACTION.TARGET_TYPES.Pulse",
     region: {
-      shape: "circle",
+      shape: "emanation",
       anchor: "self",
-      addSize: true,
+      addSize: false, // Accounted for directly by emanation shape
       ephemeral: true
     },
     scope: TARGET_SCOPES.ALL

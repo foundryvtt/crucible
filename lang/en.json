@@ -431,7 +431,7 @@
         }
       },
       "AlreadyConfirmed": "The action against you has already been confirmed and can no longer be reacted to.",
-      "AuraNoToken": "You cannot use an Aura-target action without having a token on the scene!",
+      "AuraNoToken": "You cannot use a self-emanating action without having a token on the scene!",
       "BadStatus": "You may not perform {action} while {status}.",
       "CannotAffordCost": "{name} has insufficient {resource} to use {action}!",
       "CannotAffordHands": {
