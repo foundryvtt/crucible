@@ -27,7 +27,7 @@ system:
         size: 20
         self: false
       effects:
-        - name: 'Font of Life'
+        - name: Font of Life
           scope: 1
           result:
             type: any

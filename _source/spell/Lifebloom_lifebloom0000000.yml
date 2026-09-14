@@ -4,26 +4,26 @@ img: icons/magic/nature/tree-spirit-glow-black-yellow.webp
 system:
   description: >-
     <p>Few are those that can serve as a conduit within the physical world and
-    allow the raw powers of Life and Soul to comingle, tipping the balance in
-    their favour. This spell allows the caster to serve as a wellspring for the
-    abundant forces that bring all soulful life into being. With a susurration
-    of air the caster is surrounded with dancing motes of the pure energies of
-    life and soul, like dozens of fireflies or the sparks from a fire, and a
-    those within the radius are filled with a calming sensation as if they were
-    immersed in pleasantly warm water. All plant life in the vicinity
-    immediately surges through stages of growth to bloom, and the scent of
-    pollen and lush greenery fills the air.</p>
+    allow the raw powers of <strong>Life</strong> and <strong>Soul</strong> to
+    comingle, tipping the balance in their favor. This spell allows the caster
+    to serve as a wellspring for the abundant forces that bring all soulful life
+    into being. With a susurration of air the caster is surrounded with dancing
+    motes of the pure energies of life and soul, like dozens of fireflies or the
+    sparks from a fire, and a those within the radius are filled with a calming
+    sensation as if they were immersed in pleasantly warm water. All plant life
+    in the vicinity immediately surges through stages of growth to bloom, and
+    the scent of pollen and lush greenery fills the air.</p>
   actions:
     - id: lifebloom
       name: Lifebloom
       img: icons/magic/nature/tree-spirit-glow-black-yellow.webp
       condition: ''
       description: >-
-        <p>You channel vital magic into an aura that restores the Health and
-        Morale of all allies within 30 feet of you. Each round, allies who start
-        their turn within this aura recover your <strong>Wisdom</strong> in both
-        <strong>Health</strong> and <strong>Morale</strong>. The spell must be
-        maintained.</p>
+        <p>You channel vital magic into an aura that restores the
+        <strong>Health</strong> and <strong>Morale</strong> of all allies within
+        30 feet of you. Each round, allies who start their turn within this aura
+        recover your <strong>Wisdom</strong> in both <strong>Health</strong> and
+        <strong>Morale</strong>. The spell must be @Rule[action.maintained].</p>
       cost:
         action: 6
         focus: 2
@@ -44,8 +44,8 @@ system:
       tags:
         - spell
         - iconicSpell
-        - maintained
         - healing
+        - maintained
       summon: null
       rune: life
       gesture: aura
@@ -90,8 +90,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307159357
-  modifiedTime: 1789075738682
-  lastModifiedBy: QLUPZeHlypK652Ps
+  modifiedTime: 1789419196043
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: lifebloom0000000
 sort: 100000
 _key: '!items!lifebloom0000000'
