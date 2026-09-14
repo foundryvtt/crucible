@@ -21,10 +21,11 @@ system:
       imperceptibly.</p></blockquote><p>This enchanted ring provides a bonus to
       <strong>Dodge</strong> defense.</p>
     private: >-
-      <p>This item is presented as an example of a Fine Ring with the
+      <p>This item is presented as an example of <strong>Fine</strong> jewelry
+      with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.evasion000000000]{Evasion}
       suffix.</p><p>This affix can be applied to any armor or accessory and this
-      ring could be further enchanted with a Tier 1 prefix.</p>
+      ring could be further enchanted with a <strong>Tier 1 Prefix</strong>.</p>
   actions: []
 effects:
   - name: Evasion
@@ -81,12 +82,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.359'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1749823361663
-  modifiedTime: 1775482932971
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789417614626
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: ringOfEvasion000
 sort: 600000
 _key: '!items!ringOfEvasion000'
