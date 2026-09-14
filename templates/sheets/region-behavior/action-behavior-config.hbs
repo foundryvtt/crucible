@@ -13,8 +13,10 @@
     {{/each}}
     <fieldset>
         <legend>{{localize "TYPES.RegionBehavior.crucible.action"}}</legend>
+        {{#unless isSynthetic}}
         {{formGroup systemFields.origin value=source.system.origin disabled=true}}
-        {{formGroup systemFields.actor value=source.system.actor}}
+        {{/unless}}
+        {{formGroup systemFields.actor value=source.system.actor disabled=isSynthetic}}
         {{formGroup systemFields.oncePerRound value=source.system.oncePerRound}}
         <fieldset>
             <legend>{{localize "REGION_BEHAVIORS.ACTION.FIELDS.action.label"}}</legend>
