@@ -4,7 +4,7 @@ type: talent
 img: icons/skills/movement/arrow-upward-blue.webp
 system:
   description: >-
-    <p>The @ref[Actor.name]{creature} lowers its head and charges with frantic
+    <p>The @ref[actor.name]{creature} lowers its head and charges with frantic
     speed, it's tusks protruding from beneath a drooling gullet.</p>
   actions:
     - id: tuskCharge
