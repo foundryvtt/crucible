@@ -8,6 +8,7 @@ import * as crucibleFields from "./fields.mjs";
  * @property {string} affixType               The affix category, "prefix" or "suffix"
  * @property {Set<string>} itemTypes          Item types this affix may be applied to, empty allows any
  * @property {{min: number, max: number, value: number}} tier   The power tier with configurable range (1-3)
+ * @property {boolean} cursed                 Whether this affix is cursed, inverting its benefit to hinder the bearer
  * @property {CrucibleActionData[]} actions   Actions granted to items that bear this affix
  */
 
@@ -33,12 +34,24 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
       max: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3, initial: 3}),
       value: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3, initial: 1})
     });
+    schema.cursed = new fields.BooleanField({required: false, initial: false});
     schema.actions = new fields.ArrayField(new crucibleFields.CrucibleActionField());
     return schema;
   }
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTIVE_EFFECT", "AFFIX"];
+
+  /* -------------------------------------------- */
+
+  /**
+   * The sign of this affix's numeric contributions. Cursed affixes invert their benefit, applying numeric
+   * bonuses against the bearer instead of in their favor.
+   * @type {number}
+   */
+  get sign() {
+    return this.cursed ? -1 : 1;
+  }
 
   /* -------------------------------------------- */
 
