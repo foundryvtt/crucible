@@ -21,10 +21,12 @@ system:
       weather any challenge.</p></blockquote><p>This enchanted periapt provides
       a bonus to <strong>Willpower</strong> defense.</p>
     private: >-
-      <p>This item is presented as an example of a Fine Periapt with the
+      <p>This item is presented as an example of <strong>Fine</strong> jewelry
+      with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.determination000]{Determination}
       suffix.</p><p>This affix can be applied to any armor or accessory and this
-      periapt could be further enchanted with a Tier 1 prefix.</p>
+      periapt could be further enchanted with a <strong>Tier 1
+      Prefix</strong>.</p>
   actions: []
 effects:
   - name: Determination
@@ -81,12 +83,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.359'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1759602532948
-  modifiedTime: 1775482881739
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789417547031
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: periaptOfDetermi
 sort: 300000
 _key: '!items!periaptOfDetermi'
