@@ -22,10 +22,11 @@ system:
       grants its bearer the <strong>Activate Illumination</strong> action,
       shedding an otherworldly light in a wide radius until dismissed.</p>
     private: >-
-      <p>This item is presented as an example of a Fine Gem with the
+      <p>This item is presented as an example of a <strong>Fine</strong> trinket
+      with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.luminous00000000]{Luminous}
       prefix.</p><p>This affix can be applied to any accessory and this gem
-      could be further enchanted with a Tier 1 suffix.</p>
+      could be further enchanted with a <strong>Tier 1 Suffix</strong>.</p>
   actions: []
 effects:
   - name: Luminous
@@ -135,11 +136,11 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.10.2
   createdTime: 1776981020859
-  modifiedTime: 1782156042676
+  modifiedTime: 1789417395402
   lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
   compendiumSource: null
