@@ -16,10 +16,10 @@ system:
         and crashing down with crushing force. All creatures within the area of
         the resulting <strong>Blast</strong> face an attack against their
         <strong>Reflex</strong>, suffering <strong>Bludgeoning</strong> damage
-        and are knocked @Condition[prone]. The Blast extends outward from your
-        own footprint, so larger creatures crash down over a wider area. This
-        action scales with your highest ability of <strong>Strength</strong> or
-        <strong>Toughness</strong>.</p>
+        and are knocked @Condition[prone]. The <strong>Blast</strong> extends
+        outward from your own footprint, so larger creatures crash down over a
+        wider area. This action scales with your highest ability of
+        <strong>Strength</strong> or <strong>Toughness</strong>.</p>
       tags:
         - generic
         - reflex
@@ -57,12 +57,14 @@ system:
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
-      summon:
-        actorUuid: null
-        permanent: true
+            dc: null
+            properties: []
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -77,12 +79,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.5
+  systemVersion: 0.10.2
   createdTime: 1781218465590
-  modifiedTime: 1781218465590
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1789415597539
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: crushingLeap0000
 sort: 0
 _key: '!items!crushingLeap0000'

@@ -4,18 +4,18 @@ type: talent
 img: icons/skills/movement/arrow-upward-blue.webp
 system:
   description: >-
-    The Boar lowers its head and charges with frantic speed, it's tusks
-    protruding from beneath a drooling gullet.
+    <p>The @ref[Actor.name]{creature} lowers its head and charges with frantic
+    speed, it's tusks protruding from beneath a drooling gullet.</p>
   actions:
     - id: tuskCharge
       description: >-
-        <p>Charge in a direct line up to your Stride and make a Strike against
-        the first creature you encounter. If successful, the target is knocked
-        @Condition[prone].</p>
+        <p>Charge in a direct line up to your <strong>Stride</strong> and make a
+        <strong>Strike</strong> against the first creature you encounter. If
+        successful, the target is knocked @Condition[prone].</p>
       tags:
-        - movement
         - melee
         - natural
+        - movement
       cost:
         action: 1
         focus: 0
@@ -39,9 +39,18 @@ system:
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
       name: Tusk Charge
       img: icons/skills/movement/arrow-upward-blue.webp
       condition: ''
@@ -49,9 +58,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   iconicSpells: 0
   nodes: []
   rune: ''
@@ -66,12 +73,12 @@ flags:
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307157338
-  modifiedTime: 1773514792192
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789416196346
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
 _id: tuskCharge000000
 sort: 100000
