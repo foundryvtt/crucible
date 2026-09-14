@@ -579,6 +579,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
         shape.anchorX = shape.anchorY = 0;
         elevation.top = elevation.bottom + size;
         break;
+      case "pulse":
+        elevation.bottom -= baseRange;
+        elevation.top += baseRange;
+        break;
       case "ray":
         if ( target.size ) shape.width = target.size * d;
         break;
