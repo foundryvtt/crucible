@@ -11,10 +11,11 @@ system:
       img: icons/magic/light/beam-deflect-path-yellow.webp
       condition: ''
       description: >-
-        <p>You perform a Talisman attack against a single target. The bolt then
-        arcs to the nearest other enemy within 10 feet of your target which has
-        line of sight to it, striking that foe for reduced damage. The second
-        target is chosen automatically.</p>
+        <p>You perform a <strong>Talisman</strong> attack against a single
+        target. The bolt then arcs to the nearest other enemy within <strong>10
+        feet</strong> of your target which has line of sight to it, striking
+        that foe for reduced damage. The second target is chosen
+        automatically.</p>
       cost:
         action: 1
         focus: 0
@@ -33,6 +34,7 @@ system:
       effects: []
       tags:
         - talisman
+        - ranged
       summon: null
   nodes:
     - pre1a
@@ -51,8 +53,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788316196051
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490933856
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -15,10 +15,10 @@ system:
       condition: An enemy you can see casts a Spell which costs 3 Action or greater.
       description: >-
         <p>When an enemy that you can see casts a <strong>Spell</strong> which
-        costs <strong>3 Action</strong> or greater, you can make a
-        <strong>Reaction</strong> to perform a <strong>Thrown</strong> weapon
-        attack against the caster. If your attack results in a <strong>Critical
-        Hit</strong> the spell is interrupted and its magic is lost.</p>
+        costs <strong>3 Action</strong> or greater, as a @Rule[action.reaction]
+        you can perform a <strong>Thrown</strong> weapon attack against the
+        caster. If your attack results in a <strong>Critical Hit</strong> the
+        spell is interrupted and its magic is lost.</p>
       cost:
         action: 0
         focus: 1
@@ -39,9 +39,7 @@ system:
         - reaction
         - melee
         - thrown
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -57,11 +55,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307160136
-  modifiedTime: 1773514792588
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491421153
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 sort: 100000
 _key: '!items!interruptingDagg'

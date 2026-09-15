@@ -12,11 +12,11 @@ system:
       condition: ''
       description: >-
         <p>You surround yourself with an aura of attendant motes which is
-        <strong>Maintained</strong> at a cost of 1 Focus per turn. Any enemy
-        which enters the aura or ends its turn within it suffers a Talisman
-        attack.</p><h3 class="divider">Playtest Notes</h3><p>The aura is placed
-        and maintained, but its attacks against enemies who enter or end their
-        turn within it are not yet automated.</p>
+        <strong>Maintained</strong> at a cost of <strong>1 Focus</strong> per
+        turn. Any enemy which enters the aura or ends its turn within it suffers
+        a <strong>Talisman</strong> attack.</p><h3 class="divider">Playtest
+        Notes</h3><p>The aura is placed and maintained, but its attacks against
+        enemies who enter or end their turn within it are not yet automated.</p>
       cost:
         action: 3
         focus: 1
@@ -57,6 +57,7 @@ system:
             expired: false
       tags:
         - talisman
+        - ranged
         - maintained
       summon: null
   nodes:
@@ -76,8 +77,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788316301643
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491166955
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

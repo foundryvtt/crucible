@@ -8,10 +8,11 @@ system:
     - dex2c
   description: >-
     <p>Your grasp of your weaponry is fluid and precise. While wielding a
-    two-handed weapon that scales with Dexterity you may cast spells which
-    require two hands, and attempts to Disarm you are made with +2
-    Banes.</p><p>You may use Free Movement to equip or unequip such a weapon
-    without any Action cost.</p>
+    two-handed weapon that scales with <strong>Dexterity</strong> you may cast
+    spells which require two hands, and attempts to <strong>Disarm</strong> you
+    are made with <strong>+2 Banes</strong>.</p><p>Additionally, you may use
+    your <strong>Free Movement</strong> to equip or unequip such a weapon
+    without any <strong>Action</strong> cost.</p>
   actions: []
   rune: ''
   gesture: ''
@@ -32,6 +33,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772713232009
-  modifiedTime: 1788315019422
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490591568
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _key: '!items!deftgrip00000000'
