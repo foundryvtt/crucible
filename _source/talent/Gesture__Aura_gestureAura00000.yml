@@ -5,16 +5,18 @@ system:
   nodes:
     - pre4d
   description: >-
-    <p>You concentrate the arcane power of a Rune to create a maintained field
-    of energy that washes over allies and enemies near to you.</p><p>The Aura
-    gesture scales with <strong>Presence</strong> and produces an emanation with
-    20 feet radius centered on the spellcaster. The center of this Aura moves
-    with the spellcaster.</p><p>Depending on the Rune used, the Aura deals
-    damage or provides healing to any creature which begins its turn inside the
-    Aura. This gesture requires <strong>2 Hands</strong> to cast, has a base
-    cost of <strong>5 Action</strong> and <strong>1 Focus</strong>, and must be
-    <strong>Maintained</strong> costing an additional <strong>1 Focus</strong>
-    every subsequent round.</p>
+    <p>You concentrate the arcane power of a <strong>Rune</strong> to create a
+    maintained field of energy that washes over allies and enemies near to
+    you.</p><p>The <strong>Aura</strong> gesture scales with
+    <strong>Presence</strong> and produces an emanation with a <strong>20
+    foot</strong> radius centered on the spellcaster. The center of this
+    <strong>Aura</strong> moves with the spellcaster.</p><p>Depending on the
+    <strong>Rune</strong> used, the <strong>Aura</strong> deals damage or
+    provides healing to any creature which begins its turn inside the
+    <strong>Aura</strong>. This gesture requires <strong>2 Hands</strong> to
+    cast, has a base cost of <strong>5 Action</strong> and <strong>1
+    Focus</strong>, and must be @Rule[action.maintained], costing an additional
+    <strong>1 Focus</strong> every subsequent round.</p>
   actions: []
   spellcraft: aura
   iconicSpells: 0
@@ -33,8 +35,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1762792947816
-  modifiedTime: 1789086319443
-  lastModifiedBy: QLUPZeHlypK652Ps
+  modifiedTime: 1789499550809
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: gestureAura00000
 sort: 0
 _key: '!items!gestureAura00000'

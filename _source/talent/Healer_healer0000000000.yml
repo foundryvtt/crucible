@@ -5,8 +5,8 @@ system:
   description: >-
     <p>You are unparalleled at manipulating vital arcana to treat injuries. You
     learn <strong>Rune: Life</strong> if you do not already know it. When
-    healing allies using the Rune of Life you gain <strong>+2 Boons</strong> to
-    your roll.</p>
+    healing allies using the <strong>Rune of Life</strong> you gain <strong>+2
+    Boons</strong> to your roll.</p>
   actions:
     - id: fontOfLife
       img: icons/magic/life/heart-hand-gold-green-light.webp
@@ -56,8 +56,9 @@ system:
       description: >-
         <p>You bring forth an aura of life-giving magic. Immediately upon
         activation and for the next <strong>3 Rounds</strong>, whenever an ally
-        first enters or starts their turn within 20 feet of you, they heal for
-        an amount equal to your <strong>Wisdom</strong> score.</p>
+        first enters or starts their turn within <strong>20 feet</strong> of
+        you, they regain <strong>Health</strong> for an amount equal to your
+        <strong>Wisdom</strong> score.</p>
       summon: null
       regionBehavior:
         name: Font of Life
@@ -95,8 +96,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160134
-  modifiedTime: 1789076343227
-  lastModifiedBy: QLUPZeHlypK652Ps
+  modifiedTime: 1789499591829
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
 folder: fOYHlZJEWUukD7yr
 _id: healer0000000000
