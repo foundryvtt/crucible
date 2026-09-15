@@ -33,11 +33,9 @@ system:
       condition: ''
       description: >-
         <p>You unleash a powerful <strong>Strike</strong> with your mainhand
-        weapon. The attack is slower to execute, but is
-        <strong>Empowered</strong> to deliver additional damage.</p>
-      summon:
-        actorUuid: null
-        permanent: true
+        weapon. The attack is slower to execute, but is @Rule[action.empowered]
+        to deliver additional damage.</p>
+      summon: null
   iconicSpells: 0
   training: heavy
   nodes:
@@ -53,10 +51,10 @@ _stats:
   exportSource: null
   coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307160134
-  modifiedTime: 1788315063755
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789488750573
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
