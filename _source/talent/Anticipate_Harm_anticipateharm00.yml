@@ -12,12 +12,14 @@ system:
         You are targeted by an area-of-effect attack, the source of which you
         can see.
       description: >-
-        <p>You may immediately move 4 feet after the area-of-effect of the
-        attack is declared. If this movement escapes the area of the attack, you
-        are unaffected.</p>
+        <p>You may immediately move up to <strong>4 feet</strong> after the
+        area-of-effect of the attack is declared. If this movement escapes the
+        area of the attack, you are unaffected.</p><h3 class="divider">Playtest
+        Notes</h3><p>The avoidance of being targeted is not currently
+        automated.</p>
       tags:
-        - movement
         - reaction
+        - movement
       cost:
         action: 1
         focus: 1
@@ -36,9 +38,7 @@ system:
         maximum: 4
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - int3b
   rune: ''
@@ -50,11 +50,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160125
-  modifiedTime: 1773514792554
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490134301
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

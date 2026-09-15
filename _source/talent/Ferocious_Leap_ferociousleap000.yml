@@ -9,9 +9,9 @@ system:
   actions:
     - id: ferociousLeap
       description: >-
-        <p>You <strong>Jump</strong> up to 10 feet, delivering a
-        <strong>Strike</strong> against an enemy within melee range of where you
-        land. Your movement ignores difficult terrain and is not blocked by
+        <p>You <strong>Jump</strong> up to <strong>10 feet</strong>, delivering
+        a <strong>Strike</strong> against an enemy within melee range of where
+        you land. Your movement ignores difficult terrain and is not blocked by
         enemy creatures.</p>
       tags:
         - melee
@@ -53,8 +53,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160132
-  modifiedTime: 1788278342970
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490198631
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
