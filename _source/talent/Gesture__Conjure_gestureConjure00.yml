@@ -8,12 +8,15 @@ system:
     - wis4d
   description: >-
     <p>You coalesce arcane power into a superior form, manifesting a
-    <strong>Visitor</strong> which appears within 30 feet and joins Combat at
-    <strong>Initiative</strong> 1. Your Visitor is a Minion equal to your own
-    Level.</p><p>The Conjure gesture scales with <strong>Wisdom</strong> and the
-    Visitor survives for <strong>12 Rounds</strong>. You may only have one
-    active Visitor. Casting another spell using the Conjure gesture replaces
-    your previous Visitor. This gesture requires <strong>2 Hands</strong> to
+    <strong>Visitor</strong> which appears within <strong>30 feet</strong> and
+    joins <strong>Combat</strong> at <strong>Initiative 1</strong>. Your
+    <strong>Visitor</strong> is a <strong>Minion</strong> equal to your own
+    <strong>Level</strong>.</p><p>The <strong>Conjure</strong> gesture scales
+    with <strong>Wisdom</strong> and the <strong>Visitor</strong> survives for
+    <strong>12 Rounds</strong>. You may only have one active
+    <strong>Visitor</strong>. Casting another spell using the
+    <strong>Conjure</strong> gesture replaces your previous
+    <strong>Visitor</strong>. This gesture requires <strong>2 Hands</strong> to
     cast and has a base cost of <strong>5 Action</strong> and <strong>2
     Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent is
     currently placed at a <strong>Tier 4</strong> node. It will eventually only
@@ -34,10 +37,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.10.0
+  systemVersion: 0.10.2
   createdTime: 1762718477065
-  modifiedTime: 1781974591630
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1789498150275
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _key: '!items!gestureConjure00'
