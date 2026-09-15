@@ -15,7 +15,7 @@ system:
         target's <strong>Willpower</strong>. On a success they suffer modest
         <strong>Psychic</strong> damage to <strong>Morale</strong>.</p><p>On a
         <strong>Critical Success</strong>, they also become @Condition[enraged]
-        for 1 Round.</p>
+        for <strong>1 Round</strong>.</p>
       tags:
         - weakened
         - willpower
@@ -81,8 +81,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160142
-  modifiedTime: 1788802541854
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496702864
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.provocateur00000
   duplicateSource: null
   exportSource: null

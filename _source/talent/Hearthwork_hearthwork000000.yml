@@ -13,29 +13,31 @@ system:
       img: icons/tools/cooking/oven-stone-grey.webp
       condition: You have a Cook's Toolkit equipped.
       description: >-
-        <p>Food carries the history of what was done to it. With a Cook's
-        Toolkit equipped, you can produce any one of the following
-        effects:</p><ul><li><p><strong>Read.</strong> You study an item created
-        by cooking which you can clearly see within <strong>30 feet</strong>,
-        learning its <strong>Quality</strong> tier, whether it has spoiled, and
-        what has been added to it. When you eat something prepared by another
-        hand, you learn its recipe.</p></li><li><p><strong>Destroy.</strong> You
-        instantaneously spoil non-magical food or drink which you can physically
-        touch, turning a dish, a cask, or a company's rations rancid beyond
-        salvage. Alternatively, in the course of preparing food or drink
-        yourself, you may sabotage it while leaving it looking and smelling
-        wholesome. You name the condition under which it fails; when that
-        condition is met, the Gamemaster decides the consequences. Your sabotage
-        is discovered only by an intentional Awareness check which beats your
-        passive Cooking.</p></li><li><p><strong>Create.</strong> Given time and
-        reasonable access to ingredients, you may prepare any food or drink you
-        are familiar with and have it come out as you intended, from field
-        porridge to a wedding cake to a cordial you tasted once in another
+        <p>Food carries the history of what was done to it. With a
+        <strong>Cook's Toolkit</strong> equipped, you can produce any one of the
+        following effects:</p><ul><li><p><strong>Read.</strong> You study an
+        item created by cooking which you can clearly see within <strong>30
+        feet</strong>, learning its <strong>Quality</strong> tier, whether it
+        has spoiled, and what has been added to it. When you eat something
+        prepared by another hand, you learn its
+        recipe.</p></li><li><p><strong>Destroy.</strong> You instantaneously
+        spoil non-magical food or drink which you can physically touch, turning
+        a dish, a cask, or a company's rations rancid beyond salvage.
+        Alternatively, in the course of preparing food or drink yourself, you
+        may sabotage it while leaving it looking and smelling wholesome. You
+        name the condition under which it fails; when that condition is met, the
+        <strong>Gamemaster</strong> decides the consequences. Your sabotage is
+        discovered only by an intentional <strong>Awareness</strong> check which
+        beats your passive
+        <strong>Cooking</strong>.</p></li><li><p><strong>Create.</strong> Given
+        time and reasonable access to ingredients, you may prepare any food or
+        drink you are familiar with and have it come out as you intended, from
+        field porridge to a wedding cake to a cordial you tasted once in another
         country. Explicitly defined crafting recipes must still be rolled, but
         you can successfully prepare any dish outside of this system without
         requiring a dice roll.</p></li></ul><p>You may attempt other uses
         similar to those above, the effectiveness of which is decided by the
-        Gamemaster.</p>
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 0
@@ -72,8 +74,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1789012800000
-  modifiedTime: 1788970629736
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789495798130
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: hearthwork000000
 sort: 100000
 _key: '!items!hearthwork000000'

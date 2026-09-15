@@ -6,19 +6,20 @@ flags:
   core: {}
 system:
   description: >-
-    Your knowledge and skill in Medicine covers the rapid triage, diagnosis, and
-    treatment of wounds.
+    <p>Your knowledge and skill in <strong>Medicine</strong> covers the rapid
+    triage, diagnosis, and treatment of wounds.</p>
   actions:
     - id: combatMedicine
       condition: ''
       description: >-
-        <p>You rapidly treat the wounds of an ally within 4 feet. Perform a
-        <strong>Medicine Check</strong> against the target's Healing Threshold.
-        Your ally's Health is increased by the amount of the Roll in excess of
-        the threshold.</p>
+        <p>You rapidly treat the wounds of an ally within <strong>4
+        feet</strong>. Perform a <strong>Medicine Check</strong> against the
+        target's <strong>Healing Threshold</strong>. Your ally's
+        <strong>Health</strong> is increased by overflow of the check.</p>
       tags:
         - healing
         - health
+        - skill
         - medicine
       cost:
         action: 3
@@ -38,9 +39,7 @@ system:
         maximum: 4
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - wis2c
   rune: ''
@@ -50,11 +49,11 @@ system:
   training: medicine
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160128
-  modifiedTime: 1773514792564
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496510224
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

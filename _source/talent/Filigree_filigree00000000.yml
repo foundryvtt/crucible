@@ -13,19 +13,20 @@ system:
       img: icons/commodities/gems/gem-cut-faceted-square-purple.webp
       condition: You have a Jeweler's Toolkit equipped.
       description: >-
-        <p>Every stone has a grain and a flaw. With a Jeweler's Toolkit
-        equipped, you can produce any one of the following
+        <p>Every stone has a grain and a flaw. With a <strong>Jeweler's
+        Toolkit</strong> equipped, you can produce any one of the following
         effects:</p><ul><li><p><strong>Read.</strong> You study a gemstone, or
-        an item created by jewelcraft, which you can handle, learning its
-        <strong>Quality</strong> tier, whether its stones are genuine or paste,
-        whether any has been replaced since it was made, and what it is honestly
-        worth.</p></li><li><p><strong>Destroy.</strong> You instantaneously
-        strike the flaw in a non-magical gemstone or ornament which you can
-        physically touch, shattering it into fragments worth nothing.
-        Alternatively, in the course of setting a stone yourself, you may seat
-        it so that it works loose and is lost under a condition you name. Your
-        sabotage is discovered only by an intentional Awareness check which
-        beats your passive Jewelcraft.</p></li><li><p><strong>Create.</strong>
+        an item created by <strong>Jewelcraft</strong>, which you can handle,
+        learning its <strong>Quality</strong> tier, whether its stones are
+        genuine or paste, whether any has been replaced since it was made, and
+        what it is honestly worth.</p></li><li><p><strong>Destroy.</strong> You
+        instantaneously strike the flaw in a non-magical gemstone or ornament
+        which you can physically touch, shattering it into fragments worth
+        nothing. Alternatively, in the course of setting a stone yourself, you
+        may seat it so that it works loose and is lost under a condition you
+        name. Your sabotage is discovered only by an intentional
+        <strong>Awareness</strong> check which beats your passive
+        <strong>Jewelcraft</strong>.</p></li><li><p><strong>Create.</strong>
         Given time and reasonable access to materials, you may make any small
         work of fine metal or stone you can picture: a puzzle box which opens
         one way only, a locket with a compartment nobody would find, a signet
@@ -34,7 +35,8 @@ system:
         defined crafting recipes must still be rolled, but you can successfully
         make any such trinket outside of this system without requiring a dice
         roll.</p></li></ul><p>You may attempt other uses similar to those above,
-        the effectiveness of which is decided by the Gamemaster.</p>
+        the effectiveness of which is decided by the
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 0
@@ -71,8 +73,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1789012800000
-  modifiedTime: 1789012800000
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496351932
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: filigree00000000
 sort: 100000
 _key: '!items!filigree00000000'

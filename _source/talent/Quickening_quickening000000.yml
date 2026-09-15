@@ -13,24 +13,26 @@ system:
       img: icons/magic/symbols/rune-sigil-horned-blue.webp
       condition: You have an Enchanter's Toolkit equipped.
       description: >-
-        <p>With an Enchanter's Toolkit equipped, you can produce any one of the
-        following effects:</p><ul><li><p><strong>Read.</strong> You need only
-        touch an item to know whether it is enchanted, whether or not it belongs
-        to you. Handling it at length tells you which affixes it bears and how
-        much of its capacity remains
-        unspent.</p></li><li><p><strong>Destroy.</strong> You touch an object
-        bearing a minor enchantment which still waits upon its condition,
-        whether your own work or another enchanter's, and unmake it. The object
-        itself is unharmed. Alternatively you may conceal an item's enchantment
-        for <strong>10 minutes</strong>, so that it reads as mundane to anyone
-        whose passive Enchanting does not exceed your own, though it loses
-        nothing of its power.</p></li><li><p><strong>Create.</strong> You imbue
-        a <strong>Rune</strong> you know into an object no larger than a foot in
+        <p>With an <strong>Enchanter's Toolkit</strong> equipped, you can
+        produce any one of the following
+        effects:</p><ul><li><p><strong>Read.</strong> You need only touch an
+        item to know whether it is enchanted, whether or not it belongs to you.
+        Handling it at length tells you which affixes it bears and how much of
+        its capacity remains unspent.</p></li><li><p><strong>Destroy.</strong>
+        You touch an object bearing a minor enchantment which still waits upon
+        its condition, whether your own work or another enchanter's, and unmake
+        it. The object itself is unharmed. Alternatively you may conceal an
+        item's enchantment for <strong>10 minutes</strong>, so that it reads as
+        mundane to anyone whose passive <strong>Enchanting</strong> does not
+        exceed your own, though it loses nothing of its
+        power.</p></li><li><p><strong>Create.</strong> You imbue a
+        <strong>Rune</strong> you know into an object no larger than a foot in
         any dimension, empowering it to perform one simple task under a
         condition you name. The enchantment lasts until the object has performed
-        that task once, or until 24 hours have passed.</p></li></ul><p>You may
-        attempt other uses similar to those above, the effectiveness of which is
-        decided by the Gamemaster.</p>
+        that task once, or until <strong>24 hours</strong> have
+        passed.</p></li></ul><p>You may attempt other uses similar to those
+        above, the effectiveness of which is decided by the
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 0
@@ -67,8 +69,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1789099200000
-  modifiedTime: 1789056385991
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496060689
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: quickening000000
 sort: 100000
 _key: '!items!quickening000000'

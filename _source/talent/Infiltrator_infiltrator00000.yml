@@ -7,14 +7,14 @@ system:
     <p>You have mastered traditional stealth, using shadow and cover to slip the
     notice of watchful sentries. When you use
     @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you may
-    target up to three creatures simultaneously, resolving a separate Stealth
-    check against the Awareness of each.</p><h3 class="divider">Playtest
-    Notes</h3><p>All three checks resolve, but Crucible does not yet record
-    which creatures have lost track of you, so beating one target conceals you
-    no differently from beating all three and the Gamemaster adjudicates the
-    difference. A forthcoming stealth effect will record detection for each
-    creature and treat this talent as raising how many you may evade at
-    once.</p>
+    target up to three creatures simultaneously, resolving a separate
+    <strong>Stealth</strong> check against the <strong>Awareness</strong> of
+    each.</p><h3 class="divider">Playtest Notes</h3><p>All three checks resolve,
+    but Crucible does not yet record which creatures have lost track of you, so
+    beating one target conceals you no differently from beating all three and
+    the Gamemaster adjudicates the difference. A forthcoming stealth effect will
+    record detection for each creature and treat this talent as raising how many
+    you may evade at once.</p>
   actions: []
   nodes:
     - dex4c
@@ -35,8 +35,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788600000000
-  modifiedTime: 1788877803344
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789497226926
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

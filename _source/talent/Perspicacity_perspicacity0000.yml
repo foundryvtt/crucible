@@ -5,8 +5,9 @@ img: icons/magic/sonic/bell-alarm-red-purple.webp
 system:
   description: >-
     <p>You take in your surroundings without needing to stop and look. You may
-    sacrifice your free movement for the Round to instead @Action[default
-    search] without spending any Action points.</p>
+    sacrifice your <strong>Free Movement</strong> for the <strong>Round</strong>
+    to instead @Action[default search] without spending any
+    <strong>Action</strong> points.</p>
   actions: []
   nodes:
     - wis0a
@@ -27,8 +28,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160141
-  modifiedTime: 1788733220400
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789495718660
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
