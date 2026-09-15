@@ -16,9 +16,10 @@ system:
     roll a 1 on any die, that die is rerolled and you keep the new
     result.</p></li><li><p><em>Ante Up.</em> When you make a @Action[default
     strike], you can choose to wager additional <strong>Banes</strong> against
-    yourself. If the Strike hits an enemy, you gain <strong>Gambit</strong>
-    charges equal to the number of Banes you wagered. These charges accumulate
-    until the end of Combat or until spent.</p></li></ul>
+    yourself. If the <strong>Strike</strong> hits an enemy, you gain
+    <strong>Gambit</strong> charges equal to the number of
+    <strong>Banes</strong> you wagered. These charges accumulate until the end
+    of <strong>Combat</strong> or until spent.</p></li></ul>
   actions:
     - id: gambitAllIn
       name: All-In
@@ -29,8 +30,8 @@ system:
         The next attack or check you make this turn rolls the maximum possible
         result on every die in its pool. If that action makes more than one
         roll, only the first is maximized. You can activate this action by
-        spending either 6 <strong>Gambit</strong> charges or 1
-        <strong>Heroism</strong>.</p>
+        spending either <strong>6 Gambit</strong> charges or <strong>1
+        Heroism</strong>.</p>
       cost:
         action: 0
         focus: 0
@@ -49,9 +50,7 @@ system:
       effects: []
       tags:
         - subtle
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.intellect
     - sig3.strength
@@ -71,8 +70,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1781400000000
-  modifiedTime: 1788877515362
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789493808178
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

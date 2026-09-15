@@ -5,7 +5,7 @@ img: icons/skills/targeting/crosshair-bars-yellow.webp
 system:
   description: >-
     <p>Your familiarity with mechanical firearms is unmatched. You can perform
-    the Reload action for free once per Round.</p>
+    the @Action[default reload] action for free once per round.</p>
   actions:
     - id: salvo
       name: Salvo
@@ -52,10 +52,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.0
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160141
-  modifiedTime: 1782405649681
+  modifiedTime: 1789494465234
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null

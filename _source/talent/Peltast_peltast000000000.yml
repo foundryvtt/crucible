@@ -7,11 +7,12 @@ system:
     which bends its path to your will, lending your throws a reach and precision
     that no unaided arm could match. Weapons you throw are returned unerringly
     back to your grasp. You gain the following benefits:</p><ul><li><p>You can
-    @Action[default throwWeapon] using any melee weapon or shield with full
+    use @Action[default throwWeapon] with any melee weapon or shield with full
     effectiveness, even those not designed to be thrown.</p></li><li><p>A weapon
-    designed for throwing with the <strong>Thrown</strong> property gains +10
-    feet of range in your hands, reaching 20 feet.</p></li><li><p>Weapons you
-    throw automatically and immediately return to your hand.</p></li></ul>
+    designed for throwing with the <strong>Thrown</strong> property gains
+    <strong>+10 feet</strong> of range in your hands, reaching <strong>20
+    feet</strong>.</p></li><li><p>Weapons you throw automatically and
+    immediately return to your hand.</p></li></ul>
   actions:
     - id: ricochet
       name: Ricochet
@@ -20,12 +21,12 @@ system:
         <p>Make a <strong>Thrown</strong> weapon attack at an enemy within
         range. Guided by your arcane instinct, your weapon ricochets onward to
         the closest enemy within a maximum distance equal to your
-        <strong>Intellect</strong> where wall blocks its path.</p><p>The weapon
-        will continue caroming from foe to foe, hitting each only once, until it
-        has struck a maximum number of enemies equal to half your
-        <strong>Intellect</strong>.</p><p>Resolve a separate attack against each
-        enemy struck. Each target after the first suffers a cumulative -1
-        <strong>Damage</strong> as the throw sheds momentum.</p>
+        <strong>Intellect</strong>, so long as no wall blocks its
+        path.</p><p>The weapon will continue caroming from foe to foe, hitting
+        each only once, until it has struck a maximum number of enemies equal to
+        half your <strong>Intellect</strong>.</p><p>Resolve a separate attack
+        against each enemy struck. Each attack after the first suffers a
+        cumulative <strong>-1 Damage</strong> as the throw sheds momentum.</p>
       tags:
         - melee
         - thrown
@@ -46,9 +47,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.intellect
     - sig3.strength
@@ -64,8 +63,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1781400000000
-  modifiedTime: 1788877723737
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789494437074
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

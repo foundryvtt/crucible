@@ -9,8 +9,9 @@ system:
     hand empty, you gain a <strong>+2</strong> bonus to your
     <strong>Parry</strong> defense. While meeting these criteria, any attack
     that results in a <strong>Glance</strong> against your
-    <strong>Armor</strong> becomes a <strong>Parry</strong> instead. You gain
-    neither benefit against an attacker who has you @Condition[flanked].</p>
+    <strong>Armor</strong> becomes a <strong>Parry</strong> instead. These
+    benefits do not apply against an attacker who has you
+    @Condition[flanked].</p>
   actions:
     - id: estocade
       name: Estocade
@@ -19,8 +20,8 @@ system:
       description: >-
         <p>You deliver a precise, decisive thrust against a foe you have caught
         at a disadvantage. You make a <strong>Strike</strong> with your
-        main-hand weapon which is <strong>Empowered</strong> and
-        <strong>Keen</strong>.</p><p>You may only perform this attack against a
+        main-hand weapon which is @Rule[action.empowered] and
+        @Rule[action.keen].</p><p>You may only perform this attack against a
         target who is @Condition[exposed], @Condition[prone],
         @Condition[slowed], @Condition[staggered], @Condition[paralyzed] or who
         has been disarmed of their main-hand weapon.</p>
@@ -45,9 +46,7 @@ system:
         minimum: null
         maximum: null
         weapon: true
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.dexterity
     - sig3.strength
@@ -63,11 +62,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160130
-  modifiedTime: 1781113519773
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1789493725543
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

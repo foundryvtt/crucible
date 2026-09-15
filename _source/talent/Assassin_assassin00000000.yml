@@ -5,21 +5,23 @@ system:
   description: >-
     <p>You specialize in bringing death the the unwary. Any
     <strong>Strike</strong> or <strong>Spell</strong> attack against an
-    @Condition[unaware] target becomes <strong>Deadly</strong>.</p><p>An
-    <strong>Unaware</strong> creature hit by your attack may not alert its
-    allies until its own turn in <strong>Combat</strong>.</p>
+    @Condition[unaware] target becomes @Rule[action.deadly].</p><p>An
+    @Condition[unaware] creature hit by your attack may not alert its allies
+    until its own turn in <strong>Combat</strong>.</p>
   actions:
     - id: markForDeath
       name: Mark For Death
       img: icons/magic/death/skull-humanoid-white-blue.webp
       condition: You are unobserved.
       description: >-
-        <p>You spend 1 minute studying a creature. Perform a Knowledge Test
-        about your target. If successful, you learn all damage types against
-        which the target is Vulnerable. Your minimum Initiative during the first
-        round of Combat becomes one greater than the Initiative of your marked
-        target.</p><h3 class="divider">Playtest Notes</h3><p>This action is not
-        yet automated.</p>
+        <p>You spend <strong>1 minute</strong> studying a creature. Perform a
+        <strong>Knowledge Test</strong> about your target. If successful, you
+        learn all damage types against which the target is
+        <strong>Vulnerable</strong>. Your minimum <strong>Initiative</strong>
+        during the first round of <strong>Combat</strong> becomes one greater
+        than the <strong>Initiative</strong> of your marked target.</p><h3
+        class="divider">Playtest Notes</h3><p>This action is not yet
+        automated.</p>
       tags:
         - subtle
       cost:
@@ -38,10 +40,7 @@ system:
         minimum: null
         maximum: null
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - sig3.intellect.dexterity
   rune: ''
@@ -56,11 +55,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160126
-  modifiedTime: 1780575997316
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1789492837598
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.assassin00000000
   duplicateSource: null
   exportSource: null
