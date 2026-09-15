@@ -50,6 +50,13 @@
     -webkit-backdrop-filter: none;
   }
 
+  // Browser zoom or a short viewport can clamp a dialog window to the available height, leaving the
+  // window content taller than the window and the footer with its submit buttons clipped offscreen.
+  // Keep dialog content scrollable so those buttons remain reachable.
+  &.dialog .window-content {
+    overflow: hidden auto;
+  }
+
   // Buttons
   button,
   .button,
