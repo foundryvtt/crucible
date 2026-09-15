@@ -7,15 +7,14 @@ system:
     - dex3a
   description: >-
     <p>You take time to light and loose an arrow covered in flammable pitch.
-    This shot takes longer but is very damaging to either creatures or
-    structures.</p>
+    This shot takes longer but is very damaging to creatures and structures.</p>
   actions:
     - id: flamingArrow
       name: Flaming Arrow
       img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
       condition: ''
       description: >-
-        <p>You loose a <strong>Empowered</strong> ranged strike using a
+        <p>You loose an @Rule[action.empowered] ranged strike using a
         <strong>Projectile</strong> weapon which deals <strong>Fire</strong>
         damage upon impact.</p>
       cost:
@@ -39,9 +38,7 @@ system:
         - ranged
         - empowered
         - fire
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -61,7 +58,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160132
-  modifiedTime: 1788278859646
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490820941
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 sort: 0
 _key: '!items!flamingArrow0000'

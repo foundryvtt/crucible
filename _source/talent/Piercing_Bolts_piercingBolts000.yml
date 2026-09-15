@@ -4,8 +4,9 @@ img: icons/magic/unholy/beam-ringed-impact-purple.webp
 system:
   description: >-
     <p>You have learned to shape your bolts to a needle point which slips
-    between wards and scales alike. Your Talisman attacks ignore 2 points of the
-    target's Resistance.</p>
+    between wards and scales alike. Your <strong>Talisman</strong> attacks
+    ignore <strong>2 points</strong> of the target's
+    <strong>Resistance</strong>.</p>
   actions: []
   nodes:
     - pre1a
@@ -24,8 +25,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788315933030
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491086983
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -8,8 +8,9 @@ system:
   actions:
     - id: markPrey
       description: >-
-        <p>You Strike using a special shot. If your attack is successful the
-        target is @Condition[exposed] for the next 3 Turns.</p>
+        <p>You <strong>Strike</strong> using a special shot. If your attack is
+        successful the target is @Condition[exposed] for the next <strong>3
+        Rounds</strong>.</p>
       tags:
         - ranged
         - difficult
@@ -32,6 +33,7 @@ system:
             value: 3
             units: rounds
             expiry: turnEnd
+            expired: false
           statuses:
             - exposed
           result:
@@ -40,9 +42,13 @@ system:
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
       name: Mark Prey
       img: icons/skills/targeting/crosshair-mark-rough-pink.webp
       condition: ''
@@ -50,9 +56,7 @@ system:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - dex1a
   rune: ''
@@ -68,8 +72,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160138
-  modifiedTime: 1788277392002
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490626487
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.markprey00000000
   duplicateSource: null
   exportSource: null
