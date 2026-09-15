@@ -7,7 +7,7 @@ system:
     <p>Your life experiences provide serenity that allows you to resist the
     attempted manipulation of others.</p><p><strong>Skill Attacks</strong>
     against you from any of the <strong>Social</strong> skills are made with
-    <strong>2 Banes</strong>.</p>
+    <strong>+2 Banes</strong>.</p>
   actions: []
   nodes:
     - wis3a
@@ -24,11 +24,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160149
-  modifiedTime: 1773514792618
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789487716476
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

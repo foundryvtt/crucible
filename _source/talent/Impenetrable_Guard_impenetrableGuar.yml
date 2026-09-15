@@ -7,7 +7,8 @@ system:
     <p>Your defenses frustrate attackers who struggle to find a gap in your
     guard. When an enemy's <strong>Strike</strong> against you results in a
     <strong>Block</strong> or <strong>Glancing Blow</strong>, that enemy suffers
-    <strong>1 Bane</strong> on their next Strike against you.</p>
+    <strong>+1 Bane</strong> on their next <strong>Strike</strong> against
+    you.</p>
   actions: []
   nodes:
     - tou4b
@@ -26,8 +27,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1776126576744
-  modifiedTime: 1788970741501
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789487733251
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
