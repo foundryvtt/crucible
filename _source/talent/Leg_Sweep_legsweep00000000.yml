@@ -10,9 +10,8 @@ system:
       condition: ''
       description: >-
         <p>You make a <strong>Strike</strong> attack with your mainhand weapon.
-        This technique is <strong>Difficult</strong> to execute and deals
-        reduced damage, but if successful renders your target
-        @Condition[prone].</p>
+        This technique is @Rule[action.difficult] to execute and deals reduced
+        damage, but if successful renders your target @Condition[prone].</p>
       tags:
         - brute
         - melee
@@ -40,18 +39,25 @@ system:
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
       name: Leg Sweep
       img: icons/skills/melee/strike-sword-slashing-red.webp
       range:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - str0a
   rune: ''
@@ -70,8 +76,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160137
-  modifiedTime: 1788278019544
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789488779082
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.legsweep00000000
   duplicateSource: null
   exportSource: null

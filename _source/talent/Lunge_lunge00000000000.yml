@@ -12,12 +12,12 @@ system:
       img: icons/skills/melee/strike-polearm-light-orange.webp
       condition: ''
       description: >-
-        <p>You dart forward nimbly, making a strike with sudden and unexpected
+        <p>You dart forward nimbly, attacking with sudden and unexpected
         swiftness to perform a <strong>Strike </strong>with a weapon which
         scales using <strong>Dexterity</strong> against a single target, with an
         increased range of <strong>+2 feet</strong>.</p><p>The attack is
-        <strong>Difficult</strong>, but you do not move from your current
-        position nor does this attack provoke Disengagement.</p>
+        @Rule[action.difficult], but you do not move from your current position
+        nor does this attack provoke a @Action[default reactiveStrike].</p>
       cost:
         action: 0
         focus: 0
@@ -38,9 +38,7 @@ system:
         - finesse
         - melee
         - difficult
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   iconicSpells: 0
   training: light
   nodes:
@@ -56,10 +54,10 @@ _stats:
   exportSource: null
   coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307160138
-  modifiedTime: 1788315060478
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789488611598
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

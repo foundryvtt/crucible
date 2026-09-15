@@ -8,16 +8,16 @@ flags:
 system:
   description: >-
     <p>A two-weapon technique which makes a feint with your primary weapon,
-    exposing your target for an off-hand attack.</p>
+    exposing your target for an @Rule[action.offhand] attack.</p>
   actions:
     - id: feintingStrike
       tags:
         - dualwield
         - melee
         - offhand
+        - reflex
         - skill
         - deception
-        - reflex
       cost:
         action: 1
         focus: 0
@@ -38,16 +38,14 @@ system:
         <strong>Deception</strong> attack against the target's
         <strong>Reflex</strong> defense. You immediately make a
         <strong>Strike</strong> with your <strong>offhand</strong>
-        weapon.</p><p>If your Deception was successful, you gain <strong>+2
-        Boons</strong> to your Strike and it deals an additional <strong>+6
-        Damage</strong>.</p>
+        weapon.</p><p>If your deception was successful, you gain <strong>+2
+        Boons</strong> to your <strong>Strike</strong> and it deals an
+        additional <strong>+6 Damage</strong>.</p>
       range:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - intdex2
   rune: ''
@@ -60,8 +58,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160132
-  modifiedTime: 1788278776574
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789488457052
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
   exportSource: null

@@ -15,8 +15,8 @@ system:
       condition: ''
       description: >-
         <p>You <strong>Strike</strong> a vital pressure point, inflicting the
-        @Rule[condition.stunned] condition on your enemy for 1 Round if
-        successful.</p>
+        @Rule[condition.stunned] condition on your enemy for <strong>1
+        Round</strong> if successful.</p>
       tags:
         - unarmed
         - melee
@@ -50,7 +50,9 @@ system:
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
             dc: null
@@ -71,11 +73,11 @@ system:
   training: unarmed
 _stats:
   systemId: crucible
-  systemVersion: 0.10.0
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160150
-  modifiedTime: 1781990371948
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1789489708871
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null
   exportSource: null

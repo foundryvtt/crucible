@@ -7,9 +7,9 @@ flags: {}
 system:
   description: >-
     <p>A defensive technique in which you drive forward, slamming and pushing
-    foes out of your path. You charge up to 20 feet in a straight line and
-    perform an offhand shield <strong>Strike</strong> against each successive
-    foe along your path.</p>
+    foes out of your path. You charge up to <strong>20 feet</strong> in a
+    straight line and perform an offhand shield <strong>Strike</strong> against
+    each successive foe along your path.</p>
   actions:
     - id: shieldCharge
       description: >-
@@ -58,8 +58,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1779831851033
-  modifiedTime: 1788277909773
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789489257139
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

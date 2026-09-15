@@ -16,15 +16,15 @@ system:
       description: >-
         <p>You make a <strong>Strike </strong>against a the
         <strong>Reflex</strong> defense of a single target. The technique is
-        <strong>Difficult</strong> to perform and deals reduced damage. If
-        successful, the target's mainhand weapon is
+        @Rule[action.difficult] to perform and deals @Rule[action.weakened]
+        damage. If successful, the target's mainhand weapon is
         <strong>Dropped</strong>.</p>
       tags:
+        - disarm
         - melee
         - difficult
         - weakened
         - reflex
-        - disarm
       cost:
         action: 0
         focus: 1
@@ -41,9 +41,7 @@ system:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - str1a
   rune: ''
@@ -58,8 +56,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160130
-  modifiedTime: 1788278276449
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789489635507
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 folder: ePNIUQxdOsY7GSKo
 ownership:
   default: 0

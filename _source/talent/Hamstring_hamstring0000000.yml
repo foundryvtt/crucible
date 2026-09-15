@@ -11,7 +11,7 @@ system:
       condition: ''
       description: >-
         <p>You make <strong>Strike</strong> attack which is
-        <strong>Difficult</strong>, but if successful, inflicts the
+        @Rule[action.difficult], but if successful, inflicts the
         @Condition[slowed] condition for <strong>3 Rounds</strong>.</p>
       tags:
         - melee
@@ -39,21 +39,24 @@ system:
             value: 3
             units: rounds
             expiry: turnEnd
+            expired: false
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
       name: Hamstring
       img: icons/skills/melee/strike-axe-blood-red.webp
       range:
         minimum: null
         maximum: null
         weapon: true
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   iconicSpells: 0
   nodes:
     - dex0b
@@ -73,8 +76,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160134
-  modifiedTime: 1788542904436
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789489144982
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
 _id: hamstring0000000
 sort: 0
