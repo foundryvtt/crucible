@@ -5,8 +5,8 @@ img: icons/skills/movement/arrow-upward-yellow.webp
 system:
   description: >-
     <p>You are adept at entering and exiting the fray. When moving out of the
-    <strong>Engagement</strong> radius of an enemy, that enemy has 2 Banes to
-    any @Action[default reactiveStrike] against you.</p>
+    <strong>Engagement</strong> radius of an enemy, that enemy has <strong>+2
+    Banes</strong> to any @Action[default reactiveStrike] against you.</p>
   nodes:
     - dex3b
   actions: []
@@ -19,11 +19,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160146
-  modifiedTime: 1773514792613
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490311957
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
