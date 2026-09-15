@@ -5,8 +5,8 @@ img: icons/magic/unholy/strike-hand-glow-pink.webp
 system:
   description: >-
     <p>Your quick thinking can weave magic to exploit brief windows of
-    opportunity. You may make a <strong>Disengagement Attack</strong> using the
-    <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
+    opportunity. You may make a @Action[default reactiveStrike] using the
+    <strong>Touch Gesture</strong> instead of a melee weapon attack.</p>
   actions: []
   nodes:
     - int2b
@@ -24,11 +24,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160140
-  modifiedTime: 1773514792599
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490002063
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

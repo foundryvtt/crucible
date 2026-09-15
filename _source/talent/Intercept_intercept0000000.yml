@@ -15,11 +15,11 @@ system:
         <p>You intercept the path of an enemy which enters your
         <strong>Engagement</strong> radius, immediately moving up to your
         <strong>Stride</strong> to interpose yourself and block their
-        path.</p><p>If the enemy moves out of your Engagement radius or attacks
-        any other creature during their turn, you may make a @Action[default
-        reactiveStrike] against them.</p><h3 class="divider">Playtest
-        Notes</h3><p>The interruption of enemy movement is not yet
-        automated.</p>
+        path.</p><p>If the enemy moves out of your <strong>Engagement</strong>
+        radius or attacks any other creature during their turn, you may make a
+        @Action[default reactiveStrike] against them.</p><h3
+        class="divider">Playtest Notes</h3><p>The interruption of enemy movement
+        is not yet automated.</p>
       tags:
         - reaction
         - movement
@@ -41,10 +41,7 @@ system:
         maximum: 4
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - tou3a
   rune: ''
@@ -57,8 +54,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160136
-  modifiedTime: 1788278674043
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490232851
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null
