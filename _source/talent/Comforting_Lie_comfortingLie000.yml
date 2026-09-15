@@ -13,10 +13,11 @@ system:
       condition: ''
       description: >-
         <p>You reassure an ally with a falsehood you know to be untrue, making a
-        Deception check against their <strong>Rallying</strong> threshold. Upon
-        a success they recover <strong>Morale</strong>. Should they see through
-        your fiction, you lose <strong>Morale</strong> equal to the amount by
-        which your check fell short.</p>
+        <strong>Deception</strong> check against their <strong>Rallying</strong>
+        threshold. Upon a success they recover <strong>Morale</strong> equal to
+        the overflow of the check. Should they see through your fiction, you
+        lose <strong>Morale</strong> equal to the amount by which your check
+        fell short.</p>
       cost:
         action: 2
         focus: 0
@@ -57,8 +58,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788364800000
-  modifiedTime: 1788364343432
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789495923579
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

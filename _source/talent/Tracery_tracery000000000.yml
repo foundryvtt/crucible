@@ -13,28 +13,30 @@ system:
       img: icons/tools/scribal/ink-quill-pink.webp
       condition: You have a Glyphweaver's Toolkit equipped.
       description: >-
-        <p>With a Glyphweaver's Toolkit equipped, you can produce any one of the
-        following effects:</p><ul><li><p><strong>Read.</strong> You study a
-        glyph or a spell scroll which you can handle, learning its
-        <strong>Quality</strong> tier and which affix or spellcraft components
-        it would impart. You may also study a written or painted work, learning
-        whether it has been altered since it was made, unless it was altered by
-        someone whose passive Glyphweaving exceeds your
+        <p>With a <strong>Glyphweaver's Toolkit</strong> equipped, you can
+        produce any one of the following
+        effects:</p><ul><li><p><strong>Read.</strong> You study a glyph or a
+        spell scroll which you can handle, learning its <strong>Quality</strong>
+        tier and which affix or spellcraft components it would impart. You may
+        also study a written or painted work, learning whether it has been
+        altered since it was made, unless it was altered by someone whose
+        passive <strong>Glyphweaving</strong> exceeds your
         own.</p></li><li><p><strong>Destroy.</strong> You instantaneously spoil
         a glyph, a spell scroll, or a written work which you can physically
         touch, marring it so that it can no longer be read or used.
         Alternatively, you may alter a document you can handle, changing a
         single letter within each word and leaving no obvious trace of your
-        work. Your alteration is discovered only by an intentional Awareness
-        check which beats your passive
-        Glyphweaving.</p></li><li><p><strong>Create.</strong> Given time and
-        materials, you may produce any written or painted work you can picture
-        which carries no affix: a letter in another's hand down to the tremor in
-        it, a portrait that flatters without lying, a seal across a door which
-        cannot be rejoined once broken, a mark on a trail only your companions
-        will notice, a line of chalk that glows faintly for an
-        hour.</p></li></ul><p>You may attempt other uses similar to those above,
-        the effectiveness of which is decided by the Gamemaster.</p>
+        work. Your alteration is discovered only by an intentional
+        <strong>Awareness</strong> check which beats your passive
+        <strong>Glyphweaving</strong>.</p></li><li><p><strong>Create.</strong>
+        Given time and materials, you may produce any written or painted work
+        you can picture which carries no affix: a letter in another's hand down
+        to the tremor in it, a portrait that flatters without lying, a seal
+        across a door which cannot be rejoined once broken, a mark on a trail
+        only your companions will notice, a line of chalk that glows faintly for
+        an hour.</p></li></ul><p>You may attempt other uses similar to those
+        above, the effectiveness of which is decided by the
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 0
@@ -71,8 +73,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1789012800000
-  modifiedTime: 1789012800000
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496211995
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: tracery000000000
 sort: 100000
 _key: '!items!tracery000000000'

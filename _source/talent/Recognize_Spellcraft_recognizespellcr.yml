@@ -4,9 +4,9 @@ img: icons/magic/perception/hand-eye-fire-blue.webp
 system:
   description: >-
     <p>You can interpret the arcane incantations of others to discern the nature
-    of their spellcraft. When an enemy within 40 feet that you can see and hear
-    begins casting a spell, you can identify its Rune if you also know that
-    Rune.</p>
+    of their spellcraft. When an enemy within <strong>40 feet</strong> that you
+    can see and hear begins casting a spell, you can identify its
+    <strong>Rune</strong> if you also know that <strong>Rune</strong>.</p>
   actions: []
   nodes:
     - int0b
@@ -26,8 +26,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160142
-  modifiedTime: 1788364279148
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789495547580
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.recognizespellcr
   duplicateSource: null
   exportSource: null

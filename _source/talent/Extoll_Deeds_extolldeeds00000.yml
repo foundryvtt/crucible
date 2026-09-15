@@ -6,12 +6,12 @@ flags:
   core: {}
 system:
   description: >-
-    You inspire courage within your allies by extolling the heroic deeds of a
+    <p>You inspire courage within your allies by extolling the heroic deeds of a
     companion. You may react by composing a verse, making a quip, or shouting a
-    battle cry when an ally you can see <strong>Incapacitates</strong> or
-    achieves a <strong>Critical Hit</strong> against an enemy creature. The
-    celebration of these heroic deeds restores the Morale of your allies within
-    10 feet.
+    battle cry when an ally you can see scores a <strong>Critical Hit</strong>
+    against an enemy creature or renders one @Condition[incapacitated]. The
+    celebration of these heroic deeds restores the <strong>Morale</strong> of
+    your allies within <strong>10 feet</strong>.</p>
   actions:
     - id: extollDeeds
       condition: An ally whom you can see slays an enemy or achieves a Critical Success.
@@ -57,8 +57,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160131
-  modifiedTime: 1788363013462
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496562495
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

@@ -13,28 +13,30 @@ system:
       img: icons/tools/laboratory/bowl-herbs-green.webp
       condition: You have an Alchemist's Toolkit equipped.
       description: >-
-        <p>Every preparation leaves its signature. With an Alchemist's Toolkit
-        equipped, you can produce any one of the following
+        <p>Every preparation leaves its signature. With an <strong>Alchemist's
+        Toolkit</strong> equipped, you can produce any one of the following
         effects:</p><ul><li><p><strong>Read.</strong> You study an item created
         by alchemy which you can handle, learning its <strong>Quality</strong>
         tier, what it will do, and whether it has degraded past use. From
         residue alone, a stain, a shattered flask, a scorch on stone, you
         identify what was prepared there if you know its
-        recipe.</p></li><li><p><strong>Destroy.</strong> You spend 10 minutes to
-        spoil a non-magical item created by alchemy which you can physically
-        touch, leaving a potion inert and a bomb a dud. Alternatively, in the
-        course of preparing such a work yourself, you may leave it appearing
-        sound while ensuring it does nothing at all when next relied upon. Your
-        sabotage is discovered only by an intentional Awareness check which
-        beats your passive Alchemy.</p></li><li><p><strong>Create.</strong>
-        Given time and reasonable access to ingredients, you may prepare any
-        minor alchemical work you are familiar with: inks and dyes, a glue that
-        holds under water, a perfume that lingers a full day, fireworks in three
+        recipe.</p></li><li><p><strong>Destroy.</strong> You spend <strong>10
+        minutes</strong> to spoil a non-magical item created by alchemy which
+        you can physically touch, leaving a potion inert and a bomb a dud.
+        Alternatively, in the course of preparing such a work yourself, you may
+        leave it appearing sound while ensuring it does nothing at all when next
+        relied upon. Your sabotage is discovered only by an intentional
+        <strong>Awareness</strong> check which beats your passive
+        <strong>Alchemy</strong>.</p></li><li><p><strong>Create.</strong> Given
+        time and reasonable access to ingredients, you may prepare any minor
+        alchemical work you are familiar with: inks and dyes, a glue that holds
+        under water, a perfume that lingers a full day, fireworks in three
         colors, acid enough to etch a name in steel. Explicitly defined crafting
         recipes must still be rolled, but you can successfully prepare any such
         work outside of this system without requiring a dice
         roll.</p></li></ul><p>You may attempt other uses similar to those above,
-        the effectiveness of which is decided by the Gamemaster.</p>
+        the effectiveness of which is decided by the
+        <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 0
@@ -71,8 +73,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1789012800000
-  modifiedTime: 1788979697373
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789495524337
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: wortcunning00000
 sort: 100000
 _key: '!items!wortcunning00000'

@@ -5,12 +5,11 @@ img: icons/magic/perception/eye-ringed-green.webp
 system:
   description: >-
     <p>Your sharpened mind is full of secrets and techniques to remember them.
-    Once per Day you may focus your thoughts and attempt to recall a word that
-    sparks your memory.</p>
-
-    <p>The Gamemaster must provide you with a one-word clue that is appropriate
-    for your direction of inquiry. It is left to Gamemaster discretion how
-    direct or vague to be with the clue they provide.</p>
+    Once per day you may focus your thoughts and attempt to recall a word that
+    sparks your memory.</p><p>The <strong>Gamemaster</strong> must provide you
+    with a one-word clue that is appropriate for your direction of inquiry. It
+    is left to <strong>Gamemaster's</strong> discretion how direct or vague to
+    be with the clue they provide.</p>
   actions:
     - id: mnemonicRealization
       description: >-
@@ -59,8 +58,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160139
-  modifiedTime: 1788364310748
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496917061
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
