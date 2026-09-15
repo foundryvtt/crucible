@@ -7,7 +7,7 @@ system:
     <p>You use cover, shadow, and stillness to drop out of sight entirely, to
     avoid detection or to lay in ambush.</p><h3 class="divider">Playtest
     Notes</h3><p>The Stealth check resolves, marks you concealed, and that
-    concealment ends on its own once you act without the <strong>Subtle</strong>
+    concealment ends on its own once you act without the @Rule[action.subtle]
     tag. Your Stealth result is recorded, so anyone who later @Action[default
     search]es for you tests their Awareness against it. Crucible does not yet
     record which creatures individually have lost track of you, so beating one
@@ -20,11 +20,12 @@ system:
       img: icons/magic/nature/stealth-hide-eyes-green.webp
       condition: You are not engaged.
       description: >-
-        <p>You make a single Stealth check against the Awareness of the most
-        perceptive enemy within 30 feet, taking <strong>+1 Bane</strong> for
-        each further enemy who might notice you. With no enemy near enough to
-        notice you no check is required. Upon a success you are concealed until
-        you perform an action which is not @Rule[action.subtle].</p>
+        <p>You make a single <strong>Stealth</strong> check against the
+        <strong>Awareness</strong> of the most perceptive enemy within
+        <strong>30 feet</strong>, taking <strong>+1 Bane</strong> for each
+        further enemy who might notice you. With no enemy near enough to notice
+        you no check is required. Upon a success you are concealed until you
+        perform an action which is not @Rule[action.subtle].</p>
       cost:
         action: 2
         focus: 1
@@ -63,10 +64,10 @@ system:
             dc: null
             properties: []
       tags:
+        - harmless
         - subtle
         - skill
         - stealth
-        - harmless
       summon: null
   nodes:
     - intdex1
@@ -87,7 +88,7 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788600000000
-  modifiedTime: 1788886518116
+  modifiedTime: 1789497206916
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null

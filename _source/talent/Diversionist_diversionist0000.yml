@@ -13,8 +13,8 @@ system:
       description: >-
         <p>You make a <strong>Deception</strong> based <strong>Skill
         Attack</strong> against the <strong>Willpower </strong>defense of a
-        target within 30 feet which can see or hear you. On a success, the
-        target loses <strong>1 Focus</strong>.</p>
+        target within <strong>30 feet</strong> which can see or hear you. On a
+        success, the target loses <strong>1 Focus</strong>.</p>
       tags:
         - void
         - skill
@@ -36,9 +36,7 @@ system:
         minimum: null
         maximum: 30
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - int0b
   rune: ''
@@ -58,8 +56,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160131
-  modifiedTime: 1788362829311
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789495947878
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

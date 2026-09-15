@@ -5,14 +5,14 @@ img: icons/commodities/cloth/cloth-bolt-embroidered-pink.webp
 system:
   description: >-
     <p>Torn cloth and split leather hold no fear for you. You have turned worse
-    than this back into something a person would wear into a fight.</p>
-
-    <p>The repairs you make using the <strong>Tailoring</strong> trade benefit
-    from <strong>Expert Repair</strong>. You may attempt such repairs without a
-    workbench, though attempts made without one are <strong>Difficult</strong>,
-    and a repair you succeed at never costs the item a <strong>Quality</strong>
-    tier.</p><h3 class="divider">Playtest Notes</h3><p>Repair is not yet
-    automated. The rules it follows are described in the
+    than this back into something a person would wear into a fight.</p><p>The
+    repairs you make using the <strong>Tailoring</strong> trade benefit from
+    <strong>Expert Repair</strong>:</p><ul><li><p>You may attempt such repairs
+    without a workbench, though attempts made without one are
+    @Rule[action.difficult].</p></li><li><p>A repair you succeed at never costs
+    the item a <strong>Quality</strong> tier.</p></li></ul><h3
+    class="divider">Playtest Notes</h3><p>Repair is not yet automated. The rules
+    it follows are described in the
     @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
     journal.</p>
   actions: []
@@ -34,8 +34,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1788840000000
-  modifiedTime: 1788840000000
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789497304714
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: seamwright000000
 sort: 100000
 _key: '!items!seamwright000000'

@@ -6,14 +6,14 @@ system:
   description: >-
     <p>You blend into your surroundings so completely that motion no longer
     betrays you. While you are concealed by
-    @Action[Compendium.crucible.talent.Item.hide000000000000 hide] your Move
-    action is <strong>Subtle</strong>, allowing you to reposition without
-    revealing yourself.</p><h3 class="divider">Playtest Notes</h3><p>The Move
-    action gains the tag automatically while you are concealed, so repositioning
-    no longer ends your concealment. Crucible does not yet record which
-    creatures have lost track of you, so whether moving into the open reveals
-    you remains the Gamemaster's call. A forthcoming stealth effect will record
-    detection for each creature individually.</p>
+    @Action[Compendium.crucible.talent.Item.hide000000000000 hide] your
+    @Action[default move] action is @Rule[action.subtle], allowing you to
+    reposition without revealing yourself.</p><h3 class="divider">Playtest
+    Notes</h3><p>The Move action gains the tag automatically while you are
+    concealed, so repositioning no longer ends your concealment. Crucible does
+    not yet record which creatures have lost track of you, so whether moving
+    into the open reveals you remains the Gamemaster's call. A forthcoming
+    stealth effect will record detection for each creature individually.</p>
   actions: []
   nodes:
     - intdex4
@@ -34,8 +34,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788600000000
-  modifiedTime: 1788623178950
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789497161428
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

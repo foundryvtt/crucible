@@ -10,16 +10,17 @@ system:
     - id: tumble
       name: Tumble
       description: >-
-        <p>Make a <strong>Athletics </strong>skill Attack against an adjacent
+        <p>Make a <strong>Athletics Skill</strong> attack against an adjacent
         enemy contested by your target's <strong>Reflex</strong>
         defense.</p><p>On a success you may move up to twice your
         <strong>Stride</strong>, including the ability to pass through your
-        target enemy's space, without provoking any
-        <strong>Disengagement</strong> reactions.</p><p>On a failure your
-        movement is blocked and your remain in your current position.</p>
+        target enemy's space, without provoking any @Action[default
+        reactiveStrike].</p><p>On a failure your movement is blocked and your
+        remain in your current position.</p>
       tags:
         - harmless
         - reflex
+        - skill
         - athletics
       cost:
         action: 3
@@ -39,9 +40,7 @@ system:
         maximum: null
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - dextou1
   rune: ''
@@ -57,11 +56,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160152
-  modifiedTime: 1780938381200
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1789495655173
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.tumblethrough000
   duplicateSource: null
   exportSource: null

@@ -17,12 +17,11 @@ system:
         enemy already suffering @Condition[burning], @Condition[freezing],
         @Condition[corroding], or @Condition[shocked], performing a
         <strong>Science</strong> skill attack against their
-        <strong>Fortitude</strong> defense.</p><p>Upon a
-        <strong>Success</strong> they sustain damage of the same type, and to
-        the same resource, as the reaction you fed, and its remaining duration
-        is extended by <strong>1 Round</strong>. Upon a <strong>Critical
-        Success</strong> the reaction also burns hotter, increasing the damage
-        it deals each round by <strong>1</strong>.</p><h3
+        <strong>Fortitude</strong> defense.</p><p>Upon a success they sustain
+        damage of the same type, and to the same resource, as the reaction you
+        fed, and its remaining duration is extended by <strong>1 Round</strong>.
+        Upon a <strong>Critical Success</strong> the reaction also burns hotter,
+        increasing the damage it deals each round by <strong>1</strong>.</p><h3
         class="divider">Playtest Notes</h3><p>This action is intended to consume
         a unit of alchemical reagent from your inventory, offering an
         alternative use for the same ingredients you would otherwise craft with.
@@ -67,8 +66,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1788810000000
-  modifiedTime: 1788810000000
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496961445
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: volatileAccelera
 sort: 200000
 _key: '!items!volatileAccelera'

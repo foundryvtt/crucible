@@ -5,15 +5,15 @@ img: icons/tools/cooking/bowl-steaming-brown.webp
 system:
   description: >-
     <p>You keep the fire and the pot, and you have the ingenuity to cook meals
-    in circumstances that are far from ideal.</p>
-
-    <p>A meal you prepare lasts <strong>16 hours</strong> rather than 8. Those
-    who eat it recover an additional amount of <strong>Wounds</strong> and
-    <strong>Madness</strong> equal to half your <strong>Wisdom</strong> when the
-    Rest concludes. You may prepare a meal wherever the party is able to Rest at
-    all, without fire or shelter.</p><h3 class="divider">Playtest
-    Notes</h3><p>Meals are not yet implemented. This talent describes how the
-    Cooking trade will behave once meal preparation is a Rest activity.</p>
+    in circumstances that are far from ideal.</p><p>A meal you prepare lasts
+    <strong>16 hours</strong> rather than 8. Those who eat it recover an
+    additional amount of <strong>Wounds</strong> and <strong>Madness</strong>
+    equal to half your <strong>Wisdom</strong> when the @Action[default rest]
+    concludes. You may prepare a meal wherever the party is able to
+    <strong>Rest</strong> at all, without fire or shelter.</p><h3
+    class="divider">Playtest Notes</h3><p>Meals are not yet implemented. This
+    talent describes how the <strong>Cooking</strong> trade will behave once
+    meal preparation is a <strong>Rest</strong> activity.</p>
   actions: []
   nodes:
     - tou4d
@@ -33,8 +33,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1789012800000
-  modifiedTime: 1788970765783
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789495863793
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: slowSimmer000000
 sort: 100000
 _key: '!items!slowSimmer000000'

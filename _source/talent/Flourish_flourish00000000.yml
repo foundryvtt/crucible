@@ -17,9 +17,8 @@ system:
       description: >-
         <p>You demonstrate a rapid maneuver of bladework, performing a
         <strong>Performance</strong> skill attack against their
-        <strong>Reflex</strong> defense. Upon a <strong>Success</strong> they
-        sustain <strong>Piercing</strong> damage to their
-        <strong>Morale</strong>.</p>
+        <strong>Reflex</strong> defense. Upon a success they sustain
+        <strong>Piercing</strong> damage to their <strong>Morale</strong>.</p>
       cost:
         action: 1
         focus: 1
@@ -62,8 +61,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1788700000000
-  modifiedTime: 1788877827651
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496608615
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: flourish00000000
 sort: 100000
 _key: '!items!flourish00000000'

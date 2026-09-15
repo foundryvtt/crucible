@@ -13,8 +13,9 @@ system:
       condition: An ally whom you can see becomes Weakened or suffers a Critical Failure.
       description: >-
         <p>You may react to an ally's <strong>Critical Failure</strong> with a
-        grim joke at their expense or your own, restoring some of their
-        <strong>Morale</strong>.</p>
+        grim joke at their expense or your own, restoring their
+        <strong>Morale</strong> by half of your <strong>Presence</strong>
+        score.</p>
       cost:
         action: 1
         focus: 0
@@ -54,8 +55,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788364800000
-  modifiedTime: 1788363028393
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789496676727
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
