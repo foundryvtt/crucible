@@ -3,11 +3,12 @@ type: talent
 img: icons/magic/light/projectile-beam-yellow.webp
 system:
   description: >-
-    <p>The orderly force of light and energy. The Illumination rune governs
-    light and radiance.</p><p>The Illumination rune scales using
-    <strong>Presence</strong>, targets <strong>Reflex</strong>, and deals
-    <strong>Radiant</strong> damage to <strong>Health</strong>. It is opposed by
-    the chaotic rune of <strong>Illusion</strong>.</p>
+    <p>The orderly force of light and energy. The <strong>Illumination</strong>
+    rune governs light and radiance.</p><p>The <strong>Illumination</strong>
+    rune scales using <strong>Presence</strong>, targets
+    <strong>Reflex</strong>, and deals <strong>Radiant</strong> damage to
+    <strong>Health</strong>. It is opposed by the chaotic rune of
+    <strong>Illusion</strong>.</p>
   actions:
     - id: reveal
       name: Reveal
@@ -68,12 +69,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.364'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.10.0
+  systemVersion: 0.10.2
   createdTime: 1772307160143
-  modifiedTime: 1781971279621
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1789498680888
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0

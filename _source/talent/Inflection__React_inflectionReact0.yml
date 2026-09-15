@@ -5,9 +5,9 @@ system:
   nodes:
     - preint4
   description: >-
-    <p>Instinctually compose a spell as a <strong>Reaction</strong> in response
-    to some other action that you observe. The React inflection increases the
-    <strong>Focus</strong> cost of a spell by 2.</p>
+    <p>Instinctually compose a spell as a @Rule[action.reaction] in response to
+    some other action that you observe. The <strong>React</strong> inflection
+    increases the <strong>Focus</strong> cost of a spell by 2.</p>
   actions: []
   spellcraft: react
   iconicSpells: 1
@@ -21,12 +21,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.10.2
   createdTime: 1767142001548
-  modifiedTime: 1773514792584
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1789498555084
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: inflectionReact0
 sort: 200000
 _key: '!items!inflectionReact0'
