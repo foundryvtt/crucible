@@ -27,16 +27,13 @@ system:
       condition: ''
       description: >-
         <p>You concentrate to nock two projectiles at once making two
-        <strong>Strike</strong> simultaneous attacks against the same single
+        simultaneous <strong>Strikes</strong> against the same single
         target.</p>
       range:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - dex1a
   rune: ''
@@ -53,11 +50,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.2
+  systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1778609443518
-  modifiedTime: 1788315011803
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490883560
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

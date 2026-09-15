@@ -4,8 +4,8 @@ img: icons/magic/light/beam-horizon-strike-yellow.webp
 system:
   description: >-
     <p>You project your will through your implement across great distance. The
-    maximum range of your Talisman attacks is increased by an amount equal to
-    your current <strong>Focus</strong>.</p>
+    maximum range of your <strong>Talisman</strong> attacks is increased by an
+    amount equal to your current <strong>Focus</strong>.</p>
   actions: []
   nodes:
     - pre4b
@@ -24,8 +24,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788315269191
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491043701
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

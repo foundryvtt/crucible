@@ -11,8 +11,8 @@ system:
       img: icons/magic/light/beam-explosion-orange.webp
       condition: ''
       description: >-
-        <p>You perform an <strong>Empowered</strong> Talisman attack against a
-        single target.</p>
+        <p>You perform an @Rule[action.empowered] <strong>Talisman</strong>
+        attack against a single target.</p>
       cost:
         action: 1
         focus: 1
@@ -31,6 +31,7 @@ system:
       effects: []
       tags:
         - talisman
+        - ranged
         - empowered
       summon: null
   nodes:
@@ -50,8 +51,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788316154945
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491031350
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

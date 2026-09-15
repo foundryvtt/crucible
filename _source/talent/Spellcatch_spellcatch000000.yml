@@ -4,19 +4,22 @@ img: icons/magic/defensive/shield-barrier-blades-teal.webp
 system:
   description: >-
     <p>A spell cast towards you is something to grasp rather than avoid. You
-    have learned a technique to catch an incoming spell with your Talisman and
-    extract its essence for your own purposes.</p>
+    have learned a technique to catch an incoming spell with your
+    <strong>Talisman</strong> and extract its essence for your own purposes.</p>
   actions:
     - id: spellcatch
       name: Spellcatch
       img: icons/magic/defensive/shield-barrier-blades-teal.webp
       condition: ''
       description: >-
-        <p>When you are targeted by a Spell you may catch it upon your Talisman.
-        The Spell has no effect upon you and you recover <strong>Focus</strong>
-        equal to the Focus which was spent to cast it.</p><h3
-        class="divider">Playtest Notes</h3><p>The reaction trigger which offers
-        this action when you are targeted by a Spell is not yet automated.</p>
+        <p>When you are targeted by a <strong>Spell</strong> you may catch it
+        upon your <strong>Talisman</strong>. The <strong>Spell</strong> has no
+        effect upon you and you recover <strong>Focus</strong> equal to the
+        <strong>Focus</strong> which was spent to cast it.</p>
+
+        <h3 class="divider">Playtest Notes</h3>
+
+        <p>This action is not yet automated.</p>
       cost:
         action: 0
         focus: 0
@@ -36,6 +39,7 @@ system:
       tags:
         - talisman
         - reaction
+        - ranged
       summon: null
   nodes:
     - pre4b
@@ -54,8 +58,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788877658777
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491243437
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -11,8 +11,9 @@ system:
       img: icons/magic/unholy/beam-impact-purple.webp
       condition: ''
       description: >-
-        <p>You perform a <strong>Harmless</strong> Talisman attack. On a success
-        the target becomes @Condition[hexed] until the end of its next turn.</p>
+        <p>You perform a @Rule[action.harmless] <strong>Talisman</strong>
+        attack. On a success the target becomes @Condition[hexed] until the end
+        of its next turn.</p>
       cost:
         action: 0
         focus: 0
@@ -53,6 +54,7 @@ system:
             summons: []
       tags:
         - talisman
+        - ranged
         - harmless
       summon: null
   nodes:
@@ -72,8 +74,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788316177789
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491274701
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -11,7 +11,9 @@ system:
   actions:
     - id: precisionShot
       condition: ''
-      description: <p>You steady your aim and fire a single accurate shot.</p>
+      description: >-
+        <p>You steady your aim and fire a single @Rule[action.accurate]
+        shot.</p>
       tags:
         - ranged
         - accurate
@@ -33,9 +35,7 @@ system:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - dex0a
   rune: ''
@@ -48,8 +48,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160141
-  modifiedTime: 1788277135613
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789490684103
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

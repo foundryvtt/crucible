@@ -6,7 +6,7 @@ system:
   nodes:
     - dex2c
   description: >-
-    <p>You are an expert in using a thrown weapon to imbalance or expose your
+    <p>You are an expert in using a thrown weapon to unbalance or expose your
     target for follow-up strikes.</p>
   actions:
     - id: flashOfSteel
@@ -15,8 +15,8 @@ system:
       condition: ''
       description: >-
         <p>You make a <strong>Thrown </strong>weapon attack, targeting a weak
-        point in your enemy's defences. If the attack hits, the target becomes
-        @Condition[exposed] until the start of their next Turn.</p>
+        point in your enemy's defenses. If the attack hits, the target becomes
+        @Condition[exposed] until the start of their next turn.</p>
       cost:
         action: 0
         focus: 1
@@ -41,21 +41,24 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           result:
             type: success
             all: false
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
         - melee
         - thrown
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -75,7 +78,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160132
-  modifiedTime: 1788277364823
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491381510
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 sort: 300000
 _key: '!items!flashOfSteel0000'

@@ -4,9 +4,10 @@ img: icons/magic/symbols/runes-star-blue.webp
 system:
   description: >-
     <p>A great implement held in both hands hums in sympathy with the magic you
-    sustain through it. While you are wielding a two-handed Talisman and
-    maintaining an effect which costs <strong>Focus</strong>, your Talisman
-    attacks deal +2 damage.</p>
+    sustain through it. While you are wielding a two-handed
+    <strong>Talisman</strong> and maintaining an effect which costs
+    <strong>Focus</strong>, your <strong>Talisman</strong> attacks deal +2
+    damage.</p>
   actions: []
   nodes:
     - pre4b
@@ -25,8 +26,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788278400000
-  modifiedTime: 1788315641815
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491003740
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
