@@ -17,7 +17,7 @@ system:
         afflicting an ally you can touch. Remove one instance of
         @Condition[burning], @Condition[freezing], @Condition[corroding], or
         @Condition[shocked] from the target.</p><p>The reagents are drawn from
-        your Toolkit and are not otherwise tracked.</p>
+        your <strong>Toolkit</strong> and are not otherwise tracked.</p>
       cost:
         action: 2
         focus: 0
@@ -54,8 +54,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1788810000000
-  modifiedTime: 1788810000000
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789492372341
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: rapidCountermeas
 sort: 100000
 _key: '!items!rapidCountermeas'

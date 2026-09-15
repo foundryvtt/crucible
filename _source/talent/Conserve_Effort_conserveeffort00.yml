@@ -4,7 +4,7 @@ img: icons/magic/time/arrows-circling-pink.webp
 system:
   description: >-
     <p>You find calmness and focus in conserving your effort in battle. When you
-    end your <strong>Turn</strong> with un-spent Action you gain <strong>+1
+    end your turn with un-spent <strong>Action</strong> you gain <strong>+1
     Focus</strong>.</p>
   actions: []
   nodes:
@@ -21,11 +21,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160128
-  modifiedTime: 1773514792564
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491856764
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.conserveeffort00
   duplicateSource: null
   exportSource: null
