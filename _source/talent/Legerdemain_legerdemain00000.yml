@@ -3,10 +3,11 @@ type: talent
 img: icons/magic/light/hand-sparks-smoke-green.webp
 system:
   description: >-
-    <p>You can silently alter your spellcraft. You may apply any Inflection
-    granted by a talent of tier 2 or lower using only your hands, without
-    vocalization. A spell you inflect in this way is <strong>Subtle</strong> and
-    may be cast even while you are @Condition[silenced].</p>
+    <p>You can silently alter your spellcraft. You may apply any
+    <strong>Inflection</strong> granted by a talent of <strong>Tier 2</strong>
+    or lower using only your hands, without vocalization. A spell you inflect in
+    this way is @Rule[action.subtle] and may be cast even while you are
+    @Condition[silenced].</p>
   actions: []
   nodes:
     - dex2b
@@ -20,10 +21,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160137
-  modifiedTime: 1780503577030
+  modifiedTime: 1789499306676
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.legerdemain00000
   duplicateSource: null

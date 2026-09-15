@@ -10,15 +10,16 @@ system:
       condition: Another creature which you can see is casting a spell.
       description: >-
         <p>You form arcane energy into a countervailing spellcraft, targeting a
-        spellcaster you can see within 30 feet.</p><p>Designate a
-        <strong>Rune</strong> and <strong>Gesture</strong> which you know to
-        attempt to counter the spell. Choosing a Rune which is opposed to one
-        used in the spell grants <strong>+2 Boons</strong> to your attempt.
-        Selecting the identical Gesture as the one being cast also adds
-        <strong>+2 Boons</strong> to your attempt.</p><p>Perform a harmless
-        Spell Attack against your target's <strong>Willpower</strong> defense.
-        If your roll exceeds their defense, the spell is countered and its magic
-        is nullified, producing no effects.</p>
+        spellcaster you can see within <strong>30 feet</strong>.</p><p>Designate
+        a <strong>Rune</strong> and <strong>Gesture</strong> which you know to
+        attempt to counter the spell. Choosing a <strong>Rune</strong> which is
+        opposed to one used in the spell grants <strong>+2 Boons</strong> to
+        your attempt. Selecting the identical <strong>Gesture</strong> as the
+        one being cast also adds <strong>+2 Boons</strong> to your
+        attempt.</p><p>Perform a @Rule[action.harmless] <strong>Spell</strong>
+        attack against your target's <strong>Willpower</strong> defense. If your
+        roll exceeds their defense, the spell is countered and its magic is
+        nullified, producing no effects.</p>
       tags:
         - reaction
         - spell
@@ -44,9 +45,7 @@ system:
       rune: storm
       gesture: touch
       composition: 1
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
       inflection: ''
   nodes:
     - preint1
@@ -63,11 +62,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160129
-  modifiedTime: 1773514792566
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789497719951
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.counterspell0000
   duplicateSource: null
   exportSource: null
