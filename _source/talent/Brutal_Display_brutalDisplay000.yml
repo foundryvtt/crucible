@@ -4,9 +4,9 @@ img: icons/skills/wounds/injury-pain-body-orange.webp
 system:
   description: >-
     <p>You go beyond simply defeating your enemies, you make an example of them.
-    When you slay a foe, every enemy within 20 feet who can see their
-    @Condition[dead] ally suffers damage to their <strong>Morale</strong> equal
-    to your <strong>Strength </strong>score.</p>
+    When you slay a foe, every enemy within <strong>20 feet</strong> who can see
+    their @Condition[dead] ally suffers damage to their <strong>Morale</strong>
+    equal to your <strong>Strength </strong>score.</p>
   actions: []
   nodes:
     - str3b
@@ -25,8 +25,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788364800000
-  modifiedTime: 1788877689728
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789492217293
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

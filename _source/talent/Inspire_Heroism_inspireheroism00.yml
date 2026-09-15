@@ -15,9 +15,9 @@ system:
       img: icons/skills/social/intimidation-impressing.webp
       condition: ''
       description: >-
-        <p>Each ally, excluding yourself, within <strong>10 Feet</strong> gains
+        <p>Each ally, excluding yourself, within <strong>10 feet</strong> gains
         <strong>+1 Boon</strong> to actions performed until the end of their
-        next Turn.</p>
+        next turn.</p>
       tags: []
       cost:
         action: 3
@@ -39,22 +39,25 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           result:
             type: success
             all: false
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
       range:
         maximum: null
         weapon: false
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - pre0a
   rune: ''
@@ -67,8 +70,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160136
-  modifiedTime: 1788315317093
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789492322709
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
   exportSource: null

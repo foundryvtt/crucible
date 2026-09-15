@@ -15,8 +15,8 @@ system:
       description: >-
         <p>You expend <strong>Heroism</strong> to instantly recover two times
         your <strong>Toughness</strong> in <strong>Health</strong>. Your
-        <strong>Healing Threshold</strong> is reduced by 2 for the next 3
-        Rounds.</p>
+        <strong>Healing Threshold</strong> is reduced by 2 for the next
+        <strong>3 Rounds</strong>.</p>
       cost:
         action: 1
         focus: 0
@@ -43,18 +43,21 @@ system:
             value: 3
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
-        - healing
         - subtle
-      summon:
-        actorUuid: null
-        permanent: true
+        - healing
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -73,8 +76,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160137
-  modifiedTime: 1788277687375
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789492046687
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: lastStand0000000
 sort: 100000
 _key: '!items!lastStand0000000'
