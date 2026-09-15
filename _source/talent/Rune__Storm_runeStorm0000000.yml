@@ -3,11 +3,12 @@ type: talent
 img: icons/magic/lightning/bolt-strike-blue.webp
 system:
   description: >-
-    <p>The chaotic force of raw electrical energy. The Storm rune governs
-    sources of electrical charge and discharge.</p><p>The Storm rune scales
-    using <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-    <strong>Electricity</strong> damage to <strong>Health</strong>. It is
-    opposed by the orderly rune of <strong>Earth</strong>.</p>
+    <p>The chaotic force of raw electrical energy. The <strong>Storm</strong>
+    rune governs sources of electrical charge and discharge.</p><p>The
+    <strong>Storm</strong> rune scales using <strong>Intellect</strong>, targets
+    <strong>Reflex</strong>, and deals <strong>Electricity</strong> damage to
+    <strong>Health</strong>. It is opposed by the orderly rune of
+    <strong>Earth</strong>.</p>
   actions:
     - id: energize
       name: Energize
@@ -65,12 +66,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307160144
-  modifiedTime: 1773514792609
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789498742512
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 folder: Dy9HnwadNE3kSZ4f
 ownership:
   default: 0

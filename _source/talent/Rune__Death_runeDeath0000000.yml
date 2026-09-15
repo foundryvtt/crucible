@@ -4,11 +4,11 @@ img: icons/magic/unholy/hand-claw-fire-blue.webp
 system:
   description: >-
     <p>The orderly force of destruction, responsible for the corruption of all
-    biological matter. The Death rune governs decay and destruction.</p><p>The
-    Death rune scales using <strong>Presence</strong>, targets
-    <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage to
-    <strong>Health</strong>. It is opposed by the chaotic rune of
-    <strong>Life</strong>.</p>
+    biological matter. The <strong>Death</strong> rune governs decay and
+    destruction.</p><p>The <strong>Death</strong> rune scales using
+    <strong>Presence</strong>, targets <strong>Fortitude</strong>, and deals
+    <strong>Corruption</strong> damage to <strong>Health</strong>. It is opposed
+    by the chaotic rune of <strong>Life</strong>.</p>
   actions:
     - id: ennervate
       name: Ennervate
@@ -65,12 +65,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307160143
-  modifiedTime: 1773514792607
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789498628881
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
