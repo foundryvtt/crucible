@@ -3,20 +3,21 @@
 
     {{#if hasAdvancedDescription}}
     <div class="sheet-section flexcol expandable {{description.publicClass}}">
-        <h3 data-action="expandSection" data-tooltip="{{description.fields.public.hint}}">
-            {{description.fields.public.label}}
+        <h3 data-action="expandSection" data-tooltip="{{description.publicField.hint}}">
+            {{description.publicField.label}}
             <i class="fa-solid fa-chevron-right" inert></i>
         </h3>
-        {{formInput description.fields.public value=description.publicSrc enriched=description.publicHTML toggled=true}}
+        {{formInput description.publicField value=description.publicSrc enriched=description.publicHTML toggled=true}}
     </div>
+    {{#if description.privateField}}
     <div class="sheet-section flexcol expandable {{description.privateClass}}">
-        <h3 data-action="expandSection" data-tooltip="{{description.fields.private.hint}}">
-            {{description.fields.private.label}}
+        <h3 data-action="expandSection" data-tooltip="{{description.privateField.hint}}">
+            {{description.privateField.label}}
             <i class="fa-solid fa-chevron-right" inert></i>
         </h3>
-        {{formInput description.fields.private value=description.privateSrc enriched=description.privateHTML toggled=true}}
+        {{formInput description.privateField value=description.privateSrc enriched=description.privateHTML toggled=true}}
     </div>
-
+    {{/if}}
     {{else}}
     {{#if isEditable}}
     {{formInput description.field value=description.publicSrc enriched=description.publicHTML toggled=true}}
