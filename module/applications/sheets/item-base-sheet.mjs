@@ -217,16 +217,20 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         const editorOptions = {relativeTo: this.document, secrets: this.document.isOwner};
         if ( this.options.item.hasAdvancedDescription ) {
           const {public: publicSrc, private: privateSrc} = context.source.system.description;
+          const fields = context.fields.description.fields;
           context.description = {
             tab: context.tabs.description,
-            fields: context.fields.description.fields,
+            publicField: fields.public,
             publicSrc,
             publicHTML: await editorCls.enrichHTML(publicSrc, editorOptions),
-            publicClass: publicSrc ? "" : "empty",
+            publicClass: publicSrc ? "" : "empty"
+          };
+          if ( game.user.isGM ) Object.assign(context.description, {
+            privateField: fields.private,
             privateSrc,
             privateHTML: await editorCls.enrichHTML(privateSrc, editorOptions),
             privateClass: privateSrc ? "" : "empty"
-          };
+          });
         } else {
           const src = context.source.system.description;
           context.description = {
