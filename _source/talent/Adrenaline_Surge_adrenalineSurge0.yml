@@ -14,9 +14,10 @@ system:
       condition: ''
       description: >-
         <p>You expend <strong>Heroism</strong> and benefit from <strong>+2
-        Boons</strong> to any action which scales using Strength for 3 Rounds.
-        You may perform this action outside of your turn in Combat before making
-        a <strong>Reaction</strong>.</p>
+        Boons</strong> to any action which scales using
+        <strong>Strength</strong> for <strong>3 Rounds</strong>. You may perform
+        this action outside of your turn in <strong>Combat</strong> before
+        making a @Rule[action.reaction].</p>
       cost:
         action: 0
         focus: 0
@@ -43,17 +44,20 @@ system:
             value: 3
             units: rounds
             expiry: turnStart
+            expired: false
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
         - subtle
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   rune: ''
   gesture: ''
   inflection: ''
@@ -72,8 +76,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307160124
-  modifiedTime: 1788278053792
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789492150383
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: adrenalineSurge0
 sort: 0
 _key: '!items!adrenalineSurge0'

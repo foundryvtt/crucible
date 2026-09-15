@@ -5,10 +5,11 @@ system:
   description: >-
     <p>There are older things than Runes, and they can lend power. When you have
     no <strong>Focus</strong> remaining, you may spend <strong>Morale</strong>
-    in its place. Each point of insufficient <strong>Focus</strong> costs 10
-    Morale in exchange. You may still make this exchange while otherwise
-    prevented from spending Focus, for example by the @Condition[broken]
-    condition, although such a trade may incur <strong>Madness</strong>.</p>
+    in its place. Each point of insufficient <strong>Focus</strong> costs
+    <strong>10 Morale</strong> in exchange. You may still make this exchange
+    while otherwise prevented from spending <strong>Focus</strong>, for example
+    by the @Condition[broken] condition, although such a trade may incur
+    <strong>Madness</strong>.</p>
   actions: []
   nodes:
     - int2b
@@ -27,8 +28,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788364800000
-  modifiedTime: 1788364646123
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789492297330
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

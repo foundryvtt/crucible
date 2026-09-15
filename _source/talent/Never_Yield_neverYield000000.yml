@@ -5,8 +5,8 @@ img: icons/skills/melee/strike-polearm-light-orange.webp
 system:
   description: >-
     <p>Your determination refuses to let your body's limits slow you down. While
-    @Condition[weakened], your action point penalty is reduced from -2 to
-    -1.</p>
+    @Condition[weakened], your maximum <strong>Action</strong> point penalty is
+    reduced from <strong>-2</strong> to <strong>-1</strong>.</p>
   actions: []
   nodes:
     - tou4c
@@ -24,8 +24,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1776178218564
-  modifiedTime: 1788970723732
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789491801005
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

@@ -12,9 +12,9 @@ system:
       img: icons/skills/melee/hand-grip-staff-blue.webp
       condition: ''
       description: >-
-        <p>You perform a deliberately non-lethal weapon Strike which deals its
-        damage to the target's <strong>Morale</strong> rather than their
-        Health.</p>
+        <p>You perform a deliberately non-lethal weapon <strong>Strike</strong>
+        which deals its damage to the target's <strong>Morale</strong> rather
+        than their <strong>Health</strong>.</p>
       cost:
         action: 0
         focus: 0
@@ -52,8 +52,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1788364800000
-  modifiedTime: 1788363803394
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789492260500
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
