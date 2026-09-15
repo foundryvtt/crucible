@@ -18,7 +18,7 @@ system:
         <p>When you defend against a melee attack with a <strong>Parry</strong>,
         you may react and expend <strong>Focus</strong> to retaliate with a
         reduced-cost <strong>Strike</strong> which is
-        <strong>Accurate</strong>.</p>
+        @Rule[action.accurate].</p>
       cost:
         action: -1
         focus: 1
@@ -39,10 +39,7 @@ system:
         maximum: 1
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
-      autoFavorite: false
+      summon: null
   nodes:
     - str2a
   rune: ''
@@ -52,10 +49,10 @@ system:
   training: light
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160129
-  modifiedTime: 1780503315261
+  modifiedTime: 1789487853434
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

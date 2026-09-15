@@ -3,8 +3,9 @@ type: talent
 img: icons/magic/defensive/armor-stone-skin.webp
 system:
   description: >-
-    Your physical toughness makes you more resistant to harm. You gain +2
-    Resistance to Bludgeoning, Slashing, and Piercing damage.
+    <p>Your physical toughness makes you more resistant to harm. You gain
+    <strong>+2 Resistance</strong> to <strong>Bludgeoning</strong>,
+    <strong>Slashing</strong>, and <strong>Piercing</strong> damage.</p>
   actions: []
   nodes:
     - tou3b
@@ -21,11 +22,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160152
-  modifiedTime: 1773514792622
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789488002251
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.thickskin0000000
   duplicateSource: null
   exportSource: null

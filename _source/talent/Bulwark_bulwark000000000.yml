@@ -4,9 +4,9 @@ img: icons/equipment/shield/buckler-wooden-boss-glowing-blue.webp
 system:
   description: >-
     <p>You have expertise in using a <strong>Shield</strong> to defend yourself
-    and others.</p><p>Once per Turn while you have a Shield equipped, you may
-    use the @Action[default defend] action at a reduced cost of 1 Action
-    Point.</p>
+    and others.</p><p>Once per turn while you have a <strong>Shield</strong>
+    equipped, the <strong>Action</strong> cost of using the @Action[default
+    defend] action is reduced by 1.</p>
   nodes:
     - tou0a
   actions: []
@@ -23,11 +23,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.0
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160128
-  modifiedTime: 1781972841916
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1789487356158
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.bulwark000000000
   duplicateSource: null
   exportSource: null
