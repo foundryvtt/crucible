@@ -488,10 +488,13 @@ function renderMilestone(element) {
  */
 async function onClickMilestone(event) {
   event.preventDefault();
-  if ( !crucible.party ) return ui.notifications.warn(_loc("WARNING.NoParty"));
+  if ( !game.user.isGM ) return ui.notifications.warn(_loc("AWARD.WARNINGS.RequiresGM"));
+
+  const party = crucible.api.models.CrucibleGroupActor.getParty();
+  if ( !party ) return;
 
   const quantity = event.currentTarget.dataset.quantity;
-  await crucible.party.system.awardMilestoneDialog(quantity);
+  await party.awardMilestoneDialog(quantity);
 }
 
 /* -------------------------------------------- */
@@ -816,27 +819,13 @@ function onClickGroupCheck(event) {
   if ( !game.user.isGM ) return ui.notifications.warn(_loc("DICE.GROUP_CHECK.RequiresGM"));
   let requestedActors = inferEnricherActors();
   if ( !requestedActors.length ) {
-    requestedActors = getPartyActors();
-    if ( !requestedActors ) return;
+    const party = crucible.api.models.CrucibleGroupActor.getParty();
+    if ( !party ) return;
+    requestedActors = Array.from(party.actors);
   }
   const {check} = prepareSkillCheck(event);
   const dialogOptions = {request: true, requestedActors};
   return check.dialog(dialogOptions);
-}
-
-/* -------------------------------------------- */
-
-/**
- * Get party actors as an array for request-based group checks.
- * @returns {CrucibleActor[]|null}
- */
-function getPartyActors() {
-  const members = crucible.party?.system.actors;
-  if ( !members?.size ) {
-    ui.notifications.warn(_loc("WARNING.NoParty"));
-    return null;
-  }
-  return Array.from(members);
 }
 
 /* -------------------------------------------- */
