@@ -9,8 +9,9 @@ system:
     <p>You practice the oral and musical traditions of heroic storytelling to
     inspire courage in your allies, demoralize your foes, and be quick with
     unconventional solutions to problems.</p><p>You learn <strong>Rune: Soul
-    </strong>if you do not already know it. When restoring the morale of allies
-    using the Rune of Soul you gain <strong>+2 Boons</strong> to your roll.</p>
+    </strong>if you do not already know it. When restoring the
+    <strong>Morale</strong> of allies using the <strong>Rune of Soul</strong>
+    you gain <strong>+2 Boons</strong> to your roll.</p>
   actions:
     - id: laughingMatter
       name: Laughing Matter
@@ -25,7 +26,7 @@ system:
         <strong>Performance</strong> skill attack against the target's
         <strong>Fortitude</strong>, dealing <strong>Psychic</strong> damage to
         <strong>Morale</strong> upon a success. Furthermore, upon a success, the
-        target suffers 1 <strong>Bane</strong> to all rolls until the start of
+        target suffers <strong>+1 Bane</strong> to all rolls until the start of
         their next turn.</p><p>The target must be able to see and understand you
         to be affected by this ability.</p>
       cost:
@@ -51,25 +52,28 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           result:
             type: success
             all: false
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
+        - reaction
         - fortitude
         - psychic
         - morale
         - skill
         - performance
-        - reaction
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   spellcraft: soul
   iconicSpells: 0
 effects: []
@@ -82,11 +86,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.4
+  systemVersion: 0.10.2
   createdTime: 1772307160127
-  modifiedTime: 1779907241192
+  modifiedTime: 1789493483686
   lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: bard000000000000
 sort: 0

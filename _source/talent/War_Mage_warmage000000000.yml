@@ -4,10 +4,10 @@ img: icons/magic/defensive/barrier-shield-dome-deflect-teal.webp
 system:
   description: >-
     <p>Your spellcraft is honed as a weapon of war to thwart the incantations of
-    other magi. You may ask the Gamemaster if you know a <strong>Rune</strong>
-    capable of countering an enemy spell, even if you do not recognize the spell
-    being cast. You gain +2 Boons to any
-    @Action[Compendium.crucible.talent.Item.counterspell0000 counterspell]
+    other magi. You may ask the <strong>Gamemaster</strong> if you know a
+    <strong>Rune</strong> capable of countering an enemy spell, even if you do
+    not recognize the spell being cast. You gain <strong>+2 Boons</strong> to
+    any @Action[Compendium.crucible.talent.Item.counterspell0000 counterspell]
     attempt.</p>
   actions: []
   iconicSpells: 0
@@ -25,11 +25,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160153
-  modifiedTime: 1781295310474
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1789495067564
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.warmage000000000
   duplicateSource: null
   exportSource: null

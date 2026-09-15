@@ -23,8 +23,8 @@ system:
         <p>Choose an ally adjacent to you and reposition them to be directly
         behind you, based on your direction of facing at the time this action is
         used, interposing yourself between that ally and their
-        attackers.</p><p>This movement does not provoke reactions for
-        Disengagement and the protected ally gains the @Condition[guarded]
+        attackers.</p><p>This movement does not provoke a @Action[default
+        reactiveStrike] and the protected ally gains the @Condition[guarded]
         condition until the start of their next turn.</p>
       tags: []
       cost:
@@ -54,7 +54,9 @@ system:
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
             dc: null
@@ -64,9 +66,7 @@ system:
         minimum: null
         maximum: 1
         weapon: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - sig3.toughness.strength
   rune: ''
@@ -78,11 +78,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.5
-  coreVersion: '14.364'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160160
-  modifiedTime: 1781301170152
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1789493105811
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
