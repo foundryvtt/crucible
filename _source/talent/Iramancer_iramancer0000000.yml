@@ -6,7 +6,7 @@ system:
   description: >-
     <p>Your feats of arcana are fueled by anger. While @Condition[enraged] you
     may still spend <strong>Focus</strong> and you deal 2 additional damage to
-    all spell attacks.</p>
+    all <strong>Spell</strong> attacks.</p>
   actions: []
   nodes:
     - pre2b
@@ -19,11 +19,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160137
-  modifiedTime: 1780578043456
-  lastModifiedBy: fzBjA63BB4hW4rQb
+  modifiedTime: 1789499286959
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null
