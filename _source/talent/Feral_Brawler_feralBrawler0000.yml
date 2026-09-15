@@ -5,13 +5,12 @@ img: icons/creatures/claws/claw-bear-paw-swipe-brown.webp
 system:
   description: >-
     <p>You fight with your bare hands the way a beast fights with claw and jaw,
-    committing to a savagery that trained fighters are taught out of.</p>
-
-    <p>Your bare hands count as <strong>Natural</strong> weapons in addition to
+    committing to a savagery that trained fighters are taught out of.</p><p>Your
+    bare hands count as <strong>Natural</strong> weapons in addition to
     <strong>Unarmed</strong> ones. You may use them for any action which
-    requires a Natural weapon, and they are wielded using whichever of your
-    <strong>Natural</strong> or <strong>Unarmed</strong> proficiencies serves
-    you better.</p>
+    requires a <strong>Natural</strong> weapon, and they are wielded using
+    whichever of your <strong>Natural</strong> or <strong>Unarmed</strong>
+    proficiencies serves you better.</p>
   actions: []
   nodes:
     - tou1a
@@ -31,8 +30,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1788690000000
-  modifiedTime: 1788801268773
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789489074410
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: feralBrawler0000
 sort: 100000
 _key: '!items!feralBrawler0000'

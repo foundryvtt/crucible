@@ -5,16 +5,16 @@ img: icons/skills/melee/shield-block-bash-blue.webp
 system:
   description: >-
     <p>You are practiced at fighting with shield, using it to slam into and
-    imbalance your foes.</p>
+    unbalance your foes.</p>
   actions:
     - id: shieldBash
       name: Shield Bash
       img: icons/skills/melee/shield-block-bash-blue.webp
       condition: ''
       description: >-
-        <p>Following a basic Strike with your mainhand weapon, you
-        <strong>Strike</strong> with your shield, causing the
-        @Condition[staggered] condition for one Round.</p>
+        <p>Following a basic @Action[default strike] with your mainhand weapon,
+        you <strong>Strike</strong> with your shield, causing the
+        @Condition[staggered] condition for <strong>1 Round</strong>.</p>
       cost:
         action: 0
         focus: 0
@@ -42,19 +42,22 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           system:
             changes: []
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
+            dc: null
+            properties: []
       tags:
         - shield
         - afterStrike
         - offhand
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   iconicSpells: 0
   training: shield
   nodes:
@@ -70,10 +73,10 @@ _stats:
   exportSource: null
   coreVersion: '14.367'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307160146
-  modifiedTime: 1788314987481
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789489232210
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

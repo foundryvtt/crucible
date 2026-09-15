@@ -7,14 +7,14 @@ flags:
 system:
   description: >-
     <p>You focus your cunning instincts on exploiting the weak points of a
-    flanked target. You identify an opportunity and strike with deadly
-    efficiency.</p>
+    @Condition[flanked] target. You identify an opportunity and strike with
+    deadly efficiency.</p>
   actions:
     - id: backstab
       condition: You are attacking a target with the Flanked condition.
       description: >-
         <p>You <strong>Strike</strong> with your weapon against a
-        @Condition[flanked] target, dealing <strong>Deadly</strong> damage.</p>
+        @Condition[flanked] target, dealing @Rule[action.deadly] damage.</p>
       tags:
         - finesse
         - flanking
@@ -38,9 +38,7 @@ system:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - dex1b
   rune: ''
@@ -50,10 +48,10 @@ system:
   training: light
 _stats:
   systemId: crucible
-  systemVersion: 0.9.1
-  coreVersion: '14.360'
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
   createdTime: 1772307160127
-  modifiedTime: 1777739314854
+  modifiedTime: 1789488530004
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null

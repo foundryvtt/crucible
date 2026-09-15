@@ -16,7 +16,7 @@ system:
       condition: ''
       description: >-
         <p>You <strong>Strike</strong> twice with each weapon, but each strike
-        is <strong>Difficult</strong>.</p>
+        is @Rule[action.difficult].</p>
       tags:
         - dualwield
         - melee
@@ -40,9 +40,7 @@ system:
         maximum: null
         weapon: true
         minimum: null
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
   nodes:
     - dex0b
   rune: ''
@@ -55,8 +53,8 @@ _stats:
   systemVersion: 0.10.2
   coreVersion: '14.367'
   createdTime: 1772307160132
-  modifiedTime: 1788276828259
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1789488482710
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null
   exportSource: null
