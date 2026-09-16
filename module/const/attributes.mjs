@@ -349,4 +349,6 @@ export const DEFENSES = {
     type: "threshold"
   }
 };
-
+for ( const d of Object.values(DEFENSES) ) {
+  d.page = "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Defenses00000000";
+}

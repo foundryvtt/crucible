@@ -18,93 +18,98 @@ pages:
         action which targets that defense. Success on a test against a defense
         target requires the roll to exceed the defense value, the defender is
         successful on a tie.</p><p>The defense types in the Crucible system
-        are:</p><h2 class="divider">Physical Defense</h2><p><strong>Physical
-        Defense</strong> describes how difficult the creature is to hit with
-        physical attacks, typically melee or ranged weapon strikes. Physical
-        Defense is composed of four components. Total Physical Defense is equal
-        to:</p><section class="formula"><p class="value">Physical Defense</p><p
+        are:</p><h2 class="divider">Physical Defense</h2><div
+        data-rule="defense.physical"><p><strong>Physical Defense</strong>
+        describes how difficult the creature is to hit with physical attacks,
+        typically melee or ranged weapon strikes. Physical Defense is composed
+        of four components. Total Physical Defense is equal to:</p><section
+        class="formula"><p class="value">Physical Defense</p><p
         class="equals">=</p><p class="equation">Armor + Dodge + Parry +
         Block</p></section><p>When an attack misses because it is less than or
         equal to the Physical Defense total, it is assigned a type of miss based
         on the proportional mixture of Physical Defense
-        components.</p><dl><dt><p>Armor</p></dt><dd><p>Protection offered by
-        worn equipment or organic attributes like scales or chitin. When a
-        strike fails to hit and is not Dodged, Parried, or Blocked, the Armor
-        defense determines the final outcome. If the attack was not a Critical
-        Failure, it results in a <strong>Glance</strong> - a grazing hit that
-        still deals reduced damage based on the Overflow below the Defense
-        target. If the attack was a Critical Failure, it is fully absorbed by
-        the <strong>Armor</strong> and deals no
-        damage.</p></dd><dt><p>Dodge</p></dt><dd><p>Protection offered by
-        physical quickness and agility. Strikes which fail to hit and are
-        defended by the Dodge defense assume the <strong>Dodged</strong>
-        outcome. Dodged attacks deal no damage and provide opportunity for
-        dodge-based reactions.</p></dd><dt><p>Parry</p></dt><dd><p>Protection
-        offered by guarding against an attack using an equipped weapon. Strikes
-        which fail to hit and are defended by the Parry defense assume the
-        <strong>Parried</strong> outcome. Parried attacks deal no damage and
-        provide opportunity for parry-based
-        reactions.</p></dd><dt><p>Block</p></dt><dd><p>Protection offered by
-        guarding against an attack using an equipped shield or blocking weapon.
-        Strikes which fail to hit and are defended by the Block defense assume
-        the <strong>Blocked </strong>outcome. Blocked attacks deal no damage and
-        provide opportunity for block-based reactions.</p></dd></dl><h2
-        class="divider">Non-Physical Defenses</h2><p>The three non-physical
-        defenses are used to protect against actions which do not involve a
-        targeted kinetic strike and instead are withstood or avoided through
-        some other means. Bonuses to these non-physical defenses may be obtained
-        through Talents or magical Equipment.</p><h3
-        class="divider">Fortitude</h3><p><strong>Fortitude Defense</strong>
+        components.</p></div><dl><dt><p>Armor</p></dt><dd
+        data-rule="defense.armor"><p>Protection offered by worn equipment or
+        organic attributes like scales or chitin. When a strike fails to hit and
+        is not Dodged, Parried, or Blocked, the Armor defense determines the
+        final outcome. If the attack was not a Critical Failure, it results in a
+        <strong>Glance</strong> - a grazing hit that still deals reduced damage
+        based on the Overflow below the Defense target. If the attack was a
+        Critical Failure, it is fully absorbed by the <strong>Armor</strong> and
+        deals no damage.</p></dd><dt><p>Dodge</p></dt><dd
+        data-rule="defense.dodge"><p>Protection offered by physical quickness
+        and agility. Strikes which fail to hit and are defended by the Dodge
+        defense assume the <strong>Dodged</strong> outcome. Dodged attacks deal
+        no damage and provide opportunity for dodge-based
+        reactions.</p></dd><dt><p>Parry</p></dt><dd
+        data-rule="defense.parry"><p>Protection offered by guarding against an
+        attack using an equipped weapon. Strikes which fail to hit and are
+        defended by the Parry defense assume the <strong>Parried</strong>
+        outcome. Parried attacks deal no damage and provide opportunity for
+        parry-based reactions.</p></dd><dt><p>Block</p></dt><dd
+        data-rule="defense.block"><p>Protection offered by guarding against an
+        attack using an equipped shield or blocking weapon. Strikes which fail
+        to hit and are defended by the Block defense assume the <strong>Blocked
+        </strong>outcome. Blocked attacks deal no damage and provide opportunity
+        for block-based reactions.</p></dd></dl><h2 class="divider">Non-Physical
+        Defenses</h2><p>The three non-physical defenses are used to protect
+        against actions which do not involve a targeted kinetic strike and
+        instead are withstood or avoided through some other means. Bonuses to
+        these non-physical defenses may be obtained through Talents or magical
+        Equipment.</p><h3 class="divider">Fortitude</h3><div
+        data-rule="defense.fortitude"><p><strong>Fortitude Defense</strong>
         describes a character's ability to withstand bodily harm. Fortitude is
         modified by <strong>Strength</strong> and <strong>Wisdom</strong> which
         represent physical resistance and mental resilience respectively.
         Fortitude defense is calculated as:</p><section class="formula"><p
         class="value">Fortitude Defense</p><p class="equals">=</p><p
         class="equation">12 + ((Strength + Wisdom) / 4) + Fortitude
-        Bonus</p></section><h3
-        class="divider">Willpower</h3><p><strong>Willpower Defense</strong>
+        Bonus</p></section></div><h3 class="divider">Willpower</h3><div
+        data-rule="defense.willpower"><p><strong>Willpower Defense</strong>
         describes a character's ability to withstand mental or emotional
         attacks. Willpower is modified by <strong>Toughness</strong> and
         <strong>Presence</strong> which represent physical grit and mental
         determination respectively. Willpower defense is calculated
         as:</p><section class="formula"><p class="value">Willpower Defense</p><p
         class="equals">=</p><p class="equation">12 + ((Toughness + Presence) /
-        4) + Willpower Bonus</p></section><h3
-        class="divider">Reflex</h3><p><strong>Reflex Defense</strong> describes
+        4) + Willpower Bonus</p></section></div><h3
+        class="divider">Reflex</h3><div
+        data-rule="defense.reflex"><p><strong>Reflex Defense</strong> describes
         a character's ability to avoid harm that would otherwise occur in a
         specific area. Reflex is modified by <strong>Dexterity</strong> and
         <strong>Intellect</strong> which represent quickness of body and
         rapidity of thought respectively. Reflex defense is calculated
         as:</p><section class="formula"><p class="value">Reflex Defense</p><p
         class="equals">=</p><p class="equation">12 + ((Dexterity + Intellect) /
-        4) + Reflex Bonus</p></section><p>Note that Reflex is typically used as
-        the defense type for intangible - but otherwise physical - sources of
-        harm, while Physical Defense is used to defend against tangible
-        attacks.</p><h2 class="divider">Restoration
+        4) + Reflex Bonus</p></section></div><p>Note that Reflex is typically
+        used as the defense type for intangible - but otherwise physical -
+        sources of harm, while Physical Defense is used to defend against
+        tangible attacks.</p><h2 class="divider">Restoration
         Thresholds</h2><p><strong>Restoration Thresholds</strong> describe a
         pair of defenses which dictate how challenging it is to restore a
         creature's resources through healing or rallying actions. Bonuses to
         these Restoration Threshold defenses may be obtained through Talents or
         magical Equipment. Since higher thresholds make a character more
         difficult to heal, bonuses to these defenses lower the threshold instead
-        of increasing it.</p><h3 class="divider">Healing
-        Threshold</h3><p><strong>Healing Threshold</strong> describes how
-        difficult it is to restore the Health of a creature. As creatures become
-        more severely wounded, they grow more difficult to heal. This provides a
-        measure of attrition which requires adventurers to carefully manage
-        their accumulation of <strong>Wounds </strong>over time. Healing
-        threshold is calculated as:</p><section class="formula"><p
+        of increasing it.</p><h3 class="divider">Healing Threshold</h3><div
+        data-rule="defense.wounds"><p><strong>Healing Threshold</strong>
+        describes how difficult it is to restore the Health of a creature. As
+        creatures become more severely wounded, they grow more difficult to
+        heal. This provides a measure of attrition which requires adventurers to
+        carefully manage their accumulation of <strong>Wounds </strong>over
+        time. Healing threshold is calculated as:</p><section class="formula"><p
         class="value">Healing Threshold</p><p class="equals">=</p><p
-        class="equation">12 + (Wounds / 10) - Bonus</p></section><h3
-        class="divider">Rallying Threshold</h3><p><strong>Rallying
-        Threshold</strong> describes how difficult it is to restore the Morale
-        of a creature. As creatures become more psychologically damaged they
-        become more difficult to rally. This provides a measure of attrition
-        which requires adventurers to carefully manage their accumulation of
+        class="equation">12 + (Wounds / 10) - Bonus</p></section></div><h3
+        class="divider">Rallying Threshold</h3><div
+        data-rule="defense.madness"><p><strong>Rallying Threshold</strong>
+        describes how difficult it is to restore the Morale of a creature. As
+        creatures become more psychologically damaged they become more difficult
+        to rally. This provides a measure of attrition which requires
+        adventurers to carefully manage their accumulation of
         <strong>Madness</strong> over time. Rallying threshold is calculated
         as:</p><section class="formula"><p class="value">Rallying
         Threshold</p><p class="equals">=</p><p class="equation">12 + (Madness /
-        10) - Bonus</p></section>
+        10) - Bonus</p></section></div>
     video:
       controls: true
       volume: 0.5
@@ -119,12 +124,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.363'
+      coreVersion: '14.367'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1761697191065
-      modifiedTime: 1780404092331
-      lastModifiedBy: ZXJsFnFZuf21WDAk
+      modifiedTime: 1789586737631
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
     _key: '!journal.pages!characterMechani.Defenses00000000'
   - _id: Resources0000000
     name: Resources

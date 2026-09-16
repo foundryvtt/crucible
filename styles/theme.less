@@ -613,4 +613,19 @@
       }
     }
   }
+
+  // Rules formulae in tooltips
+  section.formula {
+    font-size: var(--font-size-12);
+    background: none;
+    margin: 0.5rem 0;
+    padding: 0;
+    color: var(--color-tertiary);
+  }
+
+  // Rule tooltips specifically
+  .rule-tooltip {
+    > :first-child { margin-top: 0; }
+    > :last-child { margin-bottom: 0; }
+  }
 }

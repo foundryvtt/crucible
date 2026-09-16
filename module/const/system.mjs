@@ -209,6 +209,7 @@ export const TIME = Object.freeze({
  * @typedef {{name?: string, label?: string, tooltip?: string, page?: string}} RuleItem
  * @typedef {Record<string, RuleItem|RulesRecord>} RulesRecord
  * Define rules objects used by the `@Rule` enricher.
+ * A rule whose `tooltip` resolves blank derives its content from the `data-rule` element of its `page`.
  * @type {RulesRecord}
  */
 export const RULES = {

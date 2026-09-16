@@ -193,18 +193,43 @@ async function displayLanguageCheck(event) {
 /* -------------------------------------------- */
 
 /**
+ * Extract the source HTML which documents a rule from the journal page it lives on.
+ * Content is returned un-enriched; enrichment happens once for every rule tooltip in {@link getRuleTooltipContext}.
+ * @param {JournalEntryPage} page   The page which documents this rule
+ * @param {string} ruleId           Dot-path id of the rule, matched against a `data-rule` attribute
+ * @returns {string}                Source HTML, or an empty string if an annotated page does not document this rule
+ */
+function extractRuleContent(page, ruleId) {
+  const content = page.text?.content;
+  if ( !content ) return "";
+  const doc = new DOMParser().parseFromString(content, "text/html");
+  const el = doc.querySelector(`[data-rule="${ruleId}"]`);
+  if ( el ) return el.innerHTML.trim();
+  // Pages without a matching selector contribute their whole content (e.g. conditions)
+  return doc.querySelector("[data-rule]") ? "" : content;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Display tag tooltip descriptions.
  * @param {PointerEvent} event
  * @returns {Promise<void>}
  */
 async function displayTagTooltip(event) {
   const element = event.target;
-  let tooltip = element.dataset.crucibleTooltipText ?? SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
+  const ruleId = element.dataset.ruleId;
+  let tooltip = element.dataset.crucibleTooltipText || SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
   let name = element.innerText;
-  const cfg = foundry.utils.getProperty(SYSTEM.RULES, element.dataset.ruleId);
-  if (cfg) {
+  const cfg = foundry.utils.getProperty(SYSTEM.RULES, ruleId);
+  if ( cfg ) {
     const page = cfg.page ? await fromUuid(cfg.page) : null;
-    tooltip ??= cfg.tooltip ?? cfg.description ?? page?.text.content;
+    tooltip ||= _loc(cfg.tooltip) || cfg.description;
+    // Maybe derive tooltip content from authoritative journal text
+    if ( !tooltip && page ) {
+      tooltip = extractRuleContent(page, ruleId);
+      if ( tooltip && cfg.tooltip ) foundry.utils.setProperty(game.i18n.translations, cfg.tooltip, tooltip);
+    }
     name = _loc(cfg.name) ?? _loc(cfg.label) ?? page?.name;
   }
   if ( !tooltip ) return;

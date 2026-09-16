@@ -1588,16 +1588,16 @@
       "Wounds": "{base} + (Wounds / 10)"
     },
     "TOOLTIPS": {
-      "Armor": "Protection offered by worn equipment or organic attributes like scales or chitin. Misses that are not Dodged, Parried, or Blocked become a Glance (reduced damage) or are fully absorbed on a Critical Failure.",
-      "Block": "Protection offered by guarding against an attack using an equipped shield or blocking weapon. Blocked attacks deal no damage and provide opportunity for block-based reactions.",
-      "Dodge": "Protection offered by physical quickness and agility. Dodged attacks deal no damage and provide opportunity for dodge-based reactions.",
-      "Fortitude": "Fortitude Defense describes a character's ability to withstand bodily harm. It is modified by Strength and Wisdom, representing physical resistance and mental resilience respectively.",
-      "Madness": "Rallying Threshold describes how difficult it is to restore the Morale of a creature. As creatures become more psychologically damaged they become more difficult to rally.",
-      "Parry": "Protection offered by guarding against an attack using an equipped weapon. Parried attacks deal no damage and provide opportunity for parry-based reactions.",
-      "Physical": "Physical Defense describes how difficult the creature is to hit with physical attacks, typically melee or ranged weapon strikes.",
-      "Reflex": "Reflex Defense describes a character's ability to avoid harm that would otherwise occur in a specific area. It is modified by Dexterity and Intellect, representing quickness of body and rapidity of thought respectively.",
-      "Willpower": "Willpower Defense describes a character's ability to withstand mental or emotional attacks. It is modified by Toughness and Presence, representing physical grit and mental determination respectively.",
-      "Wounds": "Healing Threshold describes how difficult it is to restore the Health of a creature. As creatures become more severely wounded, they grow more difficult to heal."
+      "Armor": "",
+      "Block": "",
+      "Dodge": "",
+      "Fortitude": "",
+      "Madness": "",
+      "Parry": "",
+      "Physical": "",
+      "Reflex": "",
+      "Willpower": "",
+      "Wounds": ""
     },
     "Armor": "Armor",
     "Block": "Block",
