@@ -212,9 +212,9 @@ export const TIME = Object.freeze({
  * @type {RulesRecord}
  */
 export const RULES = {
+  ability: ATTRIBUTES.ABILITIES,
   action: ACTION.TAGS,
-  // Everything `@Condition` may link to, which is broader than the statuses a creature can actually be given
-  condition: {...statusEffects, ...derivedConditions}
+  condition: {...statusEffects, ...derivedConditions} // Encompasses everything `@Condition` may link to
 };
 
 /* -------------------------------------------- */

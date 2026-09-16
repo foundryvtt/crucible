@@ -547,7 +547,7 @@ function preLocalizeConfig() {
   };
 
   // Top-level system constants
-  localizeConfigObject(SYSTEM.ABILITIES, ["abbreviation", "label", "group"]);
+  localizeConfigObject(SYSTEM.ABILITIES, ["abbreviation", "label", "group", "tooltip"]);
   localizeConfigObject(SYSTEM.DAMAGE_CATEGORIES);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.DEFENSES, ["label", "shortLabel"]);

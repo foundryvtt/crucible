@@ -2,6 +2,7 @@ import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
 import CrucibleTalentNode from "../../const/talent-node.mjs";
 import CrucibleTalentItem from "../../models/item-talent.mjs";
+import {getRuleTooltipContext, RULE_TOOLTIP_TEMPLATE} from "../../interaction.mjs";
 
 const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 
@@ -13,7 +14,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     id: "crucible-talent-hud",
-    classes: ["crucible", "hud"],
+    classes: ["crucible", "crucible-tooltip"],
     tag: "aside",
     window: {
       frame: false
@@ -30,7 +31,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
       templates: ["systems/crucible/templates/sheets/item/talent-summary.hbs"]
     },
     ability: {
-      template: "systems/crucible/templates/hud/talent-tree-ability.hbs"
+      template: RULE_TOOLTIP_TEMPLATE
     }
   };
 
@@ -40,33 +41,33 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
    */
   target;
 
+  /**
+   * Which of the PARTS the current target renders through.
+   * @type {"node"|"talent"|"ability"}
+   */
+  get targetType() {
+    if ( this.target instanceof CrucibleTalentTreeNode ) return "node";
+    if ( this.target instanceof CrucibleTalentTreeTalent ) return "talent";
+    return "ability";
+  }
+
   /* -------------------------------------------- */
 
   /** @override */
   _configureRenderParts(options) {
-    const parts = foundry.utils.deepClone(this.constructor.PARTS);
-    if ( this.target instanceof CrucibleTalentTreeNode ) {
-      delete parts.talent;
-      delete parts.ability;
-    }
-    else if ( this.target instanceof CrucibleTalentTreeTalent ) {
-      delete parts.node;
-      delete parts.ability;
-    }
-    else {
-      delete parts.node;
-      delete parts.talent;
-    }
-    return parts;
+    const partId = this.targetType;
+    return {[partId]: foundry.utils.deepClone(this.constructor.PARTS[partId])};
   }
 
   /* -------------------------------------------- */
 
   /** @inheritDoc */
   async _prepareContext(_options) {
-    if ( this.target instanceof CrucibleTalentTreeNode ) return this.#getNodeContext();
-    if ( this.target instanceof CrucibleTalentTreeTalent ) return this.#getTalentContext();
-    return this.#getAbilityContext();
+    switch ( this.targetType ) {
+      case "node": return this.#getNodeContext();
+      case "talent": return this.#getTalentContext();
+      case "ability": return this.#getAbilityContext();
+    }
   }
 
   /* -------------------------------------------- */
@@ -118,15 +119,11 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
 
   /**
    * Prepare rendering context data for an ability score.
-   * @returns {object}
+   * @returns {Promise<object>}
    */
-  #getAbilityContext() {
-    const cfg = SYSTEM.ABILITIES[this.target.abilityId];
-    const tooltipHTML = _loc(cfg.tooltip);
-    return {
-      label: cfg.label,
-      descriptionHTML: tooltipHTML.replace(/^<h3[\s\S]*?<\/h3>\s*/, "")
-    };
+  async #getAbilityContext() {
+    const cfg = SYSTEM.RULES.ability[this.target.abilityId];
+    return getRuleTooltipContext(cfg.label, cfg.tooltip);
   }
 
   /* -------------------------------------------- */

@@ -12,27 +12,15 @@
 /*  Talent Tree HUD                             */
 /* -------------------------------------------- */
 
-/** HUD Elements */
-.crucible.hud,
-.crucible .hud {
-  padding: 1rem;
-  background: url("../ui/journal/background-texture.webp");
-  border: 1px solid var(--color-frame);
-  border-radius: 8px;
-  z-index: var(--z-index-tooltip);
-}
-
+// Background, padding, frame, and text alignment all come from .crucible-tooltip
 #crucible-talent-hud {
   min-width: 360px;
   width: min-content;
   max-width: 600px;
-  text-align: left;
   font-size: var(--font-size-14);
   pointer-events: all;
-  border: 12px solid transparent;
-  border-image: url("../ui/frames/tooltip-frame.webp") 64 repeat;
-  border-image-width: 32px;
   box-sizing: content-box;
+  z-index: var(--z-index-tooltip);
 
   &.locked {
     box-shadow: 0 0 2rem var(--color-border-highlight);

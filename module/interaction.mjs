@@ -1,4 +1,25 @@
 /**
+ * The shared template which renders a rule tooltip as a title followed by description content.
+ * @type {string}
+ */
+export const RULE_TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-rule.hbs";
+
+/* -------------------------------------------- */
+
+/**
+ * Prepare the rendering context for {@link RULE_TOOLTIP_TEMPLATE}.
+ * @param {string} name       Title displayed above the description
+ * @param {string} tooltip    Description content, either HTML or a plain string
+ * @returns {Promise<{name: string, tooltip: string}>}
+ */
+export async function getRuleTooltipContext(name, tooltip) {
+  const enriched = await CONFIG.ux.TextEditor.enrichHTML(tooltip);
+  return {name, tooltip: enriched.trimStart().startsWith("<p") ? enriched : `<p>${enriched}</p>`};
+}
+
+/* -------------------------------------------- */
+
+/**
  * Handle pointer enter events to take control over crucible dynamic system tooltips.
  * @param {PointerEvent} event
  */
@@ -190,8 +211,8 @@ async function displayTagTooltip(event) {
   event.stopImmediatePropagation();
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
 
-  const html = `<h3 class="tooltip-title divider">${name}</h3>${tooltip}`;
-  element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
+  element.dataset.tooltipHtml = await foundry.applications.handlebars.renderTemplate(RULE_TOOLTIP_TEMPLATE,
+    await getRuleTooltipContext(name, tooltip));
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
