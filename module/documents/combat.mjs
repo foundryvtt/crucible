@@ -103,7 +103,29 @@ export default class CrucibleCombat extends foundry.documents.Combat {
       actor.reset();
       actor.render(false);
     }
-    if ( actorUpdates.length ) Actor.updateDocuments(actorUpdates);
+    if ( !isGM ) return;
+    const batchOperations = [];
+    if ( actorUpdates.length ) batchOperations.push({
+      action: "update",
+      documentName: "Actor",
+      updates: actorUpdates
+    });
+
+    // Flush the affectedActors tracking of any Crucible Action behaviors which fired during this combat
+    for ( const uuid of (this.getFlag("crucible", "trackedActionBehaviors") ?? []) ) {
+      const behavior = fromUuidSync(uuid);
+      if ( !behavior ) continue;
+      const update = {_id: behavior.id, "system.affectedActors": _replace({})};
+      const existingUpdate = batchOperations.find(op => op.parent === behavior.parent);
+      if ( existingUpdate ) existingUpdate.updates.push(update);
+      else batchOperations.push({
+        action: "update",
+        documentName: "RegionBehavior",
+        parent: behavior.parent,
+        updates: [update]
+      });
+    }
+    foundry.documents.modifyBatch(batchOperations);
   }
 
   /* -------------------------------------------- */

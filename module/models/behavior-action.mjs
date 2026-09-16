@@ -67,19 +67,27 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       if ( !validTargets.has(actor) ) return;
     }
 
-    // If once per round and already done this round, skip
-    if ( this.oncePerRound && game.combat && (this.affectedActors[actor.uuid] === game.combat.round) ) return;
+    // If once per round and already done this round, skip. Outside of combat, this means once per actor
+    if ( this.oncePerRound && (this.affectedActors[actor.uuid] === (game.combat?.round ?? -1)) ) return;
 
     // Otherwise, perform action
     const action = new crucible.api.models.CrucibleAction(this.action, {
       actor: sourceActor,
       usage: {forcedTargets: [actor]}
     });
-    action.use({dialog: false});
+    await action.use({dialog: false});
 
     // If once per round, track that the targeted actor has been affected this round
-    if ( this.oncePerRound && game.combat ) {
-      await this.parent.update({"system.affectedActors": {[actor.uuid]: game.combat.round}});
+    if ( this.oncePerRound ) {
+      await this.parent.update({"system.affectedActors": {[actor.uuid]: game.combat?.round ?? -1}});
+
+      // If in combat, record this behavior to the current Combat so that affectedActors is cleared on combat deletion
+      if ( game.combat ) {
+        const combatBehaviors = game.combat.getFlag("crucible", "trackedActionBehaviors") ?? [];
+        if ( combatBehaviors.includes(this.parent.uuid) ) return;
+        combatBehaviors.push(this.parent.uuid);
+        await game.combat.setFlag("crucible", "trackedActionBehaviors", this.parent.uuid);
+      }
     }
   }
 }
