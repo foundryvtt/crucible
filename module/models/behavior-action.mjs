@@ -27,7 +27,12 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     const {id, name, img, description, effects, tags} = crucible.api.models.CrucibleAction.defineSchema();
     const frequencyChoices = {
       every: "REGION_BEHAVIORS.ACTION.FREQUENCIES.every",
-      round: "REGION_BEHAVIORS.ACTION.FREQUENCIES.round"
+      once: "REGION_BEHAVIORS.ACTION.FREQUENCIES.once",
+      roundActor: "REGION_BEHAVIORS.ACTION.FREQUENCIES.roundActor"
+      // oncePerActor: "Once per Actor",
+      // roundOnce: "Once per Round",
+      // turnActor: "Once per Turn per Actor",
+      // turnOnce: "Once per Turn"
     };
     return {
       action: new fields.SchemaField({
@@ -76,12 +81,15 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       const validTargets = new Set(originAction?.acquireTargets().keys() ?? []);
       if ( !validTargets.has(actor) ) return;
     }
-
-    // This switch is a bit overkill but if/when additional frequencies are added will make more sense
     switch ( this.frequency ) {
 
-      // If once per round and already done this round, skip. Outside of combat, this means once per actor
-      case "round":
+      // If once ever and already done, skip
+      case "once":
+        if ( !foundry.utils.isEmpty(this.affectedActors) ) return;
+        break;
+
+      // If once per round per actor and already done this round, skip. Outside of combat, this means once per actor
+      case "roundActor":
         if ( this.affectedActors[actor.uuid]?.round === (game.combat?.round ?? -1) ) return;
         break;
     }
@@ -108,8 +116,40 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
         const combatBehaviors = game.combat.getFlag("crucible", "trackedActionBehaviors") ?? [];
         if ( combatBehaviors.includes(this.parent.uuid) ) return;
         combatBehaviors.push(this.parent.uuid);
-        await game.combat.setFlag("crucible", "trackedActionBehaviors", this.parent.uuid);
+        await game.combat.setFlag("crucible", "trackedActionBehaviors", combatBehaviors);
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Given a Combat being deleted, update affectedActors to clean stale data (or provide a write operation which can
+   * be used to do so). If no update is appropriate, return null.
+   * @param {Combat} combat           The combat being deleted
+   * @param {object} [options]
+   * @param {boolean} [options.batch] If true, return the update operation rather than updating the Region
+   * @returns {DatabaseWriteOperation|null|Promise<RegionDocument>}
+   */
+  updateAffectedActors(combat, {batch=true}={}) {
+
+    // Never clear affectedActors for "once" frequency
+    if ( this.frequency === "once" ) return null;
+    const affectedActors = foundry.utils.deepClone(this.affectedActors);
+
+    // Do not reset out-of-combat affected marker for actors who are not currently participants in the combat
+    const participants = combat.combatants.map(c => c.actor?.uuid);
+    for ( const [actorUuid, affectedData] of Object.entries(this.affectedActors) ) {
+      if ( !participants.includes(actorUuid) && affectedData.round === -1 ) continue;
+      delete affectedActors[actorUuid];
+    }
+    if ( !batch ) return this.parent.update({"system.affectedActors": _replace(affectedActors)});
+    const update = {_id: this.parent.id, "system.affectedActors": _replace(affectedActors)};
+    return {
+      action: "update",
+      documentName: "RegionBehavior",
+      parent: this.parent.parent,
+      updates: [update]
+    };
   }
 }

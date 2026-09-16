@@ -1952,7 +1952,8 @@
       },
       "FREQUENCIES": {
         "every": "Every Time",
-        "round": "Once per Round"
+        "once": "Once",
+        "roundActor": "Once per Round per Actor"
       }
     },
     "HAZARD": {
