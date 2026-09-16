@@ -35,8 +35,7 @@
             <h3>{{systemFields.advancement.label}}</h3>
             <button type="button" class="icon fa-solid fa-bolt" data-action="recover"
                     aria-label="{{localize 'ACTOR.GROUP.LABELS.recover'}}"
-                    data-tooltip="ACTOR.GROUP.LABELS.recoverTooltip"
-                    data-tooltip-class="crucible crucible-tooltip"></button>
+                    data-crucible-tooltip="tag" data-rule-id="actions.recover"></button>
             <div class="milestones labeled-hex">
                 <h4 class="label">{{systemFields.advancement.fields.milestones.label}}</h4>
                 <button type="button" class="value" data-action="awardMilestone"
@@ -47,8 +46,7 @@
             </div>
             <button type="button" class="icon fa-solid fa-campground" data-action="rest"
                     aria-label="{{localize 'ACTOR.GROUP.LABELS.rest'}}"
-                    data-tooltip="ACTOR.GROUP.LABELS.restTooltip"
-                    data-tooltip-class="crucible crucible-tooltip"></button>
+                    data-crucible-tooltip="tag" data-rule-id="actions.rest"></button>
         </div>
     </div>
 

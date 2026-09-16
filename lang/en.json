@@ -76,7 +76,7 @@
         "Name": "Reactive Strike"
       },
       "Recover": {
-        "Description": "Spend 10 minutes outside of Combat recovering from exertion to fully restore Health, Morale, Action, and Focus.",
+        "Description": "Spend 10 minutes outside of Combat recovering from exertion to fully restore <strong>Health</strong>, <strong>Morale</strong>, <strong>Action</strong>, and <strong>Focus</strong>. Any existing <strong>Heroism</strong> is removed and temporary effects with a short duration end. Recover does not reduce <strong>Wounds</strong> or <strong>Madness</strong>.",
         "Name": "Recover"
       },
       "Reload": {
@@ -84,7 +84,7 @@
         "Name": "Reload Weapon"
       },
       "Rest": {
-        "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources.",
+        "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources. Delivers all <strong>Recover</strong> benefits, and heroes reduce accumulated <strong>Wounds</strong> and <strong>Madness</strong> by their character <strong>Level</strong>. Temporary effects with a longer duration also end.",
         "Name": "Rest"
       },
       "Search": {
@@ -877,9 +877,7 @@
         "cyclePace": "Cycle Pace",
         "medianLevel": "Median Level",
         "recover": "Recover",
-        "recoverTooltip": "<h3 class=\"tooltip-title divider\">Recover</h3><p>A short rest requiring 10 minutes. All group members fully replenish Health, Morale, Action, and Focus. Any existing Heroism is removed. Temporary effects with a short duration end. Recover does not reduce Wounds or Madness.</p>",
-        "rest": "Rest",
-        "restTooltip": "<h3 class=\"tooltip-title divider\">Rest</h3><p>A long rest requiring 10 hours. Delivers all Recover benefits, and heroes reduce accumulated Wounds and Madness by their character level. Temporary effects with a longer duration also end.</p>"
+        "rest": "Rest"
       },
       "REST": {
         "FIELDS": {

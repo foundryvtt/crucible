@@ -722,9 +722,7 @@
         "cyclePace": "Tempo wechseln",
         "medianLevel": "Mittlere Stufe",
         "recover": "Erholen",
-        "recoverTooltip": "<h3 class=\"tooltip-title divider\">Erholen</h3><p>Eine kurze Rast von 10 Minuten. Alle Gruppenmitglieder stellen Gesundheit, Moral, Aktionen und Fokus vollständig wieder her. Vorhandenes Heldentum wird entfernt. Temporäre Effekte kurzer Dauer enden. Wunden und Wahnsinn werden nicht reduziert.</p>",
-        "rest": "Rasten",
-        "restTooltip": "<h3 class=\"tooltip-title divider\">Rasten</h3><p>Eine lange Rast von 10 Stunden. Gewährt alle Vorteile von Erholen, und Helden reduzieren angesammelte Wunden und Wahnsinn um ihre Charakterstufe. Temporäre Effekte längerer Dauer enden ebenfalls.</p>"
+        "rest": "Rasten"
       },
       "WARNINGS": {
         "NoAddSelf": "Du kannst deine eigene Gruppe nicht hinzufügen!",
