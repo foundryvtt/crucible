@@ -86,7 +86,6 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     if ( this.type === "combat" ) this.system.constructor.refreshCombatTracker();
   }
 
-
   /* -------------------------------------------- */
 
   /** @inheritDoc */

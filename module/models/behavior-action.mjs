@@ -25,14 +25,24 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
   static defineSchema() {
     const fields = foundry.data.fields;
     const {id, name, img, description, effects, tags} = crucible.api.models.CrucibleAction.defineSchema();
+    const frequencyChoices = {
+      every: "REGION_BEHAVIORS.ACTION.FREQUENCIES.every",
+      round: "REGION_BEHAVIORS.ACTION.FREQUENCIES.round"
+    };
     return {
       action: new fields.SchemaField({
         id, name, img, description, effects, tags
       }, {required: true, initial: {id: "action", name: "Action", img: "icons/svg/hazard.svg", effects: [], tags: []}}),
       actor: new fields.DocumentUUIDField({type: "Actor"}),
 
-      // Maintains a record of actors which have been affected by this behavior, and in which round they were affected
-      affectedActors: new fields.TypedObjectField(new fields.NumberField({integer: true, nullable: false}), {
+      // Maintains a record of actors which have been affected by this behavior, and in what context
+      affectedActors: new fields.TypedObjectField(new fields.SchemaField({
+        combatId: new fields.DocumentIdField({initial: null}),
+        combatantId: new fields.DocumentIdField({initial: null}),
+        tokenId: new fields.DocumentIdField({initial: null}),
+        round: new fields.NumberField({integer: true, nullable: false, initial: -1}),
+        turn: new fields.NumberField({integer: true, nullable: false, initial: -1})
+      }), {
         expandKeys: false,
         validateKey: uuid => {
           const {id, type} = foundry.utils.parseUuid(uuid);
@@ -42,7 +52,7 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       events: this._createEventsField({events: this.#VALID_EVENTS, initial: ["tokenEnter", "tokenTurnStart"]}),
 
       // Whether this should apply to a given actor only once per round, on every trigger
-      oncePerRound: new fields.BooleanField({initial: true, required: true, nullable: false}),
+      frequency: new fields.StringField({initial: "round", required: true, nullable: false, choices: frequencyChoices}),
 
       // The effect tracking the existence of the parent region (or null, if not action-created)
       origin: new fields.DocumentUUIDField({type: "ActiveEffect", initial: null, required: true, nullable: true})
@@ -67,8 +77,14 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       if ( !validTargets.has(actor) ) return;
     }
 
-    // If once per round and already done this round, skip. Outside of combat, this means once per actor
-    if ( this.oncePerRound && (this.affectedActors[actor.uuid] === (game.combat?.round ?? -1)) ) return;
+    // This switch is a bit overkill but if/when additional frequencies are added will make more sense
+    switch ( this.frequency ) {
+
+      // If once per round and already done this round, skip. Outside of combat, this means once per actor
+      case "round":
+        if ( this.affectedActors[actor.uuid]?.round === (game.combat?.round ?? -1) ) return;
+        break;
+    }
 
     // Otherwise, perform action
     const action = new crucible.api.models.CrucibleAction(this.action, {
@@ -77,9 +93,15 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     });
     await action.use({dialog: false});
 
-    // If once per round, track that the targeted actor has been affected this round
-    if ( this.oncePerRound ) {
-      await this.parent.update({"system.affectedActors": {[actor.uuid]: game.combat?.round ?? -1}});
+    // If non-"every" frequency, track that actor has been affected
+    if ( this.frequency !== "every" ) {
+      await this.parent.update({"system.affectedActors": {[actor.uuid]: {
+        combatId: game.combat?.id ?? null,
+        combatantId: token.combatant,
+        tokenId: token.id,
+        round: game.combat?.round ?? -1,
+        turn: game.combat?.turn ?? -1
+      }}});
 
       // If in combat, record this behavior to the current Combat so that affectedActors is cleared on combat deletion
       if ( game.combat ) {

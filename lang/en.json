@@ -1941,14 +1941,18 @@
           "hint": "The actor responsible for the creation of this behavior. This actor will roll any triggered actions.",
           "label": "Origin Actor"
         },
-        "oncePerRound": {
-          "hint": "This action should only be applied to targets once per round.",
-          "label": "Once per Round"
+        "frequency": {
+          "hint": "How frequently should this action be able to be applied to a triggering token?",
+          "label": "Frequency"
         },
         "origin": {
           "hint": "The effect responsible for tracking the existence of this behavior. If present, determines which tokens should actually trigger an Action based on the originating action's targeting configuration.",
           "label": "Origin"
         }
+      },
+      "FREQUENCIES": {
+        "every": "Every Time",
+        "round": "Once per Round"
       }
     },
     "HAZARD": {
