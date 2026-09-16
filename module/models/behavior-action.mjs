@@ -56,8 +56,8 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       }),
       events: this._createEventsField({events: this.#VALID_EVENTS, initial: ["tokenEnter", "tokenTurnStart"]}),
 
-      // Whether this should apply to a given actor only once per round, on every trigger
-      frequency: new fields.StringField({initial: "round", required: true, nullable: false, choices: frequencyChoices}),
+      // How often can this action apply to a triggering token's actor?
+      frequency: new fields.StringField({initial: "roundActor", required: true, nullable: false, choices: frequencyChoices}),
 
       // The effect tracking the existence of the parent region (or null, if not action-created)
       origin: new fields.DocumentUUIDField({type: "ActiveEffect", initial: null, required: true, nullable: true})
