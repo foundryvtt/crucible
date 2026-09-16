@@ -55,7 +55,7 @@ system:
         system:
           events:
             - tokenTurnStart
-          oncePerRound: true
+          frequency: roundActor
           action:
             name: Lifebloom
             id: lifebloomRegion
