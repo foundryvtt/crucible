@@ -5,6 +5,14 @@
       "Resilience": "Resilience",
       "Speed": "Speed"
     },
+    "TOOLTIPS": {
+      "Dexterity": "<h3 class=\"tooltip-title divider\">Dexterity</h3><p>Dexterity is a physical quickness attribute that reflects agility and precision of movement. Dexterity affects <strong>Initiative</strong> in taking action, the <strong>Dodge</strong> component of Physical Defense, <strong>Reflex</strong> defense, and the use of weaponry with the <strong>Finesse</strong> trait.</p>",
+      "Intellect": "<h3 class=\"tooltip-title divider\">Intellect</h3><p>Intellect is a mental quickness attribute that reflects speed of thought and decisiveness of action. Intellect affects <strong>Initiative</strong> in taking action, the <strong>Reflex</strong> defense, and the size of <strong>Focus</strong> pool.</p>",
+      "Presence": "<h3 class=\"tooltip-title divider\">Presence</h3><p>Presence is a mental resilience attribute describing a creature's force of personality, resolve, and self-belief. Presence affects <strong>Willpower</strong> defense and the size of <strong>Focus</strong> pool. Each point of Presence increases base <strong>Morale</strong> by 4.</p>",
+      "Strength": "<h3 class=\"tooltip-title divider\">Strength</h3><p>Strength is a physical power attribute describing a creature's potency, brawn and might. Strength affects <strong>Fortitude</strong> defense, carrying <strong>Capacity</strong>, and the use of weaponry with the <strong>Brute</strong> trait. Each point of Strength increases base <strong>Health</strong> by 2.</p>",
+      "Toughness": "<h3 class=\"tooltip-title divider\">Toughness</h3><p>Toughness is a physical resilience attribute describing physical hardiness and tenacity. Toughness affects the <strong>Fortitude</strong> defense. Each point of Toughness increases base <strong>Health</strong> by 4.</p>",
+      "Wisdom": "<h3 class=\"tooltip-title divider\">Wisdom</h3><p>Wisdom is a mental power attribute describing a creature's force of conviction, depth of knowledge, and patience. Wisdom affects <strong>Willpower</strong> defense and size of <strong>Focus</strong> pool. Each point of Wisdom increases base <strong>Morale</strong> by 2.</p>"
+    },
     "Dexterity": "Dexterity",
     "DexterityAbbr": "Dex",
     "Intellect": "Intellect",

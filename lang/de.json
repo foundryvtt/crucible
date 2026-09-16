@@ -5,6 +5,14 @@
       "Resilience": "Widerstand",
       "Speed": "Geschwindigkeit"
     },
+    "TOOLTIPS": {
+      "Dexterity": "<h3 class=\"tooltip-title divider\">Geschicklichkeit</h3><p>Geschicklichkeit ist ein körperliches Attribut für Schnelligkeit, das Beweglichkeit und Präzision der Bewegung widerspiegelt. Geschicklichkeit beeinflusst die <strong>Initiative</strong> beim Handeln, die <strong>Ausweichen</strong>-Komponente der körperlichen Verteidigung, die <strong>Reflex</strong>-Verteidigung sowie den Einsatz von Waffen mit dem Merkmal <strong>Finesse</strong>.</p>",
+      "Intellect": "<h3 class=\"tooltip-title divider\">Intellekt</h3><p>Intellekt ist ein geistiges Attribut für Schnelligkeit, das die Geschwindigkeit des Denkens und die Entschlossenheit beim Handeln widerspiegelt. Intellekt beeinflusst die <strong>Initiative</strong> beim Handeln, die <strong>Reflex</strong>-Verteidigung und die Größe des <strong>Fokus</strong>-Pools.</p>",
+      "Presence": "<h3 class=\"tooltip-title divider\">Präsenz</h3><p>Präsenz ist ein geistiges Attribut für Widerstandsfähigkeit, das die Ausstrahlung, Entschlossenheit und das Selbstvertrauen eines Wesens beschreibt. Präsenz beeinflusst die <strong>Willenskraft</strong>-Verteidigung und die Größe des <strong>Fokus</strong>-Pools. Jeder Punkt Präsenz erhöht die Basis-<strong>Moral</strong> um 4.</p>",
+      "Strength": "<h3 class=\"tooltip-title divider\">Stärke</h3><p>Stärke ist ein körperliches Attribut für Kraft, das die körperliche Leistungsfähigkeit, Muskelkraft und Macht eines Wesens beschreibt. Stärke beeinflusst die <strong>Standhaftigkeit</strong>-Verteidigung, die Tragfähigkeit und den Einsatz von Waffen mit dem Merkmal <strong>Brutal</strong>. Jeder Punkt Stärke erhöht die Basis-<strong>Gesundheit</strong> um 2.</p>",
+      "Toughness": "<h3 class=\"tooltip-title divider\">Zähigkeit</h3><p>Zähigkeit ist ein körperliches Attribut für Widerstandsfähigkeit, das körperliche Robustheit und Ausdauer beschreibt. Zähigkeit beeinflusst die <strong>Standhaftigkeit</strong>-Verteidigung. Jeder Punkt Zähigkeit erhöht die Basis-<strong>Gesundheit</strong> um 4.</p>",
+      "Wisdom": "<h3 class=\"tooltip-title divider\">Weisheit</h3><p>Weisheit ist ein geistiges Attribut für Kraft, das die Überzeugungskraft, Wissenstiefe und Geduld eines Wesens beschreibt. Weisheit beeinflusst die <strong>Willenskraft</strong>-Verteidigung und die Größe des <strong>Fokus</strong>-Pools. Jeder Punkt Weisheit erhöht die Basis-<strong>Moral</strong> um 2.</p>"
+    },
     "Dexterity": "Geschicklichkeit",
     "DexterityAbbr": "GE",
     "Intellect": "Intelligenz",
