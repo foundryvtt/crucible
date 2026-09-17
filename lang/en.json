@@ -1040,6 +1040,9 @@
         "label": "Item Types",
         "hint": "Which item types this affix can be applied to. If no specific types are checked, then all item types are allowed."
       },
+      "properties": {
+        "label": "Affix Properties"
+      },
       "tier": {
         "label": "Tier",
         "hint": "The allowed range of power tiers for this affix. Each tier consumes one point of prefix or suffix capacity.",
@@ -1054,6 +1057,9 @@
           "hint": "The tier of this affix applied to the item."
         }
       }
+    },
+    "PROPERTIES": {
+      "Cursed": "Cursed"
     },
     "ConfigIdentity": "Affix Identity",
     "ConfigTier": "Tier Configuration",

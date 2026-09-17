@@ -7,6 +7,7 @@ import * as crucibleFields from "./fields.mjs";
  * @property {string} adjective               An adjective used when composing the enchanted item name
  * @property {string} affixType               The affix category, "prefix" or "suffix"
  * @property {Set<string>} itemTypes          Item types this affix may be applied to, empty allows any
+ * @property {Set<string>} properties         Boolean property tags which this affix possesses
  * @property {{min: number, max: number, value: number}} tier   The power tier with configurable range (1-3)
  * @property {CrucibleActionData[]} actions   Actions granted to items that bear this affix
  */
@@ -28,6 +29,8 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
       choices: SYSTEM.ITEM.AFFIX_TYPES, initial: "prefix"});
     schema.itemTypes = new fields.SetField(new fields.StringField({blank: false, required: true,
       choices: () => Array.from(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES)}));
+    schema.properties = new fields.SetField(new fields.StringField({required: true,
+      choices: SYSTEM.ITEM.AFFIX_PROPERTIES}));
     schema.tier = new fields.SchemaField({
       min: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3, initial: 1}),
       max: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3, initial: 3}),

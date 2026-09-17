@@ -584,6 +584,7 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.EFFECTS.PROPERTIES, ["label", "tooltip"]);
 
   // Item
+  localizeConfigObject(SYSTEM.ITEM.AFFIX_PROPERTIES);
   localizeConfigObject(SYSTEM.ITEM.ENCHANTMENT_TIERS);
   localizeConfigObject(SYSTEM.ITEM.LOOT_CATEGORIES);
   localizeConfigObject(SYSTEM.ITEM.QUALITY_TIERS);

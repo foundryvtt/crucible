@@ -190,6 +190,14 @@ export const AFFIX_TYPES = Object.freeze({
 });
 
 /**
+ * The boolean properties which an affix is able to have.
+ * @type {Readonly<Record<string, {id: string, label: string}>>}
+ */
+export const AFFIX_PROPERTIES = defineEnum({
+  cursed: {label: "AFFIX.PROPERTIES.Cursed"}
+});
+
+/**
  * The categories of "schematic" items which are allowed.
  * These categories map 1:1 to the Trade Skills which are available in the system.
  * @type {Readonly<Record<string, CrucibleItemCategory>>}

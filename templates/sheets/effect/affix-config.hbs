@@ -8,6 +8,11 @@
         {{formGroup fields.itemTypes value=source.system.itemTypes type="checkboxes" stacked=true options=itemTypeOptions}}
     </fieldset>
 
+    <fieldset class="item-properties" {{fieldDisabled}}>
+        <legend>{{fields.properties.label}}</legend>
+        {{formInput fields.properties value=source.system.properties type="checkboxes"}}
+    </fieldset>
+
     <fieldset {{fieldDisabled}}>
         <legend>{{localize "AFFIX.ConfigTier"}}</legend>
         {{formGroup fields.tier.fields.value value=source.system.tier.value type="number" classes="slim"}}
