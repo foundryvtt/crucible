@@ -1983,6 +1983,12 @@
         "once": "Once",
         "roundActor": "Once per Round per Actor"
       },
+      "TABS": {
+        "action": "Action",
+        "effects": "Effects",
+        "behavior": "Behavior"
+      },
+      "ConfigTitle": "Region Action: {action}",
       "RegionConfiguration": "Region Configuration"
     },
     "HAZARD": {

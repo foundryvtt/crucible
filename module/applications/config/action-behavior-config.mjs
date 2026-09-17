@@ -9,11 +9,13 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
       addEffect: CrucibleActionBehaviorRegionConfig.#onAddEffect,
       deleteEffect: CrucibleActionBehaviorRegionConfig.#onDeleteEffect
     },
-    classes: ["crucible", "action-behavior"],
+    classes: ["crucible", "action-behavior", "action", "standard-form"],
+    position: {width: 600, height: "auto"},
     form: {
       submitOnChange: true,
       closeOnSubmit: false
-    }
+    },
+    sheetConfig: false
   };
 
   /**
@@ -24,12 +26,47 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
 
   /** @override */
   static PARTS = {
-    form: {
-      template: "systems/crucible/templates/sheets/region-behavior/action-behavior-config.hbs",
+    header: {
+      id: "header",
+      template: "systems/crucible/templates/sheets/region-behavior/action-behavior-header.hbs"
+    },
+    tabs: {
+      id: "tabs",
+      template: "templates/generic/tab-navigation.hbs"
+    },
+    action: {
+      id: "action",
+      template: "systems/crucible/templates/sheets/region-behavior/action-behavior-action.hbs"
+    },
+    effects: {
+      id: "effects",
+      template: "systems/crucible/templates/sheets/region-behavior/action-behavior-effects.hbs",
       templates: [CrucibleActionBehaviorRegionConfig.ACTIVE_EFFECT_PARTIAL],
       scrollable: [""]
+    },
+    behavior: {
+      id: "behavior",
+      template: "systems/crucible/templates/sheets/region-behavior/action-behavior-behavior.hbs"
     }
   };
+
+  /** @override */
+  static TABS = {
+    sheet: {
+      tabs: [
+        {id: "action", icon: "fa-solid fa-book"},
+        {id: "effects", icon: "fa-solid fa-hourglass-clock"},
+        {id: "behavior", icon: "fa-solid fa-gear"}
+      ],
+      initial: "action",
+      labelPrefix: "REGION_BEHAVIORS.ACTION.TABS"
+    }
+  };
+
+  /** @override */
+  get title() {
+    return _loc("REGION_BEHAVIORS.ACTION.ConfigTitle", {action: this.document.name});
+  }
 
   /* -------------------------------------------- */
   /*  Rendering                                   */
@@ -56,6 +93,7 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
         if ( !tag.internal ) acc[tagId] = tag;
         return acc;
       }, {}),
+      tabs: this._prepareTabs("sheet"),
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       systemFields: this.document.system.schema.fields,
