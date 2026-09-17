@@ -394,7 +394,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         signature: {label: _loc("ACTOR.SECTIONS.SIGNATURE.header"), items: []},
         active: {label: _loc("ACTOR.SECTIONS.ACTIVE.header"), items: []},
         passive: {label: _loc("ACTOR.SECTIONS.PASSIVE.header"), items: []},
-        training: {label: _loc("ACTOR.SECTIONS.TRAINING.header"), items: []},
         spell: {label: _loc("ACTOR.SECTIONS.SPELL.header"), items: []}
       },
       inventory: {

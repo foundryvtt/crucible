@@ -137,14 +137,16 @@ pages:
         Gamemaster prior to any roll as ways to reward players for creative
         problem solving or inspirational roleplay.</p><section
         class="gameplay"><h4>Example: Both Boons and Banes</h4><p>Dariel is an
-        intrepid outdoorswoman with the Proficient rank in Wilderness with a
-        Herbalist specialization. She wishes to identify a herb that may be used
-        to treat poison after an arduous day of traveling. Her specialization as
-        a Herbalist gives her <strong>1 Boon</strong> to the roll to identify
-        the correct herb, but her state of exhaustion gives her <strong>2
-        Banes</strong> to her roll. The boon upgrades the first die in the pool
-        to a <strong>d10</strong>, and the two banes downgrade the third die to
-        a <strong>d4</strong>, resulting in a dice pool of <strong>1d10 + 1d8 +
+        intrepid outdoorswoman with Expert rank in the Wilderness proficiency.
+        She wishes to identify a herb that may be used to treat poison after an
+        arduous day of traveling. Suppose she has a hypothetical talent,
+        "Herbalist" which grants <strong>+1 Boon</strong> to any knowledge check
+        pertaining to plants. Suppose she also suffers from
+        @Condition[exhausted], which the Gamemaster rules as inflicting
+        <strong>+2 Banes</strong> on her attempt.</p><p>The boon upgrades the
+        first die in the pool to a <strong>d10</strong>, and the two banes
+        downgrade the third die to a <strong>d4</strong>, resulting in a dice
+        pool of <strong>1d10 + 1d8 +
         1d4</strong>.</p></section><p>Mathematically, each Boon increases the
         expected result of its die by 1 and each Bane decreases the expected
         result of its die by 1.</p>
@@ -161,10 +163,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.363'
+      coreVersion: '14.368'
       createdTime: 1684374120469
-      modifiedTime: 1780590272320
-      lastModifiedBy: fzBjA63BB4hW4rQb
+      modifiedTime: 1789669589032
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null

@@ -956,9 +956,6 @@
         "empty": "Equip up to {slots} tools or consumables from your Backpack toggling the shield icon.",
         "header": "Toolbelt"
       },
-      "TRAINING": {
-        "header": "Training Talents"
-      },
       "WEAPON": {
         "empty": "Equip weapons from your Backpack toggling the shield icon.",
         "header": "Weapons"

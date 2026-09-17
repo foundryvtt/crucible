@@ -111,7 +111,7 @@ pages:
         among its desired Proficiencies in proportion to assigned weights. A
         heavier weight receives a larger share of whatever the Adversary has to
         spend. A Proficiency weighted zero receives points only if any are left
-        over.</p> <h2 class="divider">Equipment Progression</h2><p>An Adversary
+        over.</p><h2 class="divider">Equipment Progression</h2><p>An Adversary
         may be granted equipment by its @UUID[.qSeJNy28eK9axO7C]{Taxonomy} or
         @UUID[.O8IesdQo8SQpIKbo]{Archetype}, each item with a configured
         quantity and equipped state. If the Taxonomy cannot use typical humanoid
@@ -152,10 +152,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.363'
+      coreVersion: '14.368'
       createdTime: 1684375058270
-      modifiedTime: 1780586748994
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1789669208957
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -236,28 +236,31 @@ pages:
         <strong>Adversary</strong> in Crucible. Each Archetype further defines a
         taxonomy to:</p><ul><li><p>Refine scaling weights for
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Abilities}
-        (above and beyond those defined by the Taxonomy), </p></li><li><p>Define
-        automatic @UUID[.WH0YSVcYo09aHNZ2]{Skill
+        (above and beyond those defined by the Taxonomy),</p></li><li><p>Define
+        automatic @UUID[.WH0YSVcYo09aHNZ2#proficiency-progression]{Proficiency
         Progression}</p></li><li><p>Configure granted equipment which may
         automatically scale in quality, as described under
-        @UUID[.WH0YSVcYo09aHNZ2]{Equipment Progression}</p></li><li><p>Provides
-        a set of automatically attained
-        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]{Talents},
-        each gated by the Level at which it is attained</p></li></ul><section
-        class="gameplay"><h4>Example: Fighter Archetype</h4><p>Hardened melee
-        combatants expert at wielding one-handed weaponry, shield, and heavy
-        armor.</p><p>The Fighter Archetype defines scaling weights such that
-        emphasize faster progression of Strength and Toughness, normal
-        progression of Presence and Dexterity, and slower progression of Wisdom
-        and Intellect.</p><p>Furthermore, the Fighter Archetype provides the
-        <strong>Martial Weapon Training</strong>, <strong>Bulwark</strong>, and
-        <strong>Armored Efficiency</strong> talents.</p></section><p>Many
-        different Adversaries will use the same Archetype. For example a Level 2
-        <strong>Bandit Fighter</strong>, a Level 4 <strong>Hobgoblin
-        Fighter</strong>, and a Level 7 <strong>Hellguard</strong> all share the
-        Fighter Archetype, but they each have different Taxonomies and therefore
-        have different attributes and talents, but all share a common aspect of
-        progression due to the Fighter Archetype.</p>
+        @UUID[.WH0YSVcYo09aHNZ2#equipment-progression]{Equipment
+        Progression}</p></li><li><p>Define
+        @UUID[.WH0YSVcYo09aHNZ2#talent-progression]{Talent Progression} which
+        includes both Talents which are automatically obtained by all
+        adversaries of the Archetype as well as Talents that are conditionally
+        obtained when the adversary has a sufficient level.</p></li></ul><p>As
+        an example, the
+        @UUID[Compendium.crucible.archetype.Item.fighter000000000]{Fighter}
+        archetype weights <strong>Strength</strong>, <strong>Toughness</strong>,
+        and <strong>Dexterity</strong> toward faster progression, while
+        <strong>Wisdom</strong>, <strong>Presence</strong>, and
+        <strong>Intellect</strong> progress more slowly. The Fighter prefers
+        advancing Proficiency in <strong>Heavy Weapons</strong>,
+        <strong>Shields</strong>, and <strong>Armor</strong> while obtaining a
+        range of talents that reinforce those gameplay themes.</p><p>Many
+        different Adversaries will use the same Archetype. For example suppose a
+        Level 2 "Bandit Fighter", a Level 4 "Hobgoblin Fighter", and a Level 7
+        "Hellguard" all share the Fighter Archetype, but they each have
+        different Taxonomies and therefore have different attributes and
+        talents, but all share a common aspect of progression due to the Fighter
+        Archetype.</p>
     video:
       controls: true
       volume: 0.5
@@ -270,10 +273,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '13.350'
+      coreVersion: '14.368'
       createdTime: 1684375072170
-      modifiedTime: 1762045154975
-      lastModifiedBy: vke929uLgNzbrY41
+      modifiedTime: 1789669365649
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
