@@ -86,7 +86,6 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     if ( this.type === "combat" ) this.system.constructor.refreshCombatTracker();
   }
 
-
   /* -------------------------------------------- */
 
   /** @inheritDoc */
@@ -103,7 +102,22 @@ export default class CrucibleCombat extends foundry.documents.Combat {
       actor.reset();
       actor.render(false);
     }
-    if ( actorUpdates.length ) Actor.updateDocuments(actorUpdates);
+    if ( !isGM ) return;
+    const batchOperations = [];
+    if ( actorUpdates.length ) batchOperations.push({
+      action: "update",
+      documentName: "Actor",
+      updates: actorUpdates
+    });
+
+    // Flush the affectedActors tracking of any Crucible Action behaviors which fired during this combat
+    for ( const uuid of (this.getFlag("crucible", "trackedActionBehaviors") ?? []) ) {
+      const behavior = fromUuidSync(uuid);
+      if ( behavior?.type !== "crucible.action" ) continue;
+      const operation = behavior.system.updateAffectedActors(this, {batch: true});
+      if ( operation ) batchOperations.push(operation);
+    }
+    if ( batchOperations.length ) foundry.documents.modifyBatch(batchOperations);
   }
 
   /* -------------------------------------------- */

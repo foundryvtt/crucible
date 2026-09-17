@@ -191,9 +191,11 @@ Hooks.once("init", async function() {
 
   // Region Behavior document configuration
   Object.assign(CONFIG.RegionBehavior.dataModels, {
+    "crucible.action": models.CrucibleActionRegionBehavior,
     "crucible.hazard": models.CrucibleHazardRegionBehavior
   });
   Object.assign(CONFIG.RegionBehavior.typeIcons, {
+    "crucible.action": "fa-solid fa-burst",
     "crucible.hazard": "fa-solid fa-triangle-exclamation"
   });
 

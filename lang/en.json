@@ -1958,6 +1958,31 @@
     }
   },
   "REGION_BEHAVIORS": {
+    "ACTION": {
+      "FIELDS": {
+        "action": {
+          "hint": "The action to potentially perform on any token who triggers an event on this behavior.",
+          "label": "Triggered Action"
+        },
+        "actor": {
+          "hint": "The actor responsible for the creation of this behavior. This actor will roll any triggered actions.",
+          "label": "Origin Actor"
+        },
+        "frequency": {
+          "hint": "How frequently should this action be able to be applied to a triggering token?",
+          "label": "Frequency"
+        },
+        "origin": {
+          "hint": "The effect responsible for tracking the existence of this behavior. If present, determines which tokens should actually trigger an Action based on the originating action's targeting configuration.",
+          "label": "Origin"
+        }
+      },
+      "FREQUENCIES": {
+        "every": "Every Time",
+        "once": "Once",
+        "roundActor": "Once per Round per Actor"
+      }
+    },
     "HAZARD": {
       "FIELDS": {
         "danger": {
@@ -2706,6 +2731,7 @@
       "skill": "Crucible Skill"
     },
     "RegionBehavior": {
+      "crucible.action": "Crucible Action",
       "crucible.hazard": "Crucible Hazard"
     }
   },
