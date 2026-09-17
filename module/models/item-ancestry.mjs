@@ -6,6 +6,14 @@ import {ItemIdentifierField} from "./fields.mjs";
  */
 export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel {
 
+  /**
+   * Fields of an applied Ancestry which record the character's own choices rather than source data, and which
+   * therefore survive re-application from the upstream source. The Primary and Secondary ability slots are assigned
+   * by the player during character creation and exist nowhere else.
+   * @type {string[]}
+   */
+  static STATEFUL_FIELDS = ["abilities"];
+
   /* -------------------------------------------- */
   /*  Data Schema                                 */
   /* -------------------------------------------- */

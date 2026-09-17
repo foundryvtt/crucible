@@ -1807,16 +1807,27 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * @typedef CrucibleDetailSyncConfig
+   * @property {string} type          The detail type being synchronized
+   * @property {CrucibleItem} item    The item which will be applied; mutate via updateSource to alter what is written
+   * @property {object} current       The Actor's existing snapshot of this detail, for reference only
+   */
+
+  /**
    * Re-apply this Actor's detail items from the current compendium versions of the documents they were built from.
    * Detail items are rediscovered by their `system.identifier` among the configured packs.
    * A detail which cannot be rediscovered is left alone and not replaced.
+   * Each applied detail is passed through the `"crucible.preSyncDetailItem"` hook, which may mutate the item which
+   * will be written or return false to skip that detail. The hook is not called during a dry run.
    * @param {object} [options]
    * @param {boolean} [options.performUpdates=true]   Whether to actually apply the resolved detail items
-   * @returns {Promise<{applied: string[], unresolved: string[]}>}   Detail types which were and were not rediscovered
+   * @param {string[]} [options.types]                Restrict synchronization to specific detail types
+   * @returns {Promise<{applied: string[], unresolved: string[], cancelled: string[]}>}  Outcome per detail type
    */
   async syncDetailItems({performUpdates=true, types}={}) {
     const applied = [];
     const unresolved = [];
+    const cancelled = [];
     for ( const type of (types ?? CrucibleActor.#DETAIL_ITEM_TYPES) ) {
       const detail = this.system.details[type];
       if ( !detail?.identifier ) continue;
@@ -1825,10 +1836,36 @@ export default class CrucibleActor extends Actor {
         unresolved.push(type);
         continue;
       }
+      if ( !performUpdates ) {
+        applied.push(type);
+        continue;
+      }
+      const config = {type, item: this.#preserveDetailState(item, detail), current: detail};
+      if ( Hooks.call("crucible.preSyncDetailItem", this, config) === false ) {
+        cancelled.push(type);
+        continue;
+      }
       applied.push(type);
-      if ( performUpdates ) await this._applyDetailItem(item, {type, notify: false});
+      await this._applyDetailItem(config.item, {type, notify: false});
     }
-    return {applied, unresolved};
+    return {applied, unresolved, cancelled};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Return the upstream detail item with any fields it declares as character state restored from the current snapshot.
+   * Equipment synchronization preserves its own stateful fields the same way; see {@link CruciblePhysicalItem}.
+   * @param {CrucibleItem} item     The upstream detail item resolved from a compendium
+   * @param {object} detail         The Actor's current snapshot of that detail
+   * @returns {CrucibleItem}        A clone of the item to apply, which the preSyncDetailItem hook may safely mutate
+   */
+  #preserveDetailState(item, detail) {
+    const system = {};
+    for ( const field of (item.system.constructor.STATEFUL_FIELDS ?? []) ) {
+      if ( detail[field] !== undefined ) system[field] = foundry.utils.deepClone(detail[field]);
+    }
+    return item.clone({system}); // Always cloned: the compendium document must never be mutated by a listener
   }
 
   /* -------------------------------------------- */
