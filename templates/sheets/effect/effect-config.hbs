@@ -15,7 +15,7 @@
 
     <fieldset class="item-properties" {{fieldDisabled}}>
         <legend>{{systemFields.properties.label}}</legend>
-        {{formGroup systemFields.properties value=source.system.properties widget=propertiesWidget}}
+        {{formInput systemFields.properties value=source.system.properties type="checkboxes"}}
     </fieldset>
 
     <fieldset>

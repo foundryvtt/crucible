@@ -9,7 +9,7 @@
 
     <fieldset class="item-properties" {{fieldDisabled}}>
         <legend>{{fields.properties.label}}</legend>
-        {{formGroup fields.properties value=item.system.properties widget=propertiesWidget}}
+        {{formInput fields.properties value=item.system.properties type="checkboxes"}}
     </fieldset>
 
     {{#if isScroll}}

@@ -63,7 +63,6 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
       case "config":
         partContext.systemFields = effect.system.schema.fields;
         partContext.fieldDisabled = this.isEditable ? "" : "disabled";
-        partContext.propertiesWidget = this.#propertiesWidget.bind(this);
         partContext.isActorEffect = effect.parent?.documentName === "Actor";
         partContext.isItemEffect = effect.parent?.documentName === "Item";
         partContext.statuses = Object.values(CONFIG.statusEffects).map(s => ({value: s.id, label: _loc(s.name)}));
@@ -81,21 +80,5 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
   _attachFrameListeners() {
     // Deliberately skip ActiveEffectConfig#_attachFrameListeners which strips the editor's inline Save button
     api.DocumentSheetV2.prototype._attachFrameListeners.call(this);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Render the properties field as a multi-checkboxes element.
-   * @param {foundry.data.fields.DataField} field
-   * @param {object} _groupConfig
-   * @param {object} inputConfig
-   * @returns {HTMLElement}
-   */
-  #propertiesWidget(field, _groupConfig, inputConfig) {
-    inputConfig.name = field.fieldPath;
-    inputConfig.options = Object.entries(SYSTEM.EFFECTS.PROPERTIES).map(([value, p]) => ({value, label: p.label}));
-    inputConfig.type = "checkboxes";
-    return foundry.applications.fields.createMultiSelectInput(inputConfig);
   }
 }

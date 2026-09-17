@@ -178,7 +178,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     if ( this.document.system instanceof CruciblePhysicalItem ) {
       context.isPhysical = true;
       context.stackable = this.document.system.properties.has("stackable");
-      context.propertiesWidget = this.#propertiesWidget.bind(this);
       context.currencyInput = this.#currencyInput.bind(this);
       context.scaledPriceField = new foundry.data.fields.StringField({label: _loc("ITEM.SHEET.ScaledPrice")});
       context.requiresInvestment = source.system.equipped && this.document.system.properties.has("investment");
@@ -359,23 +358,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       else suffixes.push(data);
     }
     return {prefixes, suffixes};
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Render the properties field as a multi-checkboxes element.
-   * @param {foundry.data.fields.DataField} field
-   * @param {object} groupConfig
-   * @param {object} inputConfig
-   * @returns {HTMLMultiCheckboxElement}
-   */
-  #propertiesWidget(field, groupConfig, inputConfig) {
-    inputConfig.name = field.fieldPath;
-    const PROPERTIES = this.document.system.constructor.ITEM_PROPERTIES;
-    inputConfig.options = Object.entries(PROPERTIES).map(([k, v]) => ({value: k, label: v.label}));
-    inputConfig.type = "checkboxes";
-    return foundry.applications.fields.createMultiSelectInput(inputConfig);
   }
 
   /* -------------------------------------------- */
