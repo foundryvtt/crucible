@@ -20,6 +20,7 @@ system:
   nodes:
     - pre4d
   iconicSpells: 0
+  training: glyphweaving
 effects: []
 folder: rL8CBb8MbQi6PDS6
 sort: 200000

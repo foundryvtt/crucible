@@ -11,6 +11,7 @@ system:
   actions: []
   spellcraft: push
   iconicSpells: 1
+  training: enchanting
   nodes:
     - wispre2
 effects: []

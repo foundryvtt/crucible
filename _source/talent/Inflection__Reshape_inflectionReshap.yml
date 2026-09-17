@@ -13,6 +13,7 @@ system:
     creatures.</p>
   actions: []
   iconicSpells: 1
+  training: enchanting
   spellcraft: reshape
   nodes:
     - wispre4

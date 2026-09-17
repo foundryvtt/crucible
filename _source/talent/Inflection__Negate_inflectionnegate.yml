@@ -15,6 +15,7 @@ system:
   actions: []
   spellcraft: negate
   iconicSpells: 1
+  training: enchanting
   nodes:
     - preint2
 effects: []

@@ -10,6 +10,7 @@ system:
   actions: []
   spellcraft: quicken
   iconicSpells: 1
+  training: enchanting
   nodes:
     - preint2
 effects: []

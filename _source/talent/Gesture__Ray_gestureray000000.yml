@@ -16,6 +16,7 @@ system:
   nodes:
     - wis1b
   iconicSpells: 0
+  training: glyphweaving
 effects: []
 ownership:
   default: 0

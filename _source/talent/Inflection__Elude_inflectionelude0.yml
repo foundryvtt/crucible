@@ -12,6 +12,7 @@ system:
   actions: []
   spellcraft: eluding
   iconicSpells: 1
+  training: enchanting
   nodes:
     - dex2b
 effects: []

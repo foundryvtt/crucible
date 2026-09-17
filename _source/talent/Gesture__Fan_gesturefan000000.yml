@@ -15,6 +15,7 @@ system:
   nodes:
     - int1a
   iconicSpells: 0
+  training: glyphweaving
 effects: []
 flags:
   core: {}

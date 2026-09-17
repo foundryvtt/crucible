@@ -27,6 +27,7 @@ system:
   actions: []
   spellcraft: conjure
   iconicSpells: 0
+  training: glyphweaving
 effects: []
 sort: 100000
 ownership:

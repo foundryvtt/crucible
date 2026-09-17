@@ -16,6 +16,7 @@ system:
   nodes:
     - dex2b
   iconicSpells: 0
+  training: glyphweaving
 effects: []
 flags:
   core: {}

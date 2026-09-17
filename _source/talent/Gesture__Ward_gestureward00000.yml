@@ -17,6 +17,7 @@ system:
   nodes:
     - tou2b
   iconicSpells: 0
+  training: glyphweaving
 effects: []
 ownership:
   default: 0

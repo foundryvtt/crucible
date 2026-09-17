@@ -23,6 +23,7 @@ system:
   nodes:
     - wis1b
   iconicSpells: 0
+  training: glyphweaving
 effects: []
 flags:
   core: {}

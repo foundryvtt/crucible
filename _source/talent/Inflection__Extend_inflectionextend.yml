@@ -12,6 +12,7 @@ system:
   actions: []
   spellcraft: extend
   iconicSpells: 1
+  training: enchanting
   nodes:
     - wispre2
 effects: []
