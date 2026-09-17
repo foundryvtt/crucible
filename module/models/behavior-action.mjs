@@ -64,9 +64,8 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       // turnOnce: "Once per Turn"
     };
     return {
-      action: new fields.SchemaField({
-        id, name, img, description, effects, tags
-      }, {required: true, initial: {id: "action", name: "Action", img: "icons/svg/hazard.svg", effects: [], tags: []}}),
+      action: new fields.SchemaField({id, name, img, description, effects, tags},
+        {required: true, initial: {id: "action", name: "Action", img: "icons/svg/hazard.svg", effects: [], tags: []}}),
       actor: new fields.DocumentUUIDField({type: "Actor"}),
       affectedActors: new fields.TypedObjectField(new fields.SchemaField({
         combatId: new fields.DocumentIdField({initial: null}),

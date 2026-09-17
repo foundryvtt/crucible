@@ -100,7 +100,7 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
       case "header":
         context.source = source;
         context.effect = effect;
-        context.tags = this.#prepareTags();
+        context.tags = effect.system.getTags();
         break;
       case "description":
         context.descriptionField = effect.schema.fields.description;
@@ -118,6 +118,9 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
         context.identifierLocked = !!this.document.parent;
         context.itemTypeOptions = Array.from(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES).map(t => ({
           value: t, label: _loc(CONFIG.Item.typeLabels[t] ?? t)
+        }));
+        context.propertyOptions = Object.values(SYSTEM.ITEM.AFFIX_PROPERTIES).map(p => ({
+          value: p.id, label: p.label, disabled: (p.id === "cursed") && !game.user.isGM
         }));
         break;
       case "actions":
@@ -151,21 +154,6 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
         break;
     }
     return context;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare header tags for the affix sheet.
-   * @returns {Record<string, string>}
-   */
-  #prepareTags() {
-    const tags = {};
-    const affixType = SYSTEM.ITEM.AFFIX_TYPES[this.document.system.affixType];
-    if ( affixType ) tags.affixType = _loc(affixType);
-    const tier = this.document.system.tier;
-    tags.tier = _loc("AFFIX.TierDisplay", {value: tier.value, max: tier.max});
-    return tags;
   }
 
   /* -------------------------------------------- */

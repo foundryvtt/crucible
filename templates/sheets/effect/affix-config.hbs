@@ -10,7 +10,7 @@
 
     <fieldset class="item-properties" {{fieldDisabled}}>
         <legend>{{fields.properties.label}}</legend>
-        {{formInput fields.properties value=source.system.properties type="checkboxes"}}
+        {{formInput fields.properties value=source.system.properties type="checkboxes" options=propertyOptions}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>

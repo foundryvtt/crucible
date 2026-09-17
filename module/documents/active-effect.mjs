@@ -192,6 +192,26 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
         console.warn("The identifier of an existing affix cannot be changed.");
         return false;
       }
+
+      // Only a Gamemaster may lift a curse
+      const properties = changes.system?.properties;
+      if ( !user.isGM && Array.isArray(properties) && this.system.properties.has("cursed")
+        && !properties.includes("cursed") ) {
+        ui.notifications.warn(_loc("AFFIX.WARNINGS.CursedGamemasterOnly"));
+        return false;
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preDelete(options, user) {
+    const allowed = await super._preDelete(options, user);
+    if ( allowed === false ) return false;
+    if ( (this.type === "affix") && this.parent && !user.isGM && this.system.properties.has("cursed") ) {
+      ui.notifications.warn(_loc("AFFIX.WARNINGS.CursedGamemasterOnly"));
+      return false;
     }
   }
 

@@ -1061,6 +1061,9 @@
     "PROPERTIES": {
       "Cursed": "Cursed"
     },
+    "WARNINGS": {
+      "CursedGamemasterOnly": "Only a Gamemaster may remove a Cursed affix from an item."
+    },
     "ConfigIdentity": "Affix Identity",
     "ConfigTier": "Tier Configuration",
     "TierRestriction": "Tier Range",
@@ -1880,6 +1883,7 @@
       "CombineEquipped": "{item} cannot be combined into a stack while it is equipped.",
       "CombineInvalidTarget": "{item} cannot be combined: the target must be a different item on the same actor.",
       "CombineQuantity": "Cannot combine {quantity} units of {item} which holds a stack of {available}.",
+      "CursedDivestment": "{name} is cursed and cannot be divested. A Gamemaster must perform this action.",
       "HookAlreadyExists": "{item} already declares a function for the \"{hook}\" hook.",
       "InvalidIdentifier": "Invalid Crucible identifier value \"{id}\" which must be alphanumeric without spaces or special characters",
       "NotTalent": "The dropped document must be a Talent.",

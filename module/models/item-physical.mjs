@@ -129,6 +129,14 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
 
   /**
+   * Does this item bear an affix which carries the "cursed" property?
+   * @type {boolean}
+   */
+  get isCursed() {
+    return this.parent.effects.some(e => (e.type === "affix") && e.system.properties.has("cursed"));
+  }
+
+  /**
    * Does this item require investment?
    * @type {boolean}
    */
@@ -348,6 +356,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     tags.category = this.config.category.label;
     if ( this.quality && (this.quality !== "standard") ) tags.quality = QT[this.quality].label;
     if ( this.config.enchantment.id !== "mundane" ) tags.enchantment = this.config.enchantment.label;
+    if ( this.isCursed ) tags.cursed = {label: SYSTEM.ITEM.AFFIX_PROPERTIES.cursed.label, unmet: true};
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
     if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;
     else if ( this.parent.parent && !this.dropped ) tags.equipped = _loc("ITEM.PROPERTIES.Unequipped");

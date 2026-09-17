@@ -317,6 +317,12 @@ export default class CrucibleItem extends foundry.documents.Item {
     // If physical item without stackable, clamp quantity to [0, 1]
     if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return;
 
+    // A cursed item cannot be willingly divested; only a Gamemaster may break the attachment
+    if ( (data.system?.invested === false) && this.system.invested && !user.isGM && this.system.isCursed ) {
+      ui.notifications.warn(_loc("ITEM.WARNINGS.CursedDivestment", {name: this.name}));
+      return false;
+    }
+
     // An equipped item is always a single unit; stacks may only exist while unequipped
     const willBeEquipped = data.system?.equipped ?? this.system.equipped;
     if ( willBeEquipped && ((data.system?.quantity ?? this.system.quantity) !== 1) ) {

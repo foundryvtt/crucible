@@ -2,6 +2,10 @@ import {SYSTEM} from "../const/system.mjs";
 import * as crucibleFields from "./fields.mjs";
 
 /**
+ * @import {CrucibleTag} from "./action.mjs";
+ */
+
+/**
  * @typedef CrucibleAffixEffectData
  * @property {string} identifier              A unique identifier for the affix
  * @property {string} adjective               An adjective used when composing the enchanted item name
@@ -51,5 +55,22 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
     ae.transfer = false;
     this.changes = [];
     this.tier.value = Math.clamp(this.tier.value, this.tier.min, this.tier.max);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Descriptive tags rendered on the affix sheet header.
+   * @returns {Record<string, string|CrucibleTag>}
+   */
+  getTags() {
+    const tags = {};
+    const affixType = SYSTEM.ITEM.AFFIX_TYPES[this.affixType];
+    if ( affixType ) tags.affixType = _loc(affixType);
+    tags.tier = _loc("AFFIX.TierDisplay", {value: this.tier.value, max: this.tier.max});
+    if ( this.properties.has("cursed") ) {
+      tags.cursed = {label: SYSTEM.ITEM.AFFIX_PROPERTIES.cursed.label, unmet: true};
+    }
+    return tags;
   }
 }
