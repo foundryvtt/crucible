@@ -1139,11 +1139,70 @@ Hooks.once("diceSoNiceReady", dice3d => {
  * @returns {Promise<void>}
  */
 async function _performMigrations(priorVersion) {
+  const upgradingTo = version => foundry.utils.isNewerVersion(version, priorVersion);
+
+  // Always sync world items and owned items
   await syncWorldItems({equipment: true});
   await syncOwnedItems({equipment: true, force: true, reload: false});
-  await _deleteFlankedEffects();
+
+  // Retire flanked active effects in 0.10.2
+  if ( upgradingTo("0.10.2") ) await _deleteFlankedEffects();
+
+  // Proficiency redesign requires full respec in 0.11.0
+  if ( upgradingTo("0.11.0") ) {
+    await _syncDetailItems();
+    await _resetHeroTalents();
+  }
+
+  // Record the new migration version
   await game.settings.set("crucible", "migrationVersion", crucible.version);
   foundry.utils.debouncedReload();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Re-apply the Ancestry, Background, Archetype, and Taxonomy snapshots held by each Actor from their sources.
+ * Detail items gained Proficiency grants in 0.11.0, so a snapshot taken before then under-grants training.
+ * @returns {Promise<void>}
+ */
+async function _syncDetailItems() {
+  console.groupCollapsed("Crucible | Detail Item Synchronization");
+  for ( const actor of game.actors ) {
+    if ( !actor.system.schema.has("details") ) continue;
+    try {
+      const {applied, unresolved} = await actor.syncDetailItems();
+      if ( applied.length ) console.debug(`Synced ${applied.join(", ")} for ${actor.name} [${actor.uuid}]`);
+      for ( const type of unresolved ) {
+        console.warn(`Could not resolve the source ${type} for Actor "${actor.name}" [${actor.uuid}]`);
+      }
+    } catch(cause) {
+      console.error(new Error(`Failed to sync detail items for Actor "${actor.name}" [${actor.uuid}]`, {cause}));
+    }
+  }
+  console.groupEnd();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Refund every Talent Point spent by each hero, requiring a full respec.
+ * The 0.11.0 tree reorganization retired talents wholesale and repositioned nodes, so prior selections cannot be
+ * meaningfully preserved. Talents granted by a detail item are permanent and survive the reset.
+ * @returns {Promise<void>}
+ */
+async function _resetHeroTalents() {
+  console.groupCollapsed("Crucible | Hero Talent Reset");
+  for ( const actor of game.actors ) {
+    if ( actor.type !== "hero" ) continue;
+    try {
+      await actor.resetTalents({dialog: false});
+      console.debug(`Reset talents for ${actor.name} [${actor.uuid}]`);
+    } catch(cause) {
+      console.error(new Error(`Failed to reset talents for Actor "${actor.name}" [${actor.uuid}]`, {cause}));
+    }
+  }
+  console.groupEnd();
 }
 
 /* -------------------------------------------- */

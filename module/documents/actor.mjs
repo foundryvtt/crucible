@@ -1759,6 +1759,11 @@ export default class CrucibleActor extends Actor {
       return arr;
     }, []);
     await this.deleteEmbeddedDocuments("Item", deleteIds);
+
+    // Refund purchases of empty nodes
+    if ( this.system.advancement?.talentNodes?.size ) {
+      await this.update({"system.advancement.talentNodes": []});
+    }
   }
 
   /* -------------------------------------------- */
@@ -2330,8 +2335,8 @@ export default class CrucibleActor extends Actor {
       return;
     }
 
-    // Commit the update
-    await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
+    // Commit the update. Deletion first, intentionally.
+    if ( deleteItemIds.size ) await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
     await this.update(updateData, {keepEmbeddedIds: true});
     if ( message && notify ) ui.notifications.info(message);
   }
