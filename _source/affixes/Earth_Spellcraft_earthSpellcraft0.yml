@@ -23,7 +23,10 @@ description: >-
   <p>This item is imbued with the essence of <strong>Earth</strong> spellcraft.
   While equipped, the bearer instinctively gains knowledge of the
   <strong>Earth</strong> rune, allowing them to compose spells using it even
-  without having learned the rune through a talent.</p>
+  without having learned the rune through a talent. It also grants
+  <strong>2</strong> points of
+  @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiency}
+  in <strong>Elemental Spellcraft</strong>.</p>
 origin: null
 tint: '#ffffff'
 transfer: false

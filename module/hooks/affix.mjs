@@ -57,16 +57,14 @@ for ( const runeId of Object.keys(RUNES) ) {
 /*  Rune Knowledge Affixes                      */
 /* -------------------------------------------- */
 
-// TODO needs rework to align with new proficiency system
 for ( const runeId of Object.keys(RUNES) ) {
   const id = `${runeId}Spellcraft`;
   HOOKS[id] = {
     prepareTraining(item, training) {
       const {isCursed, tier} = item.system.affixes[id].system;
       if ( isCursed ) return;
-      const {required} = SYSTEM.PROFICIENCY.RANK_VALUES[tier.value];
       const t = training[SYSTEM.SPELL.RUNES[runeId].training];
-      t.initial = Math.max(t.initial, required);
+      if ( t ) t.initial += (2 * tier.value);
     },
     prepareGrimoire(item, grimoire) {
       if ( item.system.affixes[id].system.isCursed ) return;
