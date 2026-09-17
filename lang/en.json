@@ -1064,6 +1064,7 @@
     "WARNINGS": {
       "CursedGamemasterOnly": "Only a Gamemaster may remove a Cursed affix from an item."
     },
+    "CursedName": "Cursed {name}",
     "ConfigIdentity": "Affix Identity",
     "ConfigTier": "Tier Configuration",
     "TierRestriction": "Tier Range",

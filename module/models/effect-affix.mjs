@@ -8,7 +8,7 @@ import * as crucibleFields from "./fields.mjs";
 /**
  * @typedef CrucibleAffixEffectData
  * @property {string} identifier              A unique identifier for the affix
- * @property {string} adjective               An adjective used when composing the enchanted item name
+ * @property {string} adjective               An adjective used when composing the item name, defaults to the name
  * @property {string} affixType               The affix category, "prefix" or "suffix"
  * @property {Set<string>} itemTypes          Item types this affix may be applied to, empty allows any
  * @property {Set<string>} properties         Boolean property tags which this affix possesses
@@ -49,12 +49,24 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
 
   /* -------------------------------------------- */
 
+  /**
+   * Does this affix carry the "cursed" property?
+   * @type {boolean}
+   */
+  get isCursed() {
+    return this.properties.has("cursed");
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   prepareBaseData() {
     const ae = this.parent;
     ae.transfer = false;
     this.changes = [];
     this.tier.value = Math.clamp(this.tier.value, this.tier.min, this.tier.max);
+    this.adjective ||= ae.name;
+    if ( this.isCursed ) ae.name = _loc("AFFIX.CursedName", {name: ae.name});
   }
 
   /* -------------------------------------------- */
