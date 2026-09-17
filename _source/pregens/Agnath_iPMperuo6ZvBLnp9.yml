@@ -682,7 +682,7 @@ flags:
     lastSpell: spell.death.touch
 _stats:
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.0
   coreVersion: '14.368'
   createdTime: 1789656702044
   modifiedTime: 1789656702044

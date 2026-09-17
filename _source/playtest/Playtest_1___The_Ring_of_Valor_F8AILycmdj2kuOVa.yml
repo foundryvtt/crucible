@@ -462,7 +462,7 @@ actors:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -870,7 +870,7 @@ actors:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -1688,7 +1688,7 @@ actors:
         actionHistory: []
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -2788,7 +2788,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -4046,7 +4046,7 @@ actors:
         lastSpell: spell.death.create
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -4656,7 +4656,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -5378,7 +5378,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -6501,7 +6501,7 @@ actors:
               tokenId: RuJPDLgDfWvnR2sg
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -7278,7 +7278,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -7793,7 +7793,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -8333,7 +8333,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -9105,7 +9105,7 @@ actors:
         lastSpell: spell.flame.influence
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -11148,7 +11148,7 @@ actors:
       compendiumSource: null
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -13232,7 +13232,7 @@ actors:
       compendiumSource: null
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -15160,7 +15160,7 @@ actors:
       compendiumSource: null
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -17168,7 +17168,7 @@ actors:
       compendiumSource: null
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -19445,7 +19445,7 @@ actors:
       compendiumSource: null
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -21561,7 +21561,7 @@ actors:
       compendiumSource: null
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -23730,7 +23730,7 @@ actors:
       compendiumSource: null
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -25808,7 +25808,7 @@ actors:
       compendiumSource: null
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
@@ -26496,7 +26496,7 @@ actors:
         lastSpell: spell.death.touch
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -27273,7 +27273,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -28051,7 +28051,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -28831,7 +28831,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -29652,7 +29652,7 @@ actors:
         lastSpell: spell.lightning.arrow
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -30372,7 +30372,7 @@ actors:
         lastSpell: spell.life.influence
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -31210,7 +31210,7 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       coreVersion: '14.368'
       createdTime: null
       modifiedTime: null
@@ -31344,7 +31344,7 @@ actors:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.0
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null

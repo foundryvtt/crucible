@@ -829,7 +829,7 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.0
   coreVersion: '14.368'
   createdTime: 1789656702052
   modifiedTime: 1789656702052

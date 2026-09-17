@@ -707,7 +707,7 @@ flags:
     lastSpell: spell.life.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.0
   coreVersion: '14.368'
   createdTime: 1789677665411
   modifiedTime: 1789677665411
