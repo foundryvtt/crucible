@@ -1814,10 +1814,10 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.performUpdates=true]   Whether to actually apply the resolved detail items
    * @returns {Promise<{applied: string[], unresolved: string[]}>}   Detail types which were and were not rediscovered
    */
-  async syncDetailItems({performUpdates=true}={}) {
+  async syncDetailItems({performUpdates=true, types}={}) {
     const applied = [];
     const unresolved = [];
-    for ( const type of CrucibleActor.#DETAIL_ITEM_TYPES ) {
+    for ( const type of (types ?? CrucibleActor.#DETAIL_ITEM_TYPES) ) {
       const detail = this.system.details[type];
       if ( !detail?.identifier ) continue;
       const item = await CrucibleActor.#findDetailItem(type, detail.identifier);

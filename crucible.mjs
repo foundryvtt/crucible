@@ -1162,8 +1162,8 @@ async function _performMigrations(priorVersion) {
 /* -------------------------------------------- */
 
 /**
- * Re-apply the Ancestry, Background, Archetype, and Taxonomy snapshots held by each Actor from their sources.
- * Detail items gained Proficiency grants in 0.11.0, so a snapshot taken before then under-grants training.
+ * Re-apply the Background and Archetype snapshots held by each Actor from their compendium sources.
+ * Those are the only two detail types which gained Proficiency grants in 0.11.0.
  * @returns {Promise<void>}
  */
 async function _syncDetailItems() {
@@ -1171,7 +1171,7 @@ async function _syncDetailItems() {
   for ( const actor of game.actors ) {
     if ( !actor.system.schema.has("details") ) continue;
     try {
-      const {applied, unresolved} = await actor.syncDetailItems();
+      const {applied, unresolved} = await actor.syncDetailItems({types: ["background", "archetype"]});
       if ( applied.length ) console.debug(`Synced ${applied.join(", ")} for ${actor.name} [${actor.uuid}]`);
       for ( const type of unresolved ) {
         console.warn(`Could not resolve the source ${type} for Actor "${actor.name}" [${actor.uuid}]`);
