@@ -1,12 +1,11 @@
-name: Certain Focus
+name: Dependable Refocus
 type: talent
 img: icons/magic/symbols/runes-star-orange.webp
 system:
   description: >-
-    <p>Drawing your reserves back into yourself has become as reliable as
-    breathing. Your
-    @UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus} action can
-    no longer fail, though it may still critically succeed.</p>
+    <p>Practice has made the work of drawing your reserves back into yourself
+    steady and sure. Your @Action[default refocus] action gains the
+    @Rule[action.accurate] and @Rule[action.keen] tags.</p>
   actions: []
   nodes:
     - pre2b
@@ -30,6 +29,6 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_id: certainFocus0000
+_id: dependableRefocu
 sort: 900000
-_key: '!items!certainFocus0000'
+_key: '!items!dependableRefocu'

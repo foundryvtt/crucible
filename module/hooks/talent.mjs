@@ -460,22 +460,14 @@ HOOKS.chameleon0000000 = {
 
 /* -------------------------------------------- */
 
-HOOKS.certainFocus0000 = {
-  rollAction(_item, action, target) {
+HOOKS.dependableRefocu = {
+  prepareAction(_item, action) {
     if ( action.id !== "refocus" ) return;
-    const dc = target.defenses[action.usage.defenseType]?.total;
-    if ( !Number.isFinite(dc) ) return;
-    const {NumericTerm, OperatorTerm} = foundry.dice.terms;
-    for ( const event of action.eventsByTarget.get(target)?.roll ?? [] ) {
-      const roll = event.roll;
-      if ( !roll || (roll.data.result !== roll.constructor.RESULT_TYPES.RESIST) ) continue;
-      const delta = (dc + 1) - roll.total;
-      roll.data.enchantment = (roll.data.enchantment ?? 0) + delta;
-      const operator = new OperatorTerm({operator: "+"});
-      const bonus = new NumericTerm({number: delta});
-      operator._evaluated = bonus._evaluated = true;
-      roll.terms.push(operator, bonus);
-      roll.resolveDamage(this, target);
+    // This hook runs immediately after the action's own tag handlers, so a newly added tag must be prepared here
+    for ( const tag of ["accurate", "keen"] ) {
+      if ( action.tags.has(tag) ) continue;
+      action.tags.add(tag);
+      SYSTEM.ACTION.TAGS[tag].prepare.call(action);
     }
   }
 };

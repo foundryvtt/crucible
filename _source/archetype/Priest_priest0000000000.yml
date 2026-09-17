@@ -36,7 +36,7 @@ system:
       level: 3
     - item: Compendium.crucible.talent.Item.channelersGrip00
       level: 2
-    - item: Compendium.crucible.talent.Item.certainFocus0000
+    - item: Compendium.crucible.talent.Item.dependableRefocu
       level: 2
   training:
     awareness: 1

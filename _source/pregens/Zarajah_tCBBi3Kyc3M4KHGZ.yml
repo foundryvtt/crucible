@@ -1296,15 +1296,14 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectionpush00'
-  - name: Certain Focus
+  - name: Dependable Refocus
     type: talent
     img: icons/magic/symbols/runes-star-orange.webp
     system:
       description: >-
-        <p>Drawing your reserves back into yourself has become as reliable as
-        breathing. Your
-        @UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus} action
-        can no longer fail, though it may still critically succeed.</p>
+        <p>Practice has made the work of drawing your reserves back into
+        yourself steady and sure. Your @Action[default refocus] action gains the
+        @Rule[action.accurate] and @Rule[action.keen] tags.</p>
       actions: []
       nodes:
         - pre2b
@@ -1325,13 +1324,13 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: certainFocus0000
+    _id: dependableRefocu
     folder: null
     sort: 0
     ownership:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.certainFocus0000'
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.dependableRefocu'
   - name: Kineturge
     type: talent
     img: icons/skills/ranged/bullets-triple-ball-yellow.webp

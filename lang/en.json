@@ -2840,12 +2840,10 @@
       "Trade": "Trade Skills",
       "Weapon": "Weapon Proficiencies"
     },
-    "BonusTooltip": "Your current bonus to checks using this training.",
     "CapTooltip": "Your level presently limits any one training to {points} points.",
     "Decrease": "Reclaim a Proficiency Point",
     "Increase": "Allocate a Proficiency Point",
-    "PassiveTooltip": "Your passive score for this training.",
-    "PointsTooltip": "{points} training points accumulated, from every source."
+    "PassiveTooltip": "Your passive score for this training."
   },
   "WEAPON": {
     "CATEGORIES": {
