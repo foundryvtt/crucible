@@ -37,9 +37,6 @@ system:
         permanent: true
   nodes:
     - intdex2
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: projectile
 effects: []

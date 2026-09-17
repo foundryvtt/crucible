@@ -8,9 +8,6 @@ system:
     <p>The @ref[actor.name] is immune to any spell or effect which alters its
     physical form.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: 9Ej4QwUt1yVpv4Wn

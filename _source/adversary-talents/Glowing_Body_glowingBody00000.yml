@@ -7,9 +7,6 @@ system:
     <p>The @ref[actor.name]{creature} emits non-magical bright light in a
     15-foot radius and dim light in a 30 foot radius.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qmA72jUC4FASsfvS

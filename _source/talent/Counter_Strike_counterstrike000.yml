@@ -42,9 +42,6 @@ system:
         permanent: true
   nodes:
     - tou2a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: shield
 _stats:

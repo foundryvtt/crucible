@@ -65,9 +65,6 @@ system:
       summon: null
   nodes:
     - pre0a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: performance
 effects: []

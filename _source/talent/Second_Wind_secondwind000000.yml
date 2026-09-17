@@ -41,9 +41,6 @@ system:
       autoFavorite: false
   nodes:
     - tou1b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: medicine
 _stats:

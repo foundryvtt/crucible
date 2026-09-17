@@ -16,9 +16,6 @@ system:
   nodes:
     - sig3.toughness
     - sig3.wisdom
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 ownership:
   default: 0

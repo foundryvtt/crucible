@@ -59,9 +59,6 @@ system:
         - ranged
         - fire
         - reflex
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: By2dpEkYQSuee47b

@@ -38,9 +38,6 @@ system:
       condition: ''
   nodes:
     - sig3.presence.intellect
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags: {}

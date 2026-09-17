@@ -46,9 +46,6 @@ system:
   training: talisman
   nodes:
     - pre0a
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 flags: {}
 _stats:

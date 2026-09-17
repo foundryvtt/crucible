@@ -41,9 +41,6 @@ system:
       summon: null
   nodes:
     - dex1b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: light
 _stats:

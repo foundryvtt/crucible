@@ -10,9 +10,6 @@ system:
     Storm</strong> scales with <strong>Wisdom</strong> instead of
     <strong>Intellect</strong>.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: elemental
 effects: []

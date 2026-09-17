@@ -58,9 +58,6 @@ system:
       summon: null
   nodes:
     - dex3a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: mechanical
 effects: []

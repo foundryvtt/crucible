@@ -9,9 +9,6 @@ system:
   actions: []
   nodes:
     - wis2b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: arcana
 effects: []

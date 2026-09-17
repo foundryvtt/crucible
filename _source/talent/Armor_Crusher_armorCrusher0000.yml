@@ -40,9 +40,6 @@ system:
         permanent: true
   nodes:
     - toustr4
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: heavy
 effects: []

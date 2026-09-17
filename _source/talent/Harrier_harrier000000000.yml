@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - dex4d
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags: {}

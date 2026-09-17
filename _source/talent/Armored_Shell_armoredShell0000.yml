@@ -12,9 +12,6 @@ system:
     <strong>Armor</strong> defense is reduced by half but your
     <strong>Block</strong> defense increases by a corresponding amount.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: armor
 effects: []

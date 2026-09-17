@@ -43,9 +43,6 @@ system:
       autoFavorite: false
   nodes:
     - dex2a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: athletics
 _stats:

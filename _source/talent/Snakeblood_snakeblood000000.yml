@@ -9,9 +9,6 @@ system:
   actions: []
   nodes:
     - tou3b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

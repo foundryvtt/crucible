@@ -43,9 +43,6 @@ system:
       autoFavorite: false
   nodes:
     - dex2c
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: light
 _stats:

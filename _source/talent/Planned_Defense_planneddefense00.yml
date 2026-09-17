@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - wis3a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: BevAJzzLeFbSaVic

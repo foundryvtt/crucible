@@ -10,9 +10,6 @@ system:
     deals damage to <strong>Health</strong>, the target becomes
     @Condition[corroding] for <strong>3 Rounds</strong>.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: XbUSvcKVfxu5qw7T

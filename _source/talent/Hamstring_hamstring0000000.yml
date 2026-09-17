@@ -60,9 +60,6 @@ system:
   iconicSpells: 0
   nodes:
     - dex0b
-  rune: ''
-  gesture: ''
-  inflection: ''
   training: light
 effects: []
 ownership:

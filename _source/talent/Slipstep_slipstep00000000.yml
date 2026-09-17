@@ -38,9 +38,6 @@ system:
         - reaction
         - movement
       summon: null
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: athletics
 effects: []

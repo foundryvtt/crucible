@@ -41,9 +41,6 @@ system:
         permanent: true
   nodes:
     - dex3b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: performance
 _stats:

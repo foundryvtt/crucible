@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - dextou4
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: armor
 effects: []

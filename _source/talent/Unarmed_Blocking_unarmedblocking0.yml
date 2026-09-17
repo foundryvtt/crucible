@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - tou0a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: unarmed
 effects: []

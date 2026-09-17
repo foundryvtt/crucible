@@ -45,9 +45,6 @@ system:
         actorUuid: null
         permanent: true
       autoFavorite: false
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: wilderness
 effects: []

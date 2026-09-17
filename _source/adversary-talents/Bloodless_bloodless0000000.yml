@@ -10,9 +10,6 @@ system:
     critical hit threshold for <strong>Strikes</strong> against it is increased
     by 2.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: 9Ej4QwUt1yVpv4Wn

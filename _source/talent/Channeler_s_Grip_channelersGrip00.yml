@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - pre2b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: talisman
 effects: []

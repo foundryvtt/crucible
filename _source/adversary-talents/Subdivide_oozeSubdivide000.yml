@@ -42,9 +42,6 @@ system:
       tags:
         - summon
       summon: null
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: 68HWinwhrVQnILl5

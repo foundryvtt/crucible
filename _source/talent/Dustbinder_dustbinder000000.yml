@@ -13,9 +13,6 @@ system:
   actions: []
   nodes:
     - wis3b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: elemental
 effects: []

@@ -8,9 +8,6 @@ system:
     Banes</strong> to all actions. </p><p>This mechanic is handled through an
     <strong>Active Effect</strong> that is easily toggled when applicable.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects:
   - _id: sunlightWeakness

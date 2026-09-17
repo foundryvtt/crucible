@@ -62,9 +62,6 @@ system:
         - willpower
         - presence
       autoFavorite: false
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: EDeByOa9cuYSaF8Y

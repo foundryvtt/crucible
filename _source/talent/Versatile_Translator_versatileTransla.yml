@@ -14,9 +14,6 @@ system:
     which you understand.</p><p>Your translations are rudimentary and often lack
     nuance, but they do contain all essential points of the text.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: society
 effects: []

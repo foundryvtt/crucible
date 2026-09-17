@@ -39,9 +39,6 @@ system:
   training: projectile
   nodes:
     - dex0a
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 flags: {}
 _stats:

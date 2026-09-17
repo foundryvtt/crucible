@@ -39,9 +39,6 @@ system:
       summon: null
   nodes:
     - strwis1
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: heavy
 effects: []

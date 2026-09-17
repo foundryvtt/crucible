@@ -11,9 +11,6 @@ system:
   iconicSpells: 2
   nodes:
     - sig3.wisdom.presence
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 ownership:
   default: 0

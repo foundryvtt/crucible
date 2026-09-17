@@ -9,9 +9,6 @@ system:
     attack against a wounded creature does not suffer <strong>Banes</strong>
     that would normally apply if the creature were @Condition[blinded].</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags: {}

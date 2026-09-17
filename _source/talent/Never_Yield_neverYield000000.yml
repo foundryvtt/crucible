@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - tou4c
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags: {}

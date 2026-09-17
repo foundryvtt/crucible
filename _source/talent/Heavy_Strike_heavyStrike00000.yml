@@ -40,9 +40,6 @@ system:
   training: heavy
   nodes:
     - str0a
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 flags: {}
 _stats:

@@ -42,9 +42,6 @@ system:
   training: natural
   nodes:
     - tou0b
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 ownership:
   default: 0

@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - strwis4
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: unarmed
 effects: []

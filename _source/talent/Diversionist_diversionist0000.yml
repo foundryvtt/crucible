@@ -39,9 +39,6 @@ system:
       summon: null
   nodes:
     - int0b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: deception
 effects: []

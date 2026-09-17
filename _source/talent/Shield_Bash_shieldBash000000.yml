@@ -62,9 +62,6 @@ system:
   training: shield
   nodes:
     - tou0b
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 flags: {}
 _stats:

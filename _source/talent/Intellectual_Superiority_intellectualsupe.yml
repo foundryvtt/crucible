@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - int4d
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: science
 effects: []

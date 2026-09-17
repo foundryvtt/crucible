@@ -11,9 +11,6 @@ system:
     <strong>Inflection</strong> it deals an additional <strong>+1
     Damage</strong> per <strong>Iconic Spell Slot</strong> that you have.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 1
 effects: []
 folder: fOYHlZJEWUukD7yr

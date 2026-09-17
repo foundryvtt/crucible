@@ -68,9 +68,6 @@ system:
         - skill
         - medicine
       summon: null
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: fOYHlZJEWUukD7yr

@@ -57,9 +57,6 @@ system:
       autoFavorite: false
   nodes:
     - wis2b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

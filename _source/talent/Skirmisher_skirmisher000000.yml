@@ -10,9 +10,6 @@ system:
   nodes:
     - dex3b
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: athletics
 effects: []

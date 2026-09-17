@@ -8,9 +8,6 @@ system:
     <p>While fully submerged in water or liquids, @ref[actor.name]{this
     creature} has @Advantage[2] on <strong>Stealth</strong> checks.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qmA72jUC4FASsfvS

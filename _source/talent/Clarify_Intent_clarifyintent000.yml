@@ -60,9 +60,6 @@ system:
       summon: null
   nodes:
     - wispre1
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: diplomacy
 effects: []

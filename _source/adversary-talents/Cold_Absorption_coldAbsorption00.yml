@@ -9,9 +9,6 @@ system:
     and if that resistance would reduce an amount of damage below zero, the
     negative amount is received as <strong>Healing</strong> instead.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: cKkQSlP59TZIn0ij

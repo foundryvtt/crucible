@@ -13,9 +13,6 @@ system:
     deals the ability score your <strong>Rune of Control</strong> scales with as
     additional <strong>Psychic</strong> damage to <strong>Morale</strong>.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: physical
 effects: []

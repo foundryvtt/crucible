@@ -45,9 +45,6 @@ system:
       autoFavorite: false
   nodes:
     - sig3.dexterity.toughness
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

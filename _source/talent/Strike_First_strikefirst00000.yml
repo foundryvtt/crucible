@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - intdex1
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags: {}

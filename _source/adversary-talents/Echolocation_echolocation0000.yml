@@ -13,9 +13,6 @@ system:
     using @ref[name] is treated as visible for the purposes of actions which
     require you to see your target.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qmA72jUC4FASsfvS

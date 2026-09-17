@@ -8,9 +8,6 @@ system:
     <p>While it remains motionless, the @ref[actor.name]{creature} is
     indistinguishable from some other object or material.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qmA72jUC4FASsfvS

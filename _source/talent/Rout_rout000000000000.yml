@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - pre4a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: intimidation
 effects: []

@@ -10,9 +10,6 @@ system:
     reactiveStrike]. It can be engaged if it lands upon the ground and such
     strikes may be used if it attempts to return to flight.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: cIS6eiJYaMi1oZQJ

@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - pre3a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

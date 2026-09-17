@@ -9,9 +9,6 @@ system:
   actions: []
   nodes:
     - str0b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: armor
 effects: []

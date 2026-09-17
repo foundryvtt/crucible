@@ -10,9 +10,6 @@ system:
   nodes:
     - wis0a
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: wilderness
 effects: []

@@ -42,9 +42,6 @@ system:
       summon: null
   nodes:
     - wis2c
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: medicine
 _stats:

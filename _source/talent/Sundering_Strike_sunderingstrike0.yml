@@ -65,9 +65,6 @@ system:
       summon: null
   nodes:
     - str3a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: heavy
 _stats:

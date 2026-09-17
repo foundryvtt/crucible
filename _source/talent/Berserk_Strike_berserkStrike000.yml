@@ -43,9 +43,6 @@ system:
       tags:
         - melee
       summon: null
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: ePNIUQxdOsY7GSKo

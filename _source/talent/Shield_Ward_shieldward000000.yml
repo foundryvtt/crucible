@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - tou2b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: arcana
 effects: []

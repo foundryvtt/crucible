@@ -60,9 +60,6 @@ system:
       summon: null
   nodes:
     - str4b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: heavy
 effects: []

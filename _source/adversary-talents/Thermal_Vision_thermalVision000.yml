@@ -14,9 +14,6 @@ system:
     @Condition[incapacitated]. A creature detected in this way is treated as
     visible for the purposes of Actions which require sight.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qmA72jUC4FASsfvS

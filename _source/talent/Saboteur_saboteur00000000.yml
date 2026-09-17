@@ -10,9 +10,6 @@ system:
     <strong>Trained</strong> regardless of which skill is used and you gain
     <strong>+1 Boon</strong> to any involved check.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: alchemy
 effects: []

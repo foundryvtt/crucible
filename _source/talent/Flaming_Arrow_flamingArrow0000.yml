@@ -39,9 +39,6 @@ system:
         - empowered
         - fire
       summon: null
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: projectile
 effects: []

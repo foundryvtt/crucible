@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - str2a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: light
 effects: []

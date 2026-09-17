@@ -65,9 +65,6 @@ system:
         - skill
         - intimidation
       autoFavorite: false
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

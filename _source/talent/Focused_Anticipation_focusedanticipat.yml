@@ -10,9 +10,6 @@ system:
   nodes:
     - int4d
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qHUCrqkzuPHtBkbG

@@ -14,9 +14,6 @@ system:
   training: arcana
   nodes:
     - preint4
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 ownership:
   default: 0

@@ -43,9 +43,6 @@ system:
   nodes:
     - sig3.toughness
     - sig3.intellect
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

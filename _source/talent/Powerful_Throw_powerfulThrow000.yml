@@ -8,9 +8,6 @@ system:
     <p>The maximum range of actions with the @Rule[action.thrown] tag or actions
     from <strong>Bomb</strong> consumables are doubled</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: athletics
 effects: []

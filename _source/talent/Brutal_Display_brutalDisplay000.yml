@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - str3b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: intimidation
 effects: []

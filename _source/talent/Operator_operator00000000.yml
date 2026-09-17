@@ -44,9 +44,6 @@ system:
   nodes:
     - sig3.presence
     - sig3.toughness
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: fOYHlZJEWUukD7yr

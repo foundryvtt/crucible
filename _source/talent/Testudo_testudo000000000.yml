@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - tou1a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: shield
 effects: []

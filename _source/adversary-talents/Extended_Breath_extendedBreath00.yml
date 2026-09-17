@@ -7,9 +7,6 @@ system:
     <p>The @ref[actor.name]{creature} can hold its breath for <strong>15
     minutes</strong>.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qmA72jUC4FASsfvS

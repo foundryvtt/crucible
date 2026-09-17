@@ -61,9 +61,6 @@ system:
       summon: null
   iconicSpells: 0
   nodes: []
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 ownership:
   default: 0

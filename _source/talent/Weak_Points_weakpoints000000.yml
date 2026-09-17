@@ -12,9 +12,6 @@ system:
   actions: []
   nodes:
     - dex1b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: deception
 effects: []

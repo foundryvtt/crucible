@@ -36,9 +36,6 @@ system:
       summon: null
   nodes:
     - dex1a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: projectile
 effects: []

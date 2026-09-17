@@ -9,9 +9,6 @@ system:
     perform actions. It always counts as having two free hands for spellcraft or
     interaction no matter what items it has equipped.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: 9Ej4QwUt1yVpv4Wn

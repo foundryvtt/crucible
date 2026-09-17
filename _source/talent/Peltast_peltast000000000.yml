@@ -51,9 +51,6 @@ system:
   nodes:
     - sig3.intellect
     - sig3.strength
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

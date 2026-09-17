@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - tou3a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags: {}

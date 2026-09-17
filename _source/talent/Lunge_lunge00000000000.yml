@@ -43,9 +43,6 @@ system:
   training: light
   nodes:
     - dex0b
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 flags: {}
 _stats:

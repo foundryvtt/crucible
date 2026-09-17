@@ -48,9 +48,6 @@ system:
       autoFavorite: false
   nodes:
     - toustr1
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: shield
 _stats:

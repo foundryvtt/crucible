@@ -38,9 +38,6 @@ system:
   training: mechanical
   nodes:
     - dex0a
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 flags: {}
 _stats:

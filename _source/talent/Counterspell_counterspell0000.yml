@@ -49,9 +49,6 @@ system:
       inflection: ''
   nodes:
     - preint1
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: arcana
 effects: []

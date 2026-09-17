@@ -13,9 +13,6 @@ system:
   actions: []
   nodes:
     - str4a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: heavy
 effects: []

@@ -317,9 +317,6 @@ system:
   nodes:
     - sig3.presence
     - sig3.strength
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

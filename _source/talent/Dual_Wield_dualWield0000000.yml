@@ -39,9 +39,6 @@ system:
     - dex1b
   iconicSpells: 0
   training: light
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 flags:
   core: {}

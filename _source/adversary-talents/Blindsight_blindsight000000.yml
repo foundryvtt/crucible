@@ -9,9 +9,6 @@ system:
     60 feet. It is unaffected by @Condition[blinded], darkness, or invisibility,
     and any creature it detects this way is treated as visible to it.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qmA72jUC4FASsfvS

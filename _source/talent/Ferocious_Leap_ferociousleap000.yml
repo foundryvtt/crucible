@@ -41,9 +41,6 @@ system:
       summon: null
   nodes:
     - str2c
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: athletics
 effects: []

@@ -10,9 +10,6 @@ system:
     gains a bonus to <strong>Dodge</strong> equal to half its <strong>Toughness
     </strong>score and is immune to the @Condition[restrained] condition.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: cIS6eiJYaMi1oZQJ

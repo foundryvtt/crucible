@@ -9,9 +9,6 @@ system:
   actions: []
   nodes:
     - intdex4
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: awareness
 effects: []

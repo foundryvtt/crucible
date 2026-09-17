@@ -68,9 +68,6 @@ system:
       summon: null
   nodes:
     - pre2a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: intimidation
 effects: []

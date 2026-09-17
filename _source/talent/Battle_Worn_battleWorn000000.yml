@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - tou1b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: medicine
 effects: []

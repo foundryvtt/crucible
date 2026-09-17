@@ -41,9 +41,6 @@ system:
         permanent: true
   nodes:
     - int0b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: science
 effects: []

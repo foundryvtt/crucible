@@ -41,9 +41,6 @@ system:
       summon: null
   nodes:
     - int3b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: awareness
 effects: []

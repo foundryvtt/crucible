@@ -39,9 +39,6 @@ system:
         permanent: true
   nodes:
     - dex1a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: mechanical
 effects: []

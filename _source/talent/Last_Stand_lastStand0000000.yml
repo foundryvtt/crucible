@@ -58,9 +58,6 @@ system:
         - subtle
         - healing
       summon: null
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: kvXzGhvDAbUcQsXM

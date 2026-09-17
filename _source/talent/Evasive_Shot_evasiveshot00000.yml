@@ -38,9 +38,6 @@ system:
       tags:
         - movement
       autoFavorite: false
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: projectile
 effects: []

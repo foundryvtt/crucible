@@ -9,9 +9,6 @@ system:
     @Condition[flanked] enemy.</p>
   actions: []
   nodes: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: S1hY0LkzEUHzLoFX

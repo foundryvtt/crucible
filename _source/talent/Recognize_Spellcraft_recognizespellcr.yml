@@ -10,9 +10,6 @@ system:
   actions: []
   nodes:
     - int0b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: arcana
 effects: []

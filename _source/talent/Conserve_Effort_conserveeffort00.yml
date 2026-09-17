@@ -9,9 +9,6 @@ system:
   actions: []
   nodes:
     - wis2a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

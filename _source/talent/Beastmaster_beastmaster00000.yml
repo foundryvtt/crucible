@@ -10,9 +10,6 @@ system:
   nodes:
     - sig3.toughness
     - sig3.wisdom
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

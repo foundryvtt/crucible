@@ -10,9 +10,6 @@ system:
     <strong>Boons</strong> to any <strong>Awareness</strong> check and can see
     @Condition[invisible] creatures.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: qmA72jUC4FASsfvS

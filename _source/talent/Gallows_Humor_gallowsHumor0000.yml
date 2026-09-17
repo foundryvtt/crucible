@@ -40,9 +40,6 @@ system:
       summon: null
   nodes:
     - pre2c
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: performance
 effects: []

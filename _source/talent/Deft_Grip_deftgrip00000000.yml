@@ -14,9 +14,6 @@ system:
     your <strong>Free Movement</strong> to equip or unequip such a weapon
     without any <strong>Action</strong> cost.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: light
 effects: []

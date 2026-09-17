@@ -11,9 +11,6 @@ system:
   actions: []
   nodes:
     - wis0a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: awareness
 effects: []

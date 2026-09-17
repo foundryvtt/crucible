@@ -18,9 +18,6 @@ system:
   actions: []
   nodes:
     - dex4c
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: stealth
 effects: []

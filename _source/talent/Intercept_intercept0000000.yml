@@ -44,9 +44,6 @@ system:
       summon: null
   nodes:
     - tou3a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: armor
 _stats:

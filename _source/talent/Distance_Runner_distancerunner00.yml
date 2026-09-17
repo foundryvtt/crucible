@@ -9,9 +9,6 @@ system:
   nodes:
     - dextou2
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: athletics
 effects: []

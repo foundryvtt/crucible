@@ -10,9 +10,6 @@ system:
     scales with <strong>Intellect</strong> instead of
     <strong>Wisdom</strong>.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: elemental
 effects: []

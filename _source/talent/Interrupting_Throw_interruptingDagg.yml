@@ -40,9 +40,6 @@ system:
         - melee
         - thrown
       summon: null
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: light
 effects: []

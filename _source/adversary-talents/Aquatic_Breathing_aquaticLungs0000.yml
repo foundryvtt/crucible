@@ -6,9 +6,6 @@ system:
   nodes: []
   description: <p>@ref[actor.name]{This creature} can only breathe underwater.</p>
   actions: []
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 folder: cIS6eiJYaMi1oZQJ

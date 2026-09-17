@@ -86,9 +86,6 @@ system:
   training: unarmed
   nodes:
     - str0b
-  rune: ''
-  gesture: ''
-  inflection: ''
 effects: []
 flags: {}
 _stats:

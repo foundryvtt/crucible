@@ -216,9 +216,6 @@ system:
       summon: null
   nodes:
     - sig3.strength.wisdom
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 flags:

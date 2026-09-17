@@ -38,9 +38,6 @@ system:
       summon: null
   nodes:
     - pre1a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: talisman
 effects: []

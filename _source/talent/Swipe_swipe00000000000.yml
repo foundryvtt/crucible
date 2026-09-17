@@ -38,9 +38,6 @@ system:
         permanent: true
   nodes:
     - str0a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: heavy
 effects: []

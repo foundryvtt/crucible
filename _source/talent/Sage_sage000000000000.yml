@@ -110,9 +110,6 @@ system:
   nodes:
     - sig3.intellect
     - sig3.wisdom
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 1
 effects: []
 ownership:

@@ -14,9 +14,6 @@ system:
   actions: []
   nodes:
     - wis3a
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: unarmed
 _stats:

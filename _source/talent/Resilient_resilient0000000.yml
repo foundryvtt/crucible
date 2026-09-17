@@ -12,9 +12,6 @@ system:
   actions: []
   nodes:
     - tou2c
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
 effects: []
 ownership:

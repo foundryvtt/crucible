@@ -12,9 +12,6 @@ system:
   actions: []
   nodes:
     - tou4b
-  rune: ''
-  gesture: ''
-  inflection: ''
   iconicSpells: 0
   training: armor
 effects: []
