@@ -298,13 +298,15 @@ items:
           img: icons/magic/light/orb-shadow-blue.webp
           condition: ''
           description: >-
-            <p>You use your equipped Talisman to attempt to regain some
-            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
-            <strong>Strike</strong> against your own <strong>Rallying</strong>
-            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
-            if using a one-handed Talisman and <strong>+2 Focus</strong> if
-            using a two-handed Talisman. On a critical success the amount of
-            Focus recovered increases by an additional +1.</p>
+            <p>You use your equipped <strong>Talisman</strong> to attempt to
+            regain some <strong>Focus</strong>. You perform a
+            @Rule[action.harmless] <strong>Strike</strong> against your own
+            <strong>Rallying</strong> threshold.</p><p>On a success you recover
+            <strong>+1 Focus</strong> if using a one-handed
+            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
+            two-handed <strong>Talisman</strong>. On a <strong>Critical
+            Success</strong> the amount of <strong>Focus</strong> recovered
+            increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -323,6 +325,7 @@ items:
           effects: []
           tags:
             - talisman
+            - ranged
             - harmless
             - rallying
           summon: null
@@ -336,11 +339,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711464
+      modifiedTime: 1789656711464
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -357,9 +360,10 @@ items:
     system:
       description: >-
         <p>You can interpret the arcane incantations of others to discern the
-        nature of their spellcraft. When an enemy within 40 feet that you can
-        see and hear begins casting a spell, you can identify its Rune if you
-        also know that Rune.</p>
+        nature of their spellcraft. When an enemy within <strong>40
+        feet</strong> that you can see and hear begins casting a spell, you can
+        identify its <strong>Rune</strong> if you also know that
+        <strong>Rune</strong>.</p>
       actions: []
       nodes:
         - int0b
@@ -372,12 +376,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933671
+      modifiedTime: 1789656711464
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933671
+      createdTime: 1789656711464
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -392,14 +396,15 @@ items:
     img: icons/magic/light/projectile-halo-teal.webp
     system:
       description: >-
-        <p>An orderly force of creation and spiritual essence. The Soul rune
-        governs the fundamental procession of souls through life and death and
-        relates to matters of sapience, personality, and mental
-        health.</p><p>The Soul rune scales using <strong>Presence</strong> and
-        provides <strong>Restoration</strong> of <strong>Morale</strong>. In
-        special circumstances it may be used to inflict <strong>Psychic</strong>
-        damage opposed by <strong>Willpower</strong>. It is opposed by the
-        chaotic rune of <strong>Oblivion</strong>.</p>
+        <p>An orderly force of creation and spiritual essence. The
+        <strong>Soul</strong> rune governs the fundamental procession of souls
+        through life and death and relates to matters of sapience, personality,
+        and mental health.</p><p>The <strong>Soul</strong> rune scales using
+        <strong>Presence</strong> and provides <strong>Restoration</strong> of
+        <strong>Morale</strong>. In special circumstances it may be used to
+        inflict <strong>Psychic</strong> damage opposed by
+        <strong>Willpower</strong>. It is opposed by the chaotic rune of
+        <strong>Oblivion</strong>.</p>
       actions:
         - id: evoke
           img: icons/magic/light/projectile-halo-teal.webp
@@ -451,11 +456,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711464
+      modifiedTime: 1789656711464
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -471,12 +476,12 @@ items:
     img: icons/magic/water/snowflake-ice-snow-white.webp
     system:
       description: >-
-        <p>The orderly force of water and cold. The Frost rune governs the
-        creation of water or other fluids and their transfer between liquid and
-        frozen states.</p><p>The Frost rune scales using
-        <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and deals
-        <strong>Cold</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Flame</strong>.</p>
+        <p>The orderly force of water and cold. The <strong>Frost</strong> rune
+        governs the creation of water or other fluids and their transfer between
+        liquid and frozen states.</p><p>The <strong>Frost</strong> rune scales
+        using <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and
+        deals <strong>Cold</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of <strong>Flame</strong>.</p>
       actions:
         - id: condense
           name: Condense
@@ -530,11 +535,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933672
-      modifiedTime: 1789073933672
+      createdTime: 1789656711465
+      modifiedTime: 1789656711465
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -552,13 +557,16 @@ items:
     system:
       description: >-
         <p>You coalesce arcane power into tangible form, manifesting a
-        <strong>Sprite</strong> which appears within 10 feet and joins Combat at
-        Initiative 1. Your Sprite is a <strong>Minion</strong> of half your own
-        Level.</p><p>The Create gesture scales with <strong>Wisdom</strong> and
-        the Sprite survives for <strong>6 Rounds</strong>. You may only have one
-        active Sprite, casting another spell using the Create gesture replaces
-        your previous Sprite. This gesture requires <strong>2 Hands</strong> to
-        cast and has a base cost of <strong>4 Action</strong> and <strong>1
+        <strong>Sprite</strong> which appears within <strong>10 feet</strong>
+        and joins <strong>Combat</strong> at <strong>Initiative 1</strong>. Your
+        <strong>Sprite</strong> is a <strong>Minion</strong> of half your own
+        <strong>Level</strong>.</p><p>The <strong>Create</strong> gesture scales
+        with <strong>Wisdom</strong> and the <strong>Sprite</strong> survives
+        for <strong>6 Rounds</strong>. You may only have one active
+        <strong>Sprite</strong>; casting another spell using the
+        <strong>Create</strong> gesture replaces your previous
+        <strong>Sprite</strong>. This gesture requires <strong>2 Hands</strong>
+        to cast and has a base cost of <strong>4 Action</strong> and <strong>1
         Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
         Runes have a Sprite actor defined yet. Runes that do not yet have a
         defined Creation will — for now — manifest
@@ -575,12 +583,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933672
+      modifiedTime: 1789656711465
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933672
+      createdTime: 1789656711465
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -609,8 +617,8 @@ items:
             your target's <strong>Willpower</strong>. On a success they suffer
             modest <strong>Psychic</strong> damage to
             <strong>Morale</strong>.</p><p>On a <strong>Critical
-            Success</strong>, they also become @Condition[enraged] for 1
-            Round.</p>
+            Success</strong>, they also become @Condition[enraged] for <strong>1
+            Round</strong>.</p>
           tags:
             - weakened
             - willpower
@@ -671,9 +679,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      coreVersion: '14.368'
+      createdTime: 1789656711465
+      modifiedTime: 1789656711465
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -691,12 +699,13 @@ items:
     system:
       description: >-
         <p>You take a moment to observe a creature which you can see and develop
-        intuition about its areas of strength.</p>
-
-        <p>Perform a <strong>Knowledge Test</strong> using a Skill chosen by the
-        Gamemaster. On a success, you learn which Defense type of Physical,
-        Fortutude, Willpower, or Reflex is highest for the creature. On a
-        Critical Success you learn the two highest defense types.</p>
+        intuition about its areas of strength.</p><p>Perform a <strong>Knowledge
+        Test</strong> using the appropriate <strong>Skill</strong> for the
+        creature. On a success, you learn which <strong>Defense</strong> type of
+        <strong>Physical</strong>, <strong>Fortitude</strong>,
+        <strong>Willpower</strong>, or <strong>Reflex</strong> is highest for
+        the creature. On a <strong>Critical Success</strong> you learn the two
+        highest defense types.</p>
       actions:
         - id: assessStrength
           description: >-
@@ -735,12 +744,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933670
+      modifiedTime: 1789656711466
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933670
+      createdTime: 1789656711466
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -757,9 +766,9 @@ items:
     system:
       description: >-
         <p>Enhance a spell by taking extra time in its formation, reducing other
-        resource costs in exchange. The Compose inflection reduces the
-        <strong>Focus</strong> cost of a spell by 1 while increasing its
-        <strong>Action</strong> cost by 1 in exchange.</p>
+        resource costs in exchange. The <strong>Compose</strong> inflection
+        reduces the <strong>Focus</strong> cost of a spell by 1 while increasing
+        its <strong>Action</strong> cost by 1 in exchange.</p>
       actions: []
       spellcraft: compose
       iconicSpells: 1
@@ -772,12 +781,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933673
+      modifiedTime: 1789656711466
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933673
+      createdTime: 1789656711466
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -796,8 +805,9 @@ items:
         <p>Empower a spell to repel affected creatures away from the caster.
         Creatures affected by a spell with the <strong>Push</strong> inflection
         are forcibly moved a distance away from the spellcaster equal to the
-        Ability Bonus that applied to the Spell, potentially colliding with
-        walls or other movement-blocking obstacles.</p>
+        <strong>Ability Bonus</strong> that applied to the
+        <strong>Spell</strong>, potentially colliding with walls or other
+        movement-blocking obstacles.</p>
       actions: []
       spellcraft: push
       iconicSpells: 1
@@ -812,9 +822,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      coreVersion: '14.368'
+      createdTime: 1789656711466
+      modifiedTime: 1789656711466
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -839,12 +849,13 @@ items:
           img: icons/magic/defensive/barrier-shield-dome-deflect-blue.webp
           condition: ''
           description: >-
-            <p>You set your Talisman into a defensive orbit which persists until
-            you dismiss it. While the Aegis turns and you have a Talisman
-            equipped, you gain a bonus to your <strong>Block</strong> defense
-            equal to your current <strong>Focus</strong>, to a maximum of +3.
-            Each time the Aegis turns a blow aside you spend 1
-            Focus.</p><p>Dismiss the Aegis by removing its effect.</p>
+            <p>You set your <strong>Talisman</strong> into a defensive orbit
+            which persists until you dismiss it. While the Aegis turns and you
+            have a <strong>Talisman</strong> equipped, you gain a bonus to your
+            <strong>Block</strong> defense equal to your current
+            <strong>Focus</strong>, to a maximum of +3. Each time the Aegis
+            turns a blow aside you spend <strong>1 Focus</strong>.</p><p>Dismiss
+            the Aegis by removing its effect.</p>
           cost:
             action: 1
             focus: 0
@@ -863,13 +874,18 @@ items:
           effects:
             - name: Orbiting Aegis
               scope: 1
-              statuses: []
               result:
                 type: any
                 all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: null
+                expired: false
               system:
                 changes: []
-                dc: 0
+                dc: null
                 dot: []
                 maintenance:
                   cost: null
@@ -877,13 +893,9 @@ items:
                 properties: []
                 regions: []
                 summons: []
-              duration:
-                value: null
-                units: ''
-                expiry: null
-                expired: false
           tags:
             - talisman
+            - ranged
           summon: null
       nodes:
         - pre3a
@@ -897,9 +909,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      coreVersion: '14.368'
+      createdTime: 1789656711466
+      modifiedTime: 1789656711466
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -916,9 +928,10 @@ items:
     img: icons/magic/symbols/runes-star-orange-purple.webp
     system:
       description: >-
-        <p>You are a master of Conjuration and the Gesture of Creation to
-        manifest arcane energy as physical form. You can maintain up to 3 such
-        creations simultaneously rather than only one.</p>
+        <p>You are a master of using the <strong>Gestures</strong> of
+        <strong>Conjuration</strong> and <strong>Creation</strong> to manifest
+        arcane energy as physical form. You can maintain up to 3 such creations
+        simultaneously rather than only one.</p>
       actions: []
       iconicSpells: 2
       nodes:
@@ -931,12 +944,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933673
+      modifiedTime: 1789656711466
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933673
+      createdTime: 1789656711466
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -960,10 +973,11 @@ items:
           img: icons/magic/light/beam-deflect-path-yellow.webp
           condition: ''
           description: >-
-            <p>You perform a Talisman attack against a single target. The bolt
-            then arcs to the nearest other enemy within 10 feet of your target
-            which has line of sight to it, striking that foe for reduced damage.
-            The second target is chosen automatically.</p>
+            <p>You perform a <strong>Talisman</strong> attack against a single
+            target. The bolt then arcs to the nearest other enemy within
+            <strong>10 feet</strong> of your target which has line of sight to
+            it, striking that foe for reduced damage. The second target is
+            chosen automatically.</p>
           cost:
             action: 1
             focus: 0
@@ -982,6 +996,7 @@ items:
           effects: []
           tags:
             - talisman
+            - ranged
           summon: null
       nodes:
         - pre1a
@@ -995,9 +1010,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      coreVersion: '14.368'
+      createdTime: 1789656711467
+      modifiedTime: 1789656711467
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1031,9 +1046,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      coreVersion: '14.368'
+      createdTime: 1789656711467
+      modifiedTime: 1789656711467
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1056,9 +1071,10 @@ items:
         @UUID[Compendium.crucible.talent.Item.inflectionpush00]{Inflection:
         Push} or
         @UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection:
-        Pull} toH a Spell, you ignore the inflection's <strong>Focus</strong>
-        cost.</p></li><li><p>You double the distance at which you can Pull,
-        Flick, or Suspend using the
+        Pull} to a <strong>Spell</strong>, you ignore the inflection's
+        <strong>Focus</strong> cost.</p></li><li><p>You double the distance at
+        which you can <strong>Pull</strong>, <strong>Flick</strong>, or
+        <strong>Suspend</strong> using the
         @Action[Compendium.crucible.talent.Item.runeKinesis00000 propel]
         action.</p></li><li><p>You unlock the <strong>Telekinetic
         Flight</strong> action, suspending yourself aloft to fly and
@@ -1125,11 +1141,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711467
+      modifiedTime: 1789656711467
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1146,13 +1162,14 @@ items:
     img: icons/magic/movement/pinwheel-turning-blue.webp
     system:
       description: >-
-        <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and
-        physicality.</p><p>The Kinesis rune scales using
-        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
-        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
-        opposed by the orderly rune of <strong>Control</strong>.</p>
+        <p>The chaotic force of space and physical movement. The
+        <strong>Kinesis</strong> rune governs all things related to the act of
+        movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
+        using <strong>Presence</strong>, targets <strong>Physical</strong>
+        defense, and deals <strong>Bludgeoning</strong>,
+        <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Control</strong>.</p>
       actions:
         - id: propel
           name: Propel
@@ -1211,11 +1228,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933674
-      modifiedTime: 1789073933674
+      createdTime: 1789656711468
+      modifiedTime: 1789656711468
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1232,11 +1249,12 @@ items:
     img: icons/magic/light/orbs-firefly-hand-yellow.webp
     system:
       description: >-
-        <p>You intensify the arcane power of a Rune into a concentrated direct
-        contact which is generally a more powerful evolution of the basic Touch
-        gesture.</p><p>The Influence gesture scales using
+        <p>You intensify the arcane power of a <strong>Rune</strong> into a
+        concentrated direct contact which is generally a more powerful evolution
+        of the basic <strong>Touch</strong> gesture.</p><p>The
+        <strong>Influence</strong> gesture scales using
         <strong>Presence</strong> and targets a single adjacent creature. It
-        deals <strong>10 Base Damage</strong> to targets which fail to Resist
+        deals <strong>10 Base Damage</strong> to targets which fail to resist
         the spell. This gesture requires <strong>1 Hand</strong> to cast and has
         a base cost of <strong>3 Action</strong> and <strong>1
         Focus</strong>.</p>
@@ -1254,9 +1272,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      coreVersion: '14.368'
+      createdTime: 1789656711468
+      modifiedTime: 1789656711468
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1282,11 +1300,12 @@ items:
           condition: ''
           description: >-
             <p>You surround yourself with an aura of attendant motes which is
-            <strong>Maintained</strong> at a cost of 1 Focus per turn. Any enemy
-            which enters the aura or ends its turn within it suffers a Talisman
-            attack.</p><h3 class="divider">Playtest Notes</h3><p>The aura is
-            placed and maintained, but its attacks against enemies who enter or
-            end their turn within it are not yet automated.</p>
+            <strong>Maintained</strong> at a cost of <strong>1 Focus</strong>
+            per turn. Any enemy which enters the aura or ends its turn within it
+            suffers a <strong>Talisman</strong> attack.</p><h3
+            class="divider">Playtest Notes</h3><p>The aura is placed and
+            maintained, but its attacks against enemies who enter or end their
+            turn within it are not yet automated.</p>
           cost:
             action: 3
             focus: 1
@@ -1327,6 +1346,7 @@ items:
                 expired: false
           tags:
             - talisman
+            - ranged
             - maintained
           summon: null
       nodes:
@@ -1341,9 +1361,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      coreVersion: '14.368'
+      createdTime: 1789656711468
+      modifiedTime: 1789656711468
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1364,19 +1384,22 @@ items:
         - wis4d
       description: >-
         <p>You coalesce arcane power into a superior form, manifesting a
-        <strong>Visitor</strong> which appears within 30 feet and joins Combat
-        at <strong>Initiative</strong> 1. Your Visitor is a Minion equal to your
-        own Level.</p><p>The Conjure gesture scales with <strong>Wisdom</strong>
-        and the Visitor survives for <strong>12 Rounds</strong>. You may only
-        have one active Visitor. Casting another spell using the Conjure gesture
-        replaces your previous Visitor. This gesture requires <strong>2
-        Hands</strong> to cast and has a base cost of <strong>5 Action</strong>
-        and <strong>2 Focus</strong>.</p><h3 class="divider">Playtest
-        Notes</h3><p>This talent is currently placed at a <strong>Tier
-        4</strong> node. It will eventually only be attainable at a higher level
-        (probably Level 6 required). It is currently available "early" for
-        testing.</p><p>Not all Runes have a Visitor actor defined yet. Runes
-        that do not yet have a defined Conjuration will — for now — manifest
+        <strong>Visitor</strong> which appears within <strong>30 feet</strong>
+        and joins <strong>Combat</strong> at <strong>Initiative 1</strong>. Your
+        <strong>Visitor</strong> is a <strong>Minion</strong> equal to your own
+        <strong>Level</strong>.</p><p>The <strong>Conjure</strong> gesture
+        scales with <strong>Wisdom</strong> and the <strong>Visitor</strong>
+        survives for <strong>12 Rounds</strong>. You may only have one active
+        <strong>Visitor</strong>. Casting another spell using the
+        <strong>Conjure</strong> gesture replaces your previous
+        <strong>Visitor</strong>. This gesture requires <strong>2 Hands</strong>
+        to cast and has a base cost of <strong>5 Action</strong> and <strong>2
+        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
+        is currently placed at a <strong>Tier 4</strong> node. It will
+        eventually only be attainable at a higher level (probably Level 6
+        required). It is currently available "early" for testing.</p><p>Not all
+        Runes have a Visitor actor defined yet. Runes that do not yet have a
+        defined Conjuration will — for now — manifest
         a@UUID[Compendium.crucible.summons.Actor.AlwoqQKoL1BnnZjd].</p>
       actions: []
       spellcraft: conjure
@@ -1387,11 +1410,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933674
-      modifiedTime: 1789073933674
+      createdTime: 1789656711468
+      modifiedTime: 1789656711468
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1421,11 +1444,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711469
+      modifiedTime: 1789656711469
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1442,11 +1465,12 @@ items:
     img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
     system:
       description: >-
-        <p>The chaotic force of elemental, thermal energy. The Flame rune
-        governs fire and heat.</p><p>The Flame rune scales using
-        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Fire</strong> damage to <strong>Health</strong>. It is opposed
-        by the orderly rune of <strong>Frost</strong>.</p>
+        <p>The chaotic force of elemental, thermal energy. The
+        <strong>Flame</strong> rune governs fire and heat.</p><p>The
+        <strong>Flame</strong> rune scales using <strong>Intellect</strong>,
+        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
+        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
           name: Enkindle
@@ -1497,11 +1521,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711469
+      modifiedTime: 1789656711469
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1518,13 +1542,14 @@ items:
     img: icons/magic/water/orb-ice-web.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Frost. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
-        deal damage cause the @Condition[freezing] condition.</p><p>The Freezing
-        effect lasts for <strong>1 Round</strong>, deals half the ability score
-        your <strong>Rune of Frost</strong> scales with as
-        <strong>Frost</strong> damage to <strong>Health</strong>, and applies
-        the @Condition[slowed] condition.</p>
+        <p>You are highly skilled in weaving the <strong>Rune of Frost</strong>.
+        When you cast a <strong>Spell</strong> or use an action that involves
+        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
+        deal damage cause the @Condition[freezing] condition.</p><p>The
+        <strong>Freezing</strong> effect lasts for <strong>1 Round</strong>,
+        deals half the ability score your <strong>Rune of Frost</strong> scales
+        with as <strong>Frost</strong> damage to <strong>Health</strong>, and
+        applies the @Condition[slowed] condition.</p>
       actions: []
       nodes:
         - wis3b
@@ -1537,12 +1562,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933675
+      modifiedTime: 1789656711469
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933675
+      createdTime: 1789656711469
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1580,11 +1605,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711469
+      modifiedTime: 1789656711469
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1623,11 +1648,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711470
+      modifiedTime: 1789656711470
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1737,11 +1762,11 @@ items:
         sort: 200000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933670
-          modifiedTime: 1789073933670
+          createdTime: 1789656711471
+          modifiedTime: 1789656711471
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1752,11 +1777,11 @@ items:
       ember:
         crucibleOverride: true
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711471
+      modifiedTime: 1789656711471
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1833,11 +1858,11 @@ items:
         sort: 0
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933670
-          modifiedTime: 1789073933670
+          createdTime: 1789656711474
+          modifiedTime: 1789656711474
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1846,11 +1871,11 @@ items:
           !actors.items.effects!lP2MOJyk5oHs6oSS.imivMqfhbsDAIVmx.reinforcement000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711473
+      modifiedTime: 1789656711473
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1947,11 +1972,11 @@ items:
       ember:
         crucibleOverride: true
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711474
+      modifiedTime: 1789656711474
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2052,11 +2077,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711475
+      modifiedTime: 1789656711475
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2135,11 +2160,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933670
-      modifiedTime: 1789073933670
+      createdTime: 1789656711475
+      modifiedTime: 1789656711475
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2245,11 +2270,11 @@ flags:
         messageId: t3WM9HAg9PzUI3c7
         combat: null
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789073933670
-  modifiedTime: 1789073933670
+  createdTime: 1789656711463
+  modifiedTime: 1789656711463
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

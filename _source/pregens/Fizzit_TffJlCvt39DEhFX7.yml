@@ -294,9 +294,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725064
-      modifiedTime: 1789065725064
+      coreVersion: '14.368'
+      createdTime: 1789656702080
+      modifiedTime: 1789656702080
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -339,9 +339,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725065
-      modifiedTime: 1789065725065
+      coreVersion: '14.368'
+      createdTime: 1789656702081
+      modifiedTime: 1789656702081
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -382,9 +382,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725065
-      modifiedTime: 1789065725065
+      coreVersion: '14.368'
+      createdTime: 1789656702081
+      modifiedTime: 1789656702081
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -407,13 +407,15 @@ items:
           img: icons/magic/light/orb-shadow-blue.webp
           condition: ''
           description: >-
-            <p>You use your equipped Talisman to attempt to regain some
-            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
-            <strong>Strike</strong> against your own <strong>Rallying</strong>
-            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
-            if using a one-handed Talisman and <strong>+2 Focus</strong> if
-            using a two-handed Talisman. On a critical success the amount of
-            Focus recovered increases by an additional +1.</p>
+            <p>You use your equipped <strong>Talisman</strong> to attempt to
+            regain some <strong>Focus</strong>. You perform a
+            @Rule[action.harmless] <strong>Strike</strong> against your own
+            <strong>Rallying</strong> threshold.</p><p>On a success you recover
+            <strong>+1 Focus</strong> if using a one-handed
+            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
+            two-handed <strong>Talisman</strong>. On a <strong>Critical
+            Success</strong> the amount of <strong>Focus</strong> recovered
+            increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -432,6 +434,7 @@ items:
           effects: []
           tags:
             - talisman
+            - ranged
             - harmless
             - rallying
           summon: null
@@ -445,11 +448,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725063
-      modifiedTime: 1789065725063
+      createdTime: 1789656702081
+      modifiedTime: 1789656702081
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -466,9 +469,10 @@ items:
     system:
       description: >-
         <p>You can interpret the arcane incantations of others to discern the
-        nature of their spellcraft. When an enemy within 40 feet that you can
-        see and hear begins casting a spell, you can identify its Rune if you
-        also know that Rune.</p>
+        nature of their spellcraft. When an enemy within <strong>40
+        feet</strong> that you can see and hear begins casting a spell, you can
+        identify its <strong>Rune</strong> if you also know that
+        <strong>Rune</strong>.</p>
       actions: []
       nodes:
         - int0b
@@ -483,9 +487,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725063
-      modifiedTime: 1789065725063
+      coreVersion: '14.368'
+      createdTime: 1789656702081
+      modifiedTime: 1789656702081
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -501,14 +505,15 @@ items:
     img: icons/magic/light/projectile-halo-teal.webp
     system:
       description: >-
-        <p>An orderly force of creation and spiritual essence. The Soul rune
-        governs the fundamental procession of souls through life and death and
-        relates to matters of sapience, personality, and mental
-        health.</p><p>The Soul rune scales using <strong>Presence</strong> and
-        provides <strong>Restoration</strong> of <strong>Morale</strong>. In
-        special circumstances it may be used to inflict <strong>Psychic</strong>
-        damage opposed by <strong>Willpower</strong>. It is opposed by the
-        chaotic rune of <strong>Oblivion</strong>.</p>
+        <p>An orderly force of creation and spiritual essence. The
+        <strong>Soul</strong> rune governs the fundamental procession of souls
+        through life and death and relates to matters of sapience, personality,
+        and mental health.</p><p>The <strong>Soul</strong> rune scales using
+        <strong>Presence</strong> and provides <strong>Restoration</strong> of
+        <strong>Morale</strong>. In special circumstances it may be used to
+        inflict <strong>Psychic</strong> damage opposed by
+        <strong>Willpower</strong>. It is opposed by the chaotic rune of
+        <strong>Oblivion</strong>.</p>
       actions:
         - id: evoke
           img: icons/magic/light/projectile-halo-teal.webp
@@ -560,11 +565,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725063
-      modifiedTime: 1789065725063
+      createdTime: 1789656702082
+      modifiedTime: 1789656702082
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -580,12 +585,12 @@ items:
     img: icons/magic/water/snowflake-ice-snow-white.webp
     system:
       description: >-
-        <p>The orderly force of water and cold. The Frost rune governs the
-        creation of water or other fluids and their transfer between liquid and
-        frozen states.</p><p>The Frost rune scales using
-        <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and deals
-        <strong>Cold</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Flame</strong>.</p>
+        <p>The orderly force of water and cold. The <strong>Frost</strong> rune
+        governs the creation of water or other fluids and their transfer between
+        liquid and frozen states.</p><p>The <strong>Frost</strong> rune scales
+        using <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and
+        deals <strong>Cold</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of <strong>Flame</strong>.</p>
       actions:
         - id: condense
           name: Condense
@@ -639,11 +644,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725066
-      modifiedTime: 1789065725066
+      createdTime: 1789656702082
+      modifiedTime: 1789656702082
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -661,13 +666,16 @@ items:
     system:
       description: >-
         <p>You coalesce arcane power into tangible form, manifesting a
-        <strong>Sprite</strong> which appears within 10 feet and joins Combat at
-        Initiative 1. Your Sprite is a <strong>Minion</strong> of half your own
-        Level.</p><p>The Create gesture scales with <strong>Wisdom</strong> and
-        the Sprite survives for <strong>6 Rounds</strong>. You may only have one
-        active Sprite, casting another spell using the Create gesture replaces
-        your previous Sprite. This gesture requires <strong>2 Hands</strong> to
-        cast and has a base cost of <strong>4 Action</strong> and <strong>1
+        <strong>Sprite</strong> which appears within <strong>10 feet</strong>
+        and joins <strong>Combat</strong> at <strong>Initiative 1</strong>. Your
+        <strong>Sprite</strong> is a <strong>Minion</strong> of half your own
+        <strong>Level</strong>.</p><p>The <strong>Create</strong> gesture scales
+        with <strong>Wisdom</strong> and the <strong>Sprite</strong> survives
+        for <strong>6 Rounds</strong>. You may only have one active
+        <strong>Sprite</strong>; casting another spell using the
+        <strong>Create</strong> gesture replaces your previous
+        <strong>Sprite</strong>. This gesture requires <strong>2 Hands</strong>
+        to cast and has a base cost of <strong>4 Action</strong> and <strong>1
         Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>Not all
         Runes have a Sprite actor defined yet. Runes that do not yet have a
         defined Creation will — for now — manifest
@@ -684,12 +692,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789065725066
+      modifiedTime: 1789656702082
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789065725066
+      createdTime: 1789656702082
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -718,8 +726,8 @@ items:
             your target's <strong>Willpower</strong>. On a success they suffer
             modest <strong>Psychic</strong> damage to
             <strong>Morale</strong>.</p><p>On a <strong>Critical
-            Success</strong>, they also become @Condition[enraged] for 1
-            Round.</p>
+            Success</strong>, they also become @Condition[enraged] for <strong>1
+            Round</strong>.</p>
           tags:
             - weakened
             - willpower
@@ -780,9 +788,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725063
-      modifiedTime: 1789065725063
+      coreVersion: '14.368'
+      createdTime: 1789656702083
+      modifiedTime: 1789656702083
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -802,9 +810,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
-  createdTime: 1789065725063
-  modifiedTime: 1789065725063
+  coreVersion: '14.368'
+  createdTime: 1789656702079
+  modifiedTime: 1789656702079
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -765,15 +765,14 @@ pages:
         characters is <strong>1</strong>, while the base Engagement for
         <strong>Adversary</strong> characters starts at <strong>1</strong> and
         adds <strong>+1 for every 2 Size above 4</strong>, rounded
-        up.</p><p>When a character
-        is adjacent to multiple enemies where the number of engaged enemies
-        equals or exceeds their Engagement score, that character is said to be
-        <strong>Fully Engaged</strong>. Some conditions or action prerequisites
-        may only occur when a creature is Fully Engaged.</p><section
-        class="foundryvtt"><p>To help visualize how Engagement and Flanking
-        mechanics works, there is a special toggle that can be used in
-        the<strong> Tokens Layer</strong> of the <strong>Scene Controls
-        </strong>UI on the left side of the screen. While enabled, the
+        up.</p><p>When a character is adjacent to multiple enemies where the
+        number of engaged enemies equals or exceeds their Engagement score, that
+        character is said to be <strong>Fully Engaged</strong>. Some conditions
+        or action prerequisites may only occur when a creature is Fully
+        Engaged.</p><section class="foundryvtt"><p>To help visualize how
+        Engagement and Flanking mechanics works, there is a special toggle that
+        can be used in the<strong> Tokens Layer</strong> of the <strong>Scene
+        Controls </strong>UI on the left side of the screen. While enabled, the
         Engagement of your controlled creature is drawn, and each creature you
         target is labelled with the Flanking which you would have against
         it.</p></section><h2 class="divider">Flanking</h2><p>Flanking occurs

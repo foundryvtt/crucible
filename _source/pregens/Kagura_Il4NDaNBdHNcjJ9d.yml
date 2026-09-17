@@ -159,7 +159,7 @@ system:
       immune: false
   resources:
     health:
-      value: 60
+      value: 62
     wounds:
       value: 0
     morale:
@@ -317,11 +317,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933682
-      modifiedTime: 1789073933682
+      createdTime: 1789656711438
+      modifiedTime: 1789656711438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -336,13 +336,14 @@ items:
     img: icons/magic/life/heart-shadow-red.webp
     system:
       description: >-
-        <p>A chaotic force of creation, responsible for living matter. The Life
-        rune governs health and matters relating to biological growth.</p><p>The
-        Life rune scales using <strong>Wisdom</strong> and provides
-        <strong>Restoration</strong> of <strong>Health</strong>. In special
-        circumstances it may be used to inflict <strong>Poison</strong> damage
-        opposed by <strong>Fortitude</strong>. It is opposed by the orderly rune
-        of <strong>Death</strong>.</p>
+        <p>A chaotic force of creation, responsible for living matter. The
+        <strong>Life</strong> rune governs health and matters relating to
+        biological growth.</p><p>The <strong>Life</strong> rune scales using
+        <strong>Wisdom</strong> and provides <strong>Restoration</strong> of
+        <strong>Health</strong>. In special circumstances it may be used to
+        inflict <strong>Poison</strong> damage opposed by
+        <strong>Fortitude</strong>. It is opposed by the orderly rune of
+        <strong>Death</strong>.</p>
       actions:
         - id: bloom
           name: Bloom
@@ -392,11 +393,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933682
-      modifiedTime: 1789073933682
+      createdTime: 1789656711438
+      modifiedTime: 1789656711438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -414,12 +415,11 @@ items:
     system:
       description: >-
         <p>Your sharpened mind is full of secrets and techniques to remember
-        them. Once per Day you may focus your thoughts and attempt to recall a
-        word that sparks your memory.</p>
-
-        <p>The Gamemaster must provide you with a one-word clue that is
-        appropriate for your direction of inquiry. It is left to Gamemaster
-        discretion how direct or vague to be with the clue they provide.</p>
+        them. Once per day you may focus your thoughts and attempt to recall a
+        word that sparks your memory.</p><p>The <strong>Gamemaster</strong> must
+        provide you with a one-word clue that is appropriate for your direction
+        of inquiry. It is left to <strong>Gamemaster's</strong> discretion how
+        direct or vague to be with the clue they provide.</p>
       actions:
         - id: mnemonicRealization
           description: >-
@@ -459,9 +459,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      coreVersion: '14.368'
+      createdTime: 1789656711438
+      modifiedTime: 1789656711438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -484,7 +484,9 @@ items:
       actions:
         - id: precisionShot
           condition: ''
-          description: <p>You steady your aim and fire a single accurate shot.</p>
+          description: >-
+            <p>You steady your aim and fire a single @Rule[action.accurate]
+            shot.</p>
           tags:
             - ranged
             - accurate
@@ -517,9 +519,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      coreVersion: '14.368'
+      createdTime: 1789656711439
+      modifiedTime: 1789656711439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -534,13 +536,14 @@ items:
     img: icons/magic/light/beam-rays-blue.webp
     system:
       description: >-
-        <p>You funnel the arcane power of a Rune into a point and project it
-        outwards in a beam.</p><p>The Ray gesture scales using
-        <strong>Wisdom</strong> and produces a line that is 1 foot wide and 30
-        feet long originating from the spellcaster, dealing <strong>6 Base
-        Damage</strong> to targets which fail to Resist the spell. The gesture
-        requires <strong>1 Hand</strong> to cast and has a base cost of
-        <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
+        <p>You funnel the arcane power of a <strong>Rune</strong> into a point
+        and project it outwards in a beam.</p><p>The <strong>Ray</strong>
+        gesture scales using <strong>Wisdom</strong> and produces a line that is
+        <strong>1 foot</strong> wide and <strong>30 feet</strong> long
+        originating from the spellcaster, dealing <strong>6 Base Damage</strong>
+        to targets which fail to resist the spell. The gesture requires
+        <strong>1 Hand</strong> to cast and has a base cost of <strong>4
+        Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
       spellcraft: ray
       nodes:
@@ -553,12 +556,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933683
+      modifiedTime: 1789656711439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933683
+      createdTime: 1789656711439
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -623,11 +626,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933683
-      modifiedTime: 1789073933683
+      createdTime: 1789656711439
+      modifiedTime: 1789656711439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -667,11 +670,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711439
+      modifiedTime: 1789656711439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -697,22 +700,23 @@ items:
           img: icons/tools/cooking/oven-stone-grey.webp
           condition: You have a Cook's Toolkit equipped.
           description: >-
-            <p>Food carries the history of what was done to it. With a Cook's
-            Toolkit equipped, you can produce any one of the following
-            effects:</p><ul><li><p><strong>Read.</strong> You study an item
-            created by cooking which you can clearly see within <strong>30
-            feet</strong>, learning its <strong>Quality</strong> tier, whether
-            it has spoiled, and what has been added to it. When you eat
-            something prepared by another hand, you learn its
+            <p>Food carries the history of what was done to it. With a
+            <strong>Cook's Toolkit</strong> equipped, you can produce any one of
+            the following effects:</p><ul><li><p><strong>Read.</strong> You
+            study an item created by cooking which you can clearly see within
+            <strong>30 feet</strong>, learning its <strong>Quality</strong>
+            tier, whether it has spoiled, and what has been added to it. When
+            you eat something prepared by another hand, you learn its
             recipe.</p></li><li><p><strong>Destroy.</strong> You instantaneously
             spoil non-magical food or drink which you can physically touch,
             turning a dish, a cask, or a company's rations rancid beyond
             salvage. Alternatively, in the course of preparing food or drink
             yourself, you may sabotage it while leaving it looking and smelling
             wholesome. You name the condition under which it fails; when that
-            condition is met, the Gamemaster decides the consequences. Your
-            sabotage is discovered only by an intentional Awareness check which
-            beats your passive Cooking.</p></li><li><p><strong>Create.</strong>
+            condition is met, the <strong>Gamemaster</strong> decides the
+            consequences. Your sabotage is discovered only by an intentional
+            <strong>Awareness</strong> check which beats your passive
+            <strong>Cooking</strong>.</p></li><li><p><strong>Create.</strong>
             Given time and reasonable access to ingredients, you may prepare any
             food or drink you are familiar with and have it come out as you
             intended, from field porridge to a wedding cake to a cordial you
@@ -720,7 +724,8 @@ items:
             must still be rolled, but you can successfully prepare any dish
             outside of this system without requiring a dice
             roll.</p></li></ul><p>You may attempt other uses similar to those
-            above, the effectiveness of which is decided by the Gamemaster.</p>
+            above, the effectiveness of which is decided by the
+            <strong>Gamemaster</strong>.</p>
           cost:
             action: 3
             focus: 0
@@ -749,11 +754,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711440
+      modifiedTime: 1789656711440
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -771,12 +776,14 @@ items:
     img: icons/magic/life/cross-beam-green.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Life. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
-        restore Health cause the @Condition[mending] condition.</p><p>The
-        Mending effect lasts for <strong>1 Round</strong> and deals the ability
-        score your <strong>Rune of Life</strong> scales with as additional
-        <strong>Restoration</strong> to <strong>Health</strong>.</p>
+        <p>You are highly skilled in weaving the <strong>Rune of Life</strong>.
+        When you cast a <strong>Spell</strong> or use an action that involves
+        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
+        restore <strong>Health</strong> cause the @Condition[mending]
+        condition.</p><p>The <strong>Mending</strong> effect lasts for <strong>1
+        Round</strong> and deals the ability score your <strong>Rune of
+        Life</strong> scales with as additional <strong>Restoration</strong> to
+        <strong>Health</strong>.</p>
       actions: []
       nodes:
         - wis3b
@@ -788,11 +795,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933683
-      modifiedTime: 1789073933683
+      createdTime: 1789656711440
+      modifiedTime: 1789656711440
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -880,12 +887,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933686
+      modifiedTime: 1789656711441
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933686
+      createdTime: 1789656711441
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1007,9 +1014,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      coreVersion: '14.368'
+      createdTime: 1789656711441
+      modifiedTime: 1789656711441
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1055,10 +1062,10 @@ items:
           name: Wild Strike
           condition: ''
           description: >-
-            <p>Immediately after you perform a basic Strike, you perform a
-            reduced-cost follow-up <strong>Strike</strong> against the same
-            target using a different <strong>Natural</strong> weapon that you
-            have access to.</p>
+            <p>Immediately after you perform a basic @Action[default strike],
+            you perform a reduced-cost follow-up <strong>Strike</strong> against
+            the same target using a different <strong>Natural</strong> weapon
+            that you have access to.</p>
           summon: null
       iconicSpells: 0
       training: natural
@@ -1070,11 +1077,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711442
+      modifiedTime: 1789656711442
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1092,10 +1099,11 @@ items:
     img: icons/magic/earth/strike-fist-stone-light.webp
     system:
       description: >-
-        <p>Through long practice and toughened resolve you are able to Block
+        <p>Through long practice and toughened resolve you are able to block
         enemy blows using your bare limbs. While <strong>Unarmed</strong> or
-        wielding only natural weapons, half your <strong>Toughness</strong>
-        score contributes to your <strong>Block</strong> defense.</p>
+        wielding only <strong>Natural</strong> weapons, half your
+        <strong>Toughness</strong> score contributes to your
+        <strong>Block</strong> defense.</p>
       actions: []
       nodes:
         - tou0a
@@ -1109,9 +1117,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      coreVersion: '14.368'
+      createdTime: 1789656711442
+      modifiedTime: 1789656711442
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1129,13 +1137,11 @@ items:
       description: >-
         <p>You fight with your bare hands the way a beast fights with claw and
         jaw, committing to a savagery that trained fighters are taught out
-        of.</p>
-
-        <p>Your bare hands count as <strong>Natural</strong> weapons in addition
-        to <strong>Unarmed</strong> ones. You may use them for any action which
-        requires a Natural weapon, and they are wielded using whichever of your
-        <strong>Natural</strong> or <strong>Unarmed</strong> proficiencies
-        serves you better.</p>
+        of.</p><p>Your bare hands count as <strong>Natural</strong> weapons in
+        addition to <strong>Unarmed</strong> ones. You may use them for any
+        action which requires a <strong>Natural</strong> weapon, and they are
+        wielded using whichever of your <strong>Natural</strong> or
+        <strong>Unarmed</strong> proficiencies serves you better.</p>
       actions: []
       nodes:
         - tou1a
@@ -1147,11 +1153,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711443
+      modifiedTime: 1789656711443
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1168,8 +1174,9 @@ items:
     img: icons/magic/defensive/armor-stone-skin.webp
     system:
       description: >-
-        Your physical toughness makes you more resistant to harm. You gain +2
-        Resistance to Bludgeoning, Slashing, and Piercing damage.
+        <p>Your physical toughness makes you more resistant to harm. You gain
+        <strong>+2 Resistance</strong> to <strong>Bludgeoning</strong>,
+        <strong>Slashing</strong>, and <strong>Piercing</strong> damage.</p>
       actions: []
       nodes:
         - tou3b
@@ -1184,9 +1191,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      coreVersion: '14.368'
+      createdTime: 1789656711443
+      modifiedTime: 1789656711443
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1220,9 +1227,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      coreVersion: '14.368'
+      createdTime: 1789656711443
+      modifiedTime: 1789656711443
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1240,7 +1247,7 @@ items:
       description: >-
         <p>Your body has endured so many injuries that it has learned how to
         mend itself with remarkable efficiency. When you perform the
-        <strong>Rest</strong> action, you recover additional
+        @Action[default rest] action, you recover additional
         <strong>Wounds</strong> equal to half your <strong>Toughness</strong>
         score (rounded down).</p>
       actions: []
@@ -1254,11 +1261,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711443
+      modifiedTime: 1789656711443
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1276,16 +1283,16 @@ items:
     system:
       description: >-
         <p>You keep the fire and the pot, and you have the ingenuity to cook
-        meals in circumstances that are far from ideal.</p>
-
-        <p>A meal you prepare lasts <strong>16 hours</strong> rather than 8.
-        Those who eat it recover an additional amount of <strong>Wounds</strong>
-        and <strong>Madness</strong> equal to half your <strong>Wisdom</strong>
-        when the Rest concludes. You may prepare a meal wherever the party is
-        able to Rest at all, without fire or shelter.</p><h3
-        class="divider">Playtest Notes</h3><p>Meals are not yet implemented.
-        This talent describes how the Cooking trade will behave once meal
-        preparation is a Rest activity.</p>
+        meals in circumstances that are far from ideal.</p><p>A meal you prepare
+        lasts <strong>16 hours</strong> rather than 8. Those who eat it recover
+        an additional amount of <strong>Wounds</strong> and
+        <strong>Madness</strong> equal to half your <strong>Wisdom</strong> when
+        the @Action[default rest] concludes. You may prepare a meal wherever the
+        party is able to <strong>Rest</strong> at all, without fire or
+        shelter.</p><h3 class="divider">Playtest Notes</h3><p>Meals are not yet
+        implemented. This talent describes how the <strong>Cooking</strong>
+        trade will behave once meal preparation is a <strong>Rest</strong>
+        activity.</p>
       actions: []
       nodes:
         - tou4d
@@ -1297,11 +1304,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711443
+      modifiedTime: 1789656711443
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1318,10 +1325,11 @@ items:
     img: icons/magic/control/hypnosis-mesmerism-eye.webp
     system:
       description: >-
-        <p>The orderly force of discipline and permanence. The Control rune
-        governs thought, reason, and persistence.</p><p>The Control rune scales
-        using <strong>Wisdom</strong>, targets <strong>Willpower</strong>, and
-        deals <strong>Psychic</strong> damage to <strong>Morale</strong>. It is
+        <p>The orderly force of discipline and permanence. The
+        <strong>Control</strong> rune governs thought, reason, and
+        persistence.</p><p>The <strong>Control</strong> rune scales using
+        <strong>Wisdom</strong>, targets <strong>Willpower</strong>, and deals
+        <strong>Psychic</strong> damage to <strong>Morale</strong>. It is
         opposed by the chaotic rune of <strong>Kinesis</strong>.</p>
       actions:
         - id: motivate
@@ -1376,11 +1384,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711444
+      modifiedTime: 1789656711444
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1398,9 +1406,9 @@ items:
     system:
       description: >-
         <p>Enhance a spell by taking extra time in its formation, reducing other
-        resource costs in exchange. The Compose inflection reduces the
-        <strong>Focus</strong> cost of a spell by 1 while increasing its
-        <strong>Action</strong> cost by 1 in exchange.</p>
+        resource costs in exchange. The <strong>Compose</strong> inflection
+        reduces the <strong>Focus</strong> cost of a spell by 1 while increasing
+        its <strong>Action</strong> cost by 1 in exchange.</p>
       actions: []
       spellcraft: compose
       iconicSpells: 1
@@ -1413,12 +1421,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933688
+      modifiedTime: 1789656711444
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933688
+      createdTime: 1789656711444
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1436,13 +1444,14 @@ items:
       nodes:
         - wis4d
       description: >-
-        <p>You channel the arcane power of a Rune into a rushing wave of energy
-        that surges forward from your current position.</p><p>The Surge gesture
-        scales with <strong>Wisdom</strong> and produces a line that is 10 feet
-        wide and 15 feet long originating from the spellcaster, dealing
-        <strong>8 Base Damage</strong> to targets which fail to Resist the
-        spell. The gesture requires <strong>2 Hands</strong> to cast and has a
-        base cost of <strong>5 Action</strong> and <strong>2
+        <p>You channel the arcane power of a <strong>Rune</strong> into a
+        rushing wave of energy that surges forward from your current
+        position.</p><p>The <strong>Surge</strong> gesture scales with
+        <strong>Wisdom</strong> and produces a line that is <strong>10
+        feet</strong> wide and <strong>15 feet</strong> long originating from
+        the spellcaster, dealing <strong>8 Base Damage</strong> to targets which
+        fail to resist the spell. The gesture requires <strong>2 Hands</strong>
+        to cast and has a base cost of <strong>5 Action</strong> and <strong>2
         Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
         is currently placed at a <strong>Tier 4</strong> node. It will
         eventually only be attainable at a higher level (probably Level 6
@@ -1456,11 +1465,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711444
+      modifiedTime: 1789656711444
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1477,14 +1486,15 @@ items:
     img: icons/magic/light/projectile-halo-teal.webp
     system:
       description: >-
-        <p>An orderly force of creation and spiritual essence. The Soul rune
-        governs the fundamental procession of souls through life and death and
-        relates to matters of sapience, personality, and mental
-        health.</p><p>The Soul rune scales using <strong>Presence</strong> and
-        provides <strong>Restoration</strong> of <strong>Morale</strong>. In
-        special circumstances it may be used to inflict <strong>Psychic</strong>
-        damage opposed by <strong>Willpower</strong>. It is opposed by the
-        chaotic rune of <strong>Oblivion</strong>.</p>
+        <p>An orderly force of creation and spiritual essence. The
+        <strong>Soul</strong> rune governs the fundamental procession of souls
+        through life and death and relates to matters of sapience, personality,
+        and mental health.</p><p>The <strong>Soul</strong> rune scales using
+        <strong>Presence</strong> and provides <strong>Restoration</strong> of
+        <strong>Morale</strong>. In special circumstances it may be used to
+        inflict <strong>Psychic</strong> damage opposed by
+        <strong>Willpower</strong>. It is opposed by the chaotic rune of
+        <strong>Oblivion</strong>.</p>
       actions:
         - id: evoke
           img: icons/magic/light/projectile-halo-teal.webp
@@ -1536,11 +1546,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933688
-      modifiedTime: 1789073933688
+      createdTime: 1789656711445
+      modifiedTime: 1789656711445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1573,9 +1583,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      coreVersion: '14.368'
+      createdTime: 1789656711445
+      modifiedTime: 1789656711445
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1654,11 +1664,11 @@ items:
         sort: -100000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933681
-          modifiedTime: 1789073933681
+          createdTime: 1789656711446
+          modifiedTime: 1789656711446
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1667,11 +1677,11 @@ items:
           !actors.items.effects!Il4NDaNBdHNcjJ9d.LeCFAttAPVRRRK19.nimbleness000000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711446
+      modifiedTime: 1789656711446
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1750,11 +1760,11 @@ items:
         sort: 100000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933681
-          modifiedTime: 1789073933681
+          createdTime: 1789656711448
+          modifiedTime: 1789656711448
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1763,11 +1773,11 @@ items:
           !actors.items.effects!Il4NDaNBdHNcjJ9d.boHBwA4YbTpmsmIh.tenacity00000000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711447
+      modifiedTime: 1789656711447
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1907,11 +1917,11 @@ items:
       ember:
         crucibleOverride: true
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711448
+      modifiedTime: 1789656711448
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1990,11 +2000,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933681
-      modifiedTime: 1789073933681
+      createdTime: 1789656711449
+      modifiedTime: 1789656711449
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2097,11 +2107,11 @@ flags:
         messageId: OhEmh4Wf2BjFDsk2
         combat: null
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789073933681
-  modifiedTime: 1789073933681
+  createdTime: 1789656711436
+  modifiedTime: 1789656711436
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -159,9 +159,9 @@ system:
       immune: false
   resources:
     health:
-      value: 64
+      value: 5
     wounds:
-      value: 0
+      value: 5
     morale:
       value: 64
     madness:
@@ -312,9 +312,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711452
+      modifiedTime: 1789656711452
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -356,9 +356,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711453
+      modifiedTime: 1789656711453
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -397,11 +397,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933714
-      modifiedTime: 1789073933714
+      createdTime: 1789656711453
+      modifiedTime: 1789656711453
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -417,8 +417,8 @@ items:
     system:
       description: >-
         <p>You are trained in wearing the heaviest types of armor while still
-        retaining mobility. You are able to use a free Movement action once per
-        Turn while wearing Heavy armor.</p>
+        retaining mobility. You are able to use a <strong>Free Move</strong>
+        once per turn while wearing <strong>Heavy</strong> armor.</p>
       actions: []
       nodes:
         - str0b
@@ -433,9 +433,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711453
+      modifiedTime: 1789656711453
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -452,16 +452,16 @@ items:
     system:
       description: >-
         <p>You are practiced at fighting with shield, using it to slam into and
-        imbalance your foes.</p>
+        unbalance your foes.</p>
       actions:
         - id: shieldBash
           name: Shield Bash
           img: icons/skills/melee/shield-block-bash-blue.webp
           condition: ''
           description: >-
-            <p>Following a basic Strike with your mainhand weapon, you
-            <strong>Strike</strong> with your shield, causing the
-            @Condition[staggered] condition for one Round.</p>
+            <p>Following a basic @Action[default strike] with your mainhand
+            weapon, you <strong>Strike</strong> with your shield, causing the
+            @Condition[staggered] condition for <strong>1 Round</strong>.</p>
           cost:
             action: 0
             focus: 0
@@ -515,11 +515,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      createdTime: 1789656711454
+      modifiedTime: 1789656711454
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -543,10 +543,10 @@ items:
           name: Intimidate
           description: >-
             <p>You physically intimidate an enemy that is within your engagement
-            range, performing an <strong>Intimidation</strong> skill attack
-            against your target's passive <strong>Intimidation</strong> defense.
-            On a Success, they sustain <strong>Void</strong> damage to their
-            <strong>Morale</strong>.</p>
+            range, performing an <strong>Intimidation</strong>
+            <strong>Skill</strong> attack against your target's passive
+            <strong>Intimidation</strong> defense. On a success, they sustain
+            <strong>Void</strong> damage to their <strong>Morale</strong>.</p>
           tags:
             - void
             - morale
@@ -583,12 +583,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933714
+      modifiedTime: 1789656711454
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933714
+      createdTime: 1789656711454
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -630,7 +630,7 @@ items:
           description: >-
             <p>You unleash a powerful <strong>Strike</strong> with your mainhand
             weapon. The attack is slower to execute, but is
-            <strong>Empowered</strong> to deliver additional damage.</p>
+            @Rule[action.empowered] to deliver additional damage.</p>
           summon: null
       iconicSpells: 0
       training: heavy
@@ -642,11 +642,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      createdTime: 1789656711454
+      modifiedTime: 1789656711454
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -664,9 +664,9 @@ items:
     system:
       description: >-
         <p>You have expertise in using a <strong>Shield</strong> to defend
-        yourself and others.</p><p>Once per Turn while you have a Shield
-        equipped, you may use the @Action[default defend] action at a reduced
-        cost of 1 Action Point.</p>
+        yourself and others.</p><p>Once per turn while you have a
+        <strong>Shield</strong> equipped, the <strong>Action</strong> cost of
+        using the @Action[default defend] action is reduced by 1.</p>
       nodes:
         - tou0a
       actions: []
@@ -679,12 +679,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933714
+      modifiedTime: 1789656711454
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933714
+      createdTime: 1789656711454
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -712,9 +712,9 @@ items:
           img: icons/skills/social/intimidation-impressing.webp
           condition: ''
           description: >-
-            <p>Each ally, excluding yourself, within <strong>10 Feet</strong>
+            <p>Each ally, excluding yourself, within <strong>10 feet</strong>
             gains <strong>+1 Boon</strong> to actions performed until the end of
-            their next Turn.</p>
+            their next turn.</p>
           tags: []
           cost:
             action: 3
@@ -765,9 +765,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711455
+      modifiedTime: 1789656711455
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -783,13 +783,14 @@ items:
     img: icons/magic/movement/pinwheel-turning-blue.webp
     system:
       description: >-
-        <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and
-        physicality.</p><p>The Kinesis rune scales using
-        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
-        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
-        opposed by the orderly rune of <strong>Control</strong>.</p>
+        <p>The chaotic force of space and physical movement. The
+        <strong>Kinesis</strong> rune governs all things related to the act of
+        movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
+        using <strong>Presence</strong>, targets <strong>Physical</strong>
+        defense, and deals <strong>Bludgeoning</strong>,
+        <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Control</strong>.</p>
       actions:
         - id: propel
           name: Propel
@@ -848,11 +849,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933715
-      modifiedTime: 1789073933715
+      createdTime: 1789656711455
+      modifiedTime: 1789656711455
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -869,16 +870,18 @@ items:
     img: icons/magic/control/silhouette-hold-change-green.webp
     system:
       description: >-
-        <p>You infuse the essence of a Rune into your body, empowering your own
-        physical form or psyche.</p><p>When you assume a certain Aspect, you
-        become more closely attuned to the damage type of the Rune used in your
-        spell. You gain <strong>+2 Resistance</strong> to that damage type, and
-        deal an additional <strong>+2 Damage</strong> whenever dealing damage of
-        that type.</p><p>Your Aspect lasts for <strong>6 Rounds</strong>. You
-        may only have one active Aspect, casting another spell using the Aspect
-        gesture replaces the previous effect. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>2 Action</strong>
-        and <strong>1 Focus</strong>.</p>
+        <p>You infuse the essence of a <strong>Rune</strong> into your body,
+        empowering your own physical form or psyche.</p><p>When you assume a
+        certain <strong>Aspect</strong>, you become more closely attuned to the
+        damage type of the <strong>Rune</strong> used in your spell. You gain
+        <strong>+2 Resistance</strong> to that damage type, and deal an
+        additional <strong>+2 Damage</strong> whenever dealing damage of that
+        type.</p><p>Your <strong>Aspect</strong> lasts for <strong>6
+        Rounds</strong>. You may only have one active <strong>Aspect</strong>;
+        casting another spell using the <strong>Aspect</strong> gesture replaces
+        the previous effect. This gesture requires <strong>1 Hand</strong> to
+        cast and has a base cost of <strong>2 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
       spellcraft: aspect
       nodes:
@@ -893,9 +896,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711455
+      modifiedTime: 1789656711455
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -915,7 +918,7 @@ items:
       description: >-
         <p>Your feats of arcana are fueled by anger. While @Condition[enraged]
         you may still spend <strong>Focus</strong> and you deal 2 additional
-        damage to all spell attacks.</p>
+        damage to all <strong>Spell</strong> attacks.</p>
       actions: []
       nodes:
         - pre2b
@@ -929,9 +932,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711455
+      modifiedTime: 1789656711455
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -953,13 +956,14 @@ items:
       actions:
         - id: rallyingCry
           description: >-
-            <p>You produce a courageous bellow that inspires allies within 12
-            feet of you to remain stalwart in the face of peril. You make an
-            <strong>Intimidation</strong> check against the
-            <strong>Rallying</strong> threshold of each ally. Upon a success,
-            they become @Condition[resolute] for 3 Rounds. Upon a Critical
-            Success, they also recover an amount of <strong>Morale</strong>
-            equal to your <strong>Presence</strong> score.</p>
+            <p>You produce a courageous bellow that inspires allies within
+            <strong>12 feet</strong> of you to remain stalwart in the face of
+            peril. You make an <strong>Intimidation</strong> check against the
+            <strong>Rallying Threshold</strong> of each ally. Upon a success,
+            they become @Condition[resolute] for <strong>3 Rounds</strong>. Upon
+            a <strong>Critical Success</strong>, they also recover an amount of
+            <strong>Morale</strong> equal to your <strong>Presence</strong>
+            score.</p>
           tags:
             - vocal
             - auditory
@@ -1020,11 +1024,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933715
-      modifiedTime: 1789073933715
+      createdTime: 1789656711456
+      modifiedTime: 1789656711456
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1042,8 +1046,8 @@ items:
     system:
       description: >-
         <p>Your strong will makes you exceedingly difficult to influence. You
-        gain +1 to your <strong>Willpower</strong> defense and +5 resistance to
-        <strong>Psychic</strong> damage.</p>
+        gain +1 to your <strong>Willpower</strong> defense and <strong>+5
+        Resistance</strong> to <strong>Psychic</strong> damage.</p>
       actions: []
       nodes:
         - pre3a
@@ -1058,9 +1062,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933715
-      modifiedTime: 1789073933715
+      coreVersion: '14.368'
+      createdTime: 1789656711456
+      modifiedTime: 1789656711456
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1084,10 +1088,12 @@ items:
         - id: formidablePresence
           name: Formidable Presence
           description: >-
-            <p>You make an Intimidation skill attack against the Willpower
-            defense of enemies within 12 feet, dealing Void damage to Morale and
-            causing the Frightened condition for 1 Round to those whose defense
-            you overcome.</p>
+            <p>You make an <strong>Intimidation</strong> skill attack against
+            the <strong>Willpower</strong> defense of enemies within <strong>12
+            feet</strong>, dealing <strong>Void</strong> damage to
+            <strong>Morale</strong> and causing the @Condition[frightened]
+            condition for <strong>1 Round</strong> to those whose defense you
+            overcome.</p>
           tags:
             - willpower
             - void
@@ -1148,12 +1154,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933716
+      modifiedTime: 1789656711456
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933716
+      createdTime: 1789656711456
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1171,9 +1177,9 @@ items:
       description: >-
         <p>You understand that panic can be contagious, you just have to cause
         it. When you cause a foe to become @Condition[broken] or
-        @Condition[insane], every enemy within 10 feet who can see that creature
-        suffers damage to their <strong>Morale</strong> equal to your
-        <strong>Presence</strong>.</p>
+        @Condition[insane], every enemy within <strong>10 feet</strong> who can
+        see that creature suffers damage to their <strong>Morale</strong> equal
+        to your <strong>Presence</strong>.</p>
       actions: []
       nodes:
         - pre4a
@@ -1187,9 +1193,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711456
+      modifiedTime: 1789656711456
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1221,12 +1227,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933716
+      modifiedTime: 1789656711457
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933716
+      createdTime: 1789656711457
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1241,15 +1247,16 @@ items:
     img: icons/magic/defensive/shield-barrier-glowing-blue.webp
     system:
       description: >-
-        <p>You shape the arcane power of a Rune into a protective barrier used
-        to shield yourself from harm.</p><p>The Ward gesture scales using
-        <strong>Toughness</strong> and provides <strong>+6 Resistance</strong>
-        against the damage type of the Rune used in the spell. This resistance
-        lasts for <strong>1 Round</strong> and you may only have a single Ward
-        at a time. Casting another spell using the Ward gesture replaces your
-        prior Ward. This gesture requires <strong>1 Hand</strong> to cast and
-        has a base cost of <strong>2 Action</strong> and <strong>1
-        Focus</strong>.</p>
+        <p>You shape the arcane power of a <strong>Rune</strong> into a
+        protective barrier used to shield yourself from harm.</p><p>The
+        <strong>Ward</strong> gesture scales using <strong>Toughness</strong>
+        and provides <strong>+6 Resistance</strong> against the damage type of
+        the <strong>Rune</strong> used in the spell. This resistance lasts for
+        <strong>1 Round</strong> and you may only have a single
+        <strong>Ward</strong> at a time. Casting another spell using the Ward
+        gesture replaces your prior Ward. This gesture requires <strong>1
+        Hand</strong> to cast and has a base cost of <strong>2 Action</strong>
+        and <strong>1 Focus</strong>.</p>
       actions: []
       spellcraft: ward
       nodes:
@@ -1262,12 +1269,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933716
+      modifiedTime: 1789656711457
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933716
+      createdTime: 1789656711457
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1286,8 +1293,8 @@ items:
       description: >-
         <p>You have mastered a specialized technique to incorporate a physical
         shield into the <strong>Ward</strong> gesture. You may ignore the
-        free-hand requirement for spells using the Ward gesture while you have a
-        <strong>Shield</strong> equipped.</p>
+        free-hand requirement for spells using the <strong>Ward</strong> gesture
+        while you have a <strong>Shield</strong> equipped.</p>
       actions: []
       nodes:
         - tou2b
@@ -1299,11 +1306,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933716
-      modifiedTime: 1789073933716
+      createdTime: 1789656711457
+      modifiedTime: 1789656711457
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1363,12 +1370,12 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933716
+      modifiedTime: 1789656711458
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933716
+      createdTime: 1789656711458
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1401,11 +1408,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933717
-      modifiedTime: 1789073933717
+      createdTime: 1789656711458
+      modifiedTime: 1789656711458
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1424,7 +1431,8 @@ items:
         <p>Your defenses frustrate attackers who struggle to find a gap in your
         guard. When an enemy's <strong>Strike</strong> against you results in a
         <strong>Block</strong> or <strong>Glancing Blow</strong>, that enemy
-        suffers <strong>1 Bane</strong> on their next Strike against you.</p>
+        suffers <strong>+1 Bane</strong> on their next <strong>Strike</strong>
+        against you.</p>
       actions: []
       nodes:
         - tou4b
@@ -1436,11 +1444,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      createdTime: 1789656711458
+      modifiedTime: 1789656711458
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1457,8 +1465,9 @@ items:
     img: icons/magic/defensive/armor-stone-skin.webp
     system:
       description: >-
-        Your physical toughness makes you more resistant to harm. You gain +2
-        Resistance to Bludgeoning, Slashing, and Piercing damage.
+        <p>Your physical toughness makes you more resistant to harm. You gain
+        <strong>+2 Resistance</strong> to <strong>Bludgeoning</strong>,
+        <strong>Slashing</strong>, and <strong>Piercing</strong> damage.</p>
       actions: []
       nodes:
         - tou3b
@@ -1473,9 +1482,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711458
+      modifiedTime: 1789656711458
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1512,8 +1521,8 @@ items:
             <p>Choose an ally adjacent to you and reposition them to be directly
             behind you, based on your direction of facing at the time this
             action is used, interposing yourself between that ally and their
-            attackers.</p><p>This movement does not provoke reactions for
-            Disengagement and the protected ally gains the @Condition[guarded]
+            attackers.</p><p>This movement does not provoke a @Action[default
+            reactiveStrike] and the protected ally gains the @Condition[guarded]
             condition until the start of their next turn.</p>
           tags: []
           cost:
@@ -1569,9 +1578,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      coreVersion: '14.368'
+      createdTime: 1789656711459
+      modifiedTime: 1789656711459
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1648,11 +1657,11 @@ items:
         sort: -200000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933713
-          modifiedTime: 1789073933713
+          createdTime: 1789656711460
+          modifiedTime: 1789656711460
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1661,11 +1670,11 @@ items:
           !actors.items.effects!iLUfMcYjAbZFY4CJ.gTWIlcKiUMtza7EU.evasion000000000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      createdTime: 1789656711459
+      modifiedTime: 1789656711459
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1744,11 +1753,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      createdTime: 1789656711460
+      modifiedTime: 1789656711460
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1849,11 +1858,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      createdTime: 1789656711460
+      modifiedTime: 1789656711460
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1893,11 +1902,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933713
-      modifiedTime: 1789073933713
+      createdTime: 1789656711461
+      modifiedTime: 1789656711461
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1915,11 +1924,11 @@ flags:
   crucible:
     actionHistory: []
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789073933713
-  modifiedTime: 1789073933713
+  createdTime: 1789656711451
+  modifiedTime: 1789656711451
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

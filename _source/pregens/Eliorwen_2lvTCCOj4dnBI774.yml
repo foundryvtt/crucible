@@ -165,7 +165,7 @@ system:
     wounds:
       value: 0
     morale:
-      value: 48
+      value: 54
     madness:
       value: 0
     action:
@@ -330,11 +330,11 @@ items:
       dropped: false
       slot: 0
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933693
-      modifiedTime: 1789073933693
+      createdTime: 1789656711526
+      modifiedTime: 1789656711526
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -372,11 +372,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933693
-      modifiedTime: 1789073933693
+      createdTime: 1789656711526
+      modifiedTime: 1789656711526
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -413,11 +413,11 @@ items:
       dropped: false
       slot: 3
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711526
+      modifiedTime: 1789656711526
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -444,7 +444,8 @@ items:
           description: >-
             <p>You can loose a shot under pressure, although with decreased
             accuracy. You perform a <strong>Strike</strong> that is
-            <strong>Difficult</strong>, but has a reduced Action cost.</p>
+            @Rule[action.difficult], but has a reduced <strong>Action</strong>
+            cost.</p>
           cost:
             action: -1
             focus: 0
@@ -476,11 +477,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711527
+      modifiedTime: 1789656711527
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -498,11 +499,11 @@ items:
     system:
       description: >-
         <p>The orderly force of elemental earth, responsible for physical
-        matter. The Earth rune governs minerals, metals, soils, and other
-        physical compounds.</p><p>The Earth rune scales using
-        <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Storm</strong>.</p>
+        matter. The <strong>Earth</strong> rune governs minerals, metals, soils,
+        and other physical compounds.</p><p>The <strong>Earth</strong> rune
+        scales using <strong>Wisdom</strong>, targets <strong>Reflex</strong>,
+        and deals <strong>Acid</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of <strong>Storm</strong>.</p>
       actions:
         - id: mould
           name: Mould
@@ -554,11 +555,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711527
+      modifiedTime: 1789656711527
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -574,9 +575,10 @@ items:
     img: icons/sundries/survival/rope-wrapped-purple.webp
     system:
       description: >-
-        You seem to always be prepared for the moment at hand. You may sacrifice
-        your free movement for the Round to instead equip an Item from your
-        inventory without spending any Action points.
+        <p>You seem to always be prepared for the moment at hand. You may
+        sacrifice your <strong>Free Movement</strong> for the round to instead
+        equip an <strong>Item</strong> from your inventory without spending any
+        <strong>Action</strong> points.</p>
       nodes:
         - wis0a
       actions: []
@@ -591,9 +593,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      coreVersion: '14.368'
+      createdTime: 1789656711528
+      modifiedTime: 1789656711528
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -614,8 +616,9 @@ items:
       actions:
         - id: markPrey
           description: >-
-            <p>You Strike using a special shot. If your attack is successful the
-            target is @Condition[exposed] for the next 3 Turns.</p>
+            <p>You <strong>Strike</strong> using a special shot. If your attack
+            is successful the target is @Condition[exposed] for the next
+            <strong>3 Rounds</strong>.</p>
           tags:
             - ranged
             - difficult
@@ -673,12 +676,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933694
+      modifiedTime: 1789656711528
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933694
+      createdTime: 1789656711528
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -698,7 +701,8 @@ items:
         <p>You identify moments of opportunity to strike at an enemy's weak
         points. When attacking a target that is @Condition[unaware],
         @Condition[flanked], or @Condition[exposed] using a weapon which scales
-        with <strong>Dexterity</strong>, you gain +2 damage to any Strike.</p>
+        with <strong>Dexterity</strong>, you gain +2 damage to any
+        <strong>Strike</strong>.</p>
       actions: []
       nodes:
         - dex1b
@@ -710,12 +714,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933694
+      modifiedTime: 1789656711528
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933694
+      createdTime: 1789656711528
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -736,16 +740,17 @@ items:
         - id: tumble
           name: Tumble
           description: >-
-            <p>Make a <strong>Athletics </strong>skill Attack against an
+            <p>Make a <strong>Athletics Skill</strong> attack against an
             adjacent enemy contested by your target's <strong>Reflex</strong>
             defense.</p><p>On a success you may move up to twice your
             <strong>Stride</strong>, including the ability to pass through your
-            target enemy's space, without provoking any
-            <strong>Disengagement</strong> reactions.</p><p>On a failure your
-            movement is blocked and your remain in your current position.</p>
+            target enemy's space, without provoking any @Action[default
+            reactiveStrike].</p><p>On a failure your movement is blocked and
+            your remain in your current position.</p>
           tags:
             - harmless
             - reflex
+            - skill
             - athletics
           cost:
             action: 3
@@ -779,9 +784,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      coreVersion: '14.368'
+      createdTime: 1789656711529
+      modifiedTime: 1789656711529
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -838,12 +843,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933695
+      modifiedTime: 1789656711529
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933695
+      createdTime: 1789656711529
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -861,9 +866,9 @@ items:
     flags: {}
     system:
       description: >-
-        This difficult ranged weaponry technique allows you to fire a multiple
-        shots with your weapon in a sweeping cone, each targeting a different
-        enemy in the area of effect.
+        <p>This @Rule[action.difficult] ranged weaponry technique allows you to
+        fire a multiple shots with your weapon in a sweeping cone, each
+        targeting a different enemy in the area of effect.</p>
       actions:
         - id: fanOfArrows
           name: Fan of Arrows
@@ -871,7 +876,8 @@ items:
           condition: ''
           description: >-
             <p>You fire multiple projectiles from your ranged weapon in an arc,
-            striking all enemy targets within a 40 foot cone.</p>
+            striking all enemy targets within a <strong>40 foot</strong>
+            cone.</p>
           cost:
             action: 2
             focus: 1
@@ -900,11 +906,11 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933695
-      modifiedTime: 1789073933695
+      createdTime: 1789656711529
+      modifiedTime: 1789656711529
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -941,12 +947,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933695
+      modifiedTime: 1789656711529
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933695
+      createdTime: 1789656711529
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -962,12 +968,12 @@ items:
     img: icons/magic/water/snowflake-ice-snow-white.webp
     system:
       description: >-
-        <p>The orderly force of water and cold. The Frost rune governs the
-        creation of water or other fluids and their transfer between liquid and
-        frozen states.</p><p>The Frost rune scales using
-        <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and deals
-        <strong>Cold</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Flame</strong>.</p>
+        <p>The orderly force of water and cold. The <strong>Frost</strong> rune
+        governs the creation of water or other fluids and their transfer between
+        liquid and frozen states.</p><p>The <strong>Frost</strong> rune scales
+        using <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and
+        deals <strong>Cold</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of <strong>Flame</strong>.</p>
       actions:
         - id: condense
           name: Condense
@@ -1021,11 +1027,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711530
+      modifiedTime: 1789656711530
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1055,21 +1061,21 @@ items:
           condition: ''
           description: >-
             <p>Name aloud a theory of what happened in this place. If the
-            Gamemaster judges that the place could bear your theory out or
-            contradict it, perform an <strong>Awareness</strong> check against
-            <strong>DC 14</strong>.</p><ul><li><p><strong>+2 Boons</strong> if
-            your theory follows from evidence you have already
+            <strong>Gamemaster</strong> judges that the place could bear your
+            theory out or contradict it, perform an <strong>Awareness</strong>
+            check against <strong>DC 14</strong>.</p><ul><li><p><strong>+2
+            Boons</strong> if your theory follows from evidence you have already
             gathered.</p></li><li><p><strong>+2 Banes</strong> if it is
             conjecture, or if the place has been cleaned, trampled, or
             reoccupied since.</p></li></ul><p>Upon a <strong>Success</strong>
             you deduce one true thing bearing upon your theory, which may
             support or refute it. Upon a <strong>Critical Success</strong> you
-            deduce a second, which the Gamemaster may draw from what your theory
-            did not think to ask.</p><p>A theory may only be investigated once.
-            A failed investigation does not mean the theory is incorrect, only
-            that no corroborating evidence was found.</p><p>The place answers in
-            physical fact alone: it never names a culprit, a motive, or a word
-            that was spoken.</p>
+            deduce a second, which the <strong>Gamemaster</strong> may draw from
+            what your theory did not think to ask.</p><p>A theory may only be
+            investigated once. A failed investigation does not mean the theory
+            is incorrect, only that no corroborating evidence was
+            found.</p><p>The place answers in physical fact alone: it never
+            names a culprit, a motive, or a word that was spoken.</p>
           cost:
             action: 0
             focus: 0
@@ -1087,8 +1093,9 @@ items:
             self: false
           effects: []
           tags:
-            - awareness
             - noncombat
+            - skill
+            - awareness
           summon: null
       iconicSpells: 0
       training: awareness
@@ -1098,11 +1105,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711530
+      modifiedTime: 1789656711530
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1135,9 +1142,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      coreVersion: '14.368'
+      createdTime: 1789656711530
+      modifiedTime: 1789656711530
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1154,11 +1161,12 @@ items:
     img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
     system:
       description: >-
-        <p>The chaotic force of elemental, thermal energy. The Flame rune
-        governs fire and heat.</p><p>The Flame rune scales using
-        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Fire</strong> damage to <strong>Health</strong>. It is opposed
-        by the orderly rune of <strong>Frost</strong>.</p>
+        <p>The chaotic force of elemental, thermal energy. The
+        <strong>Flame</strong> rune governs fire and heat.</p><p>The
+        <strong>Flame</strong> rune scales using <strong>Intellect</strong>,
+        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
+        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
           name: Enkindle
@@ -1209,11 +1217,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711530
+      modifiedTime: 1789656711530
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1230,13 +1238,14 @@ items:
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
       description: >-
-        <p>You hurl a projectile imbued with the magical power of a Rune at a
-        distant target.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a single creature up to a
-        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
-        which fail to Resist the spell. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
-        and <strong>1 Focus</strong>.</p>
+        <p>You hurl a projectile imbued with the magical power of a
+        <strong>Rune</strong> at a distant target.</p><p>The
+        <strong>Arrow</strong> gesture scales using <strong>Intellect</strong>
+        and targets a single creature up to a distance of <strong>60
+        feet</strong>, dealing <strong>8 Base Damage</strong> to targets which
+        fail to resist the spell. This gesture requires <strong>1 Hand</strong>
+        to cast and has a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
       spellcraft: arrow
       nodes:
@@ -1249,12 +1258,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933696
+      modifiedTime: 1789656711531
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933696
+      createdTime: 1789656711531
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1270,13 +1279,14 @@ items:
     img: icons/magic/water/orb-ice-web.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Frost. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
-        deal damage cause the @Condition[freezing] condition.</p><p>The Freezing
-        effect lasts for <strong>1 Round</strong>, deals half the ability score
-        your <strong>Rune of Frost</strong> scales with as
-        <strong>Frost</strong> damage to <strong>Health</strong>, and applies
-        the @Condition[slowed] condition.</p>
+        <p>You are highly skilled in weaving the <strong>Rune of Frost</strong>.
+        When you cast a <strong>Spell</strong> or use an action that involves
+        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
+        deal damage cause the @Condition[freezing] condition.</p><p>The
+        <strong>Freezing</strong> effect lasts for <strong>1 Round</strong>,
+        deals half the ability score your <strong>Rune of Frost</strong> scales
+        with as <strong>Frost</strong> damage to <strong>Health</strong>, and
+        applies the @Condition[slowed] condition.</p>
       actions: []
       nodes:
         - wis3b
@@ -1291,9 +1301,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      coreVersion: '14.368'
+      createdTime: 1789656711531
+      modifiedTime: 1789656711531
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1324,11 +1334,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711531
+      modifiedTime: 1789656711531
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1348,19 +1358,20 @@ items:
       core: {}
     system:
       description: >-
-        Your knowledge and skill in Medicine covers the rapid triage, diagnosis,
-        and treatment of wounds.
+        <p>Your knowledge and skill in <strong>Medicine</strong> covers the
+        rapid triage, diagnosis, and treatment of wounds.</p>
       actions:
         - id: combatMedicine
           condition: ''
           description: >-
-            <p>You rapidly treat the wounds of an ally within 4 feet. Perform a
-            <strong>Medicine Check</strong> against the target's Healing
-            Threshold. Your ally's Health is increased by the amount of the Roll
-            in excess of the threshold.</p>
+            <p>You rapidly treat the wounds of an ally within <strong>4
+            feet</strong>. Perform a <strong>Medicine Check</strong> against the
+            target's <strong>Healing Threshold</strong>. Your ally's
+            <strong>Health</strong> is increased by overflow of the check.</p>
           tags:
             - healing
             - health
+            - skill
             - medicine
           cost:
             action: 3
@@ -1391,9 +1402,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      coreVersion: '14.368'
+      createdTime: 1789656711531
+      modifiedTime: 1789656711531
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1411,15 +1422,14 @@ items:
     system:
       description: >-
         <p>You have straightened enough warped staves and rebuilt enough ruined
-        shafts to know that wood asks only to be given back its line.</p>
-
-        <p>The repairs you make using the <strong>Fletching</strong> trade
-        benefit from <strong>Expert Repair</strong>. You may attempt such
+        shafts to know that wood asks only to be given back its line.</p><p>The
+        repairs you make using the <strong>Fletching</strong> trade benefit from
+        <strong>Expert Repair</strong>:</p><ul><li><p>You may attempt such
         repairs without a workbench, though attempts made without one are
-        <strong>Difficult</strong>, and a repair you succeed at never costs the
-        item a <strong>Quality</strong> tier.</p><h3 class="divider">Playtest
-        Notes</h3><p>Repair is not yet automated. The rules it follows are
-        described in the
+        @Rule[action.difficult].</p></li><li><p>A repair you succeed at never
+        costs the item a <strong>Quality</strong> tier.</p></li></ul><h3
+        class="divider">Playtest Notes</h3><p>Repair is not yet automated. The
+        rules it follows are described in the
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
         journal.</p>
       actions: []
@@ -1433,11 +1443,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711532
+      modifiedTime: 1789656711532
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1496,9 +1506,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      coreVersion: '14.368'
+      createdTime: 1789656711532
+      modifiedTime: 1789656711532
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1516,8 +1526,9 @@ items:
     system:
       description: >-
         <p>You are adept at entering and exiting the fray. When moving out of
-        the <strong>Engagement</strong> radius of an enemy, that enemy has 2
-        Banes to any @Action[default reactiveStrike] against you.</p>
+        the <strong>Engagement</strong> radius of an enemy, that enemy has
+        <strong>+2 Banes</strong> to any @Action[default reactiveStrike] against
+        you.</p>
       nodes:
         - dex3b
       actions: []
@@ -1529,11 +1540,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933696
-      modifiedTime: 1789073933696
+      createdTime: 1789656711532
+      modifiedTime: 1789656711532
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1549,12 +1560,14 @@ items:
     img: icons/magic/earth/orb-stone-smoke-teal.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Earth. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
+        <p>You are highly skilled in weaving the <strong>Rune of Earth</strong>.
+        When you cast a <strong>Spell</strong> or use an action that involves
+        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
         deal damage cause the @Condition[corroding] condition.</p><p>The
-        Corroding effect lasts for <strong>3 Rounds</strong> and deals half the
-        ability score your <strong>Rune of Earth</strong> scales with as
-        <strong>Acid</strong> damage to <strong>Health</strong> each Round.</p>
+        <strong>Corroding</strong> effect lasts for <strong>3 Rounds</strong>
+        and deals half the ability score your <strong>Rune of Earth</strong>
+        scales with as <strong>Acid</strong> damage to <strong>Health</strong>
+        each Round.</p>
       actions: []
       nodes:
         - wis3b
@@ -1569,9 +1582,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      coreVersion: '14.368'
+      createdTime: 1789656711532
+      modifiedTime: 1789656711532
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1650,11 +1663,11 @@ items:
         sort: -100000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933692
-          modifiedTime: 1789073933692
+          createdTime: 1789656711533
+          modifiedTime: 1789656711533
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1663,11 +1676,11 @@ items:
           !actors.items.effects!2lvTCCOj4dnBI774.JtanXxkqYisrMrU1.nimbleness000000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711533
+      modifiedTime: 1789656711533
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1777,11 +1790,11 @@ items:
         sort: 200000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933692
-          modifiedTime: 1789073933692
+          createdTime: 1789656711534
+          modifiedTime: 1789656711534
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1790,11 +1803,11 @@ items:
           !actors.items.effects!2lvTCCOj4dnBI774.2pssI31c7YmTk0OU.focusing00000000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711534
+      modifiedTime: 1789656711534
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1835,11 +1848,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711535
+      modifiedTime: 1789656711535
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1880,11 +1893,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711535
+      modifiedTime: 1789656711535
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1963,11 +1976,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933692
-      modifiedTime: 1789073933692
+      createdTime: 1789656711535
+      modifiedTime: 1789656711535
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1992,11 +2005,11 @@ flags:
         messageId: ZN7uvsLwg0t6Okp0
         combat: null
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789073933692
-  modifiedTime: 1789073933692
+  createdTime: 1789656711525
+  modifiedTime: 1789656711525
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

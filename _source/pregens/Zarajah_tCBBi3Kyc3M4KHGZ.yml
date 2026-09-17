@@ -164,7 +164,7 @@ system:
     wounds:
       value: 0
     morale:
-      value: 60
+      value: 62
     madness:
       value: 0
     action:
@@ -311,11 +311,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933662
-      modifiedTime: 1789073933662
+      createdTime: 1789656711495
+      modifiedTime: 1789656711495
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -354,11 +354,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933662
-      modifiedTime: 1789073933662
+      createdTime: 1789656711496
+      modifiedTime: 1789656711496
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -382,11 +382,13 @@ items:
           img: icons/skills/social/diplomacy-unity-alliance.webp
           condition: ''
           description: >-
-            <p>Following a <strong>Rest</strong>, you find the common ground you
-            share with each of your companions. You make a Society check against
-            the <strong>Madness</strong> threshold of each member of your party.
-            Upon a success they shed <strong>Madness</strong> equal to half your
-            Wisdom, or your full Wisdom upon a Critical Success.</p>
+            <p>Following a @Action[default rest], you find the common ground you
+            share with each of your companions. You make a
+            <strong>Society</strong> check against the <strong>Rallying
+            Threshold</strong> of each member of your party. Upon a success they
+            shed <strong>Madness</strong> equal to half your
+            <strong>Wisdom</strong>, or your full <strong>Wisdom</strong> upon a
+            <strong>Critical Success</strong>.</p>
           cost:
             action: 0
             focus: 0
@@ -405,6 +407,7 @@ items:
           effects: []
           tags:
             - rest
+            - noncombat
             - skill
             - society
           summon: null
@@ -420,9 +423,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711496
+      modifiedTime: 1789656711496
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -438,13 +441,14 @@ items:
     img: icons/magic/movement/pinwheel-turning-blue.webp
     system:
       description: >-
-        <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and
-        physicality.</p><p>The Kinesis rune scales using
-        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
-        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
-        opposed by the orderly rune of <strong>Control</strong>.</p>
+        <p>The chaotic force of space and physical movement. The
+        <strong>Kinesis</strong> rune governs all things related to the act of
+        movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
+        using <strong>Presence</strong>, targets <strong>Physical</strong>
+        defense, and deals <strong>Bludgeoning</strong>,
+        <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Control</strong>.</p>
       actions:
         - id: propel
           name: Propel
@@ -503,11 +507,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933662
-      modifiedTime: 1789073933662
+      createdTime: 1789656711496
+      modifiedTime: 1789656711496
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -533,8 +537,8 @@ items:
           description: >-
             <p>You make a <strong>Deception</strong> based <strong>Skill
             Attack</strong> against the <strong>Willpower </strong>defense of a
-            target within 30 feet which can see or hear you. On a success, the
-            target loses <strong>1 Focus</strong>.</p>
+            target within <strong>30 feet</strong> which can see or hear you. On
+            a success, the target loses <strong>1 Focus</strong>.</p>
           tags:
             - void
             - skill
@@ -569,9 +573,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711497
+      modifiedTime: 1789656711497
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -594,13 +598,15 @@ items:
           img: icons/magic/light/orb-shadow-blue.webp
           condition: ''
           description: >-
-            <p>You use your equipped Talisman to attempt to regain some
-            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
-            <strong>Strike</strong> against your own <strong>Rallying</strong>
-            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
-            if using a one-handed Talisman and <strong>+2 Focus</strong> if
-            using a two-handed Talisman. On a critical success the amount of
-            Focus recovered increases by an additional +1.</p>
+            <p>You use your equipped <strong>Talisman</strong> to attempt to
+            regain some <strong>Focus</strong>. You perform a
+            @Rule[action.harmless] <strong>Strike</strong> against your own
+            <strong>Rallying</strong> threshold.</p><p>On a success you recover
+            <strong>+1 Focus</strong> if using a one-handed
+            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
+            two-handed <strong>Talisman</strong>. On a <strong>Critical
+            Success</strong> the amount of <strong>Focus</strong> recovered
+            increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -619,6 +625,7 @@ items:
           effects: []
           tags:
             - talisman
+            - ranged
             - harmless
             - rallying
           summon: null
@@ -632,11 +639,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711497
+      modifiedTime: 1789656711497
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -653,11 +660,12 @@ items:
     img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
     system:
       description: >-
-        <p>The chaotic force of elemental, thermal energy. The Flame rune
-        governs fire and heat.</p><p>The Flame rune scales using
-        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Fire</strong> damage to <strong>Health</strong>. It is opposed
-        by the orderly rune of <strong>Frost</strong>.</p>
+        <p>The chaotic force of elemental, thermal energy. The
+        <strong>Flame</strong> rune governs fire and heat.</p><p>The
+        <strong>Flame</strong> rune scales using <strong>Intellect</strong>,
+        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
+        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
           name: Enkindle
@@ -708,12 +716,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1789073933663
-      createdTime: 1789073933663
+      modifiedTime: 1789656711497
+      createdTime: 1789656711497
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -729,13 +737,14 @@ items:
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
       description: >-
-        <p>You hurl a projectile imbued with the magical power of a Rune at a
-        distant target.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a single creature up to a
-        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
-        which fail to Resist the spell. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
-        and <strong>1 Focus</strong>.</p>
+        <p>You hurl a projectile imbued with the magical power of a
+        <strong>Rune</strong> at a distant target.</p><p>The
+        <strong>Arrow</strong> gesture scales using <strong>Intellect</strong>
+        and targets a single creature up to a distance of <strong>60
+        feet</strong>, dealing <strong>8 Base Damage</strong> to targets which
+        fail to resist the spell. This gesture requires <strong>1 Hand</strong>
+        to cast and has a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
       spellcraft: arrow
       nodes:
@@ -748,12 +757,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933663
+      modifiedTime: 1789656711498
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933663
+      createdTime: 1789656711498
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -771,8 +780,8 @@ items:
     system:
       description: >-
         <p>Your quick thinking can weave magic to exploit brief windows of
-        opportunity. You may make a <strong>Disengagement Attack</strong> using
-        the <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
+        opportunity. You may make a @Action[default reactiveStrike] using the
+        <strong>Touch Gesture</strong> instead of a melee weapon attack.</p>
       actions: []
       nodes:
         - int2b
@@ -786,12 +795,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933663
+      modifiedTime: 1789656711498
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933663
+      createdTime: 1789656711498
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -821,9 +830,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711499
+      modifiedTime: 1789656711499
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -842,10 +851,11 @@ items:
       description: >-
         <p>You calm your mind and study the physiology of your foe, seeking a
         vulnerability in its defenses.</p><p>Perform a <strong>Knowledge
-        Test</strong> using an appropriate Skill chosen by the Gamemaster. On a
-        success, you learn the Damage type that the creature has the greatest
-        vulnerability towards, if any. On a Critical Success you learn the two
-        Damage types which have the largest vulnerability.</p>
+        Test</strong> using the appropriate <strong>Skill</strong> for the
+        creature. On a success, you learn the <strong>Damage</strong> type that
+        the creature has the greatest <strong>Vulnerability</strong> towards, if
+        any. On a <strong>Critical Success</strong> you learn the two
+        <strong>Damage</strong> types which have the largest vulnerability.</p>
       actions:
         - id: intuitWeakness
           description: >-
@@ -886,9 +896,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711499
+      modifiedTime: 1789656711499
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -912,13 +922,15 @@ items:
           condition: Another creature which you can see is casting a spell.
           description: >-
             <p>You form arcane energy into a countervailing spellcraft,
-            targeting a spellcaster you can see within 30 feet.</p><p>Designate
-            a <strong>Rune</strong> and <strong>Gesture</strong> which you know
-            to attempt to counter the spell. Choosing a Rune which is opposed to
-            one used in the spell grants <strong>+2 Boons</strong> to your
-            attempt. Selecting the identical Gesture as the one being cast also
-            adds <strong>+2 Boons</strong> to your attempt.</p><p>Perform a
-            harmless Spell Attack against your target's
+            targeting a spellcaster you can see within <strong>30
+            feet</strong>.</p><p>Designate a <strong>Rune</strong> and
+            <strong>Gesture</strong> which you know to attempt to counter the
+            spell. Choosing a <strong>Rune</strong> which is opposed to one used
+            in the spell grants <strong>+2 Boons</strong> to your attempt.
+            Selecting the identical <strong>Gesture</strong> as the one being
+            cast also adds <strong>+2 Boons</strong> to your
+            attempt.</p><p>Perform a @Rule[action.harmless]
+            <strong>Spell</strong> attack against your target's
             <strong>Willpower</strong> defense. If your roll exceeds their
             defense, the spell is countered and its magic is nullified,
             producing no effects.</p>
@@ -960,11 +972,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933664
-      modifiedTime: 1789073933664
+      createdTime: 1789656711499
+      modifiedTime: 1789656711499
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -982,9 +994,10 @@ items:
     system:
       description: >-
         <p>Enhance a spell by hastening the speed with which it can be cast, at
-        the expense of increased Focus. The Quicken inflection reduces the
-        <strong>Action</strong> cost of a spell by 1 while increasing its
-        <strong>Focus</strong> cost by 1 in exchange.</p>
+        the expense of increased <strong>Focus</strong>. The
+        <strong>Quicken</strong> inflection reduces the <strong>Action</strong>
+        cost of a spell by 1 while increasing its <strong>Focus</strong> cost by
+        1 in exchange.</p>
       actions: []
       spellcraft: quicken
       iconicSpells: 1
@@ -999,9 +1012,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711499
+      modifiedTime: 1789656711499
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1018,12 +1031,13 @@ items:
     img: icons/magic/fire/projectile-smoke-swirl-red.webp
     system:
       description: >-
-        <p>You are highly skilled in weaving the Rune of Flame. When you cast a
-        Spell or use an action that involves this Rune, your Critical Hits which
-        deal damage cause the @Condition[burning] condition.</p><p>The Burning
-        effect lasts for <strong>3 Rounds</strong> and deals half the ability
-        score your <strong>Rune of Flame</strong> scales with as
-        <strong>Fire</strong> damage to both <strong>Health</strong> and
+        <p>You are highly skilled in weaving the <strong>Rune of Flame</strong>.
+        When you cast a <strong>Spell</strong> or use an action that involves
+        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
+        deal damage cause the @Condition[burning] condition.</p><p>The
+        <strong>Burning</strong> effect lasts for <strong>3 Rounds</strong> and
+        deals half the ability score your <strong>Rune of Flame</strong> scales
+        with as <strong>Fire</strong> damage to both <strong>Health</strong> and
         <strong>Morale</strong>.</p>
       actions: []
       nodes:
@@ -1037,12 +1051,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933664
+      modifiedTime: 1789656711500
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933664
+      createdTime: 1789656711500
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1064,7 +1078,8 @@ items:
         defies traditional academic understanding.</p><p>You cannot cast
         <strong>Iconic Spells</strong>, but when you cast a spell using an
         <strong>Inflection</strong> it deals an additional <strong>+1
-        Damage</strong> per Iconic Spell slot that you have.</p>
+        Damage</strong> per <strong>Iconic Spell Slot</strong> that you
+        have.</p>
       actions: []
       iconicSpells: 1
       spellcraft: ''
@@ -1074,11 +1089,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711500
+      modifiedTime: 1789656711500
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1096,8 +1111,9 @@ items:
     system:
       description: >-
         <p>You have learned to shape your bolts to a needle point which slips
-        between wards and scales alike. Your Talisman attacks ignore 2 points of
-        the target's Resistance.</p>
+        between wards and scales alike. Your <strong>Talisman</strong> attacks
+        ignore <strong>2 points</strong> of the target's
+        <strong>Resistance</strong>.</p>
       actions: []
       nodes:
         - pre1a
@@ -1111,9 +1127,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711500
+      modifiedTime: 1789656711500
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1139,25 +1155,27 @@ items:
           img: icons/magic/symbols/rune-sigil-horned-blue.webp
           condition: You have an Enchanter's Toolkit equipped.
           description: >-
-            <p>With an Enchanter's Toolkit equipped, you can produce any one of
-            the following effects:</p><ul><li><p><strong>Read.</strong> You need
-            only touch an item to know whether it is enchanted, whether or not
-            it belongs to you. Handling it at length tells you which affixes it
-            bears and how much of its capacity remains
+            <p>With an <strong>Enchanter's Toolkit</strong> equipped, you can
+            produce any one of the following
+            effects:</p><ul><li><p><strong>Read.</strong> You need only touch an
+            item to know whether it is enchanted, whether or not it belongs to
+            you. Handling it at length tells you which affixes it bears and how
+            much of its capacity remains
             unspent.</p></li><li><p><strong>Destroy.</strong> You touch an
             object bearing a minor enchantment which still waits upon its
             condition, whether your own work or another enchanter's, and unmake
             it. The object itself is unharmed. Alternatively you may conceal an
             item's enchantment for <strong>10 minutes</strong>, so that it reads
-            as mundane to anyone whose passive Enchanting does not exceed your
-            own, though it loses nothing of its
+            as mundane to anyone whose passive <strong>Enchanting</strong> does
+            not exceed your own, though it loses nothing of its
             power.</p></li><li><p><strong>Create.</strong> You imbue a
             <strong>Rune</strong> you know into an object no larger than a foot
             in any dimension, empowering it to perform one simple task under a
             condition you name. The enchantment lasts until the object has
-            performed that task once, or until 24 hours have
+            performed that task once, or until <strong>24 hours</strong> have
             passed.</p></li></ul><p>You may attempt other uses similar to those
-            above, the effectiveness of which is decided by the Gamemaster.</p>
+            above, the effectiveness of which is decided by the
+            <strong>Gamemaster</strong>.</p>
           cost:
             action: 3
             focus: 0
@@ -1186,11 +1204,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711501
+      modifiedTime: 1789656711501
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1208,9 +1226,9 @@ items:
     system:
       description: >-
         <p>Enhance a spell by taking extra time in its formation, reducing other
-        resource costs in exchange. The Compose inflection reduces the
-        <strong>Focus</strong> cost of a spell by 1 while increasing its
-        <strong>Action</strong> cost by 1 in exchange.</p>
+        resource costs in exchange. The <strong>Compose</strong> inflection
+        reduces the <strong>Focus</strong> cost of a spell by 1 while increasing
+        its <strong>Action</strong> cost by 1 in exchange.</p>
       actions: []
       spellcraft: compose
       iconicSpells: 1
@@ -1225,9 +1243,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711501
+      modifiedTime: 1789656711501
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1247,8 +1265,9 @@ items:
         <p>Empower a spell to repel affected creatures away from the caster.
         Creatures affected by a spell with the <strong>Push</strong> inflection
         are forcibly moved a distance away from the spellcaster equal to the
-        Ability Bonus that applied to the Spell, potentially colliding with
-        walls or other movement-blocking obstacles.</p>
+        <strong>Ability Bonus</strong> that applied to the
+        <strong>Spell</strong>, potentially colliding with walls or other
+        movement-blocking obstacles.</p>
       actions: []
       spellcraft: push
       iconicSpells: 1
@@ -1263,9 +1282,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711501
+      modifiedTime: 1789656711501
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1299,9 +1318,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      coreVersion: '14.368'
+      createdTime: 1789656711502
+      modifiedTime: 1789656711502
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1320,12 +1339,14 @@ items:
       nodes:
         - pre3b
       description: >-
-        <p>You are highly skilled in weaving the Rune of Kinesis. When you cast
-        a Spell or use an action that involves this Rune, your Critical Hits
-        which deal damage cause the @Condition[bleeding] condition.</p><p>The
-        Bleeding effect lasts for <strong>1 Round</strong> and deals the ability
-        score your <strong>Rune of Kinesis</strong> scales with as additional
-        <strong>Piercing</strong> damage to <strong>Health</strong>.</p>
+        <p>You are highly skilled in weaving the <strong>Rune of
+        Kinesis</strong>. When you cast a <strong>Spell</strong> or use an
+        action that involves this <strong>Rune</strong>, your <strong>Critical
+        Hits</strong> which deal damage cause the @Condition[bleeding]
+        condition.</p><p>The <strong>Bleeding</strong> effect lasts for
+        <strong>1 Round</strong> and deals the ability score your <strong>Rune
+        of Kinesis</strong> scales with as additional <strong>Piercing</strong>
+        damage to <strong>Health</strong>.</p>
       actions: []
       iconicSpells: 0
       training: physical
@@ -1335,11 +1356,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711502
+      modifiedTime: 1789656711502
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1357,16 +1378,17 @@ items:
     img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
     system:
       description: >-
-        <p>Expel the arcane power of a Rune in a radius that travels outward
-        with you at its center.</p><p>The Pulse gesture scales using
-        <strong>Presence</strong> and produces an emanation with 10 foot radius,
-        dealing <strong>8 Base Damage</strong> to targets which fail to Resist
-        the spell. The gesture requires <strong>2 Hands</strong> to cast and has
-        a base cost of <strong>5 Action</strong> and <strong>2
-        Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
-        is currently placed at a <strong>Tier 4</strong> node. It will
-        eventually only be attainable at a higher level (probably Level 6
-        required). It is currently available "early" for testing.</p>
+        <p>Expel the arcane power of a <strong>Rune</strong> in a radius that
+        travels outward with you at its center.</p><p>The <strong>Pulse</strong>
+        gesture scales using <strong>Presence</strong> and produces an emanation
+        with a <strong>10 foot</strong> radius, dealing <strong>8 Base
+        Damage</strong> to targets which fail to resist the spell. The gesture
+        requires <strong>2 Hands</strong> to cast and has a base cost of
+        <strong>5 Action</strong> and <strong>2 Focus</strong>.</p><h3
+        class="divider">Playtest Notes</h3><p>This talent is currently placed at
+        a <strong>Tier 4</strong> node. It will eventually only be attainable at
+        a higher level (probably Level 6 required). It is currently available
+        "early" for testing.</p>
       actions: []
       spellcraft: pulse
       nodes:
@@ -1380,12 +1402,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933665
+      modifiedTime: 1789656711502
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933665
+      createdTime: 1789656711502
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1400,11 +1422,12 @@ items:
       nodes:
         - int4a
       description: >-
-        <p>You hurl the arcane power of a Rune into an intense explosion of
-        energy at a nearby point you can see.</p><p>The Blast gesture scales
-        with <strong>Intellect</strong> and produces a blast with 6 feet radius
-        centered on a point within 60 feet of the spellcaster. The blast deals
-        <strong>8 Base Damage</strong> to targets which fail to Resist the
+        <p>You hurl the arcane power of a <strong>Rune</strong> into an intense
+        explosion of energy at a nearby point you can see.</p><p>The
+        <strong>Blast</strong> gesture scales with <strong>Intellect</strong>
+        and produces a blast with a <strong>6 foot</strong> radius centered on a
+        point within <strong>60 feet</strong> of the spellcaster. The blast
+        deals <strong>8 Base Damage</strong> to targets which fail to resist the
         spell. This gesture requires <strong>2 Hands</strong> to cast and has a
         base cost of <strong>5 Action</strong> and <strong>2
         Focus</strong>.</p><h3 class="divider">Playtest Notes</h3><p>This talent
@@ -1420,11 +1443,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933665
-      modifiedTime: 1789073933665
+      createdTime: 1789656711503
+      modifiedTime: 1789656711503
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1557,11 +1580,11 @@ items:
         sort: 100000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933661
-          modifiedTime: 1789073933661
+          createdTime: 1789656711504
+          modifiedTime: 1789656711504
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1572,11 +1595,11 @@ items:
       ember:
         crucibleOverride: true
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711503
+      modifiedTime: 1789656711503
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1686,11 +1709,11 @@ items:
         sort: 200000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933661
-          modifiedTime: 1789073933661
+          createdTime: 1789656711505
+          modifiedTime: 1789656711505
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1699,11 +1722,11 @@ items:
           !actors.items.effects!tCBBi3Kyc3M4KHGZ.GVmmPchPHHyBvEFf.focusing00000000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711505
+      modifiedTime: 1789656711505
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1820,11 +1843,11 @@ items:
       ember:
         crucibleOverride: true
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711506
+      modifiedTime: 1789656711506
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1932,11 +1955,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711506
+      modifiedTime: 1789656711506
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2015,11 +2038,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933661
-      modifiedTime: 1789073933661
+      createdTime: 1789656711507
+      modifiedTime: 1789656711507
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2046,11 +2069,11 @@ flags:
           combatantId: IVxZ7pdZO88zAAQ7
           tokenId: L62zbZZ3PjGIAKO5
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789073933661
-  modifiedTime: 1789073933661
+  createdTime: 1789656711494
+  modifiedTime: 1789656711494
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

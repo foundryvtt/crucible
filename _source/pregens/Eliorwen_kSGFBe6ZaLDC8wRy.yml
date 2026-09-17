@@ -299,9 +299,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725061
-      modifiedTime: 1789065725061
+      coreVersion: '14.368'
+      createdTime: 1789656702075
+      modifiedTime: 1789656702075
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -341,9 +341,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725061
-      modifiedTime: 1789065725061
+      coreVersion: '14.368'
+      createdTime: 1789656702076
+      modifiedTime: 1789656702076
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -380,11 +380,11 @@ items:
       dropped: false
       slot: 3
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725062
-      modifiedTime: 1789065725062
+      createdTime: 1789656702076
+      modifiedTime: 1789656702076
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -411,7 +411,8 @@ items:
           description: >-
             <p>You can loose a shot under pressure, although with decreased
             accuracy. You perform a <strong>Strike</strong> that is
-            <strong>Difficult</strong>, but has a reduced Action cost.</p>
+            @Rule[action.difficult], but has a reduced <strong>Action</strong>
+            cost.</p>
           cost:
             action: -1
             focus: 0
@@ -443,11 +444,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725060
-      modifiedTime: 1789065725060
+      createdTime: 1789656702077
+      modifiedTime: 1789656702077
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -465,11 +466,11 @@ items:
     system:
       description: >-
         <p>The orderly force of elemental earth, responsible for physical
-        matter. The Earth rune governs minerals, metals, soils, and other
-        physical compounds.</p><p>The Earth rune scales using
-        <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed
-        by the chaotic rune of <strong>Storm</strong>.</p>
+        matter. The <strong>Earth</strong> rune governs minerals, metals, soils,
+        and other physical compounds.</p><p>The <strong>Earth</strong> rune
+        scales using <strong>Wisdom</strong>, targets <strong>Reflex</strong>,
+        and deals <strong>Acid</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of <strong>Storm</strong>.</p>
       actions:
         - id: mould
           name: Mould
@@ -521,11 +522,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725060
-      modifiedTime: 1789065725060
+      createdTime: 1789656702077
+      modifiedTime: 1789656702077
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -541,9 +542,10 @@ items:
     img: icons/sundries/survival/rope-wrapped-purple.webp
     system:
       description: >-
-        You seem to always be prepared for the moment at hand. You may sacrifice
-        your free movement for the Round to instead equip an Item from your
-        inventory without spending any Action points.
+        <p>You seem to always be prepared for the moment at hand. You may
+        sacrifice your <strong>Free Movement</strong> for the round to instead
+        equip an <strong>Item</strong> from your inventory without spending any
+        <strong>Action</strong> points.</p>
       nodes:
         - wis0a
       actions: []
@@ -558,9 +560,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725060
-      modifiedTime: 1789065725060
+      coreVersion: '14.368'
+      createdTime: 1789656702077
+      modifiedTime: 1789656702077
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -581,8 +583,9 @@ items:
       actions:
         - id: markPrey
           description: >-
-            <p>You Strike using a special shot. If your attack is successful the
-            target is @Condition[exposed] for the next 3 Turns.</p>
+            <p>You <strong>Strike</strong> using a special shot. If your attack
+            is successful the target is @Condition[exposed] for the next
+            <strong>3 Rounds</strong>.</p>
           tags:
             - ranged
             - difficult
@@ -642,9 +645,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725060
-      modifiedTime: 1789065725060
+      coreVersion: '14.368'
+      createdTime: 1789656702078
+      modifiedTime: 1789656702078
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -665,7 +668,8 @@ items:
         <p>You identify moments of opportunity to strike at an enemy's weak
         points. When attacking a target that is @Condition[unaware],
         @Condition[flanked], or @Condition[exposed] using a weapon which scales
-        with <strong>Dexterity</strong>, you gain +2 damage to any Strike.</p>
+        with <strong>Dexterity</strong>, you gain +2 damage to any
+        <strong>Strike</strong>.</p>
       actions: []
       nodes:
         - dex1b
@@ -679,9 +683,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725060
-      modifiedTime: 1789065725060
+      coreVersion: '14.368'
+      createdTime: 1789656702078
+      modifiedTime: 1789656702078
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -703,16 +707,17 @@ items:
         - id: tumble
           name: Tumble
           description: >-
-            <p>Make a <strong>Athletics </strong>skill Attack against an
+            <p>Make a <strong>Athletics Skill</strong> attack against an
             adjacent enemy contested by your target's <strong>Reflex</strong>
             defense.</p><p>On a success you may move up to twice your
             <strong>Stride</strong>, including the ability to pass through your
-            target enemy's space, without provoking any
-            <strong>Disengagement</strong> reactions.</p><p>On a failure your
-            movement is blocked and your remain in your current position.</p>
+            target enemy's space, without provoking any @Action[default
+            reactiveStrike].</p><p>On a failure your movement is blocked and
+            your remain in your current position.</p>
           tags:
             - harmless
             - reflex
+            - skill
             - athletics
           cost:
             action: 3
@@ -746,9 +751,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725060
-      modifiedTime: 1789065725060
+      coreVersion: '14.368'
+      createdTime: 1789656702078
+      modifiedTime: 1789656702078
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -767,9 +772,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
-  createdTime: 1789065725060
-  modifiedTime: 1789065725060
+  coreVersion: '14.368'
+  createdTime: 1789656702073
+  modifiedTime: 1789656702073
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

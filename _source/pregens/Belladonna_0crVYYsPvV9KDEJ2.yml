@@ -163,13 +163,13 @@ system:
     wounds:
       value: 0
     morale:
-      value: 52
+      value: 56
     madness:
       value: 0
     action:
       value: 6
     focus:
-      value: 5
+      value: 6
     heroism:
       value: 0
   movement:
@@ -325,11 +325,11 @@ items:
       dropped: false
       slot: 2
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711540
+      modifiedTime: 1789656711540
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -371,11 +371,11 @@ items:
       dropped: false
       slot: 1
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933705
-      modifiedTime: 1789073933705
+      createdTime: 1789656711541
+      modifiedTime: 1789656711541
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -413,11 +413,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933705
-      modifiedTime: 1789073933705
+      createdTime: 1789656711541
+      modifiedTime: 1789656711541
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -441,8 +441,8 @@ items:
           description: >-
             <p>You make a <strong>Deception</strong> based <strong>Skill
             Attack</strong> against the <strong>Willpower </strong>defense of a
-            target within 30 feet which can see or hear you. On a success, the
-            target loses <strong>1 Focus</strong>.</p>
+            target within <strong>30 feet</strong> which can see or hear you. On
+            a success, the target loses <strong>1 Focus</strong>.</p>
           tags:
             - void
             - skill
@@ -477,12 +477,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933705
+      modifiedTime: 1789656711541
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933705
+      createdTime: 1789656711541
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -502,13 +502,13 @@ items:
           img: icons/skills/melee/strike-polearm-light-orange.webp
           condition: ''
           description: >-
-            <p>You dart forward nimbly, making a strike with sudden and
-            unexpected swiftness to perform a <strong>Strike </strong>with a
-            weapon which scales using <strong>Dexterity</strong> against a
-            single target, with an increased range of <strong>+2
-            feet</strong>.</p><p>The attack is <strong>Difficult</strong>, but
-            you do not move from your current position nor does this attack
-            provoke Disengagement.</p>
+            <p>You dart forward nimbly, attacking with sudden and unexpected
+            swiftness to perform a <strong>Strike </strong>with a weapon which
+            scales using <strong>Dexterity</strong> against a single target,
+            with an increased range of <strong>+2 feet</strong>.</p><p>The
+            attack is @Rule[action.difficult], but you do not move from your
+            current position nor does this attack provoke a @Action[default
+            reactiveStrike].</p>
           cost:
             action: 0
             focus: 0
@@ -540,11 +540,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711541
+      modifiedTime: 1789656711541
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -561,9 +561,10 @@ items:
     img: icons/sundries/survival/rope-wrapped-purple.webp
     system:
       description: >-
-        You seem to always be prepared for the moment at hand. You may sacrifice
-        your free movement for the Round to instead equip an Item from your
-        inventory without spending any Action points.
+        <p>You seem to always be prepared for the moment at hand. You may
+        sacrifice your <strong>Free Movement</strong> for the round to instead
+        equip an <strong>Item</strong> from your inventory without spending any
+        <strong>Action</strong> points.</p>
       nodes:
         - wis0a
       actions: []
@@ -578,9 +579,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      coreVersion: '14.368'
+      createdTime: 1789656711542
+      modifiedTime: 1789656711542
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -612,12 +613,13 @@ items:
           img: icons/magic/perception/shadow-stealth-eyes-purple.webp
           condition: ''
           description: >-
-            <p>Target one enemy which you can see at a distance of at least 20
-            feet. You make a Stealth check against their Awareness. Upon a
-            success that creature loses track of you until the start of your
-            next turn, or until you perform an action targeting them which is
-            not <strong>Subtle</strong>. Upon a Critical Success the effect
-            instead persists for two rounds.</p>
+            <p>Target one enemy which you can see at a distance of at least
+            <strong>20 feet</strong>. You make a <strong>Stealth</strong> check
+            against their <strong>Awareness</strong>. Upon a success that
+            creature loses track of you until the start of your next turn, or
+            until you perform an action targeting them which is not
+            @Rule[action.subtle]. Upon a <strong>Critical Success</strong> the
+            effect instead persists for <strong>2 Rounds</strong>.</p>
           cost:
             action: 1
             focus: 1
@@ -672,9 +674,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      coreVersion: '14.368'
+      createdTime: 1789656711542
+      modifiedTime: 1789656711542
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -694,15 +696,14 @@ items:
     system:
       description: >-
         <p>You focus your cunning instincts on exploiting the weak points of a
-        flanked target. You identify an opportunity and strike with deadly
-        efficiency.</p>
+        @Condition[flanked] target. You identify an opportunity and strike with
+        deadly efficiency.</p>
       actions:
         - id: backstab
           condition: You are attacking a target with the Flanked condition.
           description: >-
             <p>You <strong>Strike</strong> with your weapon against a
-            @Condition[flanked] target, dealing <strong>Deadly</strong>
-            damage.</p>
+            @Condition[flanked] target, dealing @Rule[action.deadly] damage.</p>
           tags:
             - finesse
             - flanking
@@ -735,12 +736,12 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933706
+      modifiedTime: 1789656711542
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933706
+      createdTime: 1789656711542
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -758,8 +759,9 @@ items:
     system:
       description: >-
         <p>You take in your surroundings without needing to stop and look. You
-        may sacrifice your free movement for the Round to instead
-        @Action[default search] without spending any Action points.</p>
+        may sacrifice your <strong>Free Movement</strong> for the
+        <strong>Round</strong> to instead @Action[default search] without
+        spending any <strong>Action</strong> points.</p>
       actions: []
       nodes:
         - wis0a
@@ -773,9 +775,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      coreVersion: '14.368'
+      createdTime: 1789656711543
+      modifiedTime: 1789656711543
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -835,12 +837,12 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933706
+      modifiedTime: 1789656711543
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933706
+      createdTime: 1789656711543
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -857,8 +859,9 @@ items:
     system:
       description: >-
         <p>You are adept at entering and exiting the fray. When moving out of
-        the <strong>Engagement</strong> radius of an enemy, that enemy has 2
-        Banes to any @Action[default reactiveStrike] against you.</p>
+        the <strong>Engagement</strong> radius of an enemy, that enemy has
+        <strong>+2 Banes</strong> to any @Action[default reactiveStrike] against
+        you.</p>
       nodes:
         - dex3b
       actions: []
@@ -870,12 +873,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933706
+      modifiedTime: 1789656711544
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933706
+      createdTime: 1789656711544
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -891,9 +894,9 @@ items:
     img: icons/skills/melee/sword-winged-holy-orange.webp
     system:
       description: >-
-        Shoot first, ask questions later. You gain <strong>+1 Boon</strong> on
-        any Strike or Spell attack against an enemy whose initiative score is
-        lower than your own.
+        <p>Shoot first, ask questions later. You gain <strong>+1 Boon</strong>
+        on any <strong>Strike</strong> or <strong>Spell</strong> attack against
+        an enemy whose initiative score is lower than your own.</p>
       actions: []
       nodes:
         - intdex1
@@ -905,12 +908,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933707
+      modifiedTime: 1789656711544
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933707
+      createdTime: 1789656711544
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -938,13 +941,12 @@ items:
             an enemy already suffering @Condition[burning],
             @Condition[freezing], @Condition[corroding], or @Condition[shocked],
             performing a <strong>Science</strong> skill attack against their
-            <strong>Fortitude</strong> defense.</p><p>Upon a
-            <strong>Success</strong> they sustain damage of the same type, and
-            to the same resource, as the reaction you fed, and its remaining
-            duration is extended by <strong>1 Round</strong>. Upon a
-            <strong>Critical Success</strong> the reaction also burns hotter,
-            increasing the damage it deals each round by
-            <strong>1</strong>.</p><h3 class="divider">Playtest
+            <strong>Fortitude</strong> defense.</p><p>Upon a success they
+            sustain damage of the same type, and to the same resource, as the
+            reaction you fed, and its remaining duration is extended by
+            <strong>1 Round</strong>. Upon a <strong>Critical Success</strong>
+            the reaction also burns hotter, increasing the damage it deals each
+            round by <strong>1</strong>.</p><h3 class="divider">Playtest
             Notes</h3><p>This action is intended to consume a unit of alchemical
             reagent from your inventory, offering an alternative use for the
             same ingredients you would otherwise craft with. That requirement is
@@ -981,11 +983,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711544
+      modifiedTime: 1789656711544
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1016,7 +1018,8 @@ items:
             afflicting an ally you can touch. Remove one instance of
             @Condition[burning], @Condition[freezing], @Condition[corroding], or
             @Condition[shocked] from the target.</p><p>The reagents are drawn
-            from your Toolkit and are not otherwise tracked.</p>
+            from your <strong>Toolkit</strong> and are not otherwise
+            tracked.</p>
           cost:
             action: 2
             focus: 0
@@ -1045,11 +1048,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711544
+      modifiedTime: 1789656711544
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1071,16 +1074,16 @@ items:
     system:
       description: >-
         <p>A two-weapon technique which makes a feint with your primary weapon,
-        exposing your target for an off-hand attack.</p>
+        exposing your target for an @Rule[action.offhand] attack.</p>
       actions:
         - id: feintingStrike
           tags:
             - dualwield
             - melee
             - offhand
+            - reflex
             - skill
             - deception
-            - reflex
           cost:
             action: 1
             focus: 0
@@ -1101,9 +1104,9 @@ items:
             <strong>Deception</strong> attack against the target's
             <strong>Reflex</strong> defense. You immediately make a
             <strong>Strike</strong> with your <strong>offhand</strong>
-            weapon.</p><p>If your Deception was successful, you gain <strong>+2
-            Boons</strong> to your Strike and it deals an additional <strong>+6
-            Damage</strong>.</p>
+            weapon.</p><p>If your deception was successful, you gain <strong>+2
+            Boons</strong> to your <strong>Strike</strong> and it deals an
+            additional <strong>+6 Damage</strong>.</p>
           range:
             maximum: null
             weapon: true
@@ -1119,9 +1122,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      coreVersion: '14.368'
+      createdTime: 1789656711545
+      modifiedTime: 1789656711545
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1146,12 +1149,14 @@ items:
             You are targeted by an area-of-effect attack, the source of which
             you can see.
           description: >-
-            <p>You may immediately move 4 feet after the area-of-effect of the
-            attack is declared. If this movement escapes the area of the attack,
-            you are unaffected.</p>
+            <p>You may immediately move up to <strong>4 feet</strong> after the
+            area-of-effect of the attack is declared. If this movement escapes
+            the area of the attack, you are unaffected.</p><h3
+            class="divider">Playtest Notes</h3><p>The avoidance of being
+            targeted is not currently automated.</p>
           tags:
-            - movement
             - reaction
+            - movement
           cost:
             action: 1
             focus: 1
@@ -1181,11 +1186,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933707
-      modifiedTime: 1789073933707
+      createdTime: 1789656711545
+      modifiedTime: 1789656711545
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1203,21 +1208,24 @@ items:
       description: >-
         <p>You specialize in bringing death the the unwary. Any
         <strong>Strike</strong> or <strong>Spell</strong> attack against an
-        @Condition[unaware] target becomes <strong>Deadly</strong>.</p><p>An
-        <strong>Unaware</strong> creature hit by your attack may not alert its
-        allies until its own turn in <strong>Combat</strong>.</p>
+        @Condition[unaware] target becomes @Rule[action.deadly].</p><p>An
+        @Condition[unaware] creature hit by your attack may not alert its allies
+        until its own turn in <strong>Combat</strong>.</p>
       actions:
         - id: markForDeath
           name: Mark For Death
           img: icons/magic/death/skull-humanoid-white-blue.webp
           condition: You are unobserved.
           description: >-
-            <p>You spend 1 minute studying a creature. Perform a Knowledge Test
-            about your target. If successful, you learn all damage types against
-            which the target is Vulnerable. Your minimum Initiative during the
-            first round of Combat becomes one greater than the Initiative of
-            your marked target.</p><h3 class="divider">Playtest
-            Notes</h3><p>This action is not yet automated.</p>
+            <p>You spend <strong>1 minute</strong> studying a creature. Perform
+            a <strong>Knowledge Test</strong> about your target. If successful,
+            you learn all damage types against which the target is
+            <strong>Vulnerable</strong>. Your minimum
+            <strong>Initiative</strong> during the first round of
+            <strong>Combat</strong> becomes one greater than the
+            <strong>Initiative</strong> of your marked target.</p><h3
+            class="divider">Playtest Notes</h3><p>This action is not yet
+            automated.</p>
           tags:
             - subtle
           cost:
@@ -1248,11 +1256,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933707
-      modifiedTime: 1789073933707
+      createdTime: 1789656711545
+      modifiedTime: 1789656711545
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1281,8 +1289,8 @@ items:
           condition: An enemy you can see casts a Spell which costs 3 Action or greater.
           description: >-
             <p>When an enemy that you can see casts a <strong>Spell</strong>
-            which costs <strong>3 Action</strong> or greater, you can make a
-            <strong>Reaction</strong> to perform a <strong>Thrown</strong>
+            which costs <strong>3 Action</strong> or greater, as a
+            @Rule[action.reaction] you can perform a <strong>Thrown</strong>
             weapon attack against the caster. If your attack results in a
             <strong>Critical Hit</strong> the spell is interrupted and its magic
             is lost.</p>
@@ -1315,11 +1323,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933708
-      modifiedTime: 1789073933708
+      createdTime: 1789656711545
+      modifiedTime: 1789656711545
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1336,9 +1344,9 @@ items:
     img: icons/magic/light/circle-window-clock-blue.webp
     system:
       description: >-
-        Anticipation leads to decisive action. When you have the highest
-        <strong>Initiative</strong> score for a Round of combat, you gain
-        <strong>+1 Focus</strong>.<p></p>
+        <p>Anticipation leads to decisive action. When you have the highest
+        <strong>Initiative</strong> score for a round of combat, you gain
+        <strong>+1 Focus</strong>.</p><p></p>
       nodes:
         - int4d
       actions: []
@@ -1352,9 +1360,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      coreVersion: '14.368'
+      createdTime: 1789656711546
+      modifiedTime: 1789656711546
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1371,9 +1379,10 @@ items:
     img: icons/magic/light/projectile-smoke-blue-light.webp
     system:
       description: >-
-        It is sometimes a marvel how slowly others around you think. You gain
-        <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
-        lower than you in Initiative order.
+        <p>It is sometimes a marvel how slowly others around you think. You gain
+        <strong>+1 Boon</strong> on any <strong>Strike</strong> or
+        <strong>Spell</strong> attack against an enemy lower than you in
+        <strong>Initiative</strong> order.</p>
       actions: []
       nodes:
         - int4d
@@ -1387,9 +1396,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      coreVersion: '14.368'
+      createdTime: 1789656711546
+      modifiedTime: 1789656711546
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1410,13 +1419,13 @@ items:
         the notice of watchful sentries. When you use
         @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you may
         target up to three creatures simultaneously, resolving a separate
-        Stealth check against the Awareness of each.</p><h3
-        class="divider">Playtest Notes</h3><p>All three checks resolve, but
-        Crucible does not yet record which creatures have lost track of you, so
-        beating one target conceals you no differently from beating all three
-        and the Gamemaster adjudicates the difference. A forthcoming stealth
-        effect will record detection for each creature and treat this talent as
-        raising how many you may evade at once.</p>
+        <strong>Stealth</strong> check against the <strong>Awareness</strong> of
+        each.</p><h3 class="divider">Playtest Notes</h3><p>All three checks
+        resolve, but Crucible does not yet record which creatures have lost
+        track of you, so beating one target conceals you no differently from
+        beating all three and the Gamemaster adjudicates the difference. A
+        forthcoming stealth effect will record detection for each creature and
+        treat this talent as raising how many you may evade at once.</p>
       actions: []
       nodes:
         - dex4c
@@ -1430,9 +1439,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      coreVersion: '14.368'
+      createdTime: 1789656711546
+      modifiedTime: 1789656711546
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1448,11 +1457,12 @@ items:
     img: icons/skills/wounds/blood-spurt-spray-red.webp
     system:
       description: >-
-        <p>Your precision with weapons which deal Slashing or Piercing damage
-        can cause the @Condition[bleeding] condition on Critical Hits which deal
-        damage to Health.</p><p>The @Condition[bleeding] effect lasts for 3
-        rounds and deals your Dexterity score as additional damage to
-        Health.</p>
+        <p>Your precision with weapons which deal <strong>Slashing</strong> or
+        <strong>Piercing</strong> damage can cause the @Condition[bleeding]
+        condition on <strong>Critical Hits</strong> which deal damage to
+        <strong>Health</strong>.</p><p>The @Condition[bleeding] effect lasts for
+        <strong>3 Rounds</strong> and deals your <strong>Dexterity</strong>
+        score as additional damage to <strong>Health</strong>.</p>
       actions: []
       nodes:
         - dex4d
@@ -1465,12 +1475,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933708
+      modifiedTime: 1789656711546
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933708
+      createdTime: 1789656711546
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1489,10 +1499,10 @@ items:
         <p>There are older things than Runes, and they can lend power. When you
         have no <strong>Focus</strong> remaining, you may spend
         <strong>Morale</strong> in its place. Each point of insufficient
-        <strong>Focus</strong> costs 10 Morale in exchange. You may still make
-        this exchange while otherwise prevented from spending Focus, for example
-        by the @Condition[broken] condition, although such a trade may incur
-        <strong>Madness</strong>.</p>
+        <strong>Focus</strong> costs <strong>10 Morale</strong> in exchange. You
+        may still make this exchange while otherwise prevented from spending
+        <strong>Focus</strong>, for example by the @Condition[broken] condition,
+        although such a trade may incur <strong>Madness</strong>.</p>
       actions: []
       nodes:
         - int2b
@@ -1506,9 +1516,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      coreVersion: '14.368'
+      createdTime: 1789656711547
+      modifiedTime: 1789656711547
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1534,30 +1544,31 @@ items:
           img: icons/tools/laboratory/bowl-herbs-green.webp
           condition: You have an Alchemist's Toolkit equipped.
           description: >-
-            <p>Every preparation leaves its signature. With an Alchemist's
-            Toolkit equipped, you can produce any one of the following
-            effects:</p><ul><li><p><strong>Read.</strong> You study an item
-            created by alchemy which you can handle, learning its
-            <strong>Quality</strong> tier, what it will do, and whether it has
-            degraded past use. From residue alone, a stain, a shattered flask, a
-            scorch on stone, you identify what was prepared there if you know
-            its recipe.</p></li><li><p><strong>Destroy.</strong> You spend 10
-            minutes to spoil a non-magical item created by alchemy which you can
-            physically touch, leaving a potion inert and a bomb a dud.
-            Alternatively, in the course of preparing such a work yourself, you
-            may leave it appearing sound while ensuring it does nothing at all
-            when next relied upon. Your sabotage is discovered only by an
-            intentional Awareness check which beats your passive
-            Alchemy.</p></li><li><p><strong>Create.</strong> Given time and
-            reasonable access to ingredients, you may prepare any minor
-            alchemical work you are familiar with: inks and dyes, a glue that
-            holds under water, a perfume that lingers a full day, fireworks in
-            three colors, acid enough to etch a name in steel. Explicitly
+            <p>Every preparation leaves its signature. With an
+            <strong>Alchemist's Toolkit</strong> equipped, you can produce any
+            one of the following effects:</p><ul><li><p><strong>Read.</strong>
+            You study an item created by alchemy which you can handle, learning
+            its <strong>Quality</strong> tier, what it will do, and whether it
+            has degraded past use. From residue alone, a stain, a shattered
+            flask, a scorch on stone, you identify what was prepared there if
+            you know its recipe.</p></li><li><p><strong>Destroy.</strong> You
+            spend <strong>10 minutes</strong> to spoil a non-magical item
+            created by alchemy which you can physically touch, leaving a potion
+            inert and a bomb a dud. Alternatively, in the course of preparing
+            such a work yourself, you may leave it appearing sound while
+            ensuring it does nothing at all when next relied upon. Your sabotage
+            is discovered only by an intentional <strong>Awareness</strong>
+            check which beats your passive
+            <strong>Alchemy</strong>.</p></li><li><p><strong>Create.</strong>
+            Given time and reasonable access to ingredients, you may prepare any
+            minor alchemical work you are familiar with: inks and dyes, a glue
+            that holds under water, a perfume that lingers a full day, fireworks
+            in three colors, acid enough to etch a name in steel. Explicitly
             defined crafting recipes must still be rolled, but you can
             successfully prepare any such work outside of this system without
             requiring a dice roll.</p></li></ul><p>You may attempt other uses
             similar to those above, the effectiveness of which is decided by the
-            Gamemaster.</p>
+            <strong>Gamemaster</strong>.</p>
           cost:
             action: 3
             focus: 0
@@ -1586,11 +1597,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711547
+      modifiedTime: 1789656711547
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1669,11 +1680,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711547
+      modifiedTime: 1789656711547
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1752,11 +1763,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711547
+      modifiedTime: 1789656711547
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1797,11 +1808,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711548
+      modifiedTime: 1789656711548
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1850,11 +1861,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711548
+      modifiedTime: 1789656711548
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1931,11 +1942,11 @@ items:
         sort: 0
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933704
-          modifiedTime: 1789073933704
+          createdTime: 1789656711549
+          modifiedTime: 1789656711549
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1944,11 +1955,11 @@ items:
           !actors.items.effects!0crVYYsPvV9KDEJ2.XFSqOGnYk6IMcKST.reinforcement000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711549
+      modifiedTime: 1789656711549
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2027,11 +2038,11 @@ items:
         sort: 100000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933704
-          modifiedTime: 1789073933704
+          createdTime: 1789656711550
+          modifiedTime: 1789656711550
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -2040,11 +2051,11 @@ items:
           !actors.items.effects!0crVYYsPvV9KDEJ2.ln4ZHW3Q0aq8xMcQ.tenacity00000000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933704
-      modifiedTime: 1789073933704
+      createdTime: 1789656711549
+      modifiedTime: 1789656711549
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2074,11 +2085,11 @@ flags:
         messageId: NyMamjAxcFOXQ601
         combat: null
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789073933704
-  modifiedTime: 1789073933704
+  createdTime: 1789656711539
+  modifiedTime: 1789656711539
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

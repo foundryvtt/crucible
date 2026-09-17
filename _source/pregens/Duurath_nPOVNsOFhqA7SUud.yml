@@ -294,9 +294,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725075
-      modifiedTime: 1789065725075
+      coreVersion: '14.368'
+      createdTime: 1789656702068
+      modifiedTime: 1789656702068
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -338,9 +338,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725075
-      modifiedTime: 1789065725075
+      coreVersion: '14.368'
+      createdTime: 1789656702069
+      modifiedTime: 1789656702069
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -381,9 +381,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725075
-      modifiedTime: 1789065725075
+      coreVersion: '14.368'
+      createdTime: 1789656702069
+      modifiedTime: 1789656702069
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -399,8 +399,8 @@ items:
     system:
       description: >-
         <p>You are trained in wearing the heaviest types of armor while still
-        retaining mobility. You are able to use a free Movement action once per
-        Turn while wearing Heavy armor.</p>
+        retaining mobility. You are able to use a <strong>Free Move</strong>
+        once per turn while wearing <strong>Heavy</strong> armor.</p>
       actions: []
       nodes:
         - str0b
@@ -415,9 +415,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725073
-      modifiedTime: 1789065725073
+      coreVersion: '14.368'
+      createdTime: 1789656702069
+      modifiedTime: 1789656702069
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -434,16 +434,16 @@ items:
     system:
       description: >-
         <p>You are practiced at fighting with shield, using it to slam into and
-        imbalance your foes.</p>
+        unbalance your foes.</p>
       actions:
         - id: shieldBash
           name: Shield Bash
           img: icons/skills/melee/shield-block-bash-blue.webp
           condition: ''
           description: >-
-            <p>Following a basic Strike with your mainhand weapon, you
-            <strong>Strike</strong> with your shield, causing the
-            @Condition[staggered] condition for one Round.</p>
+            <p>Following a basic @Action[default strike] with your mainhand
+            weapon, you <strong>Strike</strong> with your shield, causing the
+            @Condition[staggered] condition for <strong>1 Round</strong>.</p>
           cost:
             action: 0
             focus: 0
@@ -497,11 +497,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725073
-      modifiedTime: 1789065725073
+      createdTime: 1789656702070
+      modifiedTime: 1789656702070
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -525,10 +525,10 @@ items:
           name: Intimidate
           description: >-
             <p>You physically intimidate an enemy that is within your engagement
-            range, performing an <strong>Intimidation</strong> skill attack
-            against your target's passive <strong>Intimidation</strong> defense.
-            On a Success, they sustain <strong>Void</strong> damage to their
-            <strong>Morale</strong>.</p>
+            range, performing an <strong>Intimidation</strong>
+            <strong>Skill</strong> attack against your target's passive
+            <strong>Intimidation</strong> defense. On a success, they sustain
+            <strong>Void</strong> damage to their <strong>Morale</strong>.</p>
           tags:
             - void
             - morale
@@ -565,12 +565,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789065725076
+      modifiedTime: 1789656702070
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789065725076
+      createdTime: 1789656702070
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -612,7 +612,7 @@ items:
           description: >-
             <p>You unleash a powerful <strong>Strike</strong> with your mainhand
             weapon. The attack is slower to execute, but is
-            <strong>Empowered</strong> to deliver additional damage.</p>
+            @Rule[action.empowered] to deliver additional damage.</p>
           summon: null
       iconicSpells: 0
       training: heavy
@@ -624,11 +624,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725073
-      modifiedTime: 1789065725073
+      createdTime: 1789656702071
+      modifiedTime: 1789656702071
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -646,9 +646,9 @@ items:
     system:
       description: >-
         <p>You have expertise in using a <strong>Shield</strong> to defend
-        yourself and others.</p><p>Once per Turn while you have a Shield
-        equipped, you may use the @Action[default defend] action at a reduced
-        cost of 1 Action Point.</p>
+        yourself and others.</p><p>Once per turn while you have a
+        <strong>Shield</strong> equipped, the <strong>Action</strong> cost of
+        using the @Action[default defend] action is reduced by 1.</p>
       nodes:
         - tou0a
       actions: []
@@ -661,12 +661,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789065725076
+      modifiedTime: 1789656702071
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789065725076
+      createdTime: 1789656702071
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -694,9 +694,9 @@ items:
           img: icons/skills/social/intimidation-impressing.webp
           condition: ''
           description: >-
-            <p>Each ally, excluding yourself, within <strong>10 Feet</strong>
+            <p>Each ally, excluding yourself, within <strong>10 feet</strong>
             gains <strong>+1 Boon</strong> to actions performed until the end of
-            their next Turn.</p>
+            their next turn.</p>
           tags: []
           cost:
             action: 3
@@ -747,9 +747,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725073
-      modifiedTime: 1789065725073
+      coreVersion: '14.368'
+      createdTime: 1789656702072
+      modifiedTime: 1789656702072
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -767,9 +767,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
-  createdTime: 1789065725073
-  modifiedTime: 1789065725073
+  coreVersion: '14.368'
+  createdTime: 1789656702067
+  modifiedTime: 1789656702067
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

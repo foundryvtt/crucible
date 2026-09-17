@@ -296,9 +296,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725057
-      modifiedTime: 1789065725057
+      coreVersion: '14.368'
+      createdTime: 1789656702059
+      modifiedTime: 1789656702059
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -339,9 +339,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725058
-      modifiedTime: 1789065725058
+      coreVersion: '14.368'
+      createdTime: 1789656702059
+      modifiedTime: 1789656702059
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -365,11 +365,13 @@ items:
           img: icons/skills/social/diplomacy-unity-alliance.webp
           condition: ''
           description: >-
-            <p>Following a <strong>Rest</strong>, you find the common ground you
-            share with each of your companions. You make a Society check against
-            the <strong>Madness</strong> threshold of each member of your party.
-            Upon a success they shed <strong>Madness</strong> equal to half your
-            Wisdom, or your full Wisdom upon a Critical Success.</p>
+            <p>Following a @Action[default rest], you find the common ground you
+            share with each of your companions. You make a
+            <strong>Society</strong> check against the <strong>Rallying
+            Threshold</strong> of each member of your party. Upon a success they
+            shed <strong>Madness</strong> equal to half your
+            <strong>Wisdom</strong>, or your full <strong>Wisdom</strong> upon a
+            <strong>Critical Success</strong>.</p>
           cost:
             action: 0
             focus: 0
@@ -388,6 +390,7 @@ items:
           effects: []
           tags:
             - rest
+            - noncombat
             - skill
             - society
           summon: null
@@ -403,9 +406,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725057
-      modifiedTime: 1789065725057
+      coreVersion: '14.368'
+      createdTime: 1789656702060
+      modifiedTime: 1789656702060
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -421,13 +424,14 @@ items:
     img: icons/magic/movement/pinwheel-turning-blue.webp
     system:
       description: >-
-        <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and
-        physicality.</p><p>The Kinesis rune scales using
-        <strong>Presence</strong>, targets <strong>Physical</strong> defense,
-        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>. It is
-        opposed by the orderly rune of <strong>Control</strong>.</p>
+        <p>The chaotic force of space and physical movement. The
+        <strong>Kinesis</strong> rune governs all things related to the act of
+        movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
+        using <strong>Presence</strong>, targets <strong>Physical</strong>
+        defense, and deals <strong>Bludgeoning</strong>,
+        <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
+        <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Control</strong>.</p>
       actions:
         - id: propel
           name: Propel
@@ -486,11 +490,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725057
-      modifiedTime: 1789065725057
+      createdTime: 1789656702060
+      modifiedTime: 1789656702060
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -516,8 +520,8 @@ items:
           description: >-
             <p>You make a <strong>Deception</strong> based <strong>Skill
             Attack</strong> against the <strong>Willpower </strong>defense of a
-            target within 30 feet which can see or hear you. On a success, the
-            target loses <strong>1 Focus</strong>.</p>
+            target within <strong>30 feet</strong> which can see or hear you. On
+            a success, the target loses <strong>1 Focus</strong>.</p>
           tags:
             - void
             - skill
@@ -552,9 +556,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789065725057
-      modifiedTime: 1789065725057
+      coreVersion: '14.368'
+      createdTime: 1789656702061
+      modifiedTime: 1789656702061
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -577,13 +581,15 @@ items:
           img: icons/magic/light/orb-shadow-blue.webp
           condition: ''
           description: >-
-            <p>You use your equipped Talisman to attempt to regain some
-            <strong>Focus</strong>. You perform a <strong>Harmless</strong>
-            <strong>Strike</strong> against your own <strong>Rallying</strong>
-            threshold.</p><p>On a success you recover <strong>+1 Focus</strong>
-            if using a one-handed Talisman and <strong>+2 Focus</strong> if
-            using a two-handed Talisman. On a critical success the amount of
-            Focus recovered increases by an additional +1.</p>
+            <p>You use your equipped <strong>Talisman</strong> to attempt to
+            regain some <strong>Focus</strong>. You perform a
+            @Rule[action.harmless] <strong>Strike</strong> against your own
+            <strong>Rallying</strong> threshold.</p><p>On a success you recover
+            <strong>+1 Focus</strong> if using a one-handed
+            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
+            two-handed <strong>Talisman</strong>. On a <strong>Critical
+            Success</strong> the amount of <strong>Focus</strong> recovered
+            increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -602,6 +608,7 @@ items:
           effects: []
           tags:
             - talisman
+            - ranged
             - harmless
             - rallying
           summon: null
@@ -615,11 +622,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725057
-      modifiedTime: 1789065725057
+      createdTime: 1789656702061
+      modifiedTime: 1789656702061
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -636,11 +643,12 @@ items:
     img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
     system:
       description: >-
-        <p>The chaotic force of elemental, thermal energy. The Flame rune
-        governs fire and heat.</p><p>The Flame rune scales using
-        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Fire</strong> damage to <strong>Health</strong>. It is opposed
-        by the orderly rune of <strong>Frost</strong>.</p>
+        <p>The chaotic force of elemental, thermal energy. The
+        <strong>Flame</strong> rune governs fire and heat.</p><p>The
+        <strong>Flame</strong> rune scales using <strong>Intellect</strong>,
+        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
+        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
           name: Enkindle
@@ -691,12 +699,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1789065725059
-      createdTime: 1789065725059
+      modifiedTime: 1789656702061
+      createdTime: 1789656702061
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -712,13 +720,14 @@ items:
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
       description: >-
-        <p>You hurl a projectile imbued with the magical power of a Rune at a
-        distant target.</p><p>The Arrow gesture scales using
-        <strong>Intellect</strong> and targets a single creature up to a
-        distance of 60 feet, dealing <strong>8 Base Damage</strong> to targets
-        which fail to Resist the spell. This gesture requires <strong>1
-        Hand</strong> to cast and has a base cost of <strong>3 Action</strong>
-        and <strong>1 Focus</strong>.</p>
+        <p>You hurl a projectile imbued with the magical power of a
+        <strong>Rune</strong> at a distant target.</p><p>The
+        <strong>Arrow</strong> gesture scales using <strong>Intellect</strong>
+        and targets a single creature up to a distance of <strong>60
+        feet</strong>, dealing <strong>8 Base Damage</strong> to targets which
+        fail to resist the spell. This gesture requires <strong>1 Hand</strong>
+        to cast and has a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
       spellcraft: arrow
       nodes:
@@ -731,11 +740,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789065725059
-      modifiedTime: 1789065725059
+      createdTime: 1789656702061
+      modifiedTime: 1789656702061
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -755,9 +764,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
-  createdTime: 1789065725057
-  modifiedTime: 1789065725057
+  coreVersion: '14.368'
+  createdTime: 1789656702058
+  modifiedTime: 1789656702058
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

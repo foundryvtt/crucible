@@ -296,9 +296,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789074400093
-      modifiedTime: 1789074400093
+      coreVersion: '14.368'
+      createdTime: 1789656702049
+      modifiedTime: 1789656702049
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -313,13 +313,14 @@ items:
     img: icons/magic/life/heart-shadow-red.webp
     system:
       description: >-
-        <p>A chaotic force of creation, responsible for living matter. The Life
-        rune governs health and matters relating to biological growth.</p><p>The
-        Life rune scales using <strong>Wisdom</strong> and provides
-        <strong>Restoration</strong> of <strong>Health</strong>. In special
-        circumstances it may be used to inflict <strong>Poison</strong> damage
-        opposed by <strong>Fortitude</strong>. It is opposed by the orderly rune
-        of <strong>Death</strong>.</p>
+        <p>A chaotic force of creation, responsible for living matter. The
+        <strong>Life</strong> rune governs health and matters relating to
+        biological growth.</p><p>The <strong>Life</strong> rune scales using
+        <strong>Wisdom</strong> and provides <strong>Restoration</strong> of
+        <strong>Health</strong>. In special circumstances it may be used to
+        inflict <strong>Poison</strong> damage opposed by
+        <strong>Fortitude</strong>. It is opposed by the orderly rune of
+        <strong>Death</strong>.</p>
       actions:
         - id: bloom
           name: Bloom
@@ -369,11 +370,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789074400094
-      modifiedTime: 1789074400094
+      createdTime: 1789656702049
+      modifiedTime: 1789656702049
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -391,12 +392,11 @@ items:
     system:
       description: >-
         <p>Your sharpened mind is full of secrets and techniques to remember
-        them. Once per Day you may focus your thoughts and attempt to recall a
-        word that sparks your memory.</p>
-
-        <p>The Gamemaster must provide you with a one-word clue that is
-        appropriate for your direction of inquiry. It is left to Gamemaster
-        discretion how direct or vague to be with the clue they provide.</p>
+        them. Once per day you may focus your thoughts and attempt to recall a
+        word that sparks your memory.</p><p>The <strong>Gamemaster</strong> must
+        provide you with a one-word clue that is appropriate for your direction
+        of inquiry. It is left to <strong>Gamemaster's</strong> discretion how
+        direct or vague to be with the clue they provide.</p>
       actions:
         - id: mnemonicRealization
           description: >-
@@ -436,9 +436,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789074400094
-      modifiedTime: 1789074400094
+      coreVersion: '14.368'
+      createdTime: 1789656702049
+      modifiedTime: 1789656702049
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -461,7 +461,9 @@ items:
       actions:
         - id: precisionShot
           condition: ''
-          description: <p>You steady your aim and fire a single accurate shot.</p>
+          description: >-
+            <p>You steady your aim and fire a single @Rule[action.accurate]
+            shot.</p>
           tags:
             - ranged
             - accurate
@@ -494,9 +496,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789074400094
-      modifiedTime: 1789074400094
+      coreVersion: '14.368'
+      createdTime: 1789656702050
+      modifiedTime: 1789656702050
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -511,13 +513,14 @@ items:
     img: icons/magic/light/beam-rays-blue.webp
     system:
       description: >-
-        <p>You funnel the arcane power of a Rune into a point and project it
-        outwards in a beam.</p><p>The Ray gesture scales using
-        <strong>Wisdom</strong> and produces a line that is 1 foot wide and 30
-        feet long originating from the spellcaster, dealing <strong>6 Base
-        Damage</strong> to targets which fail to Resist the spell. The gesture
-        requires <strong>1 Hand</strong> to cast and has a base cost of
-        <strong>4 Action</strong> and <strong>1 Focus</strong>.</p>
+        <p>You funnel the arcane power of a <strong>Rune</strong> into a point
+        and project it outwards in a beam.</p><p>The <strong>Ray</strong>
+        gesture scales using <strong>Wisdom</strong> and produces a line that is
+        <strong>1 foot</strong> wide and <strong>30 feet</strong> long
+        originating from the spellcaster, dealing <strong>6 Base Damage</strong>
+        to targets which fail to resist the spell. The gesture requires
+        <strong>1 Hand</strong> to cast and has a base cost of <strong>4
+        Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
       spellcraft: ray
       nodes:
@@ -530,12 +533,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789074400095
+      modifiedTime: 1789656702051
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789074400095
+      createdTime: 1789656702051
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -600,11 +603,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789074400095
-      modifiedTime: 1789074400095
+      createdTime: 1789656702051
+      modifiedTime: 1789656702051
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -644,11 +647,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789074400091
-      modifiedTime: 1789074400091
+      createdTime: 1789656702051
+      modifiedTime: 1789656702051
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -666,10 +669,11 @@ items:
     img: icons/magic/earth/strike-fist-stone-light.webp
     system:
       description: >-
-        <p>Through long practice and toughened resolve you are able to Block
+        <p>Through long practice and toughened resolve you are able to block
         enemy blows using your bare limbs. While <strong>Unarmed</strong> or
-        wielding only natural weapons, half your <strong>Toughness</strong>
-        score contributes to your <strong>Block</strong> defense.</p>
+        wielding only <strong>Natural</strong> weapons, half your
+        <strong>Toughness</strong> score contributes to your
+        <strong>Block</strong> defense.</p>
       actions: []
       nodes:
         - tou0a
@@ -683,9 +687,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789074400091
-      modifiedTime: 1789074400091
+      coreVersion: '14.368'
+      createdTime: 1789656702052
+      modifiedTime: 1789656702052
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -704,9 +708,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
-  createdTime: 1789074400091
-  modifiedTime: 1789074400091
+  coreVersion: '14.368'
+  createdTime: 1789656702048
+  modifiedTime: 1789656702048
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

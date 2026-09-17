@@ -159,7 +159,7 @@ system:
       immune: false
   resources:
     health:
-      value: 70
+      value: 72
     wounds:
       value: 0
     morale:
@@ -317,11 +317,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933641
-      modifiedTime: 1789073933641
+      createdTime: 1789656711480
+      modifiedTime: 1789656711480
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -361,11 +361,11 @@ items:
       dropped: false
       slot: 3
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933642
-      modifiedTime: 1789073933642
+      createdTime: 1789656711481
+      modifiedTime: 1789656711481
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -381,7 +381,7 @@ items:
       description: >-
         <p>You are familiar with basic martial arts and hand-to-hand combat. You
         know how to subdue or restrain opponents using your physical
-        Strength.</p>
+        strength.</p>
       actions:
         - id: grapple
           img: icons/magic/control/buff-strength-muscle-damage.webp
@@ -454,9 +454,9 @@ items:
           condition: ''
           description: >-
             <p>You attempt to physically restrain or subdue an opponent. Perform
-            a <strong>Athletics</strong> skill attack against an adjacent
+            an <strong>Athletics</strong> skill attack against an adjacent
             target. If successful, both you and your target are
-            @Condition[restrained] for 1 Round.</p>
+            @Condition[restrained] for <strong>1 Round</strong>.</p>
           summon: null
       iconicSpells: 0
       training: unarmed
@@ -468,11 +468,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711481
+      modifiedTime: 1789656711481
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -491,12 +491,11 @@ items:
     system:
       description: >-
         <p>Your sharpened mind is full of secrets and techniques to remember
-        them. Once per Day you may focus your thoughts and attempt to recall a
-        word that sparks your memory.</p>
-
-        <p>The Gamemaster must provide you with a one-word clue that is
-        appropriate for your direction of inquiry. It is left to Gamemaster
-        discretion how direct or vague to be with the clue they provide.</p>
+        them. Once per day you may focus your thoughts and attempt to recall a
+        word that sparks your memory.</p><p>The <strong>Gamemaster</strong> must
+        provide you with a one-word clue that is appropriate for your direction
+        of inquiry. It is left to <strong>Gamemaster's</strong> discretion how
+        direct or vague to be with the clue they provide.</p>
       actions:
         - id: mnemonicRealization
           description: >-
@@ -536,9 +535,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      coreVersion: '14.368'
+      createdTime: 1789656711482
+      modifiedTime: 1789656711482
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -560,7 +559,7 @@ items:
           condition: ''
           description: >-
             <p>You make <strong>Strike</strong> attack which is
-            <strong>Difficult</strong>, but if successful, inflicts the
+            @Rule[action.difficult], but if successful, inflicts the
             @Condition[slowed] condition for <strong>3 Rounds</strong>.</p>
           tags:
             - melee
@@ -616,11 +615,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711482
+      modifiedTime: 1789656711482
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -680,9 +679,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      coreVersion: '14.368'
+      createdTime: 1789656711482
+      modifiedTime: 1789656711482
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -741,12 +740,12 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933642
+      modifiedTime: 1789656711483
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933642
+      createdTime: 1789656711483
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -767,16 +766,17 @@ items:
       actions:
         - id: bullrush
           description: >-
-            <p>Make an <strong>Athletics </strong>skill Attack against an
-            adjacent enemy contested by your target's Fortitude defense. On a
-            success you may move up to your <strong>Stride</strong> directly
-            through the enemy's space. Your enemy is knocked @Condition[prone]
-            and may not make any attack of opportunity against you. On a failure
-            your movement is blocked and your remain in your current
-            position.</p>
+            <p>Make an <strong>Athletics Skill</strong> attack against an
+            adjacent enemy contested by your target's <strong>Fortitude</strong>
+            defense. On a success you may move up to your
+            <strong>Stride</strong> directly through the enemy's space. Your
+            enemy is knocked @Condition[prone] and may not make any
+            @Action[default reactiveStrike] against you. On a failure your
+            movement is blocked and your remain in your current position.</p>
           tags:
             - harmless
             - fortitude
+            - skill
             - athletics
           cost:
             action: 3
@@ -832,9 +832,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      coreVersion: '14.368'
+      createdTime: 1789656711483
+      modifiedTime: 1789656711483
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -850,8 +850,10 @@ items:
     img: icons/skills/social/intimidation-impressing.webp
     system:
       description: >-
-        You can wield weapons with the Slow trait and wear Armor with the Bulky
-        trait without suffering Banes to your Initiative rolls.
+        <p>You can wield weapons with the <strong>Slow</strong> trait and wear
+        <strong>Armor</strong> with the <strong>Bulky</strong> trait without
+        suffering <strong>Banes</strong> to your <strong>Initiative</strong>
+        rolls.</p>
       actions: []
       nodes:
         - str1b
@@ -864,12 +866,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933643
+      modifiedTime: 1789656711483
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933643
+      createdTime: 1789656711483
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -891,10 +893,10 @@ items:
       actions:
         - id: ferociousLeap
           description: >-
-            <p>You <strong>Jump</strong> up to 10 feet, delivering a
-            <strong>Strike</strong> against an enemy within melee range of where
-            you land. Your movement ignores difficult terrain and is not blocked
-            by enemy creatures.</p>
+            <p>You <strong>Jump</strong> up to <strong>10 feet</strong>,
+            delivering a <strong>Strike</strong> against an enemy within melee
+            range of where you land. Your movement ignores difficult terrain and
+            is not blocked by enemy creatures.</p>
           tags:
             - melee
             - mainhand
@@ -933,9 +935,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933644
-      modifiedTime: 1789073933644
+      coreVersion: '14.368'
+      createdTime: 1789656711483
+      modifiedTime: 1789656711483
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -952,9 +954,10 @@ items:
     system:
       description: >-
         <p>You go beyond simply defeating your enemies, you make an example of
-        them. When you slay a foe, every enemy within 20 feet who can see their
-        @Condition[dead] ally suffers damage to their <strong>Morale</strong>
-        equal to your <strong>Strength </strong>score.</p>
+        them. When you slay a foe, every enemy within <strong>20 feet</strong>
+        who can see their @Condition[dead] ally suffers damage to their
+        <strong>Morale</strong> equal to your <strong>Strength
+        </strong>score.</p>
       actions: []
       nodes:
         - str3b
@@ -968,9 +971,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      coreVersion: '14.368'
+      createdTime: 1789656711484
+      modifiedTime: 1789656711484
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -989,7 +992,7 @@ items:
       description: >-
         <p>Your body has endured so many injuries that it has learned how to
         mend itself with remarkable efficiency. When you perform the
-        <strong>Rest</strong> action, you recover additional
+        @Action[default rest] action, you recover additional
         <strong>Wounds</strong> equal to half your <strong>Toughness</strong>
         score (rounded down).</p>
       actions: []
@@ -1003,11 +1006,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711484
+      modifiedTime: 1789656711484
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1037,7 +1040,7 @@ items:
             <p>You expend <strong>Heroism</strong> to instantly recover two
             times your <strong>Toughness</strong> in <strong>Health</strong>.
             Your <strong>Healing Threshold</strong> is reduced by 2 for the next
-            3 Rounds.</p>
+            <strong>3 Rounds</strong>.</p>
           cost:
             action: 1
             focus: 0
@@ -1076,8 +1079,8 @@ items:
                 dc: null
                 properties: []
           tags:
-            - healing
             - subtle
+            - healing
           summon: null
       iconicSpells: 0
       spellcraft: ''
@@ -1087,11 +1090,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711485
+      modifiedTime: 1789656711485
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1108,8 +1111,9 @@ items:
     img: icons/magic/defensive/armor-stone-skin.webp
     system:
       description: >-
-        Your physical toughness makes you more resistant to harm. You gain +2
-        Resistance to Bludgeoning, Slashing, and Piercing damage.
+        <p>Your physical toughness makes you more resistant to harm. You gain
+        <strong>+2 Resistance</strong> to <strong>Bludgeoning</strong>,
+        <strong>Slashing</strong>, and <strong>Piercing</strong> damage.</p>
       actions: []
       nodes:
         - tou3b
@@ -1122,11 +1126,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933644
-      modifiedTime: 1789073933644
+      createdTime: 1789656711485
+      modifiedTime: 1789656711485
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1153,10 +1157,15 @@ items:
             You have suffered damage to your Health pool since your last turn in
             Combat.
           description: >-
-            You become @Condition[enraged]. While Enraged you deal 4 additional
-            damage on all melee attacks. You may attempt to end the effect on
-            your own turn by succeeding on a Willpower test against a DC of 20.
-            The effect ends automatically when Combat is concluded.
+            <p>You become @Condition[enraged]. While <strong>Enraged</strong>
+            you deal 4 additional damage on all melee attacks. You may attempt
+            to end the effect on your own turn by succeeding on a
+            <strong>Willpower</strong> test against a <strong>DC</strong> of 20.
+            The effect ends automatically when <strong>Combat</strong> is
+            concluded.</p><h3 class="divider">Playtest Notes</h3><p>The
+            aforementioned "Willpower test" is legacy terminology. The mechanism
+            for ending <strong>Berserker Rage</strong> on yourself is not
+            currently determined or automated.</p>
           tags: []
           cost:
             action: 1
@@ -1170,33 +1179,29 @@ items:
             number: 1
             self: false
           effects:
-            - scope: 1
-              statuses:
-                - enraged
-              system:
-                changes:
-                  - key: rollBonuses.damage.melee
-                    value: 4
-                    type: add
-                    phase: initial
-                dot: []
-                maintenance:
-                  cost: null
-                  hands: 0
-                regions: []
-                summons: []
-                dc: null
-                properties: []
-              name: ''
+            - name: ''
+              scope: 1
               result:
                 type: success
                 all: false
+              statuses:
+                - enraged
               duration:
                 value: null
                 units: ''
                 expiry: null
                 expired: false
-          img: null
+              system:
+                changes: []
+                dc: null
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          img: icons/magic/unholy/silhouette-evil-horned-giant.webp
           range:
             minimum: null
             maximum: null
@@ -1213,12 +1218,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933645
+      modifiedTime: 1789656711485
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933645
+      createdTime: 1789656711485
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1245,14 +1250,16 @@ items:
           img: icons/skills/melee/shield-damaged-broken-gold.webp
           condition: ''
           description: >-
-            <p>You make a <strong>Strike</strong> with a Strength-scaling weapon
-            which, if successful, applies the @Condition[exposed] condition to
-            your target for 3 rounds. This attack is <strong>Difficult</strong>
-            to perform and deals reduced damage.</p>
+            <p>You make a <strong>Strike</strong> with a
+            <strong>Strength</strong>-scaling weapon which, if successful,
+            applies the @Condition[exposed] condition to your target for
+            <strong>3 Rounds</strong>. This attack is @Rule[action.difficult] to
+            perform and deals @Rule[action.weakened] damage.</p>
           tags:
             - brute
             - melee
             - difficult
+            - weakened
           cost:
             action: 0
             focus: 1
@@ -1300,11 +1307,11 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933645
-      modifiedTime: 1789073933645
+      createdTime: 1789656711486
+      modifiedTime: 1789656711486
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1322,9 +1329,9 @@ items:
     system:
       description: >-
         <p>Your battle lust spurs you to feats of heightened action. When you
-        achieve a <strong>Critical Hit</strong> that deals damage to Health you
-        immediately gain +1 Action. This benefit may only happen once per
-        Round.</p>
+        achieve a <strong>Critical Hit</strong> that deals damage to
+        <strong>Health</strong> you immediately gain <strong>+1 Action</strong>.
+        This benefit may only happen once per <strong>Round</strong>.</p>
       actions: []
       nodes:
         - str4a
@@ -1339,9 +1346,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      coreVersion: '14.368'
+      createdTime: 1789656711486
+      modifiedTime: 1789656711486
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1363,12 +1370,12 @@ items:
         - id: executionersStrike
           condition: ''
           description: >-
-            <p>You deliver a Strike with a two-handed weapon. If your attack is
-            successful and your opponent is under half their maximum
-            <strong>Health</strong>, the Strike is <strong>Deadly</strong>, and
-            the opponent suffers the @Condition[bleeding] condition for 3
-            Rounds, taking additional damage each Round equal to your Strength
-            score.</p>
+            <p>You deliver a <strong>Strike</strong> with a two-handed weapon.
+            If your attack is successful and your opponent is under half their
+            maximum <strong>Health</strong>, the strike is @Rule[action.deadly],
+            and the opponent suffers the @Condition[bleeding] condition for
+            <strong>3 Rounds</strong>, taking additional damage each round equal
+            to your <strong>Strength</strong> score.</p>
           tags:
             - melee
             - twohand
@@ -1423,12 +1430,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789073933645
+      modifiedTime: 1789656711486
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789073933645
+      createdTime: 1789656711486
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1447,9 +1454,9 @@ items:
       description: >-
         <p>Currents of magic flow strangely around you, as if unaware of your
         presence.</p><p>You cannot perform any action with the
-        <strong>Spell</strong> tag. Spells which target you suffer +2
-        <strong>Banes</strong> regardless of whether they impose harmful or
-        beneficial effects.</p>
+        <strong>Spell</strong> tag. <strong>Spells</strong> which target you
+        suffer <strong>+2 Banes</strong> regardless of whether they impose
+        harmful or beneficial effects.</p>
       actions: []
       iconicSpells: 0
       spellcraft: ''
@@ -1459,11 +1466,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711487
+      modifiedTime: 1789656711487
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1491,10 +1498,11 @@ items:
             <strong>Fortitude</strong> defense of an adjacent enemy. If your
             <strong>Initiative</strong> is superior to that of your target, you
             gain <strong>+1 Boon</strong> to this attack.</p><p>The attack is
-            <strong>Difficult</strong> and only deals @Rule[action.weakened]
+            @Rule[action.difficult] and only deals @Rule[action.weakened]
             damage, but if successful it inflicts the @Condition[staggered] for
-            one round.</p><p>This action always uses an Unarmed weapon, even if
-            your weapon slots are otherwise occupied.</p>
+            <strong>1 Round</strong>.</p><p>This action always uses an
+            <strong>Unarmed</strong> weapon, even if your weapon slots are
+            otherwise occupied.</p>
           cost:
             action: 2
             focus: 0
@@ -1550,11 +1558,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711487
+      modifiedTime: 1789656711487
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1572,7 +1580,7 @@ items:
     system:
       description: >-
         <p>Your physical resilience makes you too tough to be deeply affected by
-        a powerful blow. The critical success threshold for
+        a powerful blow. The <strong>Critical Success</strong> threshold for
         <strong>Strikes</strong> against you is increased by +1, making you
         harder to critically hit.</p>
       actions: []
@@ -1586,11 +1594,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711487
+      modifiedTime: 1789656711487
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1621,11 +1629,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711487
+      modifiedTime: 1789656711487
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1659,9 +1667,9 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.10.2
-      coreVersion: '14.367'
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      coreVersion: '14.368'
+      createdTime: 1789656711488
+      modifiedTime: 1789656711488
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1769,11 +1777,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711488
+      modifiedTime: 1789656711488
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1852,11 +1860,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711488
+      modifiedTime: 1789656711488
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1937,11 +1945,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711489
+      modifiedTime: 1789656711489
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2018,11 +2026,11 @@ items:
         sort: 0
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933640
-          modifiedTime: 1789073933640
+          createdTime: 1789656711490
+          modifiedTime: 1789656711490
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -2031,11 +2039,11 @@ items:
           !actors.items.effects!L0qEPpUQBZQPCxN3.qHDWmYq1YgsHsOIH.reinforcement000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711490
+      modifiedTime: 1789656711490
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2112,11 +2120,11 @@ items:
         sort: -200000
         flags: {}
         _stats:
-          coreVersion: '14.367'
+          coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789073933640
-          modifiedTime: 1789073933640
+          createdTime: 1789656711491
+          modifiedTime: 1789656711491
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -2125,11 +2133,11 @@ items:
           !actors.items.effects!L0qEPpUQBZQPCxN3.bpj662CgfHnluuFD.evasion000000000
     flags: {}
     _stats:
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789073933640
-      modifiedTime: 1789073933640
+      createdTime: 1789656711491
+      modifiedTime: 1789656711491
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2167,11 +2175,11 @@ flags:
           combatantId: 9OhW0GfLeDPN6scA
           tokenId: ml1efMTNhGS9kbqS
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789073933640
-  modifiedTime: 1789073933640
+  createdTime: 1789656711479
+  modifiedTime: 1789656711479
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
