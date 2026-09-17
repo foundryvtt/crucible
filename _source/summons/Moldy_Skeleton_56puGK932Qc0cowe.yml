@@ -52,13 +52,19 @@ system:
           level: null
         - item: Compendium.crucible.talent.Item.gesturefan000000
           level: null
-      skills:
-        - stealth
-        - performance
+      training:
+        awareness: 1
+        stealth: 1
+        deception: 0
+        diplomacy: 0
+        intimidation: 0
+        performance: 1
+        natural: 3
+        elemental: 3
       equipment: []
+      spells: []
       name: Elemental Sprite
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
-      spells: []
     taxonomy:
       description: <p>Undeathly denizens fashioned of bone and sinew.</p>
       category: undead
@@ -160,9 +166,9 @@ system:
       immune: false
   resources:
     health:
-      value: 21
+      value: 24
     morale:
-      value: 4
+      value: 0
     action:
       value: 4
     focus:
@@ -198,8 +204,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 4
-  height: 4
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -349,70 +355,37 @@ items:
       duplicateSource: null
       exportSource: null
     _key: '!actors.items!56puGK932Qc0cowe.EBS39VwHFZ4jvcMK'
-  - name: 'Rune: Death'
-    type: talent
-    img: icons/magic/unholy/hand-claw-fire-blue.webp
-    system:
-      node: int0
-      description: You learn Rune of Death, allowing you to manipulate unholy power.
-      actions: []
-      rune: death
-      nodes: []
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.355'
-      createdTime: 1772307159589
-      modifiedTime: 1772307159589
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.runedeath0000000
-      duplicateSource: null
-      exportSource: null
-    ownership:
-      default: 0
-      AnoypGxxNIMOS0XY: 3
-    _id: runedeath0000000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 200000
-    _key: '!actors.items!56puGK932Qc0cowe.runedeath0000000'
   - name: 'Gesture: Fan'
     type: talent
-    img: icons/magic/water/projectile-bolts-salvo-blue.webp
+    img: icons/magic/fire/blast-jet-stream-embers-red.webp
     system:
-      node: int1a
       description: >-
-        You learn the Fan gesture, allowing you to cast arcane power in a
-        limited arc.
+        <p>You shape the essence of a <strong>Rune</strong> into a sweeping or
+        splintered arc to strike multiple targets in close proximity.</p><p>The
+        <strong>Fan</strong> gesture scales using <strong>Intellect</strong> and
+        targets a 120 degree arc with a <strong>6 foot</strong> radius. It deals
+        <strong>6 Base Damage</strong> to targets which fail to resist the
+        spell. This gesture requires <strong>1 Hand</strong> to cast and has a
+        base cost of <strong>3 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
-      gesture: fan
+      spellcraft: fan
       nodes:
         - int1a
-      rune: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      training: glyphweaving
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.355'
-      createdTime: 1772307159590
-      modifiedTime: 1772307159590
+      systemVersion: 0.10.2
+      coreVersion: '14.368'
+      createdTime: 1789671823551
+      modifiedTime: 1789671823551
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.gesturefan000000
+      compendiumSource: Compendium.crucible.talent.Item.gesturefan000000
       duplicateSource: null
       exportSource: null
     ownership:
@@ -432,30 +405,109 @@ items:
         <p>While it remains motionless, the @ref[actor.name]{creature} is
         indistinguishable from some other object or material.</p>
       actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
       compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159590
-      modifiedTime: 1772307159590
+      createdTime: 1789671823551
+      modifiedTime: 1789671823551
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!56puGK932Qc0cowe.falseAppearance0'
+  - name: 'Rune: Death'
+    type: talent
+    img: icons/magic/unholy/hand-claw-fire-blue.webp
+    system:
+      description: >-
+        <p>The orderly force of destruction, responsible for the corruption of
+        all biological matter. The <strong>Death</strong> rune governs decay and
+        destruction.</p><p>The <strong>Death</strong> rune scales using
+        <strong>Presence</strong>, targets <strong>Fortitude</strong>, and deals
+        <strong>Corruption</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of <strong>Life</strong>.</p>
+      actions:
+        - id: ennervate
+          name: Ennervate
+          img: icons/magic/unholy/hand-claw-fire-blue.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Death allows for basic communion with
+            the dead and for rudimentary manipulation of unholy forces,
+            producing one of the following effects:</p><ul><li><p>Spread decay
+            over an object no larger than a 1-foot cube, causing plants to
+            wither, metallic objects to rust, wood to become rotten, food to
+            grow foul, or a corpse to rapidly decompose. Magical objects are
+            typically unaffected.</p></li><li><p>Cause a corpse which has been
+            dead for less than seven days or otherwise preserved to perform a
+            lifeless reenactment of its final moments. Its movements imitate
+            those that occurred during the creature's final 30 seconds of life.
+            You have no control over the creature nor can it communicate in any
+            other way.</p></li><li><p>Hasten the death of a willing creature
+            that is currently dying, causing it to pass swiftly and
+            peacefully.</p></li></ul><p>Ennervate may only affect a creature or
+            object you can physically touch. You may attempt other uses similar
+            those above, the effectiveness of which is decided by the
+            Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          summon: null
+      spellcraft: death
+      nodes:
+        - pre0b
+      iconicSpells: 0
+      training: physical
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.runeDeath0000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789671823546
+      modifiedTime: 1789671823546
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _id: runeDeath0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!56puGK932Qc0cowe.runeDeath0000000'
 effects: []
 folder: 5oBBNdq95OvvXx3e
 ownership:
@@ -465,10 +517,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.368'
   createdTime: 1772307159587
-  modifiedTime: 1773514792493
+  modifiedTime: 1789671823541
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

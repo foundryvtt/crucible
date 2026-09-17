@@ -53,16 +53,22 @@ system:
           level: null
         - item: Compendium.crucible.talent.Item.gesturefan000000
           level: null
-      skills:
-        - stealth
-        - performance
+      training:
+        awareness: 1
+        stealth: 1
+        deception: 0
+        diplomacy: 0
+        intimidation: 0
+        performance: 1
+        natural: 3
+        elemental: 3
       equipment: []
+      spells: []
       name: Elemental Sprite
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
-      spells: []
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Storm.</p>
-      category: elemental
+      category: elementalStorm
       abilities:
         wisdom: 3
         presence: 3
@@ -110,6 +116,8 @@ system:
       characteristics:
         spells: true
         equipment: false
+        blooded: false
+        temperature: ''
       movement:
         size: 4
         stride: 10
@@ -119,6 +127,7 @@ system:
         - item: Compendium.crucible.adversary-talents.Item.electricityAbsor
           level: null
       identifier: stormElemental
+      equipment: []
       name: Storm Elemental
       img: icons/magic/lightning/bolt-strike-clouds-blue.webp
     biography:
@@ -203,8 +212,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 4
-  height: 4
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -358,35 +367,34 @@ items:
     type: talent
     img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
     system:
-      node: int1b
       description: >-
-        <p>You learn the Arrow gesture, allowing you to hurl a directed bolt of
-        arcane power towards a distant target.</p>
-
-        <p>The Arrow gesture deals damage corresponding to the Rune used to a
-        single enemy target at range.</p>
+        <p>You hurl a projectile imbued with the magical power of a
+        <strong>Rune</strong> at a distant target.</p><p>The
+        <strong>Arrow</strong> gesture scales using <strong>Intellect</strong>
+        and targets a single creature up to a distance of <strong>60
+        feet</strong>, dealing <strong>8 Base Damage</strong> to targets which
+        fail to resist the spell. This gesture requires <strong>1 Hand</strong>
+        to cast and has a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
-      requirements: {}
-      gesture: arrow
+      spellcraft: arrow
       nodes:
-        - int1b
-      rune: ''
-      inflection: ''
+        - int1a
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      training: glyphweaving
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.355'
-      createdTime: 1772307159602
-      modifiedTime: 1772307159602
+      systemVersion: 0.10.2
+      coreVersion: '14.368'
+      createdTime: 1789671827168
+      modifiedTime: 1789671827168
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.gesturearrow0000
+      compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
       duplicateSource: null
       exportSource: null
     ownership:
@@ -400,31 +408,76 @@ items:
     type: talent
     img: icons/magic/lightning/bolt-strike-blue.webp
     system:
-      node: int0
       description: >-
-        You learn Rune of Storm, allowing you to control volatile arcane surges
-        of electricity.
-      actions: []
-      requirements: {}
-      rune: storm
-      nodes: []
-      gesture: ''
-      inflection: ''
+        <p>The chaotic force of raw electrical energy. The
+        <strong>Storm</strong> rune governs sources of electrical charge and
+        discharge.</p><p>The <strong>Storm</strong> rune scales using
+        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
+        <strong>Electricity</strong> damage to <strong>Health</strong>. It is
+        opposed by the orderly rune of <strong>Earth</strong>.</p>
+      actions:
+        - id: energize
+          name: Energize
+          img: icons/magic/lightning/bolt-strike-blue.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Storm allows you to conduct the flow
+            of both air and electricity, manipulating charge and aerodynamics to
+            produce one of the following effects:</p><ul><li><p>Instill an
+            electromagnetic charge into a metallic object that you touch no
+            larger than a one-foot cube, causing it to strongly adhere to other
+            metals. Only one object can be charged in this way at a given time,
+            casting this spell on a different object causes the prior object to
+            lose its magnetic effect.</p></li><li><p>Gather a squall of wind at
+            your current location in a six-foot radius which blows either as a
+            gust in a single controlled direction or as a cyclone with
+            centripetal force in all directions. Airborne effects in the
+            immediate area are dispersed and unsecured objects with weight less
+            than 1 are flung in the direction of the
+            gust.</p></li><li><p>Produce the concussive sound of a thunderclap
+            at a location you can see within 15 feet of your current
+            position.</p></li></ul><p>Energize may only affect a creature or
+            object you can physically touch. You may attempt other uses similar
+            those above, the effectiveness of which is decided by the
+            Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          summon: null
+      spellcraft: storm
+      training: elemental
+      nodes:
+        - int0a
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.355'
-      createdTime: 1772307159602
-      modifiedTime: 1772307159602
+      systemVersion: 0.10.2
+      coreVersion: '14.368'
+      createdTime: 1789671827169
+      modifiedTime: 1789671827169
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.runeStorm0000000
+      compendiumSource: Compendium.crucible.talent.Item.runeStorm0000000
       duplicateSource: null
       exportSource: null
     ownership:
@@ -447,25 +500,23 @@ items:
         zero, the negative amount is received as <strong>Healing</strong>
         instead.</p>
       actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
       compendiumSource: Compendium.crucible.adversary-talents.Item.electricityAbsor
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159603
-      modifiedTime: 1772307159603
+      createdTime: 1789671827169
+      modifiedTime: 1789671827169
     folder: null
     sort: 0
     ownership:
@@ -481,25 +532,23 @@ items:
         <p>While it remains motionless, the @ref[actor.name]{creature} is
         indistinguishable from some other object or material.</p>
       actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
       compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159603
-      modifiedTime: 1772307159603
+      createdTime: 1789671827169
+      modifiedTime: 1789671827169
     folder: null
     sort: 0
     ownership:
@@ -510,22 +559,21 @@ items:
     img: icons/magic/fire/blast-jet-stream-embers-red.webp
     system:
       description: >-
-        <p>Focus the essence of a rune into a sweeping or splintered arc to
-        strike multiple targets in close proximity. If used with Earth, this
-        might hurl a spray of stone in an arc, while using it with Kinesis might
-        carve a slice across multiple foes.</p><p>The Fan gesture scales using
-        <strong>Intellect</strong> and targets a 120 degree, 6 foot cone,
-        dealing 6 base damage on a successful attack.</p>
+        <p>You shape the essence of a <strong>Rune</strong> into a sweeping or
+        splintered arc to strike multiple targets in close proximity.</p><p>The
+        <strong>Fan</strong> gesture scales using <strong>Intellect</strong> and
+        targets a 120 degree arc with a <strong>6 foot</strong> radius. It deals
+        <strong>6 Base Damage</strong> to targets which fail to resist the
+        spell. This gesture requires <strong>1 Hand</strong> to cast and has a
+        base cost of <strong>3 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
-      gesture: fan
+      spellcraft: fan
       nodes:
         - int1a
-      rune: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      training: glyphweaving
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
@@ -533,12 +581,12 @@ items:
       compendiumSource: Compendium.crucible.talent.Item.gesturefan000000
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159603
-      modifiedTime: 1772307159603
+      createdTime: 1789671827169
+      modifiedTime: 1789671827169
     _id: gesturefan000000
     folder: null
     sort: 0
@@ -550,10 +598,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.368'
   createdTime: 1772307159601
-  modifiedTime: 1773514792495
+  modifiedTime: 1789671827119
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

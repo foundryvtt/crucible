@@ -53,16 +53,22 @@ system:
           level: null
         - item: Compendium.crucible.talent.Item.gesturefan000000
           level: null
-      skills:
-        - stealth
-        - performance
+      training:
+        awareness: 1
+        stealth: 1
+        deception: 0
+        diplomacy: 0
+        intimidation: 0
+        performance: 1
+        natural: 3
+        elemental: 3
       equipment: []
+      spells: []
       name: Elemental Sprite
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
-      spells: []
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Frost.</p>
-      category: elemental
+      category: elementalFrost
       abilities:
         wisdom: 3
         presence: 1
@@ -93,8 +99,8 @@ system:
           value: -2
           immune: false
         cold:
-          value: 3
           immune: true
+          value: 0
         electricity:
           value: 0
           immune: false
@@ -110,6 +116,8 @@ system:
       characteristics:
         spells: true
         equipment: false
+        blooded: false
+        temperature: ''
       movement:
         size: 4
         stride: 10
@@ -118,11 +126,12 @@ system:
           level: null
         - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
           level: null
-        - item: Compendium.crucible.talent.Item.runefrost0000000
+        - item: Compendium.crucible.talent.Item.runeFrost0000000
           level: null
         - item: Compendium.crucible.adversary-talents.Item.aqueousTransmiss
           level: null
       identifier: frostElemental
+      equipment: []
       name: Frost Elemental
       img: icons/magic/water/elemental-water.webp
     biography:
@@ -207,8 +216,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 4
-  height: 4
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -358,77 +367,39 @@ items:
       duplicateSource: null
       exportSource: null
     _key: '!actors.items!me5glbOshiijlVUH.7RSTMS2y9bqVGtgb'
-  - name: 'Rune: Frost'
-    type: talent
-    img: icons/magic/water/snowflake-ice-snow-white.webp
-    system:
-      node: int0
-      description: >-
-        You learn Rune of Frost, allowing you to channel the arcane element of
-        ice.
-      actions: []
-      requirements: {}
-      rune: frost
-      nodes: []
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.355'
-      createdTime: 1772307159612
-      modifiedTime: 1772307159612
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.runefrost0000000
-      duplicateSource: null
-      exportSource: null
-    ownership:
-      default: 0
-      AnoypGxxNIMOS0XY: 3
-    _id: runefrost0000000
-    folder: null
-    sort: 10400000
-    _key: '!actors.items!me5glbOshiijlVUH.runefrost0000000'
   - name: 'Gesture: Influence'
     type: talent
     img: icons/magic/light/orbs-firefly-hand-yellow.webp
     system:
-      node: wis1a
       description: >-
-        <p>You learn the Influence gesture, allowing you to heighten or diminish
-        an arcane phenomenon at close range.</p>
-
-        <p>The Influence gesture is a stronger evolution of the Touch gesture,
-        dealing more damage or healing but requiring 2 Action to perform.</p>
+        <p>You intensify the arcane power of a <strong>Rune</strong> into a
+        concentrated direct contact which is generally a more powerful evolution
+        of the basic <strong>Touch</strong> gesture.</p><p>The
+        <strong>Influence</strong> gesture scales using
+        <strong>Presence</strong> and targets a single adjacent creature. It
+        deals <strong>10 Base Damage</strong> to targets which fail to resist
+        the spell. This gesture requires <strong>1 Hand</strong> to cast and has
+        a base cost of <strong>3 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
-      requirements: {}
-      gesture: influence
+      spellcraft: influence
       nodes:
-        - wis1a
-      rune: ''
-      inflection: ''
+        - pre1b
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      training: glyphweaving
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.355'
-      createdTime: 1772307159612
-      modifiedTime: 1772307159612
+      systemVersion: 0.10.2
+      coreVersion: '14.368'
+      createdTime: 1789671819988
+      modifiedTime: 1789671819988
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.gestureinfluence
+      compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
       duplicateSource: null
       exportSource: null
     ownership:
@@ -450,25 +421,23 @@ items:
         zero, the negative amount is received as <strong>Healing</strong>
         instead.</p>
       actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
       compendiumSource: Compendium.crucible.adversary-talents.Item.coldAbsorption00
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159612
-      modifiedTime: 1772307159612
+      createdTime: 1789671819989
+      modifiedTime: 1789671819989
     _id: coldAbsorption00
     folder: null
     sort: 0
@@ -484,27 +453,27 @@ items:
       description: >-
         <p>The @ref[actor.name]{creature} may move through a space as narrow as
         1 inch in diameter without any penalty to its <strong>Stride</strong>.
-        It is immune to the @Condition[restrained] condition.</p>
+        It gains a bonus to <strong>Dodge</strong> equal to half its
+        <strong>Toughness </strong>score and is immune to the
+        @Condition[restrained] condition.</p>
       actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
       compendiumSource: Compendium.crucible.adversary-talents.Item.amorphous0000000
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159613
-      modifiedTime: 1772307159613
+      createdTime: 1789671819989
+      modifiedTime: 1789671819989
     folder: null
     sort: 0
     ownership:
@@ -515,17 +484,19 @@ items:
     img: icons/magic/water/wave-water-teal.webp
     system:
       nodes: []
-      description: <p>The @ref[name] is able to move instantaneously through water.</p>
+      description: >-
+        <p>The @ref[actor.name]{creature} is able to move instantaneously
+        through water.</p>
       actions:
         - id: aqueousTransmission
           name: Aqueous Transmission
           img: icons/magic/water/wave-water-teal.webp
           condition: ''
           description: >-
-            <p>When the @ref[name] is within water, it can instantaneously
-            transport itself to any unoccupied space within the same body of
-            water up to 120 feet away. It does not need to be able to see the
-            destination to make this <strong>Move</strong>.</p>
+            <p>When the @ref[actor.name]{creature} is within water, it can
+            instantaneously transport itself to any unoccupied space within the
+            same body of water up to 120 feet away. It does not need to be able
+            to see the destination to make this <strong>Move</strong>.</p>
           cost:
             action: 0
             focus: 1
@@ -537,35 +508,32 @@ items:
             maximum: 120
             weapon: false
           target:
-            type: self
+            type: movement
             number: 1
             scope: 1
             self: false
           effects: []
           tags:
             - movement
-          summon:
-            actorUuid: null
-            permanent: true
-      rune: ''
-      gesture: ''
-      inflection: ''
+            - blink
+          summon: null
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
       compendiumSource: Compendium.crucible.adversary-talents.Item.aqueousTransmiss
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159613
-      modifiedTime: 1772307159613
+      createdTime: 1789671819989
+      modifiedTime: 1789671819989
     _id: aqueousTransmiss
     folder: null
     sort: 0
@@ -582,25 +550,23 @@ items:
         <p>While it remains motionless, the @ref[actor.name]{creature} is
         indistinguishable from some other object or material.</p>
       actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
       compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159614
-      modifiedTime: 1772307159614
+      createdTime: 1789671819989
+      modifiedTime: 1789671819989
     folder: null
     sort: 0
     ownership:
@@ -611,22 +577,21 @@ items:
     img: icons/magic/fire/blast-jet-stream-embers-red.webp
     system:
       description: >-
-        <p>Focus the essence of a rune into a sweeping or splintered arc to
-        strike multiple targets in close proximity. If used with Earth, this
-        might hurl a spray of stone in an arc, while using it with Kinesis might
-        carve a slice across multiple foes.</p><p>The Fan gesture scales using
-        <strong>Intellect</strong> and targets a 120 degree, 6 foot cone,
-        dealing 6 base damage on a successful attack.</p>
+        <p>You shape the essence of a <strong>Rune</strong> into a sweeping or
+        splintered arc to strike multiple targets in close proximity.</p><p>The
+        <strong>Fan</strong> gesture scales using <strong>Intellect</strong> and
+        targets a 120 degree arc with a <strong>6 foot</strong> radius. It deals
+        <strong>6 Base Damage</strong> to targets which fail to resist the
+        spell. This gesture requires <strong>1 Hand</strong> to cast and has a
+        base cost of <strong>3 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
-      gesture: fan
+      spellcraft: fan
       nodes:
         - int1a
-      rune: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      training: glyphweaving
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
@@ -634,26 +599,105 @@ items:
       compendiumSource: Compendium.crucible.talent.Item.gesturefan000000
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159614
-      modifiedTime: 1772307159614
+      createdTime: 1789671819990
+      modifiedTime: 1789671819990
     _id: gesturefan000000
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!me5glbOshiijlVUH.gesturefan000000'
+  - name: 'Rune: Frost'
+    type: talent
+    img: icons/magic/water/snowflake-ice-snow-white.webp
+    system:
+      description: >-
+        <p>The orderly force of water and cold. The <strong>Frost</strong> rune
+        governs the creation of water or other fluids and their transfer between
+        liquid and frozen states.</p><p>The <strong>Frost</strong> rune scales
+        using <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and
+        deals <strong>Cold</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of <strong>Flame</strong>.</p>
+      actions:
+        - id: condense
+          name: Condense
+          img: icons/magic/water/snowflake-ice-snow-white.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Frost allows you to manipulate
+            liquids and their thermal properties, producing one of the following
+            effects:</p><ul><li><p>Draw up to one quarter gallon of fresh water
+            from the atmosphere into a container or upon a surface you touch.
+            The created water may be affected by relevant atmospheric properties
+            of your current location.</p></li><li><p>Manipulate the temperature
+            of up to 1 gallon of water, causing it to immediately freeze or
+            thaw. The water need not be in a container; this technique can be
+            used to coat a surface or join two objects together via regelation.
+            Ice created in this way remains frozen for as long as the ambient
+            temperature of the environment allows.</p></li><li><p>Gather up to a
+            six-foot cube of nearby snow, forming it into a solidified
+            sculpture, shape, or shelter.</p></li></ul><p>Condense may only
+            affect a creature or object you can physically touch. You may
+            attempt other uses similar those above, the effectiveness of which
+            is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          summon: null
+      spellcraft: frost
+      nodes:
+        - wis0b
+      iconicSpells: 0
+      training: elemental
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789671819990
+      modifiedTime: 1789671819990
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _id: runeFrost0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!me5glbOshiijlVUH.runeFrost0000000'
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.10.2
+  coreVersion: '14.368'
   createdTime: 1772307159610
-  modifiedTime: 1773514792498
+  modifiedTime: 1789671819927
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

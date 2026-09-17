@@ -278,13 +278,7 @@ items:
         presence on the battlefield causes it to count as <strong>three
         creatures</strong> when determining whether an enemy is Flanked.</p>
       actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
     effects: []
     flags: {}
     ownership:

@@ -73,13 +73,13 @@ system:
       immune: false
   resources:
     health:
-      value: 34
+      value: 32
     morale:
-      value: 17
+      value: 19
     action:
       value: 4
     focus:
-      value: 3
+      value: 4
     heroism:
       value: 0
   movement:
@@ -116,23 +116,29 @@ system:
           level: null
         - item: Compendium.crucible.talent.Item.gestureaspect000
           level: null
-      skills:
-        - athletics
-        - intimidation
-        - performance
+      training:
+        athletics: 1
+        awareness: 1
+        stealth: 0
+        deception: 1
+        diplomacy: 1
+        intimidation: 1
+        performance: 1
+        natural: 3
+        elemental: 3
       equipment: []
+      spells: []
       name: Elemental Visitor
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
-      spells: []
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Earth.</p>
-      category: elemental
+      category: elementalEarth
       abilities:
-        wisdom: 1
+        wisdom: 2
         presence: 1
         intellect: 1
         strength: 3
-        toughness: 5
+        toughness: 4
         dexterity: 1
       resistances:
         bludgeoning:
@@ -174,15 +180,26 @@ system:
       characteristics:
         spells: true
         equipment: false
+        blooded: false
+        temperature: ''
       movement:
         size: 4
         stride: 10
       talents:
-        - item: Compendium.crucible.talent.Item.runeearth0000000
+        - item: Compendium.crucible.talent.Item.runeEarth0000000
           level: null
         - item: Compendium.crucible.adversary-talents.Item.acidAbsorption00
           level: null
       identifier: earthElemental
+      equipment:
+        - item: Compendium.crucible.adversary-equipment.Item.causticLimb00000
+          quantity: 1
+          equipped: true
+          autoScale: true
+        - item: Compendium.crucible.adversary-equipment.Item.stoneSkin0000000
+          quantity: 1
+          equipped: true
+          autoScale: true
       name: Earth Elemental
       img: icons/magic/earth/construct-stone-long-arms.webp
     biography:
@@ -270,47 +287,6 @@ prototypeToken:
   prependAdjective: false
   depth: 4
 items:
-  - name: 'Rune: Earth'
-    type: talent
-    img: icons/magic/earth/projectile-boulder-debris.webp
-    system:
-      description: >-
-        <p>The orderly force of elemental earth, responsible for physical
-        matter. The Earth rune governs health and matters relating to biological
-        growth. It is opposed by the chaotic rune of Storm.</p>
-
-        <p>The Earth rune scales using <strong>Wisdom</strong>, targets
-        <strong>Reflex</strong>, and deals <strong>Acid</strong> damage to
-        <strong>Health</strong>.</p>
-      actions: []
-      rune: earth
-      nodes:
-        - wis0b
-      gesture: ''
-      inflection: ''
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.0
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159600
-      modifiedTime: 1772307159600
-    _id: runeearth0000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!ugQYiiEmj9idwvqW.runeearth0000000'
   - name: Acid Absorption
     type: talent
     _id: acidAbsorption00
@@ -324,25 +300,23 @@ items:
         zero, the negative amount is received as <strong>Healing</strong>
         instead.</p>
       actions: []
-      rune: ''
-      gesture: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
     effects: []
     flags: {}
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.adversary-talents.Item.acidAbsorption00
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159600
-      modifiedTime: 1772307159600
+      createdTime: 1789673655328
+      modifiedTime: 1789673655328
     folder: null
     sort: 0
     ownership:
@@ -350,38 +324,37 @@ items:
     _key: '!actors.items!ugQYiiEmj9idwvqW.acidAbsorption00'
   - name: 'Gesture: Fan'
     type: talent
-    img: icons/magic/water/projectile-bolts-salvo-blue.webp
+    img: icons/magic/fire/blast-jet-stream-embers-red.webp
     system:
       description: >-
-        <p>Focus the essence of a rune into a sweeping or splintered arc to
-        strike multiple targets in close proximity. If used with Earth, this
-        might hurl a spray of stone in an arc, while using it with Kinesis might
-        carve a slice across multiple foes.</p><p>The Fan gesture scales using
-        <strong>Intellect</strong> and targets a 120 degree, 6 foot cone,
-        dealing 6 base damage on a successful attack.</p>
+        <p>You shape the essence of a <strong>Rune</strong> into a sweeping or
+        splintered arc to strike multiple targets in close proximity.</p><p>The
+        <strong>Fan</strong> gesture scales using <strong>Intellect</strong> and
+        targets a 120 degree arc with a <strong>6 foot</strong> radius. It deals
+        <strong>6 Base Damage</strong> to targets which fail to resist the
+        spell. This gesture requires <strong>1 Hand</strong> to cast and has a
+        base cost of <strong>3 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
-      gesture: fan
+      spellcraft: fan
       nodes:
         - int1a
-      rune: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      training: glyphweaving
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.gesturefan000000
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159600
-      modifiedTime: 1772307159600
+      createdTime: 1789673655329
+      modifiedTime: 1789673655329
     _id: gesturefan000000
     folder: null
     sort: 0
@@ -477,29 +450,26 @@ items:
     img: icons/magic/control/silhouette-hold-change-green.webp
     system:
       description: >-
-        <p>Infuse the essence of a Rune into the self, empowering your own
-        physical form or psyche.</p>
-
-
-        <p>When you assume a certain Aspect, you become more closely attuned to
-        the damage type of the Rune used in your spell. You gain <strong>+2
-        Resistance</strong> to that damage type, and deal an additional
-        <strong>+2 Damage</strong> whenever dealing damage of that type.</p>
-
-
-        <p>Your Aspect lasts for <strong>6 Rounds</strong>. You may only have
-        one active Aspect, casting another spell using the Aspect gesture
-        replaces the previous effect.</p>
+        <p>You infuse the essence of a <strong>Rune</strong> into your body,
+        empowering your own physical form or psyche.</p><p>When you assume a
+        certain <strong>Aspect</strong>, you become more closely attuned to the
+        damage type of the <strong>Rune</strong> used in your spell. You gain
+        <strong>+2 Resistance</strong> to that damage type, and deal an
+        additional <strong>+2 Damage</strong> whenever dealing damage of that
+        type.</p><p>Your <strong>Aspect</strong> lasts for <strong>6
+        Rounds</strong>. You may only have one active <strong>Aspect</strong>;
+        casting another spell using the <strong>Aspect</strong> gesture replaces
+        the previous effect. This gesture requires <strong>1 Hand</strong> to
+        cast and has a base cost of <strong>2 Action</strong> and <strong>1
+        Focus</strong>.</p>
       actions: []
-      gesture: aspect
+      spellcraft: aspect
       nodes:
         - pre1b
-      rune: ''
-      inflection: ''
       iconicSpells: 0
-      training:
-        type: ''
-        rank: null
+      training: glyphweaving
+      requirements:
+        training: {}
     effects: []
     flags:
       core: {}
@@ -507,18 +477,182 @@ items:
       compendiumSource: Compendium.crucible.talent.Item.gestureaspect000
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.355'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
+      systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159601
-      modifiedTime: 1772307159601
+      createdTime: 1789673655329
+      modifiedTime: 1789673655329
     _id: gestureaspect000
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!ugQYiiEmj9idwvqW.gestureaspect000'
+  - name: 'Rune: Earth'
+    type: talent
+    img: icons/magic/earth/projectile-boulder-debris.webp
+    system:
+      description: >-
+        <p>The orderly force of elemental earth, responsible for physical
+        matter. The <strong>Earth</strong> rune governs minerals, metals, soils,
+        and other physical compounds.</p><p>The <strong>Earth</strong> rune
+        scales using <strong>Wisdom</strong>, targets <strong>Reflex</strong>,
+        and deals <strong>Acid</strong> damage to <strong>Health</strong>. It is
+        opposed by the chaotic rune of <strong>Storm</strong>.</p>
+      actions:
+        - id: mould
+          name: Mould
+          img: icons/magic/earth/projectile-boulder-debris.webp
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Earth allows you to manipulate raw
+            forces of rock, mineral, and soil in basic ways, producing one of
+            the following effects:</p><ul><li><p>Quickly shape up to one cubic
+            foot of available material into a simple geometric form like a
+            cuboid, ellipsoid, or polyhedron.</p></li><li><p>Precisely copy the
+            physical shape of a held object that is smaller than a 6-inch cube,
+            reproducing it from available clay, stone, or metal. The replica
+            retains no useful properties except for its physical
+            form.</p></li><li><p>Separate and collect earthen particles from the
+            surface of an object, creature, or liquid that you touch, rendering
+            the subject completely cleaned or purified in
+            moments.</p></li></ul><p>Mould may only affect a creature or object
+            you can physically touch. You may attempt other uses similar those
+            above, the effectiveness of which is decided by the Gamemaster.</p>
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          summon: null
+      spellcraft: earth
+      nodes:
+        - wis0b
+      iconicSpells: 0
+      training: elemental
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.runeEarth0000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789673655329
+      modifiedTime: 1789673655329
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _id: runeEarth0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!ugQYiiEmj9idwvqW.runeEarth0000000'
+  - name: Caustic Limb
+    type: weapon
+    img: icons/magic/acid/dissolve-arm-flesh.webp
+    effects: []
+    flags:
+      crucible:
+        autoScale: true
+    system:
+      category: heavy1
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: fine
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      description:
+        public: >-
+          <p>The @ref[actor.name]{creature} strikes with a dripping limb of
+          corrosive ichor.</p>
+        private: ''
+      damageType: acid
+      broken: false
+      identifier: causticLimb
+      invested: false
+      actions: []
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-equipment.Item.causticLimb00000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789671753913
+      modifiedTime: 1789671753913
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _id: causticLimb00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!ugQYiiEmj9idwvqW.causticLimb00000'
+  - name: Stone Skin
+    type: armor
+    img: icons/commodities/stone/boulder-grey.webp
+    effects: []
+    flags:
+      crucible:
+        autoScale: true
+    system:
+      category: natural
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      description:
+        public: <p>The @ref[actor.name]{creature} has craggy, rock-like skin.</p>
+        private: ''
+      armor:
+        base: 12
+      broken: false
+      identifier: stoneSkin
+      invested: false
+      actions: []
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-equipment.Item.stoneSkin0000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.10.2
+      createdTime: 1789671753913
+      modifiedTime: 1789671753913
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _id: stoneSkin0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!ugQYiiEmj9idwvqW.stoneSkin0000000'
 effects: []
 folder: Qj43QwSX0hMgGKkC
 ownership:
@@ -529,11 +663,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.10.2
   createdTime: 1772307159599
-  modifiedTime: 1773514792499
+  modifiedTime: 1789671753913
   lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: ugQYiiEmj9idwvqW
 sort: 300000
