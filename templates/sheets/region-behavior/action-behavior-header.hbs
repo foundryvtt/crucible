@@ -1,0 +1,10 @@
+<header class="sheet-header flexrow">
+    <img class="profile" src="{{source.system.action.img}}" alt="{{source.system.action.name}}"
+        data-action="editImage" data-edit="system.action.img">
+    <div class="name flexcol">
+        <h1 class="title">
+            {{formInput systemFields.action.fields.name value=source.system.action.name}}
+        </h1>
+        {{crucibleTags headerTags additionalClasses="header-tags"}}
+    </div>
+</header>

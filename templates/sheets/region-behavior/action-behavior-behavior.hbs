@@ -1,0 +1,11 @@
+<section class="tab sheet-body flexcol scrollable {{tabs.behavior.cssClass}}"
+         data-group="{{tabs.behavior.group}}" data-tab="{{tabs.behavior.id}}">
+    <fieldset>
+        <legend>{{localize "REGION_BEHAVIORS.ACTION.RegionConfiguration"}}</legend>
+        {{formGroup systemFields.origin value=source.system.origin disabled=true}}
+        {{formGroup systemFields.actor value=source.system.actor}}
+        {{formGroup systemFields.frequency value=source.system.frequency localize=true}}
+        {{formField fields.disabled.field value=fields.disabled.value localize=true}}
+        {{formField fields.events.field value=fields.events.value localize=true}}         
+    </fieldset>
+</section>

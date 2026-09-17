@@ -255,6 +255,14 @@ Hooks.once("init", async function() {
 
   sheets.registerSheet(JournalEntry, "crucible", applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
 
+  sheets.unregisterSheet(RegionBehavior, "core", foundry.applications.sheets.RegionBehaviorConfig, {
+    types: ["crucible.action"]
+  });
+  sheets.registerSheet(RegionBehavior, "crucible", applications.CrucibleActionBehaviorRegionConfig, {
+    types: ["crucible.action"],
+    label: "CRUCIBLE.SHEETS.ActionBehavior"
+  });
+
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
 
@@ -510,6 +518,11 @@ Hooks.once("i18nInit", function() {
   // Localize DataModels
   foundry.helpers.Localization.localizeDataModel(models.CrucibleAction);
   foundry.helpers.Localization.localizeSchema(models.CrucibleAction.schema.fields.effects.element, ["EFFECT"], {prefixPath: "effects.element."});
+
+  // TODO: Could this be cleaner?
+  const actionBehaviorEffectSchema = models.CrucibleActionRegionBehavior.schema.fields.action.fields.effects.element;
+  foundry.helpers.Localization.localizeSchema(actionBehaviorEffectSchema, ["EFFECT"], {prefixPath: "system.action.effects.element."});
+  foundry.helpers.Localization.localizeSchema(actionBehaviorEffectSchema, ["ACTION"], {prefixPath: "system.action."});
   foundry.helpers.Localization.localizeDataModel(models.CrucibleSpellAction);
   foundry.helpers.Localization.localizeDataModel(models.CrucibleCounterspellAction);
 

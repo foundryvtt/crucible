@@ -1518,6 +1518,7 @@
   "CRUCIBLE": {
     "SHEETS": {
       "Accessory": "Crucible Accessory Sheet",
+      "ActionBehavior": "Crucible Action Behavior Sheet",
       "Adversary": "Crucible Adversary Sheet",
       "Affix": "Crucible Affix Sheet",
       "Ancestry": "Crucible Ancestry Sheet",
@@ -1989,7 +1990,14 @@
         "every": "Every Time",
         "once": "Once",
         "roundActor": "Once per Round per Actor"
-      }
+      },
+      "TABS": {
+        "action": "Action",
+        "effects": "Effects",
+        "behavior": "Behavior"
+      },
+      "ConfigTitle": "Region Action: {action}",
+      "RegionConfiguration": "Region Configuration"
     },
     "HAZARD": {
       "FIELDS": {
