@@ -125,9 +125,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @override */
   async _onStartTurn(combatant, context) {
     await super._onStartTurn(combatant, context);
-
-    // TODO forward turn events to the system subtype
-    return combatant.actor.onStartTurn(context);
+    await this.system._onStartTurn?.(combatant, context);
   }
 
   /* -------------------------------------------- */
@@ -135,27 +133,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @override */
   async _onStartRound(context) {
     await super._onStartRound(context);
-    if ( this.turns.length < 2 ) return;
-
-    // Identify the first combatant to act in the round
-    const firstCombatant = this.turns[0];
-    const firstActor = firstCombatant?.actor;
-
-    // Identify the last non-incapacitated combatant to act in the round
-    let lastCombatant;
-    for ( let i=this.turns.length-1; i>0; i-- ) {
-      if ( this.turns[i].actor?.isIncapacitated !== true ) {
-        lastCombatant = this.turns[i];
-        break;
-      }
-    }
-    const lastActor = lastCombatant?.actor;
-
-    // Morale Escalation
-    if ( this.round > 6 ) {
-      await firstActor?.alterResources({morale: this.round}, {}, {statusText: [{text: _loc("COMBAT.Escalation")}]});
-      await lastActor?.alterResources({morale: -this.round}, {}, {statusText: [{text: _loc("COMBAT.Escalation")}]});
-    }
+    await this.system._onStartRound?.(context);
   }
 
   /* -------------------------------------------- */
@@ -163,7 +141,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @inheritDoc */
   async _onEndTurn(combatant, context) {
     await super._onEndTurn(combatant, context);
-    await combatant.actor.onEndTurn(context);
+    await this.system._onEndTurn?.(combatant, context);
   }
 
   /* -------------------------------------------- */

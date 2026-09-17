@@ -129,7 +129,7 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     if ( this.frequency !== "every" ) {
       await this.parent.update({"system.affectedActors": {[actor.uuid]: {
         combatId: game.combat?.id ?? null,
-        combatantId: token.combatant,
+        combatantId: token.combatant?.id ?? null,
         tokenId: token.id,
         round: game.combat?.round ?? -1,
         turn: game.combat?.turn ?? -1

@@ -11,7 +11,9 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
       heroism: new fields.SchemaField({
         actions: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
         awarded: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0})
-      })
+      }),
+      startedTurns: new fields.SetField(new fields.DocumentIdField({nullable: false})),
+      endedTurns: new fields.SetField(new fields.DocumentIdField({nullable: false}))
     };
   }
 
@@ -32,12 +34,90 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
   /* -------------------------------------------- */
 
   /**
+   * Apply Morale Escalation to the first and last Combatants to act once a Round exceeds the escalation threshold.
+   * @param {CombatRoundEventContext} context  Context for the round change
+   * @returns {Promise<void>}
+   * @internal
+   */
+  async _onStartRound(context) {
+    const combat = this.parent;
+    if ( (combat.turns.length < 2) || (combat.round <= 6) ) return;
+    const firstActor = combat.turns[0]?.actor;
+
+    // The last Combatant to act is the last who is not incapacitated
+    let lastActor;
+    for ( let i=combat.turns.length-1; i>0; i-- ) {
+      if ( combat.turns[i].actor?.isIncapacitated !== true ) {
+        lastActor = combat.turns[i].actor;
+        break;
+      }
+    }
+    const statusText = [{text: _loc("COMBAT.Escalation")}];
+    await firstActor?.alterResources({morale: combat.round}, {}, {statusText});
+    await lastActor?.alterResources({morale: -combat.round}, {}, {statusText});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * A Combatant receives one turn start per round, so a rewound turn or a Delayed turn does not repeat it.
+   * @param {Combatant} combatant             The Combatant whose turn is beginning
+   * @param {CombatTurnEventContext} context  Context for the turn change
+   * @returns {Promise<void>}
+   * @internal
+   */
+  async _onStartTurn(combatant, context) {
+    if ( this.startedTurns.has(combatant.id) ) return;
+    await this.#recordTurnEvent("startedTurns", combatant, context);
+    await combatant.actor.onStartTurn(context);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * A Combatant receives one turn end per round, so a rewound turn does not repeat it.
+   * @param {Combatant} combatant             The Combatant whose turn is ending
+   * @param {CombatTurnEventContext} context  Context for the turn change
+   * @returns {Promise<void>}
+   * @internal
+   */
+  async _onEndTurn(combatant, context) {
+    if ( this.endedTurns.has(combatant.id) ) return;
+    const actor = combatant.actor;
+    if ( !actor ) return;
+    // A Combatant which has Delayed does not truly end its turn until the initiative it delayed to
+    const {round, from, to} = actor.flags.crucible?.delay || {};
+    if ( from && (round === this.parent.round) && (this.parent.combatant?.initiative > to) ) return;
+    await this.#recordTurnEvent("endedTurns", combatant, context);
+    await actor.onEndTurn(context);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record that a Combatant has received a turn event during the Round currently in progress.
+   * @param {"startedTurns"|"endedTurns"} field  The tracking set which is updated
+   * @param {Combatant} combatant                The Combatant which received the event
+   * @param {CombatTurnEventContext} context     Context for the turn change
+   * @returns {Promise<void>}
+   */
+  async #recordTurnEvent(field, combatant, context) {
+    if ( context.round !== this.parent.round ) return; // We moved to the next round and no update is necessary
+    await this.parent.update({[`system.${field}`]: [...this[field], combatant.id]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Generate a new set of Initiative rolls for all Combatants at the beginning of a new Round.
    * @param {Partial<CombatData>} data    Combat encounter data being modified
    * @returns {Promise<void>}
    */
   async preUpdateRoundInitiative(data) {
     data.turn = 0; // Force starting at the top of the round, ignoring defeated combatant adjustments
+    data.system ||= {};
+    data.system.startedTurns = [];
+    data.system.endedTurns = [];
     data.combatants = [];
     const results = [];
     const actorUpdates = [];

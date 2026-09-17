@@ -1328,10 +1328,6 @@ export default class CrucibleActor extends Actor {
    */
   async onStartTurn(context) {
 
-    // Skip cases where the actor delayed, and it is now their turn again
-    const {round, from, to} = this.flags.crucible?.delay || {};
-    if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative === to) ) return;
-
     // Plan actor changes
     const statusText = [];
     const resourceChanges = {action: [{label: null, amount: Infinity}]};
@@ -1463,10 +1459,6 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async onEndTurn(context) {
-
-    // Skip cases where the turn is over because the actor delayed
-    const {round, from, to} = this.flags.crucible?.delay || {};
-    if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative > to) ) return;
 
     // Plan actor changes
     const actorUpdates = {};
