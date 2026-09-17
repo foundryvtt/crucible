@@ -200,7 +200,7 @@ system:
       private: ''
     languages: []
 prototypeToken:
-  name: Storm Visitor
+  name: Storm Sprite
   displayName: 20
   actorLink: false
   width: 4

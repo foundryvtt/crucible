@@ -3205,9 +3205,9 @@ actors:
           nodes:
             - pre1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -3239,11 +3239,11 @@ actors:
           actions: []
           spellcraft: compose
           iconicSpells: 1
+          training: enchanting
           nodes:
             - wispre2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -3289,9 +3289,9 @@ actors:
           nodes:
             - wis1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -3328,9 +3328,9 @@ actors:
           nodes:
             - int1a
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -3398,11 +3398,11 @@ actors:
           actions: []
           spellcraft: push
           iconicSpells: 1
+          training: enchanting
           nodes:
             - wispre2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -3507,9 +3507,9 @@ actors:
           nodes:
             - wis1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -7011,9 +7011,9 @@ actors:
           nodes:
             - pre1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -7055,9 +7055,9 @@ actors:
           nodes:
             - pre4d
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         folder: D14x9AJ0TgXKtnzu
         sort: 1000000
@@ -7088,11 +7088,11 @@ actors:
           actions: []
           spellcraft: pull
           iconicSpells: 1
+          training: enchanting
           nodes:
             - wispre2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -9076,9 +9076,9 @@ actors:
           nodes:
             - int1a
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -9828,9 +9828,9 @@ actors:
           nodes:
             - int1a
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -10116,9 +10116,9 @@ actors:
           actions: []
           spellcraft: cone
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags: {}
         _stats:
@@ -10156,9 +10156,9 @@ actors:
           nodes:
             - str2b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -10377,9 +10377,9 @@ actors:
           nodes:
             - pre1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -10698,6 +10698,7 @@ actors:
                     - reaction
                     - movement
                   summon: null
+              properties: []
             _id: gliding000000000
             img: icons/creatures/magical/spirit-undead-winged-ghost.webp
             disabled: false
@@ -10822,6 +10823,7 @@ actors:
                   effects: []
                   tags: []
                   summon: null
+              properties: []
             _id: focusing00000000
             img: icons/magic/control/orb-web-hold.webp
             disabled: false
@@ -13071,6 +13073,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: reinforcement000
             img: icons/magic/defensive/shield-barrier-blue.webp
             disabled: false
@@ -13165,6 +13168,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: tenacity00000000
             img: icons/magic/symbols/mask-metal-silver-white.webp
             disabled: false
@@ -14126,9 +14130,9 @@ actors:
           nodes:
             - pre1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -14498,9 +14502,9 @@ actors:
           nodes:
             - tou2b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -14874,6 +14878,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: evasion000000000
             img: icons/magic/movement/trail-streak-pink.webp
             disabled: false
@@ -16412,9 +16417,9 @@ actors:
           nodes:
             - int1a
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -16807,6 +16812,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: nimbleness000000
             img: icons/magic/movement/abstract-ribbons-red-orange.webp
             disabled: false
@@ -16930,6 +16936,7 @@ actors:
                   effects: []
                   tags: []
                   summon: null
+              properties: []
             _id: focusing00000000
             img: icons/magic/control/orb-web-hold.webp
             disabled: false
@@ -17371,13 +17378,16 @@ actors:
           increases: 1
           bonus: 0
         science:
-          increases: 1
+          increases: 0
           bonus: 0
         medicine:
           increases: 1
           bonus: 0
         physical:
           increases: 5
+          bonus: 0
+        society:
+          increases: 1
           bonus: 0
     prototypeToken:
       name: Fizzit
@@ -17751,9 +17761,9 @@ actors:
           nodes:
             - wis1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -17866,73 +17876,6 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Assess Strength
-        type: talent
-        img: icons/magic/fire/flame-burning-eye.webp
-        system:
-          description: >-
-            <p>You take a moment to observe a creature which you can see and
-            develop intuition about its areas of strength.</p><p>Perform a
-            <strong>Knowledge Test</strong> using the appropriate
-            <strong>Skill</strong> for the creature. On a success, you learn
-            which <strong>Defense</strong> type of <strong>Physical</strong>,
-            <strong>Fortitude</strong>, <strong>Willpower</strong>, or
-            <strong>Reflex</strong> is highest for the creature. On a
-            <strong>Critical Success</strong> you learn the two highest defense
-            types.</p>
-          actions:
-            - id: assessStrength
-              description: >-
-                <p>You observe a creature you can see to assess it's notable
-                areas of strength.</p>
-              tags:
-                - harmless
-                - subtle
-              cost:
-                action: 1
-                focus: 1
-                heroism: 0
-                weapon: false
-                hands: 0
-              target:
-                type: single
-                number: 1
-                scope: 0
-                self: false
-              effects: []
-              name: Assess Strength
-              img: icons/magic/fire/flame-burning-eye.webp
-              condition: ''
-              range:
-                minimum: null
-                maximum: null
-                weapon: false
-              summon: null
-          nodes:
-            - wis2c
-          iconicSpells: 0
-          training: science
-          spellcraft: ''
-          requirements:
-            training: {}
-        effects: []
-        flags: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.assessstrength00
-          coreVersion: '14.368'
-          systemId: crucible
-          systemVersion: 0.10.2
-          modifiedTime: null
-          lastModifiedBy: null
-          createdTime: null
-          duplicateSource: null
-          exportSource: null
-        _id: assessstrength00
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
-          WRGzDgYAt3ZuX6TU: 3
       - name: 'Inflection: Compose'
         type: talent
         img: icons/magic/symbols/arrowhead-green.webp
@@ -17946,11 +17889,11 @@ actors:
           actions: []
           spellcraft: compose
           iconicSpells: 1
+          training: enchanting
           nodes:
             - wispre2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -17984,11 +17927,11 @@ actors:
           actions: []
           spellcraft: push
           iconicSpells: 1
+          training: enchanting
           nodes:
             - wispre2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -18432,9 +18375,9 @@ actors:
           nodes:
             - pre1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -18573,9 +18516,9 @@ actors:
           actions: []
           spellcraft: conjure
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags: {}
         _stats:
@@ -18911,6 +18854,7 @@ actors:
                   effects: []
                   tags: []
                   summon: null
+              properties: []
             _id: focusing00000000
             img: icons/magic/control/orb-web-hold.webp
             disabled: false
@@ -19006,6 +18950,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: reinforcement000
             img: icons/magic/defensive/shield-barrier-blue.webp
             disabled: false
@@ -19331,6 +19276,73 @@ actors:
           duplicateSource: null
           exportSource: null
         _id: 4QkmaSbAnWvCBOaz
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+          WRGzDgYAt3ZuX6TU: 3
+      - name: Assess Resolve
+        type: talent
+        img: icons/magic/fire/flame-burning-eye.webp
+        system:
+          description: >-
+            <p>You take a moment to observe a creature which you can see and
+            develop intuition about whether its body or its spirit is the more
+            resilient.</p><p>Perform a <strong>Knowledge Test</strong> using the
+            appropriate <strong>Skill</strong> for the creature. On a success,
+            you learn whether the creature has greater maximum
+            <strong>Health</strong> or greater maximum <strong>Morale</strong>.
+            On a <strong>Critical Success</strong> the Gamemaster additionally
+            describes how the creature is likely to behave should it become
+            @Condition[broken].</p>
+          actions:
+            - id: assessResolve
+              description: >-
+                <p>You observe a creature you can see to judge whether its body
+                or its spirit is the more resilient.</p>
+              tags:
+                - harmless
+                - subtle
+              cost:
+                action: 1
+                focus: 1
+                heroism: 0
+                weapon: false
+                hands: 0
+              target:
+                type: single
+                number: 1
+                scope: 0
+                self: false
+              effects: []
+              name: Assess Resolve
+              img: icons/magic/fire/flame-burning-eye.webp
+              condition: ''
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              summon: null
+          nodes:
+            - wis1a
+          iconicSpells: 0
+          training: society
+          spellcraft: ''
+          requirements:
+            training: {}
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.assessResolve000
+          coreVersion: '14.368'
+          systemId: crucible
+          systemVersion: 0.10.2
+          modifiedTime: null
+          lastModifiedBy: null
+          createdTime: null
+          duplicateSource: null
+          exportSource: null
+        _id: assessResolve000
         folder: null
         sort: 0
         ownership:
@@ -19996,9 +20008,9 @@ actors:
           nodes:
             - wis1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -20854,11 +20866,11 @@ actors:
           actions: []
           spellcraft: compose
           iconicSpells: 1
+          training: enchanting
           nodes:
             - wispre2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -20901,9 +20913,9 @@ actors:
           actions: []
           spellcraft: surge
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags: {}
         _stats:
@@ -21089,6 +21101,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: nimbleness000000
             img: icons/magic/movement/abstract-ribbons-red-orange.webp
             disabled: false
@@ -21183,6 +21196,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: tenacity00000000
             img: icons/magic/symbols/mask-metal-silver-white.webp
             disabled: false
@@ -23552,6 +23566,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: reinforcement000
             img: icons/magic/defensive/shield-barrier-blue.webp
             disabled: false
@@ -23643,6 +23658,7 @@ actors:
                 - accessory
                 - armor
               actions: []
+              properties: []
             _id: evasion000000000
             img: icons/magic/movement/trail-streak-pink.webp
             disabled: false
@@ -23927,6 +23943,9 @@ actors:
           increases: 4
           bonus: 0
         enchanting:
+          increases: 0
+          bonus: 0
+        medicine:
           increases: 1
           bonus: 0
     prototypeToken:
@@ -24474,9 +24493,9 @@ actors:
           nodes:
             - int1a
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -24609,9 +24628,9 @@ actors:
                 weapon: false
               summon: null
           nodes:
-            - int2a
+            - int1b
           iconicSpells: 0
-          training: science
+          training: medicine
           spellcraft: ''
           requirements:
             training: {}
@@ -24723,11 +24742,11 @@ actors:
           actions: []
           spellcraft: quicken
           iconicSpells: 1
+          training: enchanting
           nodes:
             - preint2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -24952,11 +24971,11 @@ actors:
           actions: []
           spellcraft: compose
           iconicSpells: 1
+          training: enchanting
           nodes:
             - wispre2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -24990,11 +25009,11 @@ actors:
           actions: []
           spellcraft: push
           iconicSpells: 1
+          training: enchanting
           nodes:
             - wispre2
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -25014,14 +25033,16 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Dependable Refocus
+      - name: Certain Focus
         type: talent
         img: icons/magic/symbols/runes-star-orange.webp
         system:
           description: >-
-            <p>Practice has made the work of drawing your reserves back into
-            yourself steady and sure. Your @Action[default refocus] action gains
-            the @Rule[action.accurate] and @Rule[action.keen] tags.</p>
+            <p>Drawing your reserves back into yourself has become as reliable
+            as breathing. Your
+            @UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus}
+            action can no longer fail, though it may still critically
+            succeed.</p>
           actions: []
           nodes:
             - pre2b
@@ -25039,10 +25060,10 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.talent.Item.dependableRefocu
+          compendiumSource: Compendium.crucible.talent.Item.certainFocus0000
           duplicateSource: null
           exportSource: null
-        _id: dependableRefocu
+        _id: certainFocus0000
         folder: null
         sort: 0
         ownership:
@@ -25111,9 +25132,9 @@ actors:
           nodes:
             - pre4d
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags: {}
         _stats:
@@ -25154,9 +25175,9 @@ actors:
           actions: []
           spellcraft: blast
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags: {}
         _stats:
@@ -25281,6 +25302,7 @@ actors:
                         expired: false
                   tags: []
                   summon: null
+              properties: []
             _id: luminous00000000
             img: icons/magic/light/orb-shadow-blue.webp
             disabled: false
@@ -25407,6 +25429,7 @@ actors:
                   effects: []
                   tags: []
                   summon: null
+              properties: []
             _id: focusing00000000
             img: icons/magic/control/orb-web-hold.webp
             disabled: false
@@ -29507,9 +29530,9 @@ actors:
           nodes:
             - wis1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -30171,9 +30194,9 @@ actors:
           nodes:
             - wis1b
           iconicSpells: 0
+          training: glyphweaving
           requirements:
             training: {}
-          training: ''
         effects: []
         flags:
           core: {}
@@ -34759,7 +34782,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.368'
-  modifiedTime: 1789656720093
+  modifiedTime: 1789677180016
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

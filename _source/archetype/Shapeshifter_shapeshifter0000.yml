@@ -18,7 +18,7 @@ system:
       level: 3
     - item: Compendium.crucible.talent.Item.wildStrike000000
       level: 0
-    - item: Compendium.crucible.talent.Item.assessstrength00
+    - item: Compendium.crucible.talent.Item.assessResolve000
       level: 0
     - item: Compendium.crucible.talent.Item.steadfast0000000
       level: 2

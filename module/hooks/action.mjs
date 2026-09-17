@@ -197,7 +197,7 @@ HOOKS.armorCrusher = {
 
 /* -------------------------------------------- */
 
-HOOKS.assessStrength = {
+HOOKS.assessResolve = {
   configure() {
     const target = this.targets.values().next().value?.actor;
     if ( !target ) return;
@@ -208,7 +208,7 @@ HOOKS.assessStrength = {
     this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
     if ( this.actor.hasKnowledge(knowledge) ) {
       const knowledgeLabel = crucible.CONFIG.knowledge[knowledge].label;
-      this.usage.boons.assessStrength = {label: _loc("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
+      this.usage.boons.assessResolve = {label: _loc("ACTOR.KnowledgeSpecific", {knowledge: knowledgeLabel}), number: 2};
     }
   },
   async roll(target) {

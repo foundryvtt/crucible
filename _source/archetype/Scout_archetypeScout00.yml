@@ -16,7 +16,7 @@ system:
   talents:
     - item: Compendium.crucible.talent.Item.preparedness0000
       level: 0
-    - item: Compendium.crucible.talent.Item.assessstrength00
+    - item: Compendium.crucible.talent.Item.assessResolve000
       level: 2
     - item: Compendium.crucible.talent.Item.precisionshot000
       level: 0

@@ -200,6 +200,9 @@ system:
       increases: 4
       bonus: 0
     enchanting:
+      increases: 0
+      bonus: 0
+    medicine:
       increases: 1
       bonus: 0
 prototypeToken:
@@ -314,8 +317,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711495
-      modifiedTime: 1789656711495
+      createdTime: 1789677671592
+      modifiedTime: 1789677671592
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -357,8 +360,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711496
-      modifiedTime: 1789656711496
+      createdTime: 1789677671593
+      modifiedTime: 1789677671593
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -424,8 +427,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711496
-      modifiedTime: 1789656711496
+      createdTime: 1789677671593
+      modifiedTime: 1789677671593
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -510,8 +513,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711496
-      modifiedTime: 1789656711496
+      createdTime: 1789677671593
+      modifiedTime: 1789677671593
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -574,8 +577,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711497
-      modifiedTime: 1789656711497
+      createdTime: 1789677671593
+      modifiedTime: 1789677671593
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -642,8 +645,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711497
-      modifiedTime: 1789656711497
+      createdTime: 1789677671594
+      modifiedTime: 1789677671594
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -720,8 +723,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1789656711497
-      createdTime: 1789656711497
+      modifiedTime: 1789677671594
+      createdTime: 1789677671594
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -750,9 +753,9 @@ items:
       nodes:
         - int1a
       iconicSpells: 0
+      training: glyphweaving
       requirements:
         training: {}
-      training: ''
     effects: []
     flags:
       core: {}
@@ -760,9 +763,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711498
+      modifiedTime: 1789677671594
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711498
+      createdTime: 1789677671594
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -798,9 +801,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711498
+      modifiedTime: 1789677671594
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711498
+      createdTime: 1789677671594
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -831,8 +834,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711499
-      modifiedTime: 1789656711499
+      createdTime: 1789677671594
+      modifiedTime: 1789677671594
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -885,9 +888,9 @@ items:
             weapon: false
           summon: null
       nodes:
-        - int2a
+        - int1b
       iconicSpells: 0
-      training: science
+      training: medicine
       spellcraft: ''
       requirements:
         training: {}
@@ -897,8 +900,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711499
-      modifiedTime: 1789656711499
+      createdTime: 1789677671595
+      modifiedTime: 1789677671595
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -975,8 +978,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711499
-      modifiedTime: 1789656711499
+      createdTime: 1789677671595
+      modifiedTime: 1789677671595
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1001,11 +1004,11 @@ items:
       actions: []
       spellcraft: quicken
       iconicSpells: 1
+      training: enchanting
       nodes:
         - preint2
       requirements:
         training: {}
-      training: ''
     effects: []
     flags:
       core: {}
@@ -1013,8 +1016,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711499
-      modifiedTime: 1789656711499
+      createdTime: 1789677671595
+      modifiedTime: 1789677671595
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1054,9 +1057,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711500
+      modifiedTime: 1789677671595
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711500
+      createdTime: 1789677671595
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1092,8 +1095,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711500
-      modifiedTime: 1789656711500
+      createdTime: 1789677671596
+      modifiedTime: 1789677671596
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1128,8 +1131,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711500
-      modifiedTime: 1789656711500
+      createdTime: 1789677671596
+      modifiedTime: 1789677671596
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1207,8 +1210,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711501
-      modifiedTime: 1789656711501
+      createdTime: 1789677671596
+      modifiedTime: 1789677671596
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1232,11 +1235,11 @@ items:
       actions: []
       spellcraft: compose
       iconicSpells: 1
+      training: enchanting
       nodes:
         - wispre2
       requirements:
         training: {}
-      training: ''
     effects: []
     flags:
       core: {}
@@ -1244,8 +1247,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711501
-      modifiedTime: 1789656711501
+      createdTime: 1789677671596
+      modifiedTime: 1789677671596
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1271,11 +1274,11 @@ items:
       actions: []
       spellcraft: push
       iconicSpells: 1
+      training: enchanting
       nodes:
         - wispre2
       requirements:
         training: {}
-      training: ''
     effects: []
     flags:
       core: {}
@@ -1283,8 +1286,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711501
-      modifiedTime: 1789656711501
+      createdTime: 1789677671596
+      modifiedTime: 1789677671596
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1296,14 +1299,15 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectionpush00'
-  - name: Dependable Refocus
+  - name: Certain Focus
     type: talent
     img: icons/magic/symbols/runes-star-orange.webp
     system:
       description: >-
-        <p>Practice has made the work of drawing your reserves back into
-        yourself steady and sure. Your @Action[default refocus] action gains the
-        @Rule[action.accurate] and @Rule[action.keen] tags.</p>
+        <p>Drawing your reserves back into yourself has become as reliable as
+        breathing. Your
+        @UUID[Compendium.crucible.talent.Item.refocus000000000]{Refocus} action
+        can no longer fail, though it may still critically succeed.</p>
       actions: []
       nodes:
         - pre2b
@@ -1318,19 +1322,19 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711502
-      modifiedTime: 1789656711502
+      createdTime: 1789677671591
+      modifiedTime: 1789677671591
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    _id: dependableRefocu
+    _id: certainFocus0000
     folder: null
     sort: 0
     ownership:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.dependableRefocu'
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.certainFocus0000'
   - name: Kineturge
     type: talent
     img: icons/skills/ranged/bullets-triple-ball-yellow.webp
@@ -1358,8 +1362,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711502
-      modifiedTime: 1789656711502
+      createdTime: 1789677671597
+      modifiedTime: 1789677671597
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1393,9 +1397,9 @@ items:
       nodes:
         - pre4d
       iconicSpells: 0
+      training: glyphweaving
       requirements:
         training: {}
-      training: ''
     effects: []
     folder: null
     sort: 0
@@ -1404,9 +1408,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711502
+      modifiedTime: 1789677671597
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711502
+      createdTime: 1789677671597
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1436,17 +1440,17 @@ items:
       actions: []
       spellcraft: blast
       iconicSpells: 0
+      training: glyphweaving
       requirements:
         training: {}
-      training: ''
     effects: []
     flags: {}
     _stats:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711503
-      modifiedTime: 1789656711503
+      createdTime: 1789677671597
+      modifiedTime: 1789677671597
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1562,6 +1566,7 @@ items:
                     expired: false
               tags: []
               summon: null
+          properties: []
         _id: luminous00000000
         img: icons/magic/light/orb-shadow-blue.webp
         disabled: false
@@ -1582,8 +1587,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789656711504
-          modifiedTime: 1789656711504
+          createdTime: 1789677671598
+          modifiedTime: 1789677671598
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1597,8 +1602,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711503
-      modifiedTime: 1789656711503
+      createdTime: 1789677671598
+      modifiedTime: 1789677671598
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1690,6 +1695,7 @@ items:
               effects: []
               tags: []
               summon: null
+          properties: []
         _id: focusing00000000
         img: icons/magic/control/orb-web-hold.webp
         disabled: false
@@ -1711,8 +1717,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789656711505
-          modifiedTime: 1789656711505
+          createdTime: 1789677671599
+          modifiedTime: 1789677671599
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1724,8 +1730,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711505
-      modifiedTime: 1789656711505
+      createdTime: 1789677671599
+      modifiedTime: 1789677671599
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1845,8 +1851,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711506
-      modifiedTime: 1789656711506
+      createdTime: 1789677671599
+      modifiedTime: 1789677671599
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1957,8 +1963,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711506
-      modifiedTime: 1789656711506
+      createdTime: 1789677671600
+      modifiedTime: 1789677671600
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2040,8 +2046,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711507
-      modifiedTime: 1789656711507
+      createdTime: 1789677671600
+      modifiedTime: 1789677671600
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2071,8 +2077,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789656711494
-  modifiedTime: 1789656711494
+  createdTime: 1789677671591
+  modifiedTime: 1789677671591
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

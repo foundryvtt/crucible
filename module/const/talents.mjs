@@ -97,6 +97,9 @@ export const TALENT_ID_MIGRATIONS = {
   // Lightning to Storm Rune Rename
   runeLightning000: "Compendium.crucible.talent.Item.runeStorm0000000",
 
+  // Assess Strength reworked to read Health against Morale
+  assessstrength00: "Compendium.crucible.talent.Item.assessResolve000",
+
   /*
    * Training-only talents, retired when training became a point total advanced by ordinary talents rather
    * than a rank purchased on the Tree. Nothing replaces them; the points they conferred now come from the

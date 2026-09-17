@@ -200,7 +200,7 @@ system:
       private: ''
     languages: []
 prototypeToken:
-  name: Frost Visitor
+  name: Frost Sprite
   displayName: 20
   actorLink: false
   width: 4

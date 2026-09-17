@@ -197,13 +197,16 @@ system:
       increases: 1
       bonus: 0
     science:
-      increases: 1
+      increases: 0
       bonus: 0
     medicine:
       increases: 1
       bonus: 0
     physical:
       increases: 5
+      bonus: 0
+    society:
+      increases: 1
       bonus: 0
 prototypeToken:
   name: Fizzit
@@ -342,8 +345,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711464
-      modifiedTime: 1789656711464
+      createdTime: 1789677671570
+      modifiedTime: 1789677671570
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -379,9 +382,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711464
+      modifiedTime: 1789677671571
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711464
+      createdTime: 1789677671571
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -459,8 +462,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711464
-      modifiedTime: 1789656711464
+      createdTime: 1789677671571
+      modifiedTime: 1789677671571
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -538,8 +541,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711465
-      modifiedTime: 1789656711465
+      createdTime: 1789677671571
+      modifiedTime: 1789677671571
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -576,9 +579,9 @@ items:
       nodes:
         - wis1b
       iconicSpells: 0
+      training: glyphweaving
       requirements:
         training: {}
-      training: ''
     effects: []
     flags:
       core: {}
@@ -586,9 +589,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711465
+      modifiedTime: 1789677671573
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711465
+      createdTime: 1789677671573
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -680,8 +683,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711465
-      modifiedTime: 1789656711465
+      createdTime: 1789677671573
+      modifiedTime: 1789677671573
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -693,73 +696,6 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!lP2MOJyk5oHs6oSS.provocateur00000'
-  - name: Assess Strength
-    type: talent
-    img: icons/magic/fire/flame-burning-eye.webp
-    system:
-      description: >-
-        <p>You take a moment to observe a creature which you can see and develop
-        intuition about its areas of strength.</p><p>Perform a <strong>Knowledge
-        Test</strong> using the appropriate <strong>Skill</strong> for the
-        creature. On a success, you learn which <strong>Defense</strong> type of
-        <strong>Physical</strong>, <strong>Fortitude</strong>,
-        <strong>Willpower</strong>, or <strong>Reflex</strong> is highest for
-        the creature. On a <strong>Critical Success</strong> you learn the two
-        highest defense types.</p>
-      actions:
-        - id: assessStrength
-          description: >-
-            <p>You observe a creature you can see to assess it's notable areas
-            of strength.</p>
-          tags:
-            - harmless
-            - subtle
-          cost:
-            action: 1
-            focus: 1
-            heroism: 0
-            weapon: false
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          name: Assess Strength
-          img: icons/magic/fire/flame-burning-eye.webp
-          condition: ''
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          summon: null
-      nodes:
-        - wis2c
-      iconicSpells: 0
-      training: science
-      spellcraft: ''
-      requirements:
-        training: {}
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.368'
-      systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789656711466
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711466
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: assessstrength00
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-      WRGzDgYAt3ZuX6TU: 3
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.assessstrength00'
   - name: 'Inflection: Compose'
     type: talent
     img: icons/magic/symbols/arrowhead-green.webp
@@ -772,11 +708,11 @@ items:
       actions: []
       spellcraft: compose
       iconicSpells: 1
+      training: enchanting
       nodes:
         - wispre2
       requirements:
         training: {}
-      training: ''
     effects: []
     flags:
       core: {}
@@ -784,9 +720,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711466
+      modifiedTime: 1789677671573
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711466
+      createdTime: 1789677671573
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -811,11 +747,11 @@ items:
       actions: []
       spellcraft: push
       iconicSpells: 1
+      training: enchanting
       nodes:
         - wispre2
       requirements:
         training: {}
-      training: ''
     effects: []
     flags:
       core: {}
@@ -823,8 +759,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711466
-      modifiedTime: 1789656711466
+      createdTime: 1789677671573
+      modifiedTime: 1789677671573
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -910,8 +846,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711466
-      modifiedTime: 1789656711466
+      createdTime: 1789677671574
+      modifiedTime: 1789677671574
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -947,9 +883,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711466
+      modifiedTime: 1789677671574
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711466
+      createdTime: 1789677671574
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1011,8 +947,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711467
-      modifiedTime: 1789656711467
+      createdTime: 1789677671574
+      modifiedTime: 1789677671574
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1047,8 +983,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711467
-      modifiedTime: 1789656711467
+      createdTime: 1789677671574
+      modifiedTime: 1789677671574
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1144,8 +1080,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711467
-      modifiedTime: 1789656711467
+      createdTime: 1789677671575
+      modifiedTime: 1789677671575
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1231,8 +1167,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711468
-      modifiedTime: 1789656711468
+      createdTime: 1789677671575
+      modifiedTime: 1789677671575
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1263,9 +1199,9 @@ items:
       nodes:
         - pre1b
       iconicSpells: 0
+      training: glyphweaving
       requirements:
         training: {}
-      training: ''
     effects: []
     flags:
       core: {}
@@ -1273,8 +1209,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711468
-      modifiedTime: 1789656711468
+      createdTime: 1789677671575
+      modifiedTime: 1789677671575
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1362,8 +1298,8 @@ items:
       systemId: crucible
       systemVersion: 0.10.2
       coreVersion: '14.368'
-      createdTime: 1789656711468
-      modifiedTime: 1789656711468
+      createdTime: 1789677671575
+      modifiedTime: 1789677671575
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1404,17 +1340,17 @@ items:
       actions: []
       spellcraft: conjure
       iconicSpells: 0
+      training: glyphweaving
       requirements:
         training: {}
-      training: ''
     effects: []
     flags: {}
     _stats:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711468
-      modifiedTime: 1789656711468
+      createdTime: 1789677671575
+      modifiedTime: 1789677671575
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1447,8 +1383,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711469
-      modifiedTime: 1789656711469
+      createdTime: 1789677671576
+      modifiedTime: 1789677671576
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1524,8 +1460,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711469
-      modifiedTime: 1789656711469
+      createdTime: 1789677671576
+      modifiedTime: 1789677671576
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1565,9 +1501,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      modifiedTime: 1789656711469
+      modifiedTime: 1789677671576
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656711469
+      createdTime: 1789677671576
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1608,8 +1544,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711469
-      modifiedTime: 1789656711469
+      createdTime: 1789677671576
+      modifiedTime: 1789677671576
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1651,8 +1587,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711470
-      modifiedTime: 1789656711470
+      createdTime: 1789677671577
+      modifiedTime: 1789677671577
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1744,6 +1680,7 @@ items:
               effects: []
               tags: []
               summon: null
+          properties: []
         _id: focusing00000000
         img: icons/magic/control/orb-web-hold.webp
         disabled: false
@@ -1765,8 +1702,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789656711471
-          modifiedTime: 1789656711471
+          createdTime: 1789677671577
+          modifiedTime: 1789677671577
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1780,8 +1717,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711471
-      modifiedTime: 1789656711471
+      createdTime: 1789677671577
+      modifiedTime: 1789677671577
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1842,6 +1779,7 @@ items:
             - accessory
             - armor
           actions: []
+          properties: []
         _id: reinforcement000
         img: icons/magic/defensive/shield-barrier-blue.webp
         disabled: false
@@ -1861,8 +1799,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.10.2
-          createdTime: 1789656711474
-          modifiedTime: 1789656711474
+          createdTime: 1789677671578
+          modifiedTime: 1789677671578
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1874,8 +1812,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711473
-      modifiedTime: 1789656711473
+      createdTime: 1789677671578
+      modifiedTime: 1789677671578
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1975,8 +1913,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711474
-      modifiedTime: 1789656711474
+      createdTime: 1789677671579
+      modifiedTime: 1789677671579
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2080,8 +2018,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711475
-      modifiedTime: 1789656711475
+      createdTime: 1789677671579
+      modifiedTime: 1789677671579
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2163,8 +2101,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.10.2
-      createdTime: 1789656711475
-      modifiedTime: 1789656711475
+      createdTime: 1789677671579
+      modifiedTime: 1789677671579
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2176,6 +2114,73 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!lP2MOJyk5oHs6oSS.4QkmaSbAnWvCBOaz'
+  - name: Assess Resolve
+    type: talent
+    img: icons/magic/fire/flame-burning-eye.webp
+    system:
+      description: >-
+        <p>You take a moment to observe a creature which you can see and develop
+        intuition about whether its body or its spirit is the more
+        resilient.</p><p>Perform a <strong>Knowledge Test</strong> using the
+        appropriate <strong>Skill</strong> for the creature. On a success, you
+        learn whether the creature has greater maximum <strong>Health</strong>
+        or greater maximum <strong>Morale</strong>. On a <strong>Critical
+        Success</strong> the Gamemaster additionally describes how the creature
+        is likely to behave should it become @Condition[broken].</p>
+      actions:
+        - id: assessResolve
+          description: >-
+            <p>You observe a creature you can see to judge whether its body or
+            its spirit is the more resilient.</p>
+          tags:
+            - harmless
+            - subtle
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          name: Assess Resolve
+          img: icons/magic/fire/flame-burning-eye.webp
+          condition: ''
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          summon: null
+      nodes:
+        - wis1a
+      iconicSpells: 0
+      training: society
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.10.2
+      modifiedTime: 1789677671569
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      createdTime: 1789677671569
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: assessResolve000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.assessResolve000'
 effects: []
 flags:
   core: {}
@@ -2273,8 +2278,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  createdTime: 1789656711463
-  modifiedTime: 1789656711463
+  createdTime: 1789677671569
+  modifiedTime: 1789677671569
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

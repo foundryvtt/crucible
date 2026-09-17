@@ -42,9 +42,9 @@ system:
         actorUuid: null
         permanent: true
   nodes:
-    - int2a
+    - int1b
   iconicSpells: 0
-  training: science
+  training: medicine
 effects: []
 flags: {}
 _stats:
