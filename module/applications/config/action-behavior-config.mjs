@@ -1,13 +1,13 @@
 /**
  * The Region Behavior configuration application specific to Crucible Action behaviors.
  */
-export default class CrucibleActionBehaviorConfig extends foundry.applications.sheets.RegionBehaviorConfig {
+export default class CrucibleActionBehaviorRegionConfig extends foundry.applications.sheets.RegionBehaviorConfig {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     actions: {
-      addEffect: CrucibleActionBehaviorConfig.#onAddEffect,
-      deleteEffect: CrucibleActionBehaviorConfig.#onDeleteEffect
+      addEffect: CrucibleActionBehaviorRegionConfig.#onAddEffect,
+      deleteEffect: CrucibleActionBehaviorRegionConfig.#onDeleteEffect
     },
     classes: ["crucible", "action-behavior"],
     form: {
@@ -26,7 +26,7 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
   static PARTS = {
     form: {
       template: "systems/crucible/templates/sheets/region-behavior/action-behavior-config.hbs",
-      templates: [CrucibleActionBehaviorConfig.ACTIVE_EFFECT_PARTIAL],
+      templates: [CrucibleActionBehaviorRegionConfig.ACTIVE_EFFECT_PARTIAL],
       scrollable: [""]
     }
   };
@@ -39,13 +39,23 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
-    // Remove auto-added system fields; will handle these on our own
-    context.fields = context.fields.slice(0, -1);
+    // Remove auto-added system fields, transform into more easily accessed structure
+    context.fields = context.fields.slice(0, -1).reduce((acc, {fields}) => {
+      for ( const {field, value} of fields ) {
+        acc[field.name] = {field, value};
+      }
+      return acc;
+    });
 
     return {
       ...context,
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
+      headerTags: this.document.system.action.tags.reduce((acc, tagId) => {
+        const tag = SYSTEM.ACTION.TAGS[tagId];
+        if ( !tag.internal ) acc[tagId] = tag;
+        return acc;
+      }, {}),
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       systemFields: this.document.system.schema.fields,
@@ -95,7 +105,7 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
 
   /**
    * Add an effect to this behavior's Action.
-   * @this {CrucibleActionBehaviorConfig}
+   * @this {CrucibleActionBehaviorRegionConfig}
    * @param {PointerEvent} _event
    * @param {HTMLElement} _target
    * @returns {Promise<void>}
@@ -121,7 +131,7 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
 
   /**
    * Delete an effect from this behavior's Action.
-   * @this {CrucibleActionBehaviorConfig}
+   * @this {CrucibleActionBehaviorRegionConfig}
    * @param {PointerEvent} _event
    * @param {HTMLElement} target
    * @returns {Promise<void>}
@@ -141,6 +151,7 @@ export default class CrucibleActionBehaviorConfig extends foundry.applications.s
   _processFormData(event, form, formData) {
     const data = foundry.utils.expandObject(formData.object);
     data.system.action.effects = Object.values(data.system.action.effects || {});
+    data.name = data.system.action.name;
     return data;
   }
 }

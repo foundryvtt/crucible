@@ -1982,7 +1982,8 @@
         "every": "Every Time",
         "once": "Once",
         "roundActor": "Once per Round per Actor"
-      }
+      },
+      "RegionConfiguration": "Region Configuration"
     },
     "HAZARD": {
       "FIELDS": {
