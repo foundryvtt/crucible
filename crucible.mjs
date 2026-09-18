@@ -67,7 +67,6 @@ Hooks.once("init", async function() {
     methods: {
       generateId,
       packageCompendium,
-      resetAllActorTalents,
       standardizeItemIds,
       syncOwnedItems: migrations.syncOwnedItems,
       syncWorldItems: migrations.syncWorldItems
@@ -977,26 +976,6 @@ function enableSpellcheckContext() {
   document.addEventListener("contextmenu", event => {
     if ( event.target.closest("prose-mirror .editor-content") ) event.stopPropagation();
   }, {capture: true});
-}
-
-/* -------------------------------------------- */
-
-/**
- * Remove all non-permanent talents from every actor in the world.
- */
-async function resetAllActorTalents() {
-  for ( const actor of game.actors ) {
-    const deleteIds = [];
-    for ( const item of actor.items ) {
-      if ( item.type !== "talent" ) continue;
-      if ( actor.system.details.ancestry?.talents?.has(item.id) ) continue;
-      if ( actor.system.details.background?.talents?.has(item.id) ) continue;
-      if ( actor.system.details.archetype?.talents?.has(item.id) ) continue;
-      if ( actor.system.details.taxonomy?.talents?.has(item.id) ) continue;
-      deleteIds.add(item.id);
-    }
-    await actor.deleteEmbeddedDocuments("Item", deleteIds);
-  }
 }
 
 /* -------------------------------------------- */
