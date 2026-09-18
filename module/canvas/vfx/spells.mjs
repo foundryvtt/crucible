@@ -4,6 +4,7 @@ import {computeAttackOffset, pickRandom, pushActorScrollingText, pushTargetScrol
   tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
+import CrucibleProjectileComponent from "./components/vfx-projectile-component.mjs";
 import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-component.mjs";
 
 /**
@@ -26,9 +27,10 @@ import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-co
  * for that rune/category; the fallback white particle is used in that case.
  * @typedef SpellVFXTextures
  * @property {string[]} air          Foreground atmospheric residue drifting overhead (haze, mist).
- * @property {string[]} falling      Top-down sprites for elevation drops (e.g., hail, blast debris from above).
+ * @property {string[]} falling      Sprites drawn as power arriving from overhead (e.g., hail, lightning strikes).
  * @property {string[]} ground       Background debris residue settling underfoot (marks, cracks).
  * @property {string[]} impact       Impact burst textures for singleImpact components.
+ * @property {string[]} orb          Small round motes with no inherent direction.
  * @property {string[]} projectile   Side-view directional sprites for x/y travel (e.g., arrow shafts).
  * @property {string[]} root         Ground-laid directional textures growing outward from an origin (roots, fissures).
  * @property {string[]} spray        Small mote textures for scatter and halo generators.
@@ -282,10 +284,11 @@ function configureArrowVFXEffect(action) {
   const CHARGE_DURATION = runeProps.chargeDuration ?? 700;
   const chargeTail = runeProps.chargeTail ?? 200; // Ms the charge particles keep emitting past the projectile-release label
   const CHARGE_EMIT_DURATION = CHARGE_DURATION + chargeTail;
+  const revealAtRelease = runeProps.projectileReveal === "release";
 
   // Resolve sound choices and configure their playback
   const sound = _spellSound;
-  const chargeSound = sound(getVFXSound(action.rune.id, "charge"));
+  const chargeSound = (runeProps.chargeSound !== false) ? sound(getVFXSound(action.rune.id, "charge")) : null;
   let flightSound;
   if ( runeProps.flightSound ) {
     const {rune, type, ...envelope} = runeProps.flightSound;
@@ -318,7 +321,14 @@ function configureArrowVFXEffect(action) {
 
     // Projectile flight timing; the arrival is the impact beat (shared by scrolling text and any knockback)
     const projectileSpeed = runeProps.projectileSpeed ?? 150;
-    const distPx = Math.hypot(tcx - manifestX, tcy - manifestY);
+    const projectileTexture = runeProps.projectileFrame
+      ? getVFXTexturePath(runeProps.projectileFrame)
+      : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
+    const projectileSize = runeProps.projectileSize ?? 3;
+    const textureAnchor = !!runeProps.projectileTextureAnchor;
+    const {lead} = CrucibleProjectileComponent.computeLaunch({x: manifestX, y: manifestY}, {x: tcx, y: tcy},
+      {texture: projectileTexture, size: projectileSize, textureAnchor});
+    const distPx = Math.hypot(tcx - manifestX, tcy - manifestY) - lead;
     const flightMS = (distPx * 1000) / (projectileSpeed * canvas.dimensions.distancePixels);
 
     // Register the manifest point as a reference. Every element of a VFXReferenceObjectField array
@@ -383,13 +393,14 @@ function configureArrowVFXEffect(action) {
       ],
       pathType: runeProps.path ?? {type: "linear", params: {}},
       charge: {duration: CHARGE_DURATION, sound: chargeSound,
-        animations: [{function: "chargeProjectileFadeIn"}], particles: chargeParticles},
+        animations: revealAtRelease ? [] : [{function: "chargeProjectileFadeIn"}], particles: chargeParticles},
       delivery: {
-        texture: runeProps.projectileFrame
-          ? getVFXTexturePath(runeProps.projectileFrame)
-          : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow")),
-        size: runeProps.projectileSize ?? 3, speed: projectileSpeed, sound: flightSound,
-        animations: [{function: "deliveryProjectileFlight"}], particles: projectileParticles},
+        texture: projectileTexture, size: projectileSize, speed: projectileSpeed, sound: flightSound,
+        fps: runeProps.projectileFps ?? null, textureAnchor,
+        blend: runeProps.projectileBlend ?? PIXI.BLEND_MODES.NORMAL,
+        animations: [...(revealAtRelease ? [{function: "deliveryProjectileReveal"}] : []),
+          {function: "deliveryProjectileFlight"}],
+        particles: projectileParticles},
       impacts: [{
         result, id: token.id, stick: stickDuration,
         sound: impactSound, animations, particles
@@ -904,6 +915,7 @@ function resolveSpellVFXContext(action) {
       falling: getVFXTexturePaths(runeId, "falling"),
       ground: getVFXTexturePaths(runeId, "ground"),
       impact: getVFXTexturePaths(runeId, "impact"),
+      orb: getVFXTexturePaths(runeId, "orb"),
       projectile: getVFXTexturePaths(runeId, "projectile"),
       root: getVFXTexturePaths(runeId, "root"),
       spray: getVFXTexturePaths(runeId, "spray"),
@@ -1026,10 +1038,12 @@ function _buildImpactParticles(action, specs, {anchor = "destination", elevation
 
 /**
  * Resolve the shared per-target hit treatment for every gesture from the runeProps declarative toggles
- * (`impactSprite`, `recoil`, default true), the burst size (`impactSpriteSize`, default 2 feet), and the opt-in
- * fields (`impactParticles`, `impactGlow`). A critical hit rocks harder via `impactSpriteShake`; a force-moved
- * target keeps the burst/glow but drops the recoil (the knockback glide replaces it). A rune that wants a "soft"
- * restorative arrival just disables the burst and recoil and supplies its own particle spec.
+ * (`impactSprite`, `recoil`, default true), the burst size (`impactSpriteSize`, default 2 feet, which a gesture's
+ * own `burstSize` overrides, and `impactSpriteScale`, a rune's multiplier on whichever applies), and the opt-in
+ * fields (`impactParticles`, `impactGlow`, `impactShock`).
+ * A critical hit rocks harder via `impactSpriteShake`; a force-moved target keeps the burst/glow but drops the
+ * recoil (the knockback glide replaces it). A rune that wants a "soft" restorative arrival just disables the
+ * burst and recoil and supplies its own particle spec.
  * @param {CrucibleSpellAction} action
  * @param {object} ctx
  * @param {SpellVFXTextures} ctx.textures
@@ -1054,9 +1068,12 @@ function _resolveHitTreatment(action, ctx, runeProps) {
       ? {function: "impactSpriteShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
       : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
   }
-  if ( (runeProps?.impactSprite !== false) && textures.impact.length ) {
+  const burstTexture = runeProps?.impactSpriteFrame ? getVFXTexturePath(runeProps.impactSpriteFrame)
+    : pickRandom(textures.impact);
+  if ( (runeProps?.impactSprite !== false) && burstTexture ) {
     animations.push({function: "impactSpriteBurst",
-      params: {texture: pickRandom(textures.impact), size: burstSize ?? runeProps?.impactSpriteSize ?? 2,
+      params: {texture: burstTexture,
+        size: (burstSize ?? runeProps?.impactSpriteSize ?? 2) * (runeProps?.impactSpriteScale ?? 1),
         duration: burstDuration, flash: true, flashDuration}});
   }
   if ( runeProps?.impactParticles ) {
@@ -1066,6 +1083,7 @@ function _resolveHitTreatment(action, ctx, runeProps) {
   if ( runeProps?.impactGlow && !suppressGlow ) {
     animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
   }
+  if ( runeProps?.impactShock ) animations.push({function: "impactSpriteShock", params: runeProps.impactShock});
   return {animations, particles};
 }
 
@@ -1239,6 +1257,28 @@ const _CHARGE_DEATH_ORBIT = {
   ]
 };
 
+// Reusable cyclone charge-up for Storm spells
+const _CHARGE_STORM_CYCLONE = {
+  chargeBehavior: "circleParticleWhirl", chargeAnchor: "source",
+  chargeLayers: [{
+    frames: ["AirWindSlice"], above: false, radiusFactor: 2.2,
+    params: {count: 3, initial: 3, spawnRate: 0, arms: 3, armJitter: 0.5, spinSpeed: 8, speedJitter: 0.5,
+      stagger: 280, growFrom: 0.15, growFraction: 0.3, scale: {min: 0.7, max: 1.25},
+      tints: [0xFFFFFF, 0x8FA8E8, 0x5C6E9C, 0xB8C8D8, 0x9CF0FF],
+      lifetime: {min: 1000, max: 1500}, alpha: {min: 0.25, max: 0.5}, fade: {in: 0.2, out: 0.25},
+      blend: PIXI.BLEND_MODES.NORMAL, sort: 0}},
+  {frames: ["SprayBolts"], above: true, animation: "circleParticleBloom", radiusFactor: 1.6,
+    params: {growFraction: 0.15, spawnRate: 12, spawnRateEnd: 70, lifetime: {min: 70, max: 160},
+      alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3},
+      blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)}},
+  {frames: ["AirCloud"], above: true, animation: "circleParticleOrbit", radiusFactor: 1.4,
+    params: {orbitSpeed: 0.8, radiusJitter: 0.5, wobbleAmplitude: 0.1, wobbleSpeed: 1.2,
+      count: 6, initial: 2, spawnRate: 3, lifetime: {min: 1500, max: 2000},
+      growFrom: 0.35, growFraction: 0.3, alpha: {min: 0.15, max: 0.35}, scale: {min: 2.0, max: 3.0},
+      fade: {in: 0.25, out: 0.45}, blend: PIXI.BLEND_MODES.NORMAL}
+  }]
+};
+
 // Reusable impact treatment for Frost spells
 const _IMPACT_FROST = {
   impactParticles: {
@@ -1290,6 +1330,33 @@ const _IMPACT_DEATH = {
   ]
 };
 
+// Reusable impact treatment for Storm spells: short-lived forking sparks thrown off a scorched strike point.
+const _IMPACT_STORM = {
+  impactSpriteSize: 3, impactSpriteScale: 1.35,
+  impactShock: {duration: 450, rate: 14, fadeOut: 120},
+  impactParticles: [
+    {
+      frames: ["SprayBolts"],
+      params: {count: 14, speed: {min: 90, max: 260}, lifetime: {min: 180, max: 420},
+        alpha: {min: 0.7, max: 1.0}, scale: {min: 0.65, max: 1.3},
+        fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL, exposure: _exposureInHot(0.7)}
+    },
+    {
+      animation: "circleParticleBloom",
+      frames: ["GroundScorch"],
+      radiusFactor: 0.2,
+      duration: 200,
+      params: {count: 2, initial: 2, spawnRate: 0,
+        lifetime: {min: 3000, max: 4500},
+        scale: {min: 1.6, max: 2.4}, growFraction: 0.1,
+        alpha: {min: 0.6, max: 0.85},
+        fade: {in: 0.05, out: 0.5},
+        blend: PIXI.BLEND_MODES.NORMAL,
+        elevation: 0}
+    }
+  ]
+};
+
 // Reusable impact treatment for Life spells: soft restorative arrival (no recoil/burst) + glow +
 // leaf/bubble spray + GroundBlooms growing at the target's feet.
 const _IMPACT_LIFE = {
@@ -1325,17 +1392,29 @@ const _IMPACT_LIFE = {
  *
  * Projectile:
  * - `projectileSize` (number): override the projectile sprite size in feet (default 3).
- * - `projectileFrame` (string): a specific projectile texture frame (e.g. "life/ProjectileBubble");
- *   defaults to a random `projectile`-category texture.
+ * - `projectileFrame` (string): a specific projectile texture frame (e.g. "life/ProjectileBubble") or flipbook
+ *   (e.g. "storm/ProjectileBolt"); defaults to a random `projectile`-category texture.
  * - `projectileSpeed` (number): flight speed in feet/sec (default 150).
+ * - `projectileFps` (number): approximate frame rate of a flipbook projectile. It opens on its first frame, cycles
+ *   its middle frames for as long as the flight lasts, and closes on its last frame at arrival. Omit to spread
+ *   every frame once across the flight instead.
+ * - `projectileReveal` ("charge"|"release"): fade the projectile in across the charge (default), or snap it
+ *   into view only at release.
+ * - `projectileTextureAnchor` (boolean): ride the flight path on the frame's own anchor rather than its center,
+ *   e.g. so a bolt's leading tip lands on the target. Flight then begins with the tail of the sprite at the
+ *   manifest point (see {@link CrucibleProjectileComponent.computeLaunch}).
+ * - `projectileBlend` (number): a PIXI.BLEND_MODES value for the projectile sprite (default NORMAL).
  * - `path` ({type, params}): a `CONFIG.Canvas.vfx.paths` generator for the flight trajectory
  *   (default linear); e.g. `{type: "weave", params: {arcCount, amplitude}}` for a serpentine bolt.
  * - `whoosh` (string|null): generic launch-whoosh sound key (default "whooshFast"); null for silence.
+ * - `flightSound` ({rune, type, fade, offset, release}): a RUNE_SOUNDS entry played across the flight in place of
+ *   the whoosh, looping when the entry loops; e.g. the storm `crackle`.
  * - `trail` (boolean|{frames|categories, params}): emit a particle trail behind the projectile;
  *   `true` uses directional streak textures, or pass texture frames/categories + behavior params.
  *
  * Charge phase (shape shared with Ray gesture, see {@link _resolveChargeLayers}):
  * - `chargeDuration` (number): charge phase length in ms (default 700).
+ * - `chargeSound` (boolean): play the rune's charge sound (default true).
  * - `chargeBehavior` (string): registered charge-phase particle behavior (default
  *   `circleParticleGather`); e.g. `circleParticleVortex`, `circleParticleBloom`.
  * - `chargeAnchor` (string): `origin` (the forward manifest point, default) or `source`
@@ -1357,11 +1436,14 @@ const _IMPACT_LIFE = {
  * - `stickDuration` (number): ms the projectile sprite stays at the impact location after a
  *   HIT/GLANCE before fading. Omit or 0 for no stick.
  * - `impactSprite` (boolean): show the impact burst sprite on a hit (default true).
+ * - `impactSpriteFrame` (string): a specific impact texture frame (e.g. "storm/ImpactBoltsSmall"); defaults to a
+ *   random `impact`-category texture.
  * - `recoil` (boolean): rock/shake the struck token on a hit (default true).
  * - `impactParticles` ({frames|categories, params}): a particle burst at the target on hit. Resolved
  *   by {@link _buildImpactParticles}; selects textures by frame-name prefixes or VFX_TEXTURES
  *   categories, with optional `params` overrides on top of canonical defaults.
  * - `impactGlow` (object): {@link impactSpriteGlow} params for a restorative-magic glow on the target.
+ * - `impactShock` (object): {@link impactSpriteShock} params for an electrocution strobe on the target.
  *
  * @type {Record<string, object>}
  */
@@ -1413,6 +1495,20 @@ const ARROW_VFX_PROPS = {
     ..._IMPACT_FLAME,
     projectileSize: 3, trail: true,
     path: {type: "weave", params: {arcCount: 2, amplitude: 0.1}}
+  },
+
+  // Arrow+Storm: a bolt lashes out of the caster's cyclone, shedding sparks, its tip landing on the target
+  storm: {
+    ..._CHARGE_STORM_CYCLONE,
+    ..._IMPACT_STORM,
+    impactSpriteFrame: "storm/ImpactBoltsSmall",
+    chargeDuration: 1200,
+    projectileFrame: "storm/ProjectileBolt", projectileSize: 8, projectileSpeed: 40, projectileFps: 8,
+    projectileReveal: "release", projectileTextureAnchor: true, projectileBlend: PIXI.BLEND_MODES.ADD,
+    flightSound: {rune: "storm", type: "crackle", fade: 60, release: 150},
+    trail: {frames: ["SprayBolts"], params: {align: false, body: true, speed: {min: 10, max: 40},
+      lifetime: {min: 90, max: 200}, spawnRate: 160, scale: {min: 0.4, max: 0.8},
+      alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: _exposureInHot(0.7)}}
   }
 };
 

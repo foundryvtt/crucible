@@ -6,6 +6,7 @@ import {registerComponents} from "./vfx/components/_module.mjs";
 
 export * as detectionModes from "./detection-modes/_module.mjs";
 export * as tree from "./tree/_module.mjs";
+export * as filters from "./filters/_module.mjs";
 export * as grid from "./grid/_module.mjs";
 export * as particles from "./particles/_module.mjs";
 export * as vfx from "./vfx/_module.mjs";

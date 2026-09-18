@@ -2,6 +2,8 @@
  * Registered VFX animation functions used for sprites during animation.
  */
 
+import CrucibleElectrocutionFilter from "../../filters/electrocution-filter.mjs";
+
 /**
  * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
  */
@@ -28,6 +30,21 @@ const chargeProjectileFadeIn = {
   animate(t, phase, params) {
     const container = this.state.delivery?.container;
     if ( container ) container.alpha = params.ease(t);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Snap the projectile container into view at release, for a projectile which has no presence during the charge.
+ * Tuning (`params`): `duration`.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const deliveryProjectileReveal = {
+  schedule(phase, params) {
+    const container = this.state.delivery?.container;
+    if ( !container ) return;
+    this.timeline.add(container, {alpha: {from: 0, to: 1, duration: params.duration ?? 30}}, phase.start);
   }
 };
 
@@ -297,6 +314,63 @@ const impactSpriteGlow = {
 /* -------------------------------------------- */
 
 /**
+ * Remove one filter from a display object, leaving any others it carries in place.
+ * @param {PIXI.DisplayObject} target
+ * @param {PIXI.Filter} filter
+ */
+function _detachFilter(target, filter) {
+  if ( !target || target.destroyed || !target.filters?.includes(filter) ) return;
+  const filters = target.filters.filter(f => f !== filter);
+  target.filters = filters.length ? filters : null;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Electrocute the target mesh: a {@link CrucibleElectrocutionFilter} strobing between its two polarities, then
+ * easing back to the target's own colors. Under photosensitive mode the strobe is replaced by one steady hold.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const impactSpriteShock = {
+  schedule(phase, params) {
+    const target = this.state.targetMesh;
+    if ( !target || target.destroyed ) return;
+    const {duration = 450, rate = 14, fadeOut = 120, strength = 1, light, dark, threshold, softness} = params;
+    const uniforms = Object.fromEntries(Object.entries({light, dark, threshold, softness})
+      .filter(([_key, value]) => value !== undefined));
+    const filter = CrucibleElectrocutionFilter.create({...uniforms, strength: 0, polarity: 0});
+    params._target = target;
+    params._filter = filter;
+
+    // Join the filter to the mesh only for the shock, so its shader never runs during the spell preamble
+    const start = phase.start;
+    this.timeline.call(() => {
+      if ( !target.destroyed ) target.filters = target.filters ? [...target.filters, filter] : [filter];
+    }, start);
+
+    // Read per client at play time: a strobe of this rate is what photosensitive mode exists to prevent
+    const steady = canvas.photosensitiveMode;
+    const fadeIn = steady ? Math.min(100, duration / 4) : 0;
+    const clock = {ms: 0};
+    this.timeline.add(clock, {
+      ms: {from: 0, to: duration}, duration, ease: "linear",
+      onRender: () => {
+        const rise = (fadeIn > 0) ? Math.min(clock.ms / fadeIn, 1) : 1;
+        const fall = (fadeOut > 0) ? Math.min((duration - clock.ms) / fadeOut, 1) : 1;
+        filter.uniforms.strength = strength * Math.clamp(Math.min(rise, fall), 0, 1);
+        filter.uniforms.polarity = steady ? 0 : (Math.floor((clock.ms * rate) / 1000) % 2);
+      }
+    }, start);
+    this.timeline.call(() => _detachFilter(target, filter), start + duration);
+  },
+  tearDown(phase, params) {
+    _detachFilter(params._target, params._filter);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Crucible sprite animators, keyed by registry name.
  * @type {Record<string, CrucibleVFXComponentAnimation>}
  */
@@ -304,8 +378,10 @@ export const SPRITE_ANIMATIONS = {
   chargeProjectileFadeIn,
   chargeDrawBack,
   deliveryProjectileFlight,
+  deliveryProjectileReveal,
   impactSpriteBurst,
   impactSpriteRecoil,
   impactSpriteShake,
-  impactSpriteGlow
+  impactSpriteGlow,
+  impactSpriteShock
 };

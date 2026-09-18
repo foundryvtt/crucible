@@ -20,17 +20,30 @@ const VFX_ATLASES = [
  * rune and particle category. Populated at canvasReady by {@link registerVFXSprites}.
  *
  * Structure: `VFX_TEXTURES[rune][category]` yields an array of path strings.
- * For example, `VFX_TEXTURES.frost.spray` contains `["#crucible.vfx.frost/SprayShard1", ...]`.
+ * For example, `VFX_TEXTURES.frost.spray` contains `["#crucible.vfx.frost/SprayShardA", ...]`.
  *
  * Categories correspond to the particle type prefixes in the atlas frame names:
- * Air, Aura, Disc, Falling, Ground, Impact, Projectile, Root, Spray, Streak.
+ * Air, Aura, Disc, Falling, Ground, Impact, Orb, Projectile, Root, Spray, Streak.
  * - Projectile: side-view directional sprites for x/y travel (e.g., arrow shafts).
- * - Falling: top-down descending sprites for elevation drops (e.g., hail, debris from above).
+ * - Falling: sprites drawn as power arriving from overhead (e.g., hail, debris, lightning strikes).
+ * - Orb: small round motes with no inherent direction.
  * - Root: ground-laid directional sprites that grow outward from an origin (e.g., roots, fissures).
  * - Streak: mid-air directional sprites that trail behind a moving front (e.g., beam particles).
+ *
+ * A trailing letter marks interchangeable variants (`SprayShardA`), each filed as its own path.
+ * A trailing number marks the ordered frames of a flipbook (`ProjectileBolt1`), filed once under its unnumbered name.
  * @type {Record<string, Record<string, string[]>>}
  */
 export const VFX_TEXTURES = {};
+
+/* -------------------------------------------- */
+
+/**
+ * Ordered frame textures of each flipbook sequence declared by a VFX atlas, keyed by scene texture key.
+ * For example, `VFX_FLIPBOOKS["crucible.vfx.storm/ProjectileBolt"]` contains its four frames in play order.
+ * @type {Record<string, PIXI.Texture[]>}
+ */
+export const VFX_FLIPBOOKS = {};
 
 /* -------------------------------------------- */
 
@@ -54,8 +67,9 @@ export function loadVFXSpritesheets() {
  */
 export function registerVFXSprites() {
 
-  // Clear the registry from a prior scene
+  // Clear the registries from a prior scene
   for ( const key of Object.keys(VFX_TEXTURES) ) delete VFX_TEXTURES[key];
+  for ( const key of Object.keys(VFX_FLIPBOOKS) ) delete VFX_FLIPBOOKS[key];
 
   // Unpack each atlas
   for ( const atlas of VFX_ATLASES ) {
@@ -63,22 +77,19 @@ export function registerVFXSprites() {
     const mainSheet = foundry.canvas.getTexture(path);
     if ( !mainSheet ) continue;
     for ( const sheet of [mainSheet, ...(mainSheet.linkedSheets || [])] ) {
+
+      // Flipbook sequences are filed once under their unnumbered name rather than frame by frame
+      const flipbookFrames = new Set();
+      for ( const [name, frames] of Object.entries(sheet.animations ?? {}) ) {
+        VFX_FLIPBOOKS[`crucible.vfx.${name}`] = frames;
+        for ( const frame of frames ) flipbookFrames.add(frame);
+        _fileTexturePath(name);
+      }
+
+      // Register every frame as a scene texture for # prefix resolution
       for ( const [frameName, texture] of Object.entries(sheet.textures) ) {
-
-        // Register as a scene texture for # prefix resolution
-        const sceneTextureKey = `crucible.vfx.${frameName}`;
-        canvas.sceneTextures[sceneTextureKey] = texture;
-        const texturePath = `#${sceneTextureKey}`;
-
-        // Organize into VFX_TEXTURES by rune and category
-        const slashIndex = frameName.indexOf("/");
-        if ( slashIndex === -1 ) continue;
-        const rune = frameName.slice(0, slashIndex).toLowerCase();
-        const suffix = frameName.slice(slashIndex + 1);
-        const category = _parseCategory(suffix);
-        if ( !category ) continue;
-        (VFX_TEXTURES[rune] ??= {})[category] ??= [];
-        VFX_TEXTURES[rune][category].push(texturePath);
+        canvas.sceneTextures[`crucible.vfx.${frameName}`] = texture;
+        if ( !flipbookFrames.has(texture) ) _fileTexturePath(frameName);
       }
     }
   }
@@ -87,7 +98,22 @@ export function registerVFXSprites() {
 /* -------------------------------------------- */
 
 /**
- * Parse the particle category from a frame name suffix like "SprayShard1" -> "spray".
+ * File the scene texture path of an atlas name into {@link VFX_TEXTURES} by its rune and category.
+ * @param {string} name   An atlas frame or flipbook name, e.g. "frost/ImpactBlast".
+ */
+function _fileTexturePath(name) {
+  const slashIndex = name.indexOf("/");
+  if ( slashIndex === -1 ) return;
+  const rune = name.slice(0, slashIndex).toLowerCase();
+  const category = _parseCategory(name.slice(slashIndex + 1));
+  if ( !category ) return;
+  ((VFX_TEXTURES[rune] ??= {})[category] ??= []).push(`#crucible.vfx.${name}`);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Parse the particle category from a frame name suffix like "SprayShardA" -> "spray".
  * @param {string} suffix   The portion of the frame name after the rune prefix and slash.
  * @returns {string|null}   Lowercase category key, or null if no known category prefix matches.
  */
@@ -97,8 +123,8 @@ function _parseCategory(suffix) {
   }
   return null;
 }
-_parseCategory.CATEGORIES = ["Air", "Aura", "Disc", "Falling", "Ground", "Impact", "Projectile", "Root", "Spray",
-  "Streak"];
+_parseCategory.CATEGORIES = ["Air", "Aura", "Disc", "Falling", "Ground", "Impact", "Orb", "Projectile", "Root",
+  "Spray", "Streak"];
 
 /* -------------------------------------------- */
 
@@ -109,6 +135,18 @@ _parseCategory.CATEGORIES = ["Air", "Aura", "Disc", "Falling", "Ground", "Impact
  */
 export function getVFXTexturePath(frameName) {
   return `#crucible.vfx.${frameName}`;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get the ordered frame textures of a flipbook from its #-prefixed scene texture path.
+ * @param {string} path             A scene texture reference like "#crucible.vfx.storm/ProjectileBolt"
+ * @returns {PIXI.Texture[]|null}   The flipbook frames, or null if the path does not name a flipbook.
+ */
+export function getVFXFlipbook(path) {
+  if ( path?.[0] !== "#" ) return null;
+  return VFX_FLIPBOOKS[path.slice(1)] ?? null;
 }
 
 /* -------------------------------------------- */

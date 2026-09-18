@@ -1,6 +1,8 @@
 import VFXResolvedReferenceField from "../fields/vfx-resolved-reference-field.mjs";
 import CrucibleParticleShader from "../../particles/particle-shader.mjs";
+import CrucibleFlipbookMesh from "../flipbook-mesh.mjs";
 import {applyParticleDensity} from "../blocks.mjs";
+import {getVFXFlipbook} from "../sprites.mjs";
 
 const {ArrayField, BooleanField, ColorField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
@@ -449,27 +451,31 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
 
   /**
    * Create a transparent {@link VFXCanvasContainer} holding a sized {@link PrimarySpriteMesh} (named
-   * "mesh") at a point.
+   * "mesh") at a point. A flipbook path yields a {@link CrucibleFlipbookMesh} instead.
    * @param {string} texture   The texture path.
    * @param {number} size      Sprite size in feet (fit to the larger dimension).
    * @param {{x: number, y: number, elevation: number, sort: number, sortLayer: number}} point
    * @param {object} [options]
    * @param {boolean} [options.useTextureAnchor=false]   Pivot on the frame's defaultAnchor (the artist's
    *   directional contact point) instead of the center; for directional impact frames.
+   * @param {number} [options.blend]   A PIXI.BLEND_MODES value for the mesh, NORMAL by default.
    * @returns {VFXCanvasContainer}
    * @internal
    */
-  _createSprite(texture, size, point, {useTextureAnchor=false}={}) {
+  _createSprite(texture, size, point, {useTextureAnchor=false, blend=PIXI.BLEND_MODES.NORMAL}={}) {
     const container = new foundry.canvas.vfx.VFXCanvasContainer();
     container.position.set(point.x, point.y);
     container.elevation = point.elevation;
     container.sort = point.sort;
     container.sortLayer = point.sortLayer;
     container.alpha = 0;
-    const tex = foundry.canvas.getTexture(texture);
+    const frames = getVFXFlipbook(texture);
+    const tex = frames?.[0] ?? foundry.canvas.getTexture(texture);
     if ( !tex ) return container;
-    const mesh = new foundry.canvas.primary.PrimarySpriteMesh(tex);
+    const mesh = frames ? new CrucibleFlipbookMesh(frames, {frameAnchors: useTextureAnchor})
+      : new foundry.canvas.primary.PrimarySpriteMesh(tex);
     mesh.name = "mesh";
+    mesh.blendMode = blend;
     const anchor = (useTextureAnchor && tex.defaultAnchor) ? tex.defaultAnchor : {x: 0.5, y: 0.5};
     mesh.anchor.set(anchor.x, anchor.y);
     if ( Number.isNumeric(size) ) {
@@ -555,7 +561,8 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       const behavior = this._animationEntry(layer.animation);
       if ( !behavior ) continue;
       const params = layer.params ?? {};
-      const textures = layer.textures.map(path => foundry.canvas.getTexture(path)).filter(Boolean);
+      const textures = layer.textures.flatMap(path => getVFXFlipbook(path) ?? foundry.canvas.getTexture(path))
+        .filter(Boolean);
       if ( textures.length && (typeof behavior.setup === "function") ) {
         const gridScale = this.state.gridScale;
         const config = {

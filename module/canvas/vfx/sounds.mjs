@@ -56,8 +56,8 @@ export const VFX_SOUNDS = {
  * static reference data describing which sound files exist for each rune and their
  * playback metadata. Sound types follow the S1-S4 taxonomy: `charge` (S1 one-shot), `passive`
  * (S2 loop), `damage` (S3 loop), `impact` (S4 one-shot), plus `miss` (one-shot, played when a spell
- * is resisted or misses). The pseudo-rune `generic` holds rune-agnostic sounds such as the
- * projectile `whoosh`.
+ * is resisted or misses). A rune may add loops of its own, such as the storm `crackle` of live electricity in
+ * flight or in a channel. The pseudo-rune `generic` holds rune-agnostic sounds such as the projectile `whoosh`.
  * @type {Record<string, {prefix: string} & Record<string, VFXSoundEntry[]>>}
  */
 export const RUNE_SOUNDS = {
@@ -123,6 +123,26 @@ export const RUNE_SOUNDS = {
     miss: [
       {src: "DeathMiss1.ogg", duration: 2.545},
       {src: "DeathMiss2.ogg", duration: 2.710}
+    ]
+  },
+  storm: {
+    prefix: "systems/crucible/assets/sfx/storm",
+    charge: [
+      {src: "StormChargeUp1.ogg", duration: 1.842},
+      {src: "StormChargeUp2.ogg", duration: 2.031}
+    ],
+    passive: [{src: "StormPassiveLoop.ogg", loop: true}],
+    damage: [{src: "StormDamageLoop.ogg", loop: true}],
+    crackle: [{src: "StormCrackleLoop.ogg", loop: true}],
+    impact: [
+      {src: "StormImpact1.ogg", duration: 0.894},
+      {src: "StormImpact2.ogg", duration: 0.847},
+      {src: "StormImpact3.ogg", duration: 0.811}
+    ],
+    miss: [
+      {src: "StormMiss1.ogg", duration: 1.342},
+      {src: "StormMiss2.ogg", duration: 1.218},
+      {src: "StormMiss3.ogg", duration: 1.161}
     ]
   },
   generic: {
