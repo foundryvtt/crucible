@@ -110,21 +110,25 @@ export async function syncOwnedItems({force=false, reload=true, talents=true, sp
 export async function syncWorldItems({equipment=true}={}) {
   console.groupCollapsed("Crucible | World Item Synchronization");
   if ( equipment ) {
-    const pack = game.packs.get("crucible.equipment");
-    await pack.getDocuments();
-    const equipmentIndex = pack.contents.reduce((obj, item) => {
+    const source = game.packs.get("crucible.equipment");
+    await source.getDocuments();
+    const equipmentIndex = source.contents.reduce((obj, item) => {
       obj[item.system.identifier] = item;
       return obj;
     }, {});
-    const updates = [];
-    for ( const item of game.items ) {
-      const update = _migrateEquipmentItem(item, equipmentIndex);
-      if ( update ) {
-        updates.push(update);
-        console.debug(`Syncing equipment: ${item.name} [${item.uuid}]`);
+
+    // Plan and commit one update operation per collection
+    for await ( const {documents, pack} of _worldCollections("Item") ) {
+      const updates = [];
+      for ( const item of documents ) {
+        const update = _migrateEquipmentItem(item, equipmentIndex);
+        if ( update ) {
+          updates.push(update);
+          console.debug(`Syncing equipment: ${item.name} [${item.uuid}]`);
+        }
       }
+      if ( updates.length ) await Item.updateDocuments(updates, pack ? {pack: pack.collection} : {});
     }
-    if ( updates.length ) await Item.updateDocuments(updates);
   }
   console.groupEnd();
 }
@@ -154,6 +158,28 @@ function _migrateEquipmentItem(item, index) {
 
 /* -------------------------------------------- */
 /*  Data Migrations                             */
+/* -------------------------------------------- */
+
+/**
+ * Iterate the document collections which belong to this World: the base collection and World-owned packs.
+ * Unlock packs and re-lock after yielding each of their documents.
+ * @param {string} documentName   The document type to collect, e.g. "Actor" or "Item"
+ * @yields {{documents: Iterable<Document>, pack: CompendiumCollection|null}}
+ */
+async function* _worldCollections(documentName) {
+  yield {documents: game.collections.get(documentName), pack: null};
+  for ( const pack of game.packs ) {
+    if ( (pack.documentName !== documentName) || (pack.metadata.packageType !== "world") ) continue;
+    const wasLocked = pack.locked;
+    if ( wasLocked ) await pack.configure({locked: false});
+    try {
+      yield {documents: await pack.getDocuments(), pack};
+    } finally {
+      if ( wasLocked ) await pack.configure({locked: true});
+    }
+  }
+}
+
 /* -------------------------------------------- */
 
 /**
@@ -224,7 +250,7 @@ export async function performMigrations(priorVersion) {
  */
 async function _syncDetailItems() {
   console.groupCollapsed("Crucible | Detail Item Synchronization");
-  for ( const actor of game.actors ) {
+  for await ( const {documents} of _worldCollections("Actor") ) for ( const actor of documents ) {
     if ( !actor.system.schema.has("details") ) continue;
     try {
       const {applied, unresolved} = await actor.syncDetailItems();
@@ -249,7 +275,7 @@ async function _syncDetailItems() {
  */
 async function _resetHeroTalents() {
   console.groupCollapsed("Crucible | Hero Talent Reset");
-  for ( const actor of game.actors ) {
+  for await ( const {documents} of _worldCollections("Actor") ) for ( const actor of documents ) {
     if ( actor.type !== "hero" ) continue;
     try {
       await actor.resetTalents({dialog: false});
@@ -277,8 +303,8 @@ async function _deleteFlankedEffects() {
     console.debug(`Deleted ${ids.length} retired flanking effect(s) from ${actor.name} [${actor.uuid}]`);
   };
 
-  // World Actors own their effects directly
-  for ( const actor of game.actors ) {
+  // World Actors, and Actors in world packs which may have been exported while flanked, own their effects directly
+  for await ( const {documents} of _worldCollections("Actor") ) for ( const actor of documents ) {
     const ids = retiredIds(actor._source.effects);
     if ( ids.length ) await deleteRetired(actor, ids);
   }
@@ -291,21 +317,6 @@ async function _deleteFlankedEffects() {
       if ( !ids.length ) continue;
       if ( token.actor ) await deleteRetired(token.actor, ids);
       else console.warn(`Could not resolve the Actor for Token [${token.uuid}] to delete its flanking effects`);
-    }
-  }
-
-  // World-level Actor packs, which may hold an Actor exported while it was flanked
-  for ( const pack of game.packs ) {
-    if ( (pack.documentName !== "Actor") || (pack.metadata.packageType !== "world") ) continue;
-    const wasLocked = pack.locked;
-    if ( wasLocked ) await pack.configure({locked: false});
-    try {
-      for ( const actor of await pack.getDocuments() ) {
-        const ids = retiredIds(actor._source.effects);
-        if ( ids.length ) await deleteRetired(actor, ids);
-      }
-    } finally {
-      if ( wasLocked ) await pack.configure({locked: true});
     }
   }
   console.groupEnd();
