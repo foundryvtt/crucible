@@ -3,6 +3,7 @@
  */
 
 import CrucibleElectrocutionFilter from "../../filters/electrocution-filter.mjs";
+import CrucibleFlipbookMesh from "../flipbook-mesh.mjs";
 
 /**
  * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
@@ -208,7 +209,7 @@ const impactSpriteShake = impactRecoilAnimation(3);
  * Spawn an impact sprite at the point of impact, oriented along the incoming direction, then pop it in
  * with a scale-up and ADD-blend flash before settling smaller and fading out over the rest of the hold.
  * Tuning (`params`): `texture` (required), `size`, `duration`, `scaleStart`, `scaleSettle`, `flash`,
- * `flashDuration`.
+ * `flashDuration`, `rotation` (radians turned away from the incoming direction).
  * @type {CrucibleVFXComponentAnimation}
  */
 const impactSpriteBurst = {
@@ -217,7 +218,7 @@ const impactSpriteBurst = {
     const {origin, destination} = this.state;
     const container = this.addManagedDisplayObject(
       this._createSprite(params.texture, params.size ?? 3, destination, {useTextureAnchor: true}));
-    container.rotation = Math.atan2(destination.y - origin.y, destination.x - origin.x);
+    container.rotation = Math.atan2(destination.y - origin.y, destination.x - origin.x) + (params.rotation ?? 0);
 
     // A quick arrival pop, then a gradual settle + fade-out over the remainder of the hold.
     const start = phase.start;
@@ -314,6 +315,168 @@ const impactSpriteGlow = {
 /* -------------------------------------------- */
 
 /**
+ * Span the whole ray with one bolt at once: a directional sprite tiled end to end along it, each segment pinned by
+ * its own anchor, revealed in a race outward from the origin, then writhing in place before all fade together,
+ * either away or to a faint `afterimage` of the bolt's final shape which lingers. Optional `forks` branch off it.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const raySpriteBolt = {
+  schedule(phase, params) {
+    const {texture, segment = 10, sweep = 140, hold = 420, fadeOut = 220, flicker = 16, elevation,
+      blend = PIXI.BLEND_MODES.ADD, afterimage, forks} = params;
+    const {origin, rotation, length, direction} = this.state;
+    const anchorX = foundry.canvas.getTexture(texture)?.defaultAnchor.x;
+    if ( !anchorX || !(length > 0) ) return;
+    const distancePixels = canvas.dimensions.distancePixels;
+    const count = Math.max(1, Math.round(length / (segment * distancePixels)));
+    const span = length / count;
+    const start = phase.start;
+    const end = start + sweep + hold;
+
+    // Every part of the bolt appears as the race outward reaches it, holds, then fades with the rest, either
+    // away or to the afterimage, whose shape is the one the bolt last took because the writhing stops with the hold
+    const place = (path, size, reach, heading, progress) => {
+      const container = this.addManagedDisplayObject(this._createSprite(path, size, {
+        x: origin.x + (direction.x * reach), y: origin.y + (direction.y * reach),
+        elevation: elevation ?? origin.elevation, sort: origin.sort, sortLayer: origin.sortLayer
+      }, {useTextureAnchor: true, blend}));
+      container.rotation = heading;
+      const mesh = container.getChildByName("mesh");
+      if ( !mesh ) return null;
+      const revealed = start + (sweep * progress);
+      this.timeline.add(container, {alpha: {from: 0, to: 1, duration: 20}}, revealed)
+        .add(container, {alpha: {to: afterimage?.alpha ?? 0, duration: fadeOut}}, end);
+      if ( afterimage ) {
+        if ( afterimage.tint !== undefined ) this.timeline.call(() => mesh.tint = afterimage.tint, end + fadeOut);
+        this.timeline.add(container, {alpha: {to: 0, duration: afterimage.duration ?? 1500, ease: "outQuad"}},
+          end + fadeOut);
+      }
+      return {mesh, revealed};
+    };
+
+    // A fork must leave from a point which is on the bolt, and the bolt strays from the axis everywhere except
+    // where its segments join and where its art crosses its own mid-height, which the mirroring leaves in place.
+    // So forks grow from the joints and from those crossings, each angled off to one side and ahead
+    const forkPaths = forks?.textures ?? [];
+    const sites = [];
+    for ( let i = 0; (i < count) && forkPaths.length; i++ ) {
+      if ( i > 0 ) sites.push(i);
+      for ( const crossing of forks.crossings ?? [] ) sites.push(i + crossing);
+    }
+    for ( const site of sites ) {
+      if ( Math.random() >= (forks.chance ?? 0.85) ) continue;
+      const side = (Math.random() < 0.5) ? -1 : 1;
+      const angle = Math.toRadians((forks.angle ?? 45) + (((Math.random() * 2) - 1) * (forks.jitter ?? 10)));
+      const fork = place(forkPaths[Math.floor(Math.random() * forkPaths.length)], forks.size ?? 5, span * site,
+        rotation + (side * angle), site / count);
+      if ( fork && (Math.random() < 0.5) ) fork.mesh.scale.y *= -1;
+    }
+    for ( let i = 0; i < count; i++ ) {
+
+      // The art runs from the far edge of its canvas to its anchor, so sizing it by that share of its width and
+      // pinning its anchor at the end of its span leaves no gap between one segment and the next. It is revealed
+      // as the race reaches the start of that span
+      const placed = place(texture, span / distancePixels / anchorX, span * (i + 1), rotation, i / count);
+      if ( !placed ) continue;
+      const {mesh, revealed} = placed;
+
+      // Both ends of the art sit at mid-height, so a segment mirrored across its axis still meets its neighbors,
+      // and mirroring them at random makes the bolt writhe while it stays connected
+      if ( Math.random() < 0.5 ) mesh.scale.y *= -1;
+      if ( canvas.photosensitiveMode || !(flicker > 0) ) continue;
+      const clock = {ms: 0};
+      let lastStep = 0;
+      this.timeline.add(clock, {
+        ms: {from: 0, to: end - revealed}, duration: end - revealed, ease: "linear",
+        onRender: () => {
+          const step = Math.floor((clock.ms * flicker) / 1000);
+          if ( step === lastStep ) return;
+          lastStep = step;
+          if ( Math.random() < 0.5 ) mesh.scale.y *= -1;
+        }
+      }, revealed);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Strike a point from overhead: an upright sprite pinned there by its own anchor, flickering between its variant
+ * textures before fading, over an optional `flash` decal which bursts on the ground and a `scorch` decal which
+ * lingers there, and under an optional `cloud` which gathers at its top beforehand. The strike point is an explicit
+ * `point`, a named `anchor`, or else the current impact destination, displaced by any `delta`.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const impactSpriteStrike = {
+  schedule(phase, params) {
+    const {textures, point, anchor, delta, offset = 0, size = 12, duration = 260, fps = 18, fadeOut = 110,
+      elevation, blend = PIXI.BLEND_MODES.ADD, flash, scorch, cloud} = params;
+    const at = point ?? (anchor ? this.state.anchors[anchor] : this.state.destination);
+    if ( !textures?.length || !at ) return;
+    const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+    const position = {x: at.x + (delta?.x ?? 0), y: at.y + (delta?.y ?? 0), sort: at.sort ?? 0,
+      sortLayer: at.sortLayer ?? SL.TOKENS};
+    const start = phase.start + offset;
+    const hold = Math.max(duration - fadeOut, 0);
+
+    // Ground decals lie beneath tokens, turned at random as they have no heading of their own
+    const decal = ({texture, size: decalSize = 2, blend: decalBlend = PIXI.BLEND_MODES.NORMAL}) => {
+      const container = this.addManagedDisplayObject(this._createSprite(texture, decalSize,
+        {...position, elevation: 0}, {blend: decalBlend}));
+      container.rotation = Math.random() * Math.PI * 2;
+      return container;
+    };
+    if ( scorch?.texture ) {
+      const container = decal(scorch);
+      const linger = scorch.duration ?? 3500;
+      this.timeline.add(container, {alpha: {from: 0, to: scorch.alpha ?? 0.75, duration: 60}}, start)
+        .add(container, {alpha: {to: 0, duration: linger * 0.5}}, start + (linger * 0.5));
+    }
+    if ( flash?.texture ) {
+      const container = decal({blend: PIXI.BLEND_MODES.ADD, ...flash});
+      const burst = flash.duration ?? 320;
+      container.scale.set(0.5);
+      this.timeline.add(container, {alpha: {from: 0, to: 1, duration: 30}}, start)
+        .add(container.scale, {x: {from: 0.5, to: 1}, y: {from: 0.5, to: 1}, duration: burst, ease: "outQuad"}, start)
+        .add(container, {alpha: {to: 0, duration: burst * 0.6}}, start + (burst * 0.4));
+    }
+
+    // The bolt itself, whose anchor sits on the vertical axis of the art so a mirrored strike still lands true
+    const bolt = this.addManagedDisplayObject(this._createSprite(textures, size,
+      {...position, elevation: elevation ?? at.elevation ?? 0}, {useTextureAnchor: true, blend}));
+    const mesh = bolt.getChildByName("mesh");
+    if ( !mesh ) return;
+    if ( Math.random() < 0.5 ) mesh.scale.x *= -1;
+    this.timeline.add(bolt, {alpha: {from: 0, to: 1, duration: 20}}, start)
+      .add(bolt, {alpha: {to: 0, duration: fadeOut}}, start + hold);
+
+    // The art rises from the strike point by its own height, to a top which may lie anywhere across its width and
+    // beyond any cover over the area struck. A cloud wider than the art, gathered there beforehand and drawn over
+    // it, is what the bolt is seen to come out of
+    if ( cloud?.textures?.length ) {
+      const top = position.y - (size * canvas.dimensions.distancePixels * (cloud.rise ?? 0.9));
+      const cover = this.addManagedDisplayObject(this._createSprite(cloud.textures, cloud.size ?? (size * 1.3),
+        {...position, y: top, elevation: (elevation ?? at.elevation ?? 0) + 1}));
+      const body = cover.getChildByName("mesh");
+      if ( body instanceof CrucibleFlipbookMesh ) body.frame = Math.floor(Math.random() * body.frames.length);
+      const from = Math.max(start - (cloud.gather ?? 350), 0);
+      const gather = Math.max(start - from, 1);
+      cover.scale.set(0.7);
+      this.timeline.add(cover, {alpha: {from: 0, to: cloud.alpha ?? 0.9, duration: gather}}, from)
+        .add(cover.scale, {x: {from: 0.7, to: 1}, y: {from: 0.7, to: 1}, duration: gather, ease: "outQuad"}, from)
+        .add(cover, {alpha: {to: 0, duration: cloud.disperse ?? 700}}, start + duration);
+    }
+    if ( !(mesh instanceof CrucibleFlipbookMesh) ) return;
+    mesh.frame = Math.floor(Math.random() * mesh.frames.length);
+    if ( canvas.photosensitiveMode ) return;
+    mesh.animate(this.timeline, {start, duration: hold, fps, mode: CrucibleFlipbookMesh.MODES.SHUFFLE});
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Remove one filter from a display object, leaving any others it carries in place.
  * @param {PIXI.DisplayObject} target
  * @param {PIXI.Filter} filter
@@ -383,5 +546,7 @@ export const SPRITE_ANIMATIONS = {
   impactSpriteRecoil,
   impactSpriteShake,
   impactSpriteGlow,
-  impactSpriteShock
+  impactSpriteShock,
+  impactSpriteStrike,
+  raySpriteBolt
 };

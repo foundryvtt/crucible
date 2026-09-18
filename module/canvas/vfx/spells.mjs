@@ -550,7 +550,7 @@ function configureRayVFXEffect(action) {
   const chargeDistance = casterRadiusPx;       // Half the caster token width: pulls the charge to the token's front edge
   const beamLength = length - chargeDistance;  // Effective beam reach from the charge point to the shape's end
   const spawnRadius = Math.max(8, width / 2);
-  const CHARGE_DURATION = 700;
+  const CHARGE_DURATION = runeProps.chargeDuration ?? 700;
   const sound = _spellSound;
 
   // Declare necessary references to resolve at play-time
@@ -563,7 +563,7 @@ function configureRayVFXEffect(action) {
   const chargeOrigin = {x: x + (Math.cos(rotRad) * chargeDistance), y: y + (Math.sin(rotRad) * chargeDistance)};
   const gridScale = getParticleScaleFactor();
   const effectiveBeamSpeed = runeProps.beamSpeed
-    ?? (beamLength / gridScale / (runeProps.deliveryDuration / 1000));
+    ?? (beamLength / gridScale / ((runeProps.frontDuration ?? runeProps.deliveryDuration) / 1000));
 
   // Schedule impact for each target when the beam progression reaches it
   const timingCtx = {origin: chargeOrigin, beamSpeed: effectiveBeamSpeed, gridScale,
@@ -607,7 +607,8 @@ function configureRayVFXEffect(action) {
         animations: [], particles: chargeParticles},
       delivery,
       impacts,
-      scrollingText
+      scrollingText,
+      sounds: runeProps.buildSounds?.(buildContext) ?? []
     }
   };
   const timeline = [{component: "ray", position: 0}];
@@ -839,17 +840,21 @@ function configureBlastVFXEffect(action) {
   const targetMeshRefs = [];
   const scrollingText = [];
   const forcedMovements = [];
+  const struck = Array.from(action.eventsByTarget).filter(([actor, group]) => {
+    return group.hasRoll && action.targets.get(actor)?.token;
+  });
   let j = 1;
-  for ( const [actor, group] of action.eventsByTarget ) {
-    if ( !group.hasRoll ) continue;
-    const token = action.targets.get(actor)?.token;
-    if ( !token ) continue;
+  for ( const [actor, group] of struck ) {
+    const token = action.targets.get(actor).token;
     const result = group.roll[0]?.roll?.data.result ?? null;
     const {tokenRef, meshRef} = _registerTargetRefs(references, "blastTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
-    const start = timingFn(tokenCenter(token), timingCtx);
-    impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
-      elevation: particleElevation, impactType, forcedMovements}));
+    const start = runeProps.impactStart?.({...timingCtx, index: j - 1, total: struck.length})
+      ?? timingFn(tokenCenter(token), timingCtx);
+    const impact = _buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
+      elevation: particleElevation, impactType, forcedMovements});
+    impact.animations.push(...(runeProps.buildImpact?.({action, token, result, particleElevation, radius}) ?? []));
+    impacts.push(impact);
     pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
@@ -860,10 +865,11 @@ function configureBlastVFXEffect(action) {
   const buildCtx = {action, textures, origin, radius, particleElevation, casterElevation,
     casterRadiusPx, sound};
   const deliveryParticles = runeProps.buildDelivery(buildCtx);
+  const deliveryAnimations = runeProps.buildAnimations?.(buildCtx) ?? [];
   const sustainedLayers = (runeProps.sustainedChargeAnchor && !projectileComponent)
     ? _resolveChargeLayers(runeProps,
       _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation}),
-      {anchor: runeProps.sustainedChargeAnchor, duration: runeProps.deliveryDuration})
+      {anchor: runeProps.sustainedChargeAnchor, duration: runeProps.deliveryDuration, sustained: true})
     : [];
   const deliverySound = runeProps.deliverySoundType
     ? _resolveDeliverySound({action, sound}, runeProps.deliverySound ?? {}, runeProps.deliverySoundType)
@@ -881,7 +887,7 @@ function configureBlastVFXEffect(action) {
       mask: {reference: "wallMask"},
       charge: {duration: blastChargeDuration, sound: blastChargeSound, animations: [],
         particles: blastChargeParticles},
-      delivery: {duration: runeProps.deliveryDuration, sound: deliverySound, animations: [],
+      delivery: {duration: runeProps.deliveryDuration, sound: deliverySound, animations: deliveryAnimations,
         particles: [...sustainedLayers, ...deliveryParticles]},
       impacts,
       scrollingText,
@@ -943,9 +949,10 @@ function resolveSpellVFXContext(action) {
  * @param {string} [opts.anchor]  Default layer anchor (defaults to runeProps.chargeAnchor ?? "origin"); an
  *                                individual layer's own `anchor` field wins over it.
  * @param {number} opts.duration  Emission duration (ms) for each layer.
+ * @param {boolean} [opts.sustained=false]  Resolve the layers' `sustained` forms, held across a delivery.
  * @returns {object[]}
  */
-function _resolveChargeLayers(runeProps, ctx, {anchor, duration}) {
+function _resolveChargeLayers(runeProps, ctx, {anchor, duration, sustained=false}) {
   const {runeId, textures, casterRadiusPx, casterElevation, particleElevation = casterElevation} = ctx;
   const behavior = runeProps.chargeBehavior ?? "circleParticleGather";
   const a = anchor ?? runeProps.chargeAnchor ?? "origin";
@@ -957,13 +964,14 @@ function _resolveChargeLayers(runeProps, ctx, {anchor, duration}) {
         : layer.categories.flatMap(c => textures[c]);
       const rad = casterRadiusPx * (layer.radiusFactor ?? 2.0);
       const layerAnchor = layer.anchor ?? a;
+      const sustain = sustained ? (layer.sustained ?? {}) : {};
       return {
         animation: layer.animation ?? behavior,
         anchor: layerAnchor, textures: layerTextures,
-        offset: layer.offset ?? 0,
+        offset: sustain.offset ?? layer.offset ?? 0,
         duration: layer.duration ?? duration,
         params: {chargeRadius: rad, radius: rad, elevation: elevationFor(layer.above, layerAnchor),
-          ...layer.params}
+          ...layer.params, ...sustain.params}
       };
     });
   }
@@ -1071,10 +1079,11 @@ function _resolveHitTreatment(action, ctx, runeProps) {
   const burstTexture = runeProps?.impactSpriteFrame ? getVFXTexturePath(runeProps.impactSpriteFrame)
     : pickRandom(textures.impact);
   if ( (runeProps?.impactSprite !== false) && burstTexture ) {
+    const angle = Math.toRadians(runeProps?.impactSpriteAngle ?? 0) * ((Math.random() < 0.5) ? -1 : 1);
     animations.push({function: "impactSpriteBurst",
       params: {texture: burstTexture,
         size: (burstSize ?? runeProps?.impactSpriteSize ?? 2) * (runeProps?.impactSpriteScale ?? 1),
-        duration: burstDuration, flash: true, flashDuration}});
+        duration: burstDuration, flash: true, flashDuration, rotation: angle}});
   }
   if ( runeProps?.impactParticles ) {
     particles.push(..._buildImpactParticles(action, runeProps.impactParticles,
@@ -1151,7 +1160,7 @@ function _buildRayChargeAndDelivery(action, ctx) {
     {anchor: runeProps.chargeAnchor, duration: chargeEmitDuration});
   const sustainedLayers = runeProps.sustainedChargeAnchor
     ? _resolveChargeLayers(runeProps, chargeCtx,
-      {anchor: runeProps.sustainedChargeAnchor, duration: runeProps.deliveryDuration})
+      {anchor: runeProps.sustainedChargeAnchor, duration: runeProps.deliveryDuration, sustained: true})
     : [];
   const deliverySound = _resolveDeliverySound(ctx, runeProps.deliverySound, runeProps.deliverySoundType);
   const deliveryLayers = runeProps.buildDelivery(ctx);
@@ -1160,7 +1169,7 @@ function _buildRayChargeAndDelivery(action, ctx) {
     delivery: {
       duration: runeProps.deliveryDuration,
       sound: deliverySound,
-      animations: [],
+      animations: runeProps.buildAnimations?.(ctx) ?? [],
       particles: [...sustainedLayers, ...deliveryLayers]
     }
   };
@@ -1186,6 +1195,39 @@ function _exposureInHot(t, {reverse=false, normal=0, hot=0.5}={}) {
   if ( t < 1 ) curve.push({time: 1, value: curve[1].value});
   return {curve};
 }
+
+/**
+ * Build a bolt of lightning striking from overhead, bursting a disc of bolts on the ground where it lands.
+ * @param {string} runeId
+ * @param {object} area
+ * @param {number} area.radius              Pixel radius of the storm, which bounds the height of the bolt.
+ * @param {number} area.particleElevation
+ * @param {object} [params]                 Further {@link impactSpriteStrike} params, such as where it strikes.
+ * @returns {{function: string, params: object}}
+ */
+function _stormStrike(runeId, {radius, particleElevation}, params={}) {
+  const radiusFeet = radius / canvas.dimensions.distancePixels;
+  return {function: "impactSpriteStrike", params: {
+    textures: getVFXFrames(runeId, "FallingBolt"),
+    size: Math.clamp(radiusFeet * 0.9, 8, 16), duration: 280, fps: 18, fadeOut: 110,
+    elevation: particleElevation + 2,
+    flash: {texture: getVFXTexturePath(`${runeId}/DiscBolts`), size: 2.0, duration: 320},
+    cloud: {textures: getVFXFrames(runeId, "AirCloud"), alpha: 0.9, gather: 350, disperse: 700},
+    ...params}};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * The scorch a bolt of lightning leaves on open ground.
+ * @param {string} runeId
+ * @returns {object}
+ */
+function _stormScorch(runeId) {
+  return {texture: getVFXTexturePath(`${runeId}/GroundScorch`), size: 3, duration: 3500, alpha: 0.75};
+}
+
+/* -------------------------------------------- */
 
 // Reusable vortex charge-up for Flame spells
 const _CHARGE_FLAME_VORTEX = {
@@ -1266,16 +1308,19 @@ const _CHARGE_STORM_CYCLONE = {
       stagger: 280, growFrom: 0.15, growFraction: 0.3, scale: {min: 0.7, max: 1.25},
       tints: [0xFFFFFF, 0x8FA8E8, 0x5C6E9C, 0xB8C8D8, 0x9CF0FF],
       lifetime: {min: 1000, max: 1500}, alpha: {min: 0.25, max: 0.5}, fade: {in: 0.2, out: 0.25},
-      blend: PIXI.BLEND_MODES.NORMAL, sort: 0}},
+      blend: PIXI.BLEND_MODES.NORMAL, sort: 0},
+    sustained: {offset: -400, params: {count: null, initial: 0, spawnRate: 2.5, stagger: 0}}},
   {frames: ["SprayBolts"], above: true, animation: "circleParticleBloom", radiusFactor: 1.6,
     params: {growFraction: 0.15, spawnRate: 12, spawnRateEnd: 70, lifetime: {min: 70, max: 160},
       alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3},
-      blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)}},
+      blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)},
+    sustained: {params: {spawnRate: 50, spawnRateEnd: 50}}},
   {frames: ["AirCloud"], above: true, animation: "circleParticleOrbit", radiusFactor: 1.4,
     params: {orbitSpeed: 0.8, radiusJitter: 0.5, wobbleAmplitude: 0.1, wobbleSpeed: 1.2,
       count: 6, initial: 2, spawnRate: 3, lifetime: {min: 1500, max: 2000},
       growFrom: 0.35, growFraction: 0.3, alpha: {min: 0.15, max: 0.35}, scale: {min: 2.0, max: 3.0},
-      fade: {in: 0.25, out: 0.45}, blend: PIXI.BLEND_MODES.NORMAL}
+      fade: {in: 0.25, out: 0.45}, blend: PIXI.BLEND_MODES.NORMAL},
+    sustained: {offset: -300, params: {count: null, initial: 0}}
   }]
 };
 
@@ -1426,7 +1471,9 @@ const _IMPACT_LIFE = {
  *   VFX_TEXTURES categories. `animation` overrides the rune's chargeBehavior for that one layer
  *   (e.g. `circleParticleResidue` for a lingering mist layer). `offset` and `duration` override the
  *   default timing (caller's phase start + duration). Each layer also receives `chargeRadius` and
- *   `radius` (the same casterRadiusPx-scaled value) plus a derived `elevation` in its params.
+ *   `radius` (the same casterRadiusPx-scaled value) plus a derived `elevation` in its params. A layer tuned as a
+ *   one-shot burst may give `sustained: {offset, params}`, merged over it when a gesture holds the charge across
+ *   its delivery (`sustainedChargeAnchor`), e.g. to spawn continuously rather than all at once.
  * - `chargeTail` (number): ms the charge particles keep emitting past the projectile-release label
  *   (default 200; negative ends emission before release).
  * - `sprayParams` (object): per-layer material overrides applied when no `chargeLayers` are declared
@@ -1438,6 +1485,7 @@ const _IMPACT_LIFE = {
  * - `impactSprite` (boolean): show the impact burst sprite on a hit (default true).
  * - `impactSpriteFrame` (string): a specific impact texture frame (e.g. "storm/ImpactBoltsSmall"); defaults to a
  *   random `impact`-category texture.
+ * - `impactSpriteAngle` (degrees): turn the impact sprite this far off the incoming direction, to a random side.
  * - `recoil` (boolean): rock/shake the struck token on a hit (default true).
  * - `impactParticles` ({frames|categories, params}): a particle burst at the target on hit. Resolved
  *   by {@link _buildImpactParticles}; selects textures by frame-name prefixes or VFX_TEXTURES
@@ -1545,6 +1593,12 @@ const RAY_IMPACT_TIMINGS = {
  *   `deliveryDuration`. Declare an explicit value when the beam should arrive early and sustain
  *   (e.g. frost ray: 3000 px/s on a ~1500px beam over 3000ms - arrives in ~500ms, sustains).
  * - `deliveryDuration` (number): ms the delivery phase emits.
+ * - `frontDuration` (number, optional): ms the auto-derived front takes to reach the end of the beam, when that is
+ *   sooner than `deliveryDuration`; e.g. a bolt of lightning which spans the ray at once and then lingers.
+ * - `chargeDuration` (number): charge phase length in ms (default 700).
+ * - `buildAnimations(ctx)` (function, optional): returns the delivery sprite-animation array (same `ctx`).
+ * - `buildSounds(ctx)` (function, optional): returns `{sound, time, origin?}` cues for the component's `sounds`
+ *   array (same `ctx`), e.g. the crack of a bolt at its release.
  * - `deliverySound` ({fade, offset, release}): looping damage-sound envelope for the delivery phase.
  * - `sustainedChargeAnchor` (string): if set, duplicate the charge layers into the delivery phase at
  *   this anchor (e.g. life ray "channels" the charge across the full delivery).
@@ -1785,6 +1839,45 @@ const RAY_VFX_PROPS = {
         }
       ];
     }
+  },
+
+  // Ray+Storm: where the arrow's bolt travels, this one spans the whole ray at once, through every target on it
+  storm: {
+    ..._CHARGE_STORM_CYCLONE,
+    ..._IMPACT_STORM,
+    impactSpriteFrame: "storm/ImpactBoltsLarge", impactSpriteAngle: 45, impactSpriteScale: 1.8,
+    chargeDuration: 1200,
+    deliveryDuration: 560, frontDuration: 140,
+    impactTiming: "beamFront",
+    deliverySoundType: "crackle",
+    deliverySound: {fade: 40, release: 300},
+    buildSounds({action, sound, CHARGE_DURATION}) {
+      const crack = sound(getVFXSound(action.rune.id, "crack"));
+      return crack ? [{sound: crack, time: Math.max(CHARGE_DURATION - 50, 0)}] : [];
+    },
+    buildAnimations(ctx) {
+      return [{function: "raySpriteBolt", params: {
+        texture: getVFXTexturePath(`${ctx.action.rune.id}/ProjectileBolt2`), segment: 10,
+        sweep: this.frontDuration, hold: this.deliveryDuration - this.frontDuration, fadeOut: 220, flicker: 16,
+        afterimage: {alpha: 0.32, duration: 1600},
+        forks: {textures: getVFXFrames(ctx.action.rune.id, "StreakBoltSingle", "StreakBoltForked"),
+          size: 5, angle: 45, jitter: 10, chance: 0.85, crossings: [0.506]},
+        elevation: ctx.beamElevation}}];
+    },
+    buildDelivery(ctx) {
+      const {action, beamElevation, beamLength} = ctx;
+      const haze = Math.clamp(Math.round((beamLength / canvas.dimensions.distancePixels) * 0.8), 10, 60);
+      return [{
+        animation: "shapeParticleResidue", anchor: "origin",
+        textures: getVFXFrames(action.rune.id, "SprayClouds"),
+        offset: this.deliveryDuration - 260, duration: 300, mask: true,
+        params: {count: haze, initial: haze, speed: {min: 4, max: 16},
+          lifetime: {min: 1400, max: 2400}, scale: {min: 2.0, max: 3.5},
+          scaleCurve: [{time: 0, value: 0.7}, {time: 1, value: 1.5}],
+          rotationSpeed: {min: -0.4, max: 0.4}, alpha: {min: 0.12, max: 0.3},
+          fade: {in: 250, out: 1200}, blend: PIXI.BLEND_MODES.NORMAL, elevation: beamElevation}
+      }];
+    }
   }
 };
 
@@ -1796,11 +1889,18 @@ const RAY_VFX_PROPS = {
  * - `deliveryDuration` (ms): delivery phase length.
  * - `impactTiming` (string): named strategy from {@link BLAST_IMPACT_TIMINGS} that computes per-target
  *   impact start times. Defaults to `"fromCenter"` (staggered outward from blast origin).
+ * - `impactStart(ctx)` (optional): returns one target's impact start in place of the `impactTiming` strategy.
+ *   `ctx` carries the timing context plus the target's `index` and the `total` struck, e.g. to give each target
+ *   of a lightning storm a bolt of its own.
+ * - `buildImpact(ctx)` (optional): returns further sprite animations for one target's impact, with `ctx` of
+ *   `{action, token, result, particleElevation, radius}`.
  * - `impactSound` ("impact" | "impactHeavy"): RUNE_SOUNDS key for hit cues.
  * - `deliverySoundType` (string): RUNE_SOUNDS key for the looping delivery sound (omit for silent).
  * - `deliverySound` ({fade, offset, release}): envelope params when delivery sound is enabled.
  * - `buildDelivery(ctx)`: returns the delivery particle-layer array. `ctx` carries `{action,
  *   textures, origin, radius, particleElevation, casterElevation, casterRadiusPx, sound}`.
+ * - `buildAnimations(ctx)` (optional): returns the delivery sprite-animation array (same `ctx`), e.g. a
+ *   lightning strike from overhead.
  * - `buildSounds(ctx)` (optional): returns an array of `{sound, time, origin?}` cues scheduled on the
  *   blast component's `sounds` array, e.g. a sequence of impact-sound cracks across a falling-debris
  *   storm in addition to the per-target impact sounds.
@@ -2087,6 +2187,100 @@ const BLAST_VFX_PROPS = {
             blend: PIXI.BLEND_MODES.NORMAL,
             area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 0.8)},
             elevation: particleElevation + 1}
+        }
+      ];
+    }
+  },
+
+  // Blast+Storm: storm cloud blankets the area while the caster channels, raining bolts at random and on each target
+  storm: {
+    ..._CHARGE_STORM_CYCLONE,
+    ..._IMPACT_STORM,
+    impactSprite: false,
+    chargeDuration: 1200,
+    sustainedChargeAnchor: "source",
+    deliveryDuration: 5000,
+    strikes: 5,
+    impactStart({deliveryStart, deliveryDuration, index, total}) {
+      const t = 0.15 + (0.7 * ((index + 0.2 + (Math.random() * 0.6)) / total));
+      return deliveryStart + Math.round(deliveryDuration * t);
+    },
+    buildImpact({action, token, result, particleElevation, radius}) {
+      const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+      const isHit = (result === T.HIT) || (result === T.GLANCE);
+      return [_stormStrike(action.rune.id, {radius, particleElevation},
+        isHit ? {} : {delta: computeAttackOffset(token, result), scorch: _stormScorch(action.rune.id)})];
+    },
+    scheduleStrikes({origin, radius}) {
+      const strikes = [];
+      for ( let i = 0; i < this.strikes; i++ ) {
+        const r = radius * 0.92 * Math.sqrt(Math.random());
+        const a = Math.random() * Math.PI * 2;
+        strikes.push({
+          time: Math.round(this.deliveryDuration * (0.06 + (0.88 * ((i + Math.random()) / this.strikes)))),
+          point: {x: Math.round(origin.x + (Math.cos(a) * r)), y: Math.round(origin.y + (Math.sin(a) * r))}
+        });
+      }
+      return strikes;
+    },
+    buildSounds(ctx) {
+      const {action, sound} = ctx;
+      ctx.strikeSchedule ??= this.scheduleStrikes(ctx);
+      const cues = [];
+      const thunder = sound(getVFXSound(action.rune.id, "thunder"));
+      if ( thunder ) cues.push({sound: {...thunder, radius: 60}, time: this.chargeDuration});
+      for ( const strike of ctx.strikeSchedule ) {
+        const cue = sound(getVFXSound(action.rune.id, "impact"));
+        if ( !cue ) break;
+        cue.volume = 0.45 + (Math.random() * 0.35);
+        cues.push({sound: cue, time: this.chargeDuration + strike.time});
+      }
+      return cues;
+    },
+    buildAnimations(ctx) {
+      const runeId = ctx.action.rune.id;
+      ctx.strikeSchedule ??= this.scheduleStrikes(ctx);
+      return ctx.strikeSchedule.map(strike => _stormStrike(runeId, ctx,
+        {point: strike.point, offset: strike.time, scorch: _stormScorch(runeId)}));
+    },
+    buildDelivery(ctx) {
+      const {action, radius, particleElevation} = ctx;
+      const runeId = action.rune.id;
+      const STORM_DURATION = this.deliveryDuration;
+      const coverRadius = Math.round(radius * 1.5);
+
+      // A few vast, faint bodies, each wider than the whole blast and centered within it, so that wherever they
+      // drift their overlap leaves no ground bare, while their turnover keeps its density shifting
+      const cloudScale = (radius * 3.6) / 128 / getParticleScaleFactor();
+      const cloud = {
+        area: {type: "circle", x: ctx.origin.x, y: ctx.origin.y, radius: Math.round(radius * 0.6)},
+        speed: {min: 4, max: 14}, rotationSpeed: {min: -0.12, max: 0.12},
+        scale: {min: cloudScale * 0.85, max: cloudScale * 1.15},
+        scaleCurve: [{time: 0, value: 0.8}, {time: 0.5, value: 1.0}, {time: 1, value: 1.15}],
+        alpha: {min: 0.16, max: 0.3}, blend: PIXI.BLEND_MODES.NORMAL, elevation: particleElevation + 1, sort: 1};
+
+      // Cover hangs over the walls which bound the blast beneath it, so none of it is masked by them. Both cloud
+      // layers stay beneath the particle density floor, so low performance modes cannot thin the cover into gaps
+      return [
+        {
+          animation: "shapeParticleResidue", anchor: "origin", textures: getVFXFrames(runeId, "AirCloud"),
+          duration: 200,
+          params: {...cloud, count: 6, initial: 6, spawnRate: 0, lifetime: {min: 1800, max: 3200},
+            fade: {in: 700, out: 1300}}
+        },
+        {
+          animation: "shapeParticleResidue", anchor: "origin", textures: getVFXFrames(runeId, "AirCloud"),
+          duration: STORM_DURATION - 1500,
+          params: {...cloud, count: null, spawnRate: 2.5, lifetime: {min: 2600, max: 4200},
+            fade: {in: 900, out: 1300}}
+        },
+        {
+          animation: "circleParticleBloom", anchor: "origin", textures: getVFXFrames(runeId, "SprayBolts"),
+          duration: STORM_DURATION,
+          params: {chargeRadius: coverRadius, growFraction: 0.15, spawnRate: 40, lifetime: {min: 70, max: 160},
+            scale: {min: 1.0, max: 1.8}, alpha: {min: 0.8, max: 1.0}, fade: {in: 0.05, out: 0.3},
+            blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7),
+            elevation: particleElevation + 1, sort: 0}
         }
       ];
     }

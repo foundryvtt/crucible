@@ -480,6 +480,7 @@ const circleParticleResidue = {
  * @typedef CircleParticleBloomParams
  * @property {number} chargeRadius
  * @property {number} [growFraction]  Fraction of lifetime spent scaling up (default 0.4).
+ * @property {number} [growFrom]      Starting size as a fraction of full size (default 0.1, a speck).
  * @property {{in: number, out: number}} [fade]
  */
 
@@ -493,6 +494,7 @@ const circleParticleBloom = {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const grow = params.growFraction ?? 0.4;
+    const growFrom = params.growFrom ?? 0.1;
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius: params.chargeRadius},
       velocity: {speed: [0, 0], angle: [0, 360]},
@@ -500,12 +502,12 @@ const circleParticleBloom = {
       fade: params.fade ?? {in: 0.3, out: 0.4},
       onSpawn: p => {
         p._bloom = p.scale.x;
-        p.scale.set(p._bloom * 0.1);
+        p.scale.set(p._bloom * growFrom);
       },
       onUpdate: p => {
         const age = p.lifetime > 0 ? Math.min(p.elapsedTime / p.lifetime, 1) : 1;
         const g = Math.min(age / grow, 1);
-        p.scale.set(p._bloom * (0.1 + (0.9 * (1 - Math.pow(1 - g, 2)))));
+        p.scale.set(p._bloom * (growFrom + ((1 - growFrom) * (1 - Math.pow(1 - g, 2)))));
       }
     };
   }

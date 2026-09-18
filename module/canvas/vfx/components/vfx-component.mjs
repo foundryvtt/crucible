@@ -451,8 +451,8 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
 
   /**
    * Create a transparent {@link VFXCanvasContainer} holding a sized {@link PrimarySpriteMesh} (named
-   * "mesh") at a point. A flipbook path yields a {@link CrucibleFlipbookMesh} instead.
-   * @param {string} texture   The texture path.
+   * "mesh") at a point. A flipbook path, or a list of variant paths, yields a {@link CrucibleFlipbookMesh} instead.
+   * @param {string|string[]} texture   The texture path, or several to flip between.
    * @param {number} size      Sprite size in feet (fit to the larger dimension).
    * @param {{x: number, y: number, elevation: number, sort: number, sortLayer: number}} point
    * @param {object} [options]
@@ -469,8 +469,10 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     container.sort = point.sort;
     container.sortLayer = point.sortLayer;
     container.alpha = 0;
-    const frames = getVFXFlipbook(texture);
-    const tex = frames?.[0] ?? foundry.canvas.getTexture(texture);
+    const frames = Array.isArray(texture)
+      ? texture.flatMap(path => getVFXFlipbook(path) ?? foundry.canvas.getTexture(path)).filter(Boolean)
+      : getVFXFlipbook(texture);
+    const tex = frames ? frames[0] : foundry.canvas.getTexture(texture);
     if ( !tex ) return container;
     const mesh = frames ? new CrucibleFlipbookMesh(frames, {frameAnchors: useTextureAnchor})
       : new foundry.canvas.primary.PrimarySpriteMesh(tex);

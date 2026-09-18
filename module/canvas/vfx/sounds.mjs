@@ -56,8 +56,9 @@ export const VFX_SOUNDS = {
  * static reference data describing which sound files exist for each rune and their
  * playback metadata. Sound types follow the S1-S4 taxonomy: `charge` (S1 one-shot), `passive`
  * (S2 loop), `damage` (S3 loop), `impact` (S4 one-shot), plus `miss` (one-shot, played when a spell
- * is resisted or misses). A rune may add loops of its own, such as the storm `crackle` of live electricity in
- * flight or in a channel. The pseudo-rune `generic` holds rune-agnostic sounds such as the projectile `whoosh`.
+ * is resisted or misses). A rune may add sounds of its own, such as the storm `crackle` loop of live electricity
+ * in flight or in a channel, its `thunder` clap, and the `crack` of a bolt released.
+ * The pseudo-rune `generic` holds rune-agnostic sounds such as the projectile `whoosh`.
  * @type {Record<string, {prefix: string} & Record<string, VFXSoundEntry[]>>}
  */
 export const RUNE_SOUNDS = {
@@ -134,6 +135,8 @@ export const RUNE_SOUNDS = {
     passive: [{src: "StormPassiveLoop.ogg", loop: true}],
     damage: [{src: "StormDamageLoop.ogg", loop: true}],
     crackle: [{src: "StormCrackleLoop.ogg", loop: true}],
+    thunder: [{src: "StormThunderClose.ogg", duration: 9.558}],
+    crack: [{src: "StormLightningCrack.ogg", duration: 2.0}],
     impact: [
       {src: "StormImpact1.ogg", duration: 0.894},
       {src: "StormImpact2.ogg", duration: 0.847},
