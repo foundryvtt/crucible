@@ -159,7 +159,7 @@ HOOKS.sense = {
     this.usage.region.wallRestriction = false;
   },
   postActivate() {
-    const trackingEffect = this.selfEvents?.effects[0]?.effects[0];
+    const {effect: trackingEffect} = this.selfEvents?.getPrimaryEffect() ?? {};
     if ( !trackingEffect ) return;
     trackingEffect.system.changes = [{
       key: "token.detectionModes.senseCreature",

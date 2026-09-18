@@ -35,7 +35,7 @@
     </fieldset>
     {{/if}}
 
-    {{#if requiresRegion}}
+    {{#if usesRegion}}
     <fieldset>
         <legend>{{fields.regionBehavior.label}}</legend>
         <div class="form-group">
@@ -49,7 +49,7 @@
                 <button type="button" class="frame-brown" data-action="deleteRegionBehavior" data-tooltip
                         aria-label="{{localize "ACTION.ACTIONS.DeleteRegionBehavior"}}"
                         {{disabled (not hasRegionBehavior)}}>
-                    <i class="fa-solid fa-trash"></i>        
+                    <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
             <p class="hint">{{fields.persistRegion.hint}}</p>

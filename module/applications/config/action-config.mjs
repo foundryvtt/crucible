@@ -139,10 +139,10 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
       fields: this.action.constructor.schema.fields,
-      requiresRegion: this.action.requiresRegion,
+      usesRegion: !!SYSTEM.ACTION.TARGET_TYPES[this.action.target.type]?.region,
       hasRegionBehavior: !!this.action.regionBehavior,
       disablePersistRegion: this.action.hasForcedPersistence,
-      persistRegion: this.action.shouldPersistRegion,
+      persistRegion: this.action.persistRegion,
       editBehaviorTooltip: _loc(`ACTION.ACTIONS.${this.action.regionBehavior ? "Edit" : "Create"}RegionBehavior`),
       headerTags: this.action.tags.reduce((acc, tagId) => {
         const tag = SYSTEM.ACTION.TAGS[tagId];
@@ -235,6 +235,9 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     for ( const effect of submitData.effects ) {
       if ( effect.duration && !Number.isFinite(effect.duration?.value) ) effect.duration.units = "";
     }
+
+    // A forced persistence choice renders disabled and is therefore absent from form data, so record it explicitly
+    if ( this.action.hasForcedPersistence ) submitData.persistRegion = this.action.persistRegion;
 
     // Validate action update
     let actionData;
@@ -346,8 +349,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     this.#behaviorConfig = null;
     this.action.updateSource({regionBehavior: null});
     await this.render();
-    const submit = new SubmitEvent("submit", {cancelable: true});
-    this.element.dispatchEvent(submit);
+    await this.submit();
   }
 
   /* -------------------------------------------- */
@@ -381,8 +383,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
         }
       });
       await this.render();
-      const submit = new SubmitEvent("submit", {cancelable: true});
-      await this.element.dispatchEvent(submit);
+      await this.submit();
     }
     const behaviorData = foundry.utils.deepClone(this.action.regionBehavior);
     foundry.utils.mergeObject(behaviorData, {

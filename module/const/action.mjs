@@ -593,7 +593,7 @@ export const TAGS = {
     async postActivate() {
       const summonEvents = this.events.filter(e => e.type === "summon");
       if ( !summonEvents.length ) return;
-      const effectEvents = this.selfEvents?.effects[0];
+      const {effect: selfEffect} = this.selfEvents?.getPrimaryEffect() ?? {};
       for ( const event of summonEvents ) {
         const position = this.region?.shapes[0] || this.token;
         event.summon.tokenData ||= {};
@@ -603,7 +603,7 @@ export const TAGS = {
           event.summon.tokenData.elevation ??= this.token.elevation;
           event.summon.tokenData.level ??= this.token.level;
         }
-        if ( (event.summon.permanent === false) && !effectEvents.length ) {
+        if ( (event.summon.permanent === false) && !selfEffect ) {
           throw new Error(_loc("ACTION.WARNINGS.MissingSummonEffect", {action: this.id}));
         }
       }
@@ -663,8 +663,7 @@ export const TAGS = {
       }
 
       // Update Active Effect with summoned token UUIDs
-      const effectEvent = this.selfEvents?.effects[0];
-      const ae = effectEvent?.effects[0];
+      const {effect: ae} = this.selfEvents?.getPrimaryEffect() ?? {};
       if ( ae ) ae.system.summons = summonedTokens;
     }
   },
@@ -1213,10 +1212,10 @@ export const TAGS = {
     tooltip: "ACTION.TAG.MaintainedTooltip",
     category: "resources",
     postActivate() {
-      const selfEffectEvent = this.selfEvents?.effects[0];
-      if ( !selfEffectEvent ) return;
+      const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
+      if ( !effect ) return;
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
-      selfEffectEvent.effects[0].system.maintenance = {cost: maintainedCost};
+      effect.system.maintenance = {cost: maintainedCost};
     }
   },
 

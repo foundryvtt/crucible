@@ -894,11 +894,10 @@ HOOKS.fieldStudy = {
   postActivate() {
     const k = this.metadata.knowledge;
     if ( !k ) return;
-    const effectEvent = this.selfEvents?.effects[0];
-    if ( !effectEvent ) return;
+    const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
+    if ( !effect ) return;
 
     // Encode the chosen Knowledge as add-changes; a single fixed id means a new study replaces the previous one
-    const effect = effectEvent.effects[0];
     effect._id = SYSTEM.EFFECTS.getEffectId("Field Study");
     effect.name = _loc("ACTIONS.FieldStudy.Effect", {knowledge: _loc(crucible.CONFIG.knowledge[k].label)});
     effect.system.changes = [
@@ -919,8 +918,8 @@ HOOKS.flashBrilliance = {
     }
   },
   postActivate() {
-    const effectEvent = this.selfEvents?.effects[0];
-    if ( !effectEvent ) return;
+    const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
+    if ( !effect ) return;
 
     // Grant every Knowledge for the effect's duration
     const changes = [];
@@ -928,7 +927,7 @@ HOOKS.flashBrilliance = {
       changes.push({key: "system.details.background.knowledge", type: "add", value: k});
       changes.push({key: "system.details.knowledge", type: "add", value: k});
     }
-    effectEvent.effects[0].system.changes = changes;
+    effect.system.changes = changes;
   }
 };
 
@@ -954,10 +953,10 @@ HOOKS.fontOfLife = {
   postActivate() {
     const amount = this.actor.abilities.wisdom.value;
     for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.effects[0];
-      if ( !effectEvent ) continue;
-      effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
-      effectEvent.resources.push({resource: "health", delta: amount});
+      const {event, effect} = events.getPrimaryEffect();
+      if ( !effect ) continue;
+      effect.system.dot = [{amount, resource: "health", restoration: true}];
+      event.resources.push({resource: "health", delta: amount});
     }
   }
 };
@@ -1093,11 +1092,11 @@ HOOKS.healingTonic = {
     let amount = 2;
     for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
     for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.effects[0];
-      if ( !effectEvent ) continue;
-      effectEvent.effects[0]._id = SYSTEM.EFFECTS.getEffectId(this.id);
-      effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
-      effectEvent.resources.push({resource: "health", delta: amount});
+      const {event, effect} = events.getPrimaryEffect();
+      if ( !effect ) continue;
+      effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
+      effect.system.dot = [{amount, resource: "health", restoration: true}];
+      event.resources.push({resource: "health", delta: amount});
     }
   }
 };
@@ -1220,10 +1219,10 @@ HOOKS.intuitWeakness = {
 HOOKS.laughingMatter = {
   postActivate() {
     for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.effects[0];
-      if ( !effectEvent ) continue;
-      effectEvent.effects[0].system.changes ||= [];
-      effectEvent.effects[0].system.changes.push(
+      const {effect} = events.getPrimaryEffect();
+      if ( !effect ) continue;
+      effect.system.changes ||= [];
+      effect.system.changes.push(
         {key: "system.rollBonuses.banes.laughingMatter.number", type: "override", value: 1},
         {key: "system.rollBonuses.banes.laughingMatter.label", type: "override", value: this.name}
       );
@@ -1242,10 +1241,10 @@ HOOKS.lastStand = {
     const health = this.actor.abilities.toughness.value * 2;
     const activation = selfEvents?.activation;
     if ( activation ) activation.resources.push({resource: "health", delta: health});
-    const effectEvent = selfEvents?.effects[0];
-    if ( !effectEvent ) return;
-    effectEvent.effects[0].system.changes ||= [];
-    effectEvent.effects[0].system.changes.push({key: "system.defenses.wounds.bonus", type: "subtract", value: 2});
+    const {effect} = selfEvents?.getPrimaryEffect() ?? {};
+    if ( !effect ) return;
+    effect.system.changes ||= [];
+    effect.system.changes.push({key: "system.defenses.wounds.bonus", type: "subtract", value: 2});
   }
 };
 
@@ -1839,11 +1838,11 @@ HOOKS.rallyingTonic = {
     let amount = 2;
     for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
     for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.effects[0];
-      if ( !effectEvent ) continue;
-      effectEvent.effects[0]._id = SYSTEM.EFFECTS.getEffectId(this.id);
-      effectEvent.effects[0].system.dot = [{amount, resource: "morale", restoration: true}];
-      effectEvent.resources.push({resource: "morale", delta: amount});
+      const {event, effect} = events.getPrimaryEffect();
+      if ( !effect ) continue;
+      effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
+      effect.system.dot = [{amount, resource: "morale", restoration: true}];
+      event.resources.push({resource: "morale", delta: amount});
     }
   }
 };
@@ -1906,8 +1905,8 @@ HOOKS.readScroll = {
   },
   postActivate() {
     const selfEvents = this.selfEvents;
-    const effectEvent = selfEvents?.effects[0];
-    if ( !effectEvent ) return;
+    const {effect} = selfEvents?.getPrimaryEffect() ?? {};
+    if ( !effect ) return;
     const {runes, gestures, inflections} = this.item.system.scroll;
     const changes = [];
     for ( const rune of runes ) {
@@ -1921,7 +1920,7 @@ HOOKS.readScroll = {
     for ( const inflection of inflections ) {
       changes.push({key: "system.grimoire.inflectionIds", type: "add", value: inflection});
     }
-    Object.assign(effectEvent.effects[0], {
+    Object.assign(effect, {
       origin: this.item.uuid,
       duration: {value: 600, units: "seconds", expiry: null},
       system: {changes}
@@ -2686,11 +2685,11 @@ HOOKS.stoneStance = {
 
 HOOKS.ancestralGrove = {
   prepare() {
-    this.usage.persistRegion = true;
+    this.persistRegion = true;
   },
   async confirm(reverse) {
     if ( reverse || !this.region ) return;
-    const groveEffect = this.selfEvents?.effects[0]?.effects[0];
+    const {effect: groveEffect} = this.selfEvents?.getPrimaryEffect() ?? {};
     const tokenUuid = groveEffect?.system.summons?.[0];
     const token = tokenUuid ? fromUuidSync(tokenUuid) : null;
     if ( !token ) return;
