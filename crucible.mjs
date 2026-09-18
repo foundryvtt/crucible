@@ -521,17 +521,19 @@ Hooks.once("canvasConfig", () => {
 /* -------------------------------------------- */
 
 Hooks.once("i18nInit", function() {
+  const L = foundry.helpers.Localization;
 
-  // Localize DataModels
-  foundry.helpers.Localization.localizeDataModel(models.CrucibleAction);
-  foundry.helpers.Localization.localizeSchema(models.CrucibleAction.schema.fields.effects.element, ["EFFECT"], {prefixPath: "effects.element."});
+  // Localize CrucibleAction data models. Each subclass maintains a separate cache of fields
+  for ( const model of Object.values(models) ) {
+    if ( !foundry.utils.isSubclass(model, models.CrucibleAction) ) continue;
+    L.localizeDataModel(model);
+    L.localizeSchema(model.schema.fields.effects.element, ["EFFECT"], {prefixPath: "effects.element."});
+  }
 
-  // TODO: Could this be cleaner?
+  // The partial CrucibleAction embedded within a CrucibleActionRegionBehavior is a separate schema
   const actionBehaviorEffectSchema = models.CrucibleActionRegionBehavior.schema.fields.action.fields.effects.element;
-  foundry.helpers.Localization.localizeSchema(actionBehaviorEffectSchema, ["EFFECT"], {prefixPath: "system.action.effects.element."});
-  foundry.helpers.Localization.localizeSchema(actionBehaviorEffectSchema, ["ACTION"], {prefixPath: "system.action."});
-  foundry.helpers.Localization.localizeDataModel(models.CrucibleSpellAction);
-  foundry.helpers.Localization.localizeDataModel(models.CrucibleCounterspellAction);
+  L.localizeSchema(actionBehaviorEffectSchema, ["EFFECT"], {prefixPath: "system.action.effects.element."});
+  L.localizeSchema(actionBehaviorEffectSchema, ["ACTION"], {prefixPath: "system.action."});
 
   // Pre-localize configuration objects
   preLocalizeConfig();

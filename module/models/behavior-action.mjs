@@ -32,6 +32,21 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
   static LOCALIZATION_PREFIXES = ["REGION_BEHAVIORS.ACTION"];
 
   /**
+   * Valid values for "frequency"
+   * @type {Record<string, string>}
+   */
+  static FREQUENCY_CHOICES = {
+    every: "REGION_BEHAVIORS.ACTION.FREQUENCIES.every",
+    once: "REGION_BEHAVIORS.ACTION.FREQUENCIES.once",
+    roundActor: "REGION_BEHAVIORS.ACTION.FREQUENCIES.roundActor"
+    // TODO additional intended frequencies as proposed below:
+    // oncePerActor: "Once per Actor",
+    // roundOnce: "Once per Round",
+    // turnActor: "Once per Turn per Actor",
+    // turnOnce: "Once per Turn"
+  };
+
+  /**
    * Valid subset of triggering events
    * @type {string[]}
    */
@@ -47,30 +62,13 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     CONST.REGION_EVENTS.TOKEN_ROUND_END
   ];
 
-  /**
-   * Valid values for "frequency"
-   * @type {Record<string, string>}
-   */
-  static FREQUENCY_CHOICES = {
-    every: "REGION_BEHAVIORS.ACTION.FREQUENCIES.every",
-    once: "REGION_BEHAVIORS.ACTION.FREQUENCIES.once",
-    roundActor: "REGION_BEHAVIORS.ACTION.FREQUENCIES.roundActor"
-    // TODO additional intended frequencies as proposed below:
-    // oncePerActor: "Once per Actor",
-    // roundOnce: "Once per Round",
-    // turnActor: "Once per Turn per Actor",
-    // turnOnce: "Once per Turn"
-  };
-
   /* -------------------------------------------- */
 
   /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
-    const {id, name, img, description, effects, tags} = crucible.api.models.CrucibleAction.defineSchema();
     return {
-      action: new fields.SchemaField({id, name, img, description, effects, tags},
-        {required: true, initial: {id: "action", name: "Action", img: "icons/svg/hazard.svg", effects: [], tags: []}}),
+      ...this.defineEmbeddedSchema(),
       actor: new fields.DocumentUUIDField({type: "Actor"}),
       affectedActors: new fields.TypedObjectField(new fields.SchemaField({
         combatId: new fields.DocumentIdField({initial: null}),
@@ -85,12 +83,42 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
           return (type === "Actor") && foundry.data.validators.isValidId(id);
         }
       }),
-      events: this._createEventsField({events: this.#VALID_EVENTS, initial: ["tokenEnter", "tokenTurnStart"]}),
-      frequency: new fields.StringField({initial: "roundActor", required: true, nullable: false, choices: this.FREQUENCY_CHOICES}),
       origin: new fields.DocumentUUIDField({type: "ActiveEffect", initial: null, required: true, nullable: true})
     };
   }
 
+  /* -------------------------------------------- */
+
+  /**
+   * Define the schema shared with the behavior pre-configuration recorded on a {@link CrucibleAction}.
+   * @returns {DataSchema}
+   */
+  static defineEmbeddedSchema() {
+    const fields = foundry.data.fields;
+    const embeddedAction = crucible.api.models.CrucibleAction.defineBaseSchema();
+    return {
+      action: new fields.SchemaField(embeddedAction, {required: true, initial: {
+        id: "action",
+        name: "Action",
+        img: "icons/svg/hazard.svg",
+        effects: [],
+        tags: []
+      }}),
+      events: this._createEventsField(),
+      frequency: new fields.StringField({initial: "roundActor", required: true, nullable: false,
+        choices: this.FREQUENCY_CHOICES})
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static _createEventsField() {
+    return super._createEventsField({events: this.#VALID_EVENTS, initial: ["tokenEnter", "tokenTurnStart"]});
+  }
+
+  /* -------------------------------------------- */
+  /*  Region Event Handling                       */
   /* -------------------------------------------- */
 
   /** @override */

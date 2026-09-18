@@ -98,6 +98,12 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   };
 
   /**
+   * A transient Region Behavior config opened to pre-configure the Region this Action persists.
+   * @type {CrucibleActionBehaviorRegionConfig|null}
+   */
+  #behaviorConfig = null;
+
+  /**
    * Track which module hooks have their source expanded.
    * @type {Set<string>}
    */
@@ -116,9 +122,14 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
 
   /** @override */
   async _prepareContext(_options) {
+
+    // Re-resolve the Action, which is replaced by a new instance whenever the parent Document is updated
+    this.action = this.document.system.actions?.find(a => a.id === this.action.id) ?? this.action;
     const action = this.action.toObject();
     action.name ||= this.document.name;
     action.img ||= this.document.img;
+
+    // Prepare render context for the sheet
     return {
       action,
       hookPartial: HOOK_PARTIAL,
@@ -260,6 +271,16 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _onClose(options) {
+    super._onClose(options);
+    // noinspection ES6MissingAwait
+    this.#behaviorConfig?.close();
+    this.#behaviorConfig = null;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Add an effect to the Action.
    * @this {CrucibleActionConfig}
@@ -309,6 +330,10 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
    * @returns {Promise<void>}
    */
   static async #onEditRegionBehavior(_event, _target) {
+    if ( this.#behaviorConfig?.rendered ) {
+      this.#behaviorConfig.bringToFront();
+      return;
+    }
     const behaviorData = foundry.utils.deepClone(this.action.regionBehavior) ?? {
       name: this.action.name,
       system: {
@@ -324,18 +349,16 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     };
     foundry.utils.mergeObject(behaviorData, {
       type: "crucible.action",
-      flags: {
-        crucible: {
-          itemUuid: this.document.uuid,
-          actionId: this.action.id
-        }
-      },
       system: {
         actor: this.action.actor?.uuid
       }
     });
+
+    // The parent document may be a CrucibleItem or an affix ActiveEffect; both record Actions under system.actions
     const tempBehavior = new RegionBehavior.implementation(behaviorData);
-    tempBehavior.sheet.render(true);
+    this.#behaviorConfig = tempBehavior.sheet;
+    await this.#behaviorConfig.render({force: true, preconfigure: true, actionId: this.action.id,
+      parent: this.document});
   }
 
   /* -------------------------------------------- */

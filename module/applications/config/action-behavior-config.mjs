@@ -1,5 +1,20 @@
 /**
+ * @import RegionBehaviorConfig from "@client/applications/sheets/region-behavior-config.mjs";
+ * @import {DocumentSheetConfiguration, DocumentSheetRenderOptions} from "@client/applications/api/document-sheet.mjs";
+ */
+
+/**
+ * @typedef _ActionBehaviorRenderOptions
+ * @property {boolean} [preconfigure]  Render to pre-configure the Region Behavior of an Action, rather than a real one
+ * @property {string} [actionId]       The id of the Action being pre-configured
+ * @property {ClientDocument} [parent] The CrucibleItem or affix ActiveEffect which records that Action
+ */
+
+/** @typedef {DocumentSheetRenderOptions & _ActionBehaviorRenderOptions} ActionBehaviorRenderOptions */
+
+/**
  * The Region Behavior configuration application specific to Crucible Action behaviors.
+ * @extends {RegionBehaviorConfig<DocumentSheetConfiguration, ActionBehaviorRenderOptions>}
  */
 export default class CrucibleActionBehaviorRegionConfig extends foundry.applications.sheets.RegionBehaviorConfig {
 
@@ -7,7 +22,8 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
   static DEFAULT_OPTIONS = {
     actions: {
       addEffect: CrucibleActionBehaviorRegionConfig.#onAddEffect,
-      deleteEffect: CrucibleActionBehaviorRegionConfig.#onDeleteEffect
+      deleteEffect: CrucibleActionBehaviorRegionConfig.#onDeleteEffect,
+      editImage: CrucibleActionBehaviorRegionConfig.#onEditImage
     },
     classes: ["crucible", "action-behavior", "action", "standard-form"],
     position: {width: 600, height: "auto"},
@@ -63,6 +79,12 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
     }
   };
 
+  /**
+   * The Action for which this Application pre-configures a Region Behavior, captured from render options.
+   * @type {{actionId: string, parent: ClientDocument}|null}
+   */
+  #preconfigure = null;
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -84,13 +106,17 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
 
   /** @inheritDoc */
   get isEditable() {
-    if ( this.isSynthetic ) return true;
+    if ( this.isSynthetic ) return this.#preconfigure?.parent.isOwner ?? false;
     return super.isEditable;
   }
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
+  /**
+   * A synthetic behavior has no parent Region to derive permission from, and is only ever opened from an Action
+   * config which already tested it. Edit permission is enforced by {@link isEditable} at submit time instead.
+   * @inheritDoc
+   */
   get isVisible() {
     if ( this.isSynthetic ) return true;
     return super.isVisible;
@@ -101,16 +127,33 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _initializeApplicationOptions(options) {
+    options = super._initializeApplicationOptions(options);
+    options.window.contentClasses.findSplice(c => c === "standard-form"); // Added by RegionBehaviorConfig
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    if ( options.preconfigure ) this.#preconfigure = {actionId: options.actionId, parent: options.parent};
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
-    // Remove auto-added system fields, transform into more easily accessed structure
+    // Drop the trailing fieldset of auto-added system fields
     context.fields = context.fields.slice(0, -1).reduce((acc, {fields}) => {
       for ( const {field, value} of fields ) {
         acc[field.name] = {field, value};
       }
       return acc;
-    });
+    }, {});
 
     // Remove Disabled checkbox if pre-configuring
     if ( this.isSynthetic ) delete context.fields.disabled;
@@ -213,6 +256,29 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Choose a new image for this behavior's Action.
+   * @this {CrucibleActionBehaviorRegionConfig}
+   * @param {PointerEvent} _event
+   * @param {HTMLImageElement} target
+   * @returns {Promise<void>}
+   */
+  static async #onEditImage(_event, target) {
+    const fp = new foundry.applications.apps.FilePicker.implementation({
+      current: this.document.system.toObject().action.img,
+      type: "image",
+      callback: async path => {
+        target.src = path;
+        await this.#submitChanges({system: {action: {img: path}}});
+      },
+      position: {top: this.position.top + 40, left: this.position.left + 10},
+      document: this.document
+    });
+    await fp.browse();
+  }
+
+  /* -------------------------------------------- */
   /*  Form Submission                             */
   /* -------------------------------------------- */
 
@@ -228,28 +294,41 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
 
   /** @override */
   async _processSubmitData(event, form, submitData, options={}) {
-    if ( !this.isSynthetic ) return this.document.update(submitData, options);
+    return this.#submitChanges(submitData, options);
+  }
 
-    // Otherwise, this isn't a real behavior, exists only to pre-configure one on an action
-    this.document.updateSource(submitData, options);
-    let action;
-    if ( this.document.system.actor ) {
-      const actor = await fromUuid(this.document.system.actor);
-      action = actor?.actions[this.document.getFlag("crucible", "actionId")];
-    } else {
-      const item = await fromUuid(this.document.getFlag("crucible", "itemUuid"));
-      action = item?.system.actions.find(a => a.id === this.document.getFlag("crucible", "actionId"));
+  /* -------------------------------------------- */
+
+  /**
+   * Route changes to the persisted Region Behavior, or to the pre-configuration recorded on its parent Action.
+   * @param {object} changes                Partial Region Behavior data
+   * @param {object} [options]              Options forwarded to the update operation
+   * @returns {Promise<void>}
+   * @throws {Error}                        If the Action which records the pre-configuration cannot be resolved
+   */
+  async #submitChanges(changes, options={}) {
+
+    // Standard document updates for full RegionBehavior documents
+    if ( !this.isSynthetic ) {
+      await this.document.update(changes, options);
+      return;
     }
-    if ( !action?.item ) return;
-    const itemActions = action.item.system.toObject().actions;
-    const idx = itemActions.findIndex(a => a.id === action.id);
-    if ( idx === -1 ) return; // Shouldn't be possible?
-    foundry.utils.setProperty(itemActions[idx], "regionBehavior", submitData);
-    const configApp = Object.values(action.item.apps).find(a => a.action?.id === action.id);
-    await action.item.update({"system.actions": itemActions});
-    if ( configApp ) {
-      configApp.action = action.item.system.actions[idx];
-      configApp.render();
-    }
+
+    // Pre-configure the behavior in the context of an owning CrucibleAction
+    this.document.updateSource(changes);
+    const {actionId, parent} = this.#preconfigure;
+    const actions = parent.system.toObject().actions ?? [];
+    const idx = actions.findIndex(a => a.id === actionId);
+    if ( idx === -1 ) throw new Error(`Unable to record Region Behavior pre-configuration: Action "${actionId}" was `
+      + `not found on Document "${parent.uuid}"`);
+
+    // Record the full state of the transient behavior, including data for fields which have no form input
+    const source = this.document.toObject();
+    actions[idx].regionBehavior = {
+      name: source.name,
+      system: {action: source.system.action, events: source.system.events, frequency: source.system.frequency}
+    };
+    await parent.update({"system.actions": actions}, options);
+    await this.render(); // Transient behaviors need to be manually re-rendered
   }
 }

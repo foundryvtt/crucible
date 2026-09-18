@@ -612,38 +612,12 @@ class CrucibleActionTags extends Set {
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
-    const makeEffectsSchema = () => {
-      // Configure allowed duration properties
-      const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
-      const durationUnits = CONST.ACTIVE_EFFECT_DURATION_UNITS;
-      aeDuration.extendFields({
-        units: new fields.StringField({required: true, blank: true, initial: "", choices: durationUnits})
-      });
-
-      // Limit allowed effect scopes
-      const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
-      delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
-
-      // Return effects schema
-      return new fields.ArrayField(new fields.SchemaField({
-        name: new fields.StringField({blank: true, initial: ""}),
-        scope: new fields.NumberField({choices: effectScopes}),
-        result: new fields.SchemaField({
-          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
-          all: new fields.BooleanField({initial: false})
-        }),
-        statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
-        duration: aeDuration,
-        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
-      }));
-    };
-
-    // Return action schema
+    const {id, name, img, description, effects, tags} = CrucibleAction.defineBaseSchema();
     return {
-      id: new fields.StringField({required: true, blank: false}),
-      name: new fields.StringField(),
-      img: new fields.FilePathField({categories: ["IMAGE"]}),
-      description: new fields.HTMLField({required: false, initial: undefined}),
+      id,
+      name,
+      img,
+      description,
       condition: new fields.StringField(),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
@@ -669,40 +643,54 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }),
       regionBehavior: new fields.SchemaField({
         name: new fields.StringField(),
-        system: new fields.SchemaField({
-          action: new fields.SchemaField({
-            id: new fields.StringField({
-              required: true, blank: false, label: _loc("ACTION.FIELDS.id.label"), hint: _loc("ACTION.FIELDS.id.hint")
-            }),
-            name: new fields.StringField(),
-            img: new fields.FilePathField({categories: ["IMAGE"]}),
-            description: new fields.HTMLField({
-              required: false, initial: undefined, label: _loc("ACTION.FIELDS.description.label"),
-              hint: _loc("ACTION.FIELDS.description.hint")
-            }),
-            effects: makeEffectsSchema(),
-            tags: new fields.SetField(new fields.StringField({required: true, blank: false}, {
-              label: _loc("ACTION.FIELDS.tags.label"), hint: _loc("ACTION.FIELDS.tags.hint")
-            }))
-          }),
-          events: foundry.data.regionBehaviors.RegionBehaviorType._createEventsField(),
-          frequency: new fields.StringField({
-            initial: "roundActor",
-            required: true,
-            nullable: false,
-            choices: crucible.api.models.CrucibleActionRegionBehavior.FREQUENCY_CHOICES
-          })
-        })
+        system: new fields.SchemaField(crucible.api.models.CrucibleActionRegionBehavior.defineEmbeddedSchema())
       }, {nullable: true, initial: null}),
       summon: new fields.SchemaField({
         actorUuid: new fields.DocumentUUIDField({type: "Actor"}),
         permanent: new fields.BooleanField({initial: true}),
         combatant: new fields.BooleanField({initial: true})
       }, {nullable: true, initial: null}),
-      effects: makeEffectsSchema(),
+      effects,
+      tags
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The base fields of a CrucibleAction which exist both on the primary action or embedded elsewhere.
+   * @returns {DataSchema}
+   */
+  static defineBaseSchema() {
+    const fields = foundry.data.fields;
+    const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
+    const durationUnits = CONST.ACTIVE_EFFECT_DURATION_UNITS;
+    aeDuration.extendFields({
+      units: new fields.StringField({required: true, blank: true, initial: "", choices: durationUnits})
+    });
+    const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
+    delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
+    return {
+      id: new fields.StringField({required: true, blank: false}),
+      name: new fields.StringField(),
+      img: new fields.FilePathField({categories: ["IMAGE"]}),
+      description: new fields.HTMLField({required: false, initial: undefined}),
+      effects: new fields.ArrayField(new fields.SchemaField({
+        name: new fields.StringField({blank: true, initial: ""}),
+        scope: new fields.NumberField({choices: effectScopes}),
+        result: new fields.SchemaField({
+          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
+          all: new fields.BooleanField({initial: false})
+        }),
+        statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
+        duration: aeDuration,
+        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
+      })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     };
   }
+
+  /* -------------------------------------------- */
 
   /**
    * A set of localization prefix paths which are used by this data model.
@@ -844,8 +832,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _prepared = this._prepared ?? false;
 
+  /* -------------------------------------------- */
+
   /**
-   * Whether this action auto-populates the actor sheet favorites bar, resolving any condition function against itself.
+   * Whether this action autopopulates the actor sheet favorites bar, resolving any condition function against itself.
    * @type {boolean}
    */
   get autoFavorite() {
@@ -853,7 +843,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     return this._autoFavorite === true;
   }
 
-  /* -------------------------------------------- */
+  /**
+   * Is this action configured to place a non-ephemeral region?
+   * @type {boolean}
+   */
+  get hasPersistentRegion() {
+    return SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false;
+  }
 
   /**
    * Is this Action a favorite of the Actor which owns it?
@@ -877,15 +873,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   get requiresRegion() {
     return SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region && !this.region;
-  }
-
-  /**
-   * Is this action configured to place a non-ephemeral region?
-   * @type {boolean}
-   */
-  get hasPersistentRegion() {
-    const hasRegion = this.requiresRegion || this.region;
-    return hasRegion && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
   }
 
   /**
@@ -1924,7 +1911,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * If action creates a non-ephemeral region, ensure at least one self-effect to record it.
    */
   #recordEffectEvents() {
-    let regionEffectRequired = this.hasPersistentRegion;
+    // A tracking effect is only meaningful once a region has actually been placed
+    let regionEffectRequired = !!this.region && this.hasPersistentRegion;
     if ( !this.effects.length && !regionEffectRequired ) return;
     const description = resolveReferences(this.description, this); // Bake @ref annotations now, last chance to do so
     const eventsByActor = this.eventsByActor;
@@ -2738,7 +2726,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }
       }
       // The effect reference is the source of truth for persistence: keep the region iff a live effect retains it
-      const retained = this.events.some(e => 
+      const retained = this.events.some(e =>
         !e.negated && e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
       if ( retained ) await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
       else await this.region.delete();
