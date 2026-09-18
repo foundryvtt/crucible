@@ -315,6 +315,64 @@ const impactSpriteGlow = {
 /* -------------------------------------------- */
 
 /**
+ * Arc between a point on the caster and the target: several copies of a directional sprite spanning the gap from
+ * its tail, each re-rolled every few frames in where on the target it lands, handedness, and brightness.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const impactSpriteArcs = {
+  schedule(phase, params) {
+    const {textures, from = "forward", copies = 3, scatter = 0, interval = {min: 40, max: 80}, fadeOut = 100,
+      offset = 0, elevation, blend = PIXI.BLEND_MODES.ADD} = params;
+    const tail = this.state.anchors[from];
+    const head = this.state.destination;
+    if ( !textures?.length || !tail || !head ) return;
+    const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+    const gap = Math.max(Math.hypot(head.x - tail.x, head.y - tail.y), 1);
+    const start = phase.start + offset;
+    const duration = params.duration ?? phase.duration;
+    const pace = canvas.photosensitiveMode ? 5 : 1;
+    const arcs = [];
+    for ( let i = 0; i < copies; i++ ) {
+      const container = this.addManagedDisplayObject(this._createSprite(
+        textures[Math.floor(Math.random() * textures.length)], gap / canvas.dimensions.distancePixels,
+        {x: tail.x, y: tail.y, elevation: elevation ?? tail.elevation ?? 0, sort: tail.sort ?? 0,
+          sortLayer: tail.sortLayer ?? SL.TOKENS}, {useTextureAnchor: true, blend}));
+      const mesh = container.getChildByName("mesh");
+      if ( mesh ) arcs.push({container, mesh, next: 0});
+    }
+
+    // Each arc is sized to the gap, then scaled to reach wherever on the target it lands this time
+    const reroll = (arc, ms) => {
+      const r = scatter * Math.sqrt(Math.random());
+      const a = Math.random() * Math.PI * 2;
+      const dx = (head.x + (Math.cos(a) * r)) - tail.x;
+      const dy = (head.y + (Math.sin(a) * r)) - tail.y;
+      arc.container.rotation = Math.atan2(dy, dx);
+      arc.container.scale.set(Math.hypot(dx, dy) / gap);
+      arc.mesh.alpha = 0.6 + (Math.random() * 0.4);
+      if ( Math.random() < 0.5 ) arc.mesh.scale.y *= -1;
+      arc.next = ms + ((interval.min + (Math.random() * (interval.max - interval.min))) * pace);
+    };
+    for ( const arc of arcs ) {
+      reroll(arc, 0);
+      this.timeline.add(arc.container, {alpha: {from: 0, to: 1, duration: 20}}, start)
+        .add(arc.container, {alpha: {to: 0, duration: fadeOut}}, start + Math.max(duration - fadeOut, 0));
+    }
+    const clock = {ms: 0};
+    this.timeline.add(clock, {
+      ms: {from: 0, to: duration}, duration, ease: "linear",
+      onRender: () => {
+        for ( const arc of arcs ) {
+          if ( clock.ms >= arc.next ) reroll(arc, clock.ms);
+        }
+      }
+    }, start);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Pour a torrent of lightning across a fan: several copies of a sprite rooted somewhere out from the caster, each
  * keeping to its own slice of the arc while it is re-rolled every few frames in heading, distance, handedness,
  * size and brightness. Art which converges on its anchor is `turn`ed about to spray outward from it.
@@ -577,10 +635,11 @@ const impactSpriteShock = {
     params._target = target;
     params._filter = filter;
 
-    // Join the filter to the mesh only for the shock, so its shader never runs during the spell preamble
+    // Join the filter to the mesh only for the shock, so its shader never runs during the spell preamble. It goes
+    // ahead of any other filter, as it recolors every pixel it is given and should be given the target alone
     const start = phase.start;
     this.timeline.call(() => {
-      if ( !target.destroyed ) target.filters = target.filters ? [...target.filters, filter] : [filter];
+      if ( !target.destroyed ) target.filters = [filter, ...(target.filters ?? [])];
     }, start);
 
     // Read per client at play time: a strobe of this rate is what photosensitive mode exists to prevent
@@ -620,6 +679,7 @@ export const SPRITE_ANIMATIONS = {
   impactSpriteGlow,
   impactSpriteShock,
   impactSpriteStrike,
+  impactSpriteArcs,
   fanSpriteArcs,
   raySpriteBolt
 };

@@ -194,8 +194,6 @@ const circleParticleSpiral = {
  * @property {number} [speedJitter]       Fractional variation in per-particle angular velocity (default 0.15).
  * @property {number} [wobbleAmplitude]   Fractional radial oscillation about the orbit (default 0.06).
  * @property {number} [wobbleSpeed]       Angular frequency of the radial wobble (rad/sec, default 2).
- * @property {number} [growFrom]          Starting size as a fraction of full size (default 1, no growth).
- * @property {number} [growFraction]      Fraction of lifetime spent swelling to full size (default 0.35).
  * @property {{in: number, out: number}} [fade]
  * @property {number} [blend]
  */
@@ -219,8 +217,6 @@ const circleParticleOrbit = {
     const speedJitter = params.speedJitter ?? 0.15;
     const wobbleAmp = (params.wobbleAmplitude ?? 0.06) * orbitRadius;
     const wobbleSpeed = params.wobbleSpeed ?? 2;
-    const growFrom = params.growFrom ?? 1;
-    const grow = params.growFraction ?? 0.35;
 
     const place = (p, generator) => {
       const ox = anchor.x - generator.bounds.x;
@@ -231,10 +227,6 @@ const circleParticleOrbit = {
       p.x = ox + (Math.cos(a) * r);
       p.y = oy + (Math.sin(a) * r);
       p.rotation = p._orbitSpin + (spin * t);
-      if ( growFrom >= 1 ) return;
-      const age = p.lifetime > 0 ? Math.min(p.elapsedTime / p.lifetime, 1) : 1;
-      const g = Math.min(age / grow, 1);
-      p.scale.set(p._orbitScale * (growFrom + ((1 - growFrom) * (1 - Math.pow(1 - g, 2)))));
     };
     return {
       area: {type: "ring", x: anchor.x, y: anchor.y, radius: orbitRadius,
@@ -250,7 +242,6 @@ const circleParticleOrbit = {
         p._orbitSpeed = orbit * (1 + (((Math.random() * 2) - 1) * speedJitter));
         p._orbitWobble = Math.random() * Math.PI * 2;
         p._orbitSpin = Math.random() * Math.PI * 2;
-        p._orbitScale = p.scale.x;
         place(p, generator);
       },
       onUpdate: (p, {generator}) => place(p, generator)
@@ -261,88 +252,51 @@ const circleParticleOrbit = {
 /* -------------------------------------------- */
 
 /**
- * @typedef CircleParticleWhirlParams
- * @property {number} chargeRadius     Radius of the whirl: each sprite is sized to span its diameter. REQUIRED.
- * @property {number} [spinSpeed]      Sprite spin (rad/sec, default 4). Every particle turns the same way.
- * @property {number} [speedJitter]    Fractional variation in per-particle spin (default 0.25).
- * @property {number} [arms]           Space successive sprites around this many headings rather than at random, and
- *                                      deal their sizes out across the scale range so that no two arms match.
- * @property {number} [armJitter]      Random offset of each arm, as a fraction of the arm spacing (default 0).
- * @property {number} [stagger]        Ms by which each successive sprite enters after the one before (default 0).
- * @property {number} [minVisible]     Least fraction of its lifetime a staggered sprite spends visible (default 0.6).
- * @property {number[]} [tints]        A palette dealt out in turn from a random start, so neighbors differ.
- * @property {number} [centerJitter]   Fraction of the radius within which sprite centers scatter (default 0.05).
- * @property {number} [growFraction]   Fraction of lifetime spent swelling to full size (default 0.35).
- * @property {number} [growFrom]       Starting size as a fraction of full size (default 0.5).
- * @property {{min: number, max: number}} [scale]   Size relative to the whirl diameter (default 0.85-1.15).
+ * @typedef CircleParticleAuraParams
+ * @property {number} chargeRadius       Radius of the aura: the sprite is sized to span its diameter. REQUIRED.
+ * @property {number} [spinSpeed]        Slow turn of the sprite between its jumps (rad/sec, default 0.6).
+ * @property {{min: number, max: number}} [jumpInterval]   Ms between jumps (default 250-700).
+ * @property {{min: number, max: number}} [scale]          Size relative to the aura diameter (default 1).
  * @property {{in: number, out: number}} [fade]
  * @property {number} [blend]
  */
 
 /**
- * A whirl turning in place. Large sprites sit on the anchor and spin about their own centers, all the same way but
- * each at its own pace, swelling as they fade in. Overlapping discs and off-center arcs shear against one another
- * into a cyclone, where a single spun sprite would read as a rigid decal.
- * @type {CrucibleParticleBehavior<CircleParticleWhirlParams>}
+ * An aura held on the anchor for the length of its layer: a sprite turning slowly, which at irregular moments jumps
+ * to another rotation or mirrors itself, so that a single frame of art is never seen settling into one shape.
+ * @type {CrucibleParticleBehavior<CircleParticleAuraParams>}
  */
-const circleParticleWhirl = {
+const circleParticleAura = {
   setup(phase, layer) {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
-    const spin = params.spinSpeed ?? 4;
-    const speedJitter = params.speedJitter ?? 0.25;
-    const grow = params.growFraction ?? 0.35;
-    const growFrom = params.growFrom ?? 0.5;
-    const {min = 0.85, max = 1.15} = params.scale ?? {};
-    const {arms, armJitter = 0, stagger = 0, minVisible = 0.6, tints} = params;
-    const heading = Math.random() * Math.PI * 2;
-    const tintOffset = Math.floor(Math.random() * (tints?.length ?? 1));
-    const sizeOffset = Math.floor(Math.random() * (arms ?? 1));
-    let spawned = 0;
-
-    // Size sprites by the whirl rather than by the grid, so the cyclone fits a caster of any size
+    const duration = layer.duration ?? phase.duration;
+    const spin = params.spinSpeed ?? 0.6;
+    const jump = params.jumpInterval ?? {min: 250, max: 700};
+    const pace = canvas.photosensitiveMode ? 4 : 1;
+    const {min = 1, max = 1} = params.scale ?? {};
     const textureSize = foundry.canvas.getTexture(layer.textures[0])?.orig.width ?? 128;
     const diameterScale = (params.chargeRadius * 2) / textureSize;
+    const wait = () => (jump.min + (Math.random() * (jump.max - jump.min))) * pace;
     return {
-      area: {type: "circle", x: anchor.x, y: anchor.y,
-        radius: Math.max(2, params.chargeRadius * (params.centerJitter ?? 0.05))},
+      area: {type: "circle", x: anchor.x, y: anchor.y, radius: 2},
       velocity: {speed: [0, 0], angle: [0, 360]},
       rotation: {alignVelocity: false, spread: Math.PI},
       scale: [min * diameterScale, max * diameterScale],
-      fade: params.fade ?? {in: 0.3, out: 0.4},
+      lifetime: {min: duration, max: duration},
+      fade: params.fade ?? {in: 0.15, out: 0.2},
       blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
       onSpawn: p => {
-        p._whirlScale = p.scale.x;
-        p._whirlSpin = spin * (1 + (((Math.random() * 2) - 1) * speedJitter));
-        p._whirlRotation = p.rotation;
-
-        // Each arm takes its own slice of the size range and strays from its heading
-        if ( arms ) {
-          const spacing = (Math.PI * 2) / arms;
-          p._whirlRotation = heading + (spawned * spacing) + ((Math.random() - 0.5) * armJitter * spacing);
-          const slice = (((spawned + sizeOffset) % arms) + Math.random()) / arms;
-          p._whirlScale = diameterScale * Math.mix(min, max, slice);
-        }
-        p._whirlTint = tints?.length ? tints[(tintOffset + spawned) % tints.length] : null;
-        if ( p._whirlTint !== null ) p.tint = p._whirlTint;
-
-        // The generator cannot spawn a lone first particle, so later sprites wait out their turn at zero size
-        p._whirlDelay = spawned * stagger * (0.75 + (Math.random() * 0.5));
-
-        // A late sprite lives on just long enough to be seen
-        p.lifetime = Math.max(p.lifetime, p._whirlDelay + (p.lifetime * minVisible));
-        spawned++;
-        p.scale.set(p._whirlDelay > 0 ? 0 : (p._whirlScale * growFrom));
+        p._auraRotation = p.rotation;
+        p._auraNext = wait();
       },
       onUpdate: p => {
-        const active = p.elapsedTime - p._whirlDelay;
-        if ( active < 0 ) return;
-        const span = p.lifetime - p._whirlDelay;
-        const age = span > 0 ? Math.min(active / span, 1) : 1;
-        const g = Math.min(age / grow, 1);
-        p.scale.set(p._whirlScale * (growFrom + ((1 - growFrom) * (1 - Math.pow(1 - g, 2)))));
-        p.rotation = p._whirlRotation + (p._whirlSpin * active * 0.001);
-        if ( p._whirlTint !== null ) p.tint = p._whirlTint;
+        if ( p.elapsedTime >= p._auraNext ) {
+          if ( Math.random() < 0.5 ) p.scale.x *= -1;
+          else p._auraRotation += (Math.PI / 3) + (Math.random() * ((Math.PI * 4) / 3));
+          p._auraNext = p.elapsedTime + wait();
+        }
+        p.rotation = p._auraRotation + (spin * p.elapsedTime * 0.001);
       }
     };
   }
@@ -1424,7 +1378,7 @@ export const PARTICLE_ANIMATIONS = {
   circleParticleVortex,
   circleParticleSpiral,
   circleParticleOrbit,
-  circleParticleWhirl,
+  circleParticleAura,
   circleParticleBloom,
   projectileParticleTrail,
   circleParticleResidue,

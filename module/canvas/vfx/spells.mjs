@@ -673,7 +673,8 @@ function configureContactVFXEffect(action) {
 
     // A channel keeps its glow on the delivery phase (suppressGlow) and lingers its burst over the linger window
     const treatmentCtx = channel
-      ? {burstSize: channel.burstSize ?? 3, burstDuration: lingerDuration, flashDuration: 200, suppressGlow: true}
+      ? {burstSize: channel.burstSize ?? 3, burstDuration: lingerDuration, flashDuration: 200, suppressGlow: true,
+        impactShock: runeProps.channel?.impactShock}
       : {};
     impacts.push(_buildTargetImpact({action, group, token, result, start: impactStart, tokenRef, runeProps,
       textures, elevation: targetElevation, forcedMovements, treatmentCtx}));
@@ -691,10 +692,14 @@ function configureContactVFXEffect(action) {
   let deliveryParticles = [];
   if ( channel ) {
     deliverySound = sound(getVFXSound(action.rune.id, "damage"));
-    if ( deliverySound ) Object.assign(deliverySound, {loop: true, fade: 250, volume: 0.8});
+    if ( deliverySound ) {
+      Object.assign(deliverySound, {loop: true, fade: 250, volume: 0.8, ...runeProps.channel?.sound});
+    }
     ({animations: deliveryAnimations, particles: deliveryParticles} = _buildChannelDelivery(action, runeProps,
       chargeCtx, {channel, deliveryDuration, lingerDuration, target: channelTarget}));
   }
+  deliveryAnimations.push(...(runeProps.buildAnimations?.({action, channel, target: channelTarget,
+    deliveryDuration, lingerDuration, casterElevation}) ?? []));
 
   const chargeSound = (runeProps.chargeSound !== false) ? sound(getVFXSound(action.rune.id, "charge")) : null;
   const components = {
@@ -707,7 +712,8 @@ function configureContactVFXEffect(action) {
       delivery: {duration: deliveryDuration, sound: deliverySound, animations: deliveryAnimations,
         particles: deliveryParticles},
       impacts,
-      scrollingText
+      scrollingText,
+      sounds: runeProps.buildSounds?.({action, sound, channel, chargeDuration, deliveryDuration}) ?? []
     }
   };
   const timeline = [{component: "contact", position: 0}];
@@ -1096,7 +1102,8 @@ function _resolveHitTreatment(action, ctx, runeProps) {
   if ( runeProps?.impactGlow && !suppressGlow ) {
     animations.push({function: "impactSpriteGlow", params: runeProps.impactGlow});
   }
-  if ( runeProps?.impactShock ) animations.push({function: "impactSpriteShock", params: runeProps.impactShock});
+  const shock = ctx.impactShock ?? runeProps?.impactShock;
+  if ( shock ) animations.push({function: "impactSpriteShock", params: shock});
   return {animations, particles};
 }
 
@@ -1119,22 +1126,26 @@ function _resolveHitTreatment(action, ctx, runeProps) {
 function _buildChannelDelivery(action, runeProps, chargeCtx, {channel, deliveryDuration, lingerDuration, target}) {
   const runeId = action.rune.id;
   const animations = [];
-  const particles = _resolveChargeLayers(runeProps, chargeCtx, {anchor: "palm", duration: deliveryDuration});
+  const particles = _resolveChargeLayers(runeProps, chargeCtx,
+    {anchor: "palm", duration: deliveryDuration, sustained: true});
   if ( !target?.hit ) return {animations, particles};
 
-  // The element crusts onto the target and holds (bloom motes that appear in place and linger)
-  const coatTextures = getVFXTexturePaths(runeId, "spray");
+  // The element crusts onto the target and holds (bloom motes that appear in place and linger). A rune whose
+  // spray mixes materials names the frames which coat, and one whose element does not settle tunes how
+  const coat = runeProps.channel?.coat ?? {};
+  const coatTextures = coat.frames ? getVFXFrames(runeId, ...coat.frames) : getVFXTexturePaths(runeId, "spray");
   if ( coatTextures.length ) {
     particles.push({
       animation: "circleParticleBloom", anchor: "destination", textures: coatTextures, duration: deliveryDuration,
       params: {chargeRadius: Math.round(target.radiusPx * (channel.coatRadiusFactor ?? 1.1)), growFraction: 0.5,
         lifetime: {min: 1000, max: 1700}, spawnRate: 70, alpha: {min: 0.5, max: 0.95}, scale: {min: 0.5, max: 1.1},
-        elevation: target.elevation, fade: {in: 0.2, out: 0.45}}
+        elevation: target.elevation, fade: {in: 0.2, out: 0.45}, ...coat.params}
     });
   }
 
   // A tinted glow gradually overtakes the target, its strength building across the channel to a peak at the
-  // climax then easing out over the linger
+  // climax then easing out over the linger. A rune which puts a filter of its own on the target forgoes it
+  if ( runeProps.channel?.glow === false ) return {animations, particles};
   animations.push({function: "impactSpriteGlow",
     params: {glowColor: channel.glow?.[runeId] ?? 0xffffff, duration: deliveryDuration + lingerDuration,
       fadeOut: lingerDuration, outerStrength: 5, innerStrength: 2,
@@ -1303,29 +1314,30 @@ const _CHARGE_DEATH_ORBIT = {
   ]
 };
 
-// Reusable cyclone charge-up for Storm spells
-const _CHARGE_STORM_CYCLONE = {
-  chargeBehavior: "circleParticleWhirl", chargeAnchor: "source",
-  chargeLayers: [{
-    frames: ["AirWindSlice"], above: false, radiusFactor: 2.2,
-    params: {count: 3, initial: 3, spawnRate: 0, arms: 3, armJitter: 0.5, spinSpeed: 8, speedJitter: 0.5,
-      stagger: 280, growFrom: 0.15, growFraction: 0.3, scale: {min: 0.7, max: 1.25},
-      tints: [0xFFFFFF, 0x8FA8E8, 0x5C6E9C, 0xB8C8D8, 0x9CF0FF],
-      lifetime: {min: 1000, max: 1500}, alpha: {min: 0.25, max: 0.5}, fade: {in: 0.2, out: 0.25},
-      blend: PIXI.BLEND_MODES.NORMAL, sort: 0},
-    sustained: {offset: -400, params: {count: null, initial: 0, spawnRate: 2.5, stagger: 0}}},
-  {frames: ["SprayBolts"], above: true, animation: "circleParticleBloom", radiusFactor: 1.6,
-    params: {growFraction: 0.15, spawnRate: 12, spawnRateEnd: 70, lifetime: {min: 70, max: 160},
-      alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3},
-      blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)},
-    sustained: {params: {spawnRate: 50, spawnRateEnd: 50}}},
-  {frames: ["AirCloud"], above: true, animation: "circleParticleOrbit", radiusFactor: 1.4,
-    params: {orbitSpeed: 0.8, radiusJitter: 0.5, wobbleAmplitude: 0.1, wobbleSpeed: 1.2,
-      count: 6, initial: 2, spawnRate: 3, lifetime: {min: 1500, max: 2000},
-      growFrom: 0.35, growFraction: 0.3, alpha: {min: 0.15, max: 0.35}, scale: {min: 2.0, max: 3.0},
-      fade: {in: 0.25, out: 0.45}, blend: PIXI.BLEND_MODES.NORMAL},
-    sustained: {offset: -300, params: {count: null, initial: 0}}
-  }]
+// The tight turbulence of a Storm spell: cloud and wind counter-rotating close about the caster beneath an aura
+const _STORM_SWIRL = {speedJitter: 0.3, radiusJitter: 0.35, wobbleAmplitude: 0.12, wobbleSpeed: 3,
+  fade: {in: 0.25, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL};
+const _STORM_SWIRL_CLOUDS = {..._STORM_SWIRL, orbitSpeed: 6, spinSpeed: 2, spawnRate: 26,
+  lifetime: {min: 600, max: 1000}, alpha: {min: 0.3, max: 0.6}, scale: {min: 2.0, max: 3.0}};
+const _STORM_SWIRL_WIND = {..._STORM_SWIRL, orbitSpeed: -8, spinSpeed: 8, spawnRate: 22,
+  lifetime: {min: 450, max: 800}, alpha: {min: 0.3, max: 0.6}, scale: {min: 1.5, max: 2.5}};
+const _STORM_SWIRL_AURA = {count: 1, initial: 1, spawnRate: 0, spinSpeed: 0.6, jumpInterval: {min: 250, max: 700},
+  alpha: {min: 0.85, max: 0.95}, blend: PIXI.BLEND_MODES.NORMAL, sort: 2};
+const _STORM_SWIRL_SPARKS = {growFraction: 0.15, spawnRate: 20, spawnRateEnd: 90, lifetime: {min: 70, max: 160},
+  alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3},
+  blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)};
+
+// Reusable aura charge-up for Storm spells, its sparks gathering wherever the gesture releases from
+const _CHARGE_STORM_AURA = {
+  chargeBehavior: "circleParticleOrbit",
+  chargeLayers: [
+    {frames: ["AuraBolts"], above: true, anchor: "source", animation: "circleParticleAura", radiusFactor: 1.25,
+      params: _STORM_SWIRL_AURA, sustained: {offset: -200}},
+    {frames: ["SprayClouds"], above: true, anchor: "source", radiusFactor: 0.85, params: _STORM_SWIRL_CLOUDS},
+    {frames: ["SprayWind"], above: true, anchor: "source", radiusFactor: 1.0, params: _STORM_SWIRL_WIND},
+    {frames: ["SprayBolts"], above: true, animation: "circleParticleBloom", radiusFactor: 0.6,
+      params: _STORM_SWIRL_SPARKS, sustained: {params: {spawnRate: 60, spawnRateEnd: 60}}}
+  ]
 };
 
 // Reusable impact treatment for Frost spells
@@ -1549,15 +1561,15 @@ const ARROW_VFX_PROPS = {
     path: {type: "weave", params: {arcCount: 2, amplitude: 0.1}}
   },
 
-  // Arrow+Storm: a bolt lashes out of the caster's cyclone, shedding sparks, its tip landing on the target
+  // Arrow+Storm: a bolt lashes out of the caster's turbulence, shedding sparks, its tip landing on the target
   storm: {
-    ..._CHARGE_STORM_CYCLONE,
+    ..._CHARGE_STORM_AURA,
     ..._IMPACT_STORM,
     impactSpriteFrame: "storm/ImpactBoltsSmall",
     chargeDuration: 1200,
     projectileFrame: "storm/ProjectileBolt", projectileSize: 8, projectileSpeed: 40, projectileFps: 8,
     projectileReveal: "release", projectileTextureAnchor: true, projectileBlend: PIXI.BLEND_MODES.ADD,
-    flightSound: {rune: "storm", type: "crackle", fade: 60, release: 150},
+    flightSound: {rune: "storm", type: "crackle", fade: 60, release: 150, volume: 0.45},
     trail: {frames: ["SprayBolts"], params: {align: false, body: true, speed: {min: 10, max: 40},
       lifetime: {min: 90, max: 200}, spawnRate: 160, scale: {min: 0.4, max: 0.8},
       alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: _exposureInHot(0.7)}}
@@ -1847,14 +1859,14 @@ const RAY_VFX_PROPS = {
 
   // Ray+Storm: where the arrow's bolt travels, this one spans the whole ray at once, through every target on it
   storm: {
-    ..._CHARGE_STORM_CYCLONE,
+    ..._CHARGE_STORM_AURA,
     ..._IMPACT_STORM,
     impactSpriteFrame: "storm/ImpactBoltsLarge", impactSpriteAngle: 45, impactSpriteScale: 1.8,
     chargeDuration: 1200,
     deliveryDuration: 560, frontDuration: 140,
     impactTiming: "beamFront",
     deliverySoundType: "crackle",
-    deliverySound: {fade: 40, release: 300},
+    deliverySound: {fade: 40, release: 300, volume: 0.6},
     buildSounds({action, sound, CHARGE_DURATION}) {
       const crack = sound(getVFXSound(action.rune.id, "crack"));
       return crack ? [{sound: crack, time: Math.max(CHARGE_DURATION - 50, 0)}] : [];
@@ -2198,9 +2210,10 @@ const BLAST_VFX_PROPS = {
 
   // Blast+Storm: storm cloud blankets the area while the caster channels, raining bolts at random and on each target
   storm: {
-    ..._CHARGE_STORM_CYCLONE,
+    ..._CHARGE_STORM_AURA,
     ..._IMPACT_STORM,
     impactSprite: false,
+    chargeAnchor: "forward",
     chargeDuration: 1200,
     sustainedChargeAnchor: "source",
     deliveryDuration: 5000,
@@ -2586,7 +2599,7 @@ const FAN_VFX_PROPS = {
     chargeSound: false,
     sweepDuration: 3000,
     deliverySoundType: "damage",
-    deliverySound: {fade: 900, offset: -1000, release: 500, volume: 0.6},
+    deliverySound: {fade: 900, offset: -1000, release: 500, volume: 0.5},
     impactStart: ({chargeDuration}) => chargeDuration + 60,
     buildSounds({action, sound, chargeDuration, sweepDuration}) {
       const runeId = action.rune.id;
@@ -2608,31 +2621,28 @@ const FAN_VFX_PROPS = {
 
       // The swirl runs unbroken from the start of the charge to the end of the channel, as one layer which outlasts
       // the charge phase that spawns it, so there is no seam where the electricity begins
-      const swirl = {speedJitter: 0.3, radiusJitter: 0.35, wobbleAmplitude: 0.12, wobbleSpeed: 3,
-        fade: {in: 0.25, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL, elevation: casterElevation + 1};
+      const elevation = casterElevation + 1;
       const spell = this.chargeDuration + this.sweepDuration;
       return [
         {
+          animation: "circleParticleAura", anchor: "source", textures: getVFXFrames(runeId, "AuraBolts"),
+          duration: spell,
+          params: {..._STORM_SWIRL_AURA, chargeRadius: Math.round(casterRadiusPx * 1.25), elevation}
+        },
+        {
           animation: "circleParticleOrbit", anchor: "source", textures: getVFXFrames(runeId, "SprayClouds"),
           duration: spell,
-          params: {...swirl, chargeRadius: Math.round(casterRadiusPx * 0.85), orbitSpeed: 6, spinSpeed: 2,
-            spawnRate: 26, lifetime: {min: 600, max: 1000}, alpha: {min: 0.3, max: 0.6},
-            scale: {min: 2.0, max: 3.0}}
+          params: {..._STORM_SWIRL_CLOUDS, chargeRadius: Math.round(casterRadiusPx * 0.85), elevation}
         },
         {
           animation: "circleParticleOrbit", anchor: "source", textures: getVFXFrames(runeId, "SprayWind"),
           duration: spell,
-          params: {...swirl, chargeRadius: Math.round(casterRadiusPx), orbitSpeed: -8, spinSpeed: 8,
-            spawnRate: 22, lifetime: {min: 450, max: 800}, alpha: {min: 0.3, max: 0.6},
-            scale: {min: 1.5, max: 2.5}}
+          params: {..._STORM_SWIRL_WIND, chargeRadius: Math.round(casterRadiusPx), elevation}
         },
         {
           animation: "circleParticleBloom", anchor: "source", textures: getVFXFrames(runeId, "SprayBolts"),
           duration: this.chargeDuration,
-          params: {chargeRadius: Math.round(casterRadiusPx * 1.2), growFraction: 0.15, spawnRate: 20,
-            spawnRateEnd: 90, lifetime: {min: 70, max: 160}, alpha: {min: 0.8, max: 1.0},
-            scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3}, blend: PIXI.BLEND_MODES.ADD,
-            exposure: _exposureInHot(0.7), elevation: casterElevation + 1}
+          params: {..._STORM_SWIRL_SPARKS, chargeRadius: Math.round(casterRadiusPx * 1.2), elevation}
         }
       ];
     },
@@ -2656,8 +2666,7 @@ const FAN_VFX_PROPS = {
         }
       ];
     },
-    buildImpact({action, isHit, casterRadiusPx, casterElevation}) {
-      if ( !isHit ) return [];
+    buildImpact({action, casterRadiusPx, casterElevation}) {
       const runeId = action.rune.id;
       return [{function: "raySpriteBolt", params: {
         texture: getVFXTexturePath(`${runeId}/ProjectileBolt2`), from: "origin", to: "destination",
@@ -2685,6 +2694,15 @@ const FAN_VFX_PROPS = {
  * Per-rune VFX overrides for the contact gestures, shared by Touch and (scaled up) by Influence. A small
  * single-layer charge gathered at the caster's hand plus the shared per-rune impact treatment. The charge
  * field shape is documented on {@link ARROW_VFX_PROPS}; the impact field shape on {@link _resolveHitTreatment}.
+ * One row serves both gestures, so an entry may also declare:
+ * - `channel` ({glow, impactShock, sound, coat: {frames, params}}): how the rune differs when Influence channels
+ *   it. `glow: false` forgoes the channel's tinted glow, `impactShock` replaces the row's own at the climax, `sound`
+ *   merges over the channel's looping sound, and `coat` names which frames crust onto the target and tunes how.
+ * - `buildAnimations(ctx)` (optional): returns delivery sprite animations. `ctx` carries `{action, channel, target,
+ *   deliveryDuration, lingerDuration, casterElevation}`, with `channel` null for Touch. The delivery plays whatever
+ *   the outcome; `target.hit` is for what it does to the target.
+ * - `buildSounds(ctx)` (optional): returns `{sound, time, duration?, origin?}` cues. `ctx` carries `{action, sound,
+ *   channel, chargeDuration, deliveryDuration}`.
  * @type {Record<string, object>}
  */
 const TOUCH_VFX_PROPS = {
@@ -2738,6 +2756,47 @@ const TOUCH_VFX_PROPS = {
         params: {lifetime: {min: 350, max: 600}, spawnRate: 160, alpha: {min: 0.4, max: 0.85},
           scale: {min: 0.4, max: 0.8}, blend: PIXI.BLEND_MODES.NORMAL}}
     ]
+  },
+
+  // Touch+Storm is a zap: arcs snap from the hand into the target for an instant. Influence+Storm is an infusion:
+  // they are held on the target for the whole channel, playing over its body as it is electrocuted throughout
+  storm: {
+    ..._CHARGE_STORM_AURA,
+    ..._IMPACT_STORM,
+    impactSpriteFrame: "storm/ImpactBoltsSmall", impactSpriteSize: 2.5,
+    impactShock: {duration: 350, rate: 14, fadeOut: 120},
+    chargeDuration: 600,
+    channel: {
+      glow: false,
+      impactShock: {duration: 900, rate: 12, fadeOut: 450},
+      sound: {volume: 0.5},
+      coat: {frames: ["SprayBolts"], params: {growFraction: 0.15, spawnRate: 60, lifetime: {min: 70, max: 160},
+        alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.2}, fade: {in: 0.05, out: 0.3},
+        blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)}}
+    },
+    buildSounds({action, sound, channel, chargeDuration, deliveryDuration}) {
+      const crackle = channel ? sound(getVFXSound(action.rune.id, "crackle")) : null;
+      if ( !crackle ) return [];
+      return [{sound: {...crackle, fade: 80, release: 400}, time: chargeDuration, duration: deliveryDuration}];
+    },
+    buildAnimations({action, channel, target, deliveryDuration, casterElevation}) {
+      if ( !target ) return [];
+
+      // The arcs are the delivery, thrown whatever the outcome. Only what they do to the target depends on it
+      const arcs = (copies, scatter, params) => ({function: "impactSpriteArcs", params: {
+        textures: getVFXFrames(action.rune.id, "StreakBoltSingle", "StreakBoltForked"), from: "forward",
+        copies, scatter: Math.round(target.radiusPx * scatter), interval: {min: 35, max: 80}, fadeOut: 110,
+        elevation: casterElevation + 2, ...params}});
+      if ( !channel ) return [arcs(3, 0.3, {duration: 220})];
+      const animations = [
+        arcs(5, 0.65, {duration: deliveryDuration}),
+        arcs(6, 0.75, {offset: deliveryDuration, duration: 320})
+      ];
+      if ( target.hit ) {
+        animations.push({function: "impactSpriteShock", params: {duration: deliveryDuration, rate: 12, fadeOut: 0}});
+      }
+      return animations;
+    }
   }
 };
 
