@@ -29,6 +29,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     actions: {
       addEffect: CrucibleActionConfig.#onAddEffect,
       deleteEffect: CrucibleActionConfig.#onDeleteEffect,
+      deleteRegionBehavior: CrucibleActionConfig.#onDeleteRegionBehavior,
       editRegionBehavior: CrucibleActionConfig.#onEditRegionBehavior,
       hookToggleSource: CrucibleActionConfig.#onHookToggleSource
     },
@@ -138,7 +139,11 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
       fields: this.action.constructor.schema.fields,
-      hasRegionBehavior: this.action.hasPersistentRegion,
+      requiresRegion: this.action.requiresRegion,
+      hasRegionBehavior: !!this.action.regionBehavior,
+      disablePersistRegion: this.action.hasForcedPersistence,
+      persistRegion: this.action.shouldPersistRegion,
+      editBehaviorTooltip: _loc(`ACTION.ACTIONS.${this.action.regionBehavior ? "Edit" : "Create"}RegionBehavior`),
       headerTags: this.action.tags.reduce((acc, tagId) => {
         const tag = SYSTEM.ACTION.TAGS[tagId];
         if ( !tag.internal ) acc[tagId] = tag;
@@ -323,7 +328,32 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   /* -------------------------------------------- */
 
   /**
-   * Open a Region Behavior Config window  to pre-configure a region behavior.
+   * Reset the configured Region Behavior to null.
+   * @this {CrucibleActionConfig}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   * @returns {Promise<void>}
+   */
+  static async #onDeleteRegionBehavior(_event, _target) {
+    const confirm = await foundry.applications.api.DialogV2.confirm({
+      window: {title: _loc("ACTION.ACTIONS.DeleteRegionBehavior")},
+      content: `<p>${_loc("ACTION.ACTIONS.DeleteRegionBehaviorConfirm", {action: this.action.name})}</p>`
+    });
+    if ( !confirm ) return;
+    if ( this.#behaviorConfig?.rendered ) {
+      await this.#behaviorConfig.close();
+    }
+    this.#behaviorConfig = null;
+    this.action.updateSource({regionBehavior: null});
+    await this.render();
+    const submit = new SubmitEvent("submit", {cancelable: true});
+    this.element.dispatchEvent(submit);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Open a Region Behavior Config window to pre-configure a region behavior.
    * @this {CrucibleActionConfig}
    * @param {PointerEvent} _event
    * @param {HTMLElement} _target
@@ -334,19 +364,27 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       this.#behaviorConfig.bringToFront();
       return;
     }
-    const behaviorData = foundry.utils.deepClone(this.action.regionBehavior) ?? {
-      name: this.action.name,
-      system: {
-        action: {
-          id: `${this.action.id}Region`,
+    if ( !this.action.regionBehavior ) {
+      this.action.updateSource({
+        regionBehavior: {
           name: this.action.name,
-          img: this.action.img,
-          description: this.action.description,
-          effects: [],
-          tags: []
+          system: {
+            action: {
+              id: `${this.action.id}Region`,
+              name: this.action.name,
+              img: this.action.img,
+              description: this.action.description,
+              effects: [],
+              tags: []
+            }
+          }
         }
-      }
-    };
+      });
+      await this.render();
+      const submit = new SubmitEvent("submit", {cancelable: true});
+      await this.element.dispatchEvent(submit);
+    }
+    const behaviorData = foundry.utils.deepClone(this.action.regionBehavior);
     foundry.utils.mergeObject(behaviorData, {
       type: "crucible.action",
       system: {

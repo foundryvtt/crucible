@@ -35,14 +35,25 @@
     </fieldset>
     {{/if}}
 
-    {{#if hasRegionBehavior}}
+    {{#if requiresRegion}}
     <fieldset>
         <legend>{{fields.regionBehavior.label}}</legend>
-        <button type="button" class="frame-brown" data-action="editRegionBehavior">
-            <i class="fa-solid fa-pen-to-square"></i>
-            <span>{{localize "ACTION.ACTIONS.EditRegionBehavior"}}</span>
-        </button>
-        <p class="hint">{{fields.regionBehavior.hint}}</p>
+        <div class="form-group">
+            <label>{{fields.persistRegion.label}}</label>
+            <div class="form-fields">
+                {{formInput fields.persistRegion value=persistRegion disabled=disablePersistRegion}}
+                <button type="button" class="frame-brown" data-action="editRegionBehavior" data-tooltip
+                        aria-label="{{editBehaviorTooltip}}" {{disabled (not persistRegion)}}>
+                    <i class="fa-solid {{ifThen hasRegionBehavior "fa-pen-to-square" "fa-plus"}}"></i>
+                </button>
+                <button type="button" class="frame-brown" data-action="deleteRegionBehavior" data-tooltip
+                        aria-label="{{localize "ACTION.ACTIONS.DeleteRegionBehavior"}}"
+                        {{disabled (not hasRegionBehavior)}}>
+                    <i class="fa-solid fa-trash"></i>        
+                </button>
+            </div>
+            <p class="hint">{{fields.persistRegion.hint}}</p>
+        </div>
     </fieldset>
     {{/if}}
 </section>

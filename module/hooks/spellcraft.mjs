@@ -63,6 +63,19 @@ HOOKS.aspect = {
 HOOKS.aura = {
   initialize() {
     this.tags.add("maintained");
+    this.regionBehavior = {}; // Being truthy means this will be prepared with appropriate default values
+  },
+  prepare() {
+    this.usage.hasDice = false;
+
+    // TODO: Appropriate tag(s) which will always cause region to have dice & roll
+    const tags = [...this.scaling, "generic"];
+    if ( this.rune.restoration ) {
+      tags.push((this.rune.resource === "health") ? "healing" : "rallying");
+    } else {
+      tags.push(this.rune.resource, this.rune.defense, this.rune.damageType);
+    }
+    this.regionBehavior.system.action.tags = tags;
   }
 };
 
@@ -146,27 +159,17 @@ HOOKS.sense = {
     this.usage.region.wallRestriction = false;
   },
   postActivate() {
-    this.recordEvent({type: "effect", effects: [{
-      _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
-      img: this.img,
-      name: this.name,
-      // TODO: Move this logic into token data prep
-      system: {
-        changes: [{
-          key: "token.detectionModes.senseCreature",
-          type: "override",
-          value: {
-            enabled: true,
-            range: this.target.size
-          }
-        }]
-      },
-      flags: {
-        crucible: {
-          runes: [this.rune.id]
-        }
+    const trackingEffect = this.selfEvents?.effects[0]?.effects[0];
+    if ( !trackingEffect ) return;
+    trackingEffect.system.changes = [{
+      key: "token.detectionModes.senseCreature",
+      type: "override",
+      value: {
+        enabled: true,
+        range: this.target.size
       }
-    }]});
+    }];
+    foundry.utils.setProperty(trackingEffect, "flags.crucible.runes", [this.rune.id]);
   }
 };
 

@@ -894,7 +894,7 @@ HOOKS.fieldStudy = {
   postActivate() {
     const k = this.metadata.knowledge;
     if ( !k ) return;
-    const effectEvent = this.selfEvents?.all.find(e => e.effects.length);
+    const effectEvent = this.selfEvents?.effects[0];
     if ( !effectEvent ) return;
 
     // Encode the chosen Knowledge as add-changes; a single fixed id means a new study replaces the previous one
@@ -919,7 +919,7 @@ HOOKS.flashBrilliance = {
     }
   },
   postActivate() {
-    const effectEvent = this.selfEvents?.all.find(e => e.effects.length);
+    const effectEvent = this.selfEvents?.effects[0];
     if ( !effectEvent ) return;
 
     // Grant every Knowledge for the effect's duration
@@ -954,7 +954,7 @@ HOOKS.fontOfLife = {
   postActivate() {
     const amount = this.actor.abilities.wisdom.value;
     for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.all.find(e => e.effects.length);
+      const effectEvent = events.effects[0];
       if ( !effectEvent ) continue;
       effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
       effectEvent.resources.push({resource: "health", delta: amount});
@@ -1093,7 +1093,7 @@ HOOKS.healingTonic = {
     let amount = 2;
     for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
     for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.all.find(e => e.effects.length);
+      const effectEvent = events.effects[0];
       if ( !effectEvent ) continue;
       effectEvent.effects[0]._id = SYSTEM.EFFECTS.getEffectId(this.id);
       effectEvent.effects[0].system.dot = [{amount, resource: "health", restoration: true}];
@@ -1220,7 +1220,7 @@ HOOKS.intuitWeakness = {
 HOOKS.laughingMatter = {
   postActivate() {
     for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.all.find(e => e.effects.length);
+      const effectEvent = events.effects[0];
       if ( !effectEvent ) continue;
       effectEvent.effects[0].system.changes ||= [];
       effectEvent.effects[0].system.changes.push(
@@ -1242,7 +1242,7 @@ HOOKS.lastStand = {
     const health = this.actor.abilities.toughness.value * 2;
     const activation = selfEvents?.activation;
     if ( activation ) activation.resources.push({resource: "health", delta: health});
-    const effectEvent = selfEvents?.all.find(e => e.effects.length);
+    const effectEvent = selfEvents?.effects[0];
     if ( !effectEvent ) return;
     effectEvent.effects[0].system.changes ||= [];
     effectEvent.effects[0].system.changes.push({key: "system.defenses.wounds.bonus", type: "subtract", value: 2});
@@ -1839,7 +1839,7 @@ HOOKS.rallyingTonic = {
     let amount = 2;
     for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
     for ( const [target, events] of this.eventsByTarget ) {
-      const effectEvent = events.all.find(e => e.effects.length);
+      const effectEvent = events.effects[0];
       if ( !effectEvent ) continue;
       effectEvent.effects[0]._id = SYSTEM.EFFECTS.getEffectId(this.id);
       effectEvent.effects[0].system.dot = [{amount, resource: "morale", restoration: true}];
@@ -1906,7 +1906,7 @@ HOOKS.readScroll = {
   },
   postActivate() {
     const selfEvents = this.selfEvents;
-    const effectEvent = selfEvents?.all.find(e => e.effects.length);
+    const effectEvent = selfEvents?.effects[0];
     if ( !effectEvent ) return;
     const {runes, gestures, inflections} = this.item.system.scroll;
     const changes = [];
@@ -2685,9 +2685,12 @@ HOOKS.stoneStance = {
 /* -------------------------------------------- */
 
 HOOKS.ancestralGrove = {
+  prepare() {
+    this.usage.persistRegion = true;
+  },
   async confirm(reverse) {
     if ( reverse || !this.region ) return;
-    const groveEffect = this.events.find(e => (e.target === this.actor) && e.effects.length)?.effects[0];
+    const groveEffect = this.selfEvents?.effects[0]?.effects[0];
     const tokenUuid = groveEffect?.system.summons?.[0];
     const token = tokenUuid ? fromUuidSync(tokenUuid) : null;
     if ( !token ) return;

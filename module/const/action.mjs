@@ -51,9 +51,9 @@ export const TARGET_SCOPES = defineIntEnum({
 /**
  * @typedef ActionTargetRegion
  * @property {string} shape             The Region shape type from BaseShapeData.TYPES
- * @property {boolean} ephemeral        Default behavior: true if no RegionDocument is created.
- *                                      Individual actions may override this default.
  * @property {"self"|"vertex"} anchor   Placement position: "self" (token center) or "vertex" (snapped to grid corner)
+ * @property {boolean} [ephemeral]      true if no RegionDocument can be persisted, false if one must be persisted.
+ *                                      If not provided, defaults to ephemeral, but can be chosen per-Action.
  * @property {number} [angle]           Interior angle in degrees, for cone shapes
  * @property {number} [width]           Width in grid units, for line and rectangle shapes
  * @property {number} [size]            Size in grid units, for rectangle shapes
@@ -89,8 +89,7 @@ export const TARGET_TYPES = defineEnum({
       angle: 60,
       directionDelta: 15,
       anchor: "self",
-      addSize: true,
-      ephemeral: true
+      addSize: true
     },
     scope: TARGET_SCOPES.ALL
   },
@@ -101,8 +100,7 @@ export const TARGET_TYPES = defineEnum({
       angle: 210,
       directionDelta: 15,
       anchor: "self",
-      addSize: true,
-      ephemeral: true
+      addSize: true
     },
     scope: TARGET_SCOPES.ALL
   },
@@ -111,8 +109,7 @@ export const TARGET_TYPES = defineEnum({
     region: {
       shape: "emanation",
       anchor: "self",
-      addSize: false, // Accounted for directly by emanation shape
-      ephemeral: true
+      addSize: false // Accounted for directly by emanation shape
     },
     scope: TARGET_SCOPES.ALL
   },
@@ -130,8 +127,7 @@ export const TARGET_TYPES = defineEnum({
     label: "ACTION.TARGET_TYPES.Blast",
     region: {
       shape: "circle",
-      anchor: "vertex",
-      ephemeral: true
+      anchor: "vertex"
     },
     scope: TARGET_SCOPES.ALL
   },
@@ -142,8 +138,7 @@ export const TARGET_TYPES = defineEnum({
       width: 1,
       directionDelta: 3,
       anchor: "self",
-      addSize: true,
-      ephemeral: true
+      addSize: true
     },
     scope: TARGET_SCOPES.ALL
   },
@@ -598,7 +593,7 @@ export const TAGS = {
     async postActivate() {
       const summonEvents = this.events.filter(e => e.type === "summon");
       if ( !summonEvents.length ) return;
-      const effectEvents = this.events.filter(e => (e.target === this.actor) && e.effects.length);
+      const effectEvents = this.selfEvents?.effects[0];
       for ( const event of summonEvents ) {
         const position = this.region?.shapes[0] || this.token;
         event.summon.tokenData ||= {};
@@ -668,7 +663,7 @@ export const TAGS = {
       }
 
       // Update Active Effect with summoned token UUIDs
-      const effectEvent = this.events.find(e => (e.target === this.actor) && e.effects.length);
+      const effectEvent = this.selfEvents?.effects[0];
       const ae = effectEvent?.effects[0];
       if ( ae ) ae.system.summons = summonedTokens;
     }
@@ -1218,7 +1213,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.MaintainedTooltip",
     category: "resources",
     postActivate() {
-      const selfEffectEvent = this.events.find(e => (e.target === this.actor) && e.effects.length);
+      const selfEffectEvent = this.selfEvents?.effects[0];
       if ( !selfEffectEvent ) return;
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
       selfEffectEvent.effects[0].system.maintenance = {cost: maintainedCost};

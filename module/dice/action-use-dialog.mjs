@@ -541,7 +541,6 @@ export default class ActionUseDialog extends StandardCheckDialog {
           radius: (baseRange + addRange) * d,
           base: {type: "token", x: token.x, y: token.y, width: token.width, height: token.height, shape: token.shape}
         };
-        attachment.token = token.id;
         break;
       case "line":
         shape = {
@@ -573,6 +572,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Custom configurations based on the target type
     switch ( target.type ) {
+      case "aura":
+        attachment.token = token.id;
+        break;
       case "summon":
         const size = (target.size ?? regionConfig.size ?? 1);
         shape.height = shape.width = size * d;

@@ -37,8 +37,11 @@
   "ACTION": {
     "ACTIONS": {
       "AddFavorite": "Add Favorite",
+      "CreateRegionBehavior": "Create Region Behavior",
       "Delete": "Delete Action: {name}",
       "DeleteConfirm": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?",
+      "DeleteRegionBehavior": "Delete Region Behavior",
+      "DeleteRegionBehaviorConfirm": "Are you sure you wish to delete this <strong>{action}</strong>'s Region Behavior?",
       "EditRegionBehavior": "Edit Region Behavior",
       "RemoveFavorite": "Remove Favorite"
     },
@@ -179,6 +182,10 @@
       "id": {
         "hint": "Provide a standardized camel-case alphanumeric identifier for this action. This identifier should be unique across all actions in the system.",
         "label": "Identifier"
+      },
+      "persistRegion": {
+        "hint": "Produce a persistent Region with an optional pre-configured \"Crucible Action\" behavior on it. This region will last for the duration of the self-targeting Effect caused by this action, or indefinitely if no such Effect has been configured.",
+        "label": "Persistent Region"
       },
       "range": {
         "hint": "Define a minimum or maximum range in feet at which this action may be performed.",
