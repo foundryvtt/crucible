@@ -925,6 +925,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @typedef {object} ActorEventGroup
    * @property {CrucibleActionEvent[]} all            All events targeting this actor in chronological order
    * @property {CrucibleActionEvent[]} roll           Events that contain dice rolls
+   * @property {CrucibleActionEvent[]} effects        Events that contain effects to be created
    * @property {CrucibleActionEvent|null} activation  The activation event (singleton, at most one per actor)
    * @property {CrucibleActionEvent|null} actorUpdate The actor update event (singleton, at most one per actor)
    * @property {CrucibleActionEvent|null} movement    The movement event (singleton, at most one per actor)
@@ -954,6 +955,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         events = {
           all: [],
           roll: [],
+          effects: [],
           activation: null,
           actorUpdate: null,
           movement: null,
@@ -983,6 +985,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( event.type === "activation" ) events.activation = event;
       else if ( event.type === "actorUpdate" ) events.actorUpdate = event;
       else if ( event.type === "movement" ) events.movement = event;
+      if ( event.effects.filter(e => !e._action).length ) events.effects.push(event);
     }
 
     // allSuccess/allFailure are only meaningful when there are rolls
@@ -2768,7 +2771,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Non-ephemeral target types retain their region by default, recording it on a self-effect
       if ( this.usage.persistRegion && !retained ) {
-        const regionEffect = this.selfEvents.all.find(e => e.effects.length)?.effects?.[0];
+        const regionEffect = this.selfEvents.effects[0]?.effects[0];
         if ( regionEffect ) {
           regionEffect.system.regions ??= [];
           regionEffect.system.regions.push(this.region.uuid);

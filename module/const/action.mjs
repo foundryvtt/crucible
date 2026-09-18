@@ -593,7 +593,7 @@ export const TAGS = {
     async postActivate() {
       const summonEvents = this.events.filter(e => e.type === "summon");
       if ( !summonEvents.length ) return;
-      const effectEvents = this.events.filter(e => (e.target === this.actor) && e.effects.length);
+      const effectEvents = this.selfEvents?.effects[0];
       for ( const event of summonEvents ) {
         const position = this.region?.shapes[0] || this.token;
         event.summon.tokenData ||= {};
@@ -663,7 +663,7 @@ export const TAGS = {
       }
 
       // Update Active Effect with summoned token UUIDs
-      const effectEvent = this.events.find(e => (e.target === this.actor) && e.effects.length);
+      const effectEvent = this.selfEvents?.effects[0];
       const ae = effectEvent?.effects[0];
       if ( ae ) ae.system.summons = summonedTokens;
     }
@@ -1213,7 +1213,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.MaintainedTooltip",
     category: "resources",
     postActivate() {
-      const selfEffectEvent = this.events.find(e => (e.target === this.actor) && e.effects.length);
+      const selfEffectEvent = this.selfEvents?.effects[0];
       if ( !selfEffectEvent ) return;
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
       selfEffectEvent.effects[0].system.maintenance = {cost: maintainedCost};

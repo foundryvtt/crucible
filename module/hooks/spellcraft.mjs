@@ -157,30 +157,19 @@ HOOKS.sense = {
   prepare() {
     this.usage.hasDice = false;
     this.usage.region.wallRestriction = false;
-    this.regionBehavior.system.events = [];
   },
   postActivate() {
-    this.recordEvent({type: "effect", effects: [{
-      _id: SYSTEM.EFFECTS.getEffectId(this.gesture.id),
-      img: this.img,
-      name: this.name,
-      // TODO: Move this logic into token data prep
-      system: {
-        changes: [{
-          key: "token.detectionModes.senseCreature",
-          type: "override",
-          value: {
-            enabled: true,
-            range: this.target.size
-          }
-        }]
-      },
-      flags: {
-        crucible: {
-          runes: [this.rune.id]
-        }
+    const trackingEffect = this.selfEvents?.effects[0]?.effects[0];
+    if ( !trackingEffect ) return;
+    trackingEffect.system.changes = [{
+      key: "token.detectionModes.senseCreature",
+      type: "override",
+      value: {
+        enabled: true,
+        range: this.target.size
       }
-    }]});
+    }];
+    foundry.utils.setProperty(trackingEffect, "flags.crucible.runes", [this.rune.id]);
   }
 };
 
