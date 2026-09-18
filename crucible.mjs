@@ -30,6 +30,9 @@ import {statusEffects} from "./module/const/statuses.mjs";
 // Party
 let party = null;
 
+// Resolved once the world is known to be at the current system version; see crucible.migrating
+const migration = Promise.withResolvers();
+
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
@@ -46,6 +49,13 @@ Hooks.once("init", async function() {
    * @type {string|null}
    */
   crucible._migrationVersion = null;
+
+  /**
+   * A Promise which resolves once this world is known to be at the current system version.
+   * Once this Promise is resolved, the world is safe for downstream migrations.
+   * @type {Promise<void>}
+   */
+  crucible.migrating = migration.promise;
 
   // Expose the system API
   crucible.api = {
@@ -704,11 +714,12 @@ Hooks.once("ready", async function() {
   // Resolve performance-mode-derived values onto `canvas.performance` (particle density, etc.)
   canvas.vfx.blocks.configurePerformanceMode();
 
-  // Perform World Migrations
-  if ( game.users.activeGM?.isSelf ) {
-    const mv = crucible._migrationVersion;
-    if ( foundry.utils.isNewerVersion(crucible.version, mv) ) await _performMigrations(mv);
+  // Perform World Migrations, resolve the migration only on the else branch because the migration path reloads
+  const mv = crucible._migrationVersion;
+  if ( game.users.activeGM?.isSelf && foundry.utils.isNewerVersion(crucible.version, mv) ) {
+    await _performMigrations(mv);
   }
+  else migration.resolve();
 
   // Display Welcome Journal
   const welcome = game.settings.get("crucible", "welcome");
@@ -1154,9 +1165,11 @@ async function _performMigrations(priorVersion) {
     await _resetHeroTalents();
   }
 
-  // Record the new migration version
+  // Record the new migration version, then reload so every client re-initializes against the migrated world.
+  // The reload is load-bearing: `crucible.migrating` is deliberately left unresolved on this path, so a migration
+  // which returned without reloading would leave awaiting modules hanging forever.
   await game.settings.set("crucible", "migrationVersion", crucible.version);
-  foundry.utils.debouncedReload();
+  window.location.reload();
 }
 
 /* -------------------------------------------- */
