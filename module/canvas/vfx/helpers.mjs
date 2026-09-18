@@ -58,6 +58,21 @@ export function pickRandom(arr) {
 /* -------------------------------------------- */
 
 /**
+ * Call a function on each rendered frame of a span of a timeline, which alone keeps time for it.
+ * @param {object} timeline    The animejs timeline.
+ * @param {number} start       Timeline position in milliseconds at which the span begins.
+ * @param {number} duration    Milliseconds the span lasts.
+ * @param {(ms: number) => void} onRender   Called with the milliseconds elapsed within the span.
+ */
+export function scheduleTimelineClock(timeline, start, duration, onRender) {
+  const clock = {ms: 0};
+  timeline.add(clock, {ms: {from: 0, to: duration}, duration, ease: "linear", onRender: () => onRender(clock.ms)},
+    start);
+}
+
+/* -------------------------------------------- */
+
+/**
  * Push per-target scrolling-text entries onto a component's `scrollingText` array, composing the target's text events
  * from its event slice and staggering each 200ms to avoid overlap when a hit produces multiple rows.
  * @param {object[]} scrollingText   The component's scrollingText array (mutated).

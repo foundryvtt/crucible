@@ -1130,8 +1130,7 @@ function _buildChannelDelivery(action, runeProps, chargeCtx, {channel, deliveryD
     {anchor: "palm", duration: deliveryDuration, sustained: true});
   if ( !target?.hit ) return {animations, particles};
 
-  // The element crusts onto the target and holds (bloom motes that appear in place and linger). A rune whose
-  // spray mixes materials names the frames which coat, and one whose element does not settle tunes how
+  // The element crusts onto the target and holds (bloom motes that appear in place and linger)
   const coat = runeProps.channel?.coat ?? {};
   const coatTextures = coat.frames ? getVFXFrames(runeId, ...coat.frames) : getVFXTexturePaths(runeId, "spray");
   if ( coatTextures.length ) {
@@ -1244,6 +1243,33 @@ function _stormScorch(runeId) {
 
 /* -------------------------------------------- */
 
+/**
+ * The short streaks of lightning thrown as arcs and as the forks of a bolt.
+ * @param {string} runeId
+ * @returns {string[]}
+ */
+function _stormStreaks(runeId) {
+  return getVFXFrames(runeId, "StreakBoltSingle", "StreakBoltForked");
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build a forked bolt of lightning spanning between two points at once.
+ * @param {string} runeId
+ * @param {object} params           Further {@link raySpriteBolt} params.
+ * @param {object} [params.forks]   Merged over the default forks.
+ * @returns {{function: string, params: object}}
+ */
+function _stormBolt(runeId, {forks, ...params}) {
+  return {function: "raySpriteBolt", params: {
+    texture: getVFXTexturePath(`${runeId}/ProjectileBolt2`), segment: 10,
+    forks: {textures: _stormStreaks(runeId), angle: 45, crossings: [0.506], ...forks},
+    ...params}};
+}
+
+/* -------------------------------------------- */
+
 // Reusable vortex charge-up for Flame spells
 const _CHARGE_FLAME_VORTEX = {
   chargeBehavior: "circleParticleVortex", chargeAnchor: "source",
@@ -1321,11 +1347,14 @@ const _STORM_SWIRL_CLOUDS = {..._STORM_SWIRL, orbitSpeed: 6, spinSpeed: 2, spawn
   lifetime: {min: 600, max: 1000}, alpha: {min: 0.3, max: 0.6}, scale: {min: 2.0, max: 3.0}};
 const _STORM_SWIRL_WIND = {..._STORM_SWIRL, orbitSpeed: -8, spinSpeed: 8, spawnRate: 22,
   lifetime: {min: 450, max: 800}, alpha: {min: 0.3, max: 0.6}, scale: {min: 1.5, max: 2.5}};
-const _STORM_SWIRL_AURA = {count: 1, initial: 1, spawnRate: 0, spinSpeed: 0.6, jumpInterval: {min: 250, max: 700},
-  alpha: {min: 0.85, max: 0.95}, blend: PIXI.BLEND_MODES.NORMAL, sort: 2};
-const _STORM_SWIRL_SPARKS = {growFraction: 0.15, spawnRate: 20, spawnRateEnd: 90, lifetime: {min: 70, max: 160},
-  alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3},
-  blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)};
+const _STORM_SWIRL_AURA = {spinSpeed: 0.6, jumpInterval: {min: 250, max: 700}, alpha: {min: 0.85, max: 0.95},
+  blend: PIXI.BLEND_MODES.NORMAL, sort: 2};
+
+// Electricity crackling in place: brief overexposed sparks blooming wherever they are spawned
+const _STORM_CRACKLE = {growFraction: 0.15, lifetime: {min: 70, max: 160}, alpha: {min: 0.8, max: 1.0},
+  scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3}, blend: PIXI.BLEND_MODES.ADD,
+  exposure: _exposureInHot(0.7)};
+const _STORM_SWIRL_SPARKS = {..._STORM_CRACKLE, spawnRate: 20, spawnRateEnd: 90};
 
 // Reusable aura charge-up for Storm spells, its sparks gathering wherever the gesture releases from
 const _CHARGE_STORM_AURA = {
@@ -1456,14 +1485,12 @@ const _IMPACT_LIFE = {
  * - `projectileFrame` (string): a specific projectile texture frame (e.g. "life/ProjectileBubble") or flipbook
  *   (e.g. "storm/ProjectileBolt"); defaults to a random `projectile`-category texture.
  * - `projectileSpeed` (number): flight speed in feet/sec (default 150).
- * - `projectileFps` (number): approximate frame rate of a flipbook projectile. It opens on its first frame, cycles
- *   its middle frames for as long as the flight lasts, and closes on its last frame at arrival. Omit to spread
- *   every frame once across the flight instead.
+ * - `projectileFps` (number): frame rate at which a flipbook projectile cycles its middle frames between its first
+ *   and last; omit to spread every frame once across the flight.
  * - `projectileReveal` ("charge"|"release"): fade the projectile in across the charge (default), or snap it
  *   into view only at release.
  * - `projectileTextureAnchor` (boolean): ride the flight path on the frame's own anchor rather than its center,
- *   e.g. so a bolt's leading tip lands on the target. Flight then begins with the tail of the sprite at the
- *   manifest point (see {@link CrucibleProjectileComponent.computeLaunch}).
+ *   launching from ahead of the manifest point (see {@link CrucibleProjectileComponent.computeLaunch}).
  * - `projectileBlend` (number): a PIXI.BLEND_MODES value for the projectile sprite (default NORMAL).
  * - `path` ({type, params}): a `CONFIG.Canvas.vfx.paths` generator for the flight trajectory
  *   (default linear); e.g. `{type: "weave", params: {arcCount, amplitude}}` for a serpentine bolt.
@@ -1872,13 +1899,10 @@ const RAY_VFX_PROPS = {
       return crack ? [{sound: crack, time: Math.max(CHARGE_DURATION - 50, 0)}] : [];
     },
     buildAnimations(ctx) {
-      return [{function: "raySpriteBolt", params: {
-        texture: getVFXTexturePath(`${ctx.action.rune.id}/ProjectileBolt2`), segment: 10,
+      return [_stormBolt(ctx.action.rune.id, {
         sweep: this.frontDuration, hold: this.deliveryDuration - this.frontDuration, fadeOut: 220, flicker: 16,
-        afterimage: {alpha: 0.32, duration: 1600},
-        forks: {textures: getVFXFrames(ctx.action.rune.id, "StreakBoltSingle", "StreakBoltForked"),
-          size: 5, angle: 45, jitter: 10, chance: 0.85, crossings: [0.506]},
-        elevation: ctx.beamElevation}}];
+        afterimage: {alpha: 0.32, duration: 1600}, forks: {size: 5, jitter: 10, chance: 0.85},
+        elevation: ctx.beamElevation})];
     },
     buildDelivery(ctx) {
       const {action, beamElevation, beamLength} = ctx;
@@ -2266,8 +2290,7 @@ const BLAST_VFX_PROPS = {
       const STORM_DURATION = this.deliveryDuration;
       const coverRadius = Math.round(radius * 1.5);
 
-      // A few vast, faint bodies, each wider than the whole blast and centered within it, so that wherever they
-      // drift their overlap leaves no ground bare, while their turnover keeps its density shifting
+      // A few vast, faint bodies, each wider than the whole blast, so their overlap leaves no ground bare
       const cloudScale = (radius * 3.6) / 128 / getParticleScaleFactor();
       const cloud = {
         area: {type: "circle", x: ctx.origin.x, y: ctx.origin.y, radius: Math.round(radius * 0.6)},
@@ -2276,8 +2299,7 @@ const BLAST_VFX_PROPS = {
         scaleCurve: [{time: 0, value: 0.8}, {time: 0.5, value: 1.0}, {time: 1, value: 1.15}],
         alpha: {min: 0.16, max: 0.3}, blend: PIXI.BLEND_MODES.NORMAL, elevation: particleElevation + 1, sort: 1};
 
-      // Cover hangs over the walls which bound the blast beneath it, so none of it is masked by them. Both cloud
-      // layers stay beneath the particle density floor, so low performance modes cannot thin the cover into gaps
+      // Cover hangs over the walls beneath it, so is unmasked, and stays under the density floor, so is never thinned
       return [
         {
           animation: "shapeParticleResidue", anchor: "origin", textures: getVFXFrames(runeId, "AirCloud"),
@@ -2294,9 +2316,7 @@ const BLAST_VFX_PROPS = {
         {
           animation: "circleParticleBloom", anchor: "origin", textures: getVFXFrames(runeId, "SprayBolts"),
           duration: STORM_DURATION,
-          params: {chargeRadius: coverRadius, growFraction: 0.15, spawnRate: 40, lifetime: {min: 70, max: 160},
-            scale: {min: 1.0, max: 1.8}, alpha: {min: 0.8, max: 1.0}, fade: {in: 0.05, out: 0.3},
-            blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7),
+          params: {..._STORM_CRACKLE, chargeRadius: coverRadius, spawnRate: 40, scale: {min: 1.0, max: 1.8},
             elevation: particleElevation + 1, sort: 0}
         }
       ];
@@ -2619,8 +2639,7 @@ const FAN_VFX_PROPS = {
     },
     buildCharge({runeId, casterRadiusPx, casterElevation}) {
 
-      // The swirl runs unbroken from the start of the charge to the end of the channel, as one layer which outlasts
-      // the charge phase that spawns it, so there is no seam where the electricity begins
+      // The swirl outlasts the charge phase which spawns it, running unbroken to the end of the channel
       const elevation = casterElevation + 1;
       const spell = this.chargeDuration + this.sweepDuration;
       return [
@@ -2660,28 +2679,23 @@ const FAN_VFX_PROPS = {
         },
         { // Secondary arcs: short streaks thrown anywhere out to the rim of the fan, skewed so they criss-cross
           function: "fanSpriteArcs", params: {
-            textures: getVFXFrames(runeId, "StreakBoltSingle", "StreakBoltForked"),
+            textures: _stormStreaks(runeId),
             copies: 5, size: streak, inset: {min: inset, max: Math.max(streakReach, inset)}, spray: 8, turn: 0,
             skew: 30, interval: {min: 45, max: 95}, fadeOut: 180, elevation: casterElevation + 1}
         }
       ];
     },
     buildImpact({action, casterRadiusPx, casterElevation}) {
-      const runeId = action.rune.id;
-      return [{function: "raySpriteBolt", params: {
-        texture: getVFXTexturePath(`${runeId}/ProjectileBolt2`), from: "origin", to: "destination",
-        inset: Math.round(casterRadiusPx * 0.7), segment: 10, sweep: 60, hold: 2610, fadeOut: 180, flicker: 18,
-        forks: {textures: getVFXFrames(runeId, "StreakBoltSingle", "StreakBoltForked"),
-          size: 2.5, angle: 45, jitter: 12, chance: 0.8, crossings: [0.506]},
-        elevation: casterElevation + 2}}];
+      return [_stormBolt(action.rune.id, {
+        from: "origin", to: "destination", inset: Math.round(casterRadiusPx * 0.7),
+        sweep: 60, hold: 2610, fadeOut: 180, flicker: 18, forks: {size: 2.5, jitter: 12, chance: 0.8},
+        elevation: casterElevation + 2})];
     },
     buildDelivery({action, casterRadiusPx, casterElevation, sweepDuration}) {
       return [{
         animation: "circleParticleBloom", anchor: "source", textures: getVFXFrames(action.rune.id, "SprayBolts"),
         duration: sweepDuration,
-        params: {chargeRadius: Math.round(casterRadiusPx * 1.2), growFraction: 0.15, spawnRate: 70,
-          lifetime: {min: 70, max: 160}, alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.1},
-          fade: {in: 0.05, out: 0.3}, blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7),
+        params: {..._STORM_CRACKLE, chargeRadius: Math.round(casterRadiusPx * 1.2), spawnRate: 70,
           elevation: casterElevation + 1}
       }];
     }
@@ -2770,9 +2784,7 @@ const TOUCH_VFX_PROPS = {
       glow: false,
       impactShock: {duration: 900, rate: 12, fadeOut: 450},
       sound: {volume: 0.5},
-      coat: {frames: ["SprayBolts"], params: {growFraction: 0.15, spawnRate: 60, lifetime: {min: 70, max: 160},
-        alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.2}, fade: {in: 0.05, out: 0.3},
-        blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)}}
+      coat: {frames: ["SprayBolts"], params: {..._STORM_CRACKLE, spawnRate: 60, scale: {min: 0.6, max: 1.2}}}
     },
     buildSounds({action, sound, channel, chargeDuration, deliveryDuration}) {
       const crackle = channel ? sound(getVFXSound(action.rune.id, "crackle")) : null;
@@ -2784,7 +2796,7 @@ const TOUCH_VFX_PROPS = {
 
       // The arcs are the delivery, thrown whatever the outcome. Only what they do to the target depends on it
       const arcs = (copies, scatter, params) => ({function: "impactSpriteArcs", params: {
-        textures: getVFXFrames(action.rune.id, "StreakBoltSingle", "StreakBoltForked"), from: "forward",
+        textures: _stormStreaks(action.rune.id), from: "forward",
         copies, scatter: Math.round(target.radiusPx * scatter), interval: {min: 35, max: 80}, fadeOut: 110,
         elevation: casterElevation + 2, ...params}});
       if ( !channel ) return [arcs(3, 0.3, {duration: 220})];

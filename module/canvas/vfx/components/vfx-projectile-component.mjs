@@ -63,7 +63,9 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
   _configureTimings() {
     this._origin = this.path[0];
     this._destination = this.path.at(-1);
-    this._launch = this.#configureLaunch();
+    const {size, x, y} = CrucibleProjectileComponent.computeLaunch(this._origin, this._destination, this.delivery);
+    this._spriteSize = size;
+    this._launch = {...this._origin, x, y};
     this._flightPath = foundry.canvas.vfx.VFXPath.create(this.pathType.type, [this._launch, ...this.path.slice(1)],
       this.pathType.params);
     const distancePixels = canvas.dimensions.distancePixels;
@@ -135,18 +137,6 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
   /* -------------------------------------------- */
 
   /**
-   * Resolve the point where flight begins, and the sprite size flown as `_spriteSize`.
-   * @returns {object}   The first point of the flight path.
-   */
-  #configureLaunch() {
-    const {size, x, y} = CrucibleProjectileComponent.computeLaunch(this._origin, this._destination, this.delivery);
-    this._spriteSize = size;
-    return {...this._origin, x, y};
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Compute where the flight of a projectile sprite begins relative to the origin of its path.
    * @param {{x: number, y: number}} origin        The first point of the projectile path.
    * @param {{x: number, y: number}} destination   The last point of the projectile path.
@@ -166,8 +156,7 @@ export default class CrucibleProjectileComponent extends CrucibleVFXComponent {
     const reach = Math.hypot(dx, dy);
     if ( !(reach > 0) ) return launch;
 
-    // A sprite riding on its own anchor trails its art behind that anchor, so flight begins that far ahead of the
-    // origin and the rearmost art of its opening frame, rather than the anchor, is what leaves from the origin
+    // Art trails behind the anchor it rides on, so flight begins that far ahead and its rearmost art leaves the origin
     const {width, height} = frames[0].orig;
     const texelSize = (size * Math.min(width / height, 1) * canvas.dimensions.distancePixels) / width;
     let lead = Math.max((frames[0].defaultAnchor.x * width) - (frames[0].trim?.x ?? 0), 0) * texelSize;

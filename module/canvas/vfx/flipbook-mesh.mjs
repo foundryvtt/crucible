@@ -1,3 +1,5 @@
+import {scheduleTimelineClock} from "./helpers.mjs";
+
 /**
  * A sprite mesh which displays one frame at a time from an ordered sequence of textures.
  * @extends {foundry.canvas.primary.PrimarySpriteMesh}
@@ -84,23 +86,19 @@ export default class CrucibleFlipbookMesh extends foundry.canvas.primary.Primary
     // its last frame, so the last frame always closes the duration however short that is
     const slots = (mode === SUSTAIN) ? Math.max(3, Math.round((duration * fps) / 1000)) : count;
     const interval = ((mode === ONCE) || (mode === SUSTAIN)) ? (duration / slots) : (1000 / fps);
-    const clock = {ms: 0};
     let lastStep = -1;
-    timeline.add(clock, {
-      ms: {from: 0, to: duration}, duration, ease: "linear",
-      onRender: () => {
-        const step = Math.floor(clock.ms / interval);
-        if ( step === lastStep ) return;
-        lastStep = step;
-        if ( mode === ONCE ) this.frame = step;
-        else if ( mode === LOOP ) this.frame = step % count;
-        else if ( mode === SUSTAIN ) {
-          if ( step < 1 ) this.frame = 0;
-          else if ( step >= (slots - 1) ) this.frame = count - 1;
-          else this.frame = 1 + ((step - 1) % (count - 2));
-        }
-        else this.frame = (this.frame + 1 + Math.floor(Math.random() * (count - 1))) % count;
+    scheduleTimelineClock(timeline, start, duration, ms => {
+      const step = Math.floor(ms / interval);
+      if ( step === lastStep ) return;
+      lastStep = step;
+      if ( mode === ONCE ) this.frame = step;
+      else if ( mode === LOOP ) this.frame = step % count;
+      else if ( mode === SUSTAIN ) {
+        if ( step < 1 ) this.frame = 0;
+        else if ( step >= (slots - 1) ) this.frame = count - 1;
+        else this.frame = 1 + ((step - 1) % (count - 2));
       }
-    }, start);
+      else this.frame = (this.frame + 1 + Math.floor(Math.random() * (count - 1))) % count;
+    });
   }
 }

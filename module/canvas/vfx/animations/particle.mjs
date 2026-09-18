@@ -256,14 +256,13 @@ const circleParticleOrbit = {
  * @property {number} chargeRadius       Radius of the aura: the sprite is sized to span its diameter. REQUIRED.
  * @property {number} [spinSpeed]        Slow turn of the sprite between its jumps (rad/sec, default 0.6).
  * @property {{min: number, max: number}} [jumpInterval]   Ms between jumps (default 250-700).
- * @property {{min: number, max: number}} [scale]          Size relative to the aura diameter (default 1).
  * @property {{in: number, out: number}} [fade]
  * @property {number} [blend]
  */
 
 /**
- * An aura held on the anchor for the length of its layer: a sprite turning slowly, which at irregular moments jumps
- * to another rotation or mirrors itself, so that a single frame of art is never seen settling into one shape.
+ * One aura sprite held on the anchor for the length of its layer, turning slowly and at irregular moments jumping
+ * to another rotation or mirroring itself.
  * @type {CrucibleParticleBehavior<CircleParticleAuraParams>}
  */
 const circleParticleAura = {
@@ -274,15 +273,15 @@ const circleParticleAura = {
     const spin = params.spinSpeed ?? 0.6;
     const jump = params.jumpInterval ?? {min: 250, max: 700};
     const pace = canvas.photosensitiveMode ? 4 : 1;
-    const {min = 1, max = 1} = params.scale ?? {};
     const textureSize = foundry.canvas.getTexture(layer.textures[0])?.orig.width ?? 128;
     const diameterScale = (params.chargeRadius * 2) / textureSize;
     const wait = () => (jump.min + (Math.random() * (jump.max - jump.min))) * pace;
     return {
+      count: 1, initial: 1, spawnRate: 0,
       area: {type: "circle", x: anchor.x, y: anchor.y, radius: 2},
       velocity: {speed: [0, 0], angle: [0, 360]},
       rotation: {alignVelocity: false, spread: Math.PI},
-      scale: [min * diameterScale, max * diameterScale],
+      scale: [diameterScale, diameterScale],
       lifetime: {min: duration, max: duration},
       fade: params.fade ?? {in: 0.15, out: 0.2},
       blend: params.blend ?? PIXI.BLEND_MODES.NORMAL,
@@ -434,7 +433,6 @@ const circleParticleResidue = {
  * @typedef CircleParticleBloomParams
  * @property {number} chargeRadius
  * @property {number} [growFraction]  Fraction of lifetime spent scaling up (default 0.4).
- * @property {number} [growFrom]      Starting size as a fraction of full size (default 0.1, a speck).
  * @property {{in: number, out: number}} [fade]
  */
 
@@ -448,7 +446,6 @@ const circleParticleBloom = {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.origin;
     const grow = params.growFraction ?? 0.4;
-    const growFrom = params.growFrom ?? 0.1;
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius: params.chargeRadius},
       velocity: {speed: [0, 0], angle: [0, 360]},
@@ -456,12 +453,12 @@ const circleParticleBloom = {
       fade: params.fade ?? {in: 0.3, out: 0.4},
       onSpawn: p => {
         p._bloom = p.scale.x;
-        p.scale.set(p._bloom * growFrom);
+        p.scale.set(p._bloom * 0.1);
       },
       onUpdate: p => {
         const age = p.lifetime > 0 ? Math.min(p.elapsedTime / p.lifetime, 1) : 1;
         const g = Math.min(age / grow, 1);
-        p.scale.set(p._bloom * (growFrom + ((1 - growFrom) * (1 - Math.pow(1 - g, 2)))));
+        p.scale.set(p._bloom * (0.1 + (0.9 * (1 - Math.pow(1 - g, 2)))));
       }
     };
   }

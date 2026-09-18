@@ -4,6 +4,7 @@
 
 import CrucibleElectrocutionFilter from "../../filters/electrocution-filter.mjs";
 import CrucibleFlipbookMesh from "../flipbook-mesh.mjs";
+import {pickRandom, scheduleTimelineClock} from "../helpers.mjs";
 
 /**
  * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
@@ -250,6 +251,19 @@ const impactSpriteBurst = {
 /* -------------------------------------------- */
 
 /**
+ * Remove one filter from a display object, leaving any others it carries in place.
+ * @param {PIXI.DisplayObject} target
+ * @param {PIXI.Filter} filter
+ */
+function _detachFilter(target, filter) {
+  if ( !target || target.destroyed || !target.filters?.includes(filter) ) return;
+  const filters = target.filters.filter(f => f !== filter);
+  target.filters = filters.length ? filters : null;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Apply a {@link foundry.canvas.rendering.filters.GlowOverlayFilter} to the target mesh as impact feedback. The
  * glow strength ramps gradually to peak over `dur - fadeOut`, then eases back down over `fadeOut`, so the target
  * is progressively overtaken rather than flashed at full intensity. An alternative to recoil for restoration.
@@ -299,24 +313,89 @@ const impactSpriteGlow = {
       .add(filter, {outerStrength: {to: outerStrength}, innerStrength: {to: innerStrength}, duration: buildDur}, start)
       .add(filter, {outerStrength: {to: 0}, innerStrength: {to: 0}, duration: fadeOut}, start + buildDur);
 
-    this.timeline.call(() => {
-      if ( target.destroyed ) return;
-      const filters = target.filters;
-      if ( !filters ) return;
-      const idx = filters.indexOf(filter);
-      if ( idx < 0 ) return;
-      const next = filters.slice();
-      next.splice(idx, 1);
-      target.filters = next.length ? next : null;
-    }, start + dur);
+    this.timeline.call(() => _detachFilter(target, filter), start + dur);
   }
 };
 
 /* -------------------------------------------- */
 
 /**
- * Arc between a point on the caster and the target: several copies of a directional sprite spanning the gap from
- * its tail, each re-rolled every few frames in where on the target it lands, handedness, and brightness.
+ * Electrocute the target mesh: a {@link CrucibleElectrocutionFilter} strobing between its two polarities, then
+ * easing back to the target's own colors. Under photosensitive mode the strobe is replaced by one steady hold.
+ * Tuning (`params`): `duration`, `rate` (strobes/sec), `fadeOut`, `strength`, and the filter's `light`, `dark`,
+ * `threshold`, and `softness` uniforms.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const impactSpriteShock = {
+  schedule(phase, params) {
+    const target = this.state.targetMesh;
+    if ( !target || target.destroyed ) return;
+    const {duration = 450, rate = 14, fadeOut = 120, strength = 1, light, dark, threshold, softness} = params;
+    const uniforms = Object.fromEntries(Object.entries({light, dark, threshold, softness})
+      .filter(([_key, value]) => value !== undefined));
+    const filter = CrucibleElectrocutionFilter.create({...uniforms, strength: 0, polarity: 0});
+    params._target = target;
+    params._filter = filter;
+
+    // Attached only for the shock, ahead of any other filter as it recolors every pixel it is given
+    const start = phase.start;
+    this.timeline.call(() => {
+      if ( !target.destroyed ) target.filters = [filter, ...(target.filters ?? [])];
+    }, start);
+    const steady = canvas.photosensitiveMode;
+    const fadeIn = steady ? Math.min(100, duration / 4) : 0;
+    scheduleTimelineClock(this.timeline, start, duration, ms => {
+      const rise = (fadeIn > 0) ? Math.min(ms / fadeIn, 1) : 1;
+      const fall = (fadeOut > 0) ? Math.min((duration - ms) / fadeOut, 1) : 1;
+      filter.uniforms.strength = strength * Math.clamp(Math.min(rise, fall), 0, 1);
+      filter.uniforms.polarity = steady ? 0 : (Math.floor((ms * rate) / 1000) % 2);
+    });
+    this.timeline.call(() => _detachFilter(target, filter), start + duration);
+  },
+  tearDown(phase, params) {
+    _detachFilter(params._target, params._filter);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Hold sprites in view for a span, re-rolling each at irregular intervals which photosensitive mode slows.
+ * @this {CrucibleVFXComponent}
+ * @param {{container: PIXI.Container, mesh: PIXI.Mesh}[]} sprites
+ * @param {(sprite: object) => void} reroll   Re-randomize one sprite.
+ * @param {object} timing
+ * @param {number} timing.start
+ * @param {number} timing.duration
+ * @param {{min: number, max: number}} timing.interval   Ms between re-rolls of one sprite.
+ * @param {number} timing.fadeIn
+ * @param {number} timing.fadeOut
+ */
+function _scheduleRerolls(sprites, reroll, {start, duration, interval, fadeIn, fadeOut}) {
+  const pace = canvas.photosensitiveMode ? 5 : 1;
+  const roll = (sprite, ms) => {
+    reroll(sprite);
+    sprite.next = ms + ((interval.min + (Math.random() * (interval.max - interval.min))) * pace);
+  };
+  for ( const sprite of sprites ) {
+    roll(sprite, 0);
+    this.timeline.add(sprite.container, {alpha: {from: 0, to: 1, duration: fadeIn}}, start)
+      .add(sprite.container, {alpha: {to: 0, duration: fadeOut}}, start + Math.max(duration - fadeOut, 0));
+  }
+  scheduleTimelineClock(this.timeline, start, duration, ms => {
+    for ( const sprite of sprites ) {
+      if ( ms >= sprite.next ) roll(sprite, ms);
+    }
+  });
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Arc from an anchor on the caster to the target: copies of a directional sprite spanning the gap from its tail,
+ * each re-rolled in where on the target it lands, handedness, and brightness.
+ * Tuning (`params`): `textures` (required), `from`, `copies`, `scatter`, `interval`, `offset`, `duration`, `fadeOut`,
+ * `elevation`, `blend`.
  * @type {CrucibleVFXComponentAnimation}
  */
 const impactSpriteArcs = {
@@ -328,21 +407,18 @@ const impactSpriteArcs = {
     if ( !textures?.length || !tail || !head ) return;
     const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
     const gap = Math.max(Math.hypot(head.x - tail.x, head.y - tail.y), 1);
-    const start = phase.start + offset;
-    const duration = params.duration ?? phase.duration;
-    const pace = canvas.photosensitiveMode ? 5 : 1;
     const arcs = [];
     for ( let i = 0; i < copies; i++ ) {
       const container = this.addManagedDisplayObject(this._createSprite(
-        textures[Math.floor(Math.random() * textures.length)], gap / canvas.dimensions.distancePixels,
+        pickRandom(textures), gap / canvas.dimensions.distancePixels,
         {x: tail.x, y: tail.y, elevation: elevation ?? tail.elevation ?? 0, sort: tail.sort ?? 0,
           sortLayer: tail.sortLayer ?? SL.TOKENS}, {useTextureAnchor: true, blend}));
       const mesh = container.getChildByName("mesh");
-      if ( mesh ) arcs.push({container, mesh, next: 0});
+      if ( mesh ) arcs.push({container, mesh});
     }
 
     // Each arc is sized to the gap, then scaled to reach wherever on the target it lands this time
-    const reroll = (arc, ms) => {
+    const reroll = arc => {
       const r = scatter * Math.sqrt(Math.random());
       const a = Math.random() * Math.PI * 2;
       const dx = (head.x + (Math.cos(a) * r)) - tail.x;
@@ -351,31 +427,20 @@ const impactSpriteArcs = {
       arc.container.scale.set(Math.hypot(dx, dy) / gap);
       arc.mesh.alpha = 0.6 + (Math.random() * 0.4);
       if ( Math.random() < 0.5 ) arc.mesh.scale.y *= -1;
-      arc.next = ms + ((interval.min + (Math.random() * (interval.max - interval.min))) * pace);
     };
-    for ( const arc of arcs ) {
-      reroll(arc, 0);
-      this.timeline.add(arc.container, {alpha: {from: 0, to: 1, duration: 20}}, start)
-        .add(arc.container, {alpha: {to: 0, duration: fadeOut}}, start + Math.max(duration - fadeOut, 0));
-    }
-    const clock = {ms: 0};
-    this.timeline.add(clock, {
-      ms: {from: 0, to: duration}, duration, ease: "linear",
-      onRender: () => {
-        for ( const arc of arcs ) {
-          if ( clock.ms >= arc.next ) reroll(arc, clock.ms);
-        }
-      }
-    }, start);
+    _scheduleRerolls.call(this, arcs, reroll, {start: phase.start + offset,
+      duration: params.duration ?? phase.duration, interval, fadeIn: 20, fadeOut});
   }
 };
 
 /* -------------------------------------------- */
 
 /**
- * Pour a torrent of lightning across a fan: several copies of a sprite rooted somewhere out from the caster, each
- * keeping to its own slice of the arc while it is re-rolled every few frames in heading, distance, handedness,
- * size and brightness. Art which converges on its anchor is `turn`ed about to spray outward from it.
+ * Pour a torrent across a fan: copies of a sprite rooted out from the caster, each keeping to its own slice of the
+ * arc while re-rolled in heading, distance, handedness, size and brightness.
+ * Tuning (`params`): `textures` (required), `copies`, `size`, `inset` (pixels, or a `{min, max}` range), `spray`
+ * (degrees of half-width kept within the fan), `turn` (radians, PI for art which converges on its anchor), `skew`
+ * (degrees), `interval`, `duration`, `fadeOut`, `elevation`, `blend`.
  * @type {CrucibleVFXComponentAnimation}
  */
 const fanSpriteArcs = {
@@ -388,23 +453,16 @@ const fanSpriteArcs = {
     const {origin, rotation, halfAngle} = this.state;
     if ( !textures?.length ) return;
     const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
-    const start = phase.start;
-    const duration = params.duration ?? phase.duration;
-
-    // Headings stop short of the edges of the fan by the half-width of the spray, so the art stays within it
     const range = Math.max(halfAngle - Math.toRadians(spray), 0);
     const slice = (range * 2) / copies;
-    const pace = canvas.photosensitiveMode ? 5 : 1;
     const arcs = [];
     for ( let i = 0; i < copies; i++ ) {
-      const container = this.addManagedDisplayObject(this._createSprite(
-        textures[Math.floor(Math.random() * textures.length)], size,
+      const container = this.addManagedDisplayObject(this._createSprite(pickRandom(textures), size,
         {x: origin.x, y: origin.y, elevation, sort: 0, sortLayer: SL.TOKENS}, {useTextureAnchor: true, blend}));
       const mesh = container.getChildByName("mesh");
-      if ( !mesh ) continue;
-      arcs.push({container, mesh, from: (rotation - range) + (slice * i), next: 0});
+      if ( mesh ) arcs.push({container, mesh, from: (rotation - range) + (slice * i)});
     }
-    const reroll = (arc, ms) => {
+    const reroll = arc => {
       const heading = arc.from + (Math.random() * slice);
       const out = inset.min + (Math.random() * (inset.max - inset.min));
       arc.container.position.set(origin.x + (Math.cos(heading) * out), origin.y + (Math.sin(heading) * out));
@@ -412,31 +470,20 @@ const fanSpriteArcs = {
       arc.container.scale.set(0.8 + (Math.random() * 0.3));
       arc.mesh.alpha = 0.55 + (Math.random() * 0.45);
       if ( Math.random() < 0.5 ) arc.mesh.scale.y *= -1;
-      arc.next = ms + ((interval.min + (Math.random() * (interval.max - interval.min))) * pace);
     };
-    const clock = {ms: 0};
-    for ( const arc of arcs ) {
-      reroll(arc, 0);
-      this.timeline.add(arc.container, {alpha: {from: 0, to: 1, duration: 40}}, start)
-        .add(arc.container, {alpha: {to: 0, duration: fadeOut}}, start + Math.max(duration - fadeOut, 0));
-    }
-    this.timeline.add(clock, {
-      ms: {from: 0, to: duration}, duration, ease: "linear",
-      onRender: () => {
-        for ( const arc of arcs ) {
-          if ( clock.ms >= arc.next ) reroll(arc, clock.ms);
-        }
-      }
-    }, start);
+    _scheduleRerolls.call(this, arcs, reroll, {start: phase.start, duration: params.duration ?? phase.duration,
+      interval, fadeIn: 40, fadeOut});
   }
 };
 
 /* -------------------------------------------- */
 
 /**
- * Span the whole ray with one bolt at once: a directional sprite tiled end to end along it, each segment pinned by
- * its own anchor, revealed in a race outward from the origin, then writhing in place before all fade together,
- * either away or to a faint `afterimage` of the bolt's final shape which lingers. Optional `forks` branch off it.
+ * Span the ray with one bolt at once: a directional sprite tiled end to end, revealed in a race outward from the
+ * origin, writhing in place, then fading together, either away or to a lingering `afterimage` of its final shape.
+ * Tuning (`params`): `texture` (required), `segment` (feet), `sweep`, `hold`, `fadeOut`, `flicker` (mirrors/sec),
+ * `afterimage` ({alpha, duration}), `forks` ({textures, size, angle, jitter, chance, crossings}), `from` and `to`
+ * (anchor names, in place of the ray's own ends), `inset` (pixels), `elevation`, `blend`.
  * @type {CrucibleVFXComponentAnimation}
  */
 const raySpriteBolt = {
@@ -445,7 +492,6 @@ const raySpriteBolt = {
       blend = PIXI.BLEND_MODES.ADD, afterimage, forks, from, to, inset = 0} = params;
     const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
 
-    // The bolt runs the length of the ray, or between any two named anchors, beginning `inset` pixels along
     const tail = from ? this.state.anchors[from] : this.state.origin;
     const head = to ? this.state.anchors[to] : this.state.end;
     if ( !tail || !head ) return;
@@ -463,9 +509,8 @@ const raySpriteBolt = {
     const start = phase.start;
     const end = start + sweep + hold;
 
-    // Every part of the bolt appears as the race outward reaches it, holds, then fades with the rest, either
-    // away or to the afterimage, whose shape is the one the bolt last took because the writhing stops with the hold
-    const place = (path, size, reach, heading, progress) => {
+    // Each piece appears as the race outward reaches it, then fades with the rest
+    const place =(path, size, reach, heading, progress) => {
       const container = this.addManagedDisplayObject(this._createSprite(path, size, {
         x: origin.x + (direction.x * reach), y: origin.y + (direction.y * reach),
         elevation: elevation ?? origin.elevation, sort: origin.sort, sortLayer: origin.sortLayer
@@ -477,16 +522,13 @@ const raySpriteBolt = {
       this.timeline.add(container, {alpha: {from: 0, to: 1, duration: 20}}, revealed)
         .add(container, {alpha: {to: afterimage?.alpha ?? 0, duration: fadeOut}}, end);
       if ( afterimage ) {
-        if ( afterimage.tint !== undefined ) this.timeline.call(() => mesh.tint = afterimage.tint, end + fadeOut);
         this.timeline.add(container, {alpha: {to: 0, duration: afterimage.duration ?? 1500, ease: "outQuad"}},
           end + fadeOut);
       }
       return {mesh, revealed};
     };
 
-    // A fork must leave from a point which is on the bolt, and the bolt strays from the axis everywhere except
-    // where its segments join and where its art crosses its own mid-height, which the mirroring leaves in place.
-    // So forks grow from the joints and from those crossings, each angled off to one side and ahead
+    // Forks leave from where the bolt is on its axis: segment joints, and the crossings its art makes of mid-height
     const forkPaths = forks?.textures ?? [];
     const sites = [];
     for ( let i = 0; (i < count) && forkPaths.length; i++ ) {
@@ -497,34 +539,28 @@ const raySpriteBolt = {
       if ( Math.random() >= (forks.chance ?? 0.85) ) continue;
       const side = (Math.random() < 0.5) ? -1 : 1;
       const angle = Math.toRadians((forks.angle ?? 45) + (((Math.random() * 2) - 1) * (forks.jitter ?? 10)));
-      const fork = place(forkPaths[Math.floor(Math.random() * forkPaths.length)], forks.size ?? 5, span * site,
-        rotation + (side * angle), site / count);
+      const fork = place(pickRandom(forkPaths), forks.size ?? 5, span * site, rotation + (side * angle),
+        site / count);
       if ( fork && (Math.random() < 0.5) ) fork.mesh.scale.y *= -1;
     }
     for ( let i = 0; i < count; i++ ) {
 
-      // The art runs from the far edge of its canvas to its anchor, so sizing it by that share of its width and
-      // pinning its anchor at the end of its span leaves no gap between one segment and the next. It is revealed
-      // as the race reaches the start of that span
+      // The art runs from the far edge of its canvas to its anchor, so sized by that share of its width and pinned
+      // at the end of its span it leaves no gap between segments
       const placed = place(texture, span / distancePixels / anchorX, span * (i + 1), rotation, i / count);
       if ( !placed ) continue;
       const {mesh, revealed} = placed;
 
-      // Both ends of the art sit at mid-height, so a segment mirrored across its axis still meets its neighbors,
-      // and mirroring them at random makes the bolt writhe while it stays connected
+      // Both ends of the art sit at mid-height, so a mirrored segment still meets its neighbors
       if ( Math.random() < 0.5 ) mesh.scale.y *= -1;
       if ( canvas.photosensitiveMode || !(flicker > 0) ) continue;
-      const clock = {ms: 0};
       let lastStep = 0;
-      this.timeline.add(clock, {
-        ms: {from: 0, to: end - revealed}, duration: end - revealed, ease: "linear",
-        onRender: () => {
-          const step = Math.floor((clock.ms * flicker) / 1000);
-          if ( step === lastStep ) return;
-          lastStep = step;
-          if ( Math.random() < 0.5 ) mesh.scale.y *= -1;
-        }
-      }, revealed);
+      scheduleTimelineClock(this.timeline, revealed, end - revealed, ms => {
+        const step = Math.floor((ms * flicker) / 1000);
+        if ( step === lastStep ) return;
+        lastStep = step;
+        if ( Math.random() < 0.5 ) mesh.scale.y *= -1;
+      });
     }
   }
 };
@@ -533,16 +569,17 @@ const raySpriteBolt = {
 
 /**
  * Strike a point from overhead: an upright sprite pinned there by its own anchor, flickering between its variant
- * textures before fading, over an optional `flash` decal which bursts on the ground and a `scorch` decal which
- * lingers there, and under an optional `cloud` which gathers at its top beforehand. The strike point is an explicit
- * `point`, a named `anchor`, or else the current impact destination, displaced by any `delta`.
+ * textures before fading. It strikes an explicit `point`, else the impact destination, displaced by any `delta`.
+ * Tuning (`params`): `textures` (required), `point`, `delta`, `offset`, `size`, `duration`, `fps`, `fadeOut`,
+ * `elevation`, `blend`, `flash` ({texture, size, duration}, a ground decal which bursts), `scorch` ({texture, size,
+ * duration, alpha}, one which lingers), `cloud` ({textures, size, rise, gather, disperse, alpha}, gathered at its top).
  * @type {CrucibleVFXComponentAnimation}
  */
 const impactSpriteStrike = {
   schedule(phase, params) {
-    const {textures, point, anchor, delta, offset = 0, size = 12, duration = 260, fps = 18, fadeOut = 110,
+    const {textures, point, delta, offset = 0, size = 12, duration = 260, fps = 18, fadeOut = 110,
       elevation, blend = PIXI.BLEND_MODES.ADD, flash, scorch, cloud} = params;
-    const at = point ?? (anchor ? this.state.anchors[anchor] : this.state.destination);
+    const at = point ?? this.state.destination;
     if ( !textures?.length || !at ) return;
     const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
     const position = {x: at.x + (delta?.x ?? 0), y: at.y + (delta?.y ?? 0), sort: at.sort ?? 0,
@@ -581,9 +618,7 @@ const impactSpriteStrike = {
     this.timeline.add(bolt, {alpha: {from: 0, to: 1, duration: 20}}, start)
       .add(bolt, {alpha: {to: 0, duration: fadeOut}}, start + hold);
 
-    // The art rises from the strike point by its own height, to a top which may lie anywhere across its width and
-    // beyond any cover over the area struck. A cloud wider than the art, gathered there beforehand and drawn over
-    // it, is what the bolt is seen to come out of
+    // The top of the art may lie beyond any cover over the area struck, so the bolt brings a cloud of its own
     if ( cloud?.textures?.length ) {
       const top = position.y - (size * canvas.dimensions.distancePixels * (cloud.rise ?? 0.9));
       const cover = this.addManagedDisplayObject(this._createSprite(cloud.textures, cloud.size ?? (size * 1.3),
@@ -601,64 +636,6 @@ const impactSpriteStrike = {
     mesh.frame = Math.floor(Math.random() * mesh.frames.length);
     if ( canvas.photosensitiveMode ) return;
     mesh.animate(this.timeline, {start, duration: hold, fps, mode: CrucibleFlipbookMesh.MODES.SHUFFLE});
-  }
-};
-
-/* -------------------------------------------- */
-
-/**
- * Remove one filter from a display object, leaving any others it carries in place.
- * @param {PIXI.DisplayObject} target
- * @param {PIXI.Filter} filter
- */
-function _detachFilter(target, filter) {
-  if ( !target || target.destroyed || !target.filters?.includes(filter) ) return;
-  const filters = target.filters.filter(f => f !== filter);
-  target.filters = filters.length ? filters : null;
-}
-
-/* -------------------------------------------- */
-
-/**
- * Electrocute the target mesh: a {@link CrucibleElectrocutionFilter} strobing between its two polarities, then
- * easing back to the target's own colors. Under photosensitive mode the strobe is replaced by one steady hold.
- * @type {CrucibleVFXComponentAnimation}
- */
-const impactSpriteShock = {
-  schedule(phase, params) {
-    const target = this.state.targetMesh;
-    if ( !target || target.destroyed ) return;
-    const {duration = 450, rate = 14, fadeOut = 120, strength = 1, light, dark, threshold, softness} = params;
-    const uniforms = Object.fromEntries(Object.entries({light, dark, threshold, softness})
-      .filter(([_key, value]) => value !== undefined));
-    const filter = CrucibleElectrocutionFilter.create({...uniforms, strength: 0, polarity: 0});
-    params._target = target;
-    params._filter = filter;
-
-    // Join the filter to the mesh only for the shock, so its shader never runs during the spell preamble. It goes
-    // ahead of any other filter, as it recolors every pixel it is given and should be given the target alone
-    const start = phase.start;
-    this.timeline.call(() => {
-      if ( !target.destroyed ) target.filters = [filter, ...(target.filters ?? [])];
-    }, start);
-
-    // Read per client at play time: a strobe of this rate is what photosensitive mode exists to prevent
-    const steady = canvas.photosensitiveMode;
-    const fadeIn = steady ? Math.min(100, duration / 4) : 0;
-    const clock = {ms: 0};
-    this.timeline.add(clock, {
-      ms: {from: 0, to: duration}, duration, ease: "linear",
-      onRender: () => {
-        const rise = (fadeIn > 0) ? Math.min(clock.ms / fadeIn, 1) : 1;
-        const fall = (fadeOut > 0) ? Math.min((duration - clock.ms) / fadeOut, 1) : 1;
-        filter.uniforms.strength = strength * Math.clamp(Math.min(rise, fall), 0, 1);
-        filter.uniforms.polarity = steady ? 0 : (Math.floor((clock.ms * rate) / 1000) % 2);
-      }
-    }, start);
-    this.timeline.call(() => _detachFilter(target, filter), start + duration);
-  },
-  tearDown(phase, params) {
-    _detachFilter(params._target, params._filter);
   }
 };
 

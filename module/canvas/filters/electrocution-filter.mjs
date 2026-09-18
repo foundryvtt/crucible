@@ -1,6 +1,5 @@
 /**
- * A filter which renders its target as though electrocuted: flattened to a two-tone silhouette whose own dark
- * linework stands in for a skeleton, in either of two polarities for a caller to strobe between.
+ * A filter which flattens its target to a two-tone silhouette, in either of two polarities to strobe between.
  * @extends {foundry.canvas.rendering.filters.AbstractBaseFilter}
  */
 export default class CrucibleElectrocutionFilter extends foundry.canvas.rendering.filters.AbstractBaseFilter {
