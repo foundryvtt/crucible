@@ -955,7 +955,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         events = {
           all: [],
           roll: [],
-          effects: [],
           activation: null,
           actorUpdate: null,
           movement: null,
@@ -969,6 +968,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           isCriticalSuccess: false,
           isCriticalFailure: false
         };
+        Object.defineProperty(events, "effects", {
+          get: () => {
+            return events.all.filter(e => e.effects.some(f => !f._action));
+          }
+        });
         eventsByActor.set(event.target, events);
       }
       events.all.push(event);
@@ -985,7 +989,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( event.type === "activation" ) events.activation = event;
       else if ( event.type === "actorUpdate" ) events.actorUpdate = event;
       else if ( event.type === "movement" ) events.movement = event;
-      if ( event.effects.filter(e => !e._action).length ) events.effects.push(event);
     }
 
     // allSuccess/allFailure are only meaningful when there are rolls

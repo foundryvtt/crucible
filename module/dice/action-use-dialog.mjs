@@ -574,6 +574,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     switch ( target.type ) {
       case "aura":
         attachment.token = token.id;
+        break;
       case "summon":
         const size = (target.size ?? regionConfig.size ?? 1);
         shape.height = shape.width = size * d;
