@@ -18,6 +18,7 @@ import * as models from "./module/models/_module.mjs";
 import * as audio from "./module/audio.mjs";
 import * as hooks from "./module/hooks/_module.mjs";
 import {applyEmberPatches} from "./module/hooks/ember.mjs";
+import * as migrations from "./module/migrations.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -29,9 +30,6 @@ import {statusEffects} from "./module/const/statuses.mjs";
 
 // Party
 let party = null;
-
-// Resolved once the world is known to be at the current system version; see crucible.migrating
-const migration = Promise.withResolvers();
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -45,7 +43,7 @@ Hooks.once("init", async function() {
   crucible.developmentMode = game.data.options.debug;
 
   /**
-   * The effective world migration version cached at setup; see {@link _getMigrationVersion}.
+   * The effective world migration version cached at setup; see {@link migrations.getMigrationVersion}.
    * @type {string|null}
    */
   crucible._migrationVersion = null;
@@ -55,7 +53,7 @@ Hooks.once("init", async function() {
    * Once this Promise is resolved, the world is safe for downstream migrations.
    * @type {Promise<void>}
    */
-  crucible.migrating = migration.promise;
+  crucible.migrating = migrations.migrating;
 
   // Expose the system API
   crucible.api = {
@@ -71,8 +69,8 @@ Hooks.once("init", async function() {
       packageCompendium,
       resetAllActorTalents,
       standardizeItemIds,
-      syncOwnedItems,
-      syncWorldItems
+      syncOwnedItems: migrations.syncOwnedItems,
+      syncWorldItems: migrations.syncWorldItems
     },
     talents: {
       CrucibleTalentNode,
@@ -663,7 +661,7 @@ Hooks.once("setup", function() {
   applyEmberPatches();
 
   // Resolve and cache the effective migration version (inferred for quickstart worlds)
-  const mv = crucible._migrationVersion = _getMigrationVersion();
+  const mv = crucible._migrationVersion = migrations.getMigrationVersion();
 
   // Cull deprecated item properties that have been fully migrated
   for ( const model of Object.values(CONFIG.Item.dataModels) ) {
@@ -717,9 +715,9 @@ Hooks.once("ready", async function() {
   // Perform World Migrations, resolve the migration only on the else branch because the migration path reloads
   const mv = crucible._migrationVersion;
   if ( game.users.activeGM?.isSelf && foundry.utils.isNewerVersion(crucible.version, mv) ) {
-    await _performMigrations(mv);
+    await migrations.performMigrations(mv);
   }
-  else migration.resolve();
+  else migrations.resolveMigrating();
 
   // Display Welcome Journal
   const welcome = game.settings.get("crucible", "welcome");
@@ -984,136 +982,6 @@ function enableSpellcheckContext() {
 /* -------------------------------------------- */
 
 /**
- * Sync talent data across all actors in the world if their synchronized version is stale.
- * @param {object} options
- * @param {boolean} [options.force]     Force syncing even if the actor stats are current
- * @param {boolean} [options.reload]    Auto-reload when synchronization is complete
- * @param {boolean} [options.talents]   Sync actor talents
- * @param {boolean} [options.spells]    Sync actor iconic spells
- * @returns {Promise<void>}
- */
-async function syncOwnedItems({force=false, reload=true, talents=true, spells=true, equipment=false}={}) {
-  console.groupCollapsed("Crucible | Owned Item Synchronization");
-
-  // Prepare equipment compendium index
-  let equipmentIndex;
-  if ( equipment ) {
-    const pack = game.packs.get("crucible.equipment");
-    await pack.getDocuments();
-    equipmentIndex = pack.contents.reduce((obj, item) => {
-      obj[item.system.identifier] = item;
-      return obj;
-    }, {});
-  }
-
-  // Sync actor-owned items
-  const bar = {n: 0, total: game.actors.size, pct: 0};
-  const progress = ui.notifications.info(_loc("CRUCIBLE.Syncing"), {console: true, progress: true});
-  for ( const actor of game.actors ) {
-    bar.n++;
-    bar.pct = bar.n / bar.total;
-    if ( force || foundry.utils.isNewerVersion(crucible.version, actor._stats.systemVersion) ) {
-      try {
-        const batchCreate = [];
-        const batchUpdate = [];
-        const batchDelete = [];
-        const actorUpdate = {"_stats.systemVersion": game.system.version};
-        if ( talents ) {
-          const {toCreate, toUpdate, toDelete, actorUpdates} = await actor.syncTalents({performUpdates: false});
-          batchCreate.push(...toCreate);
-          batchUpdate.push(...toUpdate);
-          batchDelete.push(...toDelete);
-          Object.assign(actorUpdate, actorUpdates);
-        }
-        if ( spells ) {
-          const {toCreate, toUpdate, toDelete} = await actor.syncIconicSpells({performUpdates: false});
-          batchCreate.push(...toCreate);
-          batchUpdate.push(...toUpdate);
-          batchDelete.push(...toDelete);
-        }
-        if ( equipment ) {
-          for ( const item of actor.items ) {
-            const update = _migrateEquipmentItem(item, equipmentIndex);
-            if ( update ) {
-              batchUpdate.push(update);
-              console.debug(`Syncing equipment: ${item.name} in Actor ${actor.name} [${item.uuid}]`);
-            }
-          }
-        }
-        const batchOperations = actor.defineBatchOperations(actorUpdate, {
-          createItems: {changes: batchCreate, options: {keepId: true}},
-          updateItems: {changes: batchUpdate, options: {diff: false, recursive: false, noHook: true}},
-          deleteItems: batchDelete
-        });
-        await foundry.documents.modifyBatch(batchOperations);
-      } catch(err) {
-        console.warn(`Crucible | Item synchronization failed for Actor "${actor.name}": ${err.message}`);
-      } finally {
-        progress.update({pct: bar.pct, message: actor.name});
-      }
-    }
-  }
-  progress.update({pct: 1});
-  console.groupEnd();
-  if ( reload ) foundry.utils.debouncedReload();
-}
-
-/* -------------------------------------------- */
-
-/**
- * Sync world-level equipment items with their upstream compendium source data.
- * @param {object} [options]
- * @param {boolean} [options.equipment=true]      Sync physical equipment items
- * @returns {Promise<void>}
- */
-async function syncWorldItems({equipment=true}={}) {
-  console.groupCollapsed("Crucible | World Item Synchronization");
-  if ( equipment ) {
-    const pack = game.packs.get("crucible.equipment");
-    await pack.getDocuments();
-    const equipmentIndex = pack.contents.reduce((obj, item) => {
-      obj[item.system.identifier] = item;
-      return obj;
-    }, {});
-    const updates = [];
-    for ( const item of game.items ) {
-      const update = _migrateEquipmentItem(item, equipmentIndex);
-      if ( update ) {
-        updates.push(update);
-        console.debug(`Syncing equipment: ${item.name} [${item.uuid}]`);
-      }
-    }
-    if ( updates.length ) await Item.updateDocuments(updates);
-  }
-  console.groupEnd();
-}
-
-/* -------------------------------------------- */
-
-/**
- * Build an update object that syncs a single equipment item with its upstream compendium source.
- * @param {CrucibleItem} item                         The owned item to sync
- * @param {Record<string, CrucibleItem>} index        The equipment compendium index keyed by identifier
- * @returns {object|null}
- */
-function _migrateEquipmentItem(item, index) {
-  if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
-  const currentSource = item.toObject();
-  const upstreamSource = index[item.system.identifier]?.toObject();
-  if ( !upstreamSource ) return null;
-  const update = {_id: item.id, type: upstreamSource.type, name: upstreamSource.name, img: upstreamSource.img, system: upstreamSource.system};
-  const stateFields = [...item.system.constructor.STATEFUL_FIELDS, "quantity", "quality", "enchantment"];
-  for ( const field of stateFields ) {
-    const value = currentSource.system[field];
-    if ( value !== undefined ) foundry.utils.setProperty(update.system, field, value);
-  }
-  update.system = _replace(update.system); // Force full replacement
-  return update;
-}
-
-/* -------------------------------------------- */
-
-/**
  * Remove all non-permanent talents from every actor in the world.
  */
 async function resetAllActorTalents() {
@@ -1139,155 +1007,6 @@ Hooks.once("diceSoNiceReady", dice3d => {
   // Improve Group Skill Checks rendering by hiding only the roll result
   dice3d.setMessageUpdateHideSelector?.(".dice-result");
 });
-
-/* -------------------------------------------- */
-/*  Data Migrations                             */
-/* -------------------------------------------- */
-
-/**
- * Perform one-time data migrations for the current world.
- * @param {string} priorVersion
- * @returns {Promise<void>}
- */
-async function _performMigrations(priorVersion) {
-  const upgradingTo = version => foundry.utils.isNewerVersion(version, priorVersion);
-
-  // Always sync world items and owned items
-  await syncWorldItems({equipment: true});
-  await syncOwnedItems({equipment: true, force: true, reload: false});
-
-  // Retire flanked active effects in 0.10.2
-  if ( upgradingTo("0.10.2") ) await _deleteFlankedEffects();
-
-  // Proficiency redesign requires full respec in 0.11.0
-  if ( upgradingTo("0.11.0") ) {
-    await _syncDetailItems();
-    await _resetHeroTalents();
-  }
-
-  // Record the new migration version, then reload so every client re-initializes against the migrated world.
-  // The reload is load-bearing: `crucible.migrating` is deliberately left unresolved on this path, so a migration
-  // which returned without reloading would leave awaiting modules hanging forever.
-  await game.settings.set("crucible", "migrationVersion", crucible.version);
-  window.location.reload();
-}
-
-/* -------------------------------------------- */
-
-/**
- * Re-apply the Ancestry, Background, Archetype, and Taxonomy snapshots held by each Actor from their sources.
- * Detail items gained Proficiency grants in 0.11.0.
- * @returns {Promise<void>}
- */
-async function _syncDetailItems() {
-  console.groupCollapsed("Crucible | Detail Item Synchronization");
-  for ( const actor of game.actors ) {
-    if ( !actor.system.schema.has("details") ) continue;
-    try {
-      const {applied, unresolved} = await actor.syncDetailItems();
-      if ( applied.length ) console.debug(`Synced ${applied.join(", ")} for ${actor.name} [${actor.uuid}]`);
-      for ( const type of unresolved ) {
-        console.warn(`Could not resolve the source ${type} for Actor "${actor.name}" [${actor.uuid}]`);
-      }
-    } catch(cause) {
-      console.error(new Error(`Failed to sync detail items for Actor "${actor.name}" [${actor.uuid}]`, {cause}));
-    }
-  }
-  console.groupEnd();
-}
-
-/* -------------------------------------------- */
-
-/**
- * Refund every Talent Point spent by each hero, requiring a full respec.
- * The 0.11.0 tree reorganization retired talents wholesale and repositioned nodes, so prior selections cannot be
- * meaningfully preserved. Talents granted by a detail item are permanent and survive the reset.
- * @returns {Promise<void>}
- */
-async function _resetHeroTalents() {
-  console.groupCollapsed("Crucible | Hero Talent Reset");
-  for ( const actor of game.actors ) {
-    if ( actor.type !== "hero" ) continue;
-    try {
-      await actor.resetTalents({dialog: false});
-      console.debug(`Reset talents for ${actor.name} [${actor.uuid}]`);
-    } catch(cause) {
-      console.error(new Error(`Failed to reset talents for Actor "${actor.name}" [${actor.uuid}]`, {cause}));
-    }
-  }
-  console.groupEnd();
-}
-
-/* -------------------------------------------- */
-
-/**
- * Resolve the effective world migration version, inferring a baseline for quickstart worlds whose setting is 0.0.0.
- * @returns {string} The resolved migration version.
- */
-function _getMigrationVersion() {
-  const mv = game.settings.get("crucible", "migrationVersion");
-  if ( mv !== "0.0.0" ) return mv;
-
-  // A quickstart world reports 0.0.0 despite holding content from a later vintage; recover the oldest such vintage
-  // from the recorded adventure imports.
-  const imports = game.settings.get("core", "adventureImports");
-  let baseline = null;
-  for ( const data of Object.values(imports) ) {
-    if ( !data.quickstart?.quickstarted || !data.systemVersion ) continue;
-    if ( !baseline || foundry.utils.isNewerVersion(baseline, data.systemVersion) ) baseline = data.systemVersion;
-  }
-  return baseline ?? mv;
-}
-
-/* -------------------------------------------- */
-
-/**
- * Delete the ActiveEffects which the retired automatic flanking system committed to Actors, wherever they persist.
- * Flanking is now derived per-attacker at the moment of use, so these persisted effects are inert automation
- * artifacts. They are identified by their "flanked" subtype, which no manually applied condition ever carries.
- * @returns {Promise<void>}
- */
-async function _deleteFlankedEffects() {
-  console.groupCollapsed("Crucible | Retired Flanking Effect Cleanup");
-  const retiredIds = effects => (effects ?? []).filter(e => e.type === "flanked").map(e => e._id);
-  const deleteRetired = async (actor, ids) => {
-    await actor.deleteEmbeddedDocuments("ActiveEffect", ids);
-    console.debug(`Deleted ${ids.length} retired flanking effect(s) from ${actor.name} [${actor.uuid}]`);
-  };
-
-  // World Actors own their effects directly
-  for ( const actor of game.actors ) {
-    const ids = retiredIds(actor._source.effects);
-    if ( ids.length ) await deleteRetired(actor, ids);
-  }
-
-  // An unlinked Token holds an ActorDelta whose own effects are addressed through its synthetic Actor
-  for ( const scene of game.scenes ) {
-    for ( const token of scene.tokens ) {
-      if ( token.isLinked ) continue;
-      const ids = retiredIds(token._source.delta?.effects);
-      if ( !ids.length ) continue;
-      if ( token.actor ) await deleteRetired(token.actor, ids);
-      else console.warn(`Could not resolve the Actor for Token [${token.uuid}] to delete its flanking effects`);
-    }
-  }
-
-  // World-level Actor packs, which may hold an Actor exported while it was flanked
-  for ( const pack of game.packs ) {
-    if ( (pack.documentName !== "Actor") || (pack.metadata.packageType !== "world") ) continue;
-    const wasLocked = pack.locked;
-    if ( wasLocked ) await pack.configure({locked: false});
-    try {
-      for ( const actor of await pack.getDocuments() ) {
-        const ids = retiredIds(actor._source.effects);
-        if ( ids.length ) await deleteRetired(actor, ids);
-      }
-    } finally {
-      if ( wasLocked ) await pack.configure({locked: true});
-    }
-  }
-  console.groupEnd();
-}
 
 /* -------------------------------------------- */
 /*  ESModules API                               */

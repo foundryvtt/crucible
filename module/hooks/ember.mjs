@@ -1,19 +1,5 @@
 
 /* -------------------------------------------- */
-/*  Ember 0.5.1 - Remove after Ember 0.5.2+     */
-/* -------------------------------------------- */
-
-const EMBER_051 = {
-  talent: {
-    emberAshkaLineag: {
-      prepareToken(_item, token) {
-        token.detectionModes.thermalVision ??= {enabled: true, range: 60};
-      }
-    }
-  }
-};
-
-/* -------------------------------------------- */
 /*  Patch Application                           */
 /* -------------------------------------------- */
 
@@ -21,11 +7,10 @@ const EMBER_051 = {
  * Compatibility patches for Ember module hooks. When the Crucible system updates ahead of the Ember module, this
  * infrastructure allows Crucible to overwrite specific Ember hook implementations with compatible versions.
  * Patches are version-gated so they only apply when running a known incompatible combination.
+ * Each key is the highest Ember version which needs that patch; it stops applying once Ember is newer.
  * @type {Record<string, object>}
  */
-const EMBER_PATCHES = {
-  "0.5.1": EMBER_051
-};
+const EMBER_PATCHES = {};
 
 /**
  * Apply compatibility patches to Ember-registered hooks.
