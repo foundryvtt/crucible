@@ -2685,6 +2685,9 @@ HOOKS.stoneStance = {
 /* -------------------------------------------- */
 
 HOOKS.ancestralGrove = {
+  prepare() {
+    this.usage.persistRegion = true;
+  },
   async confirm(reverse) {
     if ( reverse || !this.region ) return;
     const groveEffect = this.events.find(e => (e.target === this.actor) && e.effects.length)?.effects[0];

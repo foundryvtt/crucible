@@ -49,6 +49,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
  * @property {boolean} restoration          Default {@link AttackRollData#restoration} seeding this action's rolls
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
+ * @property {boolean} [persistRegion]      Should the region created by this action be persisted?
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
  * @property {string} [defenseType]         A special defense type being targeted
  * @property {string} [skillId]             A skill ID that is being used
@@ -641,6 +642,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
         self: new fields.BooleanField()
       }),
+      persistRegion: new fields.BooleanField(),
       regionBehavior: new fields.SchemaField({
         name: new fields.StringField(),
         system: new fields.SchemaField(crucible.api.models.CrucibleActionRegionBehavior.defineEmbeddedSchema())
@@ -844,11 +846,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /**
-   * Is this action configured to place a non-ephemeral region?
+   * Whether the region created by this action should persist, ignoring any action hooks which change this state
    * @type {boolean}
    */
-  get hasPersistentRegion() {
-    return SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false;
+  get shouldPersistRegion() {
+    const forcedEphemeral = SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral;
+    return (forcedEphemeral === undefined) ? this.persistRegion : !forcedEphemeral;
+  }
+
+  /**
+   * Whether the region created by this action has its persistence forced; if not, may be user-defined.
+   * @type {boolean}
+   */
+  get hasForcedPersistence() {
+    return "ephemeral" in (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region ?? {});
   }
 
   /**
@@ -1452,7 +1463,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       regionData.name = this.name;
       regionData.ownership = {default: 0, [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER};
       regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER; // Author and GM only until confirmed
-      if ( this.hasPersistentRegion ) {
+      if ( this.usage.persistRegion && this.regionBehavior ) {
         const existing = regionData.behaviors.find(b => b.type === "crucible.action");
         if ( !existing ) {
           const behavior = {
@@ -1927,7 +1938,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #recordEffectEvents() {
     // A tracking effect is only meaningful once a region has actually been placed
-    let regionEffectRequired = !!this.region && this.hasPersistentRegion;
+    let regionEffectRequired = !!this.region && this.usage.persistRegion;
     if ( !this.effects.length && !regionEffectRequired ) return;
     const description = resolveReferences(this.description, this); // Bake @ref annotations now, last chance to do so
     const eventsByActor = this.eventsByActor;
@@ -2450,6 +2461,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.usage.bonuses.ability = this.actor.getAbilityBonus(this.scaling);
     this.usage.bonuses.skill = this.actor.getSkillBonus(this.training);
 
+    // Configure region persistence; if not forced by target type, defer to user selection
+    this.usage.persistRegion = this.shouldPersistRegion;
+
     // Call configuration hooks
     this._callActionHooks("initialize");
 
@@ -2470,7 +2484,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
 
     // Persistent-region-specific preparation
-    if ( this.hasPersistentRegion ) {
+    if ( this.usage.persistRegion && this.regionBehavior ) {
       const defaultBehavior = {
         name: this.name,
         system: {
@@ -2482,7 +2496,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           }
         }
       };
-      this.regionBehavior = foundry.utils.mergeObject(defaultBehavior, this.regionBehavior ?? {});
+      this.regionBehavior = foundry.utils.mergeObject(defaultBehavior, this.regionBehavior);
     }
 
     // Action-specific preparation
@@ -2753,7 +2767,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       );
 
       // Non-ephemeral target types retain their region by default, recording it on a self-effect
-      if ( this.hasPersistentRegion && !retained ) {
+      if ( this.usage.persistRegion && !retained ) {
         const regionEffect = this.selfEvents.all.find(e => e.effects.length)?.effects?.[0];
         if ( regionEffect ) {
           regionEffect.system.regions ??= [];
@@ -2778,7 +2792,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const allActors = Array.from(this.targets.keys());
       if ( !this.targets.has(this.actor) ) allActors.push(this.actor);
       const retainedEffect = allActors.flatMap(a => [...a.effects]).find(e => e.system?.regions?.has(this.region.uuid));
-      if ( this.hasPersistentRegion && retainedEffect ) {
+      if ( this.usage.persistRegion && retainedEffect ) {
         const actionBehavior = this.region.behaviors.find(b => b.type === "crucible.action");
         await this.region.update({visibility: CONST.REGION_VISIBILITY.ALWAYS});
         await actionBehavior?.update({

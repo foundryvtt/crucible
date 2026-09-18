@@ -63,6 +63,7 @@ HOOKS.aspect = {
 HOOKS.aura = {
   initialize() {
     this.tags.add("maintained");
+    this.regionBehavior = {}; // Being truthy means this will be prepared with appropriate default values
   },
   prepare() {
     this.usage.hasDice = false;
