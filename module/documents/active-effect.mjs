@@ -107,6 +107,11 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     for ( const uuid of references ) {
       const doc = await fromUuid(uuid);
       if ( !doc ) continue; // Already deleted
+
+      // Don't delete regions which will be cleaned up following deletion of attached token
+      if ( (doc.documentName === "Region") && doc._source.attachment.token ) {
+        if ( !doc.attachment.token || references.has(doc.attachment.token.uuid) ) continue;
+      }
       if ( CrucibleActiveEffect.#DELETABLE_TYPES.has(doc.documentName) && doc.testUserPermission(user, "OWNER") ) {
         await doc.delete();
         continue;
