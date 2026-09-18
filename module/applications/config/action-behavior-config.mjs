@@ -63,9 +63,37 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
     }
   };
 
+  /* -------------------------------------------- */
+
   /** @override */
   get title() {
     return _loc("REGION_BEHAVIORS.ACTION.ConfigTitle", {action: this.document.name});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does the represented Region Behavior exist purely for pre-configuration?
+   * @type {boolean}
+   */
+  get isSynthetic() {
+    return !this.document.collection?.has(this.document.id);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  get isEditable() {
+    if ( this.isSynthetic ) return true;
+    return super.isEditable;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  get isVisible() {
+    if ( this.isSynthetic ) return true;
+    return super.isVisible;
   }
 
   /* -------------------------------------------- */
@@ -84,6 +112,8 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
       return acc;
     });
 
+    // Remove Disabled checkbox if pre-configuring
+    if ( this.isSynthetic ) delete context.fields.disabled;
     return {
       ...context,
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
@@ -93,6 +123,7 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
         if ( !tag.internal ) acc[tagId] = tag;
         return acc;
       }, {}),
+      isSynthetic: this.isSynthetic,
       tabs: this._prepareTabs("sheet"),
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
@@ -191,5 +222,34 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
     data.system.action.effects = Object.values(data.system.action.effects || {});
     data.name = data.system.action.name;
     return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _processSubmitData(event, form, submitData, options={}) {
+    if ( !this.isSynthetic ) return this.document.update(submitData, options);
+
+    // Otherwise, this isn't a real behavior, exists only to pre-configure one on an action
+    this.document.updateSource(submitData, options);
+    let action;
+    if ( this.document.system.actor ) {
+      const actor = await fromUuid(this.document.system.actor);
+      action = actor?.actions[this.document.getFlag("crucible", "actionId")];
+    } else {
+      const item = await fromUuid(this.document.getFlag("crucible", "itemUuid"));
+      action = item?.system.actions.find(a => a.id === this.document.getFlag("crucible", "actionId"));
+    }
+    if ( !action?.item ) return;
+    const itemActions = action.item.system.toObject().actions;
+    const idx = itemActions.findIndex(a => a.id === action.id);
+    if ( idx === -1 ) return; // Shouldn't be possible?
+    foundry.utils.setProperty(itemActions[idx], "regionBehavior", submitData);
+    const configApp = Object.values(action.item.apps).find(a => a.action?.id === action.id);
+    await action.item.update({"system.actions": itemActions});
+    if ( configApp ) {
+      configApp.action = action.item.system.actions[idx];
+      configApp.render();
+    }
   }
 }

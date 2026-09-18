@@ -612,17 +612,31 @@ class CrucibleActionTags extends Set {
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
+    const makeEffectsSchema = () => {
+      // Configure allowed duration properties
+      const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
+      const durationUnits = CONST.ACTIVE_EFFECT_DURATION_UNITS;
+      aeDuration.extendFields({
+        units: new fields.StringField({required: true, blank: true, initial: "", choices: durationUnits})
+      });
 
-    // Configure allowed duration properties
-    const {duration: aeDuration} = foundry.documents.ActiveEffect.defineSchema();
-    const durationUnits = CONST.ACTIVE_EFFECT_DURATION_UNITS;
-    aeDuration.extendFields({
-      units: new fields.StringField({required: true, blank: true, initial: "", choices: durationUnits})
-    });
+      // Limit allowed effect scopes
+      const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
+      delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
 
-    // Limit allowed effect scopes
-    const effectScopes = SYSTEM.ACTION.TARGET_SCOPES.choices;
-    delete effectScopes[SYSTEM.ACTION.TARGET_SCOPES.NONE]; // NONE not allowed
+      // Return effects schema
+      return new fields.ArrayField(new fields.SchemaField({
+        name: new fields.StringField({blank: true, initial: ""}),
+        scope: new fields.NumberField({choices: effectScopes}),
+        result: new fields.SchemaField({
+          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
+          all: new fields.BooleanField({initial: false})
+        }),
+        statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
+        duration: aeDuration,
+        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
+      }));
+    };
 
     // Return action schema
     return {
@@ -653,22 +667,39 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
         self: new fields.BooleanField()
       }),
+      regionBehavior: new fields.SchemaField({
+        name: new fields.StringField(),
+        system: new fields.SchemaField({
+          action: new fields.SchemaField({
+            id: new fields.StringField({
+              required: true, blank: false, label: _loc("ACTION.FIELDS.id.label"), hint: _loc("ACTION.FIELDS.id.hint")
+            }),
+            name: new fields.StringField(),
+            img: new fields.FilePathField({categories: ["IMAGE"]}),
+            description: new fields.HTMLField({
+              required: false, initial: undefined, label: _loc("ACTION.FIELDS.description.label"),
+              hint: _loc("ACTION.FIELDS.description.hint")
+            }),
+            effects: makeEffectsSchema(),
+            tags: new fields.SetField(new fields.StringField({required: true, blank: false}, {
+              label: _loc("ACTION.FIELDS.tags.label"), hint: _loc("ACTION.FIELDS.tags.hint")
+            }))
+          }),
+          events: foundry.data.regionBehaviors.RegionBehaviorType._createEventsField(),
+          frequency: new fields.StringField({
+            initial: "roundActor",
+            required: true,
+            nullable: false,
+            choices: crucible.api.models.CrucibleActionRegionBehavior.FREQUENCY_CHOICES
+          })
+        })
+      }, {nullable: true, initial: null}),
       summon: new fields.SchemaField({
         actorUuid: new fields.DocumentUUIDField({type: "Actor"}),
         permanent: new fields.BooleanField({initial: true}),
         combatant: new fields.BooleanField({initial: true})
       }, {nullable: true, initial: null}),
-      effects: new fields.ArrayField(new fields.SchemaField({
-        name: new fields.StringField({blank: true, initial: ""}),
-        scope: new fields.NumberField({choices: effectScopes}),
-        result: new fields.SchemaField({
-          type: new fields.StringField({choices: SYSTEM.ACTION.EFFECT_RESULT_TYPES, initial: "success", blank: false}),
-          all: new fields.BooleanField({initial: false})
-        }),
-        statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
-        duration: aeDuration,
-        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
-      })),
+      effects: makeEffectsSchema(),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     };
   }
@@ -846,6 +877,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   get requiresRegion() {
     return SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region && !this.region;
+  }
+
+  /**
+   * Is this action configured to place a non-ephemeral region?
+   * @type {boolean}
+   */
+  get hasPersistentRegion() {
+    const hasRegion = this.requiresRegion || this.region;
+    return hasRegion && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
   }
 
   /**
@@ -1884,8 +1924,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * If action creates a non-ephemeral region, ensure at least one self-effect to record it.
    */
   #recordEffectEvents() {
-    let regionEffectRequired = this.region
-      && (SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral === false);
+    let regionEffectRequired = this.hasPersistentRegion;
     if ( !this.effects.length && !regionEffectRequired ) return;
     const description = resolveReferences(this.description, this); // Bake @ref annotations now, last chance to do so
     const eventsByActor = this.eventsByActor;
@@ -2699,7 +2738,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }
       }
       // The effect reference is the source of truth for persistence: keep the region iff a live effect retains it
-      const retained = this.events.some(e =>
+      const retained = this.events.some(e => 
         !e.negated && e.effects?.some(f => f.system?.regions?.includes(this.region.uuid)));
       if ( retained ) await this.region.update({visibility: CONST.REGION_VISIBILITY[reverse ? "OBSERVER" : "ALWAYS"]});
       else await this.region.delete();

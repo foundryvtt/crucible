@@ -47,22 +47,27 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     CONST.REGION_EVENTS.TOKEN_ROUND_END
   ];
 
+  /**
+   * Valid values for "frequency"
+   * @type {Record<string, string>}
+   */
+  static FREQUENCY_CHOICES = {
+    every: "REGION_BEHAVIORS.ACTION.FREQUENCIES.every",
+    once: "REGION_BEHAVIORS.ACTION.FREQUENCIES.once",
+    roundActor: "REGION_BEHAVIORS.ACTION.FREQUENCIES.roundActor"
+    // TODO additional intended frequencies as proposed below:
+    // oncePerActor: "Once per Actor",
+    // roundOnce: "Once per Round",
+    // turnActor: "Once per Turn per Actor",
+    // turnOnce: "Once per Turn"
+  };
+
   /* -------------------------------------------- */
 
   /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
     const {id, name, img, description, effects, tags} = crucible.api.models.CrucibleAction.defineSchema();
-    const frequencyChoices = {
-      every: "REGION_BEHAVIORS.ACTION.FREQUENCIES.every",
-      once: "REGION_BEHAVIORS.ACTION.FREQUENCIES.once",
-      roundActor: "REGION_BEHAVIORS.ACTION.FREQUENCIES.roundActor"
-      // TODO additional intended frequencies as proposed below:
-      // oncePerActor: "Once per Actor",
-      // roundOnce: "Once per Round",
-      // turnActor: "Once per Turn per Actor",
-      // turnOnce: "Once per Turn"
-    };
     return {
       action: new fields.SchemaField({id, name, img, description, effects, tags},
         {required: true, initial: {id: "action", name: "Action", img: "icons/svg/hazard.svg", effects: [], tags: []}}),
@@ -81,7 +86,7 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
         }
       }),
       events: this._createEventsField({events: this.#VALID_EVENTS, initial: ["tokenEnter", "tokenTurnStart"]}),
-      frequency: new fields.StringField({initial: "roundActor", required: true, nullable: false, choices: frequencyChoices}),
+      frequency: new fields.StringField({initial: "roundActor", required: true, nullable: false, choices: this.FREQUENCY_CHOICES}),
       origin: new fields.DocumentUUIDField({type: "ActiveEffect", initial: null, required: true, nullable: true})
     };
   }
