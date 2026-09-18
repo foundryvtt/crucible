@@ -315,6 +315,67 @@ const impactSpriteGlow = {
 /* -------------------------------------------- */
 
 /**
+ * Pour a torrent of lightning across a fan: several copies of a sprite rooted somewhere out from the caster, each
+ * keeping to its own slice of the arc while it is re-rolled every few frames in heading, distance, handedness,
+ * size and brightness. Art which converges on its anchor is `turn`ed about to spray outward from it.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const fanSpriteArcs = {
+  schedule(phase, params) {
+    const {textures, copies = 5, size = 8, spray = 40, interval = {min: 60, max: 120}, fadeOut = 180,
+      turn = Math.PI, elevation = 0, blend = PIXI.BLEND_MODES.ADD} = params;
+    const skew = Math.toRadians(params.skew ?? 0);
+    const inset = (typeof params.inset === "object") ? params.inset
+      : {min: params.inset ?? 0, max: params.inset ?? 0};
+    const {origin, rotation, halfAngle} = this.state;
+    if ( !textures?.length ) return;
+    const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+    const start = phase.start;
+    const duration = params.duration ?? phase.duration;
+
+    // Headings stop short of the edges of the fan by the half-width of the spray, so the art stays within it
+    const range = Math.max(halfAngle - Math.toRadians(spray), 0);
+    const slice = (range * 2) / copies;
+    const pace = canvas.photosensitiveMode ? 5 : 1;
+    const arcs = [];
+    for ( let i = 0; i < copies; i++ ) {
+      const container = this.addManagedDisplayObject(this._createSprite(
+        textures[Math.floor(Math.random() * textures.length)], size,
+        {x: origin.x, y: origin.y, elevation, sort: 0, sortLayer: SL.TOKENS}, {useTextureAnchor: true, blend}));
+      const mesh = container.getChildByName("mesh");
+      if ( !mesh ) continue;
+      arcs.push({container, mesh, from: (rotation - range) + (slice * i), next: 0});
+    }
+    const reroll = (arc, ms) => {
+      const heading = arc.from + (Math.random() * slice);
+      const out = inset.min + (Math.random() * (inset.max - inset.min));
+      arc.container.position.set(origin.x + (Math.cos(heading) * out), origin.y + (Math.sin(heading) * out));
+      arc.container.rotation = heading + turn + (((Math.random() * 2) - 1) * skew);
+      arc.container.scale.set(0.8 + (Math.random() * 0.3));
+      arc.mesh.alpha = 0.55 + (Math.random() * 0.45);
+      if ( Math.random() < 0.5 ) arc.mesh.scale.y *= -1;
+      arc.next = ms + ((interval.min + (Math.random() * (interval.max - interval.min))) * pace);
+    };
+    const clock = {ms: 0};
+    for ( const arc of arcs ) {
+      reroll(arc, 0);
+      this.timeline.add(arc.container, {alpha: {from: 0, to: 1, duration: 40}}, start)
+        .add(arc.container, {alpha: {to: 0, duration: fadeOut}}, start + Math.max(duration - fadeOut, 0));
+    }
+    this.timeline.add(clock, {
+      ms: {from: 0, to: duration}, duration, ease: "linear",
+      onRender: () => {
+        for ( const arc of arcs ) {
+          if ( clock.ms >= arc.next ) reroll(arc, clock.ms);
+        }
+      }
+    }, start);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * Span the whole ray with one bolt at once: a directional sprite tiled end to end along it, each segment pinned by
  * its own anchor, revealed in a race outward from the origin, then writhing in place before all fade together,
  * either away or to a faint `afterimage` of the bolt's final shape which lingers. Optional `forks` branch off it.
@@ -323,10 +384,21 @@ const impactSpriteGlow = {
 const raySpriteBolt = {
   schedule(phase, params) {
     const {texture, segment = 10, sweep = 140, hold = 420, fadeOut = 220, flicker = 16, elevation,
-      blend = PIXI.BLEND_MODES.ADD, afterimage, forks} = params;
-    const {origin, rotation, length, direction} = this.state;
+      blend = PIXI.BLEND_MODES.ADD, afterimage, forks, from, to, inset = 0} = params;
+    const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+
+    // The bolt runs the length of the ray, or between any two named anchors, beginning `inset` pixels along
+    const tail = from ? this.state.anchors[from] : this.state.origin;
+    const head = to ? this.state.anchors[to] : this.state.end;
+    if ( !tail || !head ) return;
+    const reachTotal = Math.hypot(head.x - tail.x, head.y - tail.y);
+    const length = reachTotal - inset;
     const anchorX = foundry.canvas.getTexture(texture)?.defaultAnchor.x;
     if ( !anchorX || !(length > 0) ) return;
+    const direction = {x: (head.x - tail.x) / reachTotal, y: (head.y - tail.y) / reachTotal};
+    const rotation = Math.atan2(direction.y, direction.x);
+    const origin = {x: tail.x + (direction.x * inset), y: tail.y + (direction.y * inset),
+      elevation: tail.elevation ?? 0, sort: tail.sort ?? 0, sortLayer: tail.sortLayer ?? SL.TOKENS};
     const distancePixels = canvas.dimensions.distancePixels;
     const count = Math.max(1, Math.round(length / (segment * distancePixels)));
     const span = length / count;
@@ -548,5 +620,6 @@ export const SPRITE_ANIMATIONS = {
   impactSpriteGlow,
   impactSpriteShock,
   impactSpriteStrike,
+  fanSpriteArcs,
   raySpriteBolt
 };

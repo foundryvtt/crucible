@@ -492,8 +492,10 @@ function configureFanVFXEffect(action) {
       defaultStart}) ?? defaultStart;
     const {tokenRef, meshRef} = _registerTargetRefs(references, "fanTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
-    impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
-      elevation: particleElevation, impactType, forcedMovements}));
+    const impact = _buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
+      elevation: particleElevation, impactType, forcedMovements});
+    impact.animations.push(...(runeProps.buildImpact?.({...buildCtx, token, result, isHit}) ?? []));
+    impacts.push(impact);
     pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
@@ -516,9 +518,11 @@ function configureFanVFXEffect(action) {
       mask: {reference: "wallMask"},
       charge: {duration: chargeDuration, sound: chargeSound,
         animations: [], particles: chargeParticles},
-      delivery: {duration: deliveryDuration, sound: deliverySound, animations: [], particles: deliveryParticles},
+      delivery: {duration: deliveryDuration, sound: deliverySound,
+        animations: runeProps.buildAnimations?.(buildCtx) ?? [], particles: deliveryParticles},
       impacts,
-      scrollingText
+      scrollingText,
+      sounds: runeProps.buildSounds?.({...buildCtx, sound, chargeDuration}) ?? []
     }
   };
   const timeline = [{component: "fan", position: 0}];
@@ -2297,6 +2301,12 @@ const BLAST_VFX_PROPS = {
  * - `deliverySoundType` (string): RUNE_SOUNDS key for the looping delivery sound (omit for silent).
  * - `deliverySound` ({fade, offset, release}): envelope params when delivery sound is enabled.
  * - `buildDelivery(ctx)`: returns the delivery particle-layer array.
+ * - `buildAnimations(ctx)` (optional): returns the delivery sprite-animation array (same `ctx`).
+ * - `buildImpact(ctx)` (optional): returns further sprite animations for one target's impact; `ctx` adds the
+ *   target's `token`, `result`, and `isHit`.
+ * - `buildSounds(ctx)` (optional): returns `{sound, time, origin?}` cues; `ctx` adds `sound` and `chargeDuration`.
+ * - `impactStart(ctx)` (optional): returns one target's impact start in place of the bearing-based sweep timing,
+ *   e.g. for a fan which strikes everything at once rather than sweeping an arm across it.
  * - All the chargeXxx fields consumed by {@link _resolveChargeLayers} (chargeBehavior, chargeAnchor,
  *   chargeAbove, chargeLayers, sprayParams, ...).
  * - All the impactXxx fields consumed by {@link _resolveHitTreatment} (impactSprite, recoil,
@@ -2554,6 +2564,117 @@ const FAN_VFX_PROPS = {
           }
         }
       ];
+    }
+  },
+
+  // Fan+Storm: a torrent of lightning poured from the caster's hands across the whole arc for as long as they
+  // channel it, an arc of it held on each target they strike
+  storm: {
+    ..._IMPACT_STORM,
+    impactSprite: false,
+    impactShock: {duration: 2850, rate: 12, fadeOut: 250},
+    impactParticles: [
+      {
+        frames: ["SprayBolts"], duration: 2850,
+        params: {count: null, initial: 0, spawnRate: 40, speed: {min: 70, max: 220},
+          lifetime: {min: 160, max: 380}, alpha: {min: 0.7, max: 1.0}, scale: {min: 0.55, max: 1.1},
+          fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)}
+      },
+      _IMPACT_STORM.impactParticles[1]
+    ],
+    chargeDuration: 1000,
+    chargeSound: false,
+    sweepDuration: 3000,
+    deliverySoundType: "damage",
+    deliverySound: {fade: 900, offset: -1000, release: 500, volume: 0.6},
+    impactStart: ({chargeDuration}) => chargeDuration + 60,
+    buildSounds({action, sound, chargeDuration, sweepDuration}) {
+      const runeId = action.rune.id;
+      const cues = [];
+
+      // A channel has no single moment of release, so it is a bed of two loops under a scatter of impacts
+      const crackle = sound(getVFXSound(runeId, "crackle"));
+      if ( crackle ) {
+        cues.push({sound: {...crackle, fade: 80, release: 400}, time: chargeDuration, duration: sweepDuration});
+      }
+      for ( let t = 350 + (Math.random() * 250); t < (sweepDuration - 300); t += 450 + (Math.random() * 300) ) {
+        const impact = sound(getVFXSound(runeId, "impact"));
+        if ( !impact ) break;
+        cues.push({sound: {...impact, volume: 0.45 + (Math.random() * 0.3)}, time: chargeDuration + Math.round(t)});
+      }
+      return cues;
+    },
+    buildCharge({runeId, casterRadiusPx, casterElevation}) {
+
+      // The swirl runs unbroken from the start of the charge to the end of the channel, as one layer which outlasts
+      // the charge phase that spawns it, so there is no seam where the electricity begins
+      const swirl = {speedJitter: 0.3, radiusJitter: 0.35, wobbleAmplitude: 0.12, wobbleSpeed: 3,
+        fade: {in: 0.25, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL, elevation: casterElevation + 1};
+      const spell = this.chargeDuration + this.sweepDuration;
+      return [
+        {
+          animation: "circleParticleOrbit", anchor: "source", textures: getVFXFrames(runeId, "SprayClouds"),
+          duration: spell,
+          params: {...swirl, chargeRadius: Math.round(casterRadiusPx * 0.85), orbitSpeed: 6, spinSpeed: 2,
+            spawnRate: 26, lifetime: {min: 600, max: 1000}, alpha: {min: 0.3, max: 0.6},
+            scale: {min: 2.0, max: 3.0}}
+        },
+        {
+          animation: "circleParticleOrbit", anchor: "source", textures: getVFXFrames(runeId, "SprayWind"),
+          duration: spell,
+          params: {...swirl, chargeRadius: Math.round(casterRadiusPx), orbitSpeed: -8, spinSpeed: 8,
+            spawnRate: 22, lifetime: {min: 450, max: 800}, alpha: {min: 0.3, max: 0.6},
+            scale: {min: 1.5, max: 2.5}}
+        },
+        {
+          animation: "circleParticleBloom", anchor: "source", textures: getVFXFrames(runeId, "SprayBolts"),
+          duration: this.chargeDuration,
+          params: {chargeRadius: Math.round(casterRadiusPx * 1.2), growFraction: 0.15, spawnRate: 20,
+            spawnRateEnd: 90, lifetime: {min: 70, max: 160}, alpha: {min: 0.8, max: 1.0},
+            scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3}, blend: PIXI.BLEND_MODES.ADD,
+            exposure: _exposureInHot(0.7), elevation: casterElevation + 1}
+        }
+      ];
+    },
+    buildAnimations({action, radius, casterRadiusPx, casterElevation}) {
+      const runeId = action.rune.id;
+      const inset = Math.round(casterRadiusPx * 0.7);
+      const streak = 3.5;
+      const streakReach = radius - (streak * canvas.dimensions.distancePixels);
+      return [
+        { // The primary sprays: few enough that the torrent keeps its structure
+          function: "fanSpriteArcs", params: {
+            textures: getVFXFrames(runeId, "ImpactBoltsLarge"),
+            copies: 2, size: (radius - inset) / canvas.dimensions.distancePixels, inset, spray: 40,
+            interval: {min: 70, max: 130}, fadeOut: 180, elevation: casterElevation + 1}
+        },
+        { // Secondary arcs: short streaks thrown anywhere out to the rim of the fan, skewed so they criss-cross
+          function: "fanSpriteArcs", params: {
+            textures: getVFXFrames(runeId, "StreakBoltSingle", "StreakBoltForked"),
+            copies: 5, size: streak, inset: {min: inset, max: Math.max(streakReach, inset)}, spray: 8, turn: 0,
+            skew: 30, interval: {min: 45, max: 95}, fadeOut: 180, elevation: casterElevation + 1}
+        }
+      ];
+    },
+    buildImpact({action, isHit, casterRadiusPx, casterElevation}) {
+      if ( !isHit ) return [];
+      const runeId = action.rune.id;
+      return [{function: "raySpriteBolt", params: {
+        texture: getVFXTexturePath(`${runeId}/ProjectileBolt2`), from: "origin", to: "destination",
+        inset: Math.round(casterRadiusPx * 0.7), segment: 10, sweep: 60, hold: 2610, fadeOut: 180, flicker: 18,
+        forks: {textures: getVFXFrames(runeId, "StreakBoltSingle", "StreakBoltForked"),
+          size: 2.5, angle: 45, jitter: 12, chance: 0.8, crossings: [0.506]},
+        elevation: casterElevation + 2}}];
+    },
+    buildDelivery({action, casterRadiusPx, casterElevation, sweepDuration}) {
+      return [{
+        animation: "circleParticleBloom", anchor: "source", textures: getVFXFrames(action.rune.id, "SprayBolts"),
+        duration: sweepDuration,
+        params: {chargeRadius: Math.round(casterRadiusPx * 1.2), growFraction: 0.15, spawnRate: 70,
+          lifetime: {min: 70, max: 160}, alpha: {min: 0.8, max: 1.0}, scale: {min: 0.6, max: 1.1},
+          fade: {in: 0.05, out: 0.3}, blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7),
+          elevation: casterElevation + 1}
+      }];
     }
   }
 };

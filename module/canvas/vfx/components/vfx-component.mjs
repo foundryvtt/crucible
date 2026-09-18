@@ -44,6 +44,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       sounds: new ArrayField(new SchemaField({
         sound: this._soundField(),
         time: new NumberField({required: true, nullable: false, initial: 0}),
+        duration: new NumberField({required: true, nullable: false, initial: 0}),
         origin: this._pointField()
       }))
     };
@@ -432,7 +433,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
   /**
    * Schedule each declared sound cue on the component timeline at its `time`. Each cue's `origin` is
    * a reference-resolvable point; when null, the cue plays at the state's origin. Cues are loaded as
-   * part of `_load` (subclasses extend their asset plan to include them).
+   * part of `_load` (subclasses extend their asset plan to include them). A looping cue plays for its `duration`.
    * @protected
    */
   _attachSounds() {
@@ -440,8 +441,9 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       const cue = entry.sound;
       if ( !cue?.instance ) continue;
       const origin = entry.origin ?? this.state.origin;
-      this._scheduleSound(cue.instance, origin,
-        {position: entry.time, align: cue.align, radius: cue.radius, volume: cue.volume});
+      this._scheduleSound(cue.instance, origin, {position: entry.time, duration: entry.duration ?? 0,
+        align: cue.align, radius: cue.radius, volume: cue.volume, loop: cue.loop, fade: cue.fade,
+        offset: cue.offset, release: cue.release});
     }
   }
 
