@@ -8,6 +8,7 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
+      color: new fields.ColorField({required: true, nullable: false}),
       damageType: new fields.StringField({required: false, initial: undefined,
         choices: ["physical"].concat(Object.keys(SYSTEM.DAMAGE_TYPES))}),
       resource: new fields.StringField({choices: SYSTEM.RESOURCES, initial: "health"}),

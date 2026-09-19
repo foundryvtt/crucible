@@ -64,11 +64,11 @@
                      data-tooltip-class="crucible">
                     <span class="bar" style="width: {{training.widthPct}}"></span>
                     {{#each ../../proficiency.ticks as |tick|}}
-                    <span class="tick" style="left: {{tick.left}}" data-tooltip aria-label="{{tick.label}}"></span>
+                    <span class="tick" style="left: {{tick}}"></span>
                     {{/each}}
-                    {{#with training.capTick as |cap|}}
-                    <span class="tick cap" style="left: {{cap.left}}" data-tooltip aria-label="{{cap.label}}"></span>
-                    {{/with}}
+                    {{#if training.capTick}}
+                    <span class="tick cap" style="left: {{training.capTick}}"></span>
+                    {{/if}}
                 </div>
                 {{#if ../../proficiency.pools.canAllocate}}
                 <div class="buttons flexcol">

@@ -4,7 +4,6 @@ const {api, sheets} = foundry.applications;
  * Values shared by every training type rendered onto the Proficiency tab.
  * @typedef CrucibleTrainingContext
  * @property {number} cap           The greatest number of points this Actor may hold in any one training
- * @property {string} capLabel      Tooltip text naming that cap
  * @property {boolean} canAllocate  Does this Actor allocate its own Proficiency Points?
  */
 
@@ -791,7 +790,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * Prepare training data for the Proficiency tab, grouped by the kind of training.
    * Actors without a Proficiency Point pool, such as adversaries, receive their training directly from their
    * Taxonomy and Archetype, so the allocation controls are omitted rather than shown disabled.
-   * @returns {{sections: object[], ticks: object[], pools: {available: number, spent: number}|null}}
+   * @returns {{sections: object[], ticks: string[], pools: {available: number, spent: number}|null}}
    */
   #prepareProficiencies() {
     const {RANKS, POINTS_MAX, GROUPS, PROFICIENCIES} = SYSTEM.PROFICIENCY;
@@ -800,12 +799,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       cap: details.progression.trainingCap,
       canAllocate: !!points
     };
-    ctx.capLabel = _loc("TRAINING.CapTooltip", {points: ctx.cap});
     const showAll = this.#showAllProficiencies;
 
     // Every bar spans the full point range, marked with the rank thresholds
     const ticks = Object.values(RANKS).filter(r => (r.required > 0) && (r.required < POINTS_MAX))
-      .map(r => ({left: CrucibleBaseActorSheet.#trainingPct(r.required), label: `${r.label} (${r.required})`}));
+      .map(r => CrucibleBaseActorSheet.#trainingPct(r.required));
 
     // One section per group, omitting any section left with nothing to show once collapsed
     const sections = [];
@@ -858,7 +856,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         passive: CrucibleBaseActorSheet.#sumExpression([SYSTEM.PASSIVE_BASE, t.score]),
         points: this.#prepareTrainingBreakdown(t, ctx)
       },
-      capTick: atCap ? {left: CrucibleBaseActorSheet.#trainingPct(ctx.cap), label: ctx.capLabel} : null,
+      capTick: atCap ? CrucibleBaseActorSheet.#trainingPct(ctx.cap) : null,
       canIncrease: actor.canPurchaseTraining(config.id, 1),
       canDecrease: actor.canPurchaseTraining(config.id, -1)
     };

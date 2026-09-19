@@ -2858,7 +2858,6 @@
       "Trade": "Trade Skills",
       "Weapon": "Weapon Proficiencies"
     },
-    "CapTooltip": "Your level presently limits any one training to {points} points.",
     "Decrease": "Reclaim a Proficiency Point",
     "Increase": "Allocate a Proficiency Point",
     "PassiveTooltip": "Your passive score for this training."

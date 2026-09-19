@@ -127,6 +127,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     this.training = [this.rune.training];
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
     this.usage.defenseType = CrucibleSpellAction.#prepareDefense.call(this);
+    this.usage.region.color = this.rune.color;
 
     // Composed Spells Only
     if ( this.isComposed ) {

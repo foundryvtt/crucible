@@ -47,6 +47,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {boolean} isAttack             Is this an attack made upon another creature (other than self)?
  * @property {boolean} isRanged             Is this an attack (defined by isAttack) made at range?
  * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
+ * @property {ActionRegionUsage} region     Overrides applied to a RegionDocument placed by this action
  * @property {boolean} restoration          Default {@link AttackRollData#restoration} seeding this action's rolls
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
@@ -59,6 +60,13 @@ import {resolveReferences} from "../enrichers.mjs";
  *   honored during event-stream resolution (a delta opposing the sign is dropped)
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {CrucibleAction} [targetAction]  An action being "responded" to by this action
+ */
+
+/**
+ * @typedef ActionRegionUsage
+ * @property {ColorSource} [color]          Region color, defaulting to the color of the User who placed it
+ * @property {{bottom: number, top: number}} [elevation]  Vertical span, defaulting to that of the acting Token
+ * @property {boolean} [wallRestriction=true]  Should the region's area be constrained by walls?
  */
 
 /**
