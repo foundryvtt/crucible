@@ -61,21 +61,36 @@ HOOKS.aspect = {
 /* -------------------------------------------- */
 
 HOOKS.aura = {
+  _targetScope(rune) {
+    return SYSTEM.ACTION.TARGET_SCOPES[rune?.restoration ? "ALLIES" : "ENEMIES"];
+  },
   initialize() {
     this.tags.add("maintained");
     this.regionBehavior = {}; // Being truthy means this will be prepared with appropriate default values
   },
   prepare() {
+    // The initial cast is self-target no roll or damage
     this.usage.hasDice = false;
+    this.damage.base = 0;
+    this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.SELF;
 
-    // TODO: Appropriate tag(s) which will always cause region to have dice & roll
-    const tags = [...this.scaling, "generic"];
-    if ( this.rune.restoration ) {
-      tags.push((this.rune.resource === "health") ? "healing" : "rallying");
-    } else {
-      tags.push(this.rune.resource, this.rune.defense, this.rune.damageType);
-    }
-    this.regionBehavior.system.action.tags = tags;
+    // The region action resolves as a spell attack with scaling and damage based on its components
+    const regionTags = ["spell"];
+    if ( this.rune.restoration ) regionTags.push((this.rune.resource === "health") ? "healing" : "rallying");
+    Object.assign(this.regionBehavior.system.action, {
+      id: "spellAuraRegion",
+      target: {scope: HOOKS.aura._targetScope(this.rune)},
+      spellcraft: {rune: this.rune.id, gesture: this.gesture.id, inflection: this.inflection?.id ?? ""},
+      tags: regionTags
+    });
+  },
+  canUse() {
+    if ( !this.actor.inCombat ) throw new Error(_loc("SPELL.WARNINGS.AuraRequiresCombat"));
+  },
+  postActivate() {
+    const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
+    if ( !effect ) return;
+    effect.duration = {expiry: "combatEnd"};
   }
 };
 

@@ -118,7 +118,11 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.isIconic ) this.composition = STATES.COMPOSED;
     if ( !this.rune || !this.gesture ) this.composition = Math.min(this.composition, STATES.COMPOSING);
 
-    // Common Attributes
+    // A spell may legitimately lack components while being composed in the dialog
+    if ( !this.rune || !this.gesture ) {
+      this.damage = {base: 0, bonus: 0, multiplier: 1, type: this.damageType};
+      return;
+    }
     this.scaling = [this.rune.scaling, this.gesture.scaling];
     this.training = [this.rune.training];
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
@@ -130,6 +134,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.target = {...this.gesture.target};
       if ( this.rune.restoration && (this.target.type === "single") ) this.target.self = true;
       this.range = this.gesture.range;
+      this._prepareRegionBehavior(); // The gesture supplies the target type, which super() resolved too early to see
       if ( this.composition >= STATES.COMPOSING ) {
         this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
         this.name = CrucibleSpellAction.getComposedName(this);

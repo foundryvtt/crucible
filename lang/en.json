@@ -2406,6 +2406,7 @@
       "Knowledge": "Required Knowledge"
     },
     "WARNINGS": {
+      "AuraRequiresCombat": "an Aura may only be cast during combat",
       "BindArmamentAlreadyBound": "weapon is already bound",
       "BindArmamentNoMainhand": "no mainhand weapon",
       "CannotAffordHands": {

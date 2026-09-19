@@ -6,21 +6,20 @@ system:
     - pre4d
   description: >-
     <p>You concentrate the arcane power of a Rune to create a maintained field
-    of energy that washes over allies and enemies near to you.</p><p>The Aura
-    gesture scales with <strong>Presence</strong> and produces an emanation with
+    of energy that washes over allies or enemies near to you.</p><p>The Aura
+    gesture scales with @Rule[ability.presence] and produces an emanation with
     20 feet radius centered on the spellcaster. The center of this Aura moves
-    with the spellcaster.</p><p>Depending on the Rune used, the Aura deals
-    damage or provides healing to any creature which begins its turn inside the
-    Aura. This gesture requires <strong>2 Hands</strong> to cast, has a base
-    cost of <strong>5 Action</strong> and <strong>1 Focus</strong>, and must be
-    <strong>Maintained</strong> costing an additional <strong>1 Focus</strong>
-    every subsequent round.</p><h3 class="divider">Playtest Notes</h3><p>This
-    talent is currently placed at a <strong>Tier 4</strong> node. It will
-    eventually only be attainable at a higher level (probably Level 6 required).
-    It is currently available "early" for testing.</p><p>Emanation templates
-    which are linked to the Token and move when the Token moves are a feature
-    coming in Foundry VTT version 14. Automation of the Aura gesture will occur
-    once Crucible depends on Foundry VTT version 14.</p>
+    with the spellcaster. This gesture requires 2 Hands to cast, has a base cost
+    of 5 Action and 1 Focus, and must be @Rule[action.maintained] costing an
+    additional 1 Focus every subsequent round.</p><p>When a creature starts its
+    <strong>Turn</strong> or enters the area of your aura, they are targeted by
+    a <strong>Spell Attack</strong> which causes either damage or healing
+    depending on which <strong>Rune</strong> was used for this spell. This
+    attack deals <strong>6 Base Damage</strong>, and its defense type and damage
+    type are also determined by its Rune.</p><h3 class="divider">Playtest
+    Notes</h3><p>This talent is currently placed at a <strong>Tier 4</strong>
+    node. It will eventually only be attainable at a higher level (probably
+    Level 6 required). It is currently available "early" for testing.</p>
   actions: []
   spellcraft: aura
   iconicSpells: 0
@@ -35,12 +34,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.11.0
   createdTime: 1762792947816
-  modifiedTime: 1773514792578
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1789783444107
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
 _id: gestureAura00000
 sort: 0
 _key: '!items!gestureAura00000'

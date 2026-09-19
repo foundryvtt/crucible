@@ -1174,10 +1174,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Propagate and sort tags
     this.tags = new CrucibleActionTags(this._source.tags, this);
 
-    // A target type which declares ephemeral overrides the configured choice, making persistRegion canonical
-    const forcedEphemeral = SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral;
-    if ( forcedEphemeral !== undefined ) this.persistRegion = !forcedEphemeral;
-
     // Ability Scaling and Skill Training
     this.scaling = [];
     this.training = [];
@@ -1210,6 +1206,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Prepare Summons
     this.usage.summons = this.summon?.actorUuid ? [{...this.summon}] : [];
+
+    // Prepare data for a persisted regionBehavior
+    this._prepareRegionBehavior();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data related to a persisted RegionBehavior action that this action may have.
+   * @protected
+   */
+  _prepareRegionBehavior() {
+    const forcedEphemeral = SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.region?.ephemeral;
+    if ( forcedEphemeral !== undefined ) this.persistRegion = !forcedEphemeral;
   }
 
   /* -------------------------------------------- */
@@ -1564,8 +1574,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targetCfg = SYSTEM.ACTION.TARGET_TYPES[targetType];
     if ( targetType === "summon" ) return this.#assignTargets([]);
 
-    // Acquire Region Targets
-    if ( targetCfg.region ) targets = this.#acquireTargetsFromRegion();
+    // Acquire Region Targets. An Action which persists its Region affects only its caster, because the Region goes on
+    // to target other creatures on its own terms through the Action its behavior performs
+    if ( targetCfg.region ) targets = this.persistRegion ? this.#acquireSelfTargets() : this.#acquireTargetsFromRegion();
 
     // Other Target Types
     else {
@@ -1576,10 +1587,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         case "none":
           return this.#assignTargets([]);
         case "self":
-          const tokenTargets = this.actor.getActiveTokens(true, true).map(CrucibleAction.#getTargetFromToken);
-          targets = tokenTargets.length
-            ? [tokenTargets[0]]
-            : [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
+          targets = this.#acquireSelfTargets();
           break;
         case "movement":
           targets = canvas.ready ? this.#acquireTargetsFromMovement() : [];
@@ -1732,6 +1740,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Acquire the Actor performing this Action as its only target, preferring their Token when one is on the canvas.
+   * @returns {ActionUseTarget[]}
+   */
+  #acquireSelfTargets() {
+    const tokenTargets = this.actor.getActiveTokens(true, true).map(CrucibleAction.#getTargetFromToken);
+    if ( tokenTargets.length ) return [tokenTargets[0]];
+    return [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Acquire target tokens from a placed region using RegionDocument#tokens.
    * This needs to work with an ephemeral RegionDocument, so it cannot utilize RegionDocument#tokens directly.
    * @returns {ActionUseTarget[]}
@@ -1845,6 +1865,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( actor !== this.actor ) return false;
     }
     return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does this Action's target scope permit it to affect a certain Actor?
+   * @param {CrucibleActor} actor   The Actor being considered as a target
+   * @returns {boolean}
+   */
+  canTargetActor(actor) {
+    if ( actor === this.actor ) return this.target.self || (this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF);
+    const token = actor.getActiveTokens?.(true, true)[0] ?? null;
+    if ( !token ) return false;
+    return this.#getTargetDispositions().includes(token.disposition);
   }
 
   /* -------------------------------------------- */

@@ -2254,6 +2254,46 @@ HOOKS.ruthlessMomentum = {
 
 /* -------------------------------------------- */
 
+/**
+ * Spellcraft handlers for one phase, drawn from the rune and inflection recorded on an Aura's Region Action.
+ * @param {CrucibleAction} action   The Region Action being performed
+ * @param {string} phase            A hook name in SYSTEM.ACTION_HOOKS
+ * @returns {Function[]}
+ */
+function _spellAuraRegionHandlers(action, phase) {
+  return [action.rune?.id, action.inflection?.id].reduce((handlers, id) => {
+    const fn = crucible.api.hooks.spellcraft[id]?.[phase];
+    if ( fn ) handlers.push(fn);
+    return handlers;
+  }, []);
+}
+
+/**
+ * Async effect-time Spellcraft phases an Aura Region's Action inherits from its rune and inflection.
+ * Cast-time phases are excluded because "react" would gate every tick behind reaction timing.
+ * @type {string[]}
+ */
+const SPELL_AURA_REGION_PHASES = ["roll", "postActivate", "confirm", "postConfirm"];
+
+/**
+ * The recurring Action performed by the Region which the Aura gesture places. It is not a composed spell, so it
+ * approximates one by replaying the Spellcraft hooks of the rune and inflection recorded by
+ * {@link crucible.api.hooks.spellcraft.aura}.
+ */
+HOOKS.spellAuraRegion = {
+  prepare() {
+
+    // Never tagged "composed", so _configureUsage leaves this Action without dice unless it claims them here
+    this.usage.hasDice = true;
+    for ( const h of _spellAuraRegionHandlers(this, "prepare") ) h.call(this);
+  },
+  ...Object.fromEntries(SPELL_AURA_REGION_PHASES.map(phase => [phase, async function(...args) {
+    for ( const h of _spellAuraRegionHandlers(this, phase) ) await h.call(this, ...args);
+  }]))
+};
+
+/* -------------------------------------------- */
+
 HOOKS.search = {
   _concealed(action) {
     const token = action.actor.getActiveTokens(true)[0]?.document;

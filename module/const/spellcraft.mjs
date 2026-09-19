@@ -206,6 +206,9 @@ export const GESTURES = Object.seal({
       action: 5,
       focus: 1 // Maintained
     },
+    damage: {
+      base: 6 // Zeroed on the cast itself; delivered by the recurring region action instead
+    },
     hands: 2,
     nameFormat: NAME_FORMATS.NOUN,
     scaling: "presence",

@@ -95,7 +95,17 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
    */
   static defineEmbeddedSchema() {
     const fields = foundry.data.fields;
-    const embeddedAction = crucible.api.models.CrucibleAction.defineBaseSchema();
+    const embeddedAction = Object.assign(crucible.api.models.CrucibleAction.defineBaseSchema(), {
+      target: new fields.SchemaField({
+        scope: new fields.NumberField({required: true, initial: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
+          choices: SYSTEM.ACTION.TARGET_SCOPES.choices})
+      }),
+      spellcraft: new fields.SchemaField({
+        rune: new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.RUNES}),
+        gesture: new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.GESTURES}),
+        inflection: new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.INFLECTIONS})
+      }, {nullable: true, initial: null})
+    });
     return {
       action: new fields.SchemaField(embeddedAction, {required: true, initial: {
         id: "action",
@@ -118,6 +128,25 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Instantiate the embedded Action to be performed against one triggering Actor. Either a {@link CrucibleSpellAction},
+   * if the "spell" tag is applied to the action, otherwise a standard {@link CrucibleAction}.
+   * @param {CrucibleActor} actor       The Actor performing the Action
+   * @param {CrucibleActor} target      The Actor which triggered this behavior
+   * @returns {CrucibleAction}
+   */
+  createAction(actor, target) {
+    const {CrucibleAction, CrucibleSpellAction} = crucible.api.models;
+    const isSpell = this.action.tags.has("spell");
+    const {spellcraft, ...data} = this.toObject().action; // Construct from a copy because cleaning mutates
+    // Flatten spell components in cases that this action needs to become a CrucibleSpellAction
+    if ( isSpell ) Object.assign(data, spellcraft, {composition: CrucibleSpellAction.COMPOSITION_STATES.COMPOSED});
+    const cls = isSpell ? CrucibleSpellAction : CrucibleAction;
+    return new cls(data, {actor, usage: {forcedTargets: [target], hasDice: isSpell}});
+  }
+
+  /* -------------------------------------------- */
   /*  Region Event Handling                       */
   /* -------------------------------------------- */
 
@@ -129,32 +158,24 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     const {token} = event.data;
     const actor = token.actor;
 
-    // Skip invalid targets
-    const actionContext = {actor: sourceActor, region: this.parent.parent};
-    const originEffect = await fromUuid(this.origin);
-    if ( originEffect ) {
-      const originAction = originEffect?.system.getOriginAction({actionContext});
-      const validTargets = new Set(originAction?.acquireTargets().keys() ?? []);
-      if ( !validTargets.has(actor) ) return;
-    }
-    switch ( this.frequency ) {
+    // Targets are unaffected on the initially establishing turn
+    if ( await this.#isEstablishingTurn() ) return;
 
-      // If once ever and already done, skip
-      case "once":
+    // Determine target eligibility using the region's action target configuration
+    const action = this.createAction(sourceActor, actor);
+    if ( !action.canTargetActor(actor) ) return;
+
+    // Restrict action usage based on allowed frequency
+    switch ( this.frequency ) {
+      case "once":        // If once ever and already done, skip
         if ( !foundry.utils.isEmpty(this.affectedActors) ) return;
         break;
-
-      // If once per round per actor and already done this round, skip. Outside of combat, this means once per actor
-      case "roundActor":
+      case "roundActor":  // If once per-round-per-actor, skip actors already treated this round
         if ( this.affectedActors[actor.uuid]?.round === (game.combat?.round ?? -1) ) return;
         break;
     }
 
-    // Otherwise, perform action
-    const action = new crucible.api.models.CrucibleAction(this.action, {
-      actor: sourceActor,
-      usage: {forcedTargets: [actor]}
-    });
+    // Use the region behavior action
     await action.use({dialog: false});
 
     // If non-"every" frequency, track that actor has been affected
@@ -176,6 +197,20 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
         }
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is the current Combat turn the one on which the tracking ActiveEffect established this Region?
+   * @returns {Promise<boolean>}
+   */
+  async #isEstablishingTurn() {
+    if ( !this.origin || !game.combat?.started ) return false;
+    const start = (await fromUuid(this.origin))?.start;
+    if ( !start ) return false;
+    return (start.combat?.id === game.combat.id) && (start.round === game.combat.round)
+      && (start.turn === game.combat.turn);
   }
 
   /* -------------------------------------------- */
