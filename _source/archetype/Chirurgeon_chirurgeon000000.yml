@@ -1,0 +1,79 @@
+name: Chirurgeon
+img: icons/equipment/head/mask-plague-grey.webp
+type: archetype
+system:
+  description: <p>Healers and sawbones, medical professionals and twisted poisoners.</p>
+  identifier: chirurgeon
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 3
+    strength: 1
+    toughness: 1
+    dexterity: 3
+  talents:
+    - item: Compendium.crucible.talent.Item.lunge00000000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.alchemicalresolv
+      level: 2
+    - item: Compendium.crucible.talent.Item.combatmedicine00
+      level: 2
+    - item: Compendium.crucible.talent.Item.chirurgeon000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.volatileAccelera
+      level: 3
+    - item: Compendium.crucible.talent.Item.wortcunning00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.fieldConcoction0
+      level: 4
+    - item: Compendium.crucible.talent.Item.precisionshot000
+      level: 0
+    - item: Compendium.crucible.talent.Item.preparedness0000
+      level: 0
+  spells: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.expandedToolbelt
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.chirurgeonsToolk
+      quantity: 1
+      equipped: true
+      autoScale: false
+    - item: Compendium.crucible.equipment.Item.dagger0000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.paddedArmor00000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  training:
+    medicine: 3
+    diplomacy: 0
+    intimidation: 1
+    light: 2
+    mechanical: 2
+    awareness: 1
+    science: 2
+    stealth: 1
+    alchemy: 0
+_id: chirurgeon000000
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1789843357338
+  modifiedTime: 1789843398254
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!chirurgeon000000'
