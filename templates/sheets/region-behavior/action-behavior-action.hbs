@@ -8,5 +8,7 @@
             height=150 label=(localize "ACTION.FIELDS.description.label") hint=(localize "ACTION.FIELDS.description.hint")}}
         {{formGroup systemFields.action.fields.tags value=source.system.action.tags options=tags
             label=(localize "ACTION.FIELDS.tags.label") hint=(localize "ACTION.FIELDS.tags.hint")}}
+        {{formGroup systemFields.action.fields.target.fields.scope value=source.system.action.target.scope localize=true
+            label=(localize "ACTION.FIELDS.target.scope.label") hint=(localize "ACTION.FIELDS.target.scope.hint")}}
     </fieldset>
 </section>
