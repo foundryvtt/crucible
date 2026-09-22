@@ -28,7 +28,18 @@ system:
         <p>Setting the trap places a dangerous hazard that deals significant
         damage if triggered. It must be affixed by heavy chain to an immobile
         object, such as a tree or spike driven into the ground. The area of the
-        trap is a circle with a radius of 2 feet.</p>
+        trap is a circle with a radius of 2 feet.</p><p>When triggered, the
+        creature that set the trap makes a <strong>Wilderness</strong> skill
+        attack against the <strong>Reflex</strong> defense of a single target
+        which triggered the trap. If not resisted, it deals
+        <strong>Piercing</strong> damage and applies the @Condition[restrained]
+        condition. The base damage dealt by the trap varies according to the
+        quality of the trap.</p><ul><li><p><strong>Shoddy</strong> - 1
+        damage</p></li><li><p><strong>Standard</strong> - 2
+        damage</p></li><li><p><strong>Fine</strong> - 4
+        damage</p></li><li><p><strong>Superior</strong> - 8
+        damage</p></li><li><p><strong>Masterwork</strong> - 16
+        damage</p></li></ul>
       cost:
         action: 4
         focus: 0
@@ -48,63 +59,62 @@ system:
       effects: []
       tags:
         - consume
-      summon:
-        actorUuid: null
-        permanent: true
-    - id: steelJawTrigger
-      name: Trigger Steel-Jaw Trap
-      img: icons/environment/traps/trap-jaw-steel.webp
-      condition: ''
-      description: >-
-        <p>When triggered the creature that set the trap makes a
-        <strong>Wilderness</strong> skill attack against the
-        <strong>Reflex</strong> defense of a single target which triggered the
-        trap. If not resisted, it deals piercing damage and applies the
-        @Condition[restrained] condition. The base damage dealt by the trap
-        varies according to the quality of the
-        trap.</p><ul><li><p><strong>Shoddy</strong> - 1
-        damage</p></li><li><p><strong>Standard</strong> - 2
-        damage</p></li><li><p><strong>Fine</strong> - 4
-        damage</p></li><li><p><strong>Superior</strong> - 8
-        damage</p></li><li><p><strong>Masterwork</strong> - 16
-        damage</p></li></ul><p></p>
-      cost:
-        action: 0
-        focus: 0
-        heroism: 0
-        hands: 0
-        weapon: false
-      range:
-        minimum: null
-        maximum: null
-        weapon: false
-      target:
-        type: single
-        number: 1
-        scope: 4
-        self: false
-      effects:
-        - name: Steel-Jaw Trap
-          scope: 3
-          result:
-            type: success
-            all: false
-          statuses:
-            - restrained
-          system:
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
-            changes: []
-      tags:
-        - reflex
-        - piercing
-        - skill
-        - wilderness
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
+      persistRegion: true
+      regionBehavior:
+        name: Trigger Steel-Jaw Trap
+        system:
+          action:
+            id: steelJawTrigger
+            name: Trigger Steel-Jaw Trap
+            img: icons/environment/traps/trap-jaw-steel.webp
+            description: >-
+              <p>When triggered, the creature that set the trap makes a
+              <strong>Wilderness</strong> skill attack against the
+              <strong>Reflex</strong> defense of a single target which triggered
+              the trap. If not resisted, it deals <strong>Piercing</strong>
+              damage and applies the @Condition[restrained] condition. The base
+              damage dealt by the trap varies according to the quality of the
+              trap.</p><ul><li><p><strong>Shoddy</strong> - 1
+              damage</p></li><li><p><strong>Standard</strong> - 2
+              damage</p></li><li><p><strong>Fine</strong> - 4
+              damage</p></li><li><p><strong>Superior</strong> - 8
+              damage</p></li><li><p><strong>Masterwork</strong> - 16
+              damage</p></li></ul>
+            effects:
+              - name: Steel-Jaw Trap
+                scope: 3
+                result:
+                  type: success
+                  all: false
+                statuses:
+                  - restrained
+                duration:
+                  value: null
+                  units: ''
+                  expiry: null
+                  expired: false
+                system:
+                  changes: []
+                  dc: null
+                  dot: []
+                  maintenance:
+                    cost: null
+                    hands: 0
+                  properties: []
+                  regions: []
+                  summons: []
+            tags:
+              - reflex
+              - piercing
+              - skill
+              - wilderness
+            target:
+              scope: 4
+            spellcraft: null
+          events:
+            - tokenMoveIn
+          frequency: once
   uses:
     value: 1
     max: 1
@@ -128,12 +138,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.11.0
   createdTime: 1772307157780
-  modifiedTime: 1773514792291
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1790110081810
+  lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: steeljawTrap0000
 sort: 0
 _key: '!items!steeljawTrap0000'
