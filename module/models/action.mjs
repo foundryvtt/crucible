@@ -865,7 +865,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @type {boolean}
    */
   get isFavorite() {
-    return this.actor?.system.favorites.has(this.id);
+    return this.actor?.system.favorites.has(this.itemAwareId);
   }
 
   /**
@@ -902,6 +902,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.tags.has("subtle") ) return false;
     if ( this.tags.has("spell") ) return true;
     return this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * An id which includes the item id as a suffix, if necessary.
+   * @type {string}
+   */
+  get itemAwareId() {
+    return this.item?.type === "consumable" ? `${this.id}.${this.item.id}` : this.id;
   }
 
   /* -------------------------------------------- */
@@ -2024,7 +2034,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           duration: effectDuration,
           system,
           // TODO: Store more action information than just identifier, likely on data model rather than flags
-          flags: {crucible: {originAction: this.id}}
+          flags: {crucible: {originAction: this.itemAwareId}}
         };
         if ( showIcon !== undefined ) effect.showIcon = showIcon; // Honor a per-effect icon-visibility override
 
@@ -2055,7 +2065,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           origin: this.actor.uuid,
           showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
           system: {},
-          flags: {crucible: {originAction: this.id}}
+          flags: {crucible: {originAction: this.itemAwareId}}
         }]});
       }
     }
@@ -3312,7 +3322,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   get allowWeaponChoice() {
     if ( !this.actor ) return false;
-    const original = this.actor.actions[this.id];
+    const original = this.actor.actions[this.itemAwareId];
     if ( !original ) return false;
     const {cost, tags} = original._source;
     if ( !(cost.weapon || tags.includes("reload")) ) return false;
@@ -3327,7 +3337,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {{type: "crucible.action", macroData: object}}
    */
   toMacroDragData() {
-    const amendedId = this.item?.type === "consumable" ? `${this.id}.${this.item.id}` : this.id;
     return {
       type: "crucible.action",
       macroData: {
@@ -3335,7 +3344,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         scope: "actor",
         name: this.name,
         img: this.img,
-        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${amendedId}");`
+        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${this.itemAwareId}");`
       }
     };
   }

@@ -969,12 +969,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const priorFavorites = this.actor.system.favorites;
     const favorites = new Set();
     for ( const action of Object.values(this.actor.actions) ) {
-      if ( priorFavorites.has(action.id) ) favorites.add(action.id);
+      if ( priorFavorites.has(action.itemAwareId) ) favorites.add(action.itemAwareId);
     }
 
     // Toggle favorite state for this action
-    if ( favorites.has(action.id) ) favorites.delete(action.id);
-    else favorites.add(action.id);
+    if ( favorites.has(action.itemAwareId) ) favorites.delete(action.itemAwareId);
+    else favorites.add(action.itemAwareId);
     await this.actor.update({"system.favorites": favorites});
   }
 
