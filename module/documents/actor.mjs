@@ -1601,8 +1601,9 @@ export default class CrucibleActor extends Actor {
   prepareLeaveCombatUpdates() {
     const updates = {};
     if ( this.resources.heroism.value ) updates["system.resources.heroism.value"] = 0;
-    if ( this.flags.crucible?.delay ) updates["flags.crucible.delay"] = _del;
-    if ( "encounter" in this.flags.crucible ) updates["flags.crucible.encounter"] = _del;
+    const crucibleFlags = this.flags.crucible ?? {};
+    if ( "delay" in crucibleFlags ) updates["flags.crucible.delay"] = _del;
+    if ( "encounter" in crucibleFlags ) updates["flags.crucible.encounter"] = _del;
     return updates;
   }
 
