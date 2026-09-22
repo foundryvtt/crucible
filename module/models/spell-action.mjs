@@ -292,7 +292,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _prepare() {
 
     // Inflections are vocalized, so tag before super() in order that hooks observe the final tag set
-    if ( this.inflection ) this.tags.add(this.#isInflectionSubtle() ? "subtle" : "vocal");
+    if ( this.inflection ) this.tags.add(this._isInflectionSubtle() ? "subtle" : "vocal");
 
     super._prepare();
 
@@ -320,8 +320,9 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /**
    * Does Legerdemain allow this spell's Inflection to be applied by hand alone, without vocalization?
    * @returns {boolean}
+   * @protected
    */
-  #isInflectionSubtle() {
+  _isInflectionSubtle() {
     if ( !this.actor.talentIds.has("legerdemain00000") ) return false;
     const talent = crucible.api.models.CrucibleSpellcraftInflection.getGrantingTalent(this.inflection.id);
     return (talent?.tier ?? 0) <= 2;
