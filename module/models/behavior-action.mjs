@@ -112,7 +112,9 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
         name: "Action",
         img: "icons/svg/hazard.svg",
         effects: [],
-        tags: []
+        tags: [],
+        target: embeddedAction.target.getInitialValue(),
+        spellcraft: null
       }}),
       events: this._createEventsField(),
       frequency: new fields.StringField({initial: "roundActor", required: true, nullable: false,
