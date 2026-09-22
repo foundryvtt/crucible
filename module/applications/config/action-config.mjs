@@ -377,7 +377,10 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
               img: this.action.img,
               description: this.action.description,
               effects: [],
-              tags: []
+              tags: [],
+              target: {
+                scope: this.action.target.scope
+              }
             }
           }
         }
