@@ -1256,6 +1256,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.parent = this.parent;
     context.usage = context.lazy ? foundry.utils.deepClone(this.usage) : this.usage;
     context.actor ??= this.actor;
+    context.item ??= this.item;
     context.token ??= this.token;
     context.region ??= this.region;
     context.movement ??= this.movement;
@@ -1503,7 +1504,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
             disabled: true,
             type: "crucible.action",
             system: {
-              actor: this.actor.uuid
+              actor: this.actor.uuid,
+              item: this.item?.uuid ?? null
             }
           };
           foundry.utils.mergeObject(behavior, this.regionBehavior);

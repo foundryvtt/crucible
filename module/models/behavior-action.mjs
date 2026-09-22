@@ -83,7 +83,8 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
           return (type === "Actor") && foundry.data.validators.isValidId(id);
         }
       }),
-      origin: new fields.DocumentUUIDField({type: "ActiveEffect", initial: null, required: true, nullable: true})
+      item: new fields.DocumentUUIDField({type: "Item"}),
+      origin: new fields.DocumentUUIDField({type: "ActiveEffect"})
     };
   }
 
@@ -133,17 +134,18 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
    * Instantiate the embedded Action to be performed against one triggering Actor. Either a {@link CrucibleSpellAction},
    * if the "spell" tag is applied to the action, otherwise a standard {@link CrucibleAction}.
    * @param {CrucibleActor} actor       The Actor performing the Action
+   * @param {CrucibleItem|null} item    The Item, if any, containing the action which spawned this behavior's Region
    * @param {CrucibleActor} target      The Actor which triggered this behavior
    * @returns {CrucibleAction}
    */
-  createAction(actor, target) {
+  createAction(actor, item, target) {
     const {CrucibleAction, CrucibleSpellAction} = crucible.api.models;
     const isSpell = this.action.tags.has("spell");
     const {spellcraft, ...data} = this.toObject().action; // Construct from a copy because cleaning mutates
     // Flatten spell components in cases that this action needs to become a CrucibleSpellAction
     if ( isSpell ) Object.assign(data, spellcraft, {composition: CrucibleSpellAction.COMPOSITION_STATES.COMPOSED});
     const cls = isSpell ? CrucibleSpellAction : CrucibleAction;
-    return new cls(data, {actor, usage: {forcedTargets: [target], hasDice: isSpell}});
+    return new cls(data, {actor, item, usage: {forcedTargets: [target], hasDice: isSpell}});
   }
 
   /* -------------------------------------------- */
@@ -162,7 +164,8 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     if ( await this.#isEstablishingTurn() ) return;
 
     // Determine target eligibility using the region's action target configuration
-    const action = this.createAction(sourceActor, actor);
+    const sourceItem = await fromUuid(this.item);
+    const action = this.createAction(sourceActor, sourceItem, actor);
     if ( !action.canTargetActor(actor) ) return;
 
     // Restrict action usage based on allowed frequency
