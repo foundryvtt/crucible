@@ -17,10 +17,14 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-active-effect.hbs";
 
   /**
-   * Document types the owned-reference deletion cascade is permitted to delete.
-   * @type {Set<string>}
+   * Mapping potentially-owned Document types to the name of system field containing uuids for that Document type.
+   * @type {Record<string, string>}
    */
-  static #DELETABLE_TYPES = new Set(["AmbientLight", "Token", "Region"]);
+  static #DELETABLE_TYPES = {
+    AmbientLight: "lights",
+    Region: "regions",
+    Token: "summons"
+  };
 
   /**
    * The UUIDs of the Documents this effect owns. Cached from the effect's own persisted data.
@@ -88,7 +92,11 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @returns {Set<string>}
    */
   #collectOwnedReferences() {
-    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? []), ...(this.system.lights ?? [])]);
+    const owned = new Set();
+    for ( const field of Object.values(CrucibleActiveEffect.#DELETABLE_TYPES) ) {
+      for ( const uuid of (this.system[field] ?? []) ) owned.add(uuid);
+    }
+    return owned;
   }
 
   /* -------------------------------------------- */
@@ -112,7 +120,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       if ( (doc.documentName === "Region") && doc._source.attachment.token ) {
         if ( !doc.attachment.token || references.has(doc.attachment.token.uuid) ) continue;
       }
-      if ( CrucibleActiveEffect.#DELETABLE_TYPES.has(doc.documentName) && doc.testUserPermission(user, "OWNER") ) {
+      if ( (doc.documentName in CrucibleActiveEffect.#DELETABLE_TYPES) && doc.testUserPermission(user, "OWNER") ) {
         await doc.delete();
         continue;
       }
