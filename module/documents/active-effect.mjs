@@ -20,10 +20,10 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * Document types the owned-reference deletion cascade is permitted to delete.
    * @type {Set<string>}
    */
-  static #DELETABLE_TYPES = new Set(["Token", "Region"]);
+  static #DELETABLE_TYPES = new Set(["AmbientLight", "Token", "Region"]);
 
   /**
-   * The UUIDs of the Tokens and Regions this effect owns. Cached from the effect's own persisted data.
+   * The UUIDs of the Documents this effect owns. Cached from the effect's own persisted data.
    * The responsible active GM derives the set of documents to delete from trusted, replicated state.
    * @type {Set<string>}
    */
@@ -84,11 +84,11 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------- */
 
   /**
-   * Collect the UUIDs of the Tokens and Regions this effect currently owns from its persisted references.
+   * Collect the UUIDs of the Documents this effect currently owns from its persisted references.
    * @returns {Set<string>}
    */
   #collectOwnedReferences() {
-    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? [])]);
+    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? []), ...(this.system.lights ?? [])]);
   }
 
   /* -------------------------------------------- */
@@ -96,7 +96,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /**
    * Delete owned references on behalf of a requesting User.
    * Enforce that each still exists, is an allowed document type, and is OWNED by the user who triggered the operation.
-   * @param {Set<string>} references      UUIDs of owned Tokens and Regions to delete
+   * @param {Set<string>} references      UUIDs of owned Documents to delete
    * @param {string} userId               The user who performed the triggering operation
    * @returns {Promise<void>}
    */
@@ -301,7 +301,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /** @inheritDoc */
   async _onDelete(options, userId) {
     await super._onDelete(options, userId);
-    await this.#deleteOwnedReferences(this.#ownedReferences, userId); // Delete every owned Token/Region
+    await this.#deleteOwnedReferences(this.#ownedReferences, userId); // Delete every owned Document
   }
 
   /* -------------------------------------------- */

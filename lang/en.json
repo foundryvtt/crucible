@@ -1434,6 +1434,10 @@
         },
         "label": "Maintenance"
       },
+      "lights": {
+        "hint": "The light sources dependent on this effect.",
+        "label": "Lights"
+      },
       "regions": {
         "hint": "The regions dependent on this effect.",
         "label": "Regions"

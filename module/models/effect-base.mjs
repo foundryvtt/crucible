@@ -20,6 +20,7 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
         resource: new fields.StringField({required: true, choices: SYSTEM.RESOURCES, nullable: false}),
         restoration: new fields.BooleanField()
       }), {nullable: false, initial: []}),
+      lights: new fields.SetField(new fields.DocumentUUIDField({type: "AmbientLight", nullable: false})),
       maintenance: new fields.SchemaField({
         cost: new fields.NumberField({required: false, integer: true, nullable: true, initial: null}),
         hands: new fields.NumberField({required: true, integer: true, nullable: false, min: 0, initial: 0})
