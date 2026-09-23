@@ -159,11 +159,10 @@ enriched-content.hazard-check,
 enriched-content.award,
 enriched-content.milestone,
 enriched-content.counterspell {
-  --color-background: #000000;
-  --color-background-hover: #000000;
-  --color-border: #000000;
-  --color-border-hover: #000000;
-  --color-text-emphatic: #eee8df; // Local fallback; legible outside a themed .crucible card (e.g. RollTable draw)
+  --tag-bg: light-dark(#e8e4dc, #000000);
+  --tag-bg-hover: light-dark(#dcd6ca, #000000);
+  --tag-border: light-dark(#3f3128, #000000);
+  --tag-border-hover: light-dark(#1c1a1a, #000000);
 
   display: inline-flex;
   height: 1.5em;
@@ -173,9 +172,9 @@ enriched-content.counterspell {
   margin: -3px 0;
   align-items: center;
   font-size: 90%;
-  background: var(--color-background);
+  background: var(--tag-bg);
   color: var(--color-text-emphatic);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--tag-border);
   border-radius: 2px;
   cursor: var(--cursor-pointer);
 
@@ -188,8 +187,8 @@ enriched-content.counterspell {
   }
 
   &:hover {
-    background: var(--color-background-hover);
-    border-color: var(--color-border-hover);
+    background: var(--tag-bg-hover);
+    border-color: var(--tag-border-hover);
     &:before {
       opacity: 1.0;
     }
@@ -199,10 +198,10 @@ enriched-content.counterspell {
   &.exp,
   &.talent-check,
   &.counterspell {
-    --color-background: #2c3921;
-    --color-background-hover: #365021;
-    --color-border: #5b9e26;
-    --color-border-hover: #81cc44;
+    --tag-bg: light-dark(#c0d5af, #2c3921);
+    --tag-bg-hover: light-dark(#a7c88c, #365021);
+    --tag-border: #5b9e26;
+    --tag-border-hover: light-dark(#3f7a14, #81cc44);
   }
   &.talent-check:before {
     content: "\e4e2";
@@ -214,10 +213,10 @@ enriched-content.counterspell {
   // Knowledge Checks
   &.kno,
   &.knowledge-check {
-    --color-background: #1a1a37;
-    --color-background-hover: #242453;
-    --color-border: #4848ac;
-    --color-border-hover: #6c6cff;
+    --tag-bg: light-dark(#e1e1f5, #1a1a37);
+    --tag-bg-hover: light-dark(#cfcfee, #242453);
+    --tag-border: #4848ac;
+    --tag-border-hover: light-dark(#2e2e8a, #6c6cff);
   }
 
   &.knowledge-check:before {
@@ -228,10 +227,10 @@ enriched-content.counterspell {
   // Social and Language checks
   &.soc,
   &.language-check {
-    --color-background: #3a184a;
-    --color-background-hover: #4d2368;
-    --color-border: #752f9f;
-    --color-border-hover: #ab3fe8;
+    --tag-bg: light-dark(#d4bae1, #3a184a);
+    --tag-bg-hover: light-dark(#c7a1da, #4d2368);
+    --tag-border: #752f9f;
+    --tag-border-hover: light-dark(#5a1f7d, #ab3fe8);
   }
   &.language-check:before {
     content: "\f086";
@@ -240,10 +239,10 @@ enriched-content.counterspell {
 
   // Trade checks
   &.trade {
-     --color-background: #5d3a00;
-    --color-background-hover: #734800;
-    --color-border: #f0a830;
-    --color-border-hover: #ffc565;
+    --tag-bg: light-dark(#f7e6c4, #5d3a00);
+    --tag-bg-hover: light-dark(#f0d49c, #734800);
+    --tag-border: light-dark(#b3771a, #f0a830);
+    --tag-border-hover: light-dark(#8a5a0f, #ffc565);
   }
 
   // Passive Checks
@@ -253,19 +252,19 @@ enriched-content.counterspell {
 
   // Hazard Checks
   &.hazard-check {
-    --color-background: #2b0606;
-    --color-background-hover: #681212;
-    --color-border: #9c1212;
-    --color-border-hover: #d11515;
+    --tag-bg: light-dark(#f5dcdc, #2b0606);
+    --tag-bg-hover: light-dark(#eec2c2, #681212);
+    --tag-border: #9c1212;
+    --tag-border-hover: light-dark(#7a0c0c, #d11515);
   }
 
   // Awards
   &.award,
   &.milestone {
-    --color-background: #243437;
-    --color-background-hover: #163037;
-    --color-border: #9ea5a7;
-    --color-border-hover: #dae7eb;
+    --tag-bg: light-dark(#e2e8ea, #243437);
+    --tag-bg-hover: light-dark(#d0dadd, #163037);
+    --tag-border: light-dark(#6b7577, #9ea5a7);
+    --tag-border-hover: light-dark(#3f4a4d, #dae7eb);
     &:before {
       content: "\f091";
       font-weight: 900;
@@ -277,10 +276,8 @@ enriched-content.counterspell {
 
 enriched-content.rule {
   font-size: 90%;
-  --color-text-emphatic: #eee8df; // Local fallback, same reasoning as .hazard-check et al above
-  --color-border: #3f3128; // Local fallback; matches --color-frame in variables.less
   color: var(--color-text-emphatic);
-  border: 1px dashed var(--color-border);
+  border: 1px dashed light-dark(var(--color-text-subtle), var(--color-border));
   border-radius: 2px;
   padding: 1px 4px;
   margin: -1px 0;
@@ -321,5 +318,94 @@ enriched-content.rule {
     width: 16px;
     height: 16px;
     margin-right: -4px;
+  }
+}
+
+/* ----------------------------------------- */
+/*  Actor Embeds                             */
+/* ----------------------------------------- */
+
+document-embed.block.actor {
+  --actor-embed-border-color: color-mix(in srgb, var(--color-text-primary) 25%, transparent);
+  --actor-embed-background: color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+  position: relative;
+  display: block;
+  margin: 1rem 0;
+  padding: 1rem 0 0 1rem;
+
+  img.portrait {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background: var(--color-cool-4);
+    border: 2px solid var(--actor-embed-border-color);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 60px;
+    margin-left: 60px;
+    padding: 0 1rem 0 50px;
+    background: var(--actor-embed-background);
+    border: 1px solid var(--actor-embed-border-color);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    h4 {
+      flex: 1;
+      margin: 0;
+    }
+    .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: right;
+      line-height: 1rem;
+    }
+    .threat {
+      font-size: var(--font-size-18);
+    }
+    .count,
+    .category {
+      font-size: var(--font-size-14);
+      color: var(--color-text-subtle);
+    }
+  }
+
+  .readaloud {
+    padding: 1.5rem;
+    background: var(--actor-embed-background);
+    border: 1px solid var(--actor-embed-border-color);
+    border-radius: 0 0 4px 4px;
+    font-family: var(--font-blockquote);
+    font-style: italic;
+    > p:first-child {
+      margin-top: 0;
+      text-indent: 3rem;
+    }
+    > p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/** Special Actor embed rules when inside a `.crucible` environment */
+.crucible document-embed.block.actor {
+  --actor-embed-border-color: var(--color-frame);
+  --actor-embed-background: var(--color-frame-bg);
+  margin-left: -1rem;
+  img.portrait {
+    background: var(--color-frame-bg);
+  }
+  .readaloud {
+    font-family: var(--font-quote);
+    font-style: normal;
+    color: var(--color-secondary);
   }
 }
