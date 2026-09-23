@@ -133,12 +133,13 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
   /**
    * Instantiate the embedded Action to be performed against one triggering Actor. Either a {@link CrucibleSpellAction},
    * if the "spell" tag is applied to the action, otherwise a standard {@link CrucibleAction}.
-   * @param {CrucibleActor} actor       The Actor performing the Action
-   * @param {CrucibleItem|null} item    The Item, if any, containing the action which spawned this behavior's Region
-   * @param {CrucibleActor} target      The Actor which triggered this behavior
+   * @param {object} options
+   * @param {CrucibleActor} options.actor     The Actor performing the Action
+   * @param {CrucibleActor} options.target    The Actor which triggered this behavior
+   * @param {CrucibleItem|null} options.item  The Item, if any, of the action which spawned this behavior's Region
    * @returns {CrucibleAction}
    */
-  createAction(actor, item, target) {
+  createAction({actor, item, target}) {
     const {CrucibleAction, CrucibleSpellAction} = crucible.api.models;
     const isSpell = this.action.tags.has("spell");
     const {spellcraft, ...data} = this.toObject().action; // Construct from a copy because cleaning mutates
@@ -165,7 +166,7 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
 
     // Determine target eligibility using the region's action target configuration
     const sourceItem = await fromUuid(this.item);
-    const action = this.createAction(sourceActor, sourceItem, actor);
+    const action = this.createAction({actor: sourceActor, target: actor, item: sourceItem});
     if ( !action.canTargetActor(actor) ) return;
 
     // Restrict action usage based on allowed frequency

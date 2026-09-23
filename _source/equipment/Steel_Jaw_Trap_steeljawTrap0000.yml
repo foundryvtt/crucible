@@ -69,18 +69,12 @@ system:
             name: Trigger Steel-Jaw Trap
             img: icons/environment/traps/trap-jaw-steel.webp
             description: >-
-              <p>When triggered, the creature that set the trap makes a
+              <p>The creature that set the trap makes a
               <strong>Wilderness</strong> skill attack against the
-              <strong>Reflex</strong> defense of a single target which triggered
-              the trap. If not resisted, it deals <strong>Piercing</strong>
-              damage and applies the @Condition[restrained] condition. The base
-              damage dealt by the trap varies according to the quality of the
-              trap.</p><ul><li><p><strong>Shoddy</strong> - 1
-              damage</p></li><li><p><strong>Standard</strong> - 2
-              damage</p></li><li><p><strong>Fine</strong> - 4
-              damage</p></li><li><p><strong>Superior</strong> - 8
-              damage</p></li><li><p><strong>Masterwork</strong> - 16
-              damage</p></li></ul>
+              <strong>Reflex</strong> defense of the single target which
+              triggered the trap. If not resisted, it deals
+              <strong>Piercing</strong> damage and applies the
+              @Condition[restrained] condition.</p>
             effects:
               - name: Steel-Jaw Trap
                 scope: 3
@@ -142,7 +136,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.0
   createdTime: 1772307157780
-  modifiedTime: 1790110081810
+  modifiedTime: 1790199279196
   lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: steeljawTrap0000
 sort: 0
