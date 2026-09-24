@@ -1,6 +1,6 @@
-name: Raking Talons
+name: Rake
 type: talent
-_id: rakingTalons0000
+_id: rake000000000000
 img: icons/skills/wounds/injury-triple-slash-bleed.webp
 system:
   nodes: []
@@ -8,12 +8,12 @@ system:
     <p>The @ref[actor.name]{creature} attacks rapidly with its talons, dealing
     multiple raking blows against a single target.</p>
   actions:
-    - id: rakingTalons
-      name: Raking Talons
+    - id: rake
+      name: Rake
       img: icons/skills/wounds/injury-triple-slash-bleed.webp
       condition: ''
       description: >-
-        <p>The @ref[actor.name]{creature} attacks swiftly with both
+        <p>The @ref[actor.name]{creature} attacks swiftly with claws or
         talons.</p><p>If at least one attack results in a <strong>Critical
         Success</strong>, it inflicts the @Condition[bleeding] condition for
         <strong>2 Rounds</strong>.</p>
@@ -34,7 +34,7 @@ system:
         self: false
         multiple: 2
       effects:
-        - name: Raking Talons
+        - name: Rake
           scope: 3
           result:
             type: successCritical
@@ -45,21 +45,28 @@ system:
             value: 2
             units: rounds
             expiry: turnEnd
+            expired: false
           system:
             changes: []
+            dc: null
             dot: []
-            maintenance: null
+            lights: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
             regions: []
             summons: []
       tags:
         - melee
         - natural
-      summon:
-        actorUuid: null
-        permanent: true
+        - slashing
+      summon: null
+      persistRegion: false
+      regionBehavior: null
   iconicSpells: 0
 effects: []
-folder: 9y11rpBtHeoqU3eB
+folder: AfkhP7IZ2CIrRhnB
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -68,11 +75,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.11.0
   createdTime: 1772307157336
-  modifiedTime: 1773514792187
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
-sort: 100000
-_key: '!items!rakingTalons0000'
+  modifiedTime: 1790271439058
+  lastModifiedBy: LN1mJpYcJI40HRfK
+sort: -100000
+_key: '!items!rake000000000000'

@@ -62,7 +62,7 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.skirmisher000000
       level: 3
-    - item: Compendium.crucible.adversary-talents.Item.rakingTalons0000
+    - item: Compendium.crucible.adversary-talents.Item.rake000000000000
       level: null
     - item: Compendium.crucible.adversary-talents.Item.necroticBite0000
       level: 2

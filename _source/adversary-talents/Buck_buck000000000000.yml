@@ -1,18 +1,18 @@
-name: Gore
+name: Buck
 type: talent
-_id: gore000000000000
-img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
+_id: buck000000000000
+img: icons/commodities/bones/hooves-cloven-brown.webp
 system:
   nodes: []
   description: >-
-    <p>The @ref[actor.name]{creature} slams its antlers, tusks, or horns into a
-    creature with its full might.</p>
+    <p>The @ref[actor.name]{creature} lowers its head towards the ground and
+    lashes out with its hind legs with explosive force.</p>
   actions:
-    - id: gore
-      img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
+    - id: buck
+      img: icons/commodities/bones/hooves-cloven-brown.webp
       cost:
-        action: 0
-        focus: 1
+        action: 1
+        focus: 0
         heroism: 0
         hands: 0
         weapon: true
@@ -25,6 +25,7 @@ system:
         number: 1
         scope: 4
         self: false
+        multiple: 2
       persistRegion: false
       regionBehavior: null
       summon: null
@@ -32,37 +33,39 @@ system:
         - name: ''
           scope: 3
           result:
-            type: success
+            type: successCritical
             all: false
           statuses:
-            - staggered
+            - prone
           duration:
-            value: 1
-            units: rounds
-            expiry: turnEnd
+            value: null
+            units: ''
+            expiry: null
             expired: false
           system:
             changes: []
             dc: null
             dot: []
+            lights: []
             maintenance:
               cost: null
               hands: 0
             properties: []
             regions: []
             summons: []
-            lights: []
       tags:
-        - brute
-        - deadly
+        - melee
         - natural
-      name: Gore
+        - difficult
+        - bludgeoning
+      name: Buck
       description: >-
-        <p>The @ref[actor.name]{creature} slams its antlers, tusks, or horns
-        into a creature with its @Rule[action.brute] strength, making
-        a@Rule[action.deadly] attack which, if successful also renders its
-        target @Condition[staggered] until the end of their next
-        <strong>Turn</strong>.</p>
+        <p>The @ref[actor.name]{creature} makes two
+        @Rule[action.natural]{Natural} attacks with its hooves against a single
+        target that is behind it. The strike is @Rule[action.difficult] and
+        deals <strong>bludgeoning</strong> damage if it hits.</p><p>On a
+        <strong>Critical Success</strong> the target is knocked
+        @Condition[prone].</p>
       condition: ''
   spellcraft: ''
   iconicSpells: 0
@@ -79,11 +82,11 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.0
-  createdTime: 1790201245829
-  modifiedTime: 1790271172702
+  createdTime: 1790271174939
+  modifiedTime: 1790271174939
   lastModifiedBy: LN1mJpYcJI40HRfK
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 100000
-_key: '!items!gore000000000000'
+sort: 0
+_key: '!items!buck000000000000'

@@ -100,6 +100,9 @@ export const TALENT_ID_MIGRATIONS = {
   // Assess Strength reworked to read Health against Morale
   assessstrength00: "Compendium.crucible.talent.Item.assessResolve000",
 
+  // Adversary Talent Renames
+  rakingTalons0000: "Compendium.crucible.adversary-talents.Item.rake000000000000",
+
   /*
    * Training-only talents, retired when training became a point total advanced by ordinary talents rather
    * than a rank purchased on the Tree. Nothing replaces them; the points they conferred now come from the

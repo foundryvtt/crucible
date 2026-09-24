@@ -64,6 +64,8 @@ system:
       level: 1
     - item: Compendium.crucible.adversary-talents.Item.gore000000000000
       level: 2
+    - item: Compendium.crucible.adversary-talents.Item.buck000000000000
+      level: 0
   equipment:
     - item: Compendium.crucible.adversary-equipment.Item.thickHide0000000
       quantity: 1
@@ -93,7 +95,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.0
   createdTime: 1790201279164
-  modifiedTime: 1790201279164
+  modifiedTime: 1790271206402
   lastModifiedBy: LN1mJpYcJI40HRfK
   compendiumSource: null
   duplicateSource: null

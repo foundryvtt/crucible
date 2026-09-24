@@ -14,10 +14,10 @@ system:
       description: >-
         <p>The @ref[actor.name]{creature} sweeps its heavy tail in a circular
         arc, striking all creatures within range. On a <strong>Critical
-        Hit</strong>, affected targets become @Condition[staggered] for until
+        Success</strong>, affected targets become @Condition[staggered] for until
         the end of their next turn.</p>
       cost:
-        action: 3
+        action: 2
         focus: 0
         heroism: 0
         hands: 0
@@ -43,34 +43,42 @@ system:
             value: 1
             units: rounds
             expiry: turnEnd
+            expired: false
           system:
             dot: []
-            maintenance: null
+            maintenance:
+              cost: null
+              hands: 0
             regions: []
             summons: []
             changes: []
+            dc: null
+            lights: []
+            properties: []
       tags:
+        - melee
         - natural
-      summon:
-        actorUuid: null
-        permanent: true
+        - bludgeoning
+      summon: null
+      persistRegion: false
+      regionBehavior: null
   iconicSpells: 0
 effects: []
-folder: z5YUjjlgfHiFfM2X
+folder: AfkhP7IZ2CIrRhnB
 flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.11.0
   createdTime: 1772307157338
-  modifiedTime: 1773514792190
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1790271503307
+  lastModifiedBy: LN1mJpYcJI40HRfK
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
 _id: tailSweep0000000
-sort: 0
+sort: -200000
 _key: '!items!tailSweep0000000'

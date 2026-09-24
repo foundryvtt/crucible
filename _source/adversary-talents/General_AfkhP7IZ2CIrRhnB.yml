@@ -1,0 +1,20 @@
+type: Item
+folder: azO1TzmTVoNehily
+name: General
+color: null
+sorting: a
+_id: AfkhP7IZ2CIrRhnB
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790271168763
+  modifiedTime: 1790271168763
+  lastModifiedBy: LN1mJpYcJI40HRfK
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!AfkhP7IZ2CIrRhnB'
