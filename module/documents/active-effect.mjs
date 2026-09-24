@@ -17,13 +17,17 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-active-effect.hbs";
 
   /**
-   * Document types the owned-reference deletion cascade is permitted to delete.
-   * @type {Set<string>}
+   * Mapping potentially-owned Document types to the name of system field containing uuids for that Document type.
+   * @type {Record<string, string>}
    */
-  static #DELETABLE_TYPES = new Set(["Token", "Region"]);
+  static #DELETABLE_TYPES = {
+    AmbientLight: "lights",
+    Region: "regions",
+    Token: "summons"
+  };
 
   /**
-   * The UUIDs of the Tokens and Regions this effect owns. Cached from the effect's own persisted data.
+   * The UUIDs of the Documents this effect owns. Cached from the effect's own persisted data.
    * The responsible active GM derives the set of documents to delete from trusted, replicated state.
    * @type {Set<string>}
    */
@@ -84,11 +88,15 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------- */
 
   /**
-   * Collect the UUIDs of the Tokens and Regions this effect currently owns from its persisted references.
+   * Collect the UUIDs of the Documents this effect currently owns from its persisted references.
    * @returns {Set<string>}
    */
   #collectOwnedReferences() {
-    return new Set([...(this.system.summons ?? []), ...(this.system.regions ?? [])]);
+    const owned = new Set();
+    for ( const field of Object.values(CrucibleActiveEffect.#DELETABLE_TYPES) ) {
+      for ( const uuid of (this.system[field] ?? []) ) owned.add(uuid);
+    }
+    return owned;
   }
 
   /* -------------------------------------------- */
@@ -96,7 +104,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /**
    * Delete owned references on behalf of a requesting User.
    * Enforce that each still exists, is an allowed document type, and is OWNED by the user who triggered the operation.
-   * @param {Set<string>} references      UUIDs of owned Tokens and Regions to delete
+   * @param {Set<string>} references      UUIDs of owned Documents to delete
    * @param {string} userId               The user who performed the triggering operation
    * @returns {Promise<void>}
    */
@@ -112,7 +120,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       if ( (doc.documentName === "Region") && doc._source.attachment.token ) {
         if ( !doc.attachment.token || references.has(doc.attachment.token.uuid) ) continue;
       }
-      if ( CrucibleActiveEffect.#DELETABLE_TYPES.has(doc.documentName) && doc.testUserPermission(user, "OWNER") ) {
+      if ( (doc.documentName in CrucibleActiveEffect.#DELETABLE_TYPES) && doc.testUserPermission(user, "OWNER") ) {
         await doc.delete();
         continue;
       }
@@ -301,7 +309,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /** @inheritDoc */
   async _onDelete(options, userId) {
     await super._onDelete(options, userId);
-    await this.#deleteOwnedReferences(this.#ownedReferences, userId); // Delete every owned Token/Region
+    await this.#deleteOwnedReferences(this.#ownedReferences, userId); // Delete every owned Document
   }
 
   /* -------------------------------------------- */
