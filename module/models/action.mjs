@@ -821,6 +821,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #sheet;
 
   /**
+   * An id which includes the item id as a suffix, if necessary.
+   * @type {string}
+   */
+  #itemAwareId = this.item?.type === "consumable" ? `${this.id}.${this.item.id}` : this.id;
+
+  /**
    * Requirement tags this actor fails, keyed by tag id, with a reason as the value. Evaluated lazily.
    * @type {Record<string, string>}
    */
@@ -865,7 +871,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @type {boolean}
    */
   get isFavorite() {
-    return this.actor?.system.favorites.has(this.itemAwareId);
+    return this.actor?.system.favorites.has(this.#itemAwareId);
   }
 
   /**
@@ -902,16 +908,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.tags.has("subtle") ) return false;
     if ( this.tags.has("spell") ) return true;
     return this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * An id which includes the item id as a suffix, if necessary.
-   * @type {string}
-   */
-  get itemAwareId() {
-    return this.item?.type === "consumable" ? `${this.id}.${this.item.id}` : this.id;
   }
 
   /* -------------------------------------------- */
@@ -2034,7 +2030,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           duration: effectDuration,
           system,
           // TODO: Store more action information than just identifier, likely on data model rather than flags
-          flags: {crucible: {originAction: this.itemAwareId}}
+          flags: {crucible: {originAction: this.#itemAwareId}}
         };
         if ( showIcon !== undefined ) effect.showIcon = showIcon; // Honor a per-effect icon-visibility override
 
@@ -2065,7 +2061,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           origin: this.actor.uuid,
           showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
           system: {},
-          flags: {crucible: {originAction: this.itemAwareId}}
+          flags: {crucible: {originAction: this.#itemAwareId}}
         }]});
       }
     }
@@ -3322,7 +3318,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   get allowWeaponChoice() {
     if ( !this.actor ) return false;
-    const original = this.actor.actions[this.itemAwareId];
+    const original = this.actor.actions[this.#itemAwareId];
     if ( !original ) return false;
     const {cost, tags} = original._source;
     if ( !(cost.weapon || tags.includes("reload")) ) return false;
@@ -3344,7 +3340,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         scope: "actor",
         name: this.name,
         img: this.img,
-        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${this.itemAwareId}");`
+        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${this.#itemAwareId}");`
       }
     };
   }
@@ -3859,6 +3855,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const ad = SYSTEM.ACTION.DEFAULT_ACTIONS.find(a => a.id === actionId);
     if ( !ad ) return null;
     return new this(foundry.utils.deepClone(ad), {autoFavorite: ad.autoFavorite});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Toggles the favorite state of this action, if on an actor.
+   */
+  async toggleFavorite() {
+    if ( !this.actor ) return;
+
+    // Restrict favorites to actions which still exist
+    const favorites = this.actor.system.favorites.filter(id => id in this.actor.actions);
+
+    // Toggle favorite state for this action
+    if ( favorites.has(this.#itemAwareId) ) favorites.delete(this.#itemAwareId);
+    else favorites.add(this.#itemAwareId);
+    await this.actor.update({"system.favorites": favorites});
   }
 
   /* -------------------------------------------- */
