@@ -149,39 +149,41 @@ pages:
         Health</h2><p>Maintaining the physical and mental health of your
         character is an ever-present challenge. Crucible uses two separate pools
         to represent the hero's state of wellbeing.</p><dl><dt><p>Health and
-        Wounds</p></dt><dd><p>The physical health of a character is modeled
-        using two resource pools. <strong>Health</strong> is a temporary
-        resource which begins full and is decreased when a character sustains
-        damage in combat. <strong>Wounds</strong> are a permanent resource which
-        increase when a character suffers grievous injury.</p><p>If the Health
-        pool is reduced to zero, the character becomes @Condition[weakened] and
-        begins to suffer Wounds. If the Wounds meter reaches its maximum, the
-        character becomes @Condition[dead].</p></dd><dt><p>Morale and
-        Madness</p></dt><dd><p>The mental health of a character is similarly
-        modeled using two resource pools. <strong>Morale</strong> is a temporary
-        resource which begins full and is decreased as the character suffers
-        stress or trauma. <strong>Madness</strong> is a permanent resource which
-        increases when a character suffers grievous mental
+        Wounds</p></dt><dd data-rule="resource.health"><p>The physical health of
+        a character is modeled using two resource pools. <strong>Health</strong>
+        is a temporary resource which begins full and is decreased when a
+        character sustains damage in combat. <strong>Wounds</strong> are a
+        permanent resource which increase when a character suffers grievous
+        injury.</p><p>If the Health pool is reduced to zero, the character
+        becomes @Condition[weakened] and begins to suffer Wounds. If the Wounds
+        meter reaches its maximum, the character becomes
+        @Condition[dead].</p></dd><dt><p>Morale and Madness</p></dt><dd
+        data-rule="resource.morale"><p>The mental health of a character is
+        similarly modeled using two resource pools. <strong>Morale</strong> is a
+        temporary resource which begins full and is decreased as the character
+        suffers stress or trauma. <strong>Madness</strong> is a permanent
+        resource which increases when a character suffers grievous mental
         strain.</p></dd></dl><p>If the Morale pool is reduced to zero, the
         character becomes @Condition[broken] and begins to suffer Madness. If
         the Madness meter reaches its maximum, the character becomes
         @Condition[insane].</p><h2 class="divider">Capacity for
         Action</h2><p>Two resource pools define a character's ability to take
-        action during game
-        situations.</p><dl><dt><p>Action</p></dt><dd><p><strong>Action
-        </strong>describes a character's capacity for rapid action during each
-        round of a combat encounter. Characters typically have a pool of 6
-        Action, all six of which replenish at the start of their turn in
-        combat.</p></dd><dt><p>Focus</p></dt><dd><p><strong>Focus</strong>
-        describes a character's capacity for extraordinary feats of heroism or
-        magic. A character's Focus is replenished when they successfully rest,
-        but during the midst of combat Focus must be used thoughtfully as it
-        will not naturally
-        replenish.</p></dd><dt><p>Heroism</p></dt><dd><p><strong>Heroism</strong>
-        is a special generated resource that allows you to perform spectacular
-        feats of magic or heroic prowess. Heroism is earned over the course of —
-        typically longer — combat encounters allowing you to narratively unleash
-        your most powerful abilities once the tension of battle has
+        action during game situations.</p><dl><dt><p>Action</p></dt><dd
+        data-rule="resource.action"><p><strong>Action </strong>describes a
+        character's capacity for rapid action during each round of a combat
+        encounter. Characters typically have a pool of 6 Action, all six of
+        which replenish at the start of their turn in
+        combat.</p></dd><dt><p>Focus</p></dt><dd
+        data-rule="resource.focus"><p><strong>Focus</strong> describes a
+        character's capacity for extraordinary feats of heroism or magic. A
+        character's Focus is replenished when they successfully rest, but during
+        the midst of combat Focus must be used thoughtfully as it will not
+        naturally replenish.</p></dd><dt><p>Heroism</p></dt><dd
+        data-rule="resource.heroism"><p><strong>Heroism</strong> is a special
+        generated resource that allows you to perform spectacular feats of magic
+        or heroic prowess. Heroism is earned over the course of — typically
+        longer — combat encounters allowing you to narratively unleash your most
+        powerful abilities once the tension of battle has
         peaked!</p></dd></dl><h2 class="divider">Substituting Heroism for
         Focus</h2><p>When a character cannot pay the <strong>Focus</strong> cost
         of an Action, either because their Focus pool is too low or because a
@@ -220,12 +222,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.363'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1761697210522
-      modifiedTime: 1780586345014
-      lastModifiedBy: fzBjA63BB4hW4rQb
+      modifiedTime: 1790257821534
+      lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!characterMechani.Resources0000000'
   - _id: Resistances00000
     name: Resistances and Vulnerability
@@ -887,75 +889,80 @@ pages:
         or some other aspect of their life experience. A Skill advances as you
         invest training points into it through character creation choices,
         Talent purchases, or allocated Proficiency training points.</p><h2
-        class="divider">Exploration
-        Skills</h2><dl><dt><p>Athletics</p></dt><dd><p>The
-        <strong>Athletics</strong> skill represents the ability to undertake and
-        surmount physical challenges. These could involve traversal of difficult
-        terrain like climbing, running, or swimming, or could involve feats of
-        strength, endurance, or
-        flexibility.</p></dd><dt><p>Awareness</p></dt><dd><p><strong>Awareness</strong>
-        is a measure of your skill in translating sensory input into useful
-        information. A character with high Awareness is able to notice and
-        interpret details that others might miss, and is able to quickly
-        identify and react to
-        threats.</p></dd><dt><p>Stealth</p></dt><dd><p><strong>Stealth</strong>
-        covers the ability to hide effectively, to move without making a sound,
-        to disguise oneself, and to otherwise use your environment to hide your
-        presence. Those trained in Stealth focus on finding ways to remain
-        unnoticed, whether sneaking in solitude through a dark alley at night,
-        or blending in at a celebration at a crowded
-        ballroom.</p></dd><dt><p>Wilderness</p></dt><dd><p>Those skilled in
+        class="divider">Exploration Skills</h2><dl><dt><p>Athletics</p></dt><dd
+        data-rule="skill.athletics"><p>The <strong>Athletics</strong> skill
+        represents the ability to undertake and surmount physical challenges.
+        These could involve traversal of difficult terrain like climbing,
+        running, or swimming, or could involve feats of strength, endurance, or
+        flexibility.</p></dd><dt><p>Awareness</p></dt><dd
+        data-rule="skill.awareness"><p><strong>Awareness</strong> is a measure
+        of your skill in translating sensory input into useful information. A
+        character with high Awareness is able to notice and interpret details
+        that others might miss, and is able to quickly identify and react to
+        threats.</p></dd><dt><p>Stealth</p></dt><dd
+        data-rule="skill.stealth"><p><strong>Stealth</strong> covers the ability
+        to hide effectively, to move without making a sound, to disguise
+        oneself, and to otherwise use your environment to hide your presence.
+        Those trained in Stealth focus on finding ways to remain unnoticed,
+        whether sneaking in solitude through a dark alley at night, or blending
+        in at a celebration at a crowded
+        ballroom.</p></dd><dt><p>Wilderness</p></dt><dd
+        data-rule="skill.wilderness"><p>Those skilled in
         <strong>Wilderness</strong> learn to create shelter where there is none,
         identify which water is safe to drink and which is not, and locate
         sources of food in even the most inhospitable places, and to otherwise
         survive in harsh environments.</p></dd></dl><h2
-        class="divider">Knowledge
-        Skills</h2><dl><dt><p>Arcana</p></dt><dd><p>Whether the focus of the
-        education is magical or religious in nature, <strong>Arcana</strong>
-        encompasses the study of esoteric knowledge. Students of Arcana learn
-        fundamental principles of metaphysics, study spiritual beings and
-        deities, runic theory and ritual, the nature of chaos and order, and the
-        history of how magical and spiritual forces impact societies and
-        cultures.</p></dd><dt><p>Medicine</p></dt><dd><p>The study of
-        <strong>Medicine</strong> is a practical one, with a focus on studying
-        the mechanical, biological components that make up living creatures, the
-        ailments that can afflict them, and the ways to best treat injury and
-        illness
-        alike.</p></dd><dt><p>Science</p></dt><dd><p><strong>Science</strong> is
-        concerned with physical phenomena and examining the world through the
-        lens of logic, reason, mathematics, and the use of structured
-        observation. A student of science learns to posit and confirm theories,
-        analyze the construction of physical objects and machines, and apply
-        mathematical thinking.</p></dd><dt><p>Society</p></dt><dd><p>The
-        <strong>Society</strong> skill is most often used for the purposes of
-        research or understanding into the nuanced aspects of a social
-        situation. Those educated in the workings of Society study the factors
-        which contribute to social structures. Knowledge of Society is used to
-        establish historical or socio-political context, to identify the social
-        rank of particular individuals, or to otherwise draw connections between
-        a person or place and its most likely contributors.</p></dd></dl><h2
-        class="divider">Social
-        Skills</h2><dl><dt><p>Deception</p></dt><dd><p><strong>Deception</strong>
-        most commonly comes into play when a character is attempting to lie or
-        mislead others, forge documents, or pierce the veil of lies others
-        construct. Those who pursue an education in Deception are often
-        politicians, diplomats, spies, thieves, or other professions for whom
-        flexibility in the truth is a
-        necessity.</p></dd><dt><p>Diplomacy</p></dt><dd><p><strong>Diplomacy</strong>
-        is rolled most often to persuade others to see things your way. A skill
-        most commonly found in the politically savvy or influential orators,
-        Diplomacy allows for the use of rhetoric and emotional appeals to
-        inspire and convince others. Diplomats focus their efforts on the use of
-        words, rather than deeds, to change opinions and inspire emotional
-        reactions.</p></dd><dt><p>Intimidation</p></dt><dd><p><strong>Intimidation</strong>
-        is used to force others to do your bidding, whether through displays of
+        class="divider">Knowledge Skills</h2><dl><dt><p>Arcana</p></dt><dd
+        data-rule="skill.arcana"><p>Whether the focus of the education is
+        magical or religious in nature, <strong>Arcana</strong> encompasses the
+        study of esoteric knowledge. Students of Arcana learn fundamental
+        principles of metaphysics, study spiritual beings and deities, runic
+        theory and ritual, the nature of chaos and order, and the history of how
+        magical and spiritual forces impact societies and
+        cultures.</p></dd><dt><p>Medicine</p></dt><dd
+        data-rule="skill.medicine"><p>The study of <strong>Medicine</strong> is
+        a practical one, with a focus on studying the mechanical, biological
+        components that make up living creatures, the ailments that can afflict
+        them, and the ways to best treat injury and illness
+        alike.</p></dd><dt><p>Science</p></dt><dd
+        data-rule="skill.science"><p><strong>Science</strong> is concerned with
+        physical phenomena and examining the world through the lens of logic,
+        reason, mathematics, and the use of structured observation. A student of
+        science learns to posit and confirm theories, analyze the construction
+        of physical objects and machines, and apply mathematical
+        thinking.</p></dd><dt><p>Society</p></dt><dd
+        data-rule="skill.society"><p>The <strong>Society</strong> skill is most
+        often used for the purposes of research or understanding into the
+        nuanced aspects of a social situation. Those educated in the workings of
+        Society study the factors which contribute to social structures.
+        Knowledge of Society is used to establish historical or socio-political
+        context, to identify the social rank of particular individuals, or to
+        otherwise draw connections between a person or place and its most likely
+        contributors.</p></dd></dl><h2 class="divider">Social
+        Skills</h2><dl><dt><p>Deception</p></dt><dd
+        data-rule="skill.deception"><p><strong>Deception</strong> most commonly
+        comes into play when a character is attempting to lie or mislead others,
+        forge documents, or pierce the veil of lies others construct. Those who
+        pursue an education in Deception are often politicians, diplomats,
+        spies, thieves, or other professions for whom flexibility in the truth
+        is a necessity.</p></dd><dt><p>Diplomacy</p></dt><dd
+        data-rule="skill.diplomacy"><p><strong>Diplomacy</strong> is rolled most
+        often to persuade others to see things your way. A skill most commonly
+        found in the politically savvy or influential orators, Diplomacy allows
+        for the use of rhetoric and emotional appeals to inspire and convince
+        others. Diplomats focus their efforts on the use of words, rather than
+        deeds, to change opinions and inspire emotional
+        reactions.</p></dd><dt><p>Intimidation</p></dt><dd
+        data-rule="skill.intimidation"><p><strong>Intimidation</strong> is used
+        to force others to do your bidding, whether through displays of
         aggression or threats of violence. Those trained in the art of
         intimidation are capable of using their words and actions to inspire
         fear in others, to demonstrate dominance or press others into
         subservience. Those who train their skill in intimidation need not
         necessarily be physically imposing in terms of stature, for words and
         deeds can be equally capable of inspiring
-        fear.</p></dd><dt><p>Performance</p></dt><dd><p>Those who study
+        fear.</p></dd><dt><p>Performance</p></dt><dd
+        data-rule="skill.performance"><p>Those who study
         <strong>Performance</strong> learn, above all else, how to use their
         talents to inspire and entertain others whether through music, dance,
         storytelling, or other forms of artistic expression.. Performers learn
@@ -966,39 +973,45 @@ pages:
         them. Each is described in full, with its abilities and example
         products, within the
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tradeskillsOverv]{Crafting}
-        journal.</p><dl><dt><p>Alchemy</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.alchemy000000000]{Alchemy}
+        journal.</p><dl><dt><p>Alchemy</p></dt><dd
+        data-rule="skill.alchemy"><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.alchemy000000000]{Alchemy}
         reduces botanicals and minerals to their virtues and recombines them
         into something which can be drunk, smeared upon a blade, or thrown. Its
         products are consumables, made to be spent rather than kept, and its
         practitioners refine the reagents other trades depend
-        upon.</p></dd><dt><p>Cooking</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.cooking000000000]{Cooking}
+        upon.</p></dd><dt><p>Cooking</p></dt><dd
+        data-rule="skill.cooking"><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.cooking000000000]{Cooking}
         is the trade of what goes into people: the meals which carry a company
         from one hardship to the next, and also the poisons and drugs which do
         nothing of the sort. A cook produces all three; anyone at all may use
-        them.</p></dd><dt><p>Enchanting</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.enchanting000000]{Enchanting}
+        them.</p></dd><dt><p>Enchanting</p></dt><dd
+        data-rule="skill.enchanting"><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.enchanting000000]{Enchanting}
         binds a Glyph into a finished object so that it holds a magical property
         permanently. An enchanter makes nothing alone, depending upon a
         glyphweaver for the Glyph and upon another crafter for a base item fine
-        enough to hold
-        it.</p></dd><dt><p>Fletching</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.fletching0000000]{Fletching}
+        enough to hold it.</p></dd><dt><p>Fletching</p></dt><dd
+        data-rule="skill.fletching"><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.fletching0000000]{Fletching}
         is the working of wood. It is best known for bows and their ammunition,
         but extends to every wooden implement a company carries: staves and
         cudgels, light shields, wooden talismans, and the seasoned stock other
-        crafters
-        require.</p></dd><dt><p>Glyphweaving</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweaving}
+        crafters require.</p></dd><dt><p>Glyphweaving</p></dt><dd
+        data-rule="skill.glyphweaving"><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.glyphweaving0000]{Glyphweaving}
         inscribes a metaphysical Rune into a physical Glyph which can be
         carried, traded, and eventually bound into equipment. The same
         discipline governs mundane inscription: letters and records, painted
         work, and the spell scrolls a caster
-        spends.</p></dd><dt><p>Jewelcraft</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.jewelcraft000000]{Jewelcraft}
+        spends.</p></dd><dt><p>Jewelcraft</p></dt><dd
+        data-rule="skill.jewelcraft"><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.jewelcraft000000]{Jewelcraft}
         is the cutting of stones and the raising of settings to hold them. Its
         products are rings, amulets and other ornaments worn in an accessory
         slot, along with the cut gems other trades require for their finest
-        work.</p></dd><dt><p>Smithing</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.smithing00000000]{Smithing}
+        work.</p></dd><dt><p>Smithing</p></dt><dd
+        data-rule="skill.smithing"><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.smithing00000000]{Smithing}
         is the working of base metals and alloys into arms and armor. A smith
         produces metal weapons of every category, metal armor and heavy shields,
         and is the trade a company relies upon most directly when a fight goes
-        badly.</p></dd><dt><p>Tailoring</p></dt><dd><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tailoring0000000]{Tailoring}
+        badly.</p></dd><dt><p>Tailoring</p></dt><dd
+        data-rule="skill.tailoring"><p>@UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.tailoring0000000]{Tailoring}
         works fabric, fur and leather. It covers cloth and leather armor and
         clothing of every kind, but reaches far past what is worn: packs and
         boots, belts and straps, scabbards and grips are all a tailor's
@@ -1017,12 +1030,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.367'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1763079763956
-      modifiedTime: 1788723371609
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1790255193381
+      lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!characterMechani.skills0000000000'
   - _id: proficiencies000
     name: Proficiencies

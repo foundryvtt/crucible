@@ -228,6 +228,7 @@ async function displayTagTooltip(event) {
     // Maybe derive tooltip content from authoritative journal text
     if ( !tooltip && page ) {
       tooltip = extractRuleContent(page, ruleId);
+      if ( !tooltip && cfg.sibling ) tooltip = extractRuleContent(page, ruleId.split(".").toSpliced(-1).concat(cfg.sibling).join("."));
       if ( tooltip && cfg.tooltip ) foundry.utils.setProperty(game.i18n.translations, cfg.tooltip, tooltip);
     }
     name = _loc(cfg.name) ?? _loc(cfg.label) ?? page?.name;
