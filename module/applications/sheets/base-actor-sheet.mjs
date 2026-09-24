@@ -964,18 +964,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const actionId = target.closest(".action").dataset.actionId;
     const action = this.actor.actions[actionId];
     if ( !action ) return;
-
-    // Restrict favorites to actions which still exist
-    const priorFavorites = this.actor.system.favorites;
-    const favorites = new Set();
-    for ( const action of Object.values(this.actor.actions) ) {
-      if ( priorFavorites.has(action.id) ) favorites.add(action.id);
-    }
-
-    // Toggle favorite state for this action
-    if ( favorites.has(action.id) ) favorites.delete(action.id);
-    else favorites.add(action.id);
-    await this.actor.update({"system.favorites": favorites});
+    await action.toggleFavorite();
   }
 
   /* -------------------------------------------- */
