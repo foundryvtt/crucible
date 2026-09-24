@@ -148,25 +148,29 @@ pages:
         resources is zero.</p><h2 class="divider">Physical and Mental
         Health</h2><p>Maintaining the physical and mental health of your
         character is an ever-present challenge. Crucible uses two separate pools
-        to represent the hero's state of wellbeing.</p><dl><dt><p>Health and
-        Wounds</p></dt><dd data-rule="resource.health"><p>The physical health of
-        a character is modeled using two resource pools. <strong>Health</strong>
-        is a temporary resource which begins full and is decreased when a
-        character sustains damage in combat. <strong>Wounds</strong> are a
-        permanent resource which increase when a character suffers grievous
-        injury.</p><p>If the Health pool is reduced to zero, the character
-        becomes @Condition[weakened] and begins to suffer Wounds. If the Wounds
-        meter reaches its maximum, the character becomes
-        @Condition[dead].</p></dd><dt><p>Morale and Madness</p></dt><dd
-        data-rule="resource.morale"><p>The mental health of a character is
-        similarly modeled using two resource pools. <strong>Morale</strong> is a
-        temporary resource which begins full and is decreased as the character
-        suffers stress or trauma. <strong>Madness</strong> is a permanent
+        to represent the hero's state of wellbeing.</p><p>The physical health of
+        a character is modeled using two resource
+        pools.</p><dl><dt><p>Health</p></dt><dd
+        data-rule="resource.health"><p><strong>Health</strong> is a temporary
+        resource which begins full and is decreased when a character sustains
+        damage in combat. If the Health pool is reduced to zero, the character
+        becomes @Condition[weakened] and begins to suffer
+        <strong>Wounds</strong>.</p></dd><dt><p>Wounds</p></dt><dd
+        data-rule="resource.wounds"><p><strong>Wounds</strong> are a permanent
+        resource which increase when a character suffers grievous injury. If the
+        Wounds meter reaches its maximum, the character becomes
+        @Condition[dead].</p></dd></dl><p>The mental health of a character is
+        similarly modeled using two resource
+        pools.</p><dl><dt><p>Morale</p></dt><dd
+        data-rule="resource.morale"><p><strong>Morale</strong> is a temporary
+        resource which begins full and is decreased as the character suffers
+        stress or trauma. If the Morale pool is reduced to zero, the character
+        becomes @Condition[broken] and begins to suffer
+        <strong>Madness</strong>.</p></dd><dt><p>Madness</p></dt><dd
+        data-rule="resource.madness"><p><strong>Madness</strong> is a permanent
         resource which increases when a character suffers grievous mental
-        strain.</p></dd></dl><p>If the Morale pool is reduced to zero, the
-        character becomes @Condition[broken] and begins to suffer Madness. If
-        the Madness meter reaches its maximum, the character becomes
-        @Condition[insane].</p><h2 class="divider">Capacity for
+        strain. If the Madness meter reaches its maximum, the character becomes
+        @Condition[insane].</p></dd></dl><h2 class="divider">Capacity for
         Action</h2><p>Two resource pools define a character's ability to take
         action during game situations.</p><dl><dt><p>Action</p></dt><dd
         data-rule="resource.action"><p><strong>Action </strong>describes a
@@ -226,7 +230,7 @@ pages:
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1761697210522
-      modifiedTime: 1790257821534
+      modifiedTime: 1790262096199
       lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!characterMechani.Resources0000000'
   - _id: Resistances00000
