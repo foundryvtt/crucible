@@ -27,9 +27,13 @@ system:
     - item: Compendium.crucible.talent.Item.wildspeaker00000
       level: 2
     - item: Compendium.crucible.talent.Item.perspicacity0000
-      level: 0
+      level: 2
     - item: Compendium.crucible.talent.Item.pinningshot00000
       level: 3
+    - item: Compendium.crucible.talent.Item.hide000000000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.sneak00000000000
+      level: 0
   training:
     athletics: 1
     awareness: 2
@@ -53,11 +57,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.0
   createdTime: 1772307157481
-  modifiedTime: 1788727524617
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1790201504058
+  lastModifiedBy: LN1mJpYcJI40HRfK
 sort: 800000
 _key: '!items!archetypeScout00'

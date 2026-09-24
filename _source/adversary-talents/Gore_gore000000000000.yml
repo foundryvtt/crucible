@@ -1,0 +1,87 @@
+name: Gore
+type: talent
+_id: gore000000000000
+img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} slams its antlers, tusks, or horns into a
+    creature with its full might.</p>
+  actions:
+    - id: gore
+      img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - staggered
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+      tags:
+        - brute
+        - deadly
+      name: Gore
+      description: >-
+        <p>The @ref[actor.name]{creature} slams its antlers, tusks, or horns
+        into a creature with its @Rule[action.brute] strength, making
+        a@Rule[action.deadly] attack which, if successful also renders its
+        target @Condition[staggered] until the end of their next
+        <strong>Turn</strong>.</p>
+      condition: ''
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+effects: []
+folder: 9uAW3eV4LNZ2lQ0V
+ownership:
+  default: 0
+  LN1mJpYcJI40HRfK: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790201245829
+  modifiedTime: 1790201245829
+  lastModifiedBy: LN1mJpYcJI40HRfK
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!gore000000000000'

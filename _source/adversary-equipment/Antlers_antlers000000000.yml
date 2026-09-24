@@ -1,0 +1,45 @@
+name: Antlers
+type: weapon
+_id: antlers000000000
+img: icons/creatures/mammals/deer-antlers-blue.webp
+system:
+  identifier: antlers
+  category: simple2
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - intuitive
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} has prominent antlers which it uses to
+      defend itself and gore its enemies.</p>
+    private: ''
+  actions: []
+  damageType: piercing
+  dropped: false
+  slot: 0
+effects: []
+folder: creatureParts000
+ownership:
+  default: 0
+  LN1mJpYcJI40HRfK: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790200745294
+  modifiedTime: 1790200745294
+  lastModifiedBy: LN1mJpYcJI40HRfK
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!antlers000000000'

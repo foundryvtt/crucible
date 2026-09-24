@@ -1,0 +1,102 @@
+name: Moose
+type: taxonomy
+_id: moose00000000000
+img: icons/creatures/mammals/deer-antlers-blue.webp
+system:
+  description: >-
+    <p>A slightly goofy, bent-nosed face does little to detract from the
+    imposing height and bulk of this ungulate.</p>
+  identifier: moose
+  category: beast
+  abilities:
+    wisdom: 2
+    presence: 1
+    intellect: 1
+    strength: 4
+    toughness: 3
+    dexterity: 1
+  movement:
+    size: 8
+    stride: 12
+  resistances:
+    bludgeoning:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    slashing:
+      value: 1
+      immune: false
+    poison:
+      value: 1
+      immune: false
+    acid:
+      value: 0
+      immune: false
+    fire:
+      value: -1
+      immune: false
+    cold:
+      value: 1
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    psychic:
+      value: -1
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.talent.Item.thickskin0000000
+      level: 3
+    - item: Compendium.crucible.adversary-talents.Item.bestialSenses000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.tramplingCharge0
+      level: 1
+    - item: Compendium.crucible.adversary-talents.Item.gore000000000000
+      level: 2
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.thickHide0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.hooves0000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.antlers000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: false
+    temperature: ''
+effects: []
+folder: wTcQjW37uAKhpMQL
+ownership:
+  default: 0
+  LN1mJpYcJI40HRfK: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790201279164
+  modifiedTime: 1790201279164
+  lastModifiedBy: LN1mJpYcJI40HRfK
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!moose00000000000'
