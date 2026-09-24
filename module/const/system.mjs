@@ -214,13 +214,9 @@ export const TIME = Object.freeze({
  * @returns {RulesRecord}
  */
 function prepareRules(rulesEnum, page) {
-  return Object.values(rulesEnum).reduce((acc, {tooltip, ...entry}) => ({
-    ...acc,
-    [entry.id]: {
-      ...entry,
-      page
-    }
-  }), {});
+  return Object.values(rulesEnum).reduce((acc, {tooltip: _t, ...entry}) => {
+    return {...acc, [entry.id]: {...entry, page}};
+  }, {});
 }
 
 /**
