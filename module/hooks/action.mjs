@@ -1316,14 +1316,15 @@ HOOKS.gallowsHumor = {
 /* -------------------------------------------- */
 
 HOOKS.headbutt = {
-  prepare() {
+  initialize() {
     const cls = getDocumentClass("Item");
     const weaponData = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
     weaponData.name = this.name;
     const weapon = new cls(weaponData, {parent: this.actor});
     weapon.system.prepareEquippedData();
     this.usage.weapon = weapon;
-    foundry.utils.mergeObject(this.usage.bonuses, weapon.system.actionBonuses);
+  },
+  prepare() {
     foundry.utils.mergeObject(this.usage.context, {
       type: "weapons",
       label: "Weapon Tags",
@@ -1585,6 +1586,22 @@ HOOKS.medicinalCompound = {
         {amount, resource: "morale", restoration: true}
       );
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.net = {
+  initialize() {
+    const cls = getDocumentClass("Item");
+    const net = new cls({
+      name: this.item?.name ?? this.name,
+      type: "weapon",
+      img: this.img,
+      system: {category: "light1", quality: "standard", enchantment: "mundane", damageType: "bludgeoning"}
+    }, {parent: this.actor});
+    net.system.prepareEquippedData();
+    this.usage.weapon = net;
   }
 };
 
@@ -2623,15 +2640,15 @@ HOOKS.uppercut = {
 /* -------------------------------------------- */
 
 HOOKS.vampiricBite = {
-  prepare() {
+  initialize() {
     const cls = getDocumentClass("Item");
     const biteData = foundry.utils.deepClone(SYSTEM.WEAPON.VAMPIRE_BITE);
     biteData.name = _loc(biteData.name);
     const bite = new cls(biteData, {parent: this.actor});
     bite.system.prepareEquippedData();
     this.usage.weapon = bite;
-    this.usage.context.tags.vampiricBite = this.name;
-    foundry.utils.mergeObject(this.usage.bonuses, bite.system.actionBonuses);
+  },
+  prepare() {
     foundry.utils.mergeObject(this.usage.context, {
       type: "weapons",
       label: "Weapon Tags",

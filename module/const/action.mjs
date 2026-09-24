@@ -678,26 +678,16 @@ export const TAGS = {
     priority: Infinity, // Last
     internal: true,
     initialize() {
-      this.usage.strikes = []; // Reset strike sequence
+      this.usage.strikes = [];  // Reset strike sequence
+      this.usage.weapon = null; // Reset weapon requirement
     },
     prepare() {
       // Capture the non-weapon cost before weapon cost is added, so candidate affordability can be measured against it
       this.usage.baseActionCost = this.cost.action;
       this.usage.focusBlock.enraged = false; // Strikes may be made while enraged
 
-      // Resolve a specific weapon when a choice is allowed. Honor explicit user selection as usage.weaponChoice.
-      // Otherwise, pick the best available weapon for the current target.
-      if ( this.usage.weaponChoices ) {
-        const choices = this.getValidWeaponChoices();
-        const locked = this.usage.weaponChoice ? choices.find(c => c.id === this.usage.weaponChoice)?.item : null;
-        const target = (canvas.ready && this.token?.object && game.user.targets.size)
-          ? game.user.targets.values().next().value : null;
-        this.usage.weapon = locked ?? choices.reduce((best, c) => {
-          let {rank} = this._getWeaponAvailability(c.item, {target});
-          if ( c.item.system.properties.has("natural") ) rank -= 0.5; // Prefer equipped > natural at same rank
-          return (!best || (rank > best.rank)) ? {item: c.item, rank} : best;
-        }, null)?.item;
-      }
+      // Resolve a specific weapon when a choice is allowed
+      if ( this.usage.weaponChoices ) this.usage.weapon = this._chooseBestWeapon();
       const strikes = this.usage.strikes;
 
       // Default weapon-based strikes
@@ -779,6 +769,7 @@ export const TAGS = {
     preActivate() {
       const updateEvent = this.selfUpdateEvent;
       for ( const w of this.usage.strikes ) {
+        if ( !this.actor.items.has(w.id) ) continue; // Generated weapons (like "Headbutt") have no persisted state
         updateEvent.itemSnapshots.push(w.snapshot());
         if ( w.config.category.reload ) {
           updateEvent.actorUpdates.items.push({_id: w.id, "system.loaded": false});

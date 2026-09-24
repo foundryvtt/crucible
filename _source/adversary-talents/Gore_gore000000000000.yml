@@ -51,9 +51,11 @@ system:
             properties: []
             regions: []
             summons: []
+            lights: []
       tags:
         - brute
         - deadly
+        - natural
       name: Gore
       description: >-
         <p>The @ref[actor.name]{creature} slams its antlers, tusks, or horns
@@ -78,7 +80,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.0
   createdTime: 1790201245829
-  modifiedTime: 1790201245829
+  modifiedTime: 1790270038638
   lastModifiedBy: LN1mJpYcJI40HRfK
   compendiumSource: null
   duplicateSource: null

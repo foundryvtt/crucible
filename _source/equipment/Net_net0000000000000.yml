@@ -63,8 +63,8 @@ system:
       tags:
         - consume
         - melee
-        - thrown
         - reflex
+        - harmless
   uses:
     value: 1
     max: 1

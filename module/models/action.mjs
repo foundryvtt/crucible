@@ -53,7 +53,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
  * @property {string} [defenseType]         A special defense type being targeted
  * @property {string} [skillId]             A skill ID that is being used
- * @property {CrucibleItem} [weapon]        A specific weapon item being used
+ * @property {CrucibleItem} [weapon]        A specific weapon item being used, or which must be used, by this action
  * @property {CrucibleItem} [consumable]    A specific consumable item being used
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
  * @property {Record<string, -1|0|1>} [resourceConstraints]  Directional limits on the acting actor's own resources,
@@ -2333,6 +2333,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+  /*  Weapon Selection                            */
+  /* -------------------------------------------- */
+
+  /**
+   * Does this Action offer a choice of which weapon to use?
+   * @returns {boolean}
+   */
+  get allowWeaponChoice() {
+    if ( !this.usage.weaponChoices ) return false;
+    return !!this.actor?.equipment.weapons.hasChoice;
+  }
+
+  /* -------------------------------------------- */
 
   /**
    * @typedef CrucibleActionWeaponChoice
@@ -2352,7 +2365,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _prepareWeaponChoices() {
     const isWeaponAction = this.tags.has("strike") || this.tags.has("reload");
-    const isForced = ["mainhand", "offhand", "twohand"].some(t => this.tags.has(t));
+    const isForced = ["mainhand", "offhand", "twohand"].some(t => this.tags.has(t))
+      || (this.tags.has("strike") && this.usage.weapon); // A specific weapon is required
     if ( !isWeaponAction || isForced ) return null;
     const w = this.actor.equipment.weapons;
     const isReload = this.tags.has("reload");
@@ -2384,6 +2398,33 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   getValidWeaponChoices() {
     return (this.usage.weaponChoices ?? []).filter(c => c.viable);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Choose which VALID weapon this action uses, honoring an explicit weapon choice if one was made.
+   * Candidates are ordered by availability rank, then by preference.
+   * @returns {CrucibleItem|undefined}
+   * @internal
+   */
+  _chooseBestWeapon() {
+    const choices = this.getValidWeaponChoices();
+    const locked = this.usage.weaponChoice ? choices.find(c => c.id === this.usage.weaponChoice) : null;
+    if ( locked ) return locked.item;
+
+    // Rank candidates against the first user target
+    const target = (canvas.ready && this.token?.object && game.user.targets.size)
+      ? game.user.targets.values().next().value : null;
+    let best;
+    for ( const {item} of choices ) {
+      const {rank} = this._getWeaponAvailability(item, {target});
+      const preference = this._getWeaponPreference(item);
+      if ( !best || (rank > best.rank) || ((rank === best.rank) && (preference > best.preference)) ) {
+        best = {item, rank, preference};
+      }
+    }
+    return best?.item;
   }
 
   /* -------------------------------------------- */
@@ -2425,6 +2466,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( weapon.system.dropped ) return {available: false, reason: "dropped", rank};
     rank++;
     return {available: true, reason: null, rank};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Score how strongly this action prefers a VALID weapon among candidates of equal availability.
+   * @param {CrucibleItem} weapon     The candidate weapon
+   * @returns {number}                A higher score is preferred
+   * @protected
+   */
+  _getWeaponPreference(weapon) {
+    let preference = 0;
+    if ( this.tags.has(weapon.system.damageType) ) preference += 2; // Matches a damage type tag
+    if ( !weapon.system.properties.has("natural") ) preference += 1; // Equipped over natural
+    return preference;
   }
 
   /* -------------------------------------------- */
@@ -3312,22 +3368,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
   /*  Display and Formatting Methods              */
-  /* -------------------------------------------- */
-
-  /**
-   * Does this Action require a weapon to be chosen before it can be used?
-   * @returns {boolean}
-   */
-  get allowWeaponChoice() {
-    if ( !this.actor ) return false;
-    const original = this.actor.actions[this.#itemAwareId];
-    if ( !original ) return false;
-    const {cost, tags} = original._source;
-    if ( !(cost.weapon || tags.includes("reload")) ) return false;
-    if ( ["mainhand", "offhand", "twohand"].some(t => tags.includes(t)) ) return false;
-    return this.actor?.equipment.weapons.hasChoice;
-  }
-
   /* -------------------------------------------- */
 
   /**
