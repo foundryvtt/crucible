@@ -376,6 +376,7 @@ HOOKS.brutalDisplay000 = {
     applyMoraleWave(this, action, {
       test: (target, deltas) => {
         const {health, wounds} = target.system.resources;
+        if ( !health.max ) return false; // No health pool to deplete
         if ( target.system.isDead ) return false; // Already a corpse before this Action landed
         if ( target.system.usesReserveResources ) return (wounds.value + (deltas.wounds ?? 0)) >= wounds.max;
         return (health.value + (deltas.health ?? 0)) <= 0;
