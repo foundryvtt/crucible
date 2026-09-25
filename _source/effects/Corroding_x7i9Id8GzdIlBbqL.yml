@@ -1,0 +1,49 @@
+folder: IRL4ZhYtVmlkQXvs
+name: Corroding
+type: base
+_id: x7i9Id8GzdIlBbqL
+img: icons/magic/earth/orb-stone-smoke-teal.webp
+system:
+  changes: []
+  dc: null
+  dot:
+    - amount: 4
+      damageType: acid
+      resource: health
+      restoration: false
+  maintenance:
+    cost: null
+    hands: 0
+  properties: []
+  regions: []
+  summons: []
+disabled: false
+start: null
+duration:
+  value: 3
+  units: rounds
+  expiry: turnStart
+  expired: false
+description: >-
+  <p>A <strong>Corroding</strong> creature suffers additional
+  <strong>Acid</strong> damage to <strong>Health</strong> at the start of its
+  subsequent turns.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses:
+  - corroding
+showIcon: 1
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.10.1
+  createdTime: 1790363235412
+  modifiedTime: 1790366915584
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!x7i9Id8GzdIlBbqL'
