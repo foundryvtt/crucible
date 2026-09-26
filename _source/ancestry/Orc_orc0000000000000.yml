@@ -1,5 +1,5 @@
-_id: orcish0000000000
-name: Orcish
+_id: orc0000000000000
+name: Orc
 type: ancestry
 img: icons/creatures/magical/construct-iron-stomping-yellow.webp
 effects: []
@@ -12,7 +12,7 @@ system:
     has origins amid a people exposed to the relentless struggle of a harsh
     northern clime. Your people are known for their strength and resilience
     above all else.</p>
-  identifier: orcish
+  identifier: orc
   talents:
     - item: Compendium.crucible.ancestry.Item.deathlessFury000
       level: null
@@ -41,4 +41,4 @@ sort: 101563
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_key: '!items!orcish0000000000'
+_key: '!items!orc0000000000000'

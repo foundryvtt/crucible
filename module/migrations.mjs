@@ -228,11 +228,12 @@ export async function performMigrations(priorVersion) {
   // Retire flanked active effects in 0.10.2
   if ( upgradingTo("0.10.2") ) await _deleteFlankedEffects();
 
-  // Proficiency redesign requires full respec in 0.11.0
+  // Proficiency redesign requires full respec in 0.11.0; ancestry renames in 0.11.1 require only a detail sync
   if ( upgradingTo("0.11.0") ) {
     await _syncDetailItems();
     await _resetHeroTalents();
   }
+  else if ( upgradingTo("0.11.1") ) await _syncDetailItems();
 
   // Record the new migration version, then reload so every client re-initializes against the migrated world.
   // The reload is load-bearing: `migrating` is deliberately left unresolved on this path, so a migration which
@@ -245,7 +246,6 @@ export async function performMigrations(priorVersion) {
 
 /**
  * Re-apply the Ancestry, Background, Archetype, and Taxonomy snapshots held by each Actor from their sources.
- * Detail items gained Proficiency grants in 0.11.0.
  * @returns {Promise<void>}
  */
 async function _syncDetailItems() {

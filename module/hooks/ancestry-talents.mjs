@@ -2,7 +2,7 @@ const ACTION = {};
 const TALENT = {};
 
 /* -------------------------------------------- */
-/*  Deathless Fury (Orcish)                     */
+/*  Deathless Fury (Orc)                        */
 /* -------------------------------------------- */
 
 ACTION.deathlessFury = {
@@ -60,7 +60,7 @@ TALENT.elementalBirthri = {
 };
 
 /* -------------------------------------------- */
-/*  Grudgebearer (Dwarven)                      */
+/*  Grudgebearer (Dwarf)                        */
 /* -------------------------------------------- */
 
 ACTION.grudgebearer = {
@@ -117,7 +117,7 @@ TALENT.hellbrand0000000 = {
 };
 
 /* -------------------------------------------- */
-/*  Perfect Precision (Elvish)                  */
+/*  Perfect Precision (Elf)                     */
 /* -------------------------------------------- */
 
 TALENT.perfectPrecision = {

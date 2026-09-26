@@ -161,6 +161,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     source = super.migrateData(source);
 
     SYSTEM.TALENT.migrateTalentGrants(source);
+    CrucibleAncestryItem._migrateIdentifier(source);
 
     /** @deprecated since 0.7.0 until 0.8.0 */
     const {primary, secondary, resistance, vulnerability, size, stride} = source;
@@ -185,5 +186,18 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     }
 
     return source;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Replace the identifier of a renamed system-provided ancestry in candidate source data.
+   * @param {object} source   Candidate ancestry or ancestry-derived taxonomy source data, modified in place
+   * @deprecated since 0.11.1 until 0.13.0
+   * @internal
+   */
+  static _migrateIdentifier(source) {
+    const migrations = {dwarven: "dwarf", elvish: "elf", orcish: "orc"};
+    if ( Object.hasOwn(migrations, source.identifier) ) source.identifier = migrations[source.identifier];
   }
 }

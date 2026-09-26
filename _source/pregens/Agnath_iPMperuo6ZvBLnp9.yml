@@ -59,8 +59,10 @@ system:
         for toughness has origins amid a people exposed to the relentless
         struggle of a harsh northern clime. Your people are known for their
         strength and resilience above all else.</p>
-      identifier: orcish
-      talents: []
+      identifier: orc
+      talents:
+        - item: Compendium.crucible.ancestry.Item.deathlessFury000
+          level: null
       ui:
         color: '#c14425'
       abilities:
@@ -75,7 +77,7 @@ system:
       characteristics:
         blooded: true
         temperature: ''
-      name: Orcish
+      name: Orc
       img: icons/creatures/magical/construct-iron-stomping-yellow.webp
     background:
       description: >-
@@ -298,10 +300,10 @@ items:
       slot: 3
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702045
-      modifiedTime: 1789656702045
+      createdTime: 1790445309545
+      modifiedTime: 1790445309545
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -341,10 +343,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702045
-      modifiedTime: 1789656702045
+      createdTime: 1790445309546
+      modifiedTime: 1790445309546
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -397,6 +399,8 @@ items:
             - harmless
             - rallying
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: talisman
       nodes:
@@ -409,9 +413,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702045
-      modifiedTime: 1789656702045
+      systemVersion: 0.11.1
+      createdTime: 1790445309546
+      modifiedTime: 1790445309546
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -445,10 +449,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702045
-      modifiedTime: 1789656702045
+      createdTime: 1790445309546
+      modifiedTime: 1790445309546
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -509,6 +513,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: flame
       nodes:
         - int0a
@@ -522,9 +528,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702046
-      modifiedTime: 1789656702046
+      systemVersion: 0.11.1
+      createdTime: 1790445309547
+      modifiedTime: 1790445309547
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -556,10 +562,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702046
-      modifiedTime: 1789656702046
+      createdTime: 1790445309547
+      modifiedTime: 1790445309547
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -595,10 +601,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702046
-      modifiedTime: 1789656702046
+      createdTime: 1790445309547
+      modifiedTime: 1790445309547
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -651,6 +657,8 @@ items:
             weapon: true
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - str1a
       iconicSpells: 0
@@ -661,9 +669,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702046
-      modifiedTime: 1789656702046
+      systemVersion: 0.11.1
+      createdTime: 1790445309547
+      modifiedTime: 1790445309547
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -675,6 +683,93 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!iPMperuo6ZvBLnp9.uppercut00000000'
+  - name: Deathless Fury
+    type: talent
+    img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+    system:
+      nodes:
+        - origin
+      description: >-
+        <p>The harsh northern clime forged your people to fight hardest when
+        death is nearest.</p>
+      actions:
+        - id: deathlessFury
+          name: Deathless Fury
+          img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+          condition: While your Health does not exceed your Wounds
+          description: >-
+            <p>While your @Rule[resource.health] does not exceed your
+            @Rule[resource.wounds], you may expend @Rule[resource.heroism] to
+            enter a deathless fury. While the fury lasts you ignore all
+            penalties of being @Condition[weakened] and your @Action[default
+            strike] attacks gain <strong>+1 Boon</strong>.</p><p>The fury ends
+            when your @Rule[resource.health] exceeds your @Rule[resource.wounds]
+            or when <strong>Combat</strong> ends.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - name: Deathless Fury
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: combatEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+                lights: []
+          tags: []
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: athletics
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _id: deathlessFury000
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790445309544
+      modifiedTime: 1790445309544
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iPMperuo6ZvBLnp9.deathlessFury000'
 effects: []
 flags:
   core: {}
@@ -682,10 +777,10 @@ flags:
     lastSpell: spell.death.touch
 _stats:
   systemId: crucible
-  systemVersion: 0.11.0
+  systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1789656702044
-  modifiedTime: 1789656702044
+  createdTime: 1790445309544
+  modifiedTime: 1790445309544
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

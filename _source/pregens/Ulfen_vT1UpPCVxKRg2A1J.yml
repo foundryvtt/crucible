@@ -60,7 +60,9 @@ system:
         a genetic predisposition toward determination, with traditions that
         drive a stubborn will to survive.</p>
       identifier: human
-      talents: []
+      talents:
+        - item: Compendium.crucible.ancestry.Item.pushThrough00000
+          level: null
       ui:
         color: '#a985d6'
       abilities:
@@ -296,10 +298,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702053
-      modifiedTime: 1789656702053
+      createdTime: 1790445309554
+      modifiedTime: 1790445309554
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -340,10 +342,10 @@ items:
       slot: 3
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702054
-      modifiedTime: 1789656702054
+      createdTime: 1790445309554
+      modifiedTime: 1790445309554
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -401,6 +403,7 @@ items:
                 changes: []
                 dc: null
                 properties: []
+                lights: []
             - name: Grappling
               scope: 1
               result:
@@ -423,6 +426,7 @@ items:
                 changes: []
                 dc: null
                 properties: []
+                lights: []
           tags:
             - difficult
             - harmless
@@ -436,6 +440,8 @@ items:
             target. If successful, both you and your target are
             @Condition[restrained] for <strong>1 Round</strong>.</p>
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: unarmed
       nodes:
@@ -448,9 +454,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702054
-      modifiedTime: 1789656702054
+      systemVersion: 0.11.1
+      createdTime: 1790445309554
+      modifiedTime: 1790445309554
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -501,6 +507,8 @@ items:
             weapon: false
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - int0b
       iconicSpells: 0
@@ -512,10 +520,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702055
-      modifiedTime: 1789656702055
+      createdTime: 1790445309555
+      modifiedTime: 1790445309555
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -576,6 +584,7 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
           name: Hamstring
           img: icons/skills/melee/strike-axe-blood-red.webp
           range:
@@ -583,6 +592,8 @@ items:
             maximum: null
             weapon: true
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       nodes:
         - dex0b
@@ -595,9 +606,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702055
-      modifiedTime: 1789656702055
+      systemVersion: 0.11.1
+      createdTime: 1790445309555
+      modifiedTime: 1790445309555
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -645,6 +656,8 @@ items:
             weapon: true
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - str0a
       iconicSpells: 0
@@ -656,10 +669,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702055
-      modifiedTime: 1789656702055
+      createdTime: 1790445309555
+      modifiedTime: 1790445309555
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -710,6 +723,8 @@ items:
             weapon: true
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - str1a
       iconicSpells: 0
@@ -720,10 +735,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789656702056
+      systemVersion: 0.11.1
+      modifiedTime: 1790445309555
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656702056
+      createdTime: 1790445309555
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -785,6 +800,7 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
               duration:
                 value: null
                 units: ''
@@ -798,6 +814,8 @@ items:
             weapon: false
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - toustr1
       iconicSpells: 0
@@ -809,10 +827,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702056
-      modifiedTime: 1789656702056
+      createdTime: 1790445309555
+      modifiedTime: 1790445309555
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -823,16 +841,100 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!vT1UpPCVxKRg2A1J.bullrush00000000'
+  - name: Push Through
+    type: talent
+    img: icons/skills/social/diplomacy-handshake.webp
+    system:
+      nodes:
+        - origin
+      description: >-
+        <p>Humans are known for a stubborn will to survive, pressing onward
+        through hardship that would halt anyone else.</p>
+      actions:
+        - id: pushThrough
+          name: Push Through
+          img: icons/skills/social/diplomacy-handshake.webp
+          condition: ''
+          description: >-
+            <p>You expend @Rule[resource.heroism] to push through adversity.
+            Until the end of your turn, your attacks and skill checks ignore any
+            <strong>Banes</strong> imposed upon them. Banes you choose to take
+            upon yourself are not ignored.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - name: Push Through
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: turnEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+                lights: []
+          tags: []
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: society
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _id: pushThrough00000
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790445309553
+      modifiedTime: 1790445309553
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!vT1UpPCVxKRg2A1J.pushThrough00000'
 effects: []
 flags:
   core: {}
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.11.0
+  systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1789656702052
-  modifiedTime: 1789656702052
+  createdTime: 1790445309553
+  modifiedTime: 1790445309553
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

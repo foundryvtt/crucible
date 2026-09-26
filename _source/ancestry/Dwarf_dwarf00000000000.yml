@@ -1,5 +1,5 @@
-_id: dwarven000000000
-name: Dwarven
+_id: dwarf00000000000
+name: Dwarf
 type: ancestry
 img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
 effects: []
@@ -12,7 +12,7 @@ system:
     hallmarks of a people born of earth and stone. A legacy of physical
     resilience is yours to inherit, for in your breast beats a heart of
     stone.</p>
-  identifier: dwarven
+  identifier: dwarf
   talents:
     - item: Compendium.crucible.ancestry.Item.grudgebearer0000
       level: null
@@ -41,4 +41,4 @@ sort: 200000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_key: '!items!dwarven000000000'
+_key: '!items!dwarf00000000000'

@@ -119,13 +119,13 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
   /** @inheritDoc */
   static migrateData(source) {
     source = super.migrateData(source);
-
     SYSTEM.TALENT.migrateTalentGrants(source);
+    crucible.api.models.CrucibleAncestryItem._migrateIdentifier(source);
 
+    /** @deprecated since 0.7.3 */
     const abilities = source.abilities;
     if ( abilities ) {
       const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
-      /** @deprecated since 0.7.3 */
       if ( sum === 18 ) source.abilities = Object.keys(SYSTEM.ABILITIES).reduce((obj, a) => {
         obj[a] = 2;
         return obj;

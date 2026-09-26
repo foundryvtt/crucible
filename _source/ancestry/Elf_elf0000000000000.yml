@@ -1,5 +1,5 @@
-_id: elvish0000000000
-name: Elvish
+_id: elf0000000000000
+name: Elf
 type: ancestry
 img: icons/magic/nature/leaf-rune-glow-green.webp
 effects: []
@@ -12,7 +12,7 @@ system:
     traits of a people for whom elegance is a way of life. Your predisposition
     toward quick-thinking and precise movement the evolutionary results of
     hundreds of years of tradition.</p>
-  identifier: elvish
+  identifier: elf
   talents:
     - item: Compendium.crucible.ancestry.Item.perfectPrecision
       level: null
@@ -41,4 +41,4 @@ sort: 150000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_key: '!items!elvish0000000000'
+_key: '!items!elf0000000000000'

@@ -59,8 +59,10 @@ system:
         appearance are the hallmarks of a people born of earth and stone. A
         legacy of physical resilience is yours to inherit, for in your breast
         beats a heart of stone.</p>
-      identifier: dwarven
-      talents: []
+      identifier: dwarf
+      talents:
+        - item: Compendium.crucible.ancestry.Item.grudgebearer0000
+          level: null
       ui:
         color: '#cb9943'
       abilities:
@@ -75,7 +77,7 @@ system:
       characteristics:
         blooded: true
         temperature: ''
-      name: Dwarven
+      name: Dwarf
       img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
     background:
       description: >-
@@ -293,10 +295,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702068
-      modifiedTime: 1789656702068
+      createdTime: 1790445309570
+      modifiedTime: 1790445309570
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -337,10 +339,10 @@ items:
       slot: 2
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702069
-      modifiedTime: 1789656702069
+      createdTime: 1790445309570
+      modifiedTime: 1790445309570
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -380,10 +382,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702069
-      modifiedTime: 1789656702069
+      createdTime: 1790445309570
+      modifiedTime: 1790445309570
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -414,10 +416,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702069
-      modifiedTime: 1789656702069
+      createdTime: 1790445309570
+      modifiedTime: 1790445309570
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -482,11 +484,14 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
           tags:
             - shield
             - afterStrike
             - offhand
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: shield
       nodes:
@@ -499,9 +504,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702070
-      modifiedTime: 1789656702070
+      systemVersion: 0.11.1
+      createdTime: 1790445309571
+      modifiedTime: 1790445309571
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -553,6 +558,8 @@ items:
             maximum: null
             weapon: false
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - pre0a
       iconicSpells: 0
@@ -567,10 +574,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789656702070
+      systemVersion: 0.11.1
+      modifiedTime: 1790445309571
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656702070
+      createdTime: 1790445309571
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -614,6 +621,8 @@ items:
             weapon. The attack is slower to execute, but is
             @Rule[action.empowered] to deliver additional damage.</p>
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: heavy
       nodes:
@@ -626,9 +635,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702071
-      modifiedTime: 1789656702071
+      systemVersion: 0.11.1
+      createdTime: 1790445309571
+      modifiedTime: 1790445309571
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -663,10 +672,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789656702071
+      systemVersion: 0.11.1
+      modifiedTime: 1790445309571
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789656702071
+      createdTime: 1790445309571
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -732,11 +741,14 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
           range:
             maximum: null
             weapon: false
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - pre0a
       iconicSpells: 0
@@ -746,10 +758,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702072
-      modifiedTime: 1789656702072
+      createdTime: 1790445309572
+      modifiedTime: 1790445309572
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -760,16 +772,103 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!nPOVNsOFhqA7SUud.inspireheroism00'
+  - name: Grudgebearer
+    type: talent
+    img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+    system:
+      nodes:
+        - origin
+      description: >-
+        <p>Your people never forget a slight, and your wrath toward a sworn
+        enemy is as enduring as the stone of your ancestral halls.</p>
+      actions:
+        - id: grudgebearer
+          name: Grudgebearer
+          img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+          condition: ''
+          description: >-
+            <p>You expend @Rule[resource.heroism] to swear a grudge against an
+            enemy you can see. Your attacks against that enemy deal bonus damage
+            equal to your @Rule[ability.wisdom].</p><p>The grudge ends if you
+            end your turn without having attacked that enemy during the turn.
+            You may bear only one grudge at a time; swearing a new grudge ends
+            the previous one.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects:
+            - name: Grudge
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: combatEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+                lights: []
+          tags:
+            - harmless
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: intimidation
+      spellcraft: ''
+    effects: []
+    flags: {}
+    _id: grudgebearer0000
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790445309568
+      modifiedTime: 1790445309568
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!nPOVNsOFhqA7SUud.grudgebearer0000'
 effects: []
 flags:
   core: {}
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.11.0
+  systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1789656702067
-  modifiedTime: 1789656702067
+  createdTime: 1790445309568
+  modifiedTime: 1790445309568
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
