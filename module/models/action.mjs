@@ -55,6 +55,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {string} [skillId]             A skill ID that is being used
  * @property {CrucibleItem} [weapon]        A specific weapon item being used, or which must be used, by this action
  * @property {CrucibleItem} [consumable]    A specific consumable item being used
+ * @property {number} [consumeUses=1]       Uses of the consumable item expended by this action
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
  * @property {Record<string, -1|0|1>} [resourceConstraints]  Directional limits on the acting actor's own resources,
  *   honored during event-stream resolution (a delta opposing the sign is dropped)

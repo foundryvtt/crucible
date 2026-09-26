@@ -475,10 +475,9 @@ export default class CrucibleActor extends Actor {
   static _configureRollData(action, actor, target, rollData) {
     actor._configureAttackerRollData(action, rollData);
     target._configureTargetRollData(action, rollData);
-
-    // Call attacker & defender hooks now that base rollData is populated
-    actor.callActorHooks("prepareAttack", action, target, rollData);
-    target.callActorHooks("defendAttack", action, actor, rollData);
+    actor.callActorHooks("prepareAttack", action, target, rollData);  // The attacker customizes the attack
+    target.callActorHooks("defendAttack", action, actor, rollData);   // The defender registers special defenses
+    actor.callActorHooks("finalizeAttack", action, target, rollData); // The attacker controls final bonuses
   }
 
   /* -------------------------------------------- */
@@ -491,6 +490,11 @@ export default class CrucibleActor extends Actor {
    */
   getResistance(resource, damageType, restoration=false) {
     if ( restoration ) return 0;
+
+    // Damage against a pool which does not exist is fully resisted and treated as immune
+    if ( this.system.resources?.[resource]?.max === 0 ) return Infinity;
+
+    // Damage type resistance and status immunities
     let r = this.resistances[damageType]?.total ?? 0;
     switch ( resource ) {
       case "health":

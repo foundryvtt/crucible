@@ -160,6 +160,14 @@ HOOKS.arcanearcher0000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.armoredefficienc = {
+  prepareMovement(_item, movement) {
+    movement.freeMoveBlockers.heavyArmor = "";
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.armoredShell0000 = {
   prepareDefenses(item, defenses) {
     if ( !this.statuses.has("guarded") ) return;

@@ -510,9 +510,11 @@ export const TAGS = {
     },
     preActivate() {
       const item = this.usage.consumable;
+      const uses = this.usage.consumeUses ?? 1;
+      if ( !uses ) return;
       const updateEvent = this.selfUpdateEvent;
       updateEvent.itemSnapshots.push(item.snapshot());
-      updateEvent.actorUpdates.items.push(item.system.consume(1, {save: false}));
+      updateEvent.actorUpdates.items.push(item.system.consume(uses, {save: false}));
     }
   },
 
