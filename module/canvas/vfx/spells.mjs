@@ -54,8 +54,7 @@ import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-co
  * @param {object|null} vfxConfig       The current VFX configuration from prior hooks, if any.
  * @returns {object|null}
  */
-export function configureSpellVFXEffect(action, vfxConfig) {
-  if ( !action.tags.has("composed") ) throw new Error(`The Action ${action.id} does not use the composed tag.`);
+export function configureEffect(action, vfxConfig) {
   const hooks = SPELL_VFX_GESTURES[action.gesture.id];
   if ( hooks?.configure === null ) return null;
   if ( hooks?.configure === undefined ) return vfxConfig;
@@ -79,33 +78,17 @@ export function configureSpellVFXEffect(action, vfxConfig) {
 /* -------------------------------------------- */
 
 /**
- * Resolve spell VFX references and inject play-time configuration that cannot survive JSON
- * serialization (e.g., callback functions). Called on every client at play time, after the
- * VFXEffect has been constructed from deserialized config but before it plays.
- * @param {CrucibleSpellAction} action              The spell action being animated.
- * @param {foundry.canvas.vfx.VFXEffect} vfxEffect  The constructed VFXEffect instance.
- * @param {Record<string, any>} references           The references map, modified in place.
- */
-/**
- * Resolve spell VFX references before VFXReferenceField resolution. Computes reference values
- * that components depend on, such as the shared wall mask polygon.
+ * Resolve spell VFX references before VFXReferenceField resolution by dispatching to the gesture-specific resolver.
  * @param {CrucibleSpellAction} action
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
  */
-export function resolveSpellVFXReferences(action, vfxEffect, references) {
-
-  // Pre-compute a shared PointSourcePolygon for wall masking. Components reference this by name
-  // via pointSourceMask: {reference: "wallMask"} to avoid redundant polygon computation.
-  if ( references.wallMask && !(references.wallMask instanceof foundry.canvas.geometry.PointSourcePolygon) ) {
-    const {x, y, type, radius} = references.wallMask;
-    references.wallMask = CONFIG.Canvas.polygonBackends[type].create({x, y}, {type, radius});
-  }
-
-  // Delegate to gesture-specific resolver
+export function resolveEffect(action, vfxEffect, references) {
   const hooks = SPELL_VFX_GESTURES[action.gesture.id];
   if ( hooks?.resolve ) hooks.resolve(action, vfxEffect, references);
 }
+
+/* -------------------------------------------- */
 
 /**
  * Apply play-time finalization to a composed spell VFXEffect immediately before playback.
@@ -115,7 +98,7 @@ export function resolveSpellVFXReferences(action, vfxEffect, references) {
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
  */
-export function finalizeSpellVFXEffect(action, vfxEffect, references) {
+export function finalizeEffect(action, vfxEffect, references) {
   const hooks = SPELL_VFX_GESTURES[action.gesture.id];
   if ( hooks?.finalize ) hooks.finalize(action, vfxEffect, references);
 }
@@ -452,7 +435,7 @@ function configureFanVFXEffect(action) {
 
   const references = {
     tokenMesh: "^token.object.mesh",
-    wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
+    wallMask: {polygon: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}}
   };
 
   let chargeParticles = [];
@@ -560,7 +543,7 @@ function configureRayVFXEffect(action) {
   // Declare necessary references to resolve at play-time
   const references = {
     tokenMesh: "^token.object.mesh",
-    wallMask: {x, y, type: "move", radius: Math.round(length * 1.5)}
+    wallMask: {polygon: {x, y, type: "move", radius: Math.round(length * 1.5)}}
   };
 
   // Configure beam charge point and progression speed
@@ -776,7 +759,7 @@ function configureBlastVFXEffect(action) {
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
-    wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
+    wallMask: {polygon: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}}
   };
 
   const projectileSpec = runeProps.projectile;

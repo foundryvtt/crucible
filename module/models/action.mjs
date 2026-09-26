@@ -3288,13 +3288,45 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Configure a VFXEffect for this Action by proxy, reusing the VFX of a composed spell or another Action.
+   * @param {string} id               A composed spell id like "spell.flame.arrow", or another Action id
+   * @param {object} [options]        Options exposed to the proxied VFX handlers as vfxOptions
+   * @returns {object|null}           The proxied VFX configuration, or null if the proxy produced none
+   */
+  configureVFXProxy(id, options={}) {
+    if ( this.vfxProxy ) return null;
+    const proxy = this.#resolveVFXProxy(id, options);
+    if ( !proxy ) {
+      if ( CONFIG.debug.vfx ) console.debug(`${this.id} | VFX proxy "${id}" is unknown or incompatible`);
+      return null;
+    }
+    let vfxConfig = null;
+    for ( const handler of proxy.handlers ) {
+      if ( !(handler.configureVFX instanceof Function) ) continue;
+      vfxConfig = handler.configureVFX.call(proxy.view, vfxConfig) ?? vfxConfig;
+    }
+    if ( !vfxConfig ) return null;
+    vfxConfig.proxy = {id, options};
+    return vfxConfig;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Construct and play a configured VFXEffect on every client after the Action is confirmed.
-   * @param {foundry.canvas.vfx.VFXEffectData} vfxConfig
+   * @param {foundry.canvas.vfx.VFXEffectData & {proxy?: {id: string, options: object}}} vfxConfig
    * @param {Record<string, any>} references
    * @returns {Promise<void>}
    */
-  async playVFXEffect(vfxConfig, references) {
+  async playVFXEffect({proxy: proxyData, ...vfxConfig}, references) {
     if ( !this.token?.parent.isView ) return;
+
+    // Reconstruct the proxy which configured the effect
+    const proxy = proxyData ? this.#resolveVFXProxy(proxyData.id, proxyData.options) : null;
+    if ( proxyData && !proxy ) {
+      console.warn(new Error(`Failed to resolve VFX proxy "${proxyData.id}" for Action "${this.id}"`));
+      return;
+    }
 
     // Construct the VFXEffect instance
     let vfxEffect;
@@ -3323,8 +3355,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
+    // Construct point source polygons from references declared as {polygon: {x, y, type, radius}}
+    for ( const [k, v] of Object.entries(references) ) {
+      if ( !v?.polygon || (v.constructor !== Object) ) continue;
+      const {x, y, type, radius} = v.polygon;
+      references[k] = CONFIG.Canvas.polygonBackends[type].create({x, y}, {type, radius});
+    }
+
     // Pass 3 - delegate to tag-defined resolveVFX hooks for computing reference values
-    this._callActionHooks("resolveVFX", vfxEffect, references);
+    this.#callVFXHooks("resolveVFX", proxy, vfxEffect, references);
 
     // Resolve VFXReferenceField values using the now-complete references map
     // FIXME: restore the line below and delete #resolveVFXReferences once the minimum core build exceeds 14.363
@@ -3334,7 +3373,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Pass 4 - delegate to tag-defined finalizeVFX hooks for play-time component configuration.
     // References are frozen to enforce the contract that finalizeVFX must not modify them.
     Object.freeze(references);
-    this._callActionHooks("finalizeVFX", vfxEffect, references);
+    this.#callVFXHooks("finalizeVFX", proxy, vfxEffect, references);
 
     // Play the effect. Sound is orchestrated by positionalSound components within the timeline,
     // so preload and playback are handled internally by VFXEffect#play alongside the visuals.
@@ -3344,6 +3383,58 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     } catch(err) {
       console.error(`${this.id} | VFX play failed:`, err);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Invoke a play-time VFX hook, dispatching to the handlers of a VFX proxy in place of this Action's own.
+   * @param {"resolveVFX"|"finalizeVFX"} hookName
+   * @param {{handlers: object[], view: CrucibleAction}|null} proxy
+   * @param {...*} args
+   */
+  #callVFXHooks(hookName, proxy, ...args) {
+    if ( !proxy ) return this._callActionHooks(hookName, ...args);
+    for ( const handler of proxy.handlers ) {
+      if ( !(handler[hookName] instanceof Function) ) continue;
+      try {
+        handler[hookName].call(proxy.view, ...args);
+      } catch(err) {
+        console.error(new Error(`The proxied "${hookName}" hook failed for Action "${this.id}"`, {cause: err}));
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve the VFX handlers of a proxy target and the view of this Action which those handlers receive.
+   * A composed spell id is served by the composed tag with the spell's rune and gesture presented on the view.
+   * @param {string} id
+   * @param {object} options
+   * @returns {{handlers: object[], view: CrucibleAction}|null}
+   */
+  #resolveVFXProxy(id, options) {
+    const overrides = {vfxProxy: {id, options}, vfxOptions: options};
+    let handlers;
+    const [prefix, runeId, gestureId] = id.split(".");
+    if ( prefix === "spell" ) {
+      overrides.rune = SYSTEM.SPELL.RUNES[runeId];
+      overrides.gesture = SYSTEM.SPELL.GESTURES[gestureId];
+      if ( !overrides.rune || !overrides.gesture ) return null;
+      if ( this.target.type !== overrides.gesture.target.type ) return null;
+      overrides.vfxOptions = {charge: false, ...options};
+      handlers = [SYSTEM.ACTION.TAGS.composed];
+    }
+    else {
+      const hooks = crucible.api.hooks.action[id];
+      if ( !hooks ) return null;
+      handlers = [hooks];
+    }
+    const view = new Proxy(this, {
+      get: (target, key) => (key in overrides) ? overrides[key] : Reflect.get(target, key, target)
+    });
+    return {handlers, view};
   }
 
   /* -------------------------------------------- */

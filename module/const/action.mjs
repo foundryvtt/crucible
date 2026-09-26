@@ -563,13 +563,13 @@ export const TAGS = {
       this.usage.isRanged = !isSelf && (this.range.maximum > 1);
     },
     configureVFX(vfxConfig) {
-      return crucible.api.canvas.vfx.spells.configureSpellVFXEffect(this, vfxConfig);
+      return crucible.api.canvas.vfx.spells.configureEffect(this, vfxConfig);
     },
     resolveVFX(vfxEffect, references) {
-      crucible.api.canvas.vfx.spells.resolveSpellVFXReferences(this, vfxEffect, references);
+      crucible.api.canvas.vfx.spells.resolveEffect(this, vfxEffect, references);
     },
     finalizeVFX(vfxEffect, references) {
-      crucible.api.canvas.vfx.spells.finalizeSpellVFXEffect(this, vfxEffect, references);
+      crucible.api.canvas.vfx.spells.finalizeEffect(this, vfxEffect, references);
     }
   },
 
