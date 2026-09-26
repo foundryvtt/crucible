@@ -1,0 +1,49 @@
+folder: IRL4ZhYtVmlkQXvs
+name: Decaying
+type: base
+_id: Nna7DKUrlbjkFBFk
+img: icons/magic/unholy/strike-beam-blood-red-purple.webp
+system:
+  changes: []
+  dc: null
+  dot:
+    - amount: 4
+      damageType: corruption
+      resource: health
+      restoration: false
+  maintenance:
+    cost: null
+    hands: 0
+  properties: []
+  regions: []
+  summons: []
+disabled: false
+start: null
+duration:
+  value: 3
+  units: rounds
+  expiry: turnStart
+  expired: false
+description: >-
+  <p>A <strong>Decaying </strong>creature suffers additional
+  <strong>Corruption</strong> damage to <strong>Health</strong> at the start of
+  its subsequent turns.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses:
+  - decaying
+showIcon: 1
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790363407639
+  modifiedTime: 1790366947495
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!Nna7DKUrlbjkFBFk'
