@@ -3,7 +3,7 @@ name: Elvish
 type: ancestry
 img: icons/magic/nature/leaf-rune-glow-green.webp
 effects: []
-folder: cvTY534vgfLqkvXj
+folder: ZEUx6vEoijd34BgK
 flags: {}
 system:
   description: >-
@@ -13,7 +13,9 @@ system:
     toward quick-thinking and precise movement the evolutionary results of
     hundreds of years of tradition.</p>
   identifier: elvish
-  talents: []
+  talents:
+    - item: Compendium.crucible.ancestry.Item.perfectPrecision
+      level: null
   ui:
     color: '#51d277'
   abilities:
@@ -28,14 +30,14 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157415
-  modifiedTime: 1788548152507
+  modifiedTime: 1790438536918
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: 150000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

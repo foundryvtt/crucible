@@ -1,0 +1,85 @@
+name: Grudgebearer
+type: talent
+img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+system:
+  nodes:
+    - origin
+  description: >-
+    <p>Your people never forget a slight, and your wrath toward a sworn enemy is
+    as enduring as the stone of your ancestral halls.</p>
+  actions:
+    - id: grudgebearer
+      name: Grudgebearer
+      img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+      condition: ''
+      description: >-
+        <p>You expend @Rule[resource.heroism] to swear a grudge against an enemy
+        you can see. Your attacks against that enemy deal bonus damage equal to
+        your @Rule[ability.wisdom].</p><p>The grudge ends if you end your turn
+        without having attacked that enemy during the turn. You may bear only
+        one grudge at a time; swearing a new grudge ends the previous one.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects:
+        - name: Grudge
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: ''
+            expiry: combatEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+            lights: []
+      tags:
+        - harmless
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: intimidation
+effects: []
+folder: ancestryTalents0
+flags: {}
+ownership:
+  default: 0
+_id: grudgebearer0000
+sort: 200000
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790438166807
+  modifiedTime: 1790438501311
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!grudgebearer0000'

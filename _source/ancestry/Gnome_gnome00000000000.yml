@@ -3,7 +3,7 @@ name: Gnome
 type: ancestry
 img: icons/commodities/tech/cog-brass.webp
 effects: []
-folder: cvTY534vgfLqkvXj
+folder: ZEUx6vEoijd34BgK
 flags: {}
 system:
   description: >-
@@ -12,7 +12,9 @@ system:
     discovery. The traditions of your people embrace a lust for life and the
     importance of quick-thinking and quick-action.</p>
   identifier: gnome
-  talents: []
+  talents:
+    - item: Compendium.crucible.ancestry.Item.tinkersTrick0000
+      level: null
   ui:
     color: '#afa2c3'
   abilities:
@@ -27,14 +29,14 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157416
-  modifiedTime: 1788548157466
+  modifiedTime: 1790438538545
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: 112500
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

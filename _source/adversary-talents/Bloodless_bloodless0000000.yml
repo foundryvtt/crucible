@@ -7,8 +7,8 @@ system:
   description: >-
     <p>The @ref[actor.name]{creature} has no blood, vital organs, or exploitable
     weak points. It is immune to the @Condition[bleeding] condition, and the
-    critical hit threshold for <strong>Strikes</strong> against it is increased
-    by 2.</p>
+    <strong>Critical Success Threshold</strong> for <strong>Strikes</strong>
+    against it is increased by 2.</p>
   actions: []
   iconicSpells: 0
 effects: []

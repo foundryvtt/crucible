@@ -3,7 +3,7 @@ name: Orcish
 type: ancestry
 img: icons/creatures/magical/construct-iron-stomping-yellow.webp
 effects: []
-folder: cvTY534vgfLqkvXj
+folder: ZEUx6vEoijd34BgK
 flags: {}
 system:
   description: >-
@@ -13,7 +13,9 @@ system:
     northern clime. Your people are known for their strength and resilience
     above all else.</p>
   identifier: orcish
-  talents: []
+  talents:
+    - item: Compendium.crucible.ancestry.Item.deathlessFury000
+      level: null
   ui:
     color: '#c14425'
   abilities:
@@ -28,14 +30,14 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157416
-  modifiedTime: 1788548166983
+  modifiedTime: 1790438540633
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: 101563
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

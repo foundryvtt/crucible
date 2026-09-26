@@ -323,7 +323,7 @@
       "IconicSpell": "Iconic Spell",
       "IconicSpellTooltip": "This action is an Iconic Spell learned through mastery of its components.",
       "Keen": "Keen",
-      "KeenTooltip": "This action is precise, lowering its critical hit threshold by 2 and making a Critical Hit more likely.",
+      "KeenTooltip": "This action is precise, lowering its Critical Success Threshold by 2 and making a Critical Hit more likely.",
       "MainHand": "Main-Hand",
       "MainHandTooltip": "This action utilizes your main-hand weapon to make an attack.",
       "Maintained": "Maintained",
@@ -590,6 +590,9 @@
     "Challenge": {
       "Dominance": "Dominance"
     },
+    "DeathlessFury": {
+      "CannotUse": "{name} can only enter a Deathless Fury while their Health does not exceed their Wounds."
+    },
     "FieldStudy": {
       "Effect": "Field Study: {knowledge}",
       "Label": "Topic of Study",
@@ -609,6 +612,9 @@
       "AlreadyGrappled": "{name} is already Grappled by another creature.",
       "AlreadyGrappling": "You are already Grappling another creature.",
       "TooLarge": "{name} is too large for you to Grapple."
+    },
+    "Grudgebearer": {
+      "Grudge": "Grudge: {target}"
     },
     "ImbueAffix": {
       "AffixLabel": "Affix",

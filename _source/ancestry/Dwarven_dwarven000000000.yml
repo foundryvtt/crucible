@@ -3,7 +3,7 @@ name: Dwarven
 type: ancestry
 img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
 effects: []
-folder: cvTY534vgfLqkvXj
+folder: ZEUx6vEoijd34BgK
 flags: {}
 system:
   description: >-
@@ -13,7 +13,9 @@ system:
     resilience is yours to inherit, for in your breast beats a heart of
     stone.</p>
   identifier: dwarven
-  talents: []
+  talents:
+    - item: Compendium.crucible.ancestry.Item.grudgebearer0000
+      level: null
   ui:
     color: '#cb9943'
   abilities:
@@ -28,14 +30,14 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157415
-  modifiedTime: 1788548149824
+  modifiedTime: 1790438536153
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: 200000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

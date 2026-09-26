@@ -1,0 +1,84 @@
+name: Deathless Fury
+type: talent
+img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+system:
+  nodes:
+    - origin
+  description: >-
+    <p>The harsh northern clime forged your people to fight hardest when death
+    is nearest.</p>
+  actions:
+    - id: deathlessFury
+      name: Deathless Fury
+      img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+      condition: While your Health does not exceed your Wounds
+      description: >-
+        <p>While your @Rule[resource.health] does not exceed your
+        @Rule[resource.wounds], you may expend @Rule[resource.heroism] to enter
+        a deathless fury. While the fury lasts you ignore all penalties of being
+        @Condition[weakened] and your @Action[default strike] attacks gain
+        <strong>+1 Boon</strong>.</p><p>The fury ends when your
+        @Rule[resource.health] exceeds your @Rule[resource.wounds] or when
+        <strong>Combat</strong> ends.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Deathless Fury
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: ''
+            expiry: combatEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+            lights: []
+      tags: []
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  iconicSpells: 0
+  training: athletics
+effects: []
+folder: ancestryTalents0
+flags: {}
+ownership:
+  default: 0
+_id: deathlessFury000
+sort: 800000
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790438158373
+  modifiedTime: 1790438520459
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!deathlessFury000'

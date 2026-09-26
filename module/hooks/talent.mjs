@@ -1793,7 +1793,7 @@ HOOKS.spellmute0000000 = {
 
 HOOKS.spiritbreaker000 = {
   prepareAttack(_item, action, _target, rollData) {
-    // Any action that attacks Morale finds the cracks in a foe's will, lowering its Critical Threshold
+    // Any action that attacks Morale finds the cracks in a foe's will, lowering its Critical Success Threshold
     if ( rollData.resource === "morale" ) {
       rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - 2;
     }

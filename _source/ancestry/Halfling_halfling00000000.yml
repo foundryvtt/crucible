@@ -3,7 +3,7 @@ name: Halfling
 type: ancestry
 img: icons/magic/control/buff-luck-fortune-green.webp
 effects: []
-folder: cvTY534vgfLqkvXj
+folder: ZEUx6vEoijd34BgK
 flags: {}
 system:
   description: >-
@@ -15,7 +15,9 @@ system:
   abilities:
     secondary: presence
     primary: dexterity
-  talents: []
+  talents:
+    - item: Compendium.crucible.ancestry.Item.stoutHeart000000
+      level: null
   ui:
     color: '#bff58a'
   resistances:
@@ -27,14 +29,14 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157416
-  modifiedTime: 1788548161882
+  modifiedTime: 1790438539275
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: 106250
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

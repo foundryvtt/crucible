@@ -14,8 +14,8 @@ system:
       description: >-
         <p>The @ref[actor.name]{creature} sweeps its heavy tail in a circular
         arc, striking all creatures within range. On a <strong>Critical
-        Success</strong>, affected targets become @Condition[staggered] for until
-        the end of their next turn.</p>
+        Success</strong>, affected targets become @Condition[staggered] for
+        until the end of their next turn.</p>
       cost:
         action: 2
         focus: 0

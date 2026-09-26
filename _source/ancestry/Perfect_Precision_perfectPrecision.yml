@@ -1,0 +1,81 @@
+name: Perfect Precision
+type: talent
+img: icons/magic/nature/leaf-rune-glow-green.webp
+system:
+  nodes:
+    - origin
+  description: >-
+    <p>Centuries of elven tradition have honed your eye to find the flaw in any
+    defense.</p>
+  actions:
+    - id: perfectPrecision
+      name: Perfect Precision
+      img: icons/magic/nature/leaf-rune-glow-green.webp
+      condition: ''
+      description: >-
+        <p>You expend @Rule[resource.heroism] to strike with flawless precision.
+        Until the end of your turn, your
+        @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.lZfPVvBSsCEqlte4#critical-hits-and-misses]{Critical
+        Success Threshold} is reduced by <strong>3</strong>.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Perfect Precision
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: ''
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+            lights: []
+      tags: []
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  iconicSpells: 0
+  training: awareness
+effects: []
+folder: ancestryTalents0
+flags: {}
+ownership:
+  default: 0
+_id: perfectPrecision
+sort: 300000
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790438335136
+  modifiedTime: 1790438485669
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!perfectPrecision'

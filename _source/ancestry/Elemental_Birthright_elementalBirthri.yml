@@ -1,0 +1,85 @@
+name: Elemental Birthright
+type: talent
+img: icons/environment/wilderness/tree-oak.webp
+system:
+  nodes:
+    - origin
+  description: >-
+    <p>The elemental forces which presided over your birth still answer when you
+    call upon them.</p>
+  actions:
+    - id: elementalBirthright
+      name: Elemental Birthright
+      img: icons/environment/wilderness/tree-oak.webp
+      condition: ''
+      description: >-
+        <p>You expend @Rule[resource.heroism] to call upon the elemental forces
+        of your birthright. Until the start of your next turn, you gain
+        resistance to <strong>Acid</strong>, <strong>Cold</strong>,
+        <strong>Electricity</strong>, and <strong>Fire</strong> damage equal to
+        your @Rule[ability.wisdom], and any <strong>Acid</strong>,
+        <strong>Cold</strong>, <strong>Electricity</strong>, or
+        <strong>Fire</strong> damage you deal is increased by your
+        @Rule[ability.wisdom].</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Elemental Birthright
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: ''
+            expiry: turnStart
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+            lights: []
+      tags: []
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  iconicSpells: 0
+  training: elemental
+effects: []
+folder: ancestryTalents0
+flags: {}
+ownership:
+  default: 0
+_id: elementalBirthri
+sort: 400000
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790438163039
+  modifiedTime: 1790438511126
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!elementalBirthri'

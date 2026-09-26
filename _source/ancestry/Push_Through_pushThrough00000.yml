@@ -1,0 +1,81 @@
+name: Push Through
+type: talent
+img: icons/skills/social/diplomacy-handshake.webp
+system:
+  nodes:
+    - origin
+  description: >-
+    <p>Humans are known for a stubborn will to survive, pressing onward through
+    hardship that would halt anyone else.</p>
+  actions:
+    - id: pushThrough
+      name: Push Through
+      img: icons/skills/social/diplomacy-handshake.webp
+      condition: ''
+      description: >-
+        <p>You expend @Rule[resource.heroism] to push through adversity. Until
+        the end of your turn, your attacks and skill checks ignore any
+        <strong>Banes</strong> imposed upon them. Banes you choose to take upon
+        yourself are not ignored.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 1
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects:
+        - name: Push Through
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: ''
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            dc: null
+            properties: []
+            lights: []
+      tags: []
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  iconicSpells: 0
+  training: society
+effects: []
+folder: ancestryTalents0
+flags: {}
+ownership:
+  default: 0
+_id: pushThrough00000
+sort: 700000
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790438362792
+  modifiedTime: 1790438477576
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!pushThrough00000'

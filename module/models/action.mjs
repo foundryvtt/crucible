@@ -2025,7 +2025,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         // Keep countdown (units-based) and event-expiry durations; drop empty durations, invalid for the core AE schema
         const effectDuration = duration.units ? duration : (duration.expiry ? {expiry: duration.expiry} : undefined);
         const effect = {
-          _id: _id || SYSTEM.EFFECTS.getEffectId(this.id, {suffix: String(i)}),
+          _id: _id || SYSTEM.EFFECTS.getEffectId(this.id, {suffix: this.effects.length > 1 ? String(i) : ""}),
           name: name || this.name,
           description,
           img: this.img,
