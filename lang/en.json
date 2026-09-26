@@ -1388,13 +1388,18 @@
   "BASE_EFFECT": {
     "Difficulty": "Difficulty {dc}",
     "Suspended": "Suspended",
+    "ACTIONS": {
+      "AddDot": "Add Damage Over Time",
+      "DeleteDot": "Remove Damage Over Time"
+    },
     "PROPERTIES": {
       "Magical": "Magical",
       "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities."
     },
     "SECTIONS": {
-      "Removal": "Removal",
-      "General": "General"
+      "Dot": "Damage Over Time",
+      "General": "General",
+      "Removal": "Removal"
     },
     "FIELDS": {
       "dc": {
@@ -1731,6 +1736,11 @@
     "Skill": "Skill",
     "SkillBonus": "Skill Bonus",
     "UnknownScore": "???"
+  },
+  "EFFECT": {
+    "TABS": {
+      "damage": "Damage"
+    }
   },
   "HOOKS": {
     "NoModuleHooks": "No module hooks are registered for this identifier.",
