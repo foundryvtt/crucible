@@ -12,7 +12,11 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     classes: ["crucible", "effect", "standard-form"],
-    form: {submitOnChange: true, closeOnSubmit: false}
+    form: {submitOnChange: true, closeOnSubmit: false},
+    actions: {
+      addDot: CrucibleActiveEffectSheet.#onAddDot,
+      deleteDot: CrucibleActiveEffectSheet.#onDeleteDot
+    }
   };
 
   /** @override */
@@ -21,6 +25,7 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
     tabs: sheets.ActiveEffectConfig.PARTS.tabs,
     description: {template: "systems/crucible/templates/sheets/effect/effect-description.hbs"},
     config: {template: "systems/crucible/templates/sheets/effect/effect-config.hbs", scrollable: [""]},
+    damage: {template: "systems/crucible/templates/sheets/effect/effect-damage.hbs", scrollable: [""]},
     duration: sheets.ActiveEffectConfig.PARTS.duration,
     changes: sheets.ActiveEffectConfig.PARTS.changes
   };
@@ -31,6 +36,7 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
       tabs: [
         {id: "description", icon: "fa-solid fa-book", label: "ITEM.TABS.description"},
         {id: "config", icon: "fa-solid fa-cogs", label: "ITEM.TABS.config"},
+        {id: "damage", icon: "fa-solid fa-burst"},
         {id: "duration", icon: "fa-solid fa-clock"},
         {id: "changes", icon: "fa-solid fa-gears"}
       ],
@@ -80,5 +86,67 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
   _attachFrameListeners() {
     // Deliberately skip ActiveEffectConfig#_attachFrameListeners which strips the editor's inline Save button
     api.DocumentSheetV2.prototype._attachFrameListeners.call(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add a new instance of Damage Over Time to this Active Effect.
+   * @this {CrucibleActiveEffectSheet}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   * @returns {Promise<void>}
+   */
+  static async #onAddDot(_event, _target) {
+    const dot = this.document.system.toObject().dot;
+    dot.push({
+      amount: 0,
+      damageType: "slashing",
+      resource: "health"
+    });
+    this.document.updateSource({"system.dot": dot})
+    await this.render();
+    this.document.updateSource({"system.dot": dot.slice(0, -1)});
+    const submit = new SubmitEvent("submit", {cancelable: true});
+    this.element.dispatchEvent(submit);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete an instance of Damage Over Time from this Active Effect.
+   * @this {CrucibleActiveEffectSheet}
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
+  static async #onDeleteDot(_event, target) {
+    const fieldset = target.closest("fieldset.dot");
+    fieldset.remove();
+    const submit = new SubmitEvent("submit", {cancelable: true});
+    this.element.dispatchEvent(submit);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _processFormData(event, form, formData) {
+    const data = super._processFormData(event, form, formData);
+    data.system.dot = Object.values(data.system.dot || {});
+    return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareSubmitData(event, form, formData, updateData) {
+    const submitData = super._prepareSubmitData(event, form, formData, updateData);
+    for ( const dot of submitData.system.dot ) {
+      if ( !dot.damageType ) {
+        dot.damageType = _del;
+        dot.restoration = true;
+      }
+    }
+    return submitData;
   }
 }

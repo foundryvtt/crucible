@@ -1,0 +1,28 @@
+<section class="tab sheet-body standard-form scrollable {{tab.cssClass}}"
+         data-tab="{{tab.id}}" data-group="{{tab.group}}">
+    <fieldset>
+        <legend>{{localize "BASE_EFFECT.SECTIONS.Dot"}}</legend>
+        <button type="button" class="frame-brown" data-action="addDot">
+            <i class="fa-solid fa-plus"></i>
+            <span>{{localize "BASE_EFFECT.ACTIONS.AddDot"}}</span>
+        </button>
+        {{#with systemFields.dot.element.fields as | dotFields | }}
+        {{#each ../source.system.dot}}
+        <fieldset class="dot">
+            <div class="form-group">
+                <label>{{dotFields.amount.label}}</label>
+                <div class="form-fields">
+                    {{formInput dotFields.amount name=(concat "system.dot." @index ".amount") value=amount}}
+                    {{formInput dotFields.damageType name=(concat "system.dot." @index ".damageType")
+                                blank=(localize "DAMAGE.Restoration") value=damageType}}
+                    <button type="button" class="icon frame-brown fa-solid fa-trash" data-action="deleteDot"
+                            aria-label="{{localize "BASE_EFFECT.ACTIONS.DeleteDot"}}" data-tooltip></button>
+                </div>
+                <p class="hint">{{dotFields.amount.hint}}</p>
+            </div>
+            {{formGroup dotFields.resource name=(concat "system.dot." @index ".resource") value=resource}}
+        </fieldset>
+        {{/each}}
+        {{/with}}
+    </fieldset>
+</section>
