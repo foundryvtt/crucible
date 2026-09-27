@@ -34,6 +34,74 @@ export function computeAttackOffset(token, result) {
 /* -------------------------------------------- */
 
 /**
+ * The point one caster radius forward from the caster's center toward a target, where a projectile materializes.
+ * @param {{radiusPx: number, center: {x: number, y: number}}} caster   Geometry from {@link resolveActorGeometry}
+ * @param {CrucibleToken} token     The target token
+ * @returns {{x: number, y: number}}
+ */
+export function computeManifestPoint({radiusPx, center}, token) {
+  const target = tokenCenter(token);
+  const dist = Math.max(1, Math.hypot(target.x - center.x, target.y - center.y));
+  return {
+    x: center.x + (((target.x - center.x) / dist) * radiusPx),
+    y: center.y + (((target.y - center.y) / dist) * radiusPx)
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build a positional sound descriptor for a VFX phase from a sound library entry.
+ * @param {{src: string, loop?: boolean}|null} d   A sound entry, or null.
+ * @returns {object|null}   A phase sound descriptor, or null when no source was provided.
+ */
+export function positionalSound(d) {
+  if ( !d ) return null;
+  const {START} = foundry.canvas.vfx.constants.SOUND_ALIGNMENT;
+  return {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Register a target's TokenDocument and token-mesh references under a component-specific prefix.
+ * @param {Record<string, string>} references   The references map, mutated in place.
+ * @param {string} prefix   Reference prefix (e.g. "rayTarget").
+ * @param {number} j        1-based target index.
+ * @param {TokenDocument} token
+ * @returns {{tokenRef: string, meshRef: string}}
+ */
+export function registerTargetRefs(references, prefix, j, token) {
+  const tokenRef = `${prefix}_${j}_token`;
+  const meshRef = `${prefix}_${j}_tokenMesh`;
+  references[tokenRef] = `@${token.uuid}`;
+  references[meshRef] = `^${tokenRef}.object.mesh`;
+  return {tokenRef, meshRef};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the acting token's geometry for positioning VFX around it.
+ * @param {CrucibleAction} action
+ * @returns {{gridSize: number, token: TokenDocument, elevation: number, radiusPx: number,
+ *   center: {x: number, y: number}, meshSort: number}}
+ */
+export function resolveActorGeometry(action) {
+  const gridSize = canvas.dimensions.size;
+  const token = action.token;
+  return {
+    gridSize, token,
+    elevation: token.elevation ?? 0,
+    radiusPx: (token.width * gridSize) / 2,
+    center: tokenCenter(token),
+    meshSort: token.object?.mesh?.sort ?? 0
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
  * The center point of a token in canvas pixels.
  * @param {CrucibleToken} token
  * @returns {{x: number, y: number}}

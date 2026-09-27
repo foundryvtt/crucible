@@ -13,11 +13,6 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
   const components = {};
   const timeline = [];
   const references = {tokenMesh: "^token.object.mesh"};
-  const casterCenter = action.token ? tokenCenter(action.token) : null;
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  const PROJECTILE_SPEED = 150; // Feet-per-second
-  const CHARGE_DURATION = 1000;
-  const STICK_DURATION = 2000; // Milliseconds a landed projectile lingers in the target before fading
 
   let j = 1; // Target
   for ( const [actor, group] of action.eventsByTarget ) {
@@ -30,66 +25,24 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
       [targetMeshReference]: `^${targetTokenReference}.object.mesh`
     });
 
-    // Schedule impact for when the projectile lands
-    const targetCenter = tokenCenter(token);
-    const distPx = casterCenter ? Math.hypot(targetCenter.x - casterCenter.x, targetCenter.y - casterCenter.y) : 0;
-    const flightMS = (distPx * 1000) / (PROJECTILE_SPEED * canvas.dimensions.distancePixels);
-    const impactStart = CHARGE_DURATION + flightMS;
-
     let i = 1; // Roll
-    let textComponent = null;
+    let text = null;
     for ( const event of group.roll ) {
       const roll = event.roll;
       const weapon = action.usage.strikes[roll.data.strike];
       if ( !["projectile1", "projectile2"].includes(weapon?.category) ) continue;
-
-      // Configure impact
-      const impact = configureImpact(token, roll, targetMeshReference);
+      const {component, impactTime} = buildPhysicalProjectile(action, {token, roll, meshRef: targetMeshReference});
       const projectileName = `arrowProjectile_${j}_${i}`;
-      const isHit = (roll.data.result === T.HIT) || (roll.data.result === T.GLANCE);
-      const stick = isHit ? STICK_DURATION : 0;
-      const impactAnimations = [];
-      if ( impact.texture ) {
-        impactAnimations.push({function: "impactSpriteBurst",
-          params: {texture: impact.texture, size: 3, duration: stick || 1000}});
-      }
-      if ( isHit ) impactAnimations.push({function: roll.isCriticalSuccess ? "impactSpriteShake" : "impactSpriteRecoil"});
-
-      // Register the component
-      components[projectileName] = {
-        type: "crucibleProjectile",
-        originMesh: {reference: "tokenMesh"},
-        targetMeshes: [{reference: targetMeshReference}],
-        path: [{reference: "tokenMesh", deltas: {sort: 1}}, impact.position],
-        pathType: {type: "linear", params: {}},
-        charge: {
-          duration: CHARGE_DURATION,
-          animations: [{function: "chargeDrawBack"}],
-          sound: {src: getRandomSound("bow", "draw"), align: 2}
-        },
-        delivery: {
-          texture: getRandomSprite("projectiles", "arrow"),
-          size: 3,
-          speed: PROJECTILE_SPEED,
-          animations: [{function: "deliveryProjectileFlight", params: {returnAnchor: true}}]
-        },
-        impacts: [{
-          result: roll.data.result,
-          id: token.id,
-          stick,
-          sound: impact.sound ? {src: impact.sound, align: 1} : null,
-          animations: impactAnimations
-        }],
-        scrollingText: []
-      };
+      components[projectileName] = component;
       timeline.push({component: projectileName, position: 0});
-      textComponent ??= components[projectileName];
+      text ??= {component, impactTime};
       i++;
     }
 
-    // Schedule scrolling text for the impact timing
-    if ( textComponent ) {
-      pushTargetScrollingText(textComponent.scrollingText, action, actor, group.all, targetMeshReference, impactStart);
+    // Schedule scrolling text for the first impact on this target
+    if ( text ) {
+      pushTargetScrollingText(text.component.scrollingText, action, actor, group.all, targetMeshReference,
+        text.impactTime);
     }
     j++;
   }
@@ -108,6 +61,69 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
     console.error(new Error(`Strike VFX configuration failed for Action "${action.id}"`, {cause}));
   }
   return vfxConfig;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build a physical arrow projectile component which is drawn back, loosed, and flies to one target.
+ * @param {CrucibleAction} action
+ * @param {object} config
+ * @param {TokenDocument} config.token        The target token
+ * @param {AttackRoll} config.roll            The attack roll against the target
+ * @param {string} config.meshRef             Reference key of the target's token mesh
+ * @returns {{component: object, impactTime: number}}
+ */
+function buildPhysicalProjectile(action, {token, roll, meshRef}) {
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const PROJECTILE_SPEED = 150; // Feet-per-second
+  const CHARGE_DURATION = 1000;
+  const STICK_DURATION = 2000; // Milliseconds a landed projectile lingers in the target before fading
+
+  // Flight timing from the caster to the target
+  const casterCenter = action.token ? tokenCenter(action.token) : null;
+  const targetCenter = tokenCenter(token);
+  const distPx = casterCenter ? Math.hypot(targetCenter.x - casterCenter.x, targetCenter.y - casterCenter.y) : 0;
+  const flightMS = (distPx * 1000) / (PROJECTILE_SPEED * canvas.dimensions.distancePixels);
+
+  // Impact treatment
+  const impact = configureImpact(token, roll, meshRef);
+  const isHit = (roll.data.result === T.HIT) || (roll.data.result === T.GLANCE);
+  const stick = isHit ? STICK_DURATION : 0;
+  const impactAnimations = [];
+  if ( impact.texture ) {
+    impactAnimations.push({function: "impactSpriteBurst",
+      params: {texture: impact.texture, size: 3, duration: stick || 1000}});
+  }
+  if ( isHit ) impactAnimations.push({function: roll.isCriticalSuccess ? "impactSpriteShake" : "impactSpriteRecoil"});
+
+  const component = {
+    type: "crucibleProjectile",
+    originMesh: {reference: "tokenMesh"},
+    targetMeshes: [{reference: meshRef}],
+    path: [{reference: "tokenMesh", deltas: {sort: 1}}, impact.position],
+    pathType: {type: "linear", params: {}},
+    charge: {
+      duration: CHARGE_DURATION,
+      animations: [{function: "chargeDrawBack"}],
+      sound: {src: getRandomSound("bow", "draw"), align: 2}
+    },
+    delivery: {
+      texture: getRandomSprite("projectiles", "arrow"),
+      size: 3,
+      speed: PROJECTILE_SPEED,
+      animations: [{function: "deliveryProjectileFlight", params: {returnAnchor: true}}]
+    },
+    impacts: [{
+      result: roll.data.result,
+      id: token.id,
+      stick,
+      sound: impact.sound ? {src: impact.sound, align: 1} : null,
+      animations: impactAnimations
+    }],
+    scrollingText: []
+  };
+  return {component, impactTime: CHARGE_DURATION + flightMS};
 }
 
 /* -------------------------------------------- */
