@@ -452,7 +452,8 @@ export default class CrucibleActor extends Actor {
    */
   _configureTargetRollData(action, rollData) {
     const {boons, banes, restoration=false} = rollData;
-    const {isAttack=false, isRanged=false} = action.usage;
+    const {isAttack=false} = action.usage;
+    const {meleeAttack=false, rangedAttack=false} = action.range;
     const statuses = CONFIG.statusEffects;
 
     // Attack-related conditions
@@ -462,13 +463,13 @@ export default class CrucibleActor extends Actor {
         banes.guarded = {label: statuses.guarded.name, number: 1};
       }
       if ( this.statuses.has("prone") ) {
-        if ( isRanged ) banes.prone = {label: statuses.prone.name, number: 1};
+        if ( rangedAttack ) banes.prone = {label: statuses.prone.name, number: 1};
         else boons.prone = {label: statuses.prone.name, number: 1};
       }
       // Flanking is per-target, so the optimistic boon previewed in action usage is replaced or cleared here.
       // A ranged attack keeps whatever usage offered, since only a hook (like Thread the Needle) can grant it.
       rollData.flanked = action.targets.get(this)?.flanked ?? 0;
-      if ( !isRanged ) {
+      if ( meleeAttack ) {
         if ( rollData.flanked ) boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: rollData.flanked};
         else delete boons.flanked;
       }
@@ -896,7 +897,7 @@ export default class CrucibleActor extends Actor {
       resource: options.resource || spell.rune.resource,
       damageType: options.damageType || spell.damage.type,
       damageBonus: options.damageBonus || spell.damage.bonus || 0,
-      multiplier: options.multiplier || spell.damage.multiplier || 1,
+      multiplier: options.multiplier || ((spell.damage.multiplier ?? 1) * (spell.usage.bonuses.multiplier ?? 1)),
       restoration: options.restoration ?? spell.usage.restoration
     };
 

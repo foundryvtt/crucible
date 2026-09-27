@@ -92,7 +92,7 @@ function applyMoraleWave(actor, action, {test, radius, amount, label, wallType="
 HOOKS.acrobat000000000 = {
   defendAttack(item, action, _attacker, rollData) {
     if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
-    if ( action.tags.has("ranged") ) rollData.banes.acrobat = {label: item.name, number: 2};
+    if ( action.range.rangedAttack && action.tags.has("strike") ) rollData.banes.acrobat = {label: item.name, number: 2};
   }
 };
 
@@ -293,7 +293,7 @@ HOOKS.berserker0000000 = {
   },
   prepareAttack(_item, action, _target, rollData) {
     if ( !this.effects.has(SYSTEM.EFFECTS.getEffectId("berserkerRage")) ) return;
-    if ( !action.tags.has("melee") ) return;
+    if ( !action.range.meleeAttack ) return;
     rollData.damageBonus += 4;
   }
 }
@@ -512,7 +512,7 @@ HOOKS.champion00000000 = {
     return origin ? fromUuidSync(origin) : null;
   },
   prepareAttack(item, action, target, rollData) {
-    if ( !action.tags.has("melee") ) return;
+    if ( !action.range.meleeAttack ) return;
     const dominance = this.effects.get(HOOKS.champion00000000._DOMINANCE_ID);
     if ( dominance?.origin !== target.uuid ) return;
     const stage = dominance.getFlag("crucible", "dominance")?.stage || 0;
@@ -606,11 +606,12 @@ HOOKS.chirurgeon000000 = {
 
 HOOKS.concussiveblows0 = {
   applyCriticalEffects(_item, action) {
-    if ( !action.tags.has("melee") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
-        if ( event.weaponItem?.system.damageType === "bludgeoning" ) {
+        const weapon = event.weaponItem;
+        if ( !weapon || weapon.config.category.ranged ) continue;
+        if ( weapon.system.damageType === "bludgeoning" ) {
           event.effects.push(SYSTEM.EFFECTS.staggered(this));
           break;
         }
@@ -1389,8 +1390,9 @@ HOOKS.piercingBolts000 = {
     const weapon = action.usage.weapon ?? action.usage.strikes?.[0];
     if ( !weapon?.config.category.training.includes("talisman") ) return;
     for ( const event of action.eventsByTarget.get(target)?.roll ?? [] ) {
-      const dmg = event.roll?.data.damage;
-      if ( !dmg || (dmg.resistance <= 0) || dmg.restoration ) continue;
+      const {damage: dmg, result} = event.roll?.data ?? {};
+      if ( !dmg || (result < event.roll.constructor.RESULT_TYPES.GLANCE) ) continue;
+      if ( (dmg.resistance <= 0) || dmg.restoration ) continue;
       dmg.resistance = Math.max(dmg.resistance - 2, 0);
       dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
     }
@@ -1418,10 +1420,11 @@ HOOKS.poisoner00000000 = {
   },
   applyCriticalEffects(_item, action) {
     if ( !this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades")) ) return;
-    if ( !action.tags.has("melee") ) return;
     for ( const [target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        const weapon = event.weaponItem;
+        if ( !weapon || weapon.config.category.ranged ) continue;
         const dt = event.roll?.data.damage?.type; // The damage type actually dealt
         if ( ["piercing", "slashing"].includes(dt) ) {
           event.effects.push(SYSTEM.EFFECTS.poisoned(this));
@@ -1717,10 +1720,11 @@ HOOKS.bloodless0000000 = {
 
 HOOKS.corrosiveStrikes = {
   applyCriticalEffects(_item, action) {
-    if ( !action.tags.has("melee") ) return;
     for ( const [, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        const weapon = event.weaponItem;
+        if ( !weapon || weapon.config.category.ranged ) continue;
         event.effects.push(SYSTEM.EFFECTS.corroding(this, {ability: "toughness"}));
         break;
       }
@@ -2145,7 +2149,7 @@ HOOKS.warchanter000000 = {
     "dirgeOfFeeblenes", "dirgeOfLethargy0", "dirgeOfFragility"
   ]),
   finalizeAction(_item, action) {
-    if ( !action.tags.has("melee") ) return;
+    if ( !action.range.meleeAttack ) return;
     const {HIT} = game.system.api.dice.AttackRoll.RESULT_TYPES;
     const landedHit = action.events.some(e => (e.target !== this) && (e.roll?.data?.result >= HIT));
     if ( !landedHit ) return;

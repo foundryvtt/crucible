@@ -286,7 +286,7 @@ HOOKS.bodyBlock = {
     const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "long", type: "disjunction"});
     const validDefenses = listFormatter.format(validResultTypes.map(r => _loc(RESULT_TYPE_LABELS[r])));
     const invalidError = _loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: this.name, defense: validDefenses});
-    if ( !targetAction?.tags.has("melee") ) {
+    if ( !targetAction?.range.meleeAttack ) {
       throw new Error(invalidError);
     }
     const myEvents = targetAction.eventsByActor.get(this.actor);
@@ -321,7 +321,7 @@ HOOKS.bullrush = {
 function _canUsePostDefend(action, {requiredResult}) {
   const lastAction = ChatMessage.implementation.getLastAction();
   const rolls = lastAction?.eventsByTarget.get(action.actor)?.roll ?? [];
-  if ( !lastAction?.tags.has("melee") || !rolls.some(r => r.roll.data.result === requiredResult) ) {
+  if ( !lastAction?.range.meleeAttack || !rolls.some(r => r.roll.data.result === requiredResult) ) {
     const resultLabel = _loc(crucible.api.dice.AttackRoll.RESULT_TYPE_LABELS[requiredResult]);
     throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: action.name, defense: resultLabel}));
   }
@@ -692,7 +692,7 @@ HOOKS.evasiveShot = {
   },
   canUse() {
     const lastAction = this.actor.lastConfirmedAction;
-    if ( !lastAction?.tags.has("ranged") ) {
+    if ( !lastAction?.range.rangedAttack || !lastAction.tags.has("strike") ) {
       throw new Error(_loc("ACTION.WARNINGS.MustFollowRanged", {action: this.name}));
     }
   },
@@ -1107,7 +1107,7 @@ HOOKS.healingTonic = {
 HOOKS.horrificCritical = {
   canUse() {
     const lastAction = this.actor.lastConfirmedAction;
-    if ( !lastAction?.tags.has("melee") || !lastAction?.events.some(e => (e.type === "strike") && e.isCriticalSuccess) ) {
+    if ( !lastAction?.range.meleeAttack || !lastAction.events.some(e => (e.type === "strike") && e.isCriticalSuccess) ) {
       throw new Error(_loc("ACTION.WARNINGS.LastNotMeleeCrit", {action: this.name}));
     }
   }
@@ -2255,8 +2255,8 @@ HOOKS.ruthlessMomentum = {
   },
   canUse() {
     const lastAction = ChatMessage.implementation.getLastAction({confirmed: true, actor: this.actor});
-    if ( (lastAction?.actor !== this.actor) || !lastAction.tags.has("melee")
-      || !lastAction.events.some(e => (e.type === "strike") && e.target.isIncapacitated) ) {
+    if ( (lastAction?.actor !== this.actor) || !lastAction.range.meleeAttack
+      || !Array.from(lastAction.eventsByTarget.keys()).some(t => t.isIncapacitated) ) {
       throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeKill", {action: this.name}));
     }
   }

@@ -21,6 +21,10 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {number} [minimum]             A minimum distance in feet at which the action may be used
  * @property {number} [maximum]             A maximum distance in feet at which the action may be used
  * @property {boolean} weapon               Enforce the maximum range of the used weapon
+ * @property {boolean} meleeAttack          Is this a melee attack? Derived during preparation.
+ * @property {boolean} rangedAttack         Is this a ranged attack? Derived during preparation.
+ *                                          Mutually exclusive with meleeAttack; both are false for non-attacks.
+ *                                          An attack with no meaningful distance may also be neither.
  */
 
 /**
@@ -45,7 +49,8 @@ import {resolveReferences} from "../enrichers.mjs";
  *   supersede the actor's prepared availability. Provide a string localization key for a blocking reason, or false.
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
  * @property {boolean} isAttack             Is this an attack made upon another creature (other than self)?
- * @property {boolean} isRanged             Is this an attack (defined by isAttack) made at range?
+ *                                          Whatever sets it must also classify range.meleeAttack and rangedAttack,
+ *                                          which may both be false for an attack with no meaningful distance.
  * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
  * @property {ActionRegionUsage} region     Overrides applied to a RegionDocument placed by this action
  * @property {boolean} restoration          Default {@link AttackRollData#restoration} seeding this action's rolls
@@ -638,7 +643,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       range: new fields.SchemaField({
         minimum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
         maximum: new fields.NumberField({required: true, nullable: true, integer: true, min: 0, initial: null}),
-        weapon: new fields.BooleanField({initial: false})
+        weapon: new fields.BooleanField({initial: false}),
+        meleeAttack: new fields.BooleanField({persisted: false}),
+        rangedAttack: new fields.BooleanField({persisted: false})
       }),
       target: new fields.SchemaField({
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES, initial: "single"}),
@@ -1116,8 +1123,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       focusBlock: {},
       hasDice: false,
       isAttack: false,
-      isMelee: false,
-      isRanged: false,
       movement: {},
       region: {},
       restoration: false
@@ -1946,8 +1951,31 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       target.flanked = this.computeFlanking(target.actor, target.token);
       best = Math.max(best, target.flanked);
     }
-    if ( !best || !this.usage.isAttack || this.usage.isRanged ) return;
+    if ( !best || !this.range.meleeAttack ) return;
     this.usage.boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: best};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Classify this Action's attack as melee or ranged from its used weapons and maximum range.
+   * The result is assigned to both range fields together, since they are mutually exclusive.
+   * @returns {{meleeAttack: boolean, rangedAttack: boolean}}
+   * @protected
+   */
+  _classifyAttackRange() {
+    if ( !this.usage.isAttack ) return {meleeAttack: false, rangedAttack: false};
+    const weapons = this.usage.strikes ?? [];
+    let ranged;
+    if ( this.range.weapon ) ranged = (weapons.length > 0) && weapons.every(w => w.config.category.ranged);
+    else {
+      const maximum = this.range.maximum ?? 0;
+      const reach = weapons.length ? Math.min(...weapons.map(w => w.system.range)) : 1;
+      if ( maximum <= 1 ) ranged = false;
+      else if ( weapons.some(w => w.config.category.ranged) ) ranged = true;
+      else ranged = maximum > reach;
+    }
+    return {meleeAttack: !ranged, rangedAttack: ranged};
   }
 
   /* -------------------------------------------- */
@@ -2558,7 +2586,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _configureUsage() {
     // Reset flags that are determined during action preparation
-    this.usage.hasDice = this.usage.isAttack = this.usage.isMelee = this.usage.isRanged = false;
+    this.usage.hasDice = this.usage.isAttack = this.range.meleeAttack = this.range.rangedAttack = false;
     this.usage.restoration = false;
 
     // Reset cost fields to their source values so that repeated prepare() calls do not accumulate costs

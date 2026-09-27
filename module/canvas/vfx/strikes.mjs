@@ -56,6 +56,12 @@ const PROJECTILE_DAMAGE_PRESETS = {
 };
 
 /**
+ * Weapon categories whose ranged strikes loose a physical projectile.
+ * @type {Set<string>}
+ */
+const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "projectile1", "projectile2"]);
+
+/**
  * Configure the data for a VFXEffect
  * @param {CrucibleAction} action
  * @param {object|null} vfxConfig       The current VFX configuration from prior hooks, if any.
@@ -85,9 +91,10 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
       const weapon = action.usage.strikes[roll.data.strike];
       const projectileName = `projectile_${j}_${i}`;
       const config = {key: projectileName, token, roll, meshRef: targetMeshReference, references};
-      let built = null;
-      if ( ["projectile1", "projectile2"].includes(weapon?.category) ) built = _buildPhysicalProjectile(action, config);
-      else if ( weapon?.config.category.ranged ) built = _buildMagicalProjectile(action, config);
+      if ( !action.range.rangedAttack ) continue;
+      const built = _PHYSICAL_PROJECTILE_CATEGORIES.has(weapon?.category)
+        ? _buildPhysicalProjectile(action, config)
+        : _buildMagicalProjectile(action, config);
       if ( !built ) continue;
       components[projectileName] = built.component;
       timeline.push({component: projectileName, position: 0});
