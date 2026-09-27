@@ -385,6 +385,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       const terrainCost = calculateTerrainCost(from, to, distance, segment);
 
       // Step 3: Apply movement action
+      const costMultiplier = actor?.system.movement.costMultipliers?.[segment.action];
+      if ( costMultiplier !== undefined ) return terrainCost * costMultiplier;
       const calculateActionCost = actionCostFunctions[segment.action]
         ??= segment.actionConfig.getCostFunction(this.document, options);
       return calculateActionCost(terrainCost, from, to, distance, segment);

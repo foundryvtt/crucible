@@ -94,6 +94,10 @@ HOOKS.acrobat000000000 = {
     if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
     if ( !action.target.isAttack || (action.range.category !== "ranged") || !action.tags.has("strike") ) return;
     rollData.banes.acrobat = {label: item.name, number: 2};
+  },
+  prepareMovement(_item, movement) {
+    if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
+    movement.costMultipliers.jump = 1;
   }
 };
 

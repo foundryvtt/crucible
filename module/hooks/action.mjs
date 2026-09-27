@@ -318,7 +318,7 @@ HOOKS.bullrush = {
         this.range.maximum = this.actor.system.movement.stride * strides;
         // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
         this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
-        this.usage.movement.terminalReach = false;
+        this.usage.movement.targeting = "path";
       },
       acquireTargets(targets) {
         for ( const target of targets.slice(1) ) target.error ||= _loc("ACTION.WARNINGS.PassThroughMaxOne");
@@ -2701,26 +2701,13 @@ HOOKS.vampiricBite = {
 
 HOOKS.vaultingSweep = {
   prepare() {
-    const reach = this.actor.equipment.weapons.mainhand?.system.range ?? 1;
-    this.range.maximum = this.actor.system.movement.stride + reach;
-    this.target.size = Math.ceil(this.actor.size / 2) + reach;
-  },
-  async preActivate() {
-    const center = this.region?.shapes[0];
-    if ( !this.token || !center ) return;
-    const gridSize = canvas.grid.size;
-    const waypoint = {
-      x: center.x - ((this.token.width * gridSize) / 2),
-      y: center.y - ((this.token.height * gridSize) / 2),
-      action: "jump"
-    };
-    const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
-      {constrainOptions: {crucible: {movementStrength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}}});
-    if ( !plan ) return;
-    plan.cost = 0;
-    // The movement event's `movement` must be {id, origin}; confirm-time enactment reads event.movement.id
-    const {x, y, elevation} = plan.origin;
-    this.recordEvent({type: "movement", target: this.actor, movement: {id: plan.id, origin: {x, y, elevation}}});
+    const stride = this.actor.system.movement.stride;
+    Object.assign(this.range, {minimum: Math.ceil(stride / 2), maximum: stride});
+    Object.assign(this.usage.movement, {
+      action: "jump",
+      strength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL,
+      targeting: "destination" // Strike only creatures where you land
+    });
   }
 };
 

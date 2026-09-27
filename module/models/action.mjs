@@ -87,8 +87,8 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
  * @property {object} [measureOptions]      Measurement options (e.g. `overrideCost`) for the planned movement path
  * @property {boolean} [ignoreRestrained]   Allow the movement while the actor is Restrained
- * @property {boolean} [terminalReach=true] Also target creatures within reach of the final waypoint, rather than only
- *                                          those whose space the path enters
+ * @property {"none"|"path"|"destination"|"both"} [targeting="both"]  Which creatures the movement targets: those whose
+ *                                          space the path enters, those within reach of the final waypoint, or both
  */
 
 /**
@@ -1673,14 +1673,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire target tokens from the actor's planned movement path.
-   * A token is targeted if the movement path intersects with its hitbox OR if within range of the terminal waypoint.
+   * Depending on usage.movement.targeting, a token is targeted if the movement path intersects its hitbox, if it is
+   * within reach of the terminal waypoint, or either.
    * Targets are returned in path-traversal order and capped to the action's defined maximum targets.
    * @returns {ActionUseTarget[]}
    */
   #acquireTargetsFromMovement() {
-    if ( !this.movement ) return [];
+    const targeting = this.usage.movement.targeting ?? "both";
+    if ( !this.movement || (targeting === "none") ) return [];
     const sparseWaypoints = this.movement.waypoints;
     if ( !sparseWaypoints.length ) return [];
+    const targetPath = (targeting === "path") || (targeting === "both");
+    const targetDestination = (targeting === "destination") || (targeting === "both");
 
     // Expand sparse waypoints into every intermediate grid cell traversed
     const expandedWaypoints = sparseWaypoints.map(w => (w.action === "blink" ? {...w, action: "walk"} : w));
@@ -1711,9 +1715,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Walk the path in order, recording the first step at which each candidate is targeted
     const encounterStep = new Map();
-    const terminalReach = this.usage.movement.terminalReach !== false;
     for ( let w = 0; w < waypoints.length; w++ ) {
-      const isFinal = terminalReach && (w === (waypoints.length - 1));
+      const isFinal = w === (waypoints.length - 1);
       const occupied = new Set();
       for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
         const key = `${i},${j},${k}`;
@@ -1722,8 +1725,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       for ( const token of candidates ) {
         if ( encounterStep.has(token) ) continue;
         const footprint = token.document.getOccupiedGridSpaceOffsets(token.document._source);
-        const intersects = footprint.some(({i, j, k}) => occupied.has(`${i},${j},${k}`));
-        const withinReach = isFinal && finalRect.overlaps(token.bounds);
+        const intersects = targetPath && footprint.some(({i, j, k}) => occupied.has(`${i},${j},${k}`));
+        const withinReach = targetDestination && isFinal && finalRect.overlaps(token.bounds);
         if ( intersects || withinReach ) encounterStep.set(token, w);
       }
     }
