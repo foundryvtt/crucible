@@ -1001,6 +1001,11 @@
       "PointsSpent": "Spent",
       "Resources": "Resources"
     },
+    "SUBSTITUTION": {
+      "Confirm": "Choose Replacements",
+      "Hint": "Your Background grants Talents which your Ancestry also grants. Choose a replacement for each from the same node of the Talent Tree.",
+      "Title": "Duplicate Talent Grants"
+    },
     "TABS": {
       "actions": "Actions",
       "attributes": "Attributes",

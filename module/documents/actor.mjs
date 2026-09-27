@@ -29,6 +29,19 @@ const {DialogV2} = foundry.applications.api;
  */
 
 /**
+ * A Talent granted by a detail item, optionally gated by level.
+ * @typedef CrucibleDetailTalentGrant
+ * @property {string} item            The UUID of the granted Talent
+ * @property {number|null} level      The level at which the Talent is granted
+ */
+
+/**
+ * The original and replacement UUIDs of a background talent grant which the ancestry duplicates.
+ * An Array of these is stored in `flags.crucible.substitutions`.
+ * @typedef {[original: string, replacement: string]} CrucibleTalentSubstitution
+ */
+
+/**
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
  */
 export default class CrucibleActor extends Actor {
@@ -1851,7 +1864,8 @@ export default class CrucibleActor extends Actor {
         continue;
       }
       applied.push(type);
-      await this._applyDetailItem(config.item, {type, notify: false});
+      const substitutions = (type === "background") ? this._validateTalentSubstitutions(config.item) : undefined;
+      await this._applyDetailItem(config.item, {type, notify: false, substitutions});
     }
     return {applied, unresolved, cancelled};
   }
@@ -2286,7 +2300,8 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
+  /*  Detail Items: Ancestry, Background, etc...  */
+  /* -------------------------------------------- */
 
   /**
    * Apply actor detail data.
@@ -2298,10 +2313,11 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
    * @param {boolean} [options.local=false]     Apply the item locally without saving changes to the database
    * @param {boolean} [options.notify=true]     Display a notification about the application result?
+   * @param {CrucibleTalentSubstitution[]} [options.substitutions]  Background talent substitutions
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true}={}) {
+  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true, substitutions}={}) {
     type ??= item?.type;
     if ( item ) {
       if ( !canApply ) throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
@@ -2321,9 +2337,13 @@ export default class CrucibleActor extends Actor {
       for ( const id of this.#detailGrantedItemIds(otherDetail) ) deleteItemIds.delete(id);
     }
 
-    // Clear the detail data
+    // Record intentional background talent substitutions
     const key = `system.details.${type}`;
     const updateData = {};
+    if ( type !== "background" ) substitutions = undefined;
+    if ( substitutions ) updateData["flags.crucible.substitutions"] = substitutions;
+
+    // Clear the detail data
     let message;
     if ( !item ) {
       updateData[key] = _replace(null);
@@ -2334,11 +2354,12 @@ export default class CrucibleActor extends Actor {
     else {
       const itemData = item.toObject();
       const detail = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+      detail.talents = CrucibleActor.#substituteTalentGrants(detail.talents || [], substitutions);
       updateData[key] = _replace(detail);
       const updateItems = [];
 
       // Grant Talents
-      const talents = detail.talents || [];
+      const talents = detail.talents;
       const {toCreate: talentsToCreate, toKeep: talentsToKeep} = await this.#prepareGrantedDetailTalents(talents);
       for ( const id of talentsToKeep ) deleteItemIds.delete(id); // Talent already owned
       updateItems.push(...talentsToCreate);                       // Add new Talent
@@ -2406,6 +2427,145 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Get the current background data with any substituted talent grants restored to their originals.
+   * @returns {object|null}
+   */
+  #getOriginalBackground() {
+    const background = this.system.details.background;
+    if ( !background ) return null;
+    const originals = new Map((this.#getTalentSubstitutions() ?? []).map(([o, r]) => [r, o]));
+    const talents = (background.talents || []).map(grant => {
+      const original = originals.get(grant.item);
+      return original ? {...grant, item: original} : grant;
+    });
+    return {...foundry.utils.deepClone(background), talents};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the recorded background talent substitutions with both UUIDs of each passed through talent ID migrations.
+   * Substitutions involving a talent which was retired without replacement are discarded.
+   * @returns {CrucibleTalentSubstitution[]|undefined}
+   */
+  #getTalentSubstitutions() {
+    const recorded = this.getFlag("crucible", "substitutions");
+    if ( !recorded ) return;
+    const {migrateTalentUuid} = SYSTEM.TALENT;
+    return recorded.reduce((arr, [original, replacement]) => {
+      original = migrateTalentUuid(original);
+      replacement = migrateTalentUuid(replacement);
+      if ( original && replacement ) arr.push([original, replacement]);
+      return arr;
+    }, []);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prompt for replacements of background talent grants which the ancestry also grants.
+   * Each replacement is chosen from the other talents which share a talent tree node with the duplicated talent.
+   * @param {object} [details]
+   * @param {object|null} [details.ancestry]      Ancestry data, defaulting to the current ancestry
+   * @param {object|null} [details.background]    Background data with its original grants, defaulting to the current
+   *                                              background
+   * @returns {Promise<CrucibleTalentSubstitution[]|null>}  The substitutions to record, or null if dismissed
+   * @internal
+   */
+  async _promptTalentSubstitutions({ancestry=this.system.details.ancestry,
+    background=this.#getOriginalBackground()}={}) {
+    const substitutions = [];
+    if ( !background ) return substitutions;
+    const prior = new Map(this.#getTalentSubstitutions() ?? []);
+
+    // Talents which cannot be chosen as a replacement
+    const ancestryIds = CrucibleActor.#grantedTalentIds(ancestry);
+    const excludedIds = new Set([...ancestryIds, ...CrucibleActor.#grantedTalentIds(background)]);
+    const detailIds = new Set([...CrucibleActor.#grantedTalentIds(this.system.details.ancestry),
+      ...CrucibleActor.#grantedTalentIds(this.system.details.background)]);
+    for ( const i of this.items ) {
+      if ( (i.type === "talent") && !detailIds.has(i.id) ) excludedIds.add(i.id);
+    }
+
+    // Offer a choice of replacement for each duplicated grant
+    const {StringField} = foundry.data.fields;
+    const fields = {};
+    const originals = {};
+    for ( const {item: uuid} of background.talents ) {
+      const id = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( !ancestryIds.has(id) || (id in fields) ) continue;
+      originals[id] = uuid;
+      const talent = await CrucibleActor.#resolveGrant(this, uuid, "Talent");
+      if ( !talent ) continue;
+      const choices = {};
+      for ( const node of talent.system.nodes ) {
+        for ( const t of node.talents ) {
+          if ( !excludedIds.has(t.id) ) choices[t.uuid] = t.name;
+        }
+      }
+      if ( foundry.utils.isEmpty(choices) ) continue;
+      const initial = (prior.get(uuid) in choices) ? prior.get(uuid) : undefined;
+      fields[id] = new StringField({required: true, blank: false, choices, initial, label: talent.name});
+    }
+    if ( foundry.utils.isEmpty(fields) ) return substitutions;
+
+    // Prompt for replacements
+    const content = document.createElement("div");
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = _loc("ACTOR.SUBSTITUTION.Hint");
+    content.append(hint);
+    for ( const [name, field] of Object.entries(fields) ) {
+      content.append(field.toFormGroup({}, {name, value: field.initial, sort: true}));
+    }
+    const response = await DialogV2.input({
+      window: {title: _loc("ACTOR.SUBSTITUTION.Title"), icon: "fa-solid fa-shuffle"},
+      ok: {label: _loc("ACTOR.SUBSTITUTION.Confirm"), icon: "fa-solid fa-shuffle"},
+      content
+    });
+    if ( !response ) return null;
+    for ( const [id, replacement] of Object.entries(response) ) substitutions.push([originals[id], replacement]);
+    return substitutions;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Re-apply the current background with new talent substitutions, restoring its original grants first.
+   * @param {CrucibleTalentSubstitution[]} substitutions   The background talent substitutions
+   * @param {object} [options]
+   * @param {boolean} [options.local=false]     Apply the background locally without saving changes to the database
+   * @returns {Promise<void>}
+   * @internal
+   */
+  async _reapplyBackground(substitutions, {local=false}={}) {
+    const background = this.#getOriginalBackground();
+    if ( !background ) return;
+    const cls = getDocumentClass("Item");
+    const item = new cls({name: background.name, img: background.img, type: "background", system: background});
+    await this._applyDetailItem(item, {type: "background", local, notify: false, substitutions});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Retain recorded background talent substitutions only while a background still grants the replaced talent and
+   * the ancestry still duplicates it.
+   * @param {CrucibleItem} background     The background being applied in place of the current one
+   * @returns {CrucibleTalentSubstitution[]|undefined}  Retained substitutions, if any were recorded
+   * @internal
+   */
+  _validateTalentSubstitutions(background) {
+    const recorded = this.#getTalentSubstitutions();
+    if ( !recorded ) return;
+    const granted = new Set(background.system.talents.map(g => g.item));
+    const ancestry = new Set((this.system.details.ancestry?.talents || []).map(g => g.item));
+    return recorded.filter(([original]) => granted.has(original) && ancestry.has(original));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * View actor detail data as an editable item.
    * This is an internal helper method not intended for external use.
    * @param {string} type         The data type, either "archetype" or "taxonomy"
@@ -2442,14 +2602,28 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Clean data for an Item that is being added to this Actor.
-   * @param {CrucibleItem} item
-   * @internal
+   * Identify the IDs of talents granted by detail data.
+   * @param {object|null} detail          The detail data
+   * @returns {Set<string>}
    */
-  _cleanItemData(item) {
-    const itemData = game.items.fromCompendium(item, {clearFolder: true, clearOwnership: true, keepId: true});
-    delete itemData.ownership;
-    return itemData;
+  static #grantedTalentIds(detail) {
+    return new Set((detail?.talents || []).map(g => foundry.utils.parseUuid(g.item)?.documentId));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Replace talent grants with their substitutions.
+   * @param {CrucibleDetailTalentGrant[]} talents     The talent grants of the detail item
+   * @param {CrucibleTalentSubstitution[]} [substitutions]  Substitutions to apply
+   * @returns {CrucibleDetailTalentGrant[]}
+   */
+  static #substituteTalentGrants(talents, substitutions=[]) {
+    const replacements = new Map(substitutions);
+    return talents.map(grant => {
+      const replacement = replacements.get(grant.item);
+      return replacement ? {...grant, item: replacement} : grant;
+    });
   }
 
   /* -------------------------------------------- */
@@ -3015,6 +3189,19 @@ export default class CrucibleActor extends Actor {
       });
     }
     return batchOperation;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clean data for an Item that is being added to this Actor.
+   * @param {CrucibleItem} item
+   * @internal
+   */
+  _cleanItemData(item) {
+    const itemData = game.items.fromCompendium(item, {clearFolder: true, clearOwnership: true, keepId: true});
+    delete itemData.ownership;
+    return itemData;
   }
 
   /* -------------------------------------------- */

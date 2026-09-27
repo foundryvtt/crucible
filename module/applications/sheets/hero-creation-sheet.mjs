@@ -351,8 +351,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Talents
     const talentItems = await Promise.all(talents.map(({item: uuid}) => this._renderFeatureItem(uuid)));
     if ( talentItems.length ) background.features.push({
+      id: "talents",
       label: schema.getField("talents").label,
-      items: talentItems
+      items: talentItems,
+      uuids: talents.map(t => t.item)
     });
   }
 
@@ -742,11 +744,31 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const spentPoints = this._clone.points.ability.pool === 0;
     this._completed.background = (backgroundId in backgrounds) && spentPoints;
     if ( backgroundId ) {
-      const b = context.background = backgrounds[backgroundId];
+      const b = context.background = await this._prepareBackgroundOption(backgrounds[backgroundId]);
       if ( b.color ) t.selectionColor = b.color;
       if ( b.icon ) t.selectionIcon = b.icon;
     }
     else context.background = null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a chosen background option for display, showing the talent substitutions chosen for the Actor.
+   * @param {CrucibleHeroCreationItem} option     The chosen background option
+   * @returns {Promise<CrucibleHeroCreationItem>}  The option, or a copy of it with substituted talents
+   * @protected
+   */
+  async _prepareBackgroundOption(option) {
+    const replacements = new Map(this._clone.getFlag("crucible", "substitutions") ?? []);
+    if ( !replacements.size ) return option;
+    const features = await Promise.all(option.features.map(async f => {
+      if ( (f.id !== "talents") || !f.uuids.some(uuid => replacements.has(uuid)) ) return f;
+      const uuids = f.uuids.map(uuid => replacements.get(uuid) ?? uuid);
+      const items = await Promise.all(uuids.map(uuid => this.constructor._renderFeatureItem(uuid)));
+      return {...f, items, uuids};
+    }));
+    return {...option, features};
   }
 
   /* -------------------------------------------- */
@@ -893,15 +915,19 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async chooseAncestry(ancestryId) {
     if ( !(ancestryId in this._state.ancestries) ) throw new Error(`Invalid Ancestry identifier "${ancestryId}"`);
     const actor = this._clone;
-    const ancestryItem = this._state.ancestries[ancestryId].item;
+    const ancestryItem = await this._chooseAncestry(ancestryId);
 
     // Update the Actor clone
+    const substitutions = await actor._promptTalentSubstitutions({ancestry: ancestryItem.system});
+    if ( !substitutions ) return;
     await actor._applyDetailItem(ancestryItem, {type: "ancestry", local: true, notify: false});
+    await actor._reapplyBackground(substitutions, {local: true});
     this._state.ancestryId = ancestryId;
     await this.render({parts: ["header", this.step]});
   }
 
   /* -------------------------------------------- */
+
   /**
    * Choose a Background.
    * @param {string|CrucibleItem} background
@@ -909,32 +935,14 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   async chooseBackground(background) {
     const actor = this._clone;
-    let backgroundId;
-    let backgroundItem;
-
-    // Background ID
-    if ( typeof background === "string" ) {
-      backgroundId = background;
-      if ( !(backgroundId in this._state.backgrounds) ) {
-        throw new Error(`Invalid Background identifier "${backgroundId}"`);
-      }
-      backgroundItem = this._state.backgrounds[backgroundId].item;
-    }
-
-    // Background Item
-    else if ( background instanceof CrucibleItem ) {
-      backgroundId = background.system.identifier;
-      backgroundItem = background;
-    }
-
-    // Remove background
-    else {
-      backgroundItem = null;
-      backgroundId = undefined;
-    }
+    const backgroundItem = await this._chooseBackground(background);
+    const backgroundId = backgroundItem?.system.identifier;
 
     // Update the Actor clone
-    await actor._applyDetailItem(backgroundItem, {type: "background", local: true, notify: false, canClear: true});
+    const substitutions = await actor._promptTalentSubstitutions({background: backgroundItem?.system ?? null});
+    if ( !substitutions ) return;
+    await actor._applyDetailItem(backgroundItem, {type: "background", local: true, notify: false, canClear: true,
+      substitutions});
     this._state.backgroundId = backgroundId;
     await this.render({parts: ["header", this.step]});
   }
@@ -964,6 +972,34 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       await crucible.tree.close();
       document.body.append(crucible.tree.canvas);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the Ancestry Item which is applied to the Actor when an Ancestry is chosen.
+   * @param {string} ancestryId           The identifier of the chosen Ancestry
+   * @returns {Promise<CrucibleItem>}     The Ancestry Item to apply
+   * @protected
+   */
+  async _chooseAncestry(ancestryId) {
+    return this._state.ancestries[ancestryId].item;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the Background Item which is applied to the Actor when a Background is chosen.
+   * @param {string|CrucibleItem} [background]  The identifier of a Background option, a Background Item, or nothing
+   *                                            to remove the Background
+   * @returns {Promise<CrucibleItem|null>}      The Background Item to apply, or null to remove the Background
+   * @protected
+   */
+  async _chooseBackground(background) {
+    if ( background instanceof CrucibleItem ) return background;
+    if ( typeof background !== "string" ) return null;
+    if ( !(background in this._state.backgrounds) ) throw new Error(`Invalid Background identifier "${background}"`);
+    return this._state.backgrounds[background].item;
   }
 
   /* -------------------------------------------- */
