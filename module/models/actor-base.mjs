@@ -135,7 +135,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     schema.movement = new fields.SchemaField({
       sizeBonus: new fields.NumberField({...requiredInteger, initial: 0}),
       strideBonus: new fields.NumberField({...requiredInteger, initial: 0}),
-      engagementBonus: new fields.NumberField({...requiredInteger, initial: 0}),
+      engagementBonus: new fields.NumberField({...requiredInteger, initial: 0}), // A count of enemies, not a distance
       grappleBonus: new fields.NumberField({...requiredInteger, initial: 0, persisted: false}),
       blockerStrength: new fields.NumberField({...requiredInteger, initial: 0, persisted: false})
     });
@@ -909,7 +909,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     m.size = m.baseSize + m.sizeBonus;
     m.stride = m.free = m.baseStride + m.strideBonus;
 
-    // Engagement
+    // Engagement: the number of enemies which may engage this creature before it counts as flanked, not a distance
     const {mainhand, offhand} = this.parent.equipment.weapons;
     if ( mainhand && mainhand.system.properties.has("engaging") ) m.engagementBonus += 1;
     if ( offhand && offhand.system.properties.has("engaging") ) m.engagementBonus += 1;

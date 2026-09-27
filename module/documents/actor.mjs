@@ -2432,7 +2432,7 @@ export default class CrucibleActor extends Actor {
    * @returns {object|null}
    */
   #getOriginalBackground() {
-    const background = this.system.details.background;
+    const background = this._source.system.details.background; // Preparation substitutes a default when absent
     if ( !background ) return null;
     const originals = new Map((this.#getTalentSubstitutions() ?? []).map(([o, r]) => [r, o]));
     const talents = (background.talents || []).map(grant => {
