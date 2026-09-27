@@ -538,13 +538,16 @@ pages:
       format: 1
       content: >-
         <p>A creature that has been knocked to the ground, or has voluntarily
-        thrown itself to the ground is considered <strong>Prone</strong>. While
-        Prone, melee attacks against the target benefit from +1
-        <strong>Boon</strong> while ranged attacks against the target suffer
-        from +1 <strong>Bane</strong>. Additionally, any attacks made by a Prone
-        creature suffer +1 <strong>Bane</strong>, and the creature cannot
-        benefit from a free Move. Returning to your feet from a Prone position
-        requires the use of a Movement action.</p>
+        thrown itself to the ground is considered <strong>Prone</strong>. A
+        Prone creature cannot readily evade, so attacks against its
+        <strong>Reflex</strong> defense benefit from +1 <strong>Boon</strong>.
+        Against its <strong>Physical</strong> defense, melee attacks benefit
+        from +1 <strong>Boon</strong> while ranged attacks suffer from +1
+        <strong>Bane</strong>. Attacks against its other defenses are
+        unaffected.</p><p>Additionally, any attacks made by a Prone creature
+        suffer +1 <strong>Bane</strong>, and the creature cannot benefit from a
+        free Move. Returning to your feet from a Prone position requires the use
+        of a Movement action.</p>
     video:
       controls: true
       volume: 0.5
@@ -848,8 +851,8 @@ pages:
       format: 1
       content: >-
         <p>Some terrain or abilities may temporarily harden a creature's
-        defenses. When a creature is <strong>Guarded </strong>attacks against it
-        suffer +1 Banes.</p>
+        defenses. When a creature is <strong>Guarded</strong>, attacks against
+        it suffer +1 <strong>Bane</strong>.</p>
     video:
       controls: true
       volume: 0.5

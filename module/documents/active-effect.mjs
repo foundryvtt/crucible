@@ -72,13 +72,13 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------- */
 
   /**
-   * Test whether this effect bears only the given status condition and no other mechanical content.
-   * Distinguishes effects safe to delete outright from compound effects that should only have the status expired.
-   * @param {string} statusId   The status condition to test for sole ownership
-   * @returns {boolean}         True if this status is the effect's sole status, and it carries no other content
+   * Test whether this effect would be left empty if the given status conditions were removed from it.
+   * Distinguishes effects safe to delete outright from compound effects that should only have the statuses expired.
+   * @param {...string} statusIds   The status conditions which would be removed
+   * @returns {boolean}             True if the effect bears only these statuses and no other mechanical content
    */
-  isStatusOnly(statusId) {
-    if ( !((this.statuses.size === 1) && this.statuses.has(statusId)) ) return false;
+  isStatusOnly(...statusIds) {
+    if ( !this.statuses.size || !this.statuses.every(s => statusIds.includes(s)) ) return false;
     if ( this.type !== "base" ) return false; // Only base-type effects can be status-only
     const {changes, dot, summons, regions, maintenance} = this.system;
     return !(changes.length || dot.length || summons.size || regions.size

@@ -146,9 +146,13 @@ ACTION.stoutHeart = {
     const activation = this.selfEvents?.activation;
     if ( !activation ) return;
     activation.resources.push({resource: "morale", delta: this.actor.abilities.presence.value * 2});
+    const purged = ["frightened", "confused"];
     for ( const effect of this.actor.effects ) {
-      if ( effect.statuses.has("frightened") || effect.statuses.has("confused") ) {
-        activation.effects.push({_id: effect.id, _action: "delete"});
+      if ( !purged.some(s => effect.statuses.has(s)) ) continue;
+      if ( effect.isStatusOnly(...purged) ) activation.effects.push({_id: effect.id, _action: "delete"});
+      else {
+        const statuses = Array.from(effect.statuses).filter(s => !purged.includes(s));
+        activation.effects.push({_id: effect.id, _action: "update", statuses});
       }
     }
   }

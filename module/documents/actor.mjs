@@ -414,7 +414,7 @@ export default class CrucibleActor extends Actor {
    */
   _configureAttackerRollData(action, rollData) {
     const {boons, banes} = rollData;
-    const {isAttack=false} = action.usage;
+    const {isAttack} = action.target;
     const statuses = CONFIG.statusEffects;
 
     // Global conditions
@@ -423,6 +423,7 @@ export default class CrucibleActor extends Actor {
     // Attack-related conditions
     if ( isAttack ) {
       if ( this.statuses.has("blinded") ) banes.blind = {label: statuses.blinded.name, number: 2};
+      // TODO: a future action tag for attacks that aren't affected by physical restraints could skip prone/restrained?
       if ( this.statuses.has("prone") ) banes.prone = {label: statuses.prone.name, number: 1};
       if ( this.statuses.has("restrained") ) banes.restrained = {label: statuses.restrained.name, number: 2};
     }
@@ -451,28 +452,38 @@ export default class CrucibleActor extends Actor {
    * @internal
    */
   _configureTargetRollData(action, rollData) {
-    const {boons, banes, restoration=false} = rollData;
-    const {isAttack=false} = action.usage;
-    const {meleeAttack=false, rangedAttack=false} = action.range;
+    const {boons, banes, defenseType, restoration=false} = rollData;
+    const rangeCategory = action.range.category;
     const statuses = CONFIG.statusEffects;
 
-    // Attack-related conditions
-    if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) boons.blind = {label: statuses.blinded.name, number: 2};
-      if ( this.statuses.has("guarded") && !restoration ) {
-        banes.guarded = {label: statuses.guarded.name, number: 1};
+    // Attack-related conditions apply to hostile rolls only, never to a roll which restores its target
+    if ( !action.target.isAttack ) return;
+    if ( restoration ) {
+      delete boons.flanked; // Discard the flanking boon previewed for the attack as a whole
+      return;
+    }
+
+    // Blinded and guarded targets
+    // TODO: a future action tag for attacks which do not rely on sight could exempt them from a blinded target
+    if ( this.statuses.has("blinded") ) boons.blind = {label: statuses.blinded.name, number: 2};
+    if ( this.statuses.has("guarded") ) banes.guarded = {label: statuses.guarded.name, number: 1};
+
+    // Prone targets cannot evade a Reflex attack and are harder to strike physically from range
+    if ( this.statuses.has("prone") ) {
+      const prone = {label: statuses.prone.name, number: 1};
+      if ( defenseType === "reflex" ) boons.prone = prone;
+      else if ( defenseType === "physical" ) {
+        if ( rangeCategory === "melee" ) boons.prone = prone;
+        else if ( rangeCategory === "ranged" ) banes.prone = prone;
       }
-      if ( this.statuses.has("prone") ) {
-        if ( rangedAttack ) banes.prone = {label: statuses.prone.name, number: 1};
-        else boons.prone = {label: statuses.prone.name, number: 1};
-      }
-      // Flanking is per-target, so the optimistic boon previewed in action usage is replaced or cleared here.
-      // A ranged attack keeps whatever usage offered, since only a hook (like Thread the Needle) can grant it.
-      rollData.flanked = action.targets.get(this)?.flanked ?? 0;
-      if ( meleeAttack ) {
-        if ( rollData.flanked ) boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: rollData.flanked};
-        else delete boons.flanked;
-      }
+    }
+
+    // Flanking is per-target, so the optimistic boon previewed in action usage is replaced or cleared here.
+    // A ranged attack keeps whatever usage offered, since only a hook (like Thread the Needle) can grant it.
+    rollData.flanked = action.targets.get(this)?.flanked ?? 0;
+    if ( rangeCategory === "melee" ) {
+      if ( rollData.flanked ) boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: rollData.flanked};
+      else delete boons.flanked;
     }
   }
 

@@ -296,14 +296,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     super._prepare();
 
-    // Classify iconic attacks after super(), since the healing and rallying tags may assert restoration during it
-    if ( this.isIconic ) {
-      this.usage.isAttack = (this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF) && !this.usage.restoration;
-    }
-
-    // Classify melee or ranged after super(), once the Strike gesture has chosen its weapon
-    Object.assign(this.range, this._classifyAttackRange());
-
     // Add Weapon cost
     if ( this.cost.weapon ) {
       const w = this.actor.equipment.weapons.mainhand;

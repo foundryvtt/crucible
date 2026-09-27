@@ -92,7 +92,8 @@ function applyMoraleWave(actor, action, {test, radius, amount, label, wallType="
 HOOKS.acrobat000000000 = {
   defendAttack(item, action, _attacker, rollData) {
     if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
-    if ( action.range.rangedAttack && action.tags.has("strike") ) rollData.banes.acrobat = {label: item.name, number: 2};
+    if ( !action.target.isAttack || (action.range.category !== "ranged") || !action.tags.has("strike") ) return;
+    rollData.banes.acrobat = {label: item.name, number: 2};
   }
 };
 
@@ -293,7 +294,7 @@ HOOKS.berserker0000000 = {
   },
   prepareAttack(_item, action, _target, rollData) {
     if ( !this.effects.has(SYSTEM.EFFECTS.getEffectId("berserkerRage")) ) return;
-    if ( !action.range.meleeAttack ) return;
+    if ( !action.target.isAttack || (action.range.category !== "melee") ) return;
     rollData.damageBonus += 4;
   }
 }
@@ -512,7 +513,7 @@ HOOKS.champion00000000 = {
     return origin ? fromUuidSync(origin) : null;
   },
   prepareAttack(item, action, target, rollData) {
-    if ( !action.range.meleeAttack ) return;
+    if ( !action.target.isAttack || (action.range.category !== "melee") ) return;
     const dominance = this.effects.get(HOOKS.champion00000000._DOMINANCE_ID);
     if ( dominance?.origin !== target.uuid ) return;
     const stage = dominance.getFlag("crucible", "dominance")?.stage || 0;
@@ -572,7 +573,7 @@ HOOKS.champion00000000 = {
 HOOKS.channeledResonan = {
   prepareAttack(_item, action, _target, rollData) {
     if ( this.equipment.weapons.mainhand?.category !== "talisman2" ) return;
-    if ( !action.usage.isAttack ) return;
+    if ( !action.target.isAttack ) return;
     const sustaining = this.parent.effects.some(e => e.active && (e.system.maintenance?.cost > 0));
     if ( sustaining ) rollData.damageBonus += 2;
   }
@@ -792,7 +793,7 @@ HOOKS.evasiveArmor0000 = {
 
 HOOKS.exploitDespair00 = {
   prepareAttack(item, action, target, rollData) {
-    if ( !action.usage.isAttack || !target.statuses.has("broken") ) return;
+    if ( !action.target.isAttack || !target.statuses.has("broken") ) return;
     rollData.boons.exploitDespair = {label: item.name, number: 1};
   }
 };
@@ -2149,7 +2150,7 @@ HOOKS.warchanter000000 = {
     "dirgeOfFeeblenes", "dirgeOfLethargy0", "dirgeOfFragility"
   ]),
   finalizeAction(_item, action) {
-    if ( !action.range.meleeAttack ) return;
+    if ( !action.target.isAttack || (action.range.category !== "melee") ) return;
     const {HIT} = game.system.api.dice.AttackRoll.RESULT_TYPES;
     const landedHit = action.events.some(e => (e.target !== this) && (e.roll?.data?.result >= HIT));
     if ( !landedHit ) return;

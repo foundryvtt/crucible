@@ -21,10 +21,8 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {number} [minimum]             A minimum distance in feet at which the action may be used
  * @property {number} [maximum]             A maximum distance in feet at which the action may be used
  * @property {boolean} weapon               Enforce the maximum range of the used weapon
- * @property {boolean} meleeAttack          Is this a melee attack? Derived during preparation.
- * @property {boolean} rangedAttack         Is this a ranged attack? Derived during preparation.
- *                                          Mutually exclusive with meleeAttack; both are false for non-attacks.
- *                                          An attack with no meaningful distance may also be neither.
+ * @property {"none"|"melee"|"ranged"} category  How the action reaches its targets, "none" without external targets.
+ *                                          Inferred at the end of preparation; an action may override it in configure.
  */
 
 /**
@@ -34,6 +32,10 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {number} [distance]            The allowed distance between the actor and the target(s)
  * @property {number} [limit]               Limit the effect to a certain number of targets.
  * @property {number} [scope]               The scope of creatures affected by an action
+ * @property {boolean} isAttack             Is the action hostile toward its targets?
+ *                                          Inferred at the end of preparation; an action may override it in configure.
+ * @property {boolean} emanates             Does the target area emanate from the actor, reaching as far as its size?
+ *                                          Derived from the target type at the end of preparation.
  */
 
 /**
@@ -48,9 +50,6 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {Record<string, string|false>} focusBlock  Per-action Focus block overrides, keyed by reason, which
  *   supersede the actor's prepared availability. Provide a string localization key for a blocking reason, or false.
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
- * @property {boolean} isAttack             Is this an attack made upon another creature (other than self)?
- *                                          Whatever sets it must also classify range.meleeAttack and rangedAttack,
- *                                          which may both be false for an attack with no meaningful distance.
  * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
  * @property {ActionRegionUsage} region     Overrides applied to a RegionDocument placed by this action
  * @property {boolean} restoration          Default {@link AttackRollData#restoration} seeding this action's rolls
@@ -87,6 +86,7 @@ import {resolveReferences} from "../enrichers.mjs";
  *                                          waypoints. Otherwise, a multi-segment path is allowed. (default true)
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
  * @property {object} [measureOptions]      Measurement options (e.g. `overrideCost`) for the planned movement path
+ * @property {boolean} [ignoreRestrained]   Allow the movement while the actor is Restrained
  */
 
 /**
@@ -644,8 +644,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         minimum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
         maximum: new fields.NumberField({required: true, nullable: true, integer: true, min: 0, initial: null}),
         weapon: new fields.BooleanField({initial: false}),
-        meleeAttack: new fields.BooleanField({persisted: false}),
-        rangedAttack: new fields.BooleanField({persisted: false})
+        category: new fields.StringField({required: true, blank: false, initial: "none", persisted: false,
+          choices: ["none", "melee", "ranged"]})
       }),
       target: new fields.SchemaField({
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES, initial: "single"}),
@@ -655,7 +655,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         scope: new fields.NumberField({required: true, initial: SYSTEM.ACTION.TARGET_SCOPES.ALL,
           choices: SYSTEM.ACTION.TARGET_SCOPES.choices}),
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
-        self: new fields.BooleanField()
+        self: new fields.BooleanField(),
+        isAttack: new fields.BooleanField({initial: false, persisted: false}),
+        emanates: new fields.BooleanField({initial: false, persisted: false})
       }),
       persistRegion: new fields.BooleanField(),
       regionBehavior: new fields.SchemaField({
@@ -1122,7 +1124,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       context: {label: undefined, icon: undefined, tags: {}},
       focusBlock: {},
       hasDice: false,
-      isAttack: false,
       movement: {},
       region: {},
       restoration: false
@@ -1299,8 +1300,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /** @inheritDoc */
   toObject(source) {
     const obj = super.toObject();
-    // Preserve final tags
-    if ( source === false ) obj.tags = Array.from(this.tags);
+    if ( source === false ) {
+      obj.tags = Array.from(this.tags); // Preserve final tags
+      obj.target.isAttack = this.target.isAttack; // Preserve the final attack classification, which is not persisted
+      obj.range.category = this.range.category;
+    }
     return obj;
   }
 
@@ -1458,6 +1462,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Acquire initial targets and configure the action
     this.acquireTargets({strict: false});
     this._callActionHooks("configure");
+    this._configureFlanking(); // Configure hooks may override the attack classification
 
     // Prompt for action configuration
     if ( dialog ) {
@@ -1470,6 +1475,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         return null;
       }
       this._callActionHooks("configure");
+      this._configureFlanking(); // Configure hooks may override the attack classification
     }
 
     // Initialize self events before pre-activation hooks
@@ -1951,31 +1957,61 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       target.flanked = this.computeFlanking(target.actor, target.token);
       best = Math.max(best, target.flanked);
     }
-    if ( !best || !this.range.meleeAttack ) return;
+    if ( !best || !this.target.isAttack || (this.range.category !== "melee") ) return;
     this.usage.boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: best};
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Classify this Action's attack as melee or ranged from its used weapons and maximum range.
-   * The result is assigned to both range fields together, since they are mutually exclusive.
-   * @returns {{meleeAttack: boolean, rangedAttack: boolean}}
+   * Classify whether this Action is an attack and its range category, from its fully prepared state.
+   * An Action which disagrees overrides target.isAttack or range.category in its configure hook.
    * @protected
    */
-  _classifyAttackRange() {
-    if ( !this.usage.isAttack ) return {meleeAttack: false, rangedAttack: false};
+  _classifyAttack() {
+    this.target.isAttack = this.#classifyIsAttack();
+    const {region} = SYSTEM.ACTION.TARGET_TYPES[this.target.type];
+    this.target.emanates = (region?.anchor === "self") && (region.shape !== "line");
+    this.range.category = this.#classifyRangeCategory();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Classify whether this Action is hostile: it can reach an enemy and either damages it or applies an effect to it.
+   * @returns {boolean}
+   */
+  #classifyIsAttack() {
+    const {SELF, ENEMIES, ALL} = SYSTEM.ACTION.TARGET_SCOPES;
+    const reachesEnemies = scope => (scope === ENEMIES) || (scope === ALL);
+    if ( SYSTEM.ACTION.TARGET_TYPES[this.target.type].scope <= SELF ) return false; // No external creature
+    if ( !reachesEnemies(this.target.scope ?? ALL) ) return false;
+    const damages = this.usage.hasDice && !this.usage.restoration && !this.tags.has("harmless");
+    return damages || this.effects.some(e => reachesEnemies(e.scope));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Classify how this Action reaches its targets from its target type, used weapons, and range.
+   * @returns {"none"|"melee"|"ranged"}
+   */
+  #classifyRangeCategory() {
+    const {type, scope, size, emanates} = this.target;
+    const {SELF, ALL} = SYSTEM.ACTION.TARGET_SCOPES;
+    if ( (SYSTEM.ACTION.TARGET_TYPES[type].scope <= SELF) || ((scope ?? ALL) <= SELF) ) return "none";
+    if ( type === "movement" ) return "melee";
     const weapons = this.usage.strikes ?? [];
-    let ranged;
-    if ( this.range.weapon ) ranged = (weapons.length > 0) && weapons.every(w => w.config.category.ranged);
-    else {
-      const maximum = this.range.maximum ?? 0;
-      const reach = weapons.length ? Math.min(...weapons.map(w => w.system.range)) : 1;
-      if ( maximum <= 1 ) ranged = false;
-      else if ( weapons.some(w => w.config.category.ranged) ) ranged = true;
-      else ranged = maximum > reach;
+    if ( this.range.weapon ) {
+      return ((weapons.length > 0) && weapons.every(w => w.config.category.ranged)) ? "ranged" : "melee";
     }
-    return {meleeAttack: !ranged, rangedAttack: ranged};
+
+    // Compare the farthest distance reached from the actor, measured as the target region is drawn
+    const extent = (emanates ? (size ?? this.range.maximum) : this.range.maximum) ?? 0;
+    if ( extent <= 1 ) return "melee";
+    if ( weapons.some(w => w.config.category.ranged) ) return "ranged";
+    const reach = weapons.length ? Math.min(...weapons.map(w => w.system.range)) : 1;
+    return (extent > reach) ? "ranged" : "melee";
   }
 
   /* -------------------------------------------- */
@@ -2586,7 +2622,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _configureUsage() {
     // Reset flags that are determined during action preparation
-    this.usage.hasDice = this.usage.isAttack = this.range.meleeAttack = this.range.rangedAttack = false;
+    this.usage.hasDice = false;
     this.usage.restoration = false;
 
     // Reset cost fields to their source values so that repeated prepare() calls do not accumulate costs
@@ -2674,6 +2710,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         this.cost.heroism += shortfall;
       }
     }
+
+    // Classify attack intent and range category once every tag and hook has prepared the action
+    this._classifyAttack();
   }
 
   /* -------------------------------------------- */
@@ -3947,6 +3986,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     else action = new this(actionData, actionContext);
     action.prepare();
+
+    // Restore the attack classification as used, which may include overrides applied by configure hooks
+    if ( typeof actionData.target?.isAttack === "boolean" ) action.target.isAttack = actionData.target.isAttack;
+    if ( actionData.range?.category ) action.range.category = actionData.range.category;
 
     // Reconstruct targets and the canonical event stream
     if ( serializedTargets ) {

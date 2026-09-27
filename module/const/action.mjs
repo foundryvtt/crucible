@@ -558,8 +558,6 @@ export const TAGS = {
       this.usage.context.tags.gesture = _loc("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture.name});
       if ( this.inflection ) this.usage.context.tags.inflection = _loc("SPELL.COMPONENTS.InflectionSpecific", {inflection: this.inflection.name});
       this.usage.actorFlags.lastSpell = this.id;
-      const isSelf = this.gesture.target.type === "self";
-      this.usage.isAttack = !isSelf;
     },
     configureVFX(vfxConfig) {
       return crucible.api.canvas.vfx.spells.configureEffect(this, vfxConfig);
@@ -699,9 +697,7 @@ export const TAGS = {
       this.usage.weapon ??= strikes[0];
 
       // Record usage properties
-      const isSelf = this.target.type === "self";
       this.usage.hasDice = true;
-      this.usage.isAttack = !isSelf; // Self-target actions do not count as attacks, even if they make attack rolls
 
       // Melee and ranged tags require a certain category of weapon
       if ( this.tags.has("ranged") && !strikes.every(w => w.config.category.ranged) ) this.tags.delete("ranged");
@@ -747,10 +743,6 @@ export const TAGS = {
           this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
         }
       }
-
-      // Classify the attack as melee or ranged; an action hook may override both fields in its own prepare
-      Object.assign(this.range, this._classifyAttackRange());
-      if ( this.usage.isAttack ) this.usage.actorStatus.hasAttacked = true;
     },
     acquireTargets(targets) {
       const weapon = this.usage.strikes[0];
@@ -763,8 +755,12 @@ export const TAGS = {
       }
     },
     preActivate() {
-      if ( this.range.meleeAttack ) this.usage.actorStatus.meleeAttack = true;
-      if ( this.range.rangedAttack ) this.usage.actorStatus.rangedAttack = true;
+      // TODO: replaced by the core hasAttacked determination from realized consequences
+      if ( this.target.isAttack ) {
+        this.usage.actorStatus.hasAttacked = true;
+        if ( this.range.category === "melee" ) this.usage.actorStatus.meleeAttack = true;
+        if ( this.range.category === "ranged" ) this.usage.actorStatus.rangedAttack = true;
+      }
       const updateEvent = this.selfUpdateEvent;
       for ( const w of this.usage.strikes ) {
         if ( !this.actor.items.has(w.id) ) continue; // Generated weapons (like "Headbutt") have no persisted state
@@ -941,6 +937,9 @@ export const TAGS = {
       this.usage.defenseType ??= "physical";
       this.usage.bonuses.ability = this.usage.danger;
       this.usage.bonuses.base = 1;
+    },
+    configure() {
+      this.target.isAttack = false; // An environmental hazard is not an attack made by a creature
     },
     async roll(target) {
       const n = this.target.multiple ?? 1;
@@ -1218,6 +1217,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.MovementTooltip",
     category: "movement",
     canUse() {
+      if ( this.usage.movement.ignoreRestrained ) return;
       if ( this.actor.statuses.has("restrained") ) throw new Error(_loc("ACTION.WARNINGS.Restrained"));
     },
     prepare() {

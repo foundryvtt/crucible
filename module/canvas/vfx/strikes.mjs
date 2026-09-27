@@ -91,7 +91,7 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
       const weapon = action.usage.strikes[roll.data.strike];
       const projectileName = `projectile_${j}_${i}`;
       const config = {key: projectileName, token, roll, meshRef: targetMeshReference, references};
-      if ( !action.range.rangedAttack ) continue;
+      if ( action.range.category !== "ranged" ) continue;
       const built = _PHYSICAL_PROJECTILE_CATEGORIES.has(weapon?.category)
         ? _buildPhysicalProjectile(action, config)
         : _buildMagicalProjectile(action, config);
