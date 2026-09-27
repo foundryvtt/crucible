@@ -14,7 +14,7 @@ system:
     stone.</p>
   identifier: dwarf
   talents:
-    - item: Compendium.crucible.ancestry.Item.grudgebearer0000
+    - item: Compendium.crucible.ancestry.Item.dwarfLineage0000
       level: null
   ui:
     color: '#cb9943'

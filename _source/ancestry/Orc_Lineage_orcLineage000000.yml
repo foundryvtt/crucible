@@ -1,4 +1,4 @@
-name: Deathless Fury
+name: Orc Lineage
 type: talent
 img: icons/creatures/magical/construct-iron-stomping-yellow.webp
 system:
@@ -6,8 +6,8 @@ system:
     - origin
   description: >-
     <p>The harsh northern clime forged your people to fight hardest when death
-    is nearest.</p><p><strong>Scarred Hide.</strong> The more grievously you
-    are wounded, the harder you are to put down. You gain resistance to
+    is nearest.</p><p><strong>Scarred Hide.</strong> The more grievously you are
+    wounded, the harder you are to put down. You gain resistance to
     <strong>Physical</strong> damage equal to your @Rule[ability.toughness]
     multiplied by the fraction of your maximum @Rule[resource.wounds] you have
     suffered, rounded down.</p>
@@ -73,7 +73,7 @@ folder: ancestryTalents0
 flags: {}
 ownership:
   default: 0
-_id: deathlessFury000
+_id: orcLineage000000
 sort: 800000
 _stats:
   coreVersion: '14.368'
@@ -85,4 +85,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!items!deathlessFury000'
+_key: '!items!orcLineage000000'

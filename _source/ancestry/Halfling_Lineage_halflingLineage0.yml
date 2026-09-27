@@ -1,4 +1,4 @@
-name: Stout Heart
+name: Halfling Lineage
 type: talent
 img: icons/magic/control/buff-luck-fortune-green.webp
 system:
@@ -52,7 +52,7 @@ folder: ancestryTalents0
 flags: {}
 ownership:
   default: 0
-_id: stoutHeart000000
+_id: halflingLineage0
 sort: 600000
 _stats:
   coreVersion: '14.368'
@@ -64,4 +64,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!items!stoutHeart000000'
+_key: '!items!halflingLineage0'

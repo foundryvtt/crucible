@@ -14,7 +14,7 @@ system:
     have inherited the strength of mountains.</p>
   identifier: giantkin
   talents:
-    - item: Compendium.crucible.ancestry.Item.elementalBirthri
+    - item: Compendium.crucible.ancestry.Item.giantkinLineage0
       level: null
   ui:
     color: '#acd7dd'

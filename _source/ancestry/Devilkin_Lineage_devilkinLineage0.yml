@@ -1,4 +1,4 @@
-name: Hellbrand
+name: Devilkin Lineage
 type: talent
 img: icons/magic/unholy/silhouette-evil-horned-giant.webp
 system:
@@ -76,7 +76,7 @@ folder: ancestryTalents0
 flags: {}
 ownership:
   default: 0
-_id: hellbrand0000000
+_id: devilkinLineage0
 sort: 100000
 _stats:
   coreVersion: '14.368'
@@ -88,4 +88,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!items!hellbrand0000000'
+_key: '!items!devilkinLineage0'

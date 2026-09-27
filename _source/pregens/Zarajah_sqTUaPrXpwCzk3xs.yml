@@ -62,7 +62,7 @@ system:
         devil.</p>
       identifier: devilkin
       talents:
-        - item: Compendium.crucible.ancestry.Item.hellbrand0000000
+        - item: Compendium.crucible.ancestry.Item.devilkinLineage0
           level: null
       ui:
         color: '#c72950'
@@ -299,8 +299,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790445309557
-      modifiedTime: 1790445309557
+      createdTime: 1790471161410
+      modifiedTime: 1790471161410
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -342,8 +342,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790445309558
-      modifiedTime: 1790445309558
+      createdTime: 1790471161411
+      modifiedTime: 1790471161411
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -411,8 +411,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790445309558
-      modifiedTime: 1790445309558
+      createdTime: 1790471161411
+      modifiedTime: 1790471161411
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -499,8 +499,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790445309558
-      modifiedTime: 1790445309558
+      createdTime: 1790471161412
+      modifiedTime: 1790471161412
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -565,8 +565,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790445309559
-      modifiedTime: 1790445309559
+      createdTime: 1790471161412
+      modifiedTime: 1790471161412
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -635,8 +635,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790445309559
-      modifiedTime: 1790445309559
+      createdTime: 1790471161412
+      modifiedTime: 1790471161412
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -715,8 +715,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1790445309559
-      createdTime: 1790445309559
+      modifiedTime: 1790471161413
+      createdTime: 1790471161413
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -755,8 +755,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790445309559
-      modifiedTime: 1790445309559
+      createdTime: 1790471161413
+      modifiedTime: 1790471161413
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -768,7 +768,7 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!sqTUaPrXpwCzk3xs.gesturearrow0000'
-  - name: Hellbrand
+  - name: Devilkin Lineage
     type: talent
     img: icons/magic/unholy/silhouette-evil-horned-giant.webp
     system:
@@ -776,7 +776,15 @@ items:
         - origin
       description: >-
         <p>The infernal fire of your heritage smolders just beneath your skin,
-        waiting to be unleashed through your blows.</p>
+        waiting to be unleashed through your blows.</p><p><strong>Thermal
+        Vision.</strong> You perceive the world through differences in
+        temperature, allowing you to locate creatures whose body temperatures
+        are <strong>Gelid</strong>, <strong>Cool</strong>,
+        <strong>Warm</strong>, or <strong>Boiling</strong> up to <strong>30
+        feet</strong> away as long as they are not behind total cover and you
+        are not @Condition[blinded] or @Condition[incapacitated]. A creature
+        detected in this way is treated as visible for the purposes of Actions
+        which require sight.</p>
       actions:
         - id: hellbrand
           name: Hellbrand
@@ -838,13 +846,13 @@ items:
       spellcraft: ''
     effects: []
     flags: {}
-    _id: hellbrand0000000
+    _id: devilkinLineage0
     _stats:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790445309557
-      modifiedTime: 1790445309557
+      createdTime: 1790471161409
+      modifiedTime: 1790471161409
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -853,7 +861,7 @@ items:
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!sqTUaPrXpwCzk3xs.hellbrand0000000'
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.devilkinLineage0'
 effects: []
 flags:
   core: {}
@@ -863,8 +871,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790445309557
-  modifiedTime: 1790445309557
+  createdTime: 1790471161409
+  modifiedTime: 1790471161409
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

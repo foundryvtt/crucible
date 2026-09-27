@@ -14,7 +14,7 @@ system:
     stubborn will to survive.</p>
   identifier: human
   talents:
-    - item: Compendium.crucible.ancestry.Item.pushThrough00000
+    - item: Compendium.crucible.ancestry.Item.humanLineage0000
       level: null
   ui:
     color: '#a985d6'

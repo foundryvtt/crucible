@@ -14,7 +14,7 @@ system:
     above all else.</p>
   identifier: orc
   talents:
-    - item: Compendium.crucible.ancestry.Item.deathlessFury000
+    - item: Compendium.crucible.ancestry.Item.orcLineage000000
       level: null
   ui:
     color: '#c14425'

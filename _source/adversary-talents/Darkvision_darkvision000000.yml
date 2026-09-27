@@ -17,4 +17,14 @@ ownership:
 flags: {}
 _id: darkvision000000
 sort: 450000
+_stats:
+  coreVersion: '14.368'
+  systemId: null
+  systemVersion: null
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
 _key: '!items!darkvision000000'

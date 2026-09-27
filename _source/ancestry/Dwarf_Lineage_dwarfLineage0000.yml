@@ -1,4 +1,4 @@
-name: Grudgebearer
+name: Dwarf Lineage
 type: talent
 img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
 system:
@@ -74,7 +74,7 @@ folder: ancestryTalents0
 flags: {}
 ownership:
   default: 0
-_id: grudgebearer0000
+_id: dwarfLineage0000
 sort: 200000
 _stats:
   coreVersion: '14.368'
@@ -86,4 +86,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!items!grudgebearer0000'
+_key: '!items!dwarfLineage0000'

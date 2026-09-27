@@ -14,7 +14,7 @@ system:
     to dissuade people from thinking you are an actual devil.</p>
   identifier: devilkin
   talents:
-    - item: Compendium.crucible.ancestry.Item.hellbrand0000000
+    - item: Compendium.crucible.ancestry.Item.devilkinLineage0
       level: null
   ui:
     color: '#c72950'

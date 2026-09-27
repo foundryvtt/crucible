@@ -1856,7 +1856,7 @@ actors:
             blooded: true
             temperature: ''
           talents:
-            - item: Compendium.crucible.ancestry.Item.deathlessFury000
+            - item: Compendium.crucible.ancestry.Item.orcLineage000000
               level: null
           movement:
             size: 4
@@ -2746,7 +2746,7 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Deathless Fury
+      - name: Orc Lineage
         type: talent
         img: icons/creatures/magical/construct-iron-stomping-yellow.webp
         system:
@@ -2754,7 +2754,11 @@ actors:
             - origin
           description: >-
             <p>The harsh northern clime forged your people to fight hardest when
-            death is nearest.</p>
+            death is nearest.</p><p><strong>Scarred Hide.</strong> The more
+            grievously you are wounded, the harder you are to put down. You gain
+            resistance to <strong>Physical</strong> damage equal to your
+            @Rule[ability.toughness] multiplied by the fraction of your maximum
+            @Rule[resource.wounds] you have suffered, rounded down.</p>
           actions:
             - id: deathlessFury
               name: Deathless Fury
@@ -2817,7 +2821,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: deathlessFury000
+        _id: orcLineage000000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -2825,7 +2829,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.deathlessFury000
+          compendiumSource: Compendium.crucible.ancestry.Item.orcLineage000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -2993,7 +2997,7 @@ actors:
             blooded: true
             temperature: ''
           talents:
-            - item: Compendium.crucible.ancestry.Item.pushThrough00000
+            - item: Compendium.crucible.ancestry.Item.humanLineage0000
               level: null
           movement:
             size: 4
@@ -4033,7 +4037,7 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Push Through
+      - name: Human Lineage
         type: talent
         img: icons/skills/social/diplomacy-handshake.webp
         system:
@@ -4041,7 +4045,10 @@ actors:
             - origin
           description: >-
             <p>Humans are known for a stubborn will to survive, pressing onward
-            through hardship that would halt anyone else.</p>
+            through hardship that would halt anyone
+            else.</p><p><strong>Adaptable.</strong> Your people are quick to
+            learn whatever the moment demands. You gain <strong>+2</strong>
+            Proficiency Points.</p>
           actions:
             - id: pushThrough
               name: Push Through
@@ -4101,7 +4108,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: pushThrough00000
+        _id: humanLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -4109,7 +4116,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.pushThrough00000
+          compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -8533,7 +8540,7 @@ actors:
             from thinking you are an actual devil.</p>
           identifier: devilkin
           talents:
-            - item: Compendium.crucible.ancestry.Item.hellbrand0000000
+            - item: Compendium.crucible.ancestry.Item.devilkinLineage0
               level: null
           ui:
             color: '#c72950'
@@ -9236,7 +9243,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Hellbrand
+      - name: Devilkin Lineage
         type: talent
         img: icons/magic/unholy/silhouette-evil-horned-giant.webp
         system:
@@ -9244,7 +9251,16 @@ actors:
             - origin
           description: >-
             <p>The infernal fire of your heritage smolders just beneath your
-            skin, waiting to be unleashed through your blows.</p>
+            skin, waiting to be unleashed through your
+            blows.</p><p><strong>Thermal Vision.</strong> You perceive the world
+            through differences in temperature, allowing you to locate creatures
+            whose body temperatures are <strong>Gelid</strong>,
+            <strong>Cool</strong>, <strong>Warm</strong>, or
+            <strong>Boiling</strong> up to <strong>30 feet</strong> away as long
+            as they are not behind total cover and you are not
+            @Condition[blinded] or @Condition[incapacitated]. A creature
+            detected in this way is treated as visible for the purposes of
+            Actions which require sight.</p>
           actions:
             - id: hellbrand
               name: Hellbrand
@@ -9306,7 +9322,7 @@ actors:
           spellcraft: ''
         effects: []
         flags: {}
-        _id: hellbrand0000000
+        _id: devilkinLineage0
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -9314,7 +9330,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.hellbrand0000000
+          compendiumSource: Compendium.crucible.ancestry.Item.devilkinLineage0
           duplicateSource: null
           exportSource: null
         folder: null
@@ -9403,7 +9419,7 @@ actors:
             for their strength and resilience above all else.</p>
           identifier: orc
           talents:
-            - item: Compendium.crucible.ancestry.Item.deathlessFury000
+            - item: Compendium.crucible.ancestry.Item.orcLineage000000
               level: null
           ui:
             color: '#c14425'
@@ -11372,7 +11388,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Deathless Fury
+      - name: Orc Lineage
         type: talent
         img: icons/creatures/magical/construct-iron-stomping-yellow.webp
         system:
@@ -11380,7 +11396,11 @@ actors:
             - origin
           description: >-
             <p>The harsh northern clime forged your people to fight hardest when
-            death is nearest.</p>
+            death is nearest.</p><p><strong>Scarred Hide.</strong> The more
+            grievously you are wounded, the harder you are to put down. You gain
+            resistance to <strong>Physical</strong> damage equal to your
+            @Rule[ability.toughness] multiplied by the fraction of your maximum
+            @Rule[resource.wounds] you have suffered, rounded down.</p>
           actions:
             - id: deathlessFury
               name: Deathless Fury
@@ -11443,7 +11463,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: deathlessFury000
+        _id: orcLineage000000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -11451,7 +11471,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.deathlessFury000
+          compendiumSource: Compendium.crucible.ancestry.Item.orcLineage000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -11560,7 +11580,7 @@ actors:
             with traditions that drive a stubborn will to survive.</p>
           identifier: human
           talents:
-            - item: Compendium.crucible.ancestry.Item.pushThrough00000
+            - item: Compendium.crucible.ancestry.Item.humanLineage0000
               level: null
           ui:
             color: '#a985d6'
@@ -13582,7 +13602,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Push Through
+      - name: Human Lineage
         type: talent
         img: icons/skills/social/diplomacy-handshake.webp
         system:
@@ -13590,7 +13610,10 @@ actors:
             - origin
           description: >-
             <p>Humans are known for a stubborn will to survive, pressing onward
-            through hardship that would halt anyone else.</p>
+            through hardship that would halt anyone
+            else.</p><p><strong>Adaptable.</strong> Your people are quick to
+            learn whatever the moment demands. You gain <strong>+2</strong>
+            Proficiency Points.</p>
           actions:
             - id: pushThrough
               name: Push Through
@@ -13650,7 +13673,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: pushThrough00000
+        _id: humanLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -13658,7 +13681,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.pushThrough00000
+          compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -13759,7 +13782,7 @@ actors:
             breast beats a heart of stone.</p>
           identifier: dwarf
           talents:
-            - item: Compendium.crucible.ancestry.Item.grudgebearer0000
+            - item: Compendium.crucible.ancestry.Item.dwarfLineage0000
               level: null
           ui:
             color: '#cb9943'
@@ -15639,7 +15662,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Grudgebearer
+      - name: Dwarf Lineage
         type: talent
         img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
         system:
@@ -15647,7 +15670,11 @@ actors:
             - origin
           description: >-
             <p>Your people never forget a slight, and your wrath toward a sworn
-            enemy is as enduring as the stone of your ancestral halls.</p>
+            enemy is as enduring as the stone of your ancestral
+            halls.</p><p><strong>Darkvision.</strong> Generations beneath the
+            earth have adapted your eyes to the dark. You can see in darkness as
+            though it were dim light up to <strong>30 feet</strong> away,
+            perceiving your surroundings in shades of grey.</p>
           actions:
             - id: grudgebearer
               name: Grudgebearer
@@ -15710,7 +15737,7 @@ actors:
           spellcraft: ''
         effects: []
         flags: {}
-        _id: grudgebearer0000
+        _id: dwarfLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -15718,7 +15745,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.grudgebearer0000
+          compendiumSource: Compendium.crucible.ancestry.Item.dwarfLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -15807,7 +15834,7 @@ actors:
             the evolutionary results of hundreds of years of tradition.</p>
           identifier: elf
           talents:
-            - item: Compendium.crucible.ancestry.Item.perfectPrecision
+            - item: Compendium.crucible.ancestry.Item.elfLineage000000
               level: null
           ui:
             color: '#51d277'
@@ -15926,7 +15953,10 @@ actors:
         sizeBonus: 0
         strideBonus: 0
         engagementBonus: 0
-      status: null
+      status:
+        lastAction: rest
+        hasAttacked: true
+        rangedAttack: true
       favorites:
         - move
         - defend
@@ -17758,7 +17788,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Perfect Precision
+      - name: Elf Lineage
         type: talent
         img: icons/magic/nature/leaf-rune-glow-green.webp
         system:
@@ -17766,7 +17796,10 @@ actors:
             - origin
           description: >-
             <p>Centuries of elven tradition have honed your eye to find the flaw
-            in any defense.</p>
+            in any defense.</p><p><strong>Trance.</strong> Rather than sleep,
+            you rest in a meditative trance which keeps your mind clear. You are
+            immune to the @Condition[asleep] and @Condition[disoriented]
+            conditions.</p>
           actions:
             - id: perfectPrecision
               name: Perfect Precision
@@ -17826,7 +17859,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: perfectPrecision
+        _id: elfLineage000000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -17834,7 +17867,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.perfectPrecision
+          compendiumSource: Compendium.crucible.ancestry.Item.elfLineage000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -17847,6 +17880,12 @@ actors:
       crucible:
         lastSpell: spell.illusion.arrow
         actionHistory:
+          - id: rest
+            messageId: HWaauc1H7N2J5mEe
+            combat: null
+          - id: strike
+            messageId: 9V8INpbEcegAaUpJ
+            combat: null
           - id: strike
             messageId: 2KjhNxuDZjODCLZn
             combat: null
@@ -17930,7 +17969,7 @@ actors:
             quick-action.</p>
           identifier: gnome
           talents:
-            - item: Compendium.crucible.ancestry.Item.tinkersTrick0000
+            - item: Compendium.crucible.ancestry.Item.gnomeLineage0000
               level: null
           ui:
             color: '#afa2c3'
@@ -20079,7 +20118,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Tinker's Trick
+      - name: Gnome Lineage
         type: talent
         img: icons/commodities/tech/cog-brass.webp
         system:
@@ -20087,7 +20126,10 @@ actors:
             - origin
           description: >-
             <p>A gnome's knack for improvisation lets you coax just a little
-            more out of the tools and concoctions you carry.</p>
+            more out of the tools and concoctions you
+            carry.</p><p><strong>Tinker's Belt.</strong> Your cleverly arranged
+            gear keeps more within reach. You have <strong>+1</strong> toolbelt
+            slot.</p>
           actions:
             - id: tinkersTrick
               name: Tinker's Trick
@@ -20147,7 +20189,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: tinkersTrick0000
+        _id: gnomeLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -20155,7 +20197,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.tinkersTrick0000
+          compendiumSource: Compendium.crucible.ancestry.Item.gnomeLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -20333,7 +20375,7 @@ actors:
             mountains.</p>
           identifier: giantkin
           talents:
-            - item: Compendium.crucible.ancestry.Item.elementalBirthri
+            - item: Compendium.crucible.ancestry.Item.giantkinLineage0
               level: null
           ui:
             color: '#acd7dd'
@@ -22331,7 +22373,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Elemental Birthright
+      - name: Giantkin Lineage
         type: talent
         img: icons/environment/wilderness/tree-oak.webp
         system:
@@ -22339,7 +22381,9 @@ actors:
             - origin
           description: >-
             <p>The elemental forces which presided over your birth still answer
-            when you call upon them.</p>
+            when you call upon them.</p><p><strong>Powerful Build.</strong> Your
+            massive frame bears burdens that would stagger others. Your carrying
+            capacity is increased by <strong>50%</strong>.</p>
           actions:
             - id: elementalBirthright
               name: Elemental Birthright
@@ -22404,7 +22448,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: elementalBirthri
+        _id: giantkinLineage0
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -22412,7 +22456,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.elementalBirthri
+          compendiumSource: Compendium.crucible.ancestry.Item.giantkinLineage0
           duplicateSource: null
           exportSource: null
         folder: null
@@ -22586,7 +22630,7 @@ actors:
             with traditions that drive a stubborn will to survive.</p>
           identifier: human
           talents:
-            - item: Compendium.crucible.ancestry.Item.pushThrough00000
+            - item: Compendium.crucible.ancestry.Item.humanLineage0000
               level: null
           ui:
             color: '#a985d6'
@@ -24697,7 +24741,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Push Through
+      - name: Human Lineage
         type: talent
         img: icons/skills/social/diplomacy-handshake.webp
         system:
@@ -24705,7 +24749,10 @@ actors:
             - origin
           description: >-
             <p>Humans are known for a stubborn will to survive, pressing onward
-            through hardship that would halt anyone else.</p>
+            through hardship that would halt anyone
+            else.</p><p><strong>Adaptable.</strong> Your people are quick to
+            learn whatever the moment demands. You gain <strong>+2</strong>
+            Proficiency Points.</p>
           actions:
             - id: pushThrough
               name: Push Through
@@ -24765,7 +24812,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: pushThrough00000
+        _id: humanLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -24773,7 +24820,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.pushThrough00000
+          compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -24883,7 +24930,7 @@ actors:
             from thinking you are an actual devil.</p>
           identifier: devilkin
           talents:
-            - item: Compendium.crucible.ancestry.Item.hellbrand0000000
+            - item: Compendium.crucible.ancestry.Item.devilkinLineage0
               level: null
           ui:
             color: '#c72950'
@@ -25001,7 +25048,10 @@ actors:
         sizeBonus: 0
         strideBonus: 0
         engagementBonus: 0
-      status: null
+      status:
+        lastAction: rest
+        hasAttacked: true
+        rangedAttack: true
       favorites:
         - cast
         - defend
@@ -26904,7 +26954,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Hellbrand
+      - name: Devilkin Lineage
         type: talent
         img: icons/magic/unholy/silhouette-evil-horned-giant.webp
         system:
@@ -26912,7 +26962,16 @@ actors:
             - origin
           description: >-
             <p>The infernal fire of your heritage smolders just beneath your
-            skin, waiting to be unleashed through your blows.</p>
+            skin, waiting to be unleashed through your
+            blows.</p><p><strong>Thermal Vision.</strong> You perceive the world
+            through differences in temperature, allowing you to locate creatures
+            whose body temperatures are <strong>Gelid</strong>,
+            <strong>Cool</strong>, <strong>Warm</strong>, or
+            <strong>Boiling</strong> up to <strong>30 feet</strong> away as long
+            as they are not behind total cover and you are not
+            @Condition[blinded] or @Condition[incapacitated]. A creature
+            detected in this way is treated as visible for the purposes of
+            Actions which require sight.</p>
           actions:
             - id: hellbrand
               name: Hellbrand
@@ -26974,7 +27033,7 @@ actors:
           spellcraft: ''
         effects: []
         flags: {}
-        _id: hellbrand0000000
+        _id: devilkinLineage0
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -26982,7 +27041,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.hellbrand0000000
+          compendiumSource: Compendium.crucible.ancestry.Item.devilkinLineage0
           duplicateSource: null
           exportSource: null
         folder: null
@@ -26995,6 +27054,18 @@ actors:
       crucible:
         lastSpell: spell.kinesis.arrow
         actionHistory:
+          - id: rest
+            messageId: V2fCGoWbud9ovYJc
+            combat: null
+          - id: strike
+            messageId: sgF7hz0toq5WcGxW
+            combat: null
+          - id: strike
+            messageId: x1csxKQ08bN1n65m
+            combat: null
+          - id: strike
+            messageId: 4GV22C8mPGOWn0bE
+            combat: null
           - id: counterspell
             messageId: 2sz9KjqxFpQobm2g
             combat:
@@ -27080,7 +27151,7 @@ actors:
             for their strength and resilience above all else.</p>
           identifier: orc
           talents:
-            - item: Compendium.crucible.ancestry.Item.deathlessFury000
+            - item: Compendium.crucible.ancestry.Item.orcLineage000000
               level: null
           ui:
             color: '#c14425'
@@ -27696,7 +27767,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Deathless Fury
+      - name: Orc Lineage
         type: talent
         img: icons/creatures/magical/construct-iron-stomping-yellow.webp
         system:
@@ -27704,7 +27775,11 @@ actors:
             - origin
           description: >-
             <p>The harsh northern clime forged your people to fight hardest when
-            death is nearest.</p>
+            death is nearest.</p><p><strong>Scarred Hide.</strong> The more
+            grievously you are wounded, the harder you are to put down. You gain
+            resistance to <strong>Physical</strong> damage equal to your
+            @Rule[ability.toughness] multiplied by the fraction of your maximum
+            @Rule[resource.wounds] you have suffered, rounded down.</p>
           actions:
             - id: deathlessFury
               name: Deathless Fury
@@ -27767,7 +27842,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: deathlessFury000
+        _id: orcLineage000000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -27775,7 +27850,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.deathlessFury000
+          compendiumSource: Compendium.crucible.ancestry.Item.orcLineage000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -27864,7 +27939,7 @@ actors:
             with traditions that drive a stubborn will to survive.</p>
           identifier: human
           talents:
-            - item: Compendium.crucible.ancestry.Item.pushThrough00000
+            - item: Compendium.crucible.ancestry.Item.humanLineage0000
               level: null
           ui:
             color: '#a985d6'
@@ -28571,7 +28646,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Push Through
+      - name: Human Lineage
         type: talent
         img: icons/skills/social/diplomacy-handshake.webp
         system:
@@ -28579,7 +28654,10 @@ actors:
             - origin
           description: >-
             <p>Humans are known for a stubborn will to survive, pressing onward
-            through hardship that would halt anyone else.</p>
+            through hardship that would halt anyone
+            else.</p><p><strong>Adaptable.</strong> Your people are quick to
+            learn whatever the moment demands. You gain <strong>+2</strong>
+            Proficiency Points.</p>
           actions:
             - id: pushThrough
               name: Push Through
@@ -28639,7 +28717,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: pushThrough00000
+        _id: humanLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -28647,7 +28725,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.pushThrough00000
+          compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -28735,7 +28813,7 @@ actors:
             breast beats a heart of stone.</p>
           identifier: dwarf
           talents:
-            - item: Compendium.crucible.ancestry.Item.grudgebearer0000
+            - item: Compendium.crucible.ancestry.Item.dwarfLineage0000
               level: null
           ui:
             color: '#cb9943'
@@ -29444,7 +29522,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Grudgebearer
+      - name: Dwarf Lineage
         type: talent
         img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
         system:
@@ -29452,7 +29530,11 @@ actors:
             - origin
           description: >-
             <p>Your people never forget a slight, and your wrath toward a sworn
-            enemy is as enduring as the stone of your ancestral halls.</p>
+            enemy is as enduring as the stone of your ancestral
+            halls.</p><p><strong>Darkvision.</strong> Generations beneath the
+            earth have adapted your eyes to the dark. You can see in darkness as
+            though it were dim light up to <strong>30 feet</strong> away,
+            perceiving your surroundings in shades of grey.</p>
           actions:
             - id: grudgebearer
               name: Grudgebearer
@@ -29515,7 +29597,7 @@ actors:
           spellcraft: ''
         effects: []
         flags: {}
-        _id: grudgebearer0000
+        _id: dwarfLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -29523,7 +29605,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.grudgebearer0000
+          compendiumSource: Compendium.crucible.ancestry.Item.dwarfLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -29611,7 +29693,7 @@ actors:
             the evolutionary results of hundreds of years of tradition.</p>
           identifier: elf
           talents:
-            - item: Compendium.crucible.ancestry.Item.perfectPrecision
+            - item: Compendium.crucible.ancestry.Item.elfLineage000000
               level: null
           ui:
             color: '#51d277'
@@ -30321,7 +30403,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Perfect Precision
+      - name: Elf Lineage
         type: talent
         img: icons/magic/nature/leaf-rune-glow-green.webp
         system:
@@ -30329,7 +30411,10 @@ actors:
             - origin
           description: >-
             <p>Centuries of elven tradition have honed your eye to find the flaw
-            in any defense.</p>
+            in any defense.</p><p><strong>Trance.</strong> Rather than sleep,
+            you rest in a meditative trance which keeps your mind clear. You are
+            immune to the @Condition[asleep] and @Condition[disoriented]
+            conditions.</p>
           actions:
             - id: perfectPrecision
               name: Perfect Precision
@@ -30389,7 +30474,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: perfectPrecision
+        _id: elfLineage000000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -30397,7 +30482,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.perfectPrecision
+          compendiumSource: Compendium.crucible.ancestry.Item.elfLineage000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -30485,7 +30570,7 @@ actors:
             quick-action.</p>
           identifier: gnome
           talents:
-            - item: Compendium.crucible.ancestry.Item.tinkersTrick0000
+            - item: Compendium.crucible.ancestry.Item.gnomeLineage0000
               level: null
           ui:
             color: '#afa2c3'
@@ -31235,7 +31320,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Tinker's Trick
+      - name: Gnome Lineage
         type: talent
         img: icons/commodities/tech/cog-brass.webp
         system:
@@ -31243,7 +31328,10 @@ actors:
             - origin
           description: >-
             <p>A gnome's knack for improvisation lets you coax just a little
-            more out of the tools and concoctions you carry.</p>
+            more out of the tools and concoctions you
+            carry.</p><p><strong>Tinker's Belt.</strong> Your cleverly arranged
+            gear keeps more within reach. You have <strong>+1</strong> toolbelt
+            slot.</p>
           actions:
             - id: tinkersTrick
               name: Tinker's Trick
@@ -31303,7 +31391,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: tinkersTrick0000
+        _id: gnomeLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -31311,7 +31399,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.tinkersTrick0000
+          compendiumSource: Compendium.crucible.ancestry.Item.gnomeLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -31401,7 +31489,7 @@ actors:
             mountains.</p>
           identifier: giantkin
           talents:
-            - item: Compendium.crucible.ancestry.Item.elementalBirthri
+            - item: Compendium.crucible.ancestry.Item.giantkinLineage0
               level: null
           ui:
             color: '#acd7dd'
@@ -32048,7 +32136,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Elemental Birthright
+      - name: Giantkin Lineage
         type: talent
         img: icons/environment/wilderness/tree-oak.webp
         system:
@@ -32056,7 +32144,9 @@ actors:
             - origin
           description: >-
             <p>The elemental forces which presided over your birth still answer
-            when you call upon them.</p>
+            when you call upon them.</p><p><strong>Powerful Build.</strong> Your
+            massive frame bears burdens that would stagger others. Your carrying
+            capacity is increased by <strong>50%</strong>.</p>
           actions:
             - id: elementalBirthright
               name: Elemental Birthright
@@ -32121,7 +32211,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: elementalBirthri
+        _id: giantkinLineage0
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -32129,7 +32219,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.elementalBirthri
+          compendiumSource: Compendium.crucible.ancestry.Item.giantkinLineage0
           duplicateSource: null
           exportSource: null
         folder: null
@@ -32218,7 +32308,7 @@ actors:
             with traditions that drive a stubborn will to survive.</p>
           identifier: human
           talents:
-            - item: Compendium.crucible.ancestry.Item.pushThrough00000
+            - item: Compendium.crucible.ancestry.Item.humanLineage0000
               level: null
           ui:
             color: '#a985d6'
@@ -32993,7 +33083,7 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Push Through
+      - name: Human Lineage
         type: talent
         img: icons/skills/social/diplomacy-handshake.webp
         system:
@@ -33001,7 +33091,10 @@ actors:
             - origin
           description: >-
             <p>Humans are known for a stubborn will to survive, pressing onward
-            through hardship that would halt anyone else.</p>
+            through hardship that would halt anyone
+            else.</p><p><strong>Adaptable.</strong> Your people are quick to
+            learn whatever the moment demands. You gain <strong>+2</strong>
+            Proficiency Points.</p>
           actions:
             - id: pushThrough
               name: Push Through
@@ -33061,7 +33154,7 @@ actors:
             training: {}
         effects: []
         flags: {}
-        _id: pushThrough00000
+        _id: humanLineage0000
         _stats:
           coreVersion: '14.368'
           systemId: crucible
@@ -33069,7 +33162,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.ancestry.Item.pushThrough00000
+          compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -36654,7 +36747,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.368'
-  modifiedTime: 1790447369626
+  modifiedTime: 1790471336088
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

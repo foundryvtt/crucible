@@ -1,24 +1,28 @@
-name: Perfect Precision
+name: Giantkin Lineage
 type: talent
-img: icons/magic/nature/leaf-rune-glow-green.webp
+img: icons/environment/wilderness/tree-oak.webp
 system:
   nodes:
     - origin
   description: >-
-    <p>Centuries of elven tradition have honed your eye to find the flaw in any
-    defense.</p><p><strong>Trance.</strong> Rather than sleep, you rest in a
-    meditative trance which keeps your mind clear. You are immune to the
-    @Condition[asleep] and @Condition[disoriented] conditions.</p>
+    <p>The elemental forces which presided over your birth still answer when you
+    call upon them.</p><p><strong>Powerful Build.</strong> Your massive frame
+    bears burdens that would stagger others. Your carrying capacity is increased
+    by <strong>50%</strong>.</p>
   actions:
-    - id: perfectPrecision
-      name: Perfect Precision
-      img: icons/magic/nature/leaf-rune-glow-green.webp
+    - id: elementalBirthright
+      name: Elemental Birthright
+      img: icons/environment/wilderness/tree-oak.webp
       condition: ''
       description: >-
-        <p>You expend @Rule[resource.heroism] to strike with flawless precision.
-        Until the end of your turn, your
-        @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.lZfPVvBSsCEqlte4#critical-hits-and-misses]{Critical
-        Success Threshold} is reduced by <strong>3</strong>.</p>
+        <p>You expend @Rule[resource.heroism] to call upon the elemental forces
+        of your birthright. Until the start of your next turn, you gain
+        resistance to <strong>Acid</strong>, <strong>Cold</strong>,
+        <strong>Electricity</strong>, and <strong>Fire</strong> damage equal to
+        your @Rule[ability.wisdom], and any <strong>Acid</strong>,
+        <strong>Cold</strong>, <strong>Electricity</strong>, or
+        <strong>Fire</strong> damage you deal is increased by your
+        @Rule[ability.wisdom].</p>
       cost:
         action: 0
         focus: 0
@@ -35,7 +39,7 @@ system:
         scope: 1
         self: false
       effects:
-        - name: Perfect Precision
+        - name: Elemental Birthright
           scope: 1
           result:
             type: any
@@ -44,7 +48,7 @@ system:
           duration:
             value: null
             units: ''
-            expiry: turnEnd
+            expiry: turnStart
             expired: false
           system:
             changes: []
@@ -62,22 +66,22 @@ system:
       persistRegion: false
       regionBehavior: null
   iconicSpells: 0
-  training: awareness
+  training: elemental
 effects: []
 folder: ancestryTalents0
 flags: {}
 ownership:
   default: 0
-_id: perfectPrecision
-sort: 300000
+_id: giantkinLineage0
+sort: 400000
 _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.0
-  createdTime: 1790438335136
-  modifiedTime: 1790438485669
+  createdTime: 1790438163039
+  modifiedTime: 1790438511126
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!items!perfectPrecision'
+_key: '!items!giantkinLineage0'

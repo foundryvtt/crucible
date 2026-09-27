@@ -1,24 +1,23 @@
-name: Push Through
+name: Gnome Lineage
 type: talent
-img: icons/skills/social/diplomacy-handshake.webp
+img: icons/commodities/tech/cog-brass.webp
 system:
   nodes:
     - origin
   description: >-
-    <p>Humans are known for a stubborn will to survive, pressing onward through
-    hardship that would halt anyone else.</p><p><strong>Adaptable.</strong>
-    Your people are quick to learn whatever the moment demands. You gain
-    <strong>+2</strong> Proficiency Points.</p>
+    <p>A gnome's knack for improvisation lets you coax just a little more out of
+    the tools and concoctions you carry.</p><p><strong>Tinker's Belt.</strong>
+    Your cleverly arranged gear keeps more within reach. You have
+    <strong>+1</strong> toolbelt slot.</p>
   actions:
-    - id: pushThrough
-      name: Push Through
-      img: icons/skills/social/diplomacy-handshake.webp
+    - id: tinkersTrick
+      name: Tinker's Trick
+      img: icons/commodities/tech/cog-brass.webp
       condition: ''
       description: >-
-        <p>You expend @Rule[resource.heroism] to push through adversity. Until
-        the end of your turn, your attacks and skill checks ignore any
-        <strong>Banes</strong> imposed upon them. Banes you choose to take upon
-        yourself are not ignored.</p>
+        <p>You expend @Rule[resource.heroism] to ready a clever trick. The next
+        consumable you use from your toolbelt before the end of your turn costs
+        no @Rule[resource.action] and is not consumed.</p>
       cost:
         action: 0
         focus: 0
@@ -35,7 +34,7 @@ system:
         scope: 1
         self: false
       effects:
-        - name: Push Through
+        - name: Tinker's Trick
           scope: 1
           result:
             type: any
@@ -62,22 +61,22 @@ system:
       persistRegion: false
       regionBehavior: null
   iconicSpells: 0
-  training: society
+  training: deception
 effects: []
 folder: ancestryTalents0
 flags: {}
 ownership:
   default: 0
-_id: pushThrough00000
-sort: 700000
+_id: gnomeLineage0000
+sort: 500000
 _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.0
-  createdTime: 1790438362792
-  modifiedTime: 1790438477576
+  createdTime: 1790438436125
+  modifiedTime: 1790438467077
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!items!pushThrough00000'
+_key: '!items!gnomeLineage0000'

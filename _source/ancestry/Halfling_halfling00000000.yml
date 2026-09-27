@@ -16,7 +16,7 @@ system:
     secondary: presence
     primary: dexterity
   talents:
-    - item: Compendium.crucible.ancestry.Item.stoutHeart000000
+    - item: Compendium.crucible.ancestry.Item.halflingLineage0
       level: null
   ui:
     color: '#bff58a'

@@ -14,7 +14,7 @@ system:
     hundreds of years of tradition.</p>
   identifier: elf
   talents:
-    - item: Compendium.crucible.ancestry.Item.perfectPrecision
+    - item: Compendium.crucible.ancestry.Item.elfLineage000000
       level: null
   ui:
     color: '#51d277'
