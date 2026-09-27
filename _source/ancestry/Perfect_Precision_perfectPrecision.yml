@@ -6,7 +6,9 @@ system:
     - origin
   description: >-
     <p>Centuries of elven tradition have honed your eye to find the flaw in any
-    defense.</p>
+    defense.</p><p><strong>Trance.</strong> Rather than sleep, you rest in a
+    meditative trance which keeps your mind clear. You are immune to the
+    @Condition[asleep] and @Condition[disoriented] conditions.</p>
   actions:
     - id: perfectPrecision
       name: Perfect Precision

@@ -62,6 +62,8 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.webSpinner000000
       level: null
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: null
   characteristics:
     equipment: false
     spells: false

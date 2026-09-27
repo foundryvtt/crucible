@@ -469,6 +469,28 @@ HOOKS.chameleon0000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.darkvision000000 = {
+  _applyDarkvision(token, range) {
+    const sight = token.sight;
+    if ( !sight.enabled ) return;
+    if ( sight.visionMode === "basic" ) {
+      sight.visionMode = "darkvision";
+      for ( const [key, value] of Object.entries(CONFIG.Canvas.visionModes.darkvision.vision.defaults) ) {
+        if ( value !== undefined ) sight[key] = value;
+      }
+    }
+    else if ( sight.visionMode !== "darkvision" ) return; // Don't override other manually configured vision
+    if ( Number.isFinite(sight.range) ) sight.range = Math.max(sight.range, range);
+    const basicSight = token.detectionModes.basicSight;
+    if ( Number.isFinite(basicSight?.range) ) basicSight.range = Math.max(basicSight.range, range);
+  },
+  prepareToken(_item, token) {
+    HOOKS.darkvision000000._applyDarkvision(token, 60);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.dependableRefocu = {
   prepareAction(_item, action) {
     if ( action.id !== "refocus" ) return;
@@ -1958,8 +1980,12 @@ HOOKS.testudo000000000 = {
 /* -------------------------------------------- */
 
 HOOKS.thermalVision000 = {
+  _applyThermalVision(token, range) {
+    const mode = token.detectionModes.thermalVision ??= {enabled: true, range};
+    mode.range = Math.max(mode.range, range);
+  },
   prepareToken(_item, token) {
-    token.detectionModes.thermalVision ??= {enabled: true, range: 60};
+    HOOKS.thermalVision000._applyThermalVision(token, 60);
   }
 };
 

@@ -6,7 +6,11 @@ system:
     - origin
   description: >-
     <p>Your people never forget a slight, and your wrath toward a sworn enemy is
-    as enduring as the stone of your ancestral halls.</p>
+    as enduring as the stone of your ancestral
+    halls.</p><p><strong>Darkvision.</strong> Generations beneath the earth have
+    adapted your eyes to the dark. You can see in darkness as though it were dim
+    light up to <strong>30 feet</strong> away, perceiving your surroundings in
+    shades of grey.</p>
   actions:
     - id: grudgebearer
       name: Grudgebearer

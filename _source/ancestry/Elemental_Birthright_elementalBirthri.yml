@@ -6,7 +6,9 @@ system:
     - origin
   description: >-
     <p>The elemental forces which presided over your birth still answer when you
-    call upon them.</p>
+    call upon them.</p><p><strong>Powerful Build.</strong> Your massive frame
+    bears burdens that would stagger others. Your carrying capacity is increased
+    by <strong>50%</strong>.</p>
   actions:
     - id: elementalBirthright
       name: Elemental Birthright

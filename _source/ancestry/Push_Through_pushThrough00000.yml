@@ -6,7 +6,9 @@ system:
     - origin
   description: >-
     <p>Humans are known for a stubborn will to survive, pressing onward through
-    hardship that would halt anyone else.</p>
+    hardship that would halt anyone else.</p><p><strong>Adaptable.</strong>
+    Your people are quick to learn whatever the moment demands. You gain
+    <strong>+2</strong> Proficiency Points.</p>
   actions:
     - id: pushThrough
       name: Push Through

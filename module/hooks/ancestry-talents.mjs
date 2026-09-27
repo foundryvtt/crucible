@@ -32,6 +32,15 @@ TALENT.deathlessFury000 = {
     if ( !action.tags.has("strike") || !TALENT.deathlessFury000._isFurious(this, item) ) return;
     rollData.boons[item.id] = {label: item.name, number: 1};
   },
+  prepareResistances(_item, resistances) {
+    const {wounds} = this.resources;
+    if ( !wounds.max ) return;
+    const bonus = Math.floor(this.abilities.toughness.value * wounds.value / wounds.max);
+    if ( !bonus ) return;
+    for ( const [id, dt] of Object.entries(SYSTEM.DAMAGE_TYPES) ) {
+      if ( dt.type === "physical" ) resistances[id].bonus += bonus;
+    }
+  },
   startTurn(item, {effectChanges}) {
     TALENT.deathlessFury000._expireFury(this, item, effectChanges);
   },
@@ -45,6 +54,9 @@ TALENT.deathlessFury000 = {
 /* -------------------------------------------- */
 
 TALENT.elementalBirthri = {
+  prepareMovement() {
+    if ( this.system.capacity ) this.system.capacity.bonus += this.abilities.strength.value * 15;
+  },
   prepareResistances(item, resistances) {
     if ( !this.effects.has(item.id) ) return;
     const wisdom = this.abilities.wisdom.value;
@@ -88,6 +100,9 @@ TALENT.grudgebearer0000 = {
   },
   endTurn(item, {effectChanges}) {
     if ( this.effects.has(item.id) && !this.status.grudgebearer ) effectChanges.toDelete.push(item.id);
+  },
+  prepareToken(_item, token) {
+    crucible.api.hooks.talent.darkvision000000._applyDarkvision(token, 30);
   }
 };
 
@@ -113,6 +128,9 @@ TALENT.hellbrand0000000 = {
       if ( (event.target === this) || !event.isCriticalSuccess || !event.damagesHealth ) continue;
       event.effects.push(SYSTEM.EFFECTS.burning(this, {ability: "presence"}));
     }
+  },
+  prepareToken(_item, token) {
+    crucible.api.hooks.talent.thermalVision000._applyThermalVision(token, 30);
   }
 };
 
@@ -121,6 +139,10 @@ TALENT.hellbrand0000000 = {
 /* -------------------------------------------- */
 
 TALENT.perfectPrecision = {
+  prepareAbilities() {
+    this.statuses.delete("asleep"); // Removed before resource preparation, where Asleep incapacitates
+    this.statuses.delete("disoriented");
+  },
   prepareAttack(item, _action, _target, rollData) {
     if ( !this.effects.has(item.id) ) return;
     rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - 3;
@@ -143,6 +165,9 @@ TALENT.pushThrough00000 = {
   },
   prepareSkillCheck(item, _skill, rollData) {
     TALENT.pushThrough00000._ignoreBanes(this, item, rollData);
+  },
+  prepareTraining() {
+    if ( this.system.points ) this.system.points.proficiency.bonus += 2;
   }
 };
 
@@ -166,11 +191,23 @@ ACTION.stoutHeart = {
   }
 };
 
+TALENT.stoutHeart000000 = {
+  _NIMBLE_ACTIONS: new Set(["escape", "hide", "sneak"]),
+  prepareAction(item, action) {
+    if ( TALENT.stoutHeart000000._NIMBLE_ACTIONS.has(action.id) ) {
+      action.usage.boons[item.id] = {label: item.name, number: 1};
+    }
+  }
+};
+
 /* -------------------------------------------- */
 /*  Tinker's Trick (Gnome)                      */
 /* -------------------------------------------- */
 
 TALENT.tinkersTrick0000 = {
+  configureEquipment(_item, equipment) {
+    equipment.toolbeltSlots += 1;
+  },
   prepareAction(item, action) {
     if ( !action.tags.has("consume") ) return;
     if ( this.effects.has(item.id) ) {

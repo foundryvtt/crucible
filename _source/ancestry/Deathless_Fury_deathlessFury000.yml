@@ -6,7 +6,11 @@ system:
     - origin
   description: >-
     <p>The harsh northern clime forged your people to fight hardest when death
-    is nearest.</p>
+    is nearest.</p><p><strong>Scarred Hide.</strong> The more grievously you
+    are wounded, the harder you are to put down. You gain resistance to
+    <strong>Physical</strong> damage equal to your @Rule[ability.toughness]
+    multiplied by the fraction of your maximum @Rule[resource.wounds] you have
+    suffered, rounded down.</p>
   actions:
     - id: deathlessFury
       name: Deathless Fury

@@ -6,7 +6,9 @@ system:
     - origin
   description: >-
     <p>A gnome's knack for improvisation lets you coax just a little more out of
-    the tools and concoctions you carry.</p>
+    the tools and concoctions you carry.</p><p><strong>Tinker's
+    Belt.</strong> Your cleverly arranged gear keeps more within reach. You
+    have <strong>+1</strong> toolbelt slot.</p>
   actions:
     - id: tinkersTrick
       name: Tinker's Trick

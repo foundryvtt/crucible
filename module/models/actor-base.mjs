@@ -819,7 +819,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Training, resolved before defenses because armor proficiency alters the dodge scaling threshold
     this.parent.callActorHooks("prepareTraining", this.training);
-    this.#prepareFinalTraining();
+    this._prepareFinalTraining();
 
     // Resource pools
     this.#prepareBaseResources();
@@ -1123,8 +1123,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Total the training point contributions and resolve the rank each total attains.
+   * @protected
    */
-  #prepareFinalTraining() {
+  _prepareFinalTraining() {
     const ranks = Object.values(SYSTEM.PROFICIENCY.RANKS); // Ascending by points required
     const cap = this.details.progression.trainingCap;
     for ( const [id, t] of Object.entries(this.training) ) {

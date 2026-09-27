@@ -68,6 +68,8 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
       level: null
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: null
     - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
       level: 1
     - item: Compendium.crucible.adversary-talents.Item.burrower00000000

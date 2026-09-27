@@ -60,6 +60,8 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.acidAbsorption00
       level: null
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: null
   identifier: earthElemental
   equipment:
     - item: Compendium.crucible.adversary-equipment.Item.causticLimb00000
