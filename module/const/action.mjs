@@ -755,12 +755,6 @@ export const TAGS = {
       }
     },
     preActivate() {
-      // TODO: replaced by the core hasAttacked determination from realized consequences
-      if ( this.target.isAttack ) {
-        this.usage.actorStatus.hasAttacked = true;
-        if ( this.range.category === "melee" ) this.usage.actorStatus.meleeAttack = true;
-        if ( this.range.category === "ranged" ) this.usage.actorStatus.rangedAttack = true;
-      }
       const updateEvent = this.selfUpdateEvent;
       for ( const w of this.usage.strikes ) {
         if ( !this.actor.items.has(w.id) ) continue; // Generated weapons (like "Headbutt") have no persisted state

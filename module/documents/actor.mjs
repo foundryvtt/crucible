@@ -14,10 +14,6 @@ const {DialogV2} = foundry.applications.api;
  * @typedef ActorRoundStatus
  * @property {boolean} hasMoved
  * @property {string} freeMovementId
- * @property {boolean} hasAttacked
- * @property {boolean} wasAttacked
- * @property {boolean} rangedAttack
- * @property {boolean} meleeAttack
  */
 
 /**

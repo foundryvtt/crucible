@@ -180,10 +180,7 @@ system:
     sizeBonus: 0
     strideBonus: 0
     engagementBonus: 0
-  status:
-    lastAction: strike
-    hasAttacked: true
-    rangedAttack: true
+  status: null
   favorites:
     - move
     - defend
