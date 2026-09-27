@@ -5,6 +5,24 @@ import {getVFXFlipbook} from "../sprites.mjs";
 const {ArrayField, BooleanField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 
 /**
+ * The projectile-specific delivery fields of a {@link CrucibleProjectileComponent}.
+ * @typedef ProjectileDeliveryData
+ * @property {string} texture           The projectile texture or flipbook path
+ * @property {number} size              Projectile size in feet
+ * @property {number} speed             Projectile speed in feet per second
+ * @property {number|null} fps          Frame rate of a flipbook projectile, played in sustain mode
+ * @property {boolean} textureAnchor    Ride the flight path on the texture's own anchor instead of its center
+ * @property {number} blend             The projectile blend mode in PIXI.BLEND_MODES
+ */
+
+/**
+ * The flight path shape of a {@link CrucibleProjectileComponent}.
+ * @typedef ProjectilePathType
+ * @property {string} type              The VFXPath type, such as "linear" or "weave"
+ * @property {object} [params]          Parameters of the path type
+ */
+
+/**
  * A Crucible VFX component for an action that uses the "single" target type and transacts a single projectile.
  * @extends {CrucibleVFXComponent}
  */

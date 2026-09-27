@@ -51,6 +51,25 @@ export function computeManifestPoint({radiusPx, center}, token) {
 /* -------------------------------------------- */
 
 /**
+ * Build a particle exposure curve that starts hot and settles back to normal.
+ * @param {number} t    Normalized time [0, 1] when the particle cools to normal exposure
+ * @param {object} [options]
+ * @param {boolean} [options.reverse=false]  Start normal and become hot after t
+ * @param {number} [options.normal=0]        The normal exposure value
+ * @param {number} [options.hot=0.5]         The hot exposure value
+ * @returns {{curve: Array<{time: number, value: number}>}}
+ */
+export function exposureInHot(t, {reverse=false, normal=0, hot=0.5}={}) {
+  const curve = reverse
+    ? [{time: 0, value: normal}, {time: t, value: hot}]
+    : [{time: 0, value: hot}, {time: t, value: normal}];
+  if ( t < 1 ) curve.push({time: 1, value: curve[1].value});
+  return {curve};
+}
+
+/* -------------------------------------------- */
+
+/**
  * Build a positional sound descriptor for a VFX phase from a sound library entry.
  * @param {{src: string, loop?: boolean}|null} d   A sound entry, or null.
  * @returns {object|null}   A phase sound descriptor, or null when no source was provided.
