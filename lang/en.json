@@ -516,6 +516,7 @@
       "NoViewedScene": "A viewed Scene is required to acquire targets for this action.",
       "OncePerRound": "You may only perform the {action} action once per round.",
       "OncePerTurn": "You may only perform the {action} action once per turn.",
+      "PassThroughMaxOne": "You may move through the space of only one other creature.",
       "ReactionUnaware": "You may not use a reaction while Unaware!",
       "RequiresAlchemistsToolkit": "You must have an Alchemist's Toolkit equipped in your Toolbelt.",
       "RequiresElementalCondition": "{target} does not suffer an elemental condition which this action can affect.",

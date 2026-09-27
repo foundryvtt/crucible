@@ -9,28 +9,29 @@ system:
   actions:
     - id: bullrush
       description: >-
-        <p>Make an <strong>Athletics Skill</strong> attack against an adjacent
-        enemy contested by your target's <strong>Fortitude</strong> defense. On
-        a success you may move up to your <strong>Stride</strong> directly
-        through the enemy's space. Your enemy is knocked @Condition[prone] and
-        may not make any @Action[default reactiveStrike] against you. On a
-        failure your movement is blocked and your remain in your current
-        position.</p>
+        <p>You move up to your <strong>Stride</strong> with forceful momentum,
+        passing through the space of one other creature along your path. An ally
+        lets you pass freely.</p><p>An enemy contests your passage: make an
+        @Rule[skill.athletics] @Rule[action.skill] attack against its
+        @Rule[defense.fortitude] defense. On a success you drive through its
+        space, knocking it @Condition[prone], and it may not make any
+        @Action[default reactiveStrike] against you. On a failure your movement
+        is blocked and you remain in your current position.</p>
       tags:
         - harmless
         - fortitude
         - skill
         - athletics
       cost:
-        action: 3
-        focus: 0
+        action: 0
+        focus: 1
         weapon: false
         heroism: 0
         hands: 0
       target:
-        type: single
+        type: movement
         number: 1
-        scope: 3
+        scope: 4
         self: false
       effects:
         - name: Bull Rush
@@ -59,7 +60,7 @@ system:
       img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
       condition: ''
       range:
-        maximum: 10
+        maximum: null
         weapon: false
         minimum: null
       summon: null

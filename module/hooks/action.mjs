@@ -303,11 +303,45 @@ HOOKS.bodyBlock = {
 /* -------------------------------------------- */
 
 HOOKS.bullrush = {
-  prepare() {
-    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
-    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
+  /**
+   * Create hooks for an action which moves through the space of one other creature: an ally lets you pass freely,
+   * while an enemy contests your passage and a failed attack against it cancels the movement.
+   * @param {number} strides      The movement budget as a multiple of the actor's Stride
+   * @returns {object}
+   */
+  _passThroughCreature(strides) {
+    const isAlly = (action, target) => {
+      return action.actor.getDispositionTowards(target) === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+    };
+    return {
+      prepare() {
+        this.range.maximum = this.actor.system.movement.stride * strides;
+        // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+        this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
+        this.usage.movement.terminalReach = false;
+      },
+      acquireTargets(targets) {
+        for ( const target of targets.slice(1) ) target.error ||= _loc("ACTION.WARNINGS.PassThroughMaxOne");
+      },
+      configure() {
+        const [target] = this.targets.keys();
+        if ( target && isAlly(this, target) ) this.target.isAttack = false;
+      },
+      preActivate() {
+        for ( const target of this.targets.keys() ) {
+          if ( isAlly(this, target) ) this.targets.delete(target);
+        }
+      },
+      postActivate() {
+        const contests = Array.from(this.eventsByTarget.values()).filter(group => group.hasRoll);
+        if ( !contests.length || contests.some(group => group.isSuccess) ) return;
+        const i = this.events.findIndex(event => (event.type === "movement") && (event.target === this.actor));
+        if ( i >= 0 ) this.negate(this.events[i - 1], this.events[i]);
+      }
+    };
   }
 };
+Object.assign(HOOKS.bullrush, HOOKS.bullrush._passThroughCreature(1));
 
 /* -------------------------------------------- */
 
@@ -2604,12 +2638,7 @@ HOOKS.tramplingCharge = {
 
 /* -------------------------------------------- */
 
-HOOKS.tumble = {
-  prepare() {
-    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
-    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
-  }
-};
+HOOKS.tumble = HOOKS.bullrush._passThroughCreature(2);
 
 /* -------------------------------------------- */
 

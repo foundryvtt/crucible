@@ -28,7 +28,7 @@ system:
       target:
         type: single
         number: 1
-        scope: 0
+        scope: 3
         self: false
       effects: []
       img: icons/skills/social/peace-luck-insult.webp

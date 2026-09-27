@@ -10,28 +10,28 @@ system:
     - id: tumble
       name: Tumble
       description: >-
-        <p>Make a <strong>Athletics Skill</strong> attack against an adjacent
-        enemy contested by your target's <strong>Reflex</strong>
-        defense.</p><p>On a success you may move up to twice your
-        <strong>Stride</strong>, including the ability to pass through your
-        target enemy's space, without provoking any @Action[default
-        reactiveStrike].</p><p>On a failure your movement is blocked and your
-        remain in your current position.</p>
+        <p>You tumble nimbly up to twice your <strong>Stride</strong>, passing
+        through the space of one other creature along your path without
+        provoking any @Action[default reactiveStrike]. An ally lets you pass
+        freely.</p><p>An enemy contests your passage: make an
+        @Rule[skill.athletics] @Rule[action.skill] attack against its
+        @Rule[defense.reflex] defense. On a failure your movement is blocked and
+        you remain in your current position.</p>
       tags:
         - harmless
         - reflex
         - skill
         - athletics
       cost:
-        action: 3
-        focus: 0
+        action: 0
+        focus: 1
         weapon: false
         heroism: 0
         hands: 0
       target:
-        type: single
+        type: movement
         number: 1
-        scope: 2
+        scope: 4
         self: false
       effects: []
       img: icons/skills/movement/ball-spinning-blue.webp

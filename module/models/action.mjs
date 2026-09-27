@@ -87,6 +87,8 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {object} [constrainOptions]    Movement constraint options passed to `Token#planMovement`
  * @property {object} [measureOptions]      Measurement options (e.g. `overrideCost`) for the planned movement path
  * @property {boolean} [ignoreRestrained]   Allow the movement while the actor is Restrained
+ * @property {boolean} [terminalReach=true] Also target creatures within reach of the final waypoint, rather than only
+ *                                          those whose space the path enters
  */
 
 /**
@@ -1709,8 +1711,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Walk the path in order, recording the first step at which each candidate is targeted
     const encounterStep = new Map();
+    const terminalReach = this.usage.movement.terminalReach !== false;
     for ( let w = 0; w < waypoints.length; w++ ) {
-      const isFinal = w === (waypoints.length - 1);
+      const isFinal = terminalReach && (w === (waypoints.length - 1));
       const occupied = new Set();
       for ( const {i, j, k} of this.token.getOccupiedGridSpaceOffsets(waypoints[w]) ) {
         const key = `${i},${j},${k}`;

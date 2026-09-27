@@ -29,7 +29,7 @@ system:
       range:
         minimum: null
         maximum: null
-        weapon: false
+        weapon: true
       target:
         type: single
         number: 1
