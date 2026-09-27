@@ -1748,6 +1748,33 @@ HOOKS.poisonIngest = {
 
 /* -------------------------------------------- */
 
+HOOKS.potionGliding = {
+  preActivate() {
+    HOOKS.omniglotDecoction.preActivate.call(this);
+  }
+};
+
+/* -------------------------------------------- */
+
+const SMOKE_JAR_LIGHT = Object.freeze({config: {bright: 5, dim: 10, color: "#160029", negative: true, priority: 0,
+  animation: {type: "denseSmoke", intensity: 8}}});
+
+HOOKS.smokeJar = {
+  async confirm(reverse) {
+    if ( reverse ) return;
+    const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
+    if ( !effect || !this.region ) return;
+    const [light] = await this.token.parent.createEmbeddedDocuments("AmbientLight", [{
+      ...this.region.shapes[0].origin,
+      elevation: this.region.elevation.bottom + this.target.size,
+      ...SMOKE_JAR_LIGHT
+    }]);
+    effect.system.lights = [...(effect.system.lights ?? []), light.uuid];
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.volatileAccelerant = {
   canUse() {
     if ( !this.actor.equipment.toolbelt.some(t => t.system.identifier === "toolKitAlchemy") ) {

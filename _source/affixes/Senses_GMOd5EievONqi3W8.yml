@@ -1,0 +1,20 @@
+type: ActiveEffect
+folder: 1t1h4vquJCypCfA4
+name: Senses
+color: null
+sorting: a
+_id: GMOd5EievONqi3W8
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790539790919
+  modifiedTime: 1790539790919
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!GMOd5EievONqi3W8'
