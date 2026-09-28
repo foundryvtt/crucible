@@ -1,0 +1,20 @@
+type: ActiveEffect
+folder: null
+name: Damage Over Time
+color: '#8c1818'
+sorting: a
+_id: IRL4ZhYtVmlkQXvs
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.10.1
+  createdTime: 1790351780553
+  modifiedTime: 1790351780553
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!IRL4ZhYtVmlkQXvs'

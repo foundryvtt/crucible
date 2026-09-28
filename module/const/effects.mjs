@@ -201,7 +201,7 @@ export function entropy(actor, {ability="presence", amount, turns=1}={}) {
     img: "icons/magic/unholy/orb-swirling-teal.webp",
     duration: {value: turns, units: "rounds", expiry: "turnStart"},
     origin: actor?.uuid,
-    statuses: ["frightened"],
+    statuses: ["entropy", "frightened"],
     system: {
       dot: [{
         amount,

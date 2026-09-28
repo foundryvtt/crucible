@@ -72,6 +72,12 @@
       "type": "Item"
     },
     {
+      "name": "effects",
+      "label": "System Effects",
+      "path": "packs/effects",
+      "type": "ActiveEffect"
+    },
+    {
       "name": "macros",
       "label": "System Macros",
       "path": "packs/macros",
@@ -166,7 +172,8 @@
       "packs": [
         "rules",
         "playtest",
-        "macros"
+        "macros",
+        "effects"
       ]
     }
   ],

@@ -1,0 +1,20 @@
+type: ActiveEffect
+folder: null
+name: Healing Over Time
+color: '#026b00'
+sorting: a
+_id: ETYIgqTDihs9hoQ4
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.10.1
+  createdTime: 1790351797568
+  modifiedTime: 1790351807127
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!ETYIgqTDihs9hoQ4'
