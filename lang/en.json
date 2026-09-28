@@ -1034,6 +1034,7 @@
     "Details": "Details",
     "DisarmedStatus": "Disarmed!",
     "FreeMovement": "Free Movement",
+    "FullyEngaged": "Fully Engaged",
     "KnowledgeSpecific": "Knowledge: {knowledge}",
     "LanguageSpecific": "Language: {language}",
     "LevelSpecific": "Level {level}",

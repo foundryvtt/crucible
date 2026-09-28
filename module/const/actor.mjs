@@ -187,7 +187,7 @@ export const STARTING_EQUIPMENT_BUDGET = 25 * 100;
  * There should be at least one denomination which has a multiplier of 1 to ensure that a raw currency amount can be
  * fully allocated.
  *
- * @type {Record{string, CrucibleCurrencyDenomination}}
+ * @type {Record<string, CrucibleCurrencyDenomination>}
  */
 export const CURRENCY_DENOMINATIONS = {
   cp: {
@@ -615,6 +615,10 @@ export const HOOKS = Object.freeze({
 
 /* -------------------------------------------- */
 
+/**
+ * Movement rules referenced by the @Rule enricher.
+ * @type {Readonly<Record<string, {label: string, page: string}>>}
+ */
 export const MOVEMENT_RULES = Object.freeze({
   engagement: {
     label: "ACTOR.FIELDS.movement.engagement.label",
@@ -623,6 +627,10 @@ export const MOVEMENT_RULES = Object.freeze({
   freeMovement: {
     label: "ACTOR.FreeMovement",
     page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.KGXiKFUWrPgb7wsx"
+  },
+  fullyEngaged: {
+    label: "ACTOR.FullyEngaged",
+    page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.akwDfoFV3AWbOSI6"
   },
   size: {
     label: "ACTOR.FIELDS.movement.size.label",

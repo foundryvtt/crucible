@@ -227,34 +227,32 @@ pages:
         a <strong>5 foot</strong> grid size for the subgrid to display
         correctly.</p><p>Measurement distance is computed using the
         <strong>Exact √2</strong> diagonal measurement mode.</p></section><p
-        data-rule="movement.stride">Many combat actions a character can perform
-        involve the <strong>Movement</strong> tag. Such actions allow you to
-        move a certain number of feet up to or equal to your character's
-        <strong>Stride</strong> attribute. The distance allowed by a
-        <strong>Movement </strong>action cannot be broken up or interrupted.
-        There is no leftover movement saved across actions if you move less than
-        your Stride.</p><p>There are no facing mechanics in Crucible, meaning
-        that it does not matter which direction your Token is facing on the map,
-        your character is able to perceive and act in a full 360 degree radius
-        unless otherwise limited by some special effect or condition.</p><h2
-        class="divider">Movement Cost Calculation</h2><p>The
-        <strong>Action</strong> cost of a given Movement is computed as
-        follows:</p><ol><li><p><strong>Distance</strong> is computed
-        center-point to center-point, where the distance of diagonal movement is
-        computed using the <strong>Exact √2</strong> diagonal measurement
-        mode.</p></li><li><p><strong>Effective Distance</strong> is computed by
-        applying the following modifiers in order:</p><ol
+        data-rule="movement.stride">Many combat actions involve the
+        @Rule[action.movement] tag. Such actions allow you to move a distance up
+        to your character's @Rule[movement.stride]. The distance allowed by a
+        @Rule[action.movement] action cannot be broken up or interrupted, and
+        any unused distance is not saved for later actions.</p><p>There are no
+        facing mechanics in Crucible, meaning that it does not matter which
+        direction your Token is facing on the map, your character is able to
+        perceive and act in a full 360 degree radius unless otherwise limited by
+        some special effect or condition.</p><h2 class="divider">Movement Cost
+        Calculation</h2><p>The @Rule[resource.action] cost of a given Movement
+        is computed as follows:</p><ol><li><p><strong>Distance</strong> is
+        computed center-point to center-point, where the distance of diagonal
+        movement is computed using the <strong>Exact √2</strong> diagonal
+        measurement mode.</p></li><li><p><strong>Effective Distance</strong> is
+        computed by applying the following modifiers in order:</p><ol
         style="list-style-type:lower-alpha"><li><p><strong>Status
         Conditions</strong> are applied first, as described
         below.</p></li><li><p>The effects of <strong>Terrain</strong> are
         applied second.</p></li><li><p>Modifiers resulting from the
         <strong>Movement Type</strong> are applied.</p></li></ol></li><li><p>The
-        <strong>Action</strong> cost of the movement is computed
+        @Rule[resource.action] cost of the movement is computed
         as:</p></li></ol><section class="formula"><p class="value">Action
         Cost</p><p class="equals">=</p><p class="equation">ceil(Effective
-        Distance / Stride)</p></section><ol start="4"><li><p>If a <strong>Free
-        Move</strong> is available, the final Action Cost of the movement is
-        reduced by 1.</p></li></ol><h3 class="divider">Movement
+        Distance / Stride)</p></section><ol start="4"><li><p>If a
+        @Rule[movement.freeMovement] is available, the final Action Cost of the
+        movement is reduced by 1.</p></li></ol><h3 class="divider">Movement
         Conditions</h3><p>The following <strong>Status Conditions
         </strong>affect the measurement and cost of
         movement.</p><h4>@Condition[slowed]</h4><p>The <strong>Effective
@@ -284,17 +282,17 @@ pages:
         walls, obstacles, and other creatures on the surface above. A creature
         which ends its movement while burrowing gains the @Condition[burrowing]
         condition.</p><h2 class="divider">Free Movement</h2><div
-        data-rule="movement.freeMovement"><p>Each creature has the opportunity
-        to perform one free <strong>Movement</strong> action per round of
-        Combat. This means that the first Action performed each round which
-        involves the Movement tag is discounted at -1 Action cost. This will
-        typically make the action free to perform, but in some cases may simply
-        reduce its overall cost.</p><p><strong>Free Movement</strong> is not
-        available to creatures that are @Condition[weakened], @Condition[prone],
-        or @Condition[slowed]. Creatures wearing <strong>Heavy</strong> armor
-        also lose access to free Movement unless they have the
+        data-rule="movement.freeMovement"><p>Each creature may perform one free
+        @Rule[action.movement] action per round of Combat: the first Action it
+        performs each round that has the Movement tag costs 1 fewer
+        @Rule[resource.action]. This typically makes the Action free, but may
+        only reduce the cost of a more expensive
+        one.</p><p>@Rule[movement.freeMovement] is not available to creatures
+        that are @Condition[weakened], @Condition[prone], or @Condition[slowed].
+        Creatures wearing <strong>Heavy</strong> armor also lose access to Free
+        Movement unless they have the
         @UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
-        Efficiency} talent.</p></div><p></p><h2
+        Efficiency} talent.</p></div><h2
         class="divider">Terrain</h2><p>Difficult terrain increases the cost of
         movement while traversing it. Difficult terrain can be defined using
         Foundry VTT Scene Regions with the <strong>Modify Movement Cost</strong>
@@ -381,8 +379,8 @@ pages:
       systemVersion: 0.9.0
       coreVersion: '14.368'
       createdTime: 1684374473225
-      modifiedTime: 1790607882276
-      lastModifiedBy: ZXJsFnFZuf21WDAk
+      modifiedTime: 1790618038170
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -399,9 +397,9 @@ pages:
     text:
       format: 1
       content: >-
-        <p data-rule="movement.size">Each creature takes up an amount of space
-        according to their <strong>Size</strong>; a <strong>Size 4</strong>
-        creature, for instance, will take up a 4x4 square of 1-foot grid
+        <p data-rule="movement.size">Each creature occupies a square space
+        determined by its @Rule[movement.size]; a @Rule[movement.size]{Size 4}
+        creature, for instance, occupies a 4x4 area of 1-foot grid
         spaces.</p><p>A creature's space normally cannot be entered or crossed
         by another creature - ordinary movement is halted by anyone in its path.
         Some abilities let a creature force its way through, resolved by
@@ -769,15 +767,15 @@ pages:
         <strong>Hero</strong> characters is <strong>1</strong>, while the base
         Engagement for <strong>Adversary</strong> characters starts at
         <strong>1</strong> and adds <strong>+1 for every 2 Size above
-        4</strong>, rounded up.</p><p data-rule="movement.fullyEngaged">When a
-        character is adjacent to multiple enemies where the number of engaged
-        enemies equals or exceeds their Engagement score, that character is said
-        to be <strong>Fully Engaged</strong>. Some conditions or action
-        prerequisites may only occur when a creature is Fully
-        Engaged.</p><section class="foundryvtt"><p>To help visualize how
-        Engagement and Flanking mechanics works, there is a special toggle that
-        can be used in the<strong> Tokens Layer</strong> of the <strong>Scene
-        Controls </strong>UI on the left side of the screen. While enabled, the
+        4</strong>, rounded up.</p><p data-rule="movement.fullyEngaged">When the
+        number of enemies a character is engaged with equals or exceeds their
+        @Rule[movement.engagement], that character is
+        @Rule[movement.fullyEngaged]. Some conditions and action prerequisites
+        depend on whether a creature is Fully Engaged.</p><section
+        class="foundryvtt"><p>To help visualize how Engagement and Flanking
+        mechanics works, there is a special toggle that can be used in
+        the<strong> Tokens Layer</strong> of the <strong>Scene Controls
+        </strong>UI on the left side of the screen. While enabled, the
         Engagement of your controlled creature is drawn, and each creature you
         target is labelled with the Flanking which you would have against
         it.</p></section><h2 class="divider">Flanking</h2><p>Flanking occurs

@@ -17,15 +17,19 @@ export const DIE_STEP = 2;
 export const MIN_DIE = 4;
 export const MAX_DIE = 12;
 
+/**
+ * Dice rules referenced by the @Rule enricher.
+ * @type {Readonly<Record<string, {label: string, name?: string, page: string}>>}
+ */
 export const RULES = Object.freeze({
-  boon: {
-    label: "DICE.Boons.one",
-    name: "DICE.Boons.many",
-    page: "Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.Qme1mM71Jn950Zsf"
-  },
   bane: {
     label: "DICE.Banes.one",
     name: "DICE.Banes.many",
+    page: "Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.Qme1mM71Jn950Zsf"
+  },
+  boon: {
+    label: "DICE.Boons.one",
+    name: "DICE.Boons.many",
     page: "Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.Qme1mM71Jn950Zsf"
   },
   check: {
