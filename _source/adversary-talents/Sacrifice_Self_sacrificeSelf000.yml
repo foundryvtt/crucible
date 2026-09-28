@@ -13,7 +13,7 @@ system:
       condition: A nearby ally is targeted by a hostile action.
       description: >-
         <p>The @ref[actor.name]{creature} reacts, performing a
-        <strong>Movement</strong> up to their <strong>Stride </strong>to
+        <strong>Movement</strong> up to their @Rule[movement.stride] to
         interpose itself between a nearby ally and some source of harm which it
         can perceive.</p><p>The @ref[actor.name]{creature} becomes
         @Condition[dead], destroyed in their sacrifice, but the triggering

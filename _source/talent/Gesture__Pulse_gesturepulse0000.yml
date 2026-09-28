@@ -6,7 +6,7 @@ system:
   description: >-
     <p>Expel the arcane power of a <strong>Rune</strong> in a radius that
     travels outward with you at its center.</p><p>The <strong>Pulse</strong>
-    gesture scales using <strong>Presence</strong> and produces an emanation
+    gesture scales using @Rule[ability.presence] and produces an emanation
     with a <strong>10 foot</strong> radius, dealing <strong>8 Base
     Damage</strong> to targets which fail to resist the spell. The gesture
     requires <strong>2 Hands</strong> to cast and has a base cost of <strong>5

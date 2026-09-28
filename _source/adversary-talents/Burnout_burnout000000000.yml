@@ -14,7 +14,7 @@ system:
       img: icons/magic/air/fog-gas-smoke-swirling-orange.webp
       description: >-
         <p>The @ref[actor.name]{construct} ruptures, spilling forth a blast of
-        flame and smoke, attacking the <strong>Reflex</strong> of each target
+        flame and smoke, attacking the @Rule[defense.reflex] of each target
         within the radius and dealing <strong>Fire</strong> damage. Those who
         take damage from this attack are @Condition[blinded] for 3 turns.</p>
       condition: The @ref[actor.name]{construct} is Wounded

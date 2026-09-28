@@ -16,7 +16,7 @@ system:
       description: >-
         <p>The @ref[actor.name]{creature} can drop from overhead to
         <strong>Strike</strong> a creature below it. The target creature suffers
-        an <strong>Empowered</strong> attack which, if successful, knocks them
+        an @Rule[action.empowered] attack which, if successful, knocks them
         @Condition[prone] in addition to dealing damage.</p><p>The
         @ref[actor.name]{creature} can suffer falling damage from this attack
         only if it misses its target.</p>

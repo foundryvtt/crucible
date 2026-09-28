@@ -22,7 +22,7 @@ img: icons/magic/defensive/shield-barrier-blue.webp
 disabled: false
 start: null
 description: >-
-  <p>Increase <strong>Armor</strong> defense by 1 for each <strong>Tier</strong>
+  <p>Increase @Rule[defense.armor] defense by 1 for each <strong>Tier</strong>
   of this suffix.</p>
 origin: null
 tint: '#ffffff'

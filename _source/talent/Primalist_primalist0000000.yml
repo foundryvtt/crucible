@@ -15,8 +15,8 @@ system:
     Storm}</p></li></ul><p>You may enter or change your <strong>Stance</strong>
     once per <strong>Turn</strong>, and your entered stance lasts until you
     change it or until <strong>Combat</strong> ends. While in a
-    <strong>Stance</strong>, talents or features which apply <strong>Critical
-    Hit</strong> effects for actions that use that <strong>Stance's
+    <strong>Stance</strong>, talents or features which apply @Rule[dice.criticalSuccess]{Critical
+    Hit} effects for actions that use that <strong>Stance's
     Rune</strong> apply to your weapon <strong>Strikes</strong> as well.</p>
   actions:
     - id: stormStance
@@ -25,7 +25,7 @@ system:
       description: >-
         <p>You adopt the <strong>Storm Stance</strong>, channeling the
         <strong>Rune of Storm</strong>. While in this <strong>Stance</strong>
-        your <strong>Stride</strong> is increased by 2.</p>
+        your @Rule[movement.stride] is increased by 2.</p>
       tags: []
       cost:
         action: 0
@@ -122,8 +122,8 @@ system:
       description: >-
         <p>You adopt the <strong>Water Stance</strong>, channeling the
         <strong>Rune of Frost</strong>. While in this <strong>Stance</strong>
-        you gain +1 to your <strong>Reflex</strong>, <strong>Fortitude</strong>,
-        and <strong>Willpower</strong> defenses.</p>
+        you gain +1 to your @Rule[defense.reflex], @Rule[defense.fortitude],
+        and @Rule[defense.willpower] defenses.</p>
       tags: []
       cost:
         action: 0

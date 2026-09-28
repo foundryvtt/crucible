@@ -21,8 +21,8 @@ img: icons/magic/defensive/shield-barrier-glowing-triangle-orange.webp
 disabled: false
 start: null
 description: >-
-  <p><strong>Strikes</strong> against your <strong>Health</strong> require a
-  higher overflow to achieve a <strong>Critical Hit</strong>. The critical
+  <p><strong>Strikes</strong> against your @Rule[resource.health] require a
+  higher overflow to achieve a @Rule[dice.criticalSuccess]{Critical Hit}. The critical
   threshold is increased by 1 for each <strong>Tier</strong> of this prefix.</p>
 origin: null
 tint: '#ffffff'

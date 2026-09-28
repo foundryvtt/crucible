@@ -7,7 +7,7 @@ system:
   description: >-
     <p>You focus the arcane power of a <strong>Rune</strong> into a narrow cone
     that projects outwards from your location.</p><p>The <strong>Cone</strong>
-    gesture scales with <strong>Intellect</strong> and produces a 60 degree cone
+    gesture scales with @Rule[ability.intellect] and produces a 60 degree cone
     with a <strong>30 foot</strong> radius originating from the spellcaster. The
     Cone deals <strong>8 Base Damage</strong> to targets which fail to resist
     the spell. This gesture requires <strong>2 Hands</strong> to cast and has a

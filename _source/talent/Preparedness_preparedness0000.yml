@@ -4,9 +4,9 @@ img: icons/sundries/survival/rope-wrapped-purple.webp
 system:
   description: >-
     <p>You seem to always be prepared for the moment at hand. You may sacrifice
-    your <strong>Free Movement</strong> for the round to instead equip an
+    your @Rule[movement.freeMovement] for the round to instead equip an
     <strong>Item</strong> from your inventory without spending any
-    <strong>Action</strong> points.</p>
+    @Rule[resource.action] points.</p>
   nodes:
     - wis0a
   actions: []

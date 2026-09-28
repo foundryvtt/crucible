@@ -13,8 +13,8 @@ system:
       img: icons/magic/symbols/symbol-lightning-bolt.webp
       condition: ''
       description: >-
-        <p>You expend <strong>Heroism</strong> to instantly recover half your
-        <strong>Intellect</strong> in <strong>Action</strong>. You may perform
+        <p>You expend @Rule[resource.heroism] to instantly recover half your
+        @Rule[ability.intellect] in @Rule[resource.action]. You may perform
         this action outside of your turn in <strong>Combat</strong> before
         making a @Rule[action.reaction].</p>
       cost:

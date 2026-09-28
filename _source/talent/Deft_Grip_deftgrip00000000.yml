@@ -8,11 +8,11 @@ system:
     - dex2c
   description: >-
     <p>Your grasp of your weaponry is fluid and precise. While wielding a
-    two-handed weapon that scales with <strong>Dexterity</strong> you may cast
+    two-handed weapon that scales with @Rule[ability.dexterity] you may cast
     spells which require two hands, and attempts to <strong>Disarm</strong> you
-    are made with <strong>+2 Banes</strong>.</p><p>Additionally, you may use
-    your <strong>Free Movement</strong> to equip or unequip such a weapon
-    without any <strong>Action</strong> cost.</p>
+    are made with @Rule[dice.bane]{+2 Banes}.</p><p>Additionally, you may use
+    your @Rule[movement.freeMovement] to equip or unequip such a weapon
+    without any @Rule[resource.action] cost.</p>
   actions: []
   iconicSpells: 0
   training: light

@@ -14,7 +14,7 @@ system:
       condition: ''
       description: >-
         <p>Touch the target to dull their mind with a curse that permanently
-        reduces their <strong>Intellect</strong> by 2.</p>
+        reduces their @Rule[ability.intellect] by 2.</p>
       cost:
         action: 3
         focus: 3

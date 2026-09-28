@@ -14,9 +14,9 @@ system:
       condition: ''
       description: >-
         <p>The @ref[actor.name]{creature} expels a blast of lighting in a 15
-        foot blast, attacking the <strong>Reflex</strong> of each target within
+        foot blast, attacking the @Rule[defense.reflex] of each target within
         that range and and dealing <strong>Electricity</strong> damage.</p><p>On
-        a <strong>Critical Hit</strong> the attack causes the
+        a @Rule[dice.criticalSuccess]{Critical Hit} the attack causes the
         @Condition[shocked] condition for <strong>3 Turns</strong>.</p>
       cost:
         action: 4

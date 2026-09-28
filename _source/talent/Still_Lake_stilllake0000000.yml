@@ -7,7 +7,7 @@ system:
     <p>Your life experiences provide serenity that allows you to resist the
     attempted manipulation of others.</p><p><strong>Skill Attacks</strong>
     against you from any of the <strong>Social</strong> skills are made with
-    <strong>+2 Banes</strong>.</p>
+    @Rule[dice.bane]{+2 Banes}.</p>
   actions: []
   nodes:
     - wis3a

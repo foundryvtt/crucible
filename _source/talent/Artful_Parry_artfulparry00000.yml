@@ -16,8 +16,8 @@ system:
       condition: You Dodge an incoming melee Strike.
       description: >-
         <p>When you defend against a melee attack using the
-        <strong>Dodge</strong> defense, you can react and expend
-        <strong>Focus</strong> to instead <strong>Parry</strong> the attack.</p>
+        @Rule[defense.dodge] defense, you can react and expend
+        @Rule[resource.focus] to instead @Rule[defense.parry] the attack.</p>
       tags:
         - reaction
       cost:

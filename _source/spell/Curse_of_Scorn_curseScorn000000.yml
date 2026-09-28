@@ -13,7 +13,7 @@ system:
       condition: ''
       description: >-
         <p>Touch the target to wither their force of will with a curse that
-        permanently reduces their <strong>Presence</strong> by 2.</p>
+        permanently reduces their @Rule[ability.presence] by 2.</p>
       cost:
         action: 3
         focus: 3

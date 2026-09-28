@@ -7,8 +7,8 @@ system:
   description: >-
     <p>You understand that a storm is not sudden chaos but a patient, gathering
     force that breaks only when it must. Your usage of the <strong>Rune of
-    Storm</strong> scales with <strong>Wisdom</strong> instead of
-    <strong>Intellect</strong>.</p>
+    Storm</strong> scales with @Rule[ability.wisdom] instead of
+    @Rule[ability.intellect].</p>
   actions: []
   iconicSpells: 0
   training: elemental

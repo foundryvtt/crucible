@@ -6,7 +6,7 @@ system:
   description: >-
     <p>A loosened setting, a cracked band, a stone parted from its claw. You
     have put back together finer work than most people will ever hold.</p><p>The
-    repairs you make using the <strong>Jewelcraft</strong> trade benefit from
+    repairs you make using the @Rule[skill.jewelcraft] trade benefit from
     <strong>Expert Repair</strong>:</p><ul><li><p>You may attempt such repairs
     without a workbench, though attempts made without one are
     @Rule[action.difficult].</p></li><li><p>A repair you succeed at never costs

@@ -8,7 +8,7 @@ system:
     <p>Currents of magic flow strangely around you, as if unaware of your
     presence.</p><p>You cannot perform any action with the
     <strong>Spell</strong> tag. <strong>Spells</strong> which target you suffer
-    <strong>+2 Banes</strong> regardless of whether they impose harmful or
+    @Rule[dice.bane]{+2 Banes} regardless of whether they impose harmful or
     beneficial effects.</p>
   actions: []
   iconicSpells: 0

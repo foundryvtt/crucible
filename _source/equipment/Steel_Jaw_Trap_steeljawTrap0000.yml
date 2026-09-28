@@ -29,8 +29,8 @@ system:
         damage if triggered. It must be affixed by heavy chain to an immobile
         object, such as a tree or spike driven into the ground. The area of the
         trap is a circle with a radius of 2 feet.</p><p>When triggered, the
-        creature that set the trap makes a <strong>Wilderness</strong> skill
-        attack against the <strong>Reflex</strong> defense of a single target
+        creature that set the trap makes a @Rule[skill.wilderness] skill
+        attack against the @Rule[defense.reflex] defense of a single target
         which triggered the trap. If not resisted, it deals
         <strong>Piercing</strong> damage and applies the @Condition[restrained]
         condition. The base damage dealt by the trap varies according to the
@@ -70,8 +70,8 @@ system:
             img: icons/environment/traps/trap-jaw-steel.webp
             description: >-
               <p>The creature that set the trap makes a
-              <strong>Wilderness</strong> skill attack against the
-              <strong>Reflex</strong> defense of the single target which
+              @Rule[skill.wilderness] skill attack against the
+              @Rule[defense.reflex] defense of the single target which
               triggered the trap. If not resisted, it deals
               <strong>Piercing</strong> damage and applies the
               @Condition[restrained] condition.</p>

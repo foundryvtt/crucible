@@ -7,7 +7,7 @@ system:
     <p>You are a consummate scholar of the arcane who can sustain fluidity and
     momentum in your spellcraft. Once per <strong>Turn</strong> when you cast a
     <strong>Spell</strong>, you can carry forward a portion of its magic to
-    reduce the <strong>Focus</strong> cost of an immediately subsequent
+    reduce the @Rule[resource.focus] cost of an immediately subsequent
     <strong>Spell</strong> by 1.</p>
   actions: []
   nodes:

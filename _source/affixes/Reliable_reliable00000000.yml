@@ -1,7 +1,7 @@
 name: Reliable
 type: affix
 description: >-
-  <p>Reduces the <strong>Critical Failure Threshold</strong> for attack rolls
+  <p>Reduces the @Rule[dice.criticalFailureThreshold] for attack rolls
   made with this weapon. The threshold decreases by <strong>1 per
   Tier</strong>.</p>
 duration:

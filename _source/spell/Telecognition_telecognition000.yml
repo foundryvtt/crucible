@@ -16,14 +16,14 @@ system:
       description: >-
         <p>You reach into the mind of a <strong>Humanoid</strong> or
         <strong>Giant</strong> creature, attempting to penetrate their
-        <strong>Willpower</strong> defense to understand their thoughts and
+        @Rule[defense.willpower] defense to understand their thoughts and
         motives. The target of this spell is aware of the intrusion, even if
         they cannot perceive you.</p><p>If successful, the
         <strong>Gamemaster</strong> (in the case of an
         <strong>Adversary</strong> target) or <strong>Player</strong> (in the
         case of a <strong>Hero</strong> target) must describe to you in 3 words
         or less what idea or sentiment is at the forefront of their thoughts in
-        the current moment.</p><p>Upon a <strong>Critical Success</strong>, this
+        the current moment.</p><p>Upon a @Rule[dice.criticalSuccess], this
         description may use up to 10 words to convey deeper understanding.</p>
       cost:
         action: 3

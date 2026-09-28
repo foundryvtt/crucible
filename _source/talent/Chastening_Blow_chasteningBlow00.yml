@@ -13,8 +13,8 @@ system:
       condition: ''
       description: >-
         <p>You perform a deliberately non-lethal weapon <strong>Strike</strong>
-        which deals its damage to the target's <strong>Morale</strong> rather
-        than their <strong>Health</strong>.</p>
+        which deals its damage to the target's @Rule[resource.morale] rather
+        than their @Rule[resource.health].</p>
       cost:
         action: 0
         focus: 0

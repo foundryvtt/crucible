@@ -14,7 +14,7 @@ system:
       img: icons/magic/sonic/scream-wail-shout-teal.webp
       description: >-
         <p>The @ref[actor.name]{creature} emits a shrill and piercing screech,
-        attacking the <strong>Morale</strong> of all those contained within and
+        attacking the @Rule[resource.morale] of all those contained within and
         afflicting them with the @Condition[deafened] condition for one
         round.</p>
       condition: ''

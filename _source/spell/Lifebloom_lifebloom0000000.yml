@@ -20,10 +20,10 @@ system:
       condition: ''
       description: >-
         <p>You channel vital magic into an aura that restores the
-        <strong>Health</strong> and <strong>Morale</strong> of all allies within
+        @Rule[resource.health] and @Rule[resource.morale] of all allies within
         <strong>30 feet</strong> of you. Each round, allies who start their turn
-        within this aura recover your <strong>Wisdom</strong> in both
-        <strong>Health</strong> and <strong>Morale</strong>. The spell must be
+        within this aura recover your @Rule[ability.wisdom] in both
+        @Rule[resource.health] and @Rule[resource.morale]. The spell must be
         @Rule[action.maintained].</p>
       cost:
         action: 6
@@ -82,8 +82,8 @@ system:
             img: icons/magic/nature/tree-spirit-glow-black-yellow.webp
             description: >-
               <p>Each round, allies who start their turn within this aura
-              recover your <strong>Wisdom</strong> in both
-              <strong>Health</strong> and <strong>Morale</strong>.</p>
+              recover your @Rule[ability.wisdom] in both
+              @Rule[resource.health] and @Rule[resource.morale].</p>
             effects: []
             tags:
               - healing

@@ -13,8 +13,8 @@ system:
       img: icons/magic/symbols/ring-circle-smoke-blue.webp
       condition: ''
       description: >-
-        <p>You expend <strong>Heroism</strong> to instantly recover your
-        <strong>Wisdom</strong> in <strong>Focus</strong>. You may perform this
+        <p>You expend @Rule[resource.heroism] to instantly recover your
+        @Rule[ability.wisdom] in @Rule[resource.focus]. You may perform this
         action outside of your turn in <strong>Combat</strong> before making a
         @Rule[action.reaction].</p>
       cost:

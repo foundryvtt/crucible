@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You project your will through your implement across great distance. The
     maximum range of your <strong>Talisman</strong> attacks is increased by an
-    amount equal to your current <strong>Focus</strong>.</p>
+    amount equal to your current @Rule[resource.focus].</p>
   actions: []
   nodes:
     - pre4b

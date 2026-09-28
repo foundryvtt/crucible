@@ -7,7 +7,7 @@ system:
   description: >-
     <p>You hurl the arcane power of a <strong>Rune</strong> into an intense
     explosion of energy at a nearby point you can see.</p><p>The
-    <strong>Blast</strong> gesture scales with <strong>Intellect</strong> and
+    <strong>Blast</strong> gesture scales with @Rule[ability.intellect] and
     produces a blast with a <strong>6 foot</strong> radius centered on a point
     within <strong>60 feet</strong> of the spellcaster. The blast deals
     <strong>8 Base Damage</strong> to targets which fail to resist the spell.

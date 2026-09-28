@@ -21,7 +21,7 @@ img: icons/equipment/shield/heater-steel-worn.webp
 disabled: false
 start: null
 description: >-
-  <p>Increase <strong>Block</strong> defense by 1 for each <strong>Tier</strong>
+  <p>Increase @Rule[defense.block] defense by 1 for each <strong>Tier</strong>
   of this suffix.</p>
 origin: null
 tint: '#ffffff'

@@ -20,15 +20,15 @@ system:
         tier and which affix or spellcraft components it would impart. You may
         also study a written or painted work, learning whether it has been
         altered since it was made, unless it was altered by someone whose
-        passive <strong>Glyphweaving</strong> exceeds your
+        passive @Rule[skill.glyphweaving] exceeds your
         own.</p></li><li><p><strong>Destroy.</strong> You instantaneously spoil
         a glyph, a spell scroll, or a written work which you can physically
         touch, marring it so that it can no longer be read or used.
         Alternatively, you may alter a document you can handle, changing a
         single letter within each word and leaving no obvious trace of your
         work. Your alteration is discovered only by an intentional
-        <strong>Awareness</strong> check which beats your passive
-        <strong>Glyphweaving</strong>.</p></li><li><p><strong>Create.</strong>
+        @Rule[skill.awareness] check which beats your passive
+        @Rule[skill.glyphweaving].</p></li><li><p><strong>Create.</strong>
         Given time and materials, you may produce any written or painted work
         you can picture which carries no affix: a letter in another's hand down
         to the tremor in it, a portrait that flatters without lying, a seal

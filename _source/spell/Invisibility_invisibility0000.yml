@@ -16,7 +16,7 @@ system:
       description: >-
         <p>You become @Condition[invisible] and cannot be detected using
         sight-based perception. You cannot be directly targeted by any action.
-        This spell must be <strong>Maintained</strong> in order to remain in
+        This spell must be @Rule[action.maintained] in order to remain in
         effect.</p>
       cost:
         action: 3

@@ -14,8 +14,8 @@ system:
       condition: An action targets you
       description: >-
         <p>As a @Rule[action.reaction] to an action that targets you before it
-        is confirmed, you may expend <strong>Heroism</strong> to instantly move
-        up to your <strong>Stride</strong>. The interrupted action is nullified
+        is confirmed, you may expend @Rule[resource.heroism] to instantly move
+        up to your @Rule[movement.stride]. The interrupted action is nullified
         without being confirmed or applying any effects.</p><p>This movement
         does not provoke any @Action[default reactiveStrike].</p>
       cost:

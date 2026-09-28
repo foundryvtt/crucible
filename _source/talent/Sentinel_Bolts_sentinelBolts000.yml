@@ -12,7 +12,7 @@ system:
       condition: ''
       description: >-
         <p>You surround yourself with an aura of attendant motes which is
-        <strong>Maintained</strong> at a cost of <strong>1 Focus</strong> per
+        @Rule[action.maintained] at a cost of @Rule[resource.focus]{1 Focus} per
         turn. Any enemy which enters the aura or ends its turn within it suffers
         a <strong>Talisman</strong> attack.</p><h3 class="divider">Playtest
         Notes</h3><p>The aura is placed and maintained, but its attacks against

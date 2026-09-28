@@ -22,7 +22,7 @@ img: icons/magic/movement/abstract-ribbons-red-orange.webp
 disabled: false
 start: null
 description: >-
-  <p>Increase <strong>Reflex</strong> defense by 1 for each
+  <p>Increase @Rule[defense.reflex] defense by 1 for each
   <strong>Tier</strong> of this suffix.</p>
 origin: null
 tint: '#ffffff'

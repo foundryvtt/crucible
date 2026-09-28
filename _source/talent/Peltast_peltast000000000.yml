@@ -21,10 +21,10 @@ system:
         <p>Make a <strong>Thrown</strong> weapon attack at an enemy within
         range. Guided by your arcane instinct, your weapon ricochets onward to
         the closest enemy within a maximum distance equal to your
-        <strong>Intellect</strong>, so long as no wall blocks its
+        @Rule[ability.intellect], so long as no wall blocks its
         path.</p><p>The weapon will continue caroming from foe to foe, hitting
         each only once, until it has struck a maximum number of enemies equal to
-        half your <strong>Intellect</strong>.</p><p>Resolve a separate attack
+        half your @Rule[ability.intellect].</p><p>Resolve a separate attack
         against each enemy struck. Each attack after the first suffers a
         cumulative <strong>-1 Damage</strong> as the throw sheds momentum.</p>
       tags:

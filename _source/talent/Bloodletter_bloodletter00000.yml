@@ -5,10 +5,10 @@ system:
   description: >-
     <p>Your precision with weapons which deal <strong>Slashing</strong> or
     <strong>Piercing</strong> damage can cause the @Condition[bleeding]
-    condition on <strong>Critical Hits</strong> which deal damage to
-    <strong>Health</strong>.</p><p>The @Condition[bleeding] effect lasts for
-    <strong>3 Rounds</strong> and deals your <strong>Dexterity</strong> score as
-    additional damage to <strong>Health</strong>.</p>
+    condition on @Rule[dice.criticalSuccess]{Critical Hits} which deal damage to
+    @Rule[resource.health].</p><p>The @Condition[bleeding] effect lasts for
+    <strong>3 Rounds</strong> and deals your @Rule[ability.dexterity] score as
+    additional damage to @Rule[resource.health].</p>
   actions: []
   nodes:
     - dex4d

@@ -12,9 +12,9 @@ system:
       img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
       description: >-
         <p>Make an unarmed <strong>Strike</strong> against the
-        <strong>Fortitude</strong> defense of an adjacent enemy. If your
+        @Rule[defense.fortitude] defense of an adjacent enemy. If your
         <strong>Initiative</strong> is superior to that of your target, you gain
-        <strong>+1 Boon</strong> to this attack.</p><p>The attack is
+        @Rule[dice.boon]{+1 Boon} to this attack.</p><p>The attack is
         @Rule[action.difficult] and only deals @Rule[action.weakened] damage,
         but if successful it inflicts the @Condition[staggered] for <strong>1
         Round</strong>.</p><p>This action always uses an

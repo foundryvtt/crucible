@@ -21,7 +21,7 @@ system:
       ring serves as a powerful spellcasting focus for the
       <strong>Invested</strong> wearer.</p></blockquote><p>This enchanted ring
       grants the ability to withdraw an additional reserve of
-      <strong>Focus</strong> in moments of duress.</p>
+      @Rule[resource.focus] in moments of duress.</p>
     private: >-
       <p>This item is presented as an example of <strong>Fine</strong> jewelry
       with the
@@ -55,8 +55,8 @@ effects:
           condition: ''
           description: >-
             <p>In moments of duress you can withdraw an additional reserve of
-            <strong>Focus</strong> from this item. The amount of
-            <strong>Focus</strong> restored depends on the <strong>Tier</strong>
+            @Rule[resource.focus] from this item. The amount of
+            @Rule[resource.focus] restored depends on the <strong>Tier</strong>
             of this prefix.</p><ul><li><p><strong>Tier 1</strong>: <strong>4
             Focus</strong></p></li><li><p><strong>Tier 2</strong>: <strong>6
             Focus</strong></p></li><li><p><strong>Tier 3</strong>: <strong>8
@@ -85,7 +85,7 @@ effects:
     start: null
     description: >-
       <p>Grants the <strong>Replenish Focus</strong> action, allowing the bearer
-      to restore <strong>Focus</strong> in moments of duress. The amount
+      to restore @Rule[resource.focus] in moments of duress. The amount
       restored scales with the <strong>Tier</strong> of this affix.</p>
     origin: null
     tint: '#ffffff'

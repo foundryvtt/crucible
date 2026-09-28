@@ -8,7 +8,7 @@ system:
     <p>You are skilled with the use of thrown munitions. When using a consumable
     of the <strong>Bomb</strong> type you always count as at least
     <strong>Trained</strong> regardless of which skill is used and you gain
-    <strong>+1 Boon</strong> to any involved check.</p>
+    @Rule[dice.boon]{+1 Boon} to any involved check.</p>
   actions: []
   iconicSpells: 0
   training: alchemy

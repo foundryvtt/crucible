@@ -12,7 +12,7 @@ system:
       condition: ''
       description: >-
         <p>You harden yourself against demoralization. Your
-        <strong>Morale</strong> is increased by your <strong>Wisdom</strong>
+        @Rule[resource.morale] is increased by your @Rule[ability.wisdom]
         score and you temporarily gain the @Condition[resolute] condition.</p>
       tags:
         - subtle

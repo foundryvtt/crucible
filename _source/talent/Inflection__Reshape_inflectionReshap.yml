@@ -9,7 +9,7 @@ system:
     its area of effect at the cost of <strong>2 Focus</strong>.</p><p>Offensive
     spells which use a region target only enemies within the area. Healing
     spells which use a region target only allies within the area.</p><p>Single
-    target spells do not incur any <strong>Banes</strong> due to intervening
+    target spells do not incur any @Rule[dice.bane]{Banes} due to intervening
     creatures.</p>
   actions: []
   iconicSpells: 1

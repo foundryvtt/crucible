@@ -14,7 +14,7 @@ system:
       img: icons/skills/ranged/person-archery-bow-attack-orange.webp
       description: >-
         <p>After performing a ranged weapon attack, you may move up to half your
-        <strong>Stride</strong> for free.</p>
+        @Rule[movement.stride] for free.</p>
       condition: ''
       cost:
         action: 0

@@ -6,7 +6,7 @@ system:
   description: >-
     <p>You exert strong battlefield judgment to prepare your defenses against
     the attacks of your foes. Any enemy which acts after you in
-    <strong>Initiative</strong> order suffers <strong>+1 Bane</strong> to their
+    <strong>Initiative</strong> order suffers @Rule[dice.bane]{+1 Bane} to their
     spell or weapon attacks against you.</p>
   actions: []
   nodes:

@@ -5,8 +5,8 @@ img: icons/skills/movement/arrow-upward-yellow.webp
 system:
   description: >-
     <p>You are adept at entering and exiting the fray. When moving out of the
-    <strong>Engagement</strong> radius of an enemy, that enemy has <strong>+2
-    Banes</strong> to any @Action[default reactiveStrike] against you.</p>
+    @Rule[movement.engagement] radius of an enemy, that enemy has @Rule[dice.bane]{+2
+    Banes} to any @Action[default reactiveStrike] against you.</p>
   nodes:
     - dex3b
   actions: []

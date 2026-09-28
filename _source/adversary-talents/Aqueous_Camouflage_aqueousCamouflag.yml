@@ -6,7 +6,7 @@ system:
   nodes: []
   description: >-
     <p>While fully submerged in water or liquids, @ref[actor.name]{this
-    creature} has @Advantage[2] on <strong>Stealth</strong> checks.</p>
+    creature} has @Advantage[2] on @Rule[skill.stealth] checks.</p>
   actions: []
   iconicSpells: 0
 effects: []

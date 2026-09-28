@@ -5,9 +5,9 @@ system:
   description: >-
     <p>You infuse runic power into a movement, crossing physical and spatial
     boundaries.</p><p>The <strong>Step</strong> gesture scales with
-    <strong>Dexterity</strong> and allows you to move up to <strong>20
+    @Rule[ability.dexterity] and allows you to move up to <strong>20
     feet</strong> in a straight line with width equal to your
-    <strong>Size</strong>. It deals <strong>2 Base Damage</strong> to targets
+    @Rule[movement.size]. It deals <strong>2 Base Damage</strong> to targets
     along that line which fail to resist the spell. This gesture does not
     require any free hands to cast and has a base cost of <strong>3
     Action</strong> and <strong>1 Focus</strong>.</p>

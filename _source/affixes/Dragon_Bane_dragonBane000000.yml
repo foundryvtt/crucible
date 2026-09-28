@@ -23,7 +23,7 @@ start: null
 description: >-
   <p>This weapon is especially effective against <strong>Dragon</strong>
   creatures. When making a <strong>Strike</strong> against a target of that
-  creature type, the attacker gains bonus <strong>Boons</strong> equal to the
+  creature type, the attacker gains bonus @Rule[dice.boon]{Boons} equal to the
   <strong>Tier</strong> of this prefix.</p>
 origin: null
 tint: '#ffffff'

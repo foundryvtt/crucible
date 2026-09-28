@@ -5,7 +5,7 @@ img: icons/magic/unholy/hand-claw-glow-orange.webp
 system:
   description: >-
     <p>Your feats of arcana are fueled by anger. While @Condition[enraged] you
-    may still spend <strong>Focus</strong> and you deal 2 additional damage to
+    may still spend @Rule[resource.focus] and you deal 2 additional damage to
     all <strong>Spell</strong> attacks.</p>
   actions: []
   nodes:

@@ -14,7 +14,7 @@ system:
       condition: ''
       description: >-
         <p>Touch the target to drain their vitality with a curse that
-        permanently reduces their <strong>Toughness</strong> by 2.</p>
+        permanently reduces their @Rule[ability.toughness] by 2.</p>
       cost:
         action: 3
         focus: 3

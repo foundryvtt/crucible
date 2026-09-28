@@ -6,7 +6,7 @@ system:
     <p>Your spellcraft is honed as a weapon of war to thwart the incantations of
     other magi. You may ask the <strong>Gamemaster</strong> if you know a
     <strong>Rune</strong> capable of countering an enemy spell, even if you do
-    not recognize the spell being cast. You gain <strong>+2 Boons</strong> to
+    not recognize the spell being cast. You gain @Rule[dice.boon]{+2 Boons} to
     any @Action[Compendium.crucible.talent.Item.counterspell0000 counterspell]
     attempt.</p>
   actions: []

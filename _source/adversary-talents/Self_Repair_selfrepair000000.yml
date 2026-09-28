@@ -13,8 +13,8 @@ system:
       img: icons/tools/hand/wrench-iron-grey.webp
       condition: ''
       description: >-
-        <p>The construct recovers its <strong>Toughness</strong> value in
-        <strong>Health</strong> and immediately ends a single status condition
+        <p>The construct recovers its @Rule[ability.toughness] value in
+        @Rule[resource.health] and immediately ends a single status condition
         of its choice that is currently affecting it.</p>
       cost:
         action: 3

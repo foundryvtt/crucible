@@ -5,9 +5,9 @@ system:
   description: >-
     <p>The chaotic force of raw electrical energy. The <strong>Storm</strong>
     rune governs sources of electrical charge and discharge.</p><p>The
-    <strong>Storm</strong> rune scales using <strong>Intellect</strong>, targets
-    <strong>Reflex</strong>, and deals <strong>Electricity</strong> damage to
-    <strong>Health</strong>. It is opposed by the orderly rune of
+    <strong>Storm</strong> rune scales using @Rule[ability.intellect], targets
+    @Rule[defense.reflex], and deals <strong>Electricity</strong> damage to
+    @Rule[resource.health]. It is opposed by the orderly rune of
     <strong>Earth</strong>.</p>
   actions:
     - id: energize

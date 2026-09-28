@@ -7,10 +7,10 @@ system:
     <p>You are an expert in combat against magic users, trained to conserve your
     energy and strike at the precise moment to thwart an incantation.</p><p>The
     cost of your @Action[default reactiveStrike] is reduced by an additional
-    <strong>1 Action</strong> but always costs <strong>1 Focus</strong>. When
+    @Rule[resource.action]{1 Action} but always costs @Rule[resource.focus]{1 Focus}. When
     you <strong>Strike</strong> an enemy in reaction to them casting a spell, a
-    successful hit drains <strong>1 Focus</strong> from that enemy and refunds
-    your own; on a <strong>Critical Hit</strong> their spell is interrupted and
+    successful hit drains @Rule[resource.focus]{1 Focus} from that enemy and refunds
+    your own; on a @Rule[dice.criticalSuccess]{Critical Hit} their spell is interrupted and
     the magic is lost.</p>
   actions:
     - id: abjure
@@ -20,7 +20,7 @@ system:
         <p>You exert your trained will against hostile sorcery, unraveling its
         hold over you and your nearby allies. For yourself and each ally within
         <strong>12 feet</strong> suffering a magical condition inflicted by an
-        enemy, make an <strong>Arcana</strong> check against the lowest
+        enemy, make an @Rule[skill.arcana] check against the lowest
         <strong>Removal DC</strong> among their afflicting conditions. Every
         such condition whose <strong>Removal DC</strong> your result exceeds is
         removed.</p>

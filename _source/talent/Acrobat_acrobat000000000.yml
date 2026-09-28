@@ -7,8 +7,8 @@ system:
     vaulting pole as readily as an armament. While wielding a <strong>Balanced
     2H </strong>weapon, your movement does not provoke a @Action[default
     reactiveStrike], and jumping costs you no more movement than walking. Your
-    whirling weapon also bats aside incoming missiles, imposing <strong>+2
-    Banes</strong> on ranged weapon attacks made against you.</p>
+    whirling weapon also bats aside incoming missiles, imposing @Rule[dice.bane]{+2
+    Banes} on ranged weapon attacks made against you.</p>
   actions:
     - id: vaultingSweep
       name: Vaulting Sweep
@@ -17,8 +17,8 @@ system:
       description: >-
         <p>You vault into the air and crash down amid your foes, your weapon
         whirling in a dazzling arc. Choose a point at least half your
-        <strong>Stride</strong> away but no farther than your full
-        <strong>Stride</strong> and leap to it, then make a @Action[default
+        @Rule[movement.stride] away but no farther than your full
+        @Rule[movement.stride] and leap to it, then make a @Action[default
         strike] against every creature within your weapon's reach of where you
         land, friend or foe.</p>
       tags:

@@ -13,7 +13,7 @@ system:
         <p>Using 10 words or fewer, describe a course of action to an ally who
         acts after you in <strong>Initiative</strong> order. If that ally
         carries out your described plan later in the same
-        <strong>Round</strong>, they gain <strong>+2 Boons</strong> on any dice
+        <strong>Round</strong>, they gain @Rule[dice.boon]{+2 Boons} on any dice
         rolls associated with that plan. The <strong>Gamemaster</strong> may
         arbitrate whether or not the plan was followed.</p>
       tags: []

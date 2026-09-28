@@ -9,11 +9,10 @@ system:
     - id: alchemicalResolve
       condition: ''
       description: >-
-        <p>You rapidly bolster the <strong>Morale</strong> of an ally within
+        <p>You rapidly bolster the @Rule[resource.morale] of an ally within
         <strong>4 feet</strong> by applying vapours. Perform a
-        <strong>Medicine</strong> check against the target's <strong>Rallying
-        Threshold</strong>. Successful checks restore
-        <strong>Morale</strong>.</p>
+        @Rule[skill.medicine] check against the target's @Rule[defense.madness].
+        Successful checks restore @Rule[resource.morale].</p>
       tags:
         - rallying
         - morale

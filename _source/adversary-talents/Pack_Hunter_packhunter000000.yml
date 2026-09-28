@@ -5,7 +5,7 @@ system:
   description: >-
     <p>This creature is a pack hunter, relying on its allies to flank and
     harrass a target to render it exposed to further harm.</p><p>This creature
-    doubles number of <strong>Boons</strong> awarded from attacking a
+    doubles number of @Rule[dice.boon]{Boons} awarded from attacking a
     @Condition[flanked] enemy.</p>
   actions: []
   nodes: []

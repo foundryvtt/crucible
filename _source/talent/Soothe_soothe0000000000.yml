@@ -5,14 +5,14 @@ img: icons/magic/life/heart-cross-strong-blue.webp
 system:
   description: >-
     <p>You administer a soothing performance which rallies your allies,
-    restoring <strong>Morale</strong>.</p>
+    restoring @Rule[resource.morale].</p>
   actions:
     - id: soothe
       description: >-
         <p>You perform a calming verse, benefiting all allies who can perceive
-        you within <strong>12 feet</strong>. Make a <strong>Performance</strong>
-        check against the <strong>Rallying Threshold</strong> of each ally. On
-        success, each ally's <strong>Morale</strong> is restored.</p>
+        you within <strong>12 feet</strong>. Make a @Rule[skill.performance]
+        check against the @Rule[defense.madness] of each ally. On
+        success, each ally's @Rule[resource.morale] is restored.</p>
       tags:
         - rallying
         - morale

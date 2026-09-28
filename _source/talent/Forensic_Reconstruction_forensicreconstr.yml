@@ -17,14 +17,14 @@ system:
       description: >-
         <p>Name aloud a theory of what happened in this place. If the
         <strong>Gamemaster</strong> judges that the place could bear your theory
-        out or contradict it, perform an <strong>Awareness</strong> check
-        against <strong>DC 14</strong>.</p><ul><li><p><strong>+2 Boons</strong>
+        out or contradict it, perform an @Rule[skill.awareness] check
+        against <strong>DC 14</strong>.</p><ul><li><p>@Rule[dice.boon]{+2 Boons}
         if your theory follows from evidence you have already
-        gathered.</p></li><li><p><strong>+2 Banes</strong> if it is conjecture,
+        gathered.</p></li><li><p>@Rule[dice.bane]{+2 Banes} if it is conjecture,
         or if the place has been cleaned, trampled, or reoccupied
         since.</p></li></ul><p>Upon a <strong>Success</strong> you deduce one
         true thing bearing upon your theory, which may support or refute it.
-        Upon a <strong>Critical Success</strong> you deduce a second, which the
+        Upon a @Rule[dice.criticalSuccess] you deduce a second, which the
         <strong>Gamemaster</strong> may draw from what your theory did not think
         to ask.</p><p>A theory may only be investigated once. A failed
         investigation does not mean the theory is incorrect, only that no

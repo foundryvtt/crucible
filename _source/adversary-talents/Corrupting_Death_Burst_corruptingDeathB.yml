@@ -15,7 +15,7 @@ system:
       description: >-
         <p>When the @ref[actor.name]{creature} becomes @Condition[dead], it
         explodes in a pulse of spores that deal <strong>Corruption</strong>
-        damage, attacking the <strong>Fortitude</strong> defense of all nearby
+        damage, attacking the @Rule[defense.fortitude] defense of all nearby
         creatures that fail to resist the effect and upon critical success
         afflicting them with the @Condition[decaying] condition for <strong>3
         rounds</strong>.</p>

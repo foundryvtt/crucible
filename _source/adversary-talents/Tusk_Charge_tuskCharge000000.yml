@@ -9,7 +9,7 @@ system:
   actions:
     - id: tuskCharge
       description: >-
-        <p>Charge in a direct line up to your <strong>Stride</strong> and make a
+        <p>Charge in a direct line up to your @Rule[movement.stride] and make a
         <strong>Strike</strong> against the first creature you encounter. If
         successful, the target is knocked @Condition[prone].</p>
       tags:

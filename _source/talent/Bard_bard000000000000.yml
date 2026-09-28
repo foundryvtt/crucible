@@ -10,8 +10,8 @@ system:
     inspire courage in your allies, demoralize your foes, and be quick with
     unconventional solutions to problems.</p><p>You learn <strong>Rune: Soul
     </strong>if you do not already know it. When restoring the
-    <strong>Morale</strong> of allies using the <strong>Rune of Soul</strong>
-    you gain <strong>+2 Boons</strong> to your roll.</p>
+    @Rule[resource.morale] of allies using the <strong>Rune of Soul</strong>
+    you gain @Rule[dice.boon]{+2 Boons} to your roll.</p>
   actions:
     - id: laughingMatter
       name: Laughing Matter
@@ -23,10 +23,10 @@ system:
         <p>When an enemy's attack fails to deal any damage or cause any effect
         to you or any ally, you construct a cutting jest or pantomime which
         makes a fool of their feeble effort.</p><p>You make an
-        <strong>Performance</strong> skill attack against the target's
-        <strong>Fortitude</strong>, dealing <strong>Psychic</strong> damage to
-        <strong>Morale</strong> upon a success. Furthermore, upon a success, the
-        target suffers <strong>+1 Bane</strong> to all rolls until the start of
+        @Rule[skill.performance] skill attack against the target's
+        @Rule[defense.fortitude], dealing <strong>Psychic</strong> damage to
+        @Rule[resource.morale] upon a success. Furthermore, upon a success, the
+        target suffers @Rule[dice.bane]{+1 Bane} to all rolls until the start of
         their next turn.</p><p>The target must be able to see and understand you
         to be affected by this ability.</p>
       cost:

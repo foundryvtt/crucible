@@ -20,7 +20,7 @@ system:
       inspection you notice a delicate craft imbued within its workmanship.
       While holding it you feel your breaths deepen and the minor aches within
       your muscles dissipate.</p></blockquote><p>This enchanted charm provides a
-      bonus to <strong>Fortitude</strong> defense.</p>
+      bonus to @Rule[defense.fortitude] defense.</p>
     private: >-
       <p>This item is presented as an example of <strong>Fine</strong> jewelry
       with the
@@ -54,7 +54,7 @@ effects:
     disabled: false
     start: null
     description: >-
-      <p>Increase <strong>Fortitude</strong> defense by 1 per each
+      <p>Increase @Rule[defense.fortitude] defense by 1 per each
       <strong>Tier</strong> of this suffix.</p>
     origin: null
     tint: '#ffffff'

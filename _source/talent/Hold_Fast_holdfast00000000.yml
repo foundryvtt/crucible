@@ -5,7 +5,7 @@ img: icons/equipment/shield/buckler-iron-cross-gray.webp
 system:
   description: >-
     <p>You are a calm anchor in the swirling sea of combat. When you have a
-    <strong>Shield</strong> equipped, your <strong>Engagement</strong> increases
+    <strong>Shield</strong> equipped, your @Rule[movement.engagement] increases
     by +1, allowing you to simultaneously engage more adjacent foes.</p>
   actions: []
   nodes:

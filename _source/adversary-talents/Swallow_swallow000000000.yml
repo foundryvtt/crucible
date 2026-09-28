@@ -6,9 +6,9 @@ system:
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} can swallow whole a creature whose
-    <strong>Size</strong> is at least 2 less than its own. Only one creature may
+    @Rule[movement.size] is at least 2 less than its own. Only one creature may
     be swallowed at a time, unless an additional creature is one-quarter of this
-    creature's <strong>Size</strong> or less.</p>
+    creature's @Rule[movement.size] or less.</p>
   actions:
     - id: swallow
       name: Swallow

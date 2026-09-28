@@ -13,9 +13,9 @@ system:
       condition: An enemy moves into or through your Engagement radius.
       description: >-
         <p>You intercept the path of an enemy which enters your
-        <strong>Engagement</strong> radius, immediately moving up to your
-        <strong>Stride</strong> to interpose yourself and block their
-        path.</p><p>If the enemy moves out of your <strong>Engagement</strong>
+        @Rule[movement.engagement] radius, immediately moving up to your
+        @Rule[movement.stride] to interpose yourself and block their
+        path.</p><p>If the enemy moves out of your @Rule[movement.engagement]
         radius or attacks any other creature during their turn, you may make a
         @Action[default reactiveStrike] against them.</p><h3
         class="divider">Playtest Notes</h3><p>The interruption of enemy movement

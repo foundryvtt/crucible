@@ -4,11 +4,11 @@ img: icons/skills/melee/weapons-crossed-swords-yellow-teal.webp
 system:
   description: >-
     <p>Your bravado inspires your allies and cows your enemies. When you
-    <strong>Dodge</strong> or <strong>Parry</strong> a <strong>Strike</strong>,
-    the attacker loses <strong>Morale</strong> equal to your
-    <strong>Presence</strong> attribute. When you achieve a <strong>Critical
-    Hit</strong>, all allies within <strong>30 feet</strong> who can see you
-    gain <strong>Morale</strong> equal to your <strong>Presence</strong>
+    @Rule[defense.dodge] or @Rule[defense.parry] a <strong>Strike</strong>,
+    the attacker loses @Rule[resource.morale] equal to your
+    @Rule[ability.presence] attribute. When you achieve a @Rule[dice.criticalSuccess]{Critical
+    Hit}, all allies within <strong>30 feet</strong> who can see you
+    gain @Rule[resource.morale] equal to your @Rule[ability.presence]
     attribute.</p>
   actions: []
   nodes:

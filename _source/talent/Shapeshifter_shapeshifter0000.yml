@@ -16,10 +16,10 @@ system:
     however you gain no benefit from that equipment while transformed.</p>
 
     <p>If your bestial form becomes @Condition[incapacitated] you revert back to
-    your normal form with any excess damage becoming <strong>Wounds</strong>. If
-    your <strong>Morale</strong> is @Condition[broken] while in beast form your
+    your normal form with any excess damage becoming @Rule[resource.wounds]. If
+    your @Rule[resource.morale] is @Condition[broken] while in beast form your
     transformation ends and any excess damage becomes
-    <strong>Madness</strong>.</p>
+    @Rule[resource.madness].</p>
 
     <h3 class="divider">Playtest Notes</h3>
 

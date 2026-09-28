@@ -5,7 +5,7 @@ system:
   nodes:
     - str3b
   description: >-
-    <p>You can hurl a weapon which scales using <strong>Strength</strong> with
+    <p>You can hurl a weapon which scales using @Rule[ability.strength] with
     such ferocity that it strikes all targets in a direct line.</p>
   actions:
     - id: penetratingThrow

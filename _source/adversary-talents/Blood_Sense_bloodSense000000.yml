@@ -6,7 +6,7 @@ system:
   description: >-
     <p>The @ref[actor.name]{creature} can precisely sense any blooded creature
     within 20 feet which does not have all its hit points. Any weapon or skill
-    attack against a wounded creature does not suffer <strong>Banes</strong>
+    attack against a wounded creature does not suffer @Rule[dice.bane]{Banes}
     that would normally apply if the creature were @Condition[blinded].</p>
   actions: []
   iconicSpells: 0

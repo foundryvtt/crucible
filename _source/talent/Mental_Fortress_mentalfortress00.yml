@@ -5,7 +5,7 @@ img: icons/magic/holy/barrier-shield-winged-blue.webp
 system:
   description: >-
     <p>Your strong will makes you exceedingly difficult to influence. You gain
-    +1 to your <strong>Willpower</strong> defense and <strong>+5
+    +1 to your @Rule[defense.willpower] defense and <strong>+5
     Resistance</strong> to <strong>Psychic</strong> damage.</p>
   actions: []
   nodes:

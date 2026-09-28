@@ -6,8 +6,8 @@ system:
     <p>The orderly force of destruction, responsible for the corruption of all
     biological matter. The <strong>Death</strong> rune governs decay and
     destruction.</p><p>The <strong>Death</strong> rune scales using
-    <strong>Presence</strong>, targets <strong>Fortitude</strong>, and deals
-    <strong>Corruption</strong> damage to <strong>Health</strong>. It is opposed
+    @Rule[ability.presence], targets @Rule[defense.fortitude], and deals
+    <strong>Corruption</strong> damage to @Rule[resource.health]. It is opposed
     by the chaotic rune of <strong>Life</strong>.</p>
   actions:
     - id: ennervate

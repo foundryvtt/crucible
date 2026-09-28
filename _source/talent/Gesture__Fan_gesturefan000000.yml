@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You shape the essence of a <strong>Rune</strong> into a sweeping or
     splintered arc to strike multiple targets in close proximity.</p><p>The
-    <strong>Fan</strong> gesture scales using <strong>Intellect</strong> and
+    <strong>Fan</strong> gesture scales using @Rule[ability.intellect] and
     targets a 120 degree arc with a <strong>6 foot</strong> radius. It deals
     <strong>6 Base Damage</strong> to targets which fail to resist the spell.
     This gesture requires <strong>1 Hand</strong> to cast and has a base cost of

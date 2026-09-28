@@ -6,10 +6,10 @@ system:
     <p>You empower a direct close-range attack with the arcane essence of a
     <strong>Rune</strong>, performing a <strong>Strike</strong> with your
     equipped weapon.</p><p>The <strong>Strike</strong> gesture scales using
-    <strong>Strength</strong> and deal damage based on your used weapon but with
+    @Rule[ability.strength] and deal damage based on your used weapon but with
     the damage type of the incorporated <strong>Rune</strong>. This gesture does
     not require any free hand and has a base cost of <strong>1 Focus</strong> in
-    addition to the <strong>Action</strong> cost of your weapon
+    addition to the @Rule[resource.action] cost of your weapon
     <strong>Strike</strong>.</p>
   actions: []
   spellcraft: strike

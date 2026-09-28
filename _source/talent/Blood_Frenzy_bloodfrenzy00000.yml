@@ -5,8 +5,8 @@ img: icons/skills/wounds/injury-eyes-blood-red-pink.webp
 system:
   description: >-
     <p>Your battle lust spurs you to feats of heightened action. When you
-    achieve a <strong>Critical Hit</strong> that deals damage to
-    <strong>Health</strong> you immediately gain <strong>+1 Action</strong>.
+    achieve a @Rule[dice.criticalSuccess]{Critical Hit} that deals damage to
+    @Rule[resource.health] you immediately gain @Rule[resource.action]{+1 Action}.
     This benefit may only happen once per <strong>Round</strong>.</p>
   actions: []
   nodes:

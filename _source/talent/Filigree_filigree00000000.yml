@@ -16,7 +16,7 @@ system:
         <p>Every stone has a grain and a flaw. With a <strong>Jeweler's
         Toolkit</strong> equipped, you can produce any one of the following
         effects:</p><ul><li><p><strong>Read.</strong> You study a gemstone, or
-        an item created by <strong>Jewelcraft</strong>, which you can handle,
+        an item created by @Rule[skill.jewelcraft], which you can handle,
         learning its <strong>Quality</strong> tier, whether its stones are
         genuine or paste, whether any has been replaced since it was made, and
         what it is honestly worth.</p></li><li><p><strong>Destroy.</strong> You
@@ -25,8 +25,8 @@ system:
         nothing. Alternatively, in the course of setting a stone yourself, you
         may seat it so that it works loose and is lost under a condition you
         name. Your sabotage is discovered only by an intentional
-        <strong>Awareness</strong> check which beats your passive
-        <strong>Jewelcraft</strong>.</p></li><li><p><strong>Create.</strong>
+        @Rule[skill.awareness] check which beats your passive
+        @Rule[skill.jewelcraft].</p></li><li><p><strong>Create.</strong>
         Given time and reasonable access to materials, you may make any small
         work of fine metal or stone you can picture: a puzzle box which opens
         one way only, a locket with a compartment nobody would find, a signet

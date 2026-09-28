@@ -6,11 +6,11 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Life</strong>. When
     you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your <strong>Critical Hits</strong> which restore
-    <strong>Health</strong> cause the @Condition[mending] condition.</p><p>The
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which restore
+    @Rule[resource.health] cause the @Condition[mending] condition.</p><p>The
     <strong>Mending</strong> effect lasts for <strong>1 Round</strong> and deals
     the ability score your <strong>Rune of Life</strong> scales with as
-    additional <strong>Restoration</strong> to <strong>Health</strong>.</p>
+    additional <strong>Restoration</strong> to @Rule[resource.health].</p>
   actions: []
   nodes:
     - wis3b

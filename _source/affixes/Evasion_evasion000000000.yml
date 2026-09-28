@@ -22,7 +22,7 @@ img: icons/magic/movement/trail-streak-pink.webp
 disabled: false
 start: null
 description: >-
-  <p>Increase <strong>Dodge</strong> defense by 1 for each <strong>Tier</strong>
+  <p>Increase @Rule[defense.dodge] defense by 1 for each <strong>Tier</strong>
   of this suffix.</p>
 origin: null
 tint: '#ffffff'

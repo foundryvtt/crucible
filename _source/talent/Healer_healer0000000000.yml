@@ -5,8 +5,8 @@ system:
   description: >-
     <p>You are unparalleled at manipulating vital arcana to treat injuries. You
     learn <strong>Rune: Life</strong> if you do not already know it. When
-    healing allies using the <strong>Rune of Life</strong> you gain <strong>+2
-    Boons</strong> to your roll.</p>
+    healing allies using the <strong>Rune of Life</strong> you gain @Rule[dice.boon]{+2
+    Boons} to your roll.</p>
   actions:
     - id: fontOfLife
       img: icons/magic/life/heart-hand-gold-green-light.webp
@@ -57,8 +57,8 @@ system:
         <p>You bring forth an aura of life-giving magic. Immediately upon
         activation and for the next <strong>3 Rounds</strong>, whenever an ally
         first enters or starts their turn within <strong>20 feet</strong> of
-        you, they regain <strong>Health</strong> equal to your
-        <strong>Wisdom</strong> score.</p>
+        you, they regain @Rule[resource.health] equal to your
+        @Rule[ability.wisdom] score.</p>
       summon: null
       persistRegion: true
       regionBehavior:
@@ -71,7 +71,7 @@ system:
             description: >-
               <p>Whenever an ally first enters or starts their turn within
               <strong>20 feet</strong> of you, they regain
-              <strong>Health</strong> equal to your <strong>Wisdom</strong>
+              @Rule[resource.health] equal to your @Rule[ability.wisdom]
               score.</p>
             effects: []
             tags:

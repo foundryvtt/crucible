@@ -5,11 +5,11 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Storm</strong>.
     When you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which deal damage
     cause the @Condition[shocked] condition.</p><p>The <strong>Shocked</strong>
     effect lasts for <strong>3 Rounds</strong>, deals half the ability score
     your <strong>Rune of Storm</strong> scales with as
-    <strong>Electricity</strong> damage to <strong>Morale</strong>, and applies
+    <strong>Electricity</strong> damage to @Rule[resource.morale], and applies
     the @Condition[staggered] condition.</p>
   actions: []
   nodes:

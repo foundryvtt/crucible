@@ -10,10 +10,10 @@ system:
     - id: formidablePresence
       name: Formidable Presence
       description: >-
-        <p>You make an <strong>Intimidation</strong> skill attack against the
-        <strong>Willpower</strong> defense of enemies within <strong>12
+        <p>You make an @Rule[skill.intimidation] skill attack against the
+        @Rule[defense.willpower] defense of enemies within <strong>12
         feet</strong>, dealing <strong>Void</strong> damage to
-        <strong>Morale</strong> and causing the @Condition[frightened] condition
+        @Rule[resource.morale] and causing the @Condition[frightened] condition
         for <strong>1 Round</strong> to those whose defense you overcome.</p>
       tags:
         - willpower

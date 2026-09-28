@@ -5,11 +5,11 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Flame</strong>.
     When you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which deal damage
     cause the @Condition[burning] condition.</p><p>The <strong>Burning</strong>
     effect lasts for <strong>3 Rounds</strong> and deals half the ability score
     your <strong>Rune of Flame</strong> scales with as <strong>Fire</strong>
-    damage to both <strong>Health</strong> and <strong>Morale</strong>.</p>
+    damage to both @Rule[resource.health] and @Rule[resource.morale].</p>
   actions: []
   nodes:
     - int3a

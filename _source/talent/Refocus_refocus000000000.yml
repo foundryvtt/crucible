@@ -13,12 +13,12 @@ system:
       condition: ''
       description: >-
         <p>You use your equipped <strong>Talisman</strong> to attempt to regain
-        some <strong>Focus</strong>. You perform a @Rule[action.harmless]
-        <strong>Strike</strong> against your own <strong>Rallying</strong>
-        threshold.</p><p>On a success you recover <strong>+1 Focus</strong> if
-        using a one-handed <strong>Talisman</strong> and <strong>+2
-        Focus</strong> if using a two-handed <strong>Talisman</strong>. On a
-        <strong>Critical Success</strong> the amount of <strong>Focus</strong>
+        some @Rule[resource.focus]. You perform a @Rule[action.harmless]
+        <strong>Strike</strong> against your own @Rule[defense.madness].</p><p>On
+        a success you recover @Rule[resource.focus]{+1 Focus} if
+        using a one-handed <strong>Talisman</strong> and @Rule[resource.focus]{+2
+        Focus} if using a two-handed <strong>Talisman</strong>. On a
+        @Rule[dice.criticalSuccess] the amount of @Rule[resource.focus]
         recovered increases by an additional +1.</p>
       cost:
         action: 0

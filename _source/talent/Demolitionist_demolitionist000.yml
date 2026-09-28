@@ -7,7 +7,7 @@ system:
   description: >-
     <p>Your remarkable expertise with munitions allows you to wield them
     efficiently amidst the chaos of combat. Each turn, your first usage of a
-    <strong>Bomb</strong> has a reduced cost of <strong>-1 Action</strong>.
+    <strong>Bomb</strong> has a reduced cost of @Rule[resource.action]{-1 Action}.
     </p><p>You are no longer targeted by your own bombs, even if you are
     otherwise within their area of effect.</p>
   actions: []

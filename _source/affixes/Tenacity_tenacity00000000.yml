@@ -22,7 +22,7 @@ img: icons/magic/symbols/mask-metal-silver-white.webp
 disabled: false
 start: null
 description: >-
-  <p>Increase <strong>Fortitude</strong> defense by 1 per each
+  <p>Increase @Rule[defense.fortitude] defense by 1 per each
   <strong>Tier</strong> of this suffix.</p>
 origin: null
 tint: '#ffffff'

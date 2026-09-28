@@ -16,9 +16,9 @@ system:
         <p>When the @ref[actor.name]{creature} is hit by a
         <strong>Strike</strong>, it may partially burst to release a spray of
         sickening fluid that deals <strong>Corruption</strong> damage. This
-        action scales with <strong>Toughness</strong> and targets the
-        <strong>Reflex</strong> defense of any creature within 3 feet.</p><p>On
-        a <strong>Critical Success</strong>, the affected target becomes
+        action scales with @Rule[ability.toughness] and targets the
+        @Rule[defense.reflex] defense of any creature within 3 feet.</p><p>On
+        a @Rule[dice.criticalSuccess], the affected target becomes
         temporarily @Condition[diseased] for <strong>3 Rounds</strong>.</p>
       cost:
         action: 0

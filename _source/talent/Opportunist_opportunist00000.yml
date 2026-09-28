@@ -6,7 +6,7 @@ system:
   description: >-
     <p>You seize any opportunity you can to capitalize on an enemy who turns
     their back on you. You may make a @Action[default reactiveStrike] even if
-    you are otherwise <strong>Fully Engaged</strong>.</p>
+    you are otherwise @Rule[movement.fullyEngaged].</p>
   actions: []
   nodes:
     - intdex1

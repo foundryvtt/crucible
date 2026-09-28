@@ -9,8 +9,8 @@ system:
     <p>You are expert in using your armor in combination with your shield to
     create a defensive shell.</p><p>When you have the @Condition[guarded]
     condition and have a <strong>Heavy Shield</strong> equipped, your base
-    <strong>Armor</strong> defense is reduced by half but your
-    <strong>Block</strong> defense increases by a corresponding amount.</p>
+    @Rule[defense.armor] defense is reduced by half but your
+    @Rule[defense.block] defense increases by a corresponding amount.</p>
   actions: []
   iconicSpells: 0
   training: armor

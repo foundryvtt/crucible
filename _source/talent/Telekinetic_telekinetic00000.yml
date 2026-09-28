@@ -7,7 +7,7 @@ system:
     and creatures to your will.</p><ul><li><p>Once per turn, when you apply
     @UUID[Compendium.crucible.talent.Item.inflectionpush00]{Inflection: Push} or
     @UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection: Pull} to
-    a <strong>Spell</strong>, you ignore the inflection's <strong>Focus</strong>
+    a <strong>Spell</strong>, you ignore the inflection's @Rule[resource.focus]
     cost.</p></li><li><p>You double the distance at which you can
     <strong>Pull</strong>, <strong>Flick</strong>, or <strong>Suspend</strong>
     using the @Action[Compendium.crucible.talent.Item.runeKinesis00000 propel]
@@ -21,7 +21,7 @@ system:
       description: >-
         <p>You suspend yourself aloft on currents of kinetic force, gaining the
         @Condition[flying] condition to fly and hover. You sustain the effect
-        with <strong>Focus</strong> each round; it ends if you become
+        with @Rule[resource.focus] each round; it ends if you become
         @Condition[incapacitated].</p>
       tags:
         - maintained

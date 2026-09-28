@@ -7,7 +7,7 @@ system:
   description: >-
     <p>Instinctually compose a spell as a @Rule[action.reaction] in response to
     some other action that you observe. The <strong>React</strong> inflection
-    increases the <strong>Focus</strong> cost of a spell by 2.</p>
+    increases the @Rule[resource.focus] cost of a spell by 2.</p>
   actions: []
   spellcraft: react
   iconicSpells: 1

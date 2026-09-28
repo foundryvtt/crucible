@@ -13,7 +13,7 @@ system:
       condition: ''
       description: >-
         <p>Touch the target to becloud their perceptions with a curse that
-        permanently reduces their <strong>Wisdom</strong> by 2.</p>
+        permanently reduces their @Rule[ability.wisdom] by 2.</p>
       cost:
         action: 3
         focus: 3

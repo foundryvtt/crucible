@@ -8,7 +8,7 @@ system:
     <p>Halflings are braver than their stature suggests, and your spirit is
     quick to recover from even the most harrowing of trials.</p><p><strong>Small
     and Nimble.</strong> Your slight frame slips easily out of sight and out of
-    grasp. You gain <strong>+1 Boon</strong> when you use the @Action[default
+    grasp. You gain @Rule[dice.boon]{+1 Boon} when you use the @Action[default
     escape], @Action[default hide], or <strong>Sneak</strong> actions.</p>
   actions:
     - id: stoutHeart

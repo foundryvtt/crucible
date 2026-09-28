@@ -5,8 +5,8 @@ img: icons/magic/light/circle-window-clock-blue.webp
 system:
   description: >-
     <p>Anticipation leads to decisive action. When you have the highest
-    <strong>Initiative</strong> score for a round of combat, you gain <strong>+1
-    Focus</strong>.</p><p></p>
+    <strong>Initiative</strong> score for a round of combat, you gain @Rule[resource.focus]{+1
+    Focus}.</p><p></p>
   nodes:
     - int4d
   actions: []

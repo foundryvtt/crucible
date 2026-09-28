@@ -5,7 +5,7 @@ img: icons/magic/control/fear-fright-shadow-monster-purple.webp
 system:
   description: >-
     <p>You wage war upon the mind itself, unraveling the resolve of your foes.
-    Your actions which directly attack <strong>Morale</strong> find the cracks
+    Your actions which directly attack @Rule[resource.morale] find the cracks
     in a creature's will more easily, reducing your <strong>Critical
     Threshold</strong> by 2.</p><p>When you cause a target to become
     @Condition[broken], the shock to their psyche leaves the target

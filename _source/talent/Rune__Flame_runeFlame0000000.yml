@@ -5,9 +5,9 @@ system:
   description: >-
     <p>The chaotic force of elemental, thermal energy. The
     <strong>Flame</strong> rune governs fire and heat.</p><p>The
-    <strong>Flame</strong> rune scales using <strong>Intellect</strong>, targets
-    <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
-    <strong>Health</strong>. It is opposed by the orderly rune of
+    <strong>Flame</strong> rune scales using @Rule[ability.intellect], targets
+    @Rule[defense.reflex], and deals <strong>Fire</strong> damage to
+    @Rule[resource.health]. It is opposed by the orderly rune of
     <strong>Frost</strong>.</p>
   actions:
     - id: enkindle

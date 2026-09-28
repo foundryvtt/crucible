@@ -6,7 +6,7 @@ system:
   description: >-
     <p>You are able to compartmentalize and brush off setbacks, providing a
     remarkable ability to recover from damage to your
-    <strong>Morale</strong>.</p><p>Your <strong>Rallying Threshold</strong> is
+    @Rule[resource.morale].</p><p>Your @Rule[defense.madness] is
     reduced by 1, making you easier to heal.</p>
   actions: []
   nodes:

@@ -5,7 +5,7 @@ system:
   description: >-
     <p>Your tenacity gives you an irrepressible spirit which resists the onset
     of despair. At the start of your turn if you are not @Condition[broken] you
-    gain <strong>1 Morale</strong>.</p>
+    gain @Rule[resource.morale]{1 Morale}.</p>
   actions: []
   nodes:
     - wis2b

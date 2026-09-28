@@ -5,7 +5,7 @@ img: icons/sundries/misc/lock-open-yellow.webp
 system:
   description: >-
     <p>You are skilled in the arts of disarming traps and picking locks. You
-    gain <strong>+1 Boon</strong> on <strong>Stealth</strong> checks to disable
+    gain @Rule[dice.boon]{+1 Boon} on @Rule[skill.stealth] checks to disable
     a device or open a lock.</p>
   actions: []
   nodes:

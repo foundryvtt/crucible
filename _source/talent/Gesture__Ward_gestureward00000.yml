@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You shape the arcane power of a <strong>Rune</strong> into a protective
     barrier used to shield yourself from harm.</p><p>The <strong>Ward</strong>
-    gesture scales using <strong>Toughness</strong> and provides <strong>+6
+    gesture scales using @Rule[ability.toughness] and provides <strong>+6
     Resistance</strong> against the damage type of the <strong>Rune</strong>
     used in the spell. This resistance lasts for <strong>1 Round</strong> and
     you may only have a single <strong>Ward</strong> at a time. Casting another

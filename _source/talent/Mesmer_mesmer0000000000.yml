@@ -6,11 +6,11 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Illusion</strong>.
     When you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which deal damage
     cause the @Condition[confused] condition.</p><p>The
     <strong>Confused</strong> effect lasts for <strong>1 Round</strong>, deals
     half the ability score your <strong>Rune of Illusion</strong> scales with as
-    <strong>Psychic</strong> damage to <strong>Morale</strong>, and applies the
+    <strong>Psychic</strong> damage to @Rule[resource.morale], and applies the
     @Condition[disoriented] condition.</p>
   actions: []
   nodes:

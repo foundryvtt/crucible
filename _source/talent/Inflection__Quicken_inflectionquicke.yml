@@ -4,9 +4,9 @@ img: icons/magic/time/hourglass-tilted-glowing-gold.webp
 system:
   description: >-
     <p>Enhance a spell by hastening the speed with which it can be cast, at the
-    expense of increased <strong>Focus</strong>. The <strong>Quicken</strong>
-    inflection reduces the <strong>Action</strong> cost of a spell by 1 while
-    increasing its <strong>Focus</strong> cost by 1 in exchange.</p>
+    expense of increased @Rule[resource.focus]. The <strong>Quicken</strong>
+    inflection reduces the @Rule[resource.action] cost of a spell by 1 while
+    increasing its @Rule[resource.focus] cost by 1 in exchange.</p>
   actions: []
   spellcraft: quicken
   iconicSpells: 1

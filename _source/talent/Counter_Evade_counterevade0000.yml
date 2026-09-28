@@ -15,8 +15,8 @@ system:
       img: icons/skills/melee/maneuver-greatsword-yellow.webp
       condition: You Dodge an incoming melee Strike.
       description: >-
-        <p>When you defend against a melee attack with a <strong>Dodge</strong>,
-        you may expend <strong>Focus</strong> to retaliate with a reduced-cost
+        <p>When you defend against a melee attack with a @Rule[defense.dodge],
+        you may expend @Rule[resource.focus] to retaliate with a reduced-cost
         <strong>Strike</strong> using your mainhand weapon.</p>
       tags:
         - reaction

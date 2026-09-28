@@ -4,9 +4,9 @@ _id: hulkingphysique0
 img: icons/magic/earth/strike-fist-stone-gray.webp
 system:
   description: >-
-    <p>Your hulking frame swells with raw mass. Your <strong>Size</strong>
-    increases by 1, but your bulk slows you: your <strong>Stride</strong> and
-    <strong>Dodge</strong> defense each decrease by 2.</p>
+    <p>Your hulking frame swells with raw mass. Your @Rule[movement.size]
+    increases by 1, but your bulk slows you: your @Rule[movement.stride] and
+    @Rule[defense.dodge] defense each decrease by 2.</p>
   actions: []
   nodes:
     - str4a

@@ -14,8 +14,8 @@ system:
       img: icons/skills/melee/shield-block-bash-yellow.webp
       condition: You Block an incoming melee Strike.
       description: >-
-        <p>When you defend against a melee attack with a <strong>Block</strong>
-        you may expend <strong>Focus</strong> to retaliate with a reduced-cost
+        <p>When you defend against a melee attack with a @Rule[defense.block]
+        you may expend @Rule[resource.focus] to retaliate with a reduced-cost
         <strong>Strike</strong> using your mainhand weapon.</p>
       tags:
         - reaction

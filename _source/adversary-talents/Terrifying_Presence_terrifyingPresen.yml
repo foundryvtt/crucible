@@ -14,7 +14,7 @@ system:
       description: >-
         <p>When an enemy moves within 20 feet of the @ref[actor.name]{creature},
         it becomes exposed to the dreadful presence, attacking its
-        <strong>Willpower</strong> and inflicting the @Condition[frightened]
+        @Rule[defense.willpower] and inflicting the @Condition[frightened]
         condition upon success.</p>
       condition: An enemy moves within 20 feet.
       cost:
