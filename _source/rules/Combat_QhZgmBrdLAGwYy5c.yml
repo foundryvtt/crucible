@@ -229,7 +229,7 @@ pages:
         <strong>Exact √2</strong> diagonal measurement mode.</p></section><p
         data-rule="movement.stride">Many combat actions involve the
         @Rule[action.movement] tag. Such actions allow you to move a distance up
-        to your character's @Rule[movement.stride]. The distance allowed by a
+        to your character's <strong>Stride</strong>. The distance allowed by a
         @Rule[action.movement] action cannot be broken up or interrupted, and
         any unused distance is not saved for later actions.</p><p>There are no
         facing mechanics in Crucible, meaning that it does not matter which
@@ -286,9 +286,9 @@ pages:
         @Rule[action.movement] action per round of Combat: the first Action it
         performs each round that has the Movement tag costs 1 fewer
         @Rule[resource.action]. This typically makes the Action free, but may
-        only reduce the cost of a more expensive
-        one.</p><p>@Rule[movement.freeMovement] is not available to creatures
-        that are @Condition[weakened], @Condition[prone], or @Condition[slowed].
+        only reduce the cost of a more expensive one.</p><p><strong>Free
+        Movement</strong> is not available to creatures that are
+        @Condition[weakened], @Condition[prone], or @Condition[slowed].
         Creatures wearing <strong>Heavy</strong> armor also lose access to Free
         Movement unless they have the
         @UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
@@ -398,7 +398,7 @@ pages:
       format: 1
       content: >-
         <p data-rule="movement.size">Each creature occupies a square space
-        determined by its @Rule[movement.size]; a @Rule[movement.size]{Size 4}
+        determined by its <strong>Size</strong>; a <strong>Size 4</strong>
         creature, for instance, occupies a 4x4 area of 1-foot grid
         spaces.</p><p>A creature's space normally cannot be entered or crossed
         by another creature - ordinary movement is halted by anyone in its path.
@@ -769,9 +769,9 @@ pages:
         <strong>1</strong> and adds <strong>+1 for every 2 Size above
         4</strong>, rounded up.</p><p data-rule="movement.fullyEngaged">When the
         number of enemies a character is engaged with equals or exceeds their
-        @Rule[movement.engagement], that character is
-        @Rule[movement.fullyEngaged]. Some conditions and action prerequisites
-        depend on whether a creature is Fully Engaged.</p><section
+        @Rule[movement.engagement], that character is <strong>Fully
+        Engaged</strong>. Some conditions and action prerequisites depend on
+        whether a creature is Fully Engaged.</p><section
         class="foundryvtt"><p>To help visualize how Engagement and Flanking
         mechanics works, there is a special toggle that can be used in
         the<strong> Tokens Layer</strong> of the <strong>Scene Controls
