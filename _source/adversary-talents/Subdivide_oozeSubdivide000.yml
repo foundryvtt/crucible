@@ -15,14 +15,14 @@ system:
       description: >-
         <p>The ooze's cells rapidly divide and the creature splits in two! The
         original creature and its clone equally divide its remaining
-        <strong>Health</strong>. The <strong>Size</strong> of each resulting
+        @Rule[resource.health]. The @Rule[movement.size] of each resulting
         creature is decreased by 1, and its threat tier is reduced, for example
         an <strong>Elite</strong> ooze becomes a <strong>Normal</strong> ooze.
-        The new ooze arrives with only the <strong>Action</strong> and
-        <strong>Focus</strong> its parent had remaining after performing this
+        The new ooze arrives with only the @Rule[resource.action] and
+        @Rule[resource.focus] its parent had remaining after performing this
         Action. If in combat, the new creature acts as a <strong>Summon</strong>
         and joins at <strong>Initiative</strong> 1. This Action may only be used
-        if the creature has <strong>Size</strong> larger than 2.</p>
+        if the creature has @Rule[movement.size] larger than 2.</p>
       cost:
         action: 3
         focus: 1

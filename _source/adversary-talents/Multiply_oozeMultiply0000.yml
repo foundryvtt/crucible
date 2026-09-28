@@ -14,8 +14,8 @@ system:
       condition: ''
       description: >-
         <p>The ooze's cells rapidly multiply as the creature grows. Its
-        <strong>Size</strong> increases by 1 and its <strong>Health</strong>
-        increases by its <strong>Toughness</strong> value.</p>
+        @Rule[movement.size] increases by 1 and its @Rule[resource.health]
+        increases by its @Rule[ability.toughness] value.</p>
       cost:
         action: 3
         focus: 1

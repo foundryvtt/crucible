@@ -9,7 +9,7 @@ system:
     free-hand requirement for casting spells using the <strong>Arrow</strong>
     gesture and the range of those spells becomes your weapon
     range.</p><p>Immediately after performing a <strong>Strike</strong> with a
-    projectile weapon, you may cast a spell with its <strong>Action</strong>
+    projectile weapon, you may cast a spell with its @Rule[resource.action]
     cost reduced by 1.</p>
   actions: []
   iconicSpells: 1

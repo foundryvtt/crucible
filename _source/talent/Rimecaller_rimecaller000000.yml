@@ -5,11 +5,11 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Frost</strong>.
     When you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which deal damage
     cause the @Condition[freezing] condition.</p><p>The
     <strong>Freezing</strong> effect lasts for <strong>1 Round</strong>, deals
     half the ability score your <strong>Rune of Frost</strong> scales with as
-    <strong>Frost</strong> damage to <strong>Health</strong>, and applies the
+    <strong>Frost</strong> damage to @Rule[resource.health], and applies the
     @Condition[slowed] condition.</p>
   actions: []
   nodes:

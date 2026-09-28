@@ -17,7 +17,7 @@ system:
       description: >-
         <p>You expend @Rule[resource.heroism] to push through adversity. Until
         the end of your turn, your attacks and skill checks ignore any
-        <strong>Banes</strong> imposed upon them. Banes you choose to take upon
+        @Rule[dice.bane]{Banes} imposed upon them. Banes you choose to take upon
         yourself are not ignored.</p>
       cost:
         action: 0

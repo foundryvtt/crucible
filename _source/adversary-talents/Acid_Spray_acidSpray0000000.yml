@@ -13,7 +13,7 @@ system:
       condition: ''
       description: >-
         <p>The creature expels a spray of acidic bile in a 10 foot fan.</p><p>On
-        a <strong>Critical Hit</strong>, this attack causes the
+        a @Rule[dice.criticalSuccess]{Critical Hit}, this attack causes the
         @Condition[corroding] condition for <strong>3 Turns</strong>.</p>
       cost:
         action: 1

@@ -5,7 +5,7 @@ img: icons/magic/symbols/mask-yellow-orange.webp
 system:
   description: >-
     <p>Your physical tenacity allows you to remain composed while surrounded by
-    foes. Your <strong>Engagement</strong> increases by +1, allowing you to
+    foes. Your @Rule[movement.engagement] increases by +1, allowing you to
     simultaneously engage more adjacent foes.</p>
   actions: []
   nodes:

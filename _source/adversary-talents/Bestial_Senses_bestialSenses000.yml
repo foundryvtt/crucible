@@ -5,8 +5,8 @@ system:
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has finely honed senses and is
-    particularly perceptive of their environment, all <strong>Awareness</strong>
-    checks gain <strong>+2 Boons</strong>.</p>
+    particularly perceptive of their environment, all @Rule[skill.awareness]
+    checks gain @Rule[dice.boon]{+2 Boons}.</p>
   actions: []
   iconicSpells: 0
 effects: []

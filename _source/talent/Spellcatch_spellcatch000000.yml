@@ -14,8 +14,8 @@ system:
       description: >-
         <p>When you are targeted by a <strong>Spell</strong> you may catch it
         upon your <strong>Talisman</strong>. The <strong>Spell</strong> has no
-        effect upon you and you recover <strong>Focus</strong> equal to the
-        <strong>Focus</strong> which was spent to cast it.</p>
+        effect upon you and you recover @Rule[resource.focus] equal to the
+        @Rule[resource.focus] which was spent to cast it.</p>
 
         <h3 class="divider">Playtest Notes</h3>
 

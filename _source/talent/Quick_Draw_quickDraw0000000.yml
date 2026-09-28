@@ -12,7 +12,7 @@ system:
       description: >-
         <p>You can loose a shot under pressure, although with decreased
         accuracy. You perform a <strong>Strike</strong> that is
-        @Rule[action.difficult], but has a reduced <strong>Action</strong>
+        @Rule[action.difficult], but has a reduced @Rule[resource.action]
         cost.</p>
       cost:
         action: -1

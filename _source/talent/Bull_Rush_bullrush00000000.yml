@@ -9,13 +9,13 @@ system:
   actions:
     - id: bullrush
       description: >-
-        <p>You move up to your <strong>Stride</strong> with forceful momentum,
+        <p>You move up to your @Rule[movement.stride] with forceful momentum,
         passing through the space of one other creature along your path. An ally
         lets you pass freely.</p><p>An enemy contests your passage: make an
         @Rule[skill.athletics] @Rule[action.skill] attack against its
-        @Rule[defense.fortitude] defense. On a success you drive through its
+        @Rule[defense.fortitude] defense. On a @Rule[dice.success] you drive through its
         space, knocking it @Condition[prone], and it may not make any
-        @Action[default reactiveStrike] against you. On a failure your movement
+        @Action[default reactiveStrike] against you. On a @Rule[dice.failure] your movement
         is blocked and you remain in your current position.</p>
       tags:
         - harmless

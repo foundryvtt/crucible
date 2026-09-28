@@ -6,7 +6,7 @@ system:
   description: >-
     <p>You've fallen from heights enough times to stop treating it like an
     emergency. You tuck your chin and spread the impact along your limbs to meet
-    the ground with familiar grace. </p><p>You gain <strong>+4 Reflex</strong>
+    the ground with familiar grace. </p><p>You gain @Rule[defense.reflex]{+4 Reflex}
     defense when defending against damage from a fall of <strong>30
     feet</strong> or less.</p>
   actions: []

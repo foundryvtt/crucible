@@ -9,7 +9,7 @@ system:
     Test</strong> using the appropriate <strong>Skill</strong> for the creature.
     On a success, you learn the <strong>Damage</strong> type that the creature
     has the greatest <strong>Vulnerability</strong> towards, if any. On a
-    <strong>Critical Success</strong> you learn the two <strong>Damage</strong>
+    @Rule[dice.criticalSuccess] you learn the two <strong>Damage</strong>
     types which have the largest vulnerability.</p>
   actions:
     - id: intuitWeakness

@@ -7,12 +7,12 @@ system:
     <p>You keep the fire and the pot, and you have the ingenuity to cook meals
     in circumstances that are far from ideal.</p><p>A meal you prepare lasts
     <strong>16 hours</strong> rather than 8. Those who eat it recover an
-    additional amount of <strong>Wounds</strong> and <strong>Madness</strong>
-    equal to half your <strong>Wisdom</strong> when the @Action[default rest]
+    additional amount of @Rule[resource.wounds] and @Rule[resource.madness]
+    equal to half your @Rule[ability.wisdom] when the @Action[default rest]
     concludes. You may prepare a meal wherever the party is able to
     <strong>Rest</strong> at all, without fire or shelter.</p><h3
     class="divider">Playtest Notes</h3><p>Meals are not yet implemented. This
-    talent describes how the <strong>Cooking</strong> trade will behave once
+    talent describes how the @Rule[skill.cooking] trade will behave once
     meal preparation is a <strong>Rest</strong> activity.</p>
   actions: []
   nodes:

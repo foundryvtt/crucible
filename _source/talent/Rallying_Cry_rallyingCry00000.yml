@@ -11,11 +11,11 @@ system:
       description: >-
         <p>You produce a courageous bellow that inspires allies within
         <strong>12 feet</strong> of you to remain stalwart in the face of peril.
-        You make an <strong>Intimidation</strong> check against the
-        <strong>Rallying Threshold</strong> of each ally. Upon a success, they
+        You make an @Rule[skill.intimidation] check against the
+        @Rule[defense.madness] of each ally. Upon a success, they
         become @Condition[resolute] for <strong>3 Rounds</strong>. Upon a
-        <strong>Critical Success</strong>, they also recover an amount of
-        <strong>Morale</strong> equal to your <strong>Presence</strong>
+        @Rule[dice.criticalSuccess], they also recover an amount of
+        @Rule[resource.morale] equal to your @Rule[ability.presence]
         score.</p>
       tags:
         - vocal

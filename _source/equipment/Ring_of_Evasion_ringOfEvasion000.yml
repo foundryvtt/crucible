@@ -19,7 +19,7 @@ system:
       <blockquote><p>This elegant ornamented ring feels slightly slick and
       difficult to grasp. While held it vibrates almost
       imperceptibly.</p></blockquote><p>This enchanted ring provides a bonus to
-      <strong>Dodge</strong> defense.</p>
+      @Rule[defense.dodge] defense.</p>
     private: >-
       <p>This item is presented as an example of <strong>Fine</strong> jewelry
       with the
@@ -52,7 +52,7 @@ effects:
     disabled: false
     start: null
     description: >-
-      <p>Increase <strong>Dodge</strong> defense by 1 for each
+      <p>Increase @Rule[defense.dodge] defense by 1 for each
       <strong>Tier</strong> of this suffix.</p>
     origin: null
     tint: '#ffffff'

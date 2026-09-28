@@ -21,7 +21,7 @@ img: icons/magic/control/buff-flight-wings-runes-blue.webp
 disabled: false
 start: null
 description: >-
-  <p>Increase maximum <strong>Morale</strong> by 6 for each
+  <p>Increase maximum @Rule[resource.morale] by 6 for each
   <strong>Tier</strong> of this prefix.</p>
 origin: null
 tint: '#ffffff'

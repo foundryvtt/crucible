@@ -8,17 +8,17 @@ flags:
 system:
   description: >-
     <p>You lean into an attack which was otherwise defended with your
-    <strong>Armor</strong>, converting its result into a <strong>Block</strong>
+    @Rule[defense.armor], converting its result into a @Rule[defense.block]
     instead.</p>
   actions:
     - id: bodyBlock
       condition: You defend against a melee attack with your Armor or as a Glance.
       description: >-
-        <p>An attack which otherwise is defended by your <strong>Armor</strong>
+        <p>An attack which otherwise is defended by your @Rule[defense.armor]
         or produced a <strong>Glancing Blow</strong> is converted to a
-        <strong>Block</strong> and deals no damage.</p><h3
+        @Rule[defense.block] and deals no damage.</p><h3
         class="divider">Playtest Notes</h3><p>The conversion to a
-        <strong>Block</strong> is not currently implemented, only the
+        @Rule[defense.block] is not currently implemented, only the
         restriction of when this talent's action can be used.</p>
       tags:
         - reaction

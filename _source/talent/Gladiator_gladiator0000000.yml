@@ -6,7 +6,7 @@ system:
   description: >-
     <p>Once per <strong>Round</strong>, you can make a @Rule[action.reaction]
     which incorporates a <strong>Strike</strong> attack without spending any
-    <strong>Focus</strong>.</p>
+    @Rule[resource.focus].</p>
   actions: []
   nodes:
     - sig3.dexterity.toughness

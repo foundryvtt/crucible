@@ -14,7 +14,7 @@ system:
       description: >-
         <p>You dart forward nimbly, attacking with sudden and unexpected
         swiftness to perform a <strong>Strike </strong>with a weapon which
-        scales using <strong>Dexterity</strong> against a single target, with an
+        scales using @Rule[ability.dexterity] against a single target, with an
         increased range of <strong>+2 feet</strong>.</p><p>The attack is
         @Rule[action.difficult], but you do not move from your current position
         nor does this attack provoke a @Action[default reactiveStrike].</p>

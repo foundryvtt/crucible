@@ -21,7 +21,7 @@ system:
         @Rule[resource.wounds], you may expend @Rule[resource.heroism] to enter
         a deathless fury. While the fury lasts you ignore all penalties of being
         @Condition[weakened] and your @Action[default strike] attacks gain
-        <strong>+1 Boon</strong>.</p><p>The fury ends when your
+        @Rule[dice.boon]{+1 Boon}.</p><p>The fury ends when your
         @Rule[resource.health] exceeds your @Rule[resource.wounds] or when
         <strong>Combat</strong> ends.</p>
       cost:

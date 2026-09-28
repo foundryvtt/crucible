@@ -16,7 +16,7 @@ system:
         <p>Cloth tells you where it was woven, who wore it, and where it will
         give. With a <strong>Tailor's Toolkit</strong> equipped, you can produce
         any one of the following effects:</p><ul><li><p><strong>Read.</strong>
-        You study an item created by <strong>Tailoring</strong> which you can
+        You study an item created by @Rule[skill.tailoring] which you can
         clearly see within <strong>30 feet</strong>, including one a creature is
         wearing, learning its <strong>Quality</strong> tier, whether it was made
         for its current wearer or altered from another's, and what size of
@@ -28,15 +28,15 @@ system:
         leather or fabric. You name the condition under which it fails; when
         that condition is met, the <strong>Gamemaster</strong> decides the
         consequences. Your sabotage is discovered only by an intentional
-        <strong>Awareness</strong> check which beats your passive
-        <strong>Tailoring</strong>.</p></li><li><p><strong>Create.</strong>
+        @Rule[skill.awareness] check which beats your passive
+        @Rule[skill.tailoring].</p></li><li><p><strong>Create.</strong>
         Given time and reasonable access to cloth and leather, you may make or
         remake any garment you are familiar with, including the dress of a
         specific people, household, or order whose attire you have seen
         firsthand, which holds until the garment is closely handled or cleaned.
         As you work you may sew in an object weighing a pound or less, found
-        only by an intentional <strong>Awareness</strong> check which beats your
-        passive <strong>Tailoring</strong>. Explicitly defined crafting recipes
+        only by an intentional @Rule[skill.awareness] check which beats your
+        passive @Rule[skill.tailoring]. Explicitly defined crafting recipes
         must still be rolled, but you can successfully make any such garment
         outside of this system without requiring a dice
         roll.</p></li></ul><p>You may attempt other uses similar to those above,

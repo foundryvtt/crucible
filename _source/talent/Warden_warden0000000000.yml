@@ -30,9 +30,9 @@ system:
         attacks against enemies within this aura cause a transfer of life-force
         from your enemies to your allies. Your target suffers additional
         <strong>Poison</strong> damage equal to half your
-        <strong>Wisdom</strong>, which is transferred as <strong>Health</strong>
+        @Rule[ability.wisdom], which is transferred as @Rule[resource.health]
         restoration to yourself or an ally within the grove who currently has
-        the lowest <strong>Health</strong>.</p><p>The <strong>Guardian</strong>
+        the lowest @Rule[resource.health].</p><p>The <strong>Guardian</strong>
         remains until <strong>Combat</strong> ends, or until the
         <strong>Warden</strong> uses this action again.</p><p></p>
       tags:

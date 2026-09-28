@@ -6,8 +6,8 @@ system:
     <p>You understand that panic can be contagious, you just have to cause it.
     When you cause a foe to become @Condition[broken] or @Condition[insane],
     every enemy within <strong>10 feet</strong> who can see that creature
-    suffers damage to their <strong>Morale</strong> equal to your
-    <strong>Presence</strong>.</p>
+    suffers damage to their @Rule[resource.morale] equal to your
+    @Rule[ability.presence].</p>
   actions: []
   nodes:
     - pre4a

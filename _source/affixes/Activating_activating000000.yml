@@ -23,8 +23,8 @@ system:
       condition: ''
       description: >-
         <p>In moments of duress you can draw upon an additional reserve of
-        <strong>Action</strong> from this item. The amount of
-        <strong>Action</strong> restored depends on the <strong>Tier</strong> of
+        @Rule[resource.action] from this item. The amount of
+        @Rule[resource.action] restored depends on the <strong>Tier</strong> of
         this affix.</p><ul><li><p><strong>Tier 1</strong>: <strong>1
         Action</strong></p></li><li><p><strong>Tier 2</strong>: <strong>2
         Action</strong></p></li><li><p><strong>Tier 3</strong>: <strong>3
@@ -53,7 +53,7 @@ disabled: false
 start: null
 description: >-
   <p>Grants the <strong>Replenish Action</strong> action, allowing the bearer to
-  restore <strong>Action</strong> in moments of duress. The amount restored
+  restore @Rule[resource.action] in moments of duress. The amount restored
   scales with the <strong>Tier</strong> of this prefix.</p>
 origin: null
 tint: '#ffffff'

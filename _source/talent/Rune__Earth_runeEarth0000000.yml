@@ -6,8 +6,8 @@ system:
     <p>The orderly force of elemental earth, responsible for physical matter.
     The <strong>Earth</strong> rune governs minerals, metals, soils, and other
     physical compounds.</p><p>The <strong>Earth</strong> rune scales using
-    <strong>Wisdom</strong>, targets <strong>Reflex</strong>, and deals
-    <strong>Acid</strong> damage to <strong>Health</strong>. It is opposed by
+    @Rule[ability.wisdom], targets @Rule[defense.reflex], and deals
+    <strong>Acid</strong> damage to @Rule[resource.health]. It is opposed by
     the chaotic rune of <strong>Storm</strong>.</p>
   actions:
     - id: mould

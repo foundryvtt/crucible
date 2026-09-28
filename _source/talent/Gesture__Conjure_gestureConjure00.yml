@@ -12,7 +12,7 @@ system:
     joins <strong>Combat</strong> at <strong>Initiative 1</strong>. Your
     <strong>Visitor</strong> is a <strong>Minion</strong> equal to your own
     <strong>Level</strong>.</p><p>The <strong>Conjure</strong> gesture scales
-    with <strong>Wisdom</strong> and the <strong>Visitor</strong> survives for
+    with @Rule[ability.wisdom] and the <strong>Visitor</strong> survives for
     <strong>12 Rounds</strong>. You may only have one active
     <strong>Visitor</strong>. Casting another spell using the
     <strong>Conjure</strong> gesture replaces your previous

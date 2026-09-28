@@ -5,12 +5,12 @@ system:
   description: >-
     <p>Your mastery of the arcane makes you more resilient to elemental and
     spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
-    half your <strong>Wisdom</strong> for each <strong>Elemental</strong> or
+    half your @Rule[ability.wisdom] for each <strong>Elemental</strong> or
     <strong>Spiritual</strong> damage type where you know the <strong>Arcane
     Rune</strong> attuned to that damage type.</p><p>When you use the
     <strong>Ward</strong> gesture, the <strong>Resistance</strong> provided by
     your <strong>Ward</strong> also increases by half your
-    <strong>Wisdom</strong>.</p>
+    @Rule[ability.wisdom].</p>
   actions: []
   iconicSpells: 1
   nodes:

@@ -13,9 +13,9 @@ system:
       img: icons/skills/wounds/injury-face-impact-orange.webp
       condition: ''
       description: >-
-        <p>You expend <strong>Heroism</strong> to instantly recover two times
-        your <strong>Toughness</strong> in <strong>Health</strong>. Your
-        <strong>Healing Threshold</strong> is reduced by 2 for the next
+        <p>You expend @Rule[resource.heroism] to instantly recover two times
+        your @Rule[ability.toughness] in @Rule[resource.health]. Your
+        @Rule[defense.wounds] is reduced by 2 for the next
         <strong>3 Rounds</strong>.</p>
       cost:
         action: 1

@@ -13,11 +13,11 @@ system:
       condition: ''
       description: >-
         <p>Following a @Action[default rest], you find the common ground you
-        share with each of your companions. You make a <strong>Society</strong>
-        check against the <strong>Rallying Threshold</strong> of each member of
+        share with each of your companions. You make a @Rule[skill.society]
+        check against the @Rule[defense.madness] of each member of
         your party. Upon a success they shed <strong>Madness</strong> equal to
-        half your <strong>Wisdom</strong>, or your full <strong>Wisdom</strong>
-        upon a <strong>Critical Success</strong>.</p>
+        half your @Rule[ability.wisdom], or your full @Rule[ability.wisdom]
+        upon a @Rule[dice.criticalSuccess].</p>
       cost:
         action: 0
         focus: 0

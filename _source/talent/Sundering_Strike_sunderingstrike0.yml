@@ -15,7 +15,7 @@ system:
       condition: ''
       description: >-
         <p>You make a <strong>Strike</strong> with a
-        <strong>Strength</strong>-scaling weapon which, if successful, applies
+        @Rule[ability.strength]-scaling weapon which, if successful, applies
         the @Condition[exposed] condition to your target for <strong>3
         Rounds</strong>. This attack is @Rule[action.difficult] to perform and
         deals @Rule[action.weakened] damage.</p>

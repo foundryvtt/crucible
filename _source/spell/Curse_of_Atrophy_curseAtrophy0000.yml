@@ -14,7 +14,7 @@ system:
       condition: ''
       description: >-
         <p>Touch the target to afflict them with a wasting curse that
-        permanently reduces their <strong>Strength</strong> by 2.</p>
+        permanently reduces their @Rule[ability.strength] by 2.</p>
       cost:
         action: 3
         focus: 3

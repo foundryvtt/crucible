@@ -24,7 +24,7 @@ system:
       img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
       condition: ''
       description: >-
-        <p>Immediately recover an amount of <strong>Health</strong> dependant on
+        <p>Immediately recover an amount of @Rule[resource.health] dependant on
         the quality of the elixir.</p><ul><li><p><strong>Shoddy</strong> -
         Immediately heals 6
         <strong>Health</strong>.</p></li><li><p><strong>Standard</strong> -

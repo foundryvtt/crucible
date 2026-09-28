@@ -17,7 +17,7 @@ system:
         consume the weapon itself, potentially breaking it.</p><p>This attack is
         @Rule[action.harmless], but if successful the <strong>Quality</strong>
         of the weapon used in the attack is downgraded by one tier. On a
-        <strong>Critical Success</strong> or if the weapon is already
+        @Rule[dice.criticalSuccess] or if the weapon is already
         <strong>Shoddy</strong>, the weapon becomes entirely
         <strong>Broken</strong>. <strong>Enchanted</strong> weapons are
         protected against this effect.</p>

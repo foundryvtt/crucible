@@ -6,8 +6,8 @@ system:
   description: >-
     <p>You balance monastic discipline with expertise in martial arts, balancing
     attack and defense in harmony.</p><p>While <strong>Unarmored</strong>, you
-    gain a +2 bonus to your <strong>Reflex</strong> and
-    <strong>Willpower</strong> defenses.</p><p>While <strong>Unarmed</strong>
+    gain a +2 bonus to your @Rule[defense.reflex] and
+    @Rule[defense.willpower] defenses.</p><p>While <strong>Unarmed</strong>
     you can use the <strong>Double Punch</strong> action.</p>
   actions:
     - id: doublePunch

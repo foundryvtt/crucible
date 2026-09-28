@@ -17,7 +17,7 @@ system:
         <p>When an enemy that you can see casts a <strong>Spell</strong> which
         costs <strong>3 Action</strong> or greater, as a @Rule[action.reaction]
         you can perform a <strong>Thrown</strong> weapon attack against the
-        caster. If your attack results in a <strong>Critical Hit</strong> the
+        caster. If your attack results in a @Rule[dice.criticalSuccess]{Critical Hit} the
         spell is interrupted and its magic is lost.</p>
       cost:
         action: 0

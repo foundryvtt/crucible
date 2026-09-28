@@ -7,7 +7,7 @@ system:
   description: >-
     <p>Enhance a spell to make it more difficult to counter. Any attempt to
     @Action[Compendium.crucible.talent.Item.counterspell0000 counterspell] this
-    spell is made with <strong>+2 Banes</strong>.</p>
+    spell is made with @Rule[dice.bane]{+2 Banes}.</p>
   actions: []
   spellcraft: determine
   iconicSpells: 1

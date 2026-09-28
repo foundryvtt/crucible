@@ -14,7 +14,7 @@ system:
       condition: ''
       description: >-
         <p>Touch the target to afflict them with sluggishness, permanently
-        reducing their <strong>Dexterity</strong> by 2.</p>
+        reducing their @Rule[ability.dexterity] by 2.</p>
       cost:
         action: 3
         focus: 3

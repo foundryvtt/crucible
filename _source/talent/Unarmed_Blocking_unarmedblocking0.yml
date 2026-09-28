@@ -6,8 +6,8 @@ system:
   description: >-
     <p>Through long practice and toughened resolve you are able to block enemy
     blows using your bare limbs. While <strong>Unarmed</strong> or wielding only
-    <strong>Natural</strong> weapons, half your <strong>Toughness</strong> score
-    contributes to your <strong>Block</strong> defense.</p>
+    <strong>Natural</strong> weapons, half your @Rule[ability.toughness] score
+    contributes to your @Rule[defense.block] defense.</p>
   actions: []
   nodes:
     - tou0a

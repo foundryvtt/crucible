@@ -7,20 +7,20 @@ system:
     <p>You have ice in your veins and remain cool under pressure. Your physical
     toughness and mental acuity allow you to hone the danger of your situation
     to achieve the greatest results when the stakes are highest.</p><p>While in
-    combat and not @Condition[incapacitated], you gain <strong>+1 Boon</strong>
+    combat and not @Condition[incapacitated], you gain @Rule[dice.boon]{+1 Boon}
     to all checks when you have less than 50% of your maximum
-    <strong>Health</strong> remaining. You gain <strong>+2 Boons</strong> to all
-    checks when you have less than 25% of your maximum <strong>Health</strong>
+    @Rule[resource.health] remaining. You gain @Rule[dice.boon]{+2 Boons} to all
+    checks when you have less than 25% of your maximum @Rule[resource.health]
     remaining.</p>
   actions:
     - id: coldFocus
       name: Cold Focus
       condition: ''
       description: >-
-        <p>You expend <strong>Heroism</strong>, drawing icy clarity from your
-        circumstances to restore <strong>1 Focus</strong>, plus 1 additional
-        <strong>Focus</strong> for every 25% of your maximum
-        <strong>Health</strong> you are missing, to a maximum of 5.</p>
+        <p>You expend @Rule[resource.heroism], drawing icy clarity from your
+        circumstances to restore @Rule[resource.focus]{1 Focus}, plus 1 additional
+        @Rule[resource.focus] for every 25% of your maximum
+        @Rule[resource.health] you are missing, to a maximum of 5.</p>
       tags:
         - subtle
       cost:

@@ -5,8 +5,8 @@ system:
   description: >-
     <p>Enhance a spell by taking extra time in its formation, reducing other
     resource costs in exchange. The <strong>Compose</strong> inflection reduces
-    the <strong>Focus</strong> cost of a spell by 1 while increasing its
-    <strong>Action</strong> cost by 1 in exchange.</p>
+    the @Rule[resource.focus] cost of a spell by 1 while increasing its
+    @Rule[resource.action] cost by 1 in exchange.</p>
   actions: []
   spellcraft: compose
   iconicSpells: 1

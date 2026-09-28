@@ -15,9 +15,9 @@ system:
       condition: ''
       description: >-
         <p>Following a basic @Action[default strike] which did not
-        <strong>Critically Miss</strong>, you <strong>Strike</strong> the same
+        @Rule[dice.criticalFailure]{Critically Miss}, you <strong>Strike</strong> the same
         target again with the backswing of your weapon at reduced
-        <strong>Action</strong> cost.</p>
+        @Rule[resource.action] cost.</p>
       tags:
         - afterStrike
         - melee

@@ -12,7 +12,7 @@ system:
       img: icons/skills/wounds/bone-broken-marrow-red.webp
       condition: The target is Restrained by this creature.
       description: >-
-        <p>The creature deals <strong>Deadly</strong> damage to a target that it
+        <p>The creature deals @Rule[action.deadly] damage to a target that it
         currently has @Condition[restrained].</p>
       cost:
         action: 0

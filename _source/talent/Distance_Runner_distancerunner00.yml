@@ -4,7 +4,7 @@ _id: distancerunner00
 img: icons/skills/movement/feet-winged-boots-brown.webp
 system:
   description: >-
-    You are adept at covering distance quickly. Your <strong>Stride</strong>
+    You are adept at covering distance quickly. Your @Rule[movement.stride]
     increases by 1.
   nodes:
     - dextou2

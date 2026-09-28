@@ -35,11 +35,11 @@ system:
       condition: ''
       description: >-
         <p>You feint with your mainhand weapon, making a
-        <strong>Deception</strong> attack against the target's
-        <strong>Reflex</strong> defense. You immediately make a
+        @Rule[skill.deception] attack against the target's
+        @Rule[defense.reflex] defense. You immediately make a
         <strong>Strike</strong> with your <strong>offhand</strong>
-        weapon.</p><p>If your deception was successful, you gain <strong>+2
-        Boons</strong> to your <strong>Strike</strong> and it deals an
+        weapon.</p><p>If your deception was successful, you gain @Rule[dice.boon]{+2
+        Boons} to your <strong>Strike</strong> and it deals an
         additional <strong>+6 Damage</strong>.</p>
       range:
         maximum: null

@@ -4,7 +4,7 @@ _id: strikefirst00000
 img: icons/skills/melee/sword-winged-holy-orange.webp
 system:
   description: >-
-    <p>Shoot first, ask questions later. You gain <strong>+1 Boon</strong> on
+    <p>Shoot first, ask questions later. You gain @Rule[dice.boon]{+1 Boon} on
     any <strong>Strike</strong> or <strong>Spell</strong> attack against an
     enemy whose initiative score is lower than your own.</p>
   actions: []

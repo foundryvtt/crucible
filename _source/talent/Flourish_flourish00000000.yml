@@ -16,9 +16,9 @@ system:
       condition: Your target can see you.
       description: >-
         <p>You demonstrate a rapid maneuver of bladework, performing a
-        <strong>Performance</strong> skill attack against their
-        <strong>Reflex</strong> defense. Upon a success they sustain
-        <strong>Piercing</strong> damage to their <strong>Morale</strong>.</p>
+        @Rule[skill.performance] skill attack against their
+        @Rule[defense.reflex] defense. Upon a success they sustain
+        <strong>Piercing</strong> damage to their @Rule[resource.morale].</p>
       cost:
         action: 1
         focus: 1

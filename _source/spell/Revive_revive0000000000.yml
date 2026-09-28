@@ -18,8 +18,8 @@ system:
       condition: ''
       description: >-
         <p>You restore a creature which has recently become @Condition[dead]
-        back to life, reducing its <strong>Wounds</strong> by your
-        <strong>Wisdom</strong> score. If successful, the revived creature is
+        back to life, reducing its @Rule[resource.wounds] by your
+        @Rule[ability.wisdom] score. If successful, the revived creature is
         @Condition[disoriented] and @Condition[staggered] for 10 minutes.</p>
       cost:
         action: 6

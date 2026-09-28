@@ -20,7 +20,7 @@ system:
       glows with a rune that crackles faintly with electrical resonance. While
       holding it you have the surreal sensation of the world around you slowing
       down ever so slightly.</p></blockquote><p>This enchanted amulet provides a
-      bonus to <strong>Reflex</strong> defense.</p>
+      bonus to @Rule[defense.reflex] defense.</p>
     private: >-
       <p>This item is presented as an example of <strong>Fine</strong> jewelry
       with the
@@ -54,7 +54,7 @@ effects:
     disabled: false
     start: null
     description: >-
-      <p>Increase <strong>Reflex</strong> defense by 1 for each
+      <p>Increase @Rule[defense.reflex] defense by 1 for each
       <strong>Tier</strong> of this suffix.</p>
     origin: null
     tint: '#ffffff'

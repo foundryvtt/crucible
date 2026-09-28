@@ -13,8 +13,8 @@ system:
       description: >-
         <p>You make an unarmed <strong>Strike</strong> against a nearby enemy.
         If the attack results in a <strong>Glancing Blow</strong>, you spend
-        <strong>1 Focus</strong> if possible to deal bonus damage equal to your
-        <strong>Toughness</strong> score.</p>
+        @Rule[resource.focus]{1 Focus} if possible to deal bonus damage equal to your
+        @Rule[ability.toughness] score.</p>
       cost:
         action: 0
         focus: 0

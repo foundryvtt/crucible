@@ -6,16 +6,16 @@ flags:
   core: {}
 system:
   description: >-
-    <p>Your knowledge and skill in <strong>Medicine</strong> covers the rapid
+    <p>Your knowledge and skill in @Rule[skill.medicine] covers the rapid
     triage, diagnosis, and treatment of wounds.</p>
   actions:
     - id: combatMedicine
       condition: ''
       description: >-
         <p>You rapidly treat the wounds of an ally within <strong>4
-        feet</strong>. Perform a <strong>Medicine Check</strong> against the
-        target's <strong>Healing Threshold</strong>. Your ally's
-        <strong>Health</strong> is increased by overflow of the check.</p>
+        feet</strong>. Perform a @Rule[skill.medicine]{Medicine Check} against the
+        target's @Rule[defense.wounds]. Your ally's
+        @Rule[resource.health] is increased by overflow of the check.</p>
       tags:
         - healing
         - health

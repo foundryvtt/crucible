@@ -7,7 +7,7 @@ system:
     <p>You have set the first glyph into a hundred mundane things, and you know
     how readily unspoiled work accepts it.</p>
 
-    <p>You gain <strong>+2 Boons</strong> when binding an affix to an item which
+    <p>You gain @Rule[dice.boon]{+2 Boons} when binding an affix to an item which
     bears no enchantment.</p><h3 class="divider">Playtest Notes</h3><p>The
     crafting system is in early development. This talent describes how
     Enchanting will behave once glyph binding is implemented.</p>

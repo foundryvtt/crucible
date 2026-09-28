@@ -7,9 +7,9 @@ system:
     <strong>Soul</strong> rune governs the fundamental procession of souls
     through life and death and relates to matters of sapience, personality, and
     mental health.</p><p>The <strong>Soul</strong> rune scales using
-    <strong>Presence</strong> and provides <strong>Restoration</strong> of
-    <strong>Morale</strong>. In special circumstances it may be used to inflict
-    <strong>Psychic</strong> damage opposed by <strong>Willpower</strong>. It is
+    @Rule[ability.presence] and provides <strong>Restoration</strong> of
+    @Rule[resource.morale]. In special circumstances it may be used to inflict
+    <strong>Psychic</strong> damage opposed by @Rule[defense.willpower]. It is
     opposed by the chaotic rune of <strong>Oblivion</strong>.</p>
   actions:
     - id: evoke

@@ -14,12 +14,12 @@ system:
         Immediately after the creature achieves a Critical Hit with a melee
         attack.
       description: >-
-        <p>When the @ref[actor.name]{creature} achieves a <strong>Critical
-        Hit</strong> using a melee attack it may exaggerate the blow in a way
+        <p>When the @ref[actor.name]{creature} achieves a @Rule[dice.criticalSuccess]{Critical
+        Hit} using a melee attack it may exaggerate the blow in a way
         that evokes fear within those who behold the strike.</p><p>All the
         enemies within 30 feet who can see the creature face a
-        <strong>Harmless</strong> attack against their
-        <strong>Willpower</strong> or become @Condition[frightened] for
+        @Rule[action.harmless] attack against their
+        @Rule[defense.willpower] or become @Condition[frightened] for
         <strong>3 Turns</strong>.</p>
       cost:
         action: 0

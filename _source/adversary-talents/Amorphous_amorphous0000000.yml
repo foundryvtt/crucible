@@ -6,9 +6,9 @@ system:
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} may move through a space as narrow as 1
-    inch in diameter without any penalty to its <strong>Stride</strong>. It
-    gains a bonus to <strong>Dodge</strong> equal to half its <strong>Toughness
-    </strong>score and is immune to the @Condition[restrained] condition.</p>
+    inch in diameter without any penalty to its @Rule[movement.stride]. It
+    gains a bonus to @Rule[defense.dodge] equal to half its @Rule[ability.toughness]
+    score and is immune to the @Condition[restrained] condition.</p>
   actions: []
   iconicSpells: 0
 effects: []

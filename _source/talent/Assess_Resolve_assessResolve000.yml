@@ -7,8 +7,8 @@ system:
     intuition about whether its body or its spirit is the more
     resilient.</p><p>Perform a <strong>Knowledge Test</strong> using the
     appropriate <strong>Skill</strong> for the creature. On a success, you learn
-    whether the creature has greater maximum <strong>Health</strong> or greater
-    maximum <strong>Morale</strong>. On a <strong>Critical Success</strong> the
+    whether the creature has greater maximum @Rule[resource.health] or greater
+    maximum @Rule[resource.morale]. On a @Rule[dice.criticalSuccess] the
     Gamemaster additionally describes how the creature is likely to behave
     should it become @Condition[broken].</p>
   actions:

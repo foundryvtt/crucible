@@ -7,7 +7,7 @@ system:
     <p>The @ref[actor.name]{creature} has a supernatural ability to rapidly
     burrow through solid surfaces which are not entirely
     impermeable.</p><p>Additionally, it can compress its body to pass through
-    apertures that can accommodate ¼ of its <strong>Size</strong>.</p>
+    apertures that can accommodate ¼ of its @Rule[movement.size].</p>
   actions:
     - id: explosiveEmergence
       name: Explosive Emergence
@@ -19,7 +19,7 @@ system:
         immediately the creature leaves the @Condition[burrowing]
         state.</p><p>The @ref[actor.name]{creature} erupts to
         <strong>Strike</strong> against all enemies within its weapon range with
-        an <strong>Empowered</strong> attack.</p>
+        an @Rule[action.empowered] attack.</p>
       cost:
         action: 2
         focus: 1

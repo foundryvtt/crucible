@@ -54,7 +54,7 @@ system:
       description: >-
         <p>You become surrounded by three illusory duplicates which last up to
         <strong>10 Rounds</strong>. Any incoming <strong>Strike</strong> against
-        you is made with a number of <strong>Banes</strong> equal to two times
+        you is made with a number of @Rule[dice.bane]{Banes} equal to two times
         your number of duplicates remaining. Each time a <strong>Strike</strong>
         misses you, one of your duplicates disappears.</p>
       summon: null

@@ -4,8 +4,8 @@ _id: eyeofthestorm000
 img: icons/magic/water/wave-water-explosion.webp
 system:
   description: >-
-    <p>After you @Action[default delay] your turn, gain <strong>+2
-    Boons</strong> on any <strong>Strike</strong> or <strong>Spell</strong>
+    <p>After you @Action[default delay] your turn, gain @Rule[dice.boon]{+2
+    Boons} on any <strong>Strike</strong> or <strong>Spell</strong>
     attack against an enemy that you allowed to act before you that round.</p>
   actions: []
   nodes:

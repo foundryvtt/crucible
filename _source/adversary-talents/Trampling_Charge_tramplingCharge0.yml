@@ -13,7 +13,7 @@ system:
       condition: ''
       description: >-
         <p>The @ref[actor.name]{creature} moves forward up to twice its
-        <strong>Stride</strong>, attacking the @Rule[defense.reflex] defense of
+        @Rule[movement.stride], attacking the @Rule[defense.reflex] defense of
         all creatures in its path. Targets who are half the creature's size or
         smaller are @Condition[stunned] until the end of their next turn as they
         are slammed aside.</p><p>This action uses the lowest-cost natural weapon

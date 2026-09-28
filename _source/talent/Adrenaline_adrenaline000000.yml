@@ -5,8 +5,8 @@ img: icons/magic/lightning/projectile-tendrils-teal.webp
 system:
   description: >-
     <p>Pain sharpens your concentration. Once per round, when you sustain
-    <strong>Health</strong> damage from an attack, you gain <strong>+1
-    Focus</strong>.</p>
+    @Rule[resource.health] damage from an attack, you gain @Rule[resource.focus]{+1
+    Focus}.</p>
   actions: []
   nodes:
     - tou4a

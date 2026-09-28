@@ -25,8 +25,8 @@ system:
       condition: ''
       description: >-
         <p>When this toxin is ingested or otherwise enters the bloodstream of a
-        creature, it is initially <strong>Harmless</strong>, but the target must
-        defend an attack against its <strong>Fortitude</strong> or become
+        creature, it is initially @Rule[action.harmless], but the target must
+        defend an attack against its @Rule[defense.fortitude] or become
         @Condition[paralyzed].</p><p>The duration is dependent on the quality of
         the @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 1
         rounds</p></li><li><p><strong>Standard</strong> - 2

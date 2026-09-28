@@ -19,7 +19,7 @@ system:
       <blockquote><p>A graceful silver amulet embedded with blue jewels imbues
       you with a feeling of steadfastness while you clutch it, prepared to
       weather any challenge.</p></blockquote><p>This enchanted periapt provides
-      a bonus to <strong>Willpower</strong> defense.</p>
+      a bonus to @Rule[defense.willpower] defense.</p>
     private: >-
       <p>This item is presented as an example of <strong>Fine</strong> jewelry
       with the
@@ -53,7 +53,7 @@ effects:
     disabled: false
     start: null
     description: >-
-      <p>Increase <strong>Willpower</strong> defense by 1 for each
+      <p>Increase @Rule[defense.willpower] defense by 1 for each
       <strong>Tier</strong> of this suffix.</p>
     origin: null
     tint: '#ffffff'

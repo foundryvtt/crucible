@@ -7,7 +7,7 @@ system:
     <p>You are gifted at exploiting the slowness with which others think. If you
     are first in <strong>Initiative</strong> order during a round of
     <strong>Combat</strong>, you gain +1 current and maximum
-    <strong>Action</strong>.</p>
+    @Rule[resource.action].</p>
   actions: []
   nodes:
     - intdex4

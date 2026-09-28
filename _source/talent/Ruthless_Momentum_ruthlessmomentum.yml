@@ -16,7 +16,7 @@ system:
       condition: You incapacitate an enemy with a melee attack.
       description: >-
         <p>After defeating an enemy, you immediately move up to your
-        <strong>Stride </strong>and <strong>Strike</strong> another foe that you
+        @Rule[movement.stride] and <strong>Strike</strong> another foe that you
         pass next to or end your movement adjacent to.</p>
       cost:
         action: -2

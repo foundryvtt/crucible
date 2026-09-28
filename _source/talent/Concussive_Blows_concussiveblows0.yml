@@ -6,10 +6,10 @@ system:
   description: >-
     <p>Your physical power wielding melee weapons which deal
     <strong>Bludgeoning</strong> damage can cause the @Condition[staggered]
-    condition on <strong>Critical Hits</strong> which deal damage to
-    <strong>Health</strong>.</p><p>The @Condition[staggered] effect lasts for
+    condition on @Rule[dice.criticalSuccess]{Critical Hits} which deal damage to
+    @Rule[resource.health].</p><p>The @Condition[staggered] effect lasts for
     <strong>1 Round</strong> and reduces your target's maximum
-    <strong>Action</strong> by 2.</p>
+    @Rule[resource.action] by 2.</p>
   actions: []
   nodes:
     - str4a

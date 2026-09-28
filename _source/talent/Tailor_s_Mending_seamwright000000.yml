@@ -6,7 +6,7 @@ system:
   description: >-
     <p>Torn cloth and split leather hold no fear for you. You have turned worse
     than this back into something a person would wear into a fight.</p><p>The
-    repairs you make using the <strong>Tailoring</strong> trade benefit from
+    repairs you make using the @Rule[skill.tailoring] trade benefit from
     <strong>Expert Repair</strong>:</p><ul><li><p>You may attempt such repairs
     without a workbench, though attempts made without one are
     @Rule[action.difficult].</p></li><li><p>A repair you succeed at never costs

@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You have expertise in using a <strong>Shield</strong> to defend yourself
     and others.</p><p>Once per turn while you have a <strong>Shield</strong>
-    equipped, the <strong>Action</strong> cost of using the @Action[default
+    equipped, the @Rule[resource.action] cost of using the @Action[default
     defend] action is reduced by 1.</p>
   nodes:
     - tou0a

@@ -5,7 +5,7 @@ img: icons/magic/symbols/chevron-elipse-circle-blue.webp
 system:
   description: >-
     <p>You battlefield experience makes you accustomed to engaging multiple
-    foes. Your <strong>Engagement</strong> increases by +1, allowing you to
+    foes. Your @Rule[movement.engagement] increases by +1, allowing you to
     simultaneously engage more adjacent foes.</p>
   actions: []
   nodes:

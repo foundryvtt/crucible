@@ -6,11 +6,11 @@ system:
   description: >-
     <p>This adversary is a group of many identical creatures that operate as a
     single swarming throng of foes.</p><ul><li><p>Maximum
-    <strong>Health</strong> is doubled.</p></li><li><p>Against any single-target
+    @Rule[resource.health] is doubled.</p></li><li><p>Against any single-target
     source of damage, the swarm gains additional <strong>Resistance</strong>
-    equal to its <strong>Toughness</strong>.</p></li><li><p>The swarm's
-    <strong>Size</strong> decreases as its <strong>Health</strong> is depleted
-    until reaching a minimum <strong>Size</strong> of 2.</p></li></ul>
+    equal to its @Rule[ability.toughness].</p></li><li><p>The swarm's
+    @Rule[movement.size] decreases as its @Rule[resource.health] is depleted
+    until reaching a minimum @Rule[movement.size] of 2.</p></li></ul>
   actions: []
   iconicSpells: 0
 effects: []

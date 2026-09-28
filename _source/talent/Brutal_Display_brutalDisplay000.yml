@@ -5,8 +5,8 @@ system:
   description: >-
     <p>You go beyond simply defeating your enemies, you make an example of them.
     When you slay a foe, every enemy within <strong>20 feet</strong> who can see
-    their @Condition[dead] ally suffers damage to their <strong>Morale</strong>
-    equal to your <strong>Strength </strong>score.</p>
+    their @Condition[dead] ally suffers damage to their @Rule[resource.morale]
+    equal to your @Rule[ability.strength] score.</p>
   actions: []
   nodes:
     - str3b

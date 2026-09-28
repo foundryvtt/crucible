@@ -19,7 +19,7 @@ system:
         counteracts magical darkness and destroys any source of magical darkness
         whose origin is contained within its area.</p><p>Enemies within the area
         when the light is first created must resist an attack against their
-        <strong>Fortitude</strong> or be @Condition[blinded] for one
+        @Rule[defense.fortitude] or be @Condition[blinded] for one
         round.</p><p><strong>WIP: This spell does not yet automatically create a
         light source, which must be done manually for now. Eventually this will
         be automated using a new Foundry VTT version 14 framework for template

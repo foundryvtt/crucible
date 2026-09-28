@@ -11,7 +11,7 @@ system:
     <strong>Melee</strong> weapon as your mainhand weapon, spells you cast using
     <strong>Gesture: Strike</strong> benefit from your weapon's damage
     bonus.</p><p>Immediately after performing a <strong>Strike</strong> with a
-    melee weapon, you may cast a spell with its <strong>Action</strong> cost
+    melee weapon, you may cast a spell with its @Rule[resource.action] cost
     reduced by 1.</p>
   actions: []
   iconicSpells: 1

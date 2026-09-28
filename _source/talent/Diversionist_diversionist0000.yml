@@ -11,10 +11,10 @@ system:
       name: Distract
       condition: ''
       description: >-
-        <p>You make a <strong>Deception</strong> based <strong>Skill
-        Attack</strong> against the <strong>Willpower </strong>defense of a
+        <p>You make a @Rule[skill.deception] based <strong>Skill
+        Attack</strong> against the @Rule[defense.willpower] defense of a
         target within <strong>30 feet</strong> which can see or hear you. On a
-        success, the target loses <strong>1 Focus</strong>.</p>
+        success, the target loses @Rule[resource.focus]{1 Focus}.</p>
       tags:
         - void
         - skill

@@ -9,7 +9,7 @@ system:
     <p>Your expertise with martial arts allows you to dodge or deflect blows as
     effectively as a heavily armored fighter. While <strong>Unarmed</strong> or
     wielding only <strong>Natural</strong> weapons, half your
-    <strong>Wisdom</strong> score contributes to your <strong>Parry</strong>
+    @Rule[ability.wisdom] score contributes to your @Rule[defense.parry]
     defense.</p>
   actions: []
   nodes:

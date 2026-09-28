@@ -5,7 +5,7 @@ img: icons/magic/death/skull-humanoid-white-red.webp
 system:
   description: >-
     <p>You swear a vow to destroy a specific character or creature. You gain
-    <strong>+2 Boons</strong> to <strong>Strike</strong> or
+    @Rule[dice.boon]{+2 Boons} to <strong>Strike</strong> or
     <strong>Spell</strong> attacks against to subject of your vow. You may only
     swear such a vow against one enemy at a time. Swearing a new vow
     relinquishes your prior vow.</p><h3 class="divider">Playtest

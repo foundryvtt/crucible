@@ -5,7 +5,7 @@ img: icons/magic/light/projectile-smoke-blue-light.webp
 system:
   description: >-
     <p>It is sometimes a marvel how slowly others around you think. You gain
-    <strong>+1 Boon</strong> on any <strong>Strike</strong> or
+    @Rule[dice.boon]{+1 Boon} on any <strong>Strike</strong> or
     <strong>Spell</strong> attack against an enemy lower than you in
     <strong>Initiative</strong> order.</p>
   actions: []

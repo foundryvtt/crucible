@@ -13,8 +13,8 @@ system:
       name: Second Wind
       condition: ''
       description: >-
-        <p>You focus your energy and recover your <strong>Toughness</strong>
-        score in <strong>Health</strong>.</p>
+        <p>You focus your energy and recover your @Rule[ability.toughness]
+        score in @Rule[resource.health].</p>
       tags:
         - healing
         - subtle

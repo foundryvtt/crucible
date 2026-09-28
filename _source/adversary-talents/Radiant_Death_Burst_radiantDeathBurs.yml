@@ -14,7 +14,7 @@ system:
       description: >-
         <p>When the @ref[actor.name]{creature} becomes @Condition[dead], it
         explodes in a pulse of <strong>Radiant</strong> energy which attacks the
-        <strong>Fortitude</strong> defense of all nearby creatures that fail to
+        @Rule[defense.fortitude] defense of all nearby creatures that fail to
         resist the effect and upon critical success afflicting them with the
         @Condition[irradiated] condition for <strong>3 rounds</strong>.</p>
       cost:

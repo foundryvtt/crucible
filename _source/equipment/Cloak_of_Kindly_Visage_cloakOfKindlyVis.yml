@@ -19,7 +19,7 @@ system:
     public: >-
       <blockquote><p>A nondescript black cloak that seems as if it would match
       with almost any outfit.</p></blockquote><p>This enchanted cloak provides
-      an enchantment bonus to <strong>Diplomacy</strong> skill checks and grants
+      an enchantment bonus to @Rule[skill.diplomacy] skill checks and grants
       the ability to assume an illusory <strong>Disguise</strong>.</p>
     private: >-
       <p>This item is presented as an example of a Fine Cloak with the
@@ -149,7 +149,7 @@ effects:
     start: null
     description: >-
       <p>Increase the <strong>Enchantment Bonus</strong> for
-      <strong>Diplomacy</strong> skill checks by 1 for each
+      @Rule[skill.diplomacy] skill checks by 1 for each
       <strong>Tier</strong> of this prefix.</p>
     origin: null
     tint: '#ffffff'

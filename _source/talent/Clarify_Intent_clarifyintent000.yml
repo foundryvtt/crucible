@@ -9,10 +9,10 @@ system:
     - id: clarifyIntent
       description: >-
         <p>You explain your intentions to an ally within <strong>12
-        feet</strong>. Make an <strong>Diplomacy</strong> <strong>Skill</strong>
-        attack against your ally's <strong>Madness Threshold</strong>. If
-        successful they gain <strong>+1 Focus</strong> and <strong>+1
-        Boon</strong> to actions made during their next turn.</p>
+        feet</strong>. Make an @Rule[skill.diplomacy] <strong>Skill</strong>
+        attack against your ally's @Rule[defense.madness]{Madness Threshold}. If
+        successful they gain @Rule[resource.focus]{+1 Focus} and @Rule[dice.boon]{+1
+        Boon} to actions made during their next turn.</p>
       tags:
         - rallying
         - skill

@@ -4,8 +4,8 @@ type: talent
 img: icons/skills/trades/smithing-anvil-silver-red.webp
 system:
   description: >-
-    <p>You excel in applying the skills of<strong> Arcana</strong>,
-    <strong>Glyphweaving</strong>, and <strong>Enchanting</strong> to create
+    <p>You excel in applying the skills of @Rule[skill.arcana],
+    @Rule[skill.glyphweaving], and @Rule[skill.enchanting} to create
     innovative and practical equipment. You can perform temporary modification
     of equipment to apply affix enchantments or to deepen the strength of a
     particular enchantment.</p>

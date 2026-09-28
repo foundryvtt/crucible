@@ -6,7 +6,7 @@ system:
   description: >-
     <p>You understand how to move away from an opponent without exposing
     yourself to the worst attacks in return. Any @Action[default reactiveStrike]
-    against you is performed with <strong>+1 Bane</strong>.</p>
+    against you is performed with @Rule[dice.bane]{+1 Bane}.</p>
   actions: []
   nodes:
     - intdex1

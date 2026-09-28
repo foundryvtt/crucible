@@ -7,7 +7,7 @@ system:
   description: >-
     <p>You channel the arcane power of a <strong>Rune</strong> into a rushing
     wave of energy that surges forward from your current position.</p><p>The
-    <strong>Surge</strong> gesture scales with <strong>Wisdom</strong> and
+    <strong>Surge</strong> gesture scales with @Rule[ability.wisdom] and
     produces a line that is <strong>10 feet</strong> wide and <strong>15
     feet</strong> long originating from the spellcaster, dealing <strong>8 Base
     Damage</strong> to targets which fail to resist the spell. The gesture

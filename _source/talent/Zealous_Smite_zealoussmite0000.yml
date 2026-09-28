@@ -5,12 +5,12 @@ img: icons/magic/fire/dagger-rune-enchant-flame-blue-yellow.webp
 system:
   description: >-
     <p>You can imbue righteous power into your blow with a
-    <strong>Strength</strong>-based weapon.</p>
+    @Rule[ability.strength]-based weapon.</p>
   actions:
     - id: zealousSmite
       condition: You are attacking an enemy with a Strength-based weapon.
       description: >-
-        <p>You <strong>Strike</strong> using a <strong>Strength</strong>-based
+        <p>You <strong>Strike</strong> using a @Rule[ability.strength]-based
         weapon. The attack becomes @Rule[action.deadly] and any damage dealt is
         <strong>Radiant</strong>.</p>
       tags:

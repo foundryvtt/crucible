@@ -13,11 +13,11 @@ system:
         spellcaster you can see within <strong>30 feet</strong>.</p><p>Designate
         a <strong>Rune</strong> and <strong>Gesture</strong> which you know to
         attempt to counter the spell. Choosing a <strong>Rune</strong> which is
-        opposed to one used in the spell grants <strong>+2 Boons</strong> to
+        opposed to one used in the spell grants @Rule[dice.boon]{+2 Boons} to
         your attempt. Selecting the identical <strong>Gesture</strong> as the
-        one being cast also adds <strong>+2 Boons</strong> to your
+        one being cast also adds @Rule[dice.boon]{+2 Boons} to your
         attempt.</p><p>Perform a @Rule[action.harmless] <strong>Spell</strong>
-        attack against your target's <strong>Willpower</strong> defense. If your
+        attack against your target's @Rule[defense.willpower] defense. If your
         roll exceeds their defense, the spell is countered and its magic is
         nullified, producing no effects.</p>
       tags:

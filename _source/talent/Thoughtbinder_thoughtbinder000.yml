@@ -7,11 +7,11 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Control</strong>.
     When you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your <strong>Critical Hits</strong> which deal damage
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which deal damage
     cause the @Condition[dominated] condition.</p><p>The
     <strong>Dominated</strong> effect lasts for <strong>3 Rounds</strong> and
     deals the ability score your <strong>Rune of Control</strong> scales with as
-    additional <strong>Psychic</strong> damage to <strong>Morale</strong>.</p>
+    additional <strong>Psychic</strong> damage to @Rule[resource.morale].</p>
   actions: []
   iconicSpells: 0
   training: physical

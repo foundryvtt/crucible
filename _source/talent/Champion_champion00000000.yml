@@ -11,9 +11,9 @@ system:
     damage to attacks against it.</p><p>So intense is your focus that no rival
     may flee your grasp. You may make a @Action[default reactiveStrike] against
     your <strong>Challenged</strong> rival even while you are
-    @Condition[flanked], and so long as you have <strong>Focus</strong> to spend
-    it costs only <strong>1 Focus</strong> instead of an
-    <strong>Action</strong>.</p>
+    @Condition[flanked], and so long as you have @Rule[resource.focus] to spend
+    it costs only @Rule[resource.focus]{1 Focus} instead of an
+    @Rule[resource.action].</p>
   actions:
     - id: challenge
       name: Challenge
@@ -29,9 +29,9 @@ system:
         only enemy you are engaged with, your immersion in the duel deepens: at
         the end of each of your turns you gain stacking <strong>+1 Bonus
         Damage</strong> to your melee <strong>Strikes</strong> against that
-        rival, to a maximum equal to your <strong>Presence</strong>. This bonus
+        rival, to a maximum equal to your @Rule[ability.presence]. This bonus
         resets to zero if the duel is broken, which happens if another enemy
-        engages you, if your rival escapes your <strong>Engagement</strong>, or
+        engages you, if your rival escapes your @Rule[movement.engagement], or
         if you <strong>Strike</strong> any other creature.</p>
       cost:
         action: 1

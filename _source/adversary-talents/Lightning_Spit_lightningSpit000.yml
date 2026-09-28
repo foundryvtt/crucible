@@ -13,9 +13,9 @@ system:
       condition: ''
       description: >-
         <p>The @ref[actor.name]{creature} spits a small bolt of lightning at a
-        target creature within 20 feet, attacking its <strong>Reflex</strong>
+        target creature within 20 feet, attacking its @Rule[defense.reflex]
         and dealing <strong>Electricity</strong> damage.</p><p>On a
-        <strong>Critical Hit</strong> the attack causes the @Condition[shocked]
+        @Rule[dice.criticalSuccess]{Critical Hit} the attack causes the @Condition[shocked]
         condition for <strong>3 Turns</strong>.</p>
       cost:
         action: 0

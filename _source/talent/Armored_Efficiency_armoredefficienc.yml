@@ -4,7 +4,7 @@ img: icons/equipment/chest/breastplate-helmet-metal.webp
 system:
   description: >-
     <p>You are trained in wearing the heaviest types of armor while still
-    retaining mobility. You are able to use a <strong>Free Move</strong> once
+    retaining mobility. You are able to use a @Rule[movement.freeMovement]{Free Move} once
     per turn while wearing <strong>Heavy</strong> armor.</p>
   actions: []
   nodes:

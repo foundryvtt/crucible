@@ -21,7 +21,7 @@ img: icons/skills/melee/swords-parry-block-blue.webp
 disabled: false
 start: null
 description: >-
-  <p>Increase <strong>Parry</strong> defense by 1 for each <strong>Tier</strong>
+  <p>Increase @Rule[defense.parry] defense by 1 for each <strong>Tier</strong>
   of this suffix.</p>
 origin: null
 tint: '#ffffff'

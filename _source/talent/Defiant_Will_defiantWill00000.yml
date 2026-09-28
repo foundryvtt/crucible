@@ -5,8 +5,8 @@ img: icons/magic/control/control-influence-rally-purple.webp
 system:
   description: >-
     <p>As your body weakens, your mind hardens. You gain bonus
-    <strong>Willpower</strong> defense equal to your <strong>Toughness</strong>
-    score scaled by the proportion of <strong>Health</strong> you have lost.</p>
+    @Rule[defense.willpower] defense equal to your @Rule[ability.toughness]
+    score scaled by the proportion of @Rule[resource.health] you have lost.</p>
   actions: []
   nodes:
     - tou4b

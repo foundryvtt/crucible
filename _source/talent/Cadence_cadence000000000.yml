@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You are drilled in performing sequences of melee attacks with rhythmic
     precision. When you <strong>Strike</strong> multiple times in sequence using
-    a one-handed melee weapon you gain a stacking <strong>+1 Boon</strong> for
+    a one-handed melee weapon you gain a stacking @Rule[dice.boon]{+1 Boon} for
     each successive attack.</p>
   actions: []
   nodes:

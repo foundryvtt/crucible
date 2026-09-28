@@ -17,7 +17,7 @@ system:
         give. With a <strong>Fletcher's Toolkit</strong> equipped, you can
         produce any one of the following
         effects:</p><ul><li><p><strong>Read.</strong> You study an item created
-        by <strong>Fletching</strong> which you can clearly see within
+        by @Rule[skill.fletching] which you can clearly see within
         <strong>30 feet</strong>, learning its <strong>Quality</strong> tier,
         whether it is <strong>Broken</strong>, and whether its wood was properly
         seasoned. From a projectile lodged in a body or a surface you also learn
@@ -32,9 +32,9 @@ system:
         spend <strong>10 minutes</strong> to sabotage such a work of wood. You
         name the condition under which it fails; when that condition is met, the
         <strong>Gamemaster</strong> decides the consequences. Your sabotage is
-        discovered only by an intentional <strong>Awareness</strong> check which
+        discovered only by an intentional @Rule[skill.awareness] check which
         beats your passive
-        <strong>Fletching</strong>.</p></li><li><p><strong>Create.</strong>
+        @Rule[skill.fletching].</p></li><li><p><strong>Create.</strong>
         Given time and reasonable access to sound wood, you may fashion any work
         of wood you are familiar with: a brace which holds a door or shores a
         sagging beam, a replacement spoke, oar, or axle pin which returns a

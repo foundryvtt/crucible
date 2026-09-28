@@ -6,9 +6,9 @@ system:
     <p>A chaotic force of creation, responsible for living matter. The
     <strong>Life</strong> rune governs health and matters relating to biological
     growth.</p><p>The <strong>Life</strong> rune scales using
-    <strong>Wisdom</strong> and provides <strong>Restoration</strong> of
-    <strong>Health</strong>. In special circumstances it may be used to inflict
-    <strong>Poison</strong> damage opposed by <strong>Fortitude</strong>. It is
+    @Rule[ability.wisdom] and provides <strong>Restoration</strong> of
+    @Rule[resource.health]. In special circumstances it may be used to inflict
+    <strong>Poison</strong> damage opposed by @Rule[defense.fortitude]. It is
     opposed by the orderly rune of <strong>Death</strong>.</p>
   actions:
     - id: bloom

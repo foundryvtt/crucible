@@ -16,7 +16,7 @@ system:
       condition: ''
       description: >-
         <p>Each ally, excluding yourself, within <strong>10 feet</strong> gains
-        <strong>+1 Boon</strong> to actions performed until the end of their
+        @Rule[dice.boon]{+1 Boon} to actions performed until the end of their
         next turn.</p>
       tags: []
       cost:

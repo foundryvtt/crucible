@@ -25,7 +25,7 @@ system:
       condition: ''
       description: >-
         <p>Immediately, and at the beginning of each of the next 5
-        <strong>Rounds</strong>, recover an amount of <strong>Morale</strong>
+        <strong>Rounds</strong>, recover an amount of @Rule[resource.morale]
         dependent on the quality of the
         tonic.</p><ul><li><p><strong>Shoddy</strong> - Heals 2
         <strong>Morale</strong> each

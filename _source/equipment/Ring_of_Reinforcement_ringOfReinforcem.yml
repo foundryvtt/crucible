@@ -19,7 +19,7 @@ system:
       <blockquote><p>This steel ring feels permanently cool to the touch and
       gives the sensation of weighing more than expected given its narrow
       band.</p></blockquote><p>This enchanted ring provides a bonus to
-      <strong>Armor</strong> defense.</p>
+      @Rule[defense.armor] defense.</p>
     private: >-
       <p>This item is presented as an example of a Fine Ring with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.reinforcement000]{Reinforcement}
@@ -51,7 +51,7 @@ effects:
     disabled: false
     start: null
     description: >-
-      <p>Increase <strong>Armor</strong> defense by 1 for each
+      <p>Increase @Rule[defense.armor] defense by 1 for each
       <strong>Tier</strong> of this suffix.</p>
     origin: null
     tint: '#ffffff'

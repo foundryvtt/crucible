@@ -4,7 +4,7 @@ img: icons/magic/symbols/star-rising-purple.webp
 system:
   description: >-
     <p>Despair takes your voice and your courage, but never your command of the
-    arcane. You may continue to spend <strong>Focus</strong> even while you are
+    arcane. You may continue to spend @Rule[resource.focus] even while you are
     @Condition[broken].</p>
   actions: []
   nodes:

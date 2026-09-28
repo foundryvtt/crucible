@@ -6,9 +6,9 @@ system:
   description: >-
     <p>You are afflicted with a rare blood mutation which allows your wounds to
     rapidly heal through hematophagy.</p><p>You can restore your
-    <strong>Health</strong> by biting a living target. This attack is made with
+    @Rule[resource.health] by biting a living target. This attack is made with
     a <strong>Superior</strong> <strong>Natural</strong> weapon which scales
-    using <strong>Strength</strong> and deals <strong>Piercing</strong>
+    using @Rule[ability.strength] and deals <strong>Piercing</strong>
     damage.</p><p>Your <strong>Vulnerability</strong> to
     <strong>Radiant</strong> damage increases by 10.</p>
   actions:
@@ -19,7 +19,7 @@ system:
         <p>You grasp an enemy and bite it with sharp incisors, rapidly draining
         its blood to heal your own wounds. This attack requires a free hand to
         grasp your target while you feed, and recovers your
-        <strong>Toughness</strong> score in <strong>Health</strong>.</p>
+        @Rule[ability.toughness] score in @Rule[resource.health].</p>
       tags:
         - melee
       cost:

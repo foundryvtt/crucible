@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You hurl a projectile imbued with the magical power of a
     <strong>Rune</strong> at a distant target.</p><p>The <strong>Arrow</strong>
-    gesture scales using <strong>Intellect</strong> and targets a single
+    gesture scales using @Rule[ability.intellect] and targets a single
     creature up to a distance of <strong>60 feet</strong>, dealing <strong>8
     Base Damage</strong> to targets which fail to resist the spell. This gesture
     requires <strong>1 Hand</strong> to cast and has a base cost of <strong>3

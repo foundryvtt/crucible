@@ -15,8 +15,8 @@ system:
       img: icons/skills/melee/strike-polearm-glowing-white.webp
       condition: You Parry an incoming melee Strike.
       description: >-
-        <p>When you defend against a melee attack with a <strong>Parry</strong>,
-        you may react and expend <strong>Focus</strong> to retaliate with a
+        <p>When you defend against a melee attack with a @Rule[defense.parry],
+        you may react and expend @Rule[resource.focus] to retaliate with a
         reduced-cost <strong>Strike</strong> which is
         @Rule[action.accurate].</p>
       cost:

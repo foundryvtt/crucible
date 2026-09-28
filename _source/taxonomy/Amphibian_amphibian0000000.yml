@@ -5,8 +5,8 @@ system:
   description: >-
     <p>Beasts which dwell within or nearby water. Amphibians are typically
     dexterous, but some varieties are powerful or large in
-    size.</p><ul><li><p><strong>Size</strong>:
-    variable</p></li><li><p><strong>Stride</strong>: variable</p></li></ul>
+    size.</p><ul><li><p>@Rule[movement.size]:
+    variable</p></li><li><p>@Rule[movement.stride]: variable</p></li></ul>
   category: beast
   abilities:
     wisdom: 3

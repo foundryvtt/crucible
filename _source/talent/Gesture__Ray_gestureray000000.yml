@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You funnel the arcane power of a <strong>Rune</strong> into a point and
     project it outwards in a beam.</p><p>The <strong>Ray</strong> gesture scales
-    using <strong>Wisdom</strong> and produces a line that is <strong>1
+    using @Rule[ability.wisdom] and produces a line that is <strong>1
     foot</strong> wide and <strong>30 feet</strong> long originating from the
     spellcaster, dealing <strong>6 Base Damage</strong> to targets which fail to
     resist the spell. The gesture requires <strong>1 Hand</strong> to cast and
