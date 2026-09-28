@@ -25,7 +25,7 @@
     <fieldset {{fieldDisabled}}>
         <legend>{{fields.resistances.label}}</legend>
         <p class="hint">{{localize fields.resistances.hint}}</p>
-        {{formGroup fields.resistances.fields.resistance value=system.resistances.resistance}}
-        {{formGroup fields.resistances.fields.vulnerability value=system.resistances.vulnerability}}
+        {{formGroup fields.resistances.fields.resistance value=system.resistances.resistance sort=true}}
+        {{formGroup fields.resistances.fields.vulnerability value=system.resistances.vulnerability sort=true}}
     </fieldset>
 </section>
