@@ -17,7 +17,6 @@ const CONFIG = {
     "archetype",
     "background",
     "equipment",
-    "effects",
     "macros",
     "playtest",
     "pregens",
