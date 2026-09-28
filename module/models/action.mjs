@@ -1975,45 +1975,48 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _classifyAttack() {
-    this.target.isAttack = this.#classifyIsAttack();
+    // Static helpers: prepare() can run inside the DataModel constructor, before instance private members exist
+    this.target.isAttack = CrucibleAction.#classifyIsAttack(this);
     const {region} = SYSTEM.ACTION.TARGET_TYPES[this.target.type];
     this.target.emanates = (region?.anchor === "self") && (region.shape !== "line");
-    this.range.category = this.#classifyRangeCategory();
+    this.range.category = CrucibleAction.#classifyRangeCategory(this);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Classify whether this Action is hostile: it can reach an enemy and either damages it or applies an effect to it.
+   * Classify whether an Action is hostile: it can reach an enemy and either damages it or applies an effect to it.
+   * @param {CrucibleAction} action
    * @returns {boolean}
    */
-  #classifyIsAttack() {
+  static #classifyIsAttack(action) {
     const {SELF, ENEMIES, ALL} = SYSTEM.ACTION.TARGET_SCOPES;
     const reachesEnemies = scope => (scope === ENEMIES) || (scope === ALL);
-    if ( SYSTEM.ACTION.TARGET_TYPES[this.target.type].scope <= SELF ) return false; // No external creature
-    if ( !reachesEnemies(this.target.scope ?? ALL) ) return false;
-    const damages = this.usage.hasDice && !this.usage.restoration && !this.tags.has("harmless");
-    return damages || this.effects.some(e => reachesEnemies(e.scope));
+    if ( SYSTEM.ACTION.TARGET_TYPES[action.target.type].scope <= SELF ) return false; // No external creature
+    if ( !reachesEnemies(action.target.scope ?? ALL) ) return false;
+    const damages = action.usage.hasDice && !action.usage.restoration && !action.tags.has("harmless");
+    return damages || action.effects.some(e => reachesEnemies(e.scope));
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Classify how this Action reaches its targets from its target type, used weapons, and range.
+   * Classify how an Action reaches its targets from its target type, used weapons, and range.
+   * @param {CrucibleAction} action
    * @returns {"none"|"melee"|"ranged"}
    */
-  #classifyRangeCategory() {
-    const {type, scope, size, emanates} = this.target;
+  static #classifyRangeCategory(action) {
+    const {type, scope, size, emanates} = action.target;
     const {SELF, ALL} = SYSTEM.ACTION.TARGET_SCOPES;
     if ( (SYSTEM.ACTION.TARGET_TYPES[type].scope <= SELF) || ((scope ?? ALL) <= SELF) ) return "none";
     if ( type === "movement" ) return "melee";
-    const weapons = this.usage.strikes ?? [];
-    if ( this.range.weapon ) {
+    const weapons = action.usage.strikes ?? [];
+    if ( action.range.weapon ) {
       return ((weapons.length > 0) && weapons.every(w => w.config.category.ranged)) ? "ranged" : "melee";
     }
 
     // Compare the farthest distance reached from the actor, measured as the target region is drawn
-    const extent = (emanates ? (size ?? this.range.maximum) : this.range.maximum) ?? 0;
+    const extent = (emanates ? (size ?? action.range.maximum) : action.range.maximum) ?? 0;
     if ( extent <= 1 ) return "melee";
     if ( weapons.some(w => w.config.category.ranged) ) return "ranged";
     const reach = weapons.length ? Math.min(...weapons.map(w => w.system.range)) : 1;
