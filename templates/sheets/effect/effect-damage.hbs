@@ -8,7 +8,7 @@
         </button>
         {{#with systemFields.dot.element.fields as | dotFields | }}
         {{#each ../source.system.dot}}
-        <fieldset class="dot">
+        <fieldset class="dot" data-index="{{@index}}">
             <div class="form-group">
                 <label>{{dotFields.amount.label}}</label>
                 <div class="form-fields">

@@ -1,4 +1,5 @@
 const {api, sheets} = foundry.applications;
+const {FormDataExtended} = foundry.applications.ux;
 
 /**
  * The default sheet for Crucible ActiveEffects.
@@ -101,17 +102,10 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
    * @returns {Promise<void>}
    */
   static async #onAddDoT(_event, _target) {
-    const dot = this.document.system.toObject().dot;
-    dot.push({
-      amount: 1,
-      damageType: "slashing",
-      resource: "health"
-    });
-    this.document.updateSource({"system.dot": dot});
-    await this.render();
-    this.document.updateSource({"system.dot": dot.slice(0, -1)});
-    const submit = new SubmitEvent("submit", {cancelable: true});
-    this.element.dispatchEvent(submit);
+    const submitData = this._processFormData(null, this.form, new FormDataExtended(this.form));
+    const dot = Object.values(submitData.system?.dot ?? {});
+    dot.push({amount: 1, damageType: "slashing", resource: "health"});
+    return this.submit({updateData: {system: {dot}}});
   }
 
   /* -------------------------------------------- */
@@ -124,10 +118,11 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
    * @returns {Promise<void>}
    */
   static async #onDeleteDoT(_event, target) {
-    const fieldset = target.closest("fieldset.dot");
-    fieldset.remove();
-    const submit = new SubmitEvent("submit", {cancelable: true});
-    this.element.dispatchEvent(submit);
+    const submitData = this._processFormData(null, this.form, new FormDataExtended(this.form));
+    const dot = Object.values(submitData.system?.dot ?? {});
+    const index = Number(target.closest("fieldset.dot").dataset.index) || 0;
+    dot.splice(index, 1);
+    return this.submit({updateData: {system: {dot}}});
   }
 
   /* -------------------------------------------- */

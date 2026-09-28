@@ -3,6 +3,8 @@
  * @import {DocumentSheetConfiguration, DocumentSheetRenderOptions} from "@client/applications/api/document-sheet.mjs";
  */
 
+const {FormDataExtended} = foundry.applications.ux;
+
 /**
  * @typedef _ActionBehaviorRenderOptions
  * @property {boolean} [preconfigure]  Render to pre-configure the Region Behavior of an Action, rather than a real one
@@ -188,6 +190,7 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
   #prepareEffects() {
     const effects = this.document.system.toObject().action.effects;
     for ( const [i, effect] of effects.entries() ) {
+      effect.index = i;
       effect.fieldPath = `system.action.effects.${i}`;
     }
     return effects;
@@ -223,7 +226,8 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
    * @returns {Promise<void>}
    */
   static async #onAddEffect(_event, _target) {
-    const effects = this.document.system.toObject().action.effects;
+    const submitData = this._processFormData(null, this.form, new FormDataExtended(this.form));
+    const effects = Object.values(submitData.system?.action?.effects ?? {});
     effects.push({
       scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
       duration: {
@@ -232,11 +236,7 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
         expiry: "turnEnd"
       }
     });
-    this.document.updateSource({"system.action.effects": effects});
-    await this.render();
-    this.document.updateSource({"system.action.effects": effects.slice(0, -1)});
-    const submit = new SubmitEvent("submit", {cancelable: true});
-    this.element.dispatchEvent(submit);
+    return this.submit({updateData: {system: {action: {effects}}}});
   }
 
   /* -------------------------------------------- */
@@ -249,10 +249,11 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
    * @returns {Promise<void>}
    */
   static async #onDeleteEffect(_event, target) {
-    const fieldset = target.closest("fieldset.effect");
-    fieldset.remove();
-    const submit = new SubmitEvent("submit", {cancelable: true});
-    this.element.dispatchEvent(submit);
+    const submitData = this._processFormData(null, this.form, new FormDataExtended(this.form));
+    const effects = Object.values(submitData.system?.action?.effects ?? {});
+    const index = Number(target.closest("fieldset.effect").dataset.index) || 0;
+    effects.splice(index, 1);
+    return this.submit({updateData: {system: {action: {effects}}}});
   }
 
   /* -------------------------------------------- */

@@ -1,4 +1,5 @@
 const {HandlebarsApplicationMixin, DocumentSheetV2} = foundry.applications.api;
+const {FormDataExtended} = foundry.applications.ux;
 import CrucibleItem from "../../documents/item.mjs";
 import {formatHookContext, HOOK_PARTIAL} from "../../hooks/_module.mjs";
 
@@ -171,6 +172,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   #prepareEffects() {
     const effects = this.action.toObject().effects;
     for ( const [i, effect] of effects.entries() ) {
+      effect.index = i;
       effect.fieldPath = `effects.${i}`;
     }
     return effects;
@@ -297,7 +299,8 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
    * @returns {Promise<void>}
    */
   static async #onAddEffect(_event, _target) {
-    const effects = this.action.toObject().effects;
+    const submitData = this._processFormData(null, this.form, new FormDataExtended(this.form));
+    const effects = Object.values(submitData.effects ?? {});
     effects.push({
       scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
       duration: {
@@ -306,10 +309,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
         expiry: "turnEnd"
       }
     });
-    this.action.updateSource({effects});
-    await this.render();
-    const submit = new SubmitEvent("submit", {cancelable: true});
-    this.element.dispatchEvent(submit);
+    return this.submit({updateData: {effects}});
   }
 
   /* -------------------------------------------- */
@@ -322,10 +322,11 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
    * @returns {Promise<void>}
    */
   static async #onDeleteEffect(_event, target) {
-    const fieldset = target.closest("fieldset.effect");
-    fieldset.remove();
-    const submit = new SubmitEvent("submit", {cancelable: true});
-    this.element.dispatchEvent(submit);
+    const submitData = this._processFormData(null, this.form, new FormDataExtended(this.form));
+    const effects = Object.values(submitData.effects ?? {});
+    const index = Number(target.closest("fieldset.effect").dataset.index) || 0;
+    effects.splice(index, 1);
+    return this.submit({updateData: {effects}});
   }
 
   /* -------------------------------------------- */
@@ -347,9 +348,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       await this.#behaviorConfig.close();
     }
     this.#behaviorConfig = null;
-    this.action.updateSource({regionBehavior: null});
-    await this.render();
-    await this.submit();
+    await this.submit({updateData: {regionBehavior: null}});
   }
 
   /* -------------------------------------------- */
@@ -367,7 +366,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       return;
     }
     if ( !this.action.regionBehavior ) {
-      this.action.updateSource({
+      await this.submit({updateData: {
         regionBehavior: {
           name: this.action.name,
           system: {
@@ -384,9 +383,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
             }
           }
         }
-      });
-      await this.render();
-      await this.submit();
+      }});
     }
     const behaviorData = foundry.utils.deepClone(this.action.regionBehavior);
     foundry.utils.mergeObject(behaviorData, {
