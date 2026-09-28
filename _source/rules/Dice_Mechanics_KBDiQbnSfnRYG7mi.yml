@@ -30,17 +30,56 @@ pages:
         character performs heroic actions within the world, whether they be
         feats of martial prowess or clever social maneuvers, the outcomes of the
         attempted action are discovered by rolling dice.</p><h2
-        class="divider">Standard Check</h2><p>The standard approach towards
-        determining the outcome of a dice check in Crucible uses a dice pool
-        comprised of three dice, typically 3d8, which are added together. The
-        exact dice used in the pool are modified depending on the
-        <strong>Boons</strong> or <strong>Banes</strong> which apply to the
-        roll. Added to the result of these three dice are Ability, Skill, and
-        Enchantment bonuses which further increase the value of the result. This
-        type of dice roll is referred to as a <strong>Standard
+        class="divider">Standard Check</h2><p data-rule="dice.check">The
+        standard approach towards determining the outcome of a dice check in
+        Crucible uses a dice pool comprised of three dice, typically 3d8, which
+        are added together. The exact dice used in the pool are modified
+        depending on the <strong>Boons</strong> or <strong>Banes</strong> which
+        apply to the roll. Added to the result of these three dice are Ability,
+        Skill, and Enchantment bonuses which further increase the value of the
+        result. This type of dice roll is referred to as a <strong>Standard
         Check</strong>.</p><section class="formula"><p class="value">Standard
         Check</p><p class="equals">=</p><p class="equation">3d8[Boons,Banes] +
         Ability Bonus + Skill Bonus + Enchantment Bonus</p></section><h2
+        class="divider">Check Results</h2><p>Any check made is rolled against a
+        <strong>DC</strong>, or <strong>Diffiulty Class</strong>, representing
+        the number needed for a success. Once the roll is complete, the total is
+        compared against this DC, leading to one of four
+        results:</p><dl><dt><p>Success</p></dt><dd
+        data-rule="dice.success"><p>If the result of the roll is <strong>greater
+        than</strong> the <strong>DC</strong>, the roll is a
+        <strong>Success</strong>.</p></dd><dt><p>Failure</p></dt><dd
+        data-rule="dice.failure"><p>If the result of the roll is <strong>equal
+        to or less than</strong> the <strong>DC</strong>, the roll is a
+        <strong>Failure</strong>.</p></dd><dt><p>Critical Success</p></dt><dd
+        data-rule="dice.criticalSuccess"><p>If the result of the roll is greater
+        than the <strong>DC</strong> by more than the <strong>Critical Success
+        Threshold</strong> (typically 6), the roll is not only a
+        <strong>Success</strong> but a <strong>Critical Success</strong>. In the
+        absence of certain talents or scenarios, this does not necessarily
+        result in different results than a
+        <strong>Success</strong>.</p></dd><dt><p>Critical Failure</p></dt><dd
+        data-rule="dice.criticalFailure"><p>If the result of the roll is less
+        than the <strong>DC</strong> by an amount equal to or greater than the
+        <strong>Critical Failure Threshold</strong> (typically 6), the roll is
+        not only a <strong>Failure</strong> but a <strong>Critical
+        Failure</strong>. In the absence of certain talents or scenarios, this
+        does not necessarily result in different results than a
+        <strong>Failure</strong>.</p></dd></dl><p>As mentioned above, each check
+        has the concepts of both a <strong>Critical Success Threshold</strong>
+        and a <strong>Critical Failure
+        Threshold</strong>:</p><dl><dt><p>Critical Success Threshold</p></dt><dd
+        data-rule="dice.criticalSuccessThreshold"><p>The <strong>Critical
+        Success Threshold</strong> is the number by which a check's roll total
+        must beat its <strong>DC</strong> in order to be classified as a
+        <strong>Critical Success</strong>. This number is 6 by default, but may
+        be modified by certain <strong>Talents</strong>.</p></dd><dt><p>Critical
+        Failure Threshold</p></dt><dd
+        data-rule="dice.criticalFailureThreshold"><p>The <strong>Critical
+        Failure Threshold</strong> is the number by which a check's roll total
+        must fail to beat its <strong>DC</strong> in order to be classified as a
+        <strong>Critical Failure</strong>. This number is 6 by default, but may
+        be modified by certain <strong>Talents</strong>.</p></dd></dl><h2
         class="divider">Bonus Stacking</h2><p>Any given roll may only have one
         source of <strong>Ability Bonus</strong>, <strong>Skill Bonus</strong>,
         or <strong>Enchantment Bonus</strong>. If certain Actions, Talents, or
@@ -71,10 +110,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.359'
+      coreVersion: '14.368'
       createdTime: 1775573164537
-      modifiedTime: 1775573456794
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1790610379445
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -104,12 +143,13 @@ pages:
         determined before a roll is made, as they directly affect the
         composition of the dice pool that is used. A single dice pool roll can
         have no more than 6 boons and 6 banes affecting it.</p><h2
-        class="divider">Boons</h2><p>Each <strong>Boon</strong> applied to the
-        check increments the denomination of the first die in the pool by +2, to
-        a maximum of <strong>d12</strong>. If a die is already a d12 due to
-        other boons, the increase is applied to the next die in the pool. In
-        practical terms, boons upgrade dice making them bigger and more
-        effective.</p><h2 class="divider">Banes</h2><p>Each
+        class="divider">Boons</h2><p data-rule="dice.boon">Each
+        <strong>Boon</strong> applied to the check increments the denomination
+        of the first die in the pool by +2, to a maximum of
+        <strong>d12</strong>. If a die is already a d12 due to other boons, the
+        increase is applied to the next die in the pool. In practical terms,
+        boons upgrade dice making them bigger and more effective.</p><h2
+        class="divider">Banes</h2><p data-rule="dice.bane">Each
         <strong>Bane</strong> applied to the check decrements the denomination
         of the last die in the pool by -2, to a minimum of <strong>d4</strong>.
         If a die is already a d4 due to other banes, the decrease is applied to
@@ -168,8 +208,8 @@ pages:
       systemVersion: 0.9.0
       coreVersion: '14.368'
       createdTime: 1684374120469
-      modifiedTime: 1789669589032
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1790605473038
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null

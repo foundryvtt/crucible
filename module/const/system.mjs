@@ -232,6 +232,8 @@ export const RULES = {
   actions: Object.fromEntries(ACTION.DEFAULT_ACTIONS.map(a => [a.id, a])),
   condition: {...statusEffects, ...derivedConditions}, // Encompasses everything `@Condition` may link to
   defense: ATTRIBUTES.DEFENSES,
+  dice: DICE.RULES,
+  movement: ACTOR.MOVEMENT_RULES,
   resource: prepareRules(ATTRIBUTES.RESOURCES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000"),
   skill: prepareRules(PROFICIENCY.SKILLS, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000")
 };
