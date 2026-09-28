@@ -31,15 +31,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1749827941374
-  modifiedTime: 1773514792260
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1790584035605
+  lastModifiedBy: M1BSmH2nkSHNPBss
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: ceremonialDagger
-sort: 200000
+sort: 900000
 _key: '!items!ceremonialDagger'

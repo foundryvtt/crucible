@@ -35,12 +35,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1749828473016
-  modifiedTime: 1773514792272
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1790581229608
+  lastModifiedBy: M1BSmH2nkSHNPBss
 _id: holySymbol000000
-sort: 400000
+sort: 1000000
 _key: '!items!holySymbol000000'

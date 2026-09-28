@@ -1,0 +1,43 @@
+folder: uvvY6c0nbJBhAjM6
+name: Ritual Sickle
+type: weapon
+img: icons/weapons/sickles/sickle-blue-purple.webp
+system:
+  category: talisman1
+  quantity: 1
+  weight: 2
+  price: 320
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties: []
+  damageType: slashing
+  identifier: runicSickle
+  invested: false
+  description:
+    public: >-
+      <p>A curved cultists blade used to cut herbs or mushrooms. Also used to
+      aid in ritualistic sacrifices.</p>
+    private: ''
+  actions: []
+  dropped: false
+  slot: 0
+effects: []
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790584093012
+  modifiedTime: 1790584093012
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+ownership:
+  default: 0
+  M1BSmH2nkSHNPBss: 3
+_id: runicSickle00000
+sort: 0
+_key: '!items!runicSickle00000'

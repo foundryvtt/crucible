@@ -1,0 +1,44 @@
+name: Winter Crook
+type: weapon
+img: icons/weapons/staves/staff-ornate-blue.webp
+system:
+  identifier: winterCrook
+  category: talisman2
+  quantity: 1
+  weight: 4
+  price: 640
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A shepherd's crook of pale wood, forever rimed with frost that never
+      melts. It chills the air around its wielder and can call forth biting
+      blasts of ice to freeze enemies in their tracks.</p>
+    private: ''
+  actions: []
+  damageType: cold
+  dropped: false
+  slot: 0
+effects: []
+folder: kdNqPJkzaKACMjJc
+ownership:
+  default: 0
+  M1BSmH2nkSHNPBss: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790584433082
+  modifiedTime: 1790584433082
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: winterCrook00000
+sort: 0
+_key: '!items!winterCrook00000'

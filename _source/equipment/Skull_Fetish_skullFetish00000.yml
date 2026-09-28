@@ -29,15 +29,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1749828183431
-  modifiedTime: 1773514792288
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1790584035605
+  lastModifiedBy: M1BSmH2nkSHNPBss
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 _id: skullFetish00000
-sort: 600000
+sort: 1100000
 _key: '!items!skullFetish00000'

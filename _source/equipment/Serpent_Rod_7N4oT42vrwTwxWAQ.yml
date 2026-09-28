@@ -1,0 +1,44 @@
+name: Serpent Rod
+type: weapon
+img: icons/weapons/staves/staff-forest-hooked.webp
+system:
+  identifier: serpentRod
+  category: talisman2
+  quantity: 1
+  weight: 4
+  price: 640
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A long rod of dark wood, with carved serpents coiling up its length and
+      meeting at the top in a pair of fanged heads. At its wielder's command,
+      the fangs spit streams of venom that sicken and weaken their foes.</p>
+    private: ''
+  actions: []
+  damageType: poison
+  dropped: false
+  slot: 0
+effects: []
+folder: kdNqPJkzaKACMjJc
+ownership:
+  default: 0
+  M1BSmH2nkSHNPBss: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790584430227
+  modifiedTime: 1790584430227
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: serpentRod000000
+sort: 0
+_key: '!items!serpentRod000000'

@@ -1,0 +1,44 @@
+name: War Drum
+type: weapon
+img: icons/tools/instruments/drum-brown-red.webp
+system:
+  identifier: warDrum
+  category: talisman2
+  quantity: 1
+  weight: 4
+  price: 640
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A great drum stretched with painted hide and beaten in a relentless
+      rhythm. Each beat carries into the minds of its listeners, lifting the
+      spirits of allies and filling enemies with dread and dizziness.</p>
+    private: ''
+  actions: []
+  damageType: psychic
+  dropped: false
+  slot: 0
+effects: []
+folder: kdNqPJkzaKACMjJc
+ownership:
+  default: 0
+  M1BSmH2nkSHNPBss: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790584431515
+  modifiedTime: 1790584431515
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: warDrum000000000
+sort: 0
+_key: '!items!warDrum000000000'

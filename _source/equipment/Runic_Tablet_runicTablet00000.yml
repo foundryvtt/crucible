@@ -1,0 +1,44 @@
+name: Runic Tablet
+type: weapon
+img: icons/commodities/stone/paver-cobble-white.webp
+system:
+  identifier: runicTablet
+  category: talisman2
+  quantity: 1
+  weight: 4
+  price: 640
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A slab of dense stone carved with runes of binding and weight, braced
+      against the body with both arms. Its wielder can make the runes flare,
+      slamming a crushing wave of force into their enemies.</p>
+    private: ''
+  actions: []
+  damageType: bludgeoning
+  dropped: false
+  slot: 0
+effects: []
+folder: kdNqPJkzaKACMjJc
+ownership:
+  default: 0
+  M1BSmH2nkSHNPBss: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790584425248
+  modifiedTime: 1790584425248
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: runicTablet00000
+sort: 0
+_key: '!items!runicTablet00000'

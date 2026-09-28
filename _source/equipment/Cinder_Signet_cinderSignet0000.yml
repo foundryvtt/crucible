@@ -1,0 +1,43 @@
+folder: uvvY6c0nbJBhAjM6
+name: Cinder Signet
+type: weapon
+img: icons/equipment/finger/ring-horseshoe-gold-red.webp
+system:
+  category: talisman1
+  quantity: 1
+  weight: 2
+  price: 320
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties: []
+  damageType: fire
+  identifier: cinderSignet
+  invested: false
+  description:
+    public: >-
+      <p>I brass signet set with multiple tiny rubies. Imbued to wreath flames
+      at will. The crackling fire can be heard within.</p>
+    private: ''
+  actions: []
+  dropped: false
+  slot: 0
+effects: []
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790584048327
+  modifiedTime: 1790584048327
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+ownership:
+  default: 0
+  M1BSmH2nkSHNPBss: 3
+_id: cinderSignet0000
+sort: 0
+_key: '!items!cinderSignet0000'
