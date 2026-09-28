@@ -112,41 +112,37 @@ export const DAMAGE_CATEGORIES = defineEnum({
  * @type {Readonly<Record<string, {id: string, label: string, type: string}>>}
  */
 export const DAMAGE_TYPES = defineEnum({
+    acid: {
+    label: "DAMAGE.Acid",
+    type: "elemental"
+  },
   bludgeoning: {
     label: "DAMAGE.Bludgeoning",
     type: "physical"
+  },
+  cold: {
+    label: "DAMAGE.Cold",
+    type: "elemental"
   },
   corruption: {
     label: "DAMAGE.Corruption",
     type: "spiritual"
   },
-  piercing: {
-    label: "DAMAGE.Piercing",
-    type: "physical"
-  },
-  slashing: {
-    label: "DAMAGE.Slashing",
-    type: "physical"
-  },
-  poison: {
-    label: "DAMAGE.Poison",
-    type: "physical"
-  },
-  acid: {
-    label: "DAMAGE.Acid",
+  electricity: {
+    label: "DAMAGE.Electricity",
     type: "elemental"
   },
   fire: {
     label: "DAMAGE.Fire",
     type: "elemental"
   },
-  cold: {
-    label: "DAMAGE.Cold",
-    type: "elemental"
+  piercing: {
+    label: "DAMAGE.Piercing",
+    type: "physical"
   },
-  electricity: {
-    label: "DAMAGE.Electricity",
-    type: "elemental"
+  poison: {
+    label: "DAMAGE.Poison",
+    type: "physical"
   },
   psychic: {
     label: "DAMAGE.Psychic",
@@ -155,6 +151,10 @@ export const DAMAGE_TYPES = defineEnum({
   radiant: {
     label: "DAMAGE.Radiant",
     type: "spiritual"
+  },
+  slashing: {
+    label: "DAMAGE.Slashing",
+    type: "physical"
   },
   void: {
     label: "DAMAGE.Void",
