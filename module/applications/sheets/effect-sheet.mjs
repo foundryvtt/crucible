@@ -14,8 +14,8 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
     classes: ["crucible", "effect", "standard-form"],
     form: {submitOnChange: true, closeOnSubmit: false},
     actions: {
-      addDot: CrucibleActiveEffectSheet.#onAddDot,
-      deleteDot: CrucibleActiveEffectSheet.#onDeleteDot
+      addDoT: CrucibleActiveEffectSheet.#onAddDoT,
+      deleteDoT: CrucibleActiveEffectSheet.#onDeleteDoT
     }
   };
 
@@ -76,6 +76,9 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
           value, label: _loc(`EFFECT.SHOW_ICON.${k.toLowerCase()}`)
         })).reverse();
         break;
+      case "damage":
+        partContext.systemFields = effect.system.schema.fields;
+        break;
     }
     return partContext;
   }
@@ -97,14 +100,14 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
    * @param {HTMLElement} _target
    * @returns {Promise<void>}
    */
-  static async #onAddDot(_event, _target) {
+  static async #onAddDoT(_event, _target) {
     const dot = this.document.system.toObject().dot;
     dot.push({
-      amount: 0,
+      amount: 1,
       damageType: "slashing",
       resource: "health"
     });
-    this.document.updateSource({"system.dot": dot})
+    this.document.updateSource({"system.dot": dot});
     await this.render();
     this.document.updateSource({"system.dot": dot.slice(0, -1)});
     const submit = new SubmitEvent("submit", {cancelable: true});
@@ -120,7 +123,7 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
    * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
-  static async #onDeleteDot(_event, target) {
+  static async #onDeleteDoT(_event, target) {
     const fieldset = target.closest("fieldset.dot");
     fieldset.remove();
     const submit = new SubmitEvent("submit", {cancelable: true});

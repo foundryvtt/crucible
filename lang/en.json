@@ -1403,15 +1403,15 @@
     "Difficulty": "Difficulty {dc}",
     "Suspended": "Suspended",
     "ACTIONS": {
-      "AddDot": "Add Damage Over Time",
-      "DeleteDot": "Remove Damage Over Time"
+      "AddDoT": "Add Damage Over Time",
+      "DeleteDoT": "Remove Damage Over Time"
     },
     "PROPERTIES": {
       "Magical": "Magical",
       "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities."
     },
     "SECTIONS": {
-      "Dot": "Damage Over Time",
+      "DoT": "Damage Over Time",
       "General": "General",
       "Removal": "Removal"
     },
