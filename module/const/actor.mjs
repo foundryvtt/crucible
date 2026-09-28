@@ -187,7 +187,7 @@ export const STARTING_EQUIPMENT_BUDGET = 25 * 100;
  * There should be at least one denomination which has a multiplier of 1 to ensure that a raw currency amount can be
  * fully allocated.
  *
- * @type {Record{string, CrucibleCurrencyDenomination}
+ * @type {Record{string, CrucibleCurrencyDenomination}}
  */
 export const CURRENCY_DENOMINATIONS = {
   cp: {
@@ -610,5 +610,26 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GroupCombat",
     argNames: ["turnEndConfig", "turnContext"],
     argLabels: ["item: CrucibleItem", "turnEndConfig: object", "turnContext: object"]
+  }
+});
+
+/* -------------------------------------------- */
+
+export const MOVEMENT_RULES = Object.freeze({
+  engagement: {
+    label: "ACTOR.FIELDS.movement.engagement.label",
+    page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.akwDfoFV3AWbOSI6"
+  },
+  freeMovement: {
+    label: "ACTOR.FreeMovement",
+    page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.KGXiKFUWrPgb7wsx"
+  },
+  size: {
+    label: "ACTOR.FIELDS.movement.size.label",
+    page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.blockingMovement"
+  },
+  stride: {
+    label: "ACTOR.FIELDS.movement.stride.label",
+    page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.KGXiKFUWrPgb7wsx"
   }
 });

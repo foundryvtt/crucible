@@ -226,8 +226,8 @@ pages:
         subgrid with distance units of <strong>1 foot</strong>. Scenes must use
         a <strong>5 foot</strong> grid size for the subgrid to display
         correctly.</p><p>Measurement distance is computed using the
-        <strong>Exact √2</strong> diagonal measurement
-        mode.</p></section><p>Many combat actions a character can perform
+        <strong>Exact √2</strong> diagonal measurement mode.</p></section><p
+        data-rule="movement.stride">Many combat actions a character can perform
         involve the <strong>Movement</strong> tag. Such actions allow you to
         move a certain number of feet up to or equal to your character's
         <strong>Stride</strong> attribute. The distance allowed by a
@@ -283,43 +283,44 @@ pages:
         Distance</strong> traveled is doubled. Burrowing movement passes beneath
         walls, obstacles, and other creatures on the surface above. A creature
         which ends its movement while burrowing gains the @Condition[burrowing]
-        condition.</p><h2 class="divider">Free Movement</h2><p>Each creature has
-        the opportunity to perform one free <strong>Movement</strong> action per
-        round of Combat. This means that the first Action performed each round
-        which involves the Movement tag is discounted at -1 Action cost. This
-        will typically make the action free to perform, but in some cases may
-        simply reduce its overall cost.</p><p>Free Movement is not available to
-        creatures that are @Condition[weakened], @Condition[prone], or
-        @Condition[slowed]. Creatures wearing <strong>Heavy</strong> armor also
-        lose access to free Movement unless they have the
+        condition.</p><h2 class="divider">Free Movement</h2><div
+        data-rule="movement.freeMovement"><p>Each creature has the opportunity
+        to perform one free <strong>Movement</strong> action per round of
+        Combat. This means that the first Action performed each round which
+        involves the Movement tag is discounted at -1 Action cost. This will
+        typically make the action free to perform, but in some cases may simply
+        reduce its overall cost.</p><p><strong>Free Movement</strong> is not
+        available to creatures that are @Condition[weakened], @Condition[prone],
+        or @Condition[slowed]. Creatures wearing <strong>Heavy</strong> armor
+        also lose access to free Movement unless they have the
         @UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
-        Efficiency} talent.</p><h2 class="divider">Terrain</h2><p>Difficult
-        terrain increases the cost of movement while traversing it. Difficult
-        terrain can be defined using Foundry VTT Scene Regions with the
-        <strong>Modify Movement Cost</strong> behavior, which is fully
-        integrated with Crucible movement cost computation.</p><h2
-        class="divider">Creature Collision</h2><p>While in Combat, creatures
-        treat other creatures as obstacles which block movement. A creature may
-        not move through the space occupied by another creature, whether that
-        creature is an ally or an enemy. Dead creatures do not block movement,
-        nor do creatures at a different elevation, such as a flying creature
-        above the battlefield or a burrowing creature beneath it.</p><p>Blocked
-        movement does not mean that creatures must keep a respectful distance -
-        a creature can press into and partially overlap the edge of another
-        creature's space, but cannot push fully through it.</p><section
-        class="foundryvtt"><h4>Automation</h4><p>Token collision happens
-        automatically whenever the moving Token belongs to an active Combat
-        encounter. Outside of Combat, Tokens move freely through one another.
-        When a moving Token bumps into another, its movement simply stops at the
-        point of contact, just as if it had hit a wall.</p></section><p>Certain
-        movement actions are exempt from this restriction. <strong>Jump</strong>
-        movement vaults over obstructing creatures, <strong>Burrow</strong>
-        movement tunnels beneath them, and <strong>Blink</strong> movement
-        teleports past them entirely. Certain Actions also allow movement
-        through otherwise obstructing creatures as part of their effect, for
-        example @UUID[Compendium.crucible.talent.Item.tumblethrough000]{Tumble
-        Through} or
-        @UUID[Compendium.crucible.talent.Item.shieldcharge0000]{Shield
+        Efficiency} talent.</p></div><p></p><h2
+        class="divider">Terrain</h2><p>Difficult terrain increases the cost of
+        movement while traversing it. Difficult terrain can be defined using
+        Foundry VTT Scene Regions with the <strong>Modify Movement Cost</strong>
+        behavior, which is fully integrated with Crucible movement cost
+        computation.</p><h2 class="divider">Creature Collision</h2><p>While in
+        Combat, creatures treat other creatures as obstacles which block
+        movement. A creature may not move through the space occupied by another
+        creature, whether that creature is an ally or an enemy. Dead creatures
+        do not block movement, nor do creatures at a different elevation, such
+        as a flying creature above the battlefield or a burrowing creature
+        beneath it.</p><p>Blocked movement does not mean that creatures must
+        keep a respectful distance - a creature can press into and partially
+        overlap the edge of another creature's space, but cannot push fully
+        through it.</p><section class="foundryvtt"><h4>Automation</h4><p>Token
+        collision happens automatically whenever the moving Token belongs to an
+        active Combat encounter. Outside of Combat, Tokens move freely through
+        one another. When a moving Token bumps into another, its movement simply
+        stops at the point of contact, just as if it had hit a
+        wall.</p></section><p>Certain movement actions are exempt from this
+        restriction. <strong>Jump</strong> movement vaults over obstructing
+        creatures, <strong>Burrow</strong> movement tunnels beneath them, and
+        <strong>Blink</strong> movement teleports past them entirely. Certain
+        Actions also allow movement through otherwise obstructing creatures as
+        part of their effect, for example
+        @UUID[Compendium.crucible.talent.Item.tumblethrough000]{Tumble Through}
+        or @UUID[Compendium.crucible.talent.Item.shieldcharge0000]{Shield
         Charge}.</p><p><strong>Forced Movement</strong> respects creature
         obstacles in the same way: a creature which is pushed, pulled, or
         knocked back stops its involuntary movement when it collides with
@@ -378,10 +379,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.363'
+      coreVersion: '14.368'
       createdTime: 1684374473225
-      modifiedTime: 1780579467460
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1790607882276
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -398,17 +399,20 @@ pages:
     text:
       format: 1
       content: >-
-        <p>A creature's space normally cannot be entered or crossed by another
-        creature - ordinary movement is halted by anyone in its path. Some
-        abilities let a creature force its way through, resolved by comparing
-        the moving creature's <strong>Movement Strength</strong> against the
-        <strong>Blocker Strength</strong> of whoever stands in the way.</p><p>A
-        movement passes through a blocker only when its Movement Strength is
-        <em>greater</em> than the blocker's Blocker Strength; on a tie, the
-        blocker holds. Both ordinary creatures and ordinary movement have a
-        strength of <strong>None</strong>, so by default no one passes through
-        anyone. Forceful movements - <strong>Bull Rush</strong>, <strong>Shield
-        Charge</strong>, <strong>Overrun</strong>, <strong>Tumble
+        <p data-rule="movement.size">Each creature takes up an amount of space
+        according to their <strong>Size</strong>; a <strong>Size 4</strong>
+        creature, for instance, will take up a 4x4 square of 1-foot grid
+        spaces.</p><p>A creature's space normally cannot be entered or crossed
+        by another creature - ordinary movement is halted by anyone in its path.
+        Some abilities let a creature force its way through, resolved by
+        comparing the moving creature's <strong>Movement Strength</strong>
+        against the <strong>Blocker Strength</strong> of whoever stands in the
+        way.</p><p>A movement passes through a blocker only when its Movement
+        Strength is <em>greater</em> than the blocker's Blocker Strength; on a
+        tie, the blocker holds. Both ordinary creatures and ordinary movement
+        have a strength of <strong>None</strong>, so by default no one passes
+        through anyone. Forceful movements - <strong>Bull Rush</strong>,
+        <strong>Shield Charge</strong>, <strong>Overrun</strong>, <strong>Tumble
         Through</strong>, and the like - carry a <strong>Powerful</strong>
         strength that pushes through ordinary creatures. A few defenders, most
         notably a Guarded <strong>Bastion</strong>, project an
@@ -436,10 +440,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.364'
+      coreVersion: '14.368'
       createdTime: 1684374473225
-      modifiedTime: 1781790011336
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1790610922274
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -759,16 +763,17 @@ pages:
     text:
       format: 1
       content: >-
-        <p><strong>Engagement</strong> describes the total number of opposing
-        Combatants that you can simultaneously battle against without becoming
-        more vulnerable. The base Engagement for <strong>Hero</strong>
-        characters is <strong>1</strong>, while the base Engagement for
-        <strong>Adversary</strong> characters starts at <strong>1</strong> and
-        adds <strong>+1 for every 2 Size above 4</strong>, rounded
-        up.</p><p>When a character is adjacent to multiple enemies where the
-        number of engaged enemies equals or exceeds their Engagement score, that
-        character is said to be <strong>Fully Engaged</strong>. Some conditions
-        or action prerequisites may only occur when a creature is Fully
+        <p data-rule="movement.engagement"><strong>Engagement</strong> describes
+        the total number of opposing Combatants that you can simultaneously
+        battle against without becoming more vulnerable. The base Engagement for
+        <strong>Hero</strong> characters is <strong>1</strong>, while the base
+        Engagement for <strong>Adversary</strong> characters starts at
+        <strong>1</strong> and adds <strong>+1 for every 2 Size above
+        4</strong>, rounded up.</p><p data-rule="movement.fullyEngaged">When a
+        character is adjacent to multiple enemies where the number of engaged
+        enemies equals or exceeds their Engagement score, that character is said
+        to be <strong>Fully Engaged</strong>. Some conditions or action
+        prerequisites may only occur when a creature is Fully
         Engaged.</p><section class="foundryvtt"><p>To help visualize how
         Engagement and Flanking mechanics works, there is a special toggle that
         can be used in the<strong> Tokens Layer</strong> of the <strong>Scene
@@ -841,12 +846,12 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.364'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1726930849493
-      modifiedTime: 1781993712288
-      lastModifiedBy: fzBjA63BB4hW4rQb
+      modifiedTime: 1790607728533
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       exportSource: null
     category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.akwDfoFV3AWbOSI6'
