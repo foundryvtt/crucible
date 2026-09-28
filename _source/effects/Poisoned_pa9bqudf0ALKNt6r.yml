@@ -1,0 +1,50 @@
+folder: IRL4ZhYtVmlkQXvs
+name: Poisoned
+type: base
+_id: pa9bqudf0ALKNt6r
+img: icons/magic/unholy/orb-smoking-green.webp
+system:
+  changes: []
+  dc: null
+  dot:
+    - amount: 4
+      damageType: poison
+      resource: health
+      restoration: false
+  lights: []
+  maintenance:
+    cost: null
+    hands: 0
+  properties: []
+  regions: []
+  summons: []
+disabled: false
+start: null
+duration:
+  value: 6
+  units: rounds
+  expiry: turnStart
+  expired: false
+description: >-
+  <p>A <strong>Poisoned</strong> creature suffers additional
+  <strong>Poison</strong> damage to <strong>Health</strong> at the start of its
+  subsequent turns.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses:
+  - poisoned
+showIcon: 1
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790366184325
+  modifiedTime: 1790367099256
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!pa9bqudf0ALKNt6r'

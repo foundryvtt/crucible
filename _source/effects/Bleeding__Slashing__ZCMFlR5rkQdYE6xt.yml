@@ -1,0 +1,49 @@
+folder: IRL4ZhYtVmlkQXvs
+name: Bleeding (Slashing)
+type: base
+_id: ZCMFlR5rkQdYE6xt
+img: icons/skills/wounds/blood-spurt-spray-red.webp
+system:
+  changes: []
+  dc: null
+  dot:
+    - amount: 4
+      damageType: slashing
+      resource: health
+      restoration: false
+  maintenance:
+    cost: null
+    hands: 0
+  properties: []
+  regions: []
+  summons: []
+disabled: false
+start: null
+duration:
+  value: 3
+  units: rounds
+  expiry: turnStart
+  expired: false
+description: >-
+  <p>A <strong>Bleeding </strong>creature suffers additional
+  <strong>Slashing</strong> damage to <strong>Health</strong> at the start of
+  its subsequent turns.</p>
+origin: null
+tint: '#800000'
+transfer: false
+statuses:
+  - bleeding
+showIcon: 1
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.10.1
+  createdTime: 1790361894745
+  modifiedTime: 1790366843860
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!ZCMFlR5rkQdYE6xt'

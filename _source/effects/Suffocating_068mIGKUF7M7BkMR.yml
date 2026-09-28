@@ -1,0 +1,57 @@
+folder: IRL4ZhYtVmlkQXvs
+name: Suffocating
+type: base
+_id: 068mIGKUF7M7BkMR
+img: icons/magic/water/vortex-water-whirlpool.webp
+system:
+  changes: []
+  dc: null
+  dot:
+    - amount: 6
+      damageType: void
+      resource: wounds
+      restoration: false
+    - amount: 6
+      damageType: void
+      resource: madness
+      restoration: false
+  lights: []
+  maintenance:
+    cost: null
+    hands: 0
+  properties: []
+  regions: []
+  summons: []
+disabled: false
+start: null
+duration:
+  value: null
+  units: seconds
+  expiry: turnStart
+  expired: false
+description: >-
+  <p>A <strong>Suffocating</strong> creature suffers <strong>Void</strong>
+  damage to both <strong>Wounds</strong> and <strong>Madness</strong> at the
+  start of each turn, representing physical lung trauma and panic from being
+  deprived of breathable air. While Suffocating, a creature is also
+  @Condition[silenced].</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses:
+  - suffocating
+  - silenced
+showIcon: 1
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.0
+  createdTime: 1790366310546
+  modifiedTime: 1790367169490
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!068mIGKUF7M7BkMR'
