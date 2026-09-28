@@ -127,7 +127,7 @@ const deliveryProjectileFlight = {
  * @param {number} defaultOscillations
  * @returns {CrucibleVFXComponentAnimation}
  */
-function impactRecoilAnimation(defaultOscillations) {
+function _impactRecoilAnimation(defaultOscillations) {
   return {
     setup(phase, params) {
       const {origin, destination} = this.state;
@@ -194,13 +194,13 @@ function _recoilMagnitude(rp, oscillations) {
  * Light directional recoil for a standard hit: the struck token rocks back and returns to rest.
  * @type {CrucibleVFXComponentAnimation}
  */
-const impactSpriteRecoil = impactRecoilAnimation(0);
+const impactSpriteRecoil = _impactRecoilAnimation(0);
 
 /**
  * Heavier recoil for a critical hit: a stronger kick that overshoots and bounces (damped reverb).
  * @type {CrucibleVFXComponentAnimation}
  */
-const impactSpriteShake = impactRecoilAnimation(3);
+const impactSpriteShake = _impactRecoilAnimation(3);
 
 /* -------------------------------------------- */
 /*  Impact Sprite                               */

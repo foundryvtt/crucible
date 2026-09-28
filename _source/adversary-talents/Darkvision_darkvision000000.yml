@@ -1,0 +1,30 @@
+name: Darkvision
+type: talent
+img: icons/magic/perception/shadow-stealth-eyes-purple.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} can see in darkness as though it were dim
+    light up to 60 feet away, perceiving its surroundings in shades of grey.
+    Darkvision does not function while the @ref[actor.name]{creature} is
+    @Condition[blinded].</p>
+  actions: []
+  iconicSpells: 0
+effects: []
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+flags: {}
+_id: darkvision000000
+sort: 450000
+_stats:
+  coreVersion: '14.368'
+  systemId: null
+  systemVersion: null
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!darkvision000000'

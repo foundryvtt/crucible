@@ -6,8 +6,9 @@ system:
     <p>You fight with the fluid grace of an acrobat, treating your weapon as a
     vaulting pole as readily as an armament. While wielding a <strong>Balanced
     2H </strong>weapon, your movement does not provoke a @Action[default
-    reactiveStrike]. Your whirling weapon also bats aside incoming missiles,
-    imposing <strong>+2 Banes</strong> on ranged attacks made against you.</p>
+    reactiveStrike], and jumping costs you no more movement than walking. Your
+    whirling weapon also bats aside incoming missiles, imposing <strong>+2
+    Banes</strong> on ranged weapon attacks made against you.</p>
   actions:
     - id: vaultingSweep
       name: Vaulting Sweep
@@ -15,29 +16,29 @@ system:
       condition: ''
       description: >-
         <p>You vault into the air and crash down amid your foes, your weapon
-        whirling in a dazzling arc. Choose a point within your
-        <strong>Stride</strong> and leap to it, then make a
-        <strong>Strike</strong> against every creature within your weapon's
-        reach of where you land.</p>
+        whirling in a dazzling arc. Choose a point at least half your
+        <strong>Stride</strong> away but no farther than your full
+        <strong>Stride</strong> and leap to it, then make a @Action[default
+        strike] against every creature within your weapon's reach of where you
+        land, friend or foe.</p>
       tags:
         - melee
         - twohand
       cost:
-        action: 2
+        action: 1
         focus: 0
         heroism: 0
         hands: 0
         weapon: true
       target:
-        type: blast
+        type: movement
         number: 1
         scope: 4
-        size: 4
         self: false
       range:
         minimum: null
-        maximum: 10
-        weapon: false
+        maximum: null
+        weapon: true
       summon:
         actorUuid: null
         permanent: true

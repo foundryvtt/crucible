@@ -60,7 +60,9 @@ system:
         people known most for their physical resilience and the deep well of
         their knowledge. You have inherited the strength of mountains.</p>
       identifier: giantkin
-      talents: []
+      talents:
+        - item: Compendium.crucible.ancestry.Item.giantkinLineage0
+          level: null
       ui:
         color: '#acd7dd'
       abilities:
@@ -288,7 +290,7 @@ prototypeToken:
   depth: 5
 items:
   - _id: Jucaft0kqe7QBfgY
-    name: Fine Scale Mail
+    name: Scale Mail
     type: armor
     img: icons/equipment/chest/breastplate-banded-steel-studded.webp
     effects: []
@@ -319,9 +321,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671547
-      modifiedTime: 1789677671547
+      systemVersion: 0.11.1
+      createdTime: 1790471167502
+      modifiedTime: 1790471167502
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -382,6 +384,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: life
       training: physical
       nodes:
@@ -395,9 +399,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671547
-      modifiedTime: 1789677671547
+      systemVersion: 0.11.1
+      createdTime: 1790471167502
+      modifiedTime: 1790471167502
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -447,6 +451,8 @@ items:
             weapon: false
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - int0b
       iconicSpells: 0
@@ -458,10 +464,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671548
-      modifiedTime: 1789677671548
+      createdTime: 1790471167502
+      modifiedTime: 1790471167502
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -509,6 +515,8 @@ items:
             weapon: true
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - dex0a
       iconicSpells: 0
@@ -518,10 +526,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671548
-      modifiedTime: 1789677671548
+      createdTime: 1790471167503
+      modifiedTime: 1790471167503
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -558,10 +566,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671549
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167503
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671549
+      createdTime: 1790471167503
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -618,6 +626,8 @@ items:
           tags:
             - noncombat
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: wilderness
       spellcraft: ''
@@ -628,9 +638,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671549
-      modifiedTime: 1789677671549
+      systemVersion: 0.11.1
+      createdTime: 1790471167503
+      modifiedTime: 1790471167503
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -672,9 +682,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671549
-      modifiedTime: 1789677671549
+      systemVersion: 0.11.1
+      createdTime: 1790471167503
+      modifiedTime: 1790471167503
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -744,6 +754,8 @@ items:
           effects: []
           tags: []
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - wis2c
       spellcraft: ''
@@ -756,9 +768,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671549
-      modifiedTime: 1789677671549
+      systemVersion: 0.11.1
+      createdTime: 1790471167504
+      modifiedTime: 1790471167504
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -797,9 +809,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671550
-      modifiedTime: 1789677671550
+      systemVersion: 0.11.1
+      createdTime: 1790471167504
+      modifiedTime: 1790471167504
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -817,8 +829,8 @@ items:
       description: >-
         <p>You are unparalleled at manipulating vital arcana to treat injuries.
         You learn <strong>Rune: Life</strong> if you do not already know it.
-        When healing allies using the Rune of Life you gain <strong>+2
-        Boons</strong> to your roll.</p>
+        When healing allies using the <strong>Rune of Life</strong> you gain
+        <strong>+2 Boons</strong> to your roll.</p>
       actions:
         - id: fontOfLife
           img: icons/magic/life/heart-hand-gold-green-light.webp
@@ -833,14 +845,14 @@ items:
             maximum: null
             weapon: false
           target:
-            type: pulse
+            type: aura
             number: 1
             scope: 2
             size: 20
-            self: false
+            self: true
           effects:
             - name: Font of Life
-              scope: 2
+              scope: 1
               result:
                 type: any
                 all: false
@@ -851,15 +863,16 @@ items:
                 expiry: turnEnd
                 expired: false
               system:
+                changes: []
+                dc: null
                 dot: []
                 maintenance:
                   cost: null
                   hands: 0
+                properties: []
                 regions: []
                 summons: []
-                changes: []
-                dc: null
-                properties: []
+                lights: []
           tags:
             - healing
             - health
@@ -867,15 +880,35 @@ items:
           condition: ''
           description: >-
             <p>You bring forth an aura of life-giving magic. Immediately upon
-            activation and at the start of your turn for <strong>3
-            Rounds</strong> every ally within 20 feet heals for an amount equal
-            to your <strong>Wisdom</strong> score.</p><p><strong>WIP: This
-            action is currently treated as an Area of Effect, granting
-            healing-over-time effects to those within the initial range. When
-            auras are automated by the system in Foundry VTT version 14, the
-            mechanical implementation of this action will match the
-            description.</strong></p>
+            activation and for the next <strong>3 Rounds</strong>, whenever an
+            ally first enters or starts their turn within <strong>20
+            feet</strong> of you, they regain <strong>Health</strong> equal to
+            your <strong>Wisdom</strong> score.</p>
           summon: null
+          persistRegion: true
+          regionBehavior:
+            name: Font of Life
+            system:
+              action:
+                id: fontOfLifeRegion
+                name: Font of Life
+                img: icons/magic/life/heart-hand-gold-green-light.webp
+                description: >-
+                  <p>Whenever an ally first enters or starts their turn within
+                  <strong>20 feet</strong> of you, they regain
+                  <strong>Health</strong> equal to your <strong>Wisdom</strong>
+                  score.</p>
+                effects: []
+                tags:
+                  - healing
+                  - wisdom
+                target:
+                  scope: 2
+                spellcraft: null
+              events:
+                - tokenEnter
+                - tokenTurnStart
+              frequency: roundActor
       iconicSpells: 1
       spellcraft: life
       nodes:
@@ -889,10 +922,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671550
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167504
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671550
+      createdTime: 1790471167504
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -967,6 +1000,7 @@ items:
                 regions: []
                 summons: []
                 dc: null
+                lights: []
                 properties: []
           img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
           condition: ''
@@ -975,6 +1009,8 @@ items:
             maximum: null
             weapon: false
           summon: null
+          persistRegion: false
+          regionBehavior: null
         - id: beastShapeRevert
           name: Revert Shape
           description: >-
@@ -1000,6 +1036,8 @@ items:
             maximum: null
             weapon: false
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - sig3.toughness
         - sig3.wisdom
@@ -1013,10 +1051,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671550
-      modifiedTime: 1789677671550
+      createdTime: 1790471167504
+      modifiedTime: 1790471167504
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1067,6 +1105,8 @@ items:
             the same target using a different <strong>Natural</strong> weapon
             that you have access to.</p>
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: natural
       nodes:
@@ -1079,9 +1119,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671550
-      modifiedTime: 1789677671550
+      systemVersion: 0.11.1
+      createdTime: 1790471167505
+      modifiedTime: 1790471167505
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1116,10 +1156,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671551
-      modifiedTime: 1789677671551
+      createdTime: 1790471167505
+      modifiedTime: 1790471167505
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1155,9 +1195,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671551
-      modifiedTime: 1789677671551
+      systemVersion: 0.11.1
+      createdTime: 1790471167505
+      modifiedTime: 1790471167505
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1190,10 +1230,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671551
-      modifiedTime: 1789677671551
+      createdTime: 1790471167505
+      modifiedTime: 1790471167505
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1226,10 +1266,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671551
-      modifiedTime: 1789677671551
+      createdTime: 1790471167505
+      modifiedTime: 1790471167505
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1263,9 +1303,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671552
-      modifiedTime: 1789677671552
+      systemVersion: 0.11.1
+      createdTime: 1790471167506
+      modifiedTime: 1790471167506
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1306,9 +1346,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671552
-      modifiedTime: 1789677671552
+      systemVersion: 0.11.1
+      createdTime: 1790471167506
+      modifiedTime: 1790471167506
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1373,6 +1413,8 @@ items:
             similar those above, the effectiveness of which is decided by the
             Gamemaster.</p>
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: control
       nodes:
         - wis0b
@@ -1386,9 +1428,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671552
-      modifiedTime: 1789677671552
+      systemVersion: 0.11.1
+      createdTime: 1790471167506
+      modifiedTime: 1790471167506
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1423,10 +1465,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671552
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167507
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671552
+      createdTime: 1790471167507
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1467,9 +1509,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671553
-      modifiedTime: 1789677671553
+      systemVersion: 0.11.1
+      createdTime: 1790471167507
+      modifiedTime: 1790471167507
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1535,6 +1577,8 @@ items:
             other uses similar those above, the effectiveness of which is
             decided by the Gamemaster.</p>
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: soul
       nodes:
         - pre0b
@@ -1548,9 +1592,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671553
-      modifiedTime: 1789677671553
+      systemVersion: 0.11.1
+      createdTime: 1790471167507
+      modifiedTime: 1790471167507
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1582,10 +1626,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671553
-      modifiedTime: 1789677671553
+      createdTime: 1790471167507
+      modifiedTime: 1790471167507
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1622,10 +1666,12 @@ items:
           slightly.</p></blockquote><p>This enchanted amulet provides a bonus to
           <strong>Reflex</strong> defense.</p>
         private: >-
-          <p>This item is presented as an example of a Fine Amulet with the
+          <p>This item is presented as an example of <strong>Fine</strong>
+          jewelry with the
           @UUID[Compendium.crucible.affixes.ActiveEffect.nimbleness000000]{Nimbleness}
           suffix.</p><p>This affix can be applied to any armor or accessory and
-          this amulet could be further enchanted with a Tier 1 prefix.</p>
+          this amulet could be further enchanted with a <strong>Tier 1
+          Prefix</strong>.</p>
       actions: []
     effects:
       - name: Nimbleness
@@ -1667,9 +1713,9 @@ items:
         _stats:
           coreVersion: '14.368'
           systemId: crucible
-          systemVersion: 0.10.2
-          createdTime: 1789677671554
-          modifiedTime: 1789677671554
+          systemVersion: 0.11.1
+          createdTime: 1790471167508
+          modifiedTime: 1790471167508
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1680,9 +1726,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671554
-      modifiedTime: 1789677671554
+      systemVersion: 0.11.1
+      createdTime: 1790471167508
+      modifiedTime: 1790471167508
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1719,10 +1765,12 @@ items:
           enchanted charm provides a bonus to <strong>Fortitude</strong>
           defense.</p>
         private: >-
-          <p>This item is presented as an example of a Fine Charm with the
+          <p>This item is presented as an example of <strong>Fine</strong>
+          jewelry with the
           @UUID[Compendium.crucible.affixes.ActiveEffect.tenacity00000000]{Tenacity}
           suffix.</p><p>This affix can be applied to any armor or accessory and
-          this charm could be further enchanted with a Tier 1 prefix.</p>
+          this charm could be further enchanted with a <strong>Tier 1
+          Prefix</strong>.</p>
       actions: []
     effects:
       - name: Tenacity
@@ -1764,9 +1812,9 @@ items:
         _stats:
           coreVersion: '14.368'
           systemId: crucible
-          systemVersion: 0.10.2
-          createdTime: 1789677671555
-          modifiedTime: 1789677671555
+          systemVersion: 0.11.1
+          createdTime: 1790471167509
+          modifiedTime: 1790471167509
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1777,9 +1825,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671555
-      modifiedTime: 1789677671555
+      systemVersion: 0.11.1
+      createdTime: 1790471167509
+      modifiedTime: 1790471167509
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1821,7 +1869,19 @@ items:
             <p>Setting the trap places a dangerous hazard that deals significant
             damage if triggered. It must be affixed by heavy chain to an
             immobile object, such as a tree or spike driven into the ground. The
-            area of the trap is a circle with a radius of 2 feet.</p>
+            area of the trap is a circle with a radius of 2 feet.</p><p>When
+            triggered, the creature that set the trap makes a
+            <strong>Wilderness</strong> skill attack against the
+            <strong>Reflex</strong> defense of a single target which triggered
+            the trap. If not resisted, it deals <strong>Piercing</strong> damage
+            and applies the @Condition[restrained] condition. The base damage
+            dealt by the trap varies according to the quality of the
+            trap.</p><ul><li><p><strong>Shoddy</strong> - 1
+            damage</p></li><li><p><strong>Standard</strong> - 2
+            damage</p></li><li><p><strong>Fine</strong> - 4
+            damage</p></li><li><p><strong>Superior</strong> - 8
+            damage</p></li><li><p><strong>Masterwork</strong> - 16
+            damage</p></li></ul>
           cost:
             action: 4
             focus: 0
@@ -1842,67 +1902,56 @@ items:
           tags:
             - consume
           summon: null
-        - id: steelJawTrigger
-          name: Trigger Steel-Jaw Trap
-          img: icons/environment/traps/trap-jaw-steel.webp
-          condition: ''
-          description: >-
-            <p>When triggered the creature that set the trap makes a
-            <strong>Wilderness</strong> skill attack against the
-            <strong>Reflex</strong> defense of a single target which triggered
-            the trap. If not resisted, it deals piercing damage and applies the
-            @Condition[restrained] condition. The base damage dealt by the trap
-            varies according to the quality of the
-            trap.</p><ul><li><p><strong>Shoddy</strong> - 1
-            damage</p></li><li><p><strong>Standard</strong> - 2
-            damage</p></li><li><p><strong>Fine</strong> - 4
-            damage</p></li><li><p><strong>Superior</strong> - 8
-            damage</p></li><li><p><strong>Masterwork</strong> - 16
-            damage</p></li></ul><p></p>
-          cost:
-            action: 0
-            focus: 0
-            heroism: 0
-            hands: 0
-            weapon: false
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects:
-            - name: Steel-Jaw Trap
-              scope: 3
-              result:
-                type: success
-                all: false
-              statuses:
-                - restrained
-              system:
-                dot: []
-                maintenance:
-                  cost: null
-                  hands: 0
-                regions: []
-                summons: []
-                changes: []
-                dc: null
-                properties: []
-              duration:
-                value: null
-                units: ''
-                expiry: null
-                expired: false
-          tags:
-            - reflex
-            - piercing
-            - skill
-            - wilderness
-          summon: null
+          persistRegion: true
+          regionBehavior:
+            name: Trigger Steel-Jaw Trap
+            system:
+              action:
+                id: steelJawTrigger
+                name: Trigger Steel-Jaw Trap
+                img: icons/environment/traps/trap-jaw-steel.webp
+                description: >-
+                  <p>The creature that set the trap makes a
+                  <strong>Wilderness</strong> skill attack against the
+                  <strong>Reflex</strong> defense of the single target which
+                  triggered the trap. If not resisted, it deals
+                  <strong>Piercing</strong> damage and applies the
+                  @Condition[restrained] condition.</p>
+                effects:
+                  - name: Steel-Jaw Trap
+                    scope: 3
+                    result:
+                      type: success
+                      all: false
+                    statuses:
+                      - restrained
+                    duration:
+                      value: null
+                      units: ''
+                      expiry: null
+                      expired: false
+                    system:
+                      changes: []
+                      dc: null
+                      dot: []
+                      maintenance:
+                        cost: null
+                        hands: 0
+                      properties: []
+                      regions: []
+                      summons: []
+                      lights: []
+                tags:
+                  - reflex
+                  - piercing
+                  - skill
+                  - wilderness
+                target:
+                  scope: 4
+                spellcraft: null
+              events:
+                - tokenMoveIn
+              frequency: once
       uses:
         value: 1
         max: 1
@@ -1921,9 +1970,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671555
-      modifiedTime: 1789677671555
+      systemVersion: 0.11.1
+      createdTime: 1790471167510
+      modifiedTime: 1790471167510
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1992,6 +2041,8 @@ items:
             - consume
             - rallying
           summon: null
+          persistRegion: false
+          regionBehavior: null
       uses:
         value: 1
         max: 1
@@ -2004,9 +2055,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671556
-      modifiedTime: 1789677671556
+      systemVersion: 0.11.1
+      createdTime: 1790471167510
+      modifiedTime: 1790471167510
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2018,6 +2069,96 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.1HsyuXXEvN5gQWfa'
+  - name: Giantkin Lineage
+    type: talent
+    img: icons/environment/wilderness/tree-oak.webp
+    system:
+      nodes:
+        - origin
+      description: >-
+        <p>The elemental forces which presided over your birth still answer when
+        you call upon them.</p><p><strong>Powerful Build.</strong> Your massive
+        frame bears burdens that would stagger others. Your carrying capacity is
+        increased by <strong>50%</strong>.</p>
+      actions:
+        - id: elementalBirthright
+          name: Elemental Birthright
+          img: icons/environment/wilderness/tree-oak.webp
+          condition: ''
+          description: >-
+            <p>You expend @Rule[resource.heroism] to call upon the elemental
+            forces of your birthright. Until the start of your next turn, you
+            gain resistance to <strong>Acid</strong>, <strong>Cold</strong>,
+            <strong>Electricity</strong>, and <strong>Fire</strong> damage equal
+            to your @Rule[ability.wisdom], and any <strong>Acid</strong>,
+            <strong>Cold</strong>, <strong>Electricity</strong>, or
+            <strong>Fire</strong> damage you deal is increased by your
+            @Rule[ability.wisdom].</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - name: Elemental Birthright
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+                lights: []
+          tags: []
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: elemental
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _id: giantkinLineage0
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790471167500
+      modifiedTime: 1790471167500
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.giantkinLineage0'
 effects: []
 flags:
   core: {}
@@ -2111,9 +2252,9 @@ flags:
 _stats:
   coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.11.0
-  createdTime: 1789677671545
-  modifiedTime: 1789677671545
+  systemVersion: 0.11.1
+  createdTime: 1790471167500
+  modifiedTime: 1790471167500
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

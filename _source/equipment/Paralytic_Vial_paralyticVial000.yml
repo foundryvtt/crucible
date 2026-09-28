@@ -43,7 +43,7 @@ system:
         weapon: false
       range:
         minimum: null
-        maximum: null
+        maximum: 1
         weapon: false
       target:
         type: single

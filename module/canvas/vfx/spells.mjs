@@ -1,7 +1,7 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
 import {getParticleScaleFactor} from "./blocks.mjs";
-import {computeAttackOffset, pickRandom, pushActorScrollingText, pushTargetScrollingText,
-  tokenCenter} from "./helpers.mjs";
+import {computeAttackOffset, computeManifestPoint, exposureInHot, pickRandom, positionalSound, pushActorScrollingText,
+  pushTargetScrollingText, registerTargetRefs, resolveActorGeometry, tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
 import CrucibleProjectileComponent from "./components/vfx-projectile-component.mjs";
@@ -38,6 +38,25 @@ import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-co
  */
 
 /**
+ * The declarative impact treatment of a rune on a struck target, consumed by {@link resolveHitTreatment}.
+ * @typedef RuneImpactData
+ * @property {boolean} [impactSprite=true]    Show the impact burst sprite on a hit.
+ * @property {string} [impactSpriteFrame]     A specific burst frame, otherwise a random `impact` texture.
+ * @property {number} [impactSpriteAngle]     Degrees to turn the burst off the incoming direction, to a random side.
+ * @property {number} [impactSpriteSize=2]    Burst size in feet, unless a gesture supplies its own burst size.
+ * @property {number} [impactSpriteScale=1]   A multiplier on whichever burst size applies.
+ * @property {boolean} [recoil=true]          Rock the struck token on a hit.
+ * @property {object|object[]} [impactParticles]  Particle burst specs at the target, see {@link _buildImpactParticles}.
+ * @property {object} [impactGlow]            {@link impactSpriteGlow} params for a glow on the target.
+ * @property {object} [impactShock]           {@link impactSpriteShock} params for an electrocution strobe.
+ */
+
+/**
+ * A projectile flight trail: `true` for the default directional streaks, or a texture selection with overrides.
+ * @typedef {true|{frames?: string[], categories?: string[], params?: object}} ProjectileTrailConfig
+ */
+
+/**
  * A function that configures VFX data for a specific somatic gesture.
  * @callback SpellVFXGestureConfigurator
  * @param {CrucibleSpellAction} action   The spell action being animated.
@@ -54,8 +73,7 @@ import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-co
  * @param {object|null} vfxConfig       The current VFX configuration from prior hooks, if any.
  * @returns {object|null}
  */
-export function configureSpellVFXEffect(action, vfxConfig) {
-  if ( !action.tags.has("composed") ) throw new Error(`The Action ${action.id} does not use the composed tag.`);
+export function configureEffect(action, vfxConfig) {
   const hooks = SPELL_VFX_GESTURES[action.gesture.id];
   if ( hooks?.configure === null ) return null;
   if ( hooks?.configure === undefined ) return vfxConfig;
@@ -79,33 +97,17 @@ export function configureSpellVFXEffect(action, vfxConfig) {
 /* -------------------------------------------- */
 
 /**
- * Resolve spell VFX references and inject play-time configuration that cannot survive JSON
- * serialization (e.g., callback functions). Called on every client at play time, after the
- * VFXEffect has been constructed from deserialized config but before it plays.
- * @param {CrucibleSpellAction} action              The spell action being animated.
- * @param {foundry.canvas.vfx.VFXEffect} vfxEffect  The constructed VFXEffect instance.
- * @param {Record<string, any>} references           The references map, modified in place.
- */
-/**
- * Resolve spell VFX references before VFXReferenceField resolution. Computes reference values
- * that components depend on, such as the shared wall mask polygon.
+ * Resolve spell VFX references before VFXReferenceField resolution by dispatching to the gesture-specific resolver.
  * @param {CrucibleSpellAction} action
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
  */
-export function resolveSpellVFXReferences(action, vfxEffect, references) {
-
-  // Pre-compute a shared PointSourcePolygon for wall masking. Components reference this by name
-  // via pointSourceMask: {reference: "wallMask"} to avoid redundant polygon computation.
-  if ( references.wallMask && !(references.wallMask instanceof foundry.canvas.geometry.PointSourcePolygon) ) {
-    const {x, y, type, radius} = references.wallMask;
-    references.wallMask = CONFIG.Canvas.polygonBackends[type].create({x, y}, {type, radius});
-  }
-
-  // Delegate to gesture-specific resolver
+export function resolveEffect(action, vfxEffect, references) {
   const hooks = SPELL_VFX_GESTURES[action.gesture.id];
   if ( hooks?.resolve ) hooks.resolve(action, vfxEffect, references);
 }
+
+/* -------------------------------------------- */
 
 /**
  * Apply play-time finalization to a composed spell VFXEffect immediately before playback.
@@ -115,7 +117,7 @@ export function resolveSpellVFXReferences(action, vfxEffect, references) {
  * @param {foundry.canvas.vfx.VFXEffect} vfxEffect
  * @param {Record<string, any>} references
  */
-export function finalizeSpellVFXEffect(action, vfxEffect, references) {
+export function finalizeEffect(action, vfxEffect, references) {
   const hooks = SPELL_VFX_GESTURES[action.gesture.id];
   if ( hooks?.finalize ) hooks.finalize(action, vfxEffect, references);
 }
@@ -125,46 +127,17 @@ export function finalizeSpellVFXEffect(action, vfxEffect, references) {
 /* -------------------------------------------- */
 
 /**
- * Build a positional sound descriptor for a spell phase from a {@link getVFXSound} result.
- * @param {{src: string, loop?: boolean}|null} d   A rune sound entry, or null.
- * @returns {object|null}   A phase sound descriptor, or null when no source was provided.
+ * Resolve the rune-styled treatment shown on a target which an attack failed to affect.
+ * @param {SpellVFXTextures} textures   The rune's textures from {@link resolveRuneTextures}
+ * @returns {{animations: object[], particles: object[]}}
  */
-function _spellSound(d) {
-  if ( !d ) return null;
-  const {START} = foundry.canvas.vfx.constants.SOUND_ALIGNMENT;
-  return {src: d.src, align: START, radius: 30, volume: 1, loop: d.loop ?? false};
-}
-
-/* -------------------------------------------- */
-
-/**
- * Build the standard resisting-target impact: a soft, flashless air puff that dissipates. Empty when the
- * rune has no air textures.
- * @param {SpellVFXTextures} textures
- * @returns {object[]}
- */
-function _buildResistPuff(textures) {
-  if ( !textures.air.length ) return [];
-  return [{function: "impactSpriteBurst",
-    params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}}];
-}
-
-/* -------------------------------------------- */
-
-/**
- * Register a target's TokenDocument and token-mesh references under a gesture-specific prefix.
- * @param {Record<string, string>} references   The references map, mutated in place.
- * @param {string} prefix   Gesture ref prefix (e.g. "rayTarget").
- * @param {number} j        1-based target index.
- * @param {TokenDocument} token
- * @returns {{tokenRef: string, meshRef: string}}
- */
-function _registerTargetRefs(references, prefix, j, token) {
-  const tokenRef = `${prefix}_${j}_token`;
-  const meshRef = `${prefix}_${j}_tokenMesh`;
-  references[tokenRef] = `@${token.uuid}`;
-  references[meshRef] = `^${tokenRef}.object.mesh`;
-  return {tokenRef, meshRef};
+export function resolveMissTreatment(textures) {
+  const animations = [];
+  if ( textures.air.length ) {
+    animations.push({function: "impactSpriteBurst",
+      params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}});
+  }
+  return {animations, particles: []};
 }
 
 /* -------------------------------------------- */
@@ -181,26 +154,6 @@ function _registerTargetRefs(references, prefix, j, token) {
 function _finalizeSpellVFX(components, timeline, references, forcedMovements) {
   CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
   return {components, timeline, references};
-}
-
-/* -------------------------------------------- */
-
-/**
- * Resolve the caster's token geometry, prepared once for every gesture configurator.
- * @param {CrucibleSpellAction} action
- * @returns {{gridSize: number, token: TokenDocument, elevation: number, radiusPx: number,
- *   center: {x: number, y: number}, meshSort: number}}
- */
-function _resolveCasterGeometry(action) {
-  const gridSize = canvas.dimensions.size;
-  const token = action.token;
-  return {
-    gridSize, token,
-    elevation: token.elevation ?? 0,
-    radiusPx: (token.width * gridSize) / 2,
-    center: tokenCenter(token),
-    meshSort: token.object?.mesh?.sort ?? 0
-  };
 }
 
 /* -------------------------------------------- */
@@ -223,8 +176,8 @@ function _chargeContext(action, {textures, casterRadiusPx, casterElevation, part
 
 /**
  * Build a single target's impact entry for the standard `{start, sound, animations, particles}` shape shared by
- * the region and contact gestures. A hit resolves the shared {@link _resolveHitTreatment} (crit- and
- * knockback-aware); a RESIST shows the standard dissipating puff; other non-hits show nothing.
+ * the region and contact gestures. A hit resolves the shared {@link resolveHitTreatment} (crit- and
+ * knockback-aware); any other result resolves {@link resolveMissTreatment}.
  * @param {object} opts
  * @param {CrucibleSpellAction} opts.action
  * @param {object} opts.group             The target's event group.
@@ -237,7 +190,7 @@ function _chargeContext(action, {textures, casterRadiusPx, casterElevation, part
  * @param {number} opts.elevation         Particle elevation for the hit treatment.
  * @param {string} [opts.impactType]      RUNE_SOUNDS key for the hit sound (default "impact").
  * @param {object[]} opts.forcedMovements
- * @param {object} [opts.treatmentCtx]    Per-spell overrides forwarded to {@link _resolveHitTreatment}.
+ * @param {object} [opts.treatmentCtx]    Per-spell overrides forwarded to {@link resolveHitTreatment}.
  * @returns {object}
  */
 function _buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures, elevation,
@@ -247,12 +200,164 @@ function _buildTargetImpact({action, group, token, result, start, tokenRef, rune
   if ( isHit ) {
     const knockback = CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
     const crit = !!group.roll[0]?.roll?.isCriticalSuccess;
-    const treatment = _resolveHitTreatment(action, {textures, elevation, crit, knockback, ...treatmentCtx}, runeProps);
-    return {result, id: token.id, start, sound: _spellSound(getVFXSound(action.rune.id, impactType)),
+    const treatment = resolveHitTreatment(action.rune.id, {textures, elevation, crit, knockback, ...treatmentCtx},
+      runeProps);
+    return {result, id: token.id, start, sound: positionalSound(getVFXSound(action.rune.id, impactType)),
       animations: treatment.animations, particles: treatment.particles};
   }
-  return {result, id: token.id, start, sound: _spellSound(getVFXSound(action.rune.id, "miss")),
-    animations: (result === T.RESIST) ? _buildResistPuff(textures) : [], particles: []};
+  const treatment = resolveMissTreatment(textures);
+  return {result, id: token.id, start, sound: positionalSound(getVFXSound(action.rune.id, "miss")),
+    animations: treatment.animations, particles: treatment.particles};
+}
+
+/* -------------------------------------------- */
+/*  Projectile Building Blocks                  */
+/* -------------------------------------------- */
+
+/**
+ * Build a rune-styled flight trail particle layer which follows a projectile.
+ * @param {string} runeId
+ * @param {ProjectileTrailConfig} trail
+ * @param {SpellVFXTextures} textures   The rune's textures from {@link resolveRuneTextures}
+ * @param {number} elevation            Elevation of the trail particles
+ * @returns {object}
+ */
+export function buildProjectileTrail(runeId, trail, textures, elevation) {
+  const trailTextures = trail.frames ? getVFXFrames(runeId, ...trail.frames)
+    : (trail.categories ? trail.categories.flatMap(c => textures[c]) : textures.streak);
+  return {
+    animation: "projectileParticleTrail", anchor: "delivery", textures: trailTextures,
+    params: {align: true, flipX: true, lifetime: 250, spawnRate: 240,
+      alpha: {min: 0.4, max: 0.8}, scale: {min: 0.3, max: 0.6},
+      blend: PIXI.BLEND_MODES.ADD, elevation, ...(trail.params ?? {})}
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build one Arrow gesture projectile component which charges, flies from the caster, and strikes one target.
+ * @param {CrucibleSpellAction} action
+ * @param {object} config
+ * @param {string} config.key                 Unique component key, used to name the manifest reference
+ * @param {TokenDocument} config.token        The target token
+ * @param {AttackRoll} config.roll            The attack roll against the target
+ * @param {ActorEventGroup} config.group      The target's event group
+ * @param {string} config.tokenRef            Reference key of the target's TokenDocument
+ * @param {string} config.meshRef             Reference key of the target's token mesh
+ * @param {Record<string, any>} config.references   The references map, mutated in place
+ * @param {object[]} config.forcedMovements   Accumulated forced movements
+ * @returns {{component: object, impactTime: number}}
+ */
+function _buildArrowProjectile(action, {key, token, roll, group, tokenRef, meshRef, references, forcedMovements}) {
+  const runeId = action.rune.id;
+  const runeProps = ARROW_VFX_PROPS[runeId];
+  const {textures, particleElevation} = _resolveSpellVFXContext(action);
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
+  const caster = resolveActorGeometry(action);
+  const {elevation: casterElevation, radiusPx: casterRadiusPx, meshSort: casterMeshSort} = caster;
+  const result = roll.data.result;
+
+  const chargeDuration = runeProps.chargeDuration ?? 700;
+  const chargeTail = runeProps.chargeTail ?? 200; // Ms the charge particles keep emitting past the release label
+  const revealAtRelease = runeProps.projectileReveal === "release";
+
+  // Resolve sound choices and configure their playback
+  const sound = positionalSound;
+  const chargeSound = (runeProps.chargeSound !== false) ? sound(getVFXSound(runeId, "charge")) : null;
+  let flightSound;
+  if ( runeProps.flightSound ) {
+    const {rune, type, ...envelope} = runeProps.flightSound;
+    flightSound = sound(getVFXSound(rune, type));
+    if ( flightSound ) Object.assign(flightSound, envelope);
+  }
+  else {
+    const whooshKey = ("whoosh" in runeProps) ? runeProps.whoosh : "whooshFast";
+    flightSound = whooshKey ? sound(getVFXSound("generic", whooshKey)) : null;
+  }
+
+  // The projectile materializes in front of the caster rather than at their center
+  const {x: tcx, y: tcy} = tokenCenter(token);
+  const {x: manifestX, y: manifestY} = computeManifestPoint(caster, token);
+  const offset = computeAttackOffset(token, result);
+
+  // Projectile flight timing; the arrival is the impact beat (shared by scrolling text and any knockback)
+  const projectileSpeed = runeProps.projectileSpeed ?? 150;
+  const projectileTexture = runeProps.projectileFrame
+    ? getVFXTexturePath(runeProps.projectileFrame)
+    : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
+  const projectileSize = runeProps.projectileSize ?? 3;
+  const textureAnchor = !!runeProps.projectileTextureAnchor;
+  const {lead} = CrucibleProjectileComponent.computeLaunch({x: manifestX, y: manifestY}, {x: tcx, y: tcy},
+    {texture: projectileTexture, size: projectileSize, textureAnchor});
+  const distPx = Math.hypot(tcx - manifestX, tcy - manifestY) - lead;
+  const flightMS = (distPx * 1000) / (projectileSpeed * canvas.dimensions.distancePixels);
+  const impactTime = chargeDuration + flightMS;
+
+  // Register the manifest point as a reference. Every element of a VFXReferenceObjectField array
+  // must be a reference: resolveReferences builds a partial array update of only the resolved
+  // (reference) elements, so a literal sibling would be dropped to a hole by updateSource.
+  const manifestRef = `${key}_manifest`;
+  references[manifestRef] = {x: manifestX, y: manifestY, elevation: casterElevation,
+    sort: casterMeshSort + 1, sortLayer: SL.TOKENS};
+
+  // Impact treatment; a force-moved target plays its knockback glide AS the impact, replacing the recoil/shake
+  const isHit = (result === T.HIT) || (result === T.GLANCE);
+  const knockback = isHit
+    && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, impactTime);
+  const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
+  let impactSound = null;
+  const animations = [];
+  const particles = [];
+  if ( isHit ) {
+    impactSound = sound(getVFXSound(runeId, "impact"));
+    const treatment = resolveHitTreatment(runeId, {textures, elevation: (token.elevation ?? 0) + 1,
+      crit: !!roll.isCriticalSuccess, knockback, burstSize: 3, burstDuration: stickDuration || 1000}, runeProps);
+    animations.push(...treatment.animations);
+    particles.push(...treatment.particles);
+  }
+  else {
+    impactSound = sound(getVFXSound(runeId, "miss"));
+    if ( runeProps.impactSprite !== false ) {
+      const treatment = resolveMissTreatment(textures);
+      animations.push(...treatment.animations);
+      particles.push(...treatment.particles);
+    }
+  }
+
+  // Charge particles and the optional flight trail
+  const chargeParticles = _resolveChargeLayers(runeProps,
+    _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation}),
+    {duration: chargeDuration + chargeTail});
+  const projectileParticles = runeProps.trail
+    ? [buildProjectileTrail(runeId, runeProps.trail, textures, casterElevation + 1)] : [];
+
+  const component = {
+    type: "crucibleProjectile",
+    originMesh: {reference: "tokenMesh"},
+    targetMeshes: [{reference: meshRef}],
+    path: [
+      {reference: manifestRef, deltas: {}},
+      {reference: meshRef, deltas: {x: offset.x, y: offset.y, sort: 1}}
+    ],
+    pathType: runeProps.path ?? {type: "linear", params: {}},
+    charge: {duration: chargeDuration, sound: chargeSound,
+      animations: revealAtRelease ? [] : [{function: "chargeProjectileFadeIn"}], particles: chargeParticles},
+    delivery: {
+      texture: projectileTexture, size: projectileSize, speed: projectileSpeed, sound: flightSound,
+      fps: runeProps.projectileFps ?? null, textureAnchor,
+      blend: runeProps.projectileBlend ?? PIXI.BLEND_MODES.NORMAL,
+      animations: [...(revealAtRelease ? [{function: "deliveryProjectileReveal"}] : []),
+        {function: "deliveryProjectileFlight"}],
+      particles: projectileParticles},
+    impacts: [{
+      result, id: token.id, stick: stickDuration,
+      sound: impactSound, animations, particles
+    }],
+    scrollingText: []
+  };
+  return {component, impactTime};
 }
 
 /* -------------------------------------------- */
@@ -266,39 +371,13 @@ function _buildTargetImpact({action, group, token, result, start, tokenRef, rune
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
-function configureArrowVFXEffect(action) {
+function _configureArrowVFXEffect(action) {
   if ( action.target.type !== "single" ) return null;
-  const runeProps = SPELL_VFX_GESTURES.arrow.runes?.[action.rune.id];
-  if ( !runeProps ) return null; // No arrow-gesture config for this rune; skip VFX
-  const {textures, particleElevation} = resolveSpellVFXContext(action);
+  if ( !SPELL_VFX_GESTURES.arrow.runes?.[action.rune.id] ) return null; // No arrow-gesture config for this rune
   const components = {};
   const timeline = [];
   const forcedMovements = [];
   const references = {tokenMesh: "^token.object.mesh"};
-
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
-  const {elevation: casterElevation, radiusPx: casterRadiusPx,
-    center: {x: casterCenterX, y: casterCenterY}, meshSort: casterMeshSort} = _resolveCasterGeometry(action);
-
-  const CHARGE_DURATION = runeProps.chargeDuration ?? 700;
-  const chargeTail = runeProps.chargeTail ?? 200; // Ms the charge particles keep emitting past the projectile-release label
-  const CHARGE_EMIT_DURATION = CHARGE_DURATION + chargeTail;
-  const revealAtRelease = runeProps.projectileReveal === "release";
-
-  // Resolve sound choices and configure their playback
-  const sound = _spellSound;
-  const chargeSound = (runeProps.chargeSound !== false) ? sound(getVFXSound(action.rune.id, "charge")) : null;
-  let flightSound;
-  if ( runeProps.flightSound ) {
-    const {rune, type, ...envelope} = runeProps.flightSound;
-    flightSound = sound(getVFXSound(rune, type));
-    if ( flightSound ) Object.assign(flightSound, envelope);
-  }
-  else {
-    const whooshKey = ("whoosh" in runeProps) ? runeProps.whoosh : "whooshFast";
-    flightSound = whooshKey ? sound(getVFXSound("generic", whooshKey)) : null;
-  }
 
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
@@ -306,107 +385,12 @@ function configureArrowVFXEffect(action) {
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
     const roll = group.roll[0]?.roll;
-    const result = roll?.data.result;
-    if ( !result ) continue;
-
-    const {tokenRef: targetTokenRef, meshRef: targetMeshRef} = _registerTargetRefs(references, "target", j, token);
-
-    // Manifest point: one caster radius forward toward the target, so the projectile materializes
-    // in front of the caster rather than at their center.
-    const {x: tcx, y: tcy} = tokenCenter(token);
-    const dirDist = Math.max(1, Math.hypot(tcx - casterCenterX, tcy - casterCenterY));
-    const manifestX = casterCenterX + (((tcx - casterCenterX) / dirDist) * casterRadiusPx);
-    const manifestY = casterCenterY + (((tcy - casterCenterY) / dirDist) * casterRadiusPx);
-    const offset = computeAttackOffset(token, result);
-
-    // Projectile flight timing; the arrival is the impact beat (shared by scrolling text and any knockback)
-    const projectileSpeed = runeProps.projectileSpeed ?? 150;
-    const projectileTexture = runeProps.projectileFrame
-      ? getVFXTexturePath(runeProps.projectileFrame)
-      : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
-    const projectileSize = runeProps.projectileSize ?? 3;
-    const textureAnchor = !!runeProps.projectileTextureAnchor;
-    const {lead} = CrucibleProjectileComponent.computeLaunch({x: manifestX, y: manifestY}, {x: tcx, y: tcy},
-      {texture: projectileTexture, size: projectileSize, textureAnchor});
-    const distPx = Math.hypot(tcx - manifestX, tcy - manifestY) - lead;
-    const flightMS = (distPx * 1000) / (projectileSpeed * canvas.dimensions.distancePixels);
-
-    // Register the manifest point as a reference. Every element of a VFXReferenceObjectField array
-    // must be a reference: resolveReferences builds a partial array update of only the resolved
-    // (reference) elements, so a literal sibling would be dropped to a hole by updateSource.
-    const manifestRef = `arrow_${j}_manifest`;
-    references[manifestRef] = {x: manifestX, y: manifestY, elevation: casterElevation,
-      sort: casterMeshSort + 1, sortLayer: SL.TOKENS};
-
-    const isHit = (result === T.HIT) || (result === T.GLANCE);
-    // A force-moved target plays its knockback glide AS the impact animation, replacing the recoil/shake
-    const knockback = isHit && CrucibleForcedMovementComponent.pushKnockback(
-      forcedMovements, group, targetTokenRef, CHARGE_DURATION + flightMS);
-    const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
-    let impactSound = null;
-    const animations = [];
-    const particles = [];
-    if ( isHit ) {
-      impactSound = sound(getVFXSound(action.rune.id, "impact"));
-      const treatment = _resolveHitTreatment(action, {textures, elevation: (token.elevation ?? 0) + 1,
-        crit: !!roll?.isCriticalSuccess, knockback, burstSize: 3, burstDuration: stickDuration || 1000}, runeProps);
-      animations.push(...treatment.animations);
-      particles.push(...treatment.particles);
-    }
-    else {
-      impactSound = sound(getVFXSound(action.rune.id, "miss"));
-      if ( (result === T.RESIST) && (runeProps.impactSprite !== false) ) {
-        animations.push(..._buildResistPuff(textures));
-      }
-    }
-
-    const chargeParticles = _resolveChargeLayers(runeProps,
-      _chargeContext(action, {textures, casterRadiusPx, casterElevation, particleElevation}),
-      {duration: CHARGE_EMIT_DURATION});
-
-    // Optional per-rune flight trail (follows the projectile). `trail` is `true` for the default
-    // directional streaks, or {frames|categories, params} to customize the textures and behavior.
-    const projectileParticles = [];
-    if ( runeProps.trail ) {
-      const trail = runeProps.trail;
-      const trailTextures = trail.frames ? getVFXFrames(action.rune.id, ...trail.frames)
-        : (trail.categories ? trail.categories.flatMap(c => textures[c]) : textures.streak);
-      projectileParticles.push({
-        animation: "projectileParticleTrail", anchor: "delivery", textures: trailTextures,
-        params: {align: true, flipX: true, lifetime: 250, spawnRate: 240,
-          alpha: {min: 0.4, max: 0.8}, scale: {min: 0.3, max: 0.6},
-          blend: PIXI.BLEND_MODES.ADD, elevation: casterElevation + 1, ...(trail.params ?? {})}
-      });
-    }
-
-    const arrowScrollingText = [];
-    pushTargetScrollingText(arrowScrollingText, action, actor, group.all, targetMeshRef,
-      CHARGE_DURATION + flightMS);
-
-    components[`arrow_${j}`] = {
-      type: "crucibleProjectile",
-      originMesh: {reference: "tokenMesh"},
-      targetMeshes: [{reference: targetMeshRef}],
-      path: [
-        {reference: manifestRef, deltas: {}},
-        {reference: targetMeshRef, deltas: {x: offset.x, y: offset.y, sort: 1}}
-      ],
-      pathType: runeProps.path ?? {type: "linear", params: {}},
-      charge: {duration: CHARGE_DURATION, sound: chargeSound,
-        animations: revealAtRelease ? [] : [{function: "chargeProjectileFadeIn"}], particles: chargeParticles},
-      delivery: {
-        texture: projectileTexture, size: projectileSize, speed: projectileSpeed, sound: flightSound,
-        fps: runeProps.projectileFps ?? null, textureAnchor,
-        blend: runeProps.projectileBlend ?? PIXI.BLEND_MODES.NORMAL,
-        animations: [...(revealAtRelease ? [{function: "deliveryProjectileReveal"}] : []),
-          {function: "deliveryProjectileFlight"}],
-        particles: projectileParticles},
-      impacts: [{
-        result, id: token.id, stick: stickDuration,
-        sound: impactSound, animations, particles
-      }],
-      scrollingText: arrowScrollingText
-    };
+    if ( !roll?.data.result ) continue;
+    const {tokenRef, meshRef} = registerTargetRefs(references, "target", j, token);
+    const {component, impactTime} = _buildArrowProjectile(action, {key: `arrow_${j}`, token, roll, group, tokenRef,
+      meshRef, references, forcedMovements});
+    pushTargetScrollingText(component.scrollingText, action, actor, group.all, meshRef, impactTime);
+    components[`arrow_${j}`] = component;
     timeline.push({component: `arrow_${j}`, position: 0});
     j++;
   }
@@ -426,18 +410,18 @@ function configureArrowVFXEffect(action) {
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
-function configureFanVFXEffect(action) {
+function _configureFanVFXEffect(action) {
   const regionShape = action.region?.shapes[0];
   if ( !regionShape || (regionShape.type !== "cone") ) return null;
   const runeProps = SPELL_VFX_GESTURES.fan.runes?.[action.rune.id];
   if ( !runeProps ) return null;
-  const {textures, particleElevation} = resolveSpellVFXContext(action);
+  const {textures, particleElevation} = _resolveSpellVFXContext(action);
   const shapeData = regionShape.toObject();
   const {x, y, radius, angle, rotation} = shapeData;
   const origin = {x, y};
   const rotRad = Math.toRadians(rotation);
   const halfAngleRad = Math.toRadians(angle / 2);
-  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = _resolveCasterGeometry(action);
+  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = resolveActorGeometry(action);
   const chargeDuration = runeProps.chargeDuration ?? 0;
   const sweepDuration = runeProps.sweepDuration ?? 400;
   const oscillate = !!runeProps.oscillate;
@@ -448,11 +432,11 @@ function configureFanVFXEffect(action) {
     halfAngleRad);
   const sweepRangeRad = endAngleRad - startAngleRad;
 
-  const sound = _spellSound;
+  const sound = positionalSound;
 
   const references = {
     tokenMesh: "^token.object.mesh",
-    wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
+    wallMask: {polygon: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}}
   };
 
   let chargeParticles = [];
@@ -490,7 +474,7 @@ function configureFanVFXEffect(action) {
     const defaultStart = chargeDuration + Math.round(tFrac * sweepDuration);
     const start = runeProps.impactStart?.({chargeDuration, sweepDuration, tFrac, token,
       defaultStart}) ?? defaultStart;
-    const {tokenRef, meshRef} = _registerTargetRefs(references, "fanTarget", j, token);
+    const {tokenRef, meshRef} = registerTargetRefs(references, "fanTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     const impact = _buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
       elevation: particleElevation, impactType, forcedMovements});
@@ -540,27 +524,27 @@ function configureFanVFXEffect(action) {
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
-function configureRayVFXEffect(action) {
+function _configureRayVFXEffect(action) {
   const regionShape = action.region?.shapes[0];
   if ( !regionShape || (regionShape.type !== "line") ) return null;
   const runeProps = SPELL_VFX_GESTURES.ray.runes?.[action.rune.id];
   if ( !runeProps ) return null; // No ray-gesture config for this rune; skip VFX
-  const {textures} = resolveSpellVFXContext(action);
+  const {textures} = _resolveSpellVFXContext(action);
   const shapeData = regionShape.toObject();
   const {x, y, length, width, rotation} = shapeData;
   const rotRad = Math.toRadians(rotation);
-  const {elevation: casterElevation, radiusPx: casterRadiusPx} = _resolveCasterGeometry(action);
+  const {elevation: casterElevation, radiusPx: casterRadiusPx} = resolveActorGeometry(action);
   const beamElevation = casterElevation + 1;
   const chargeDistance = casterRadiusPx;       // Half the caster token width: pulls the charge to the token's front edge
   const beamLength = length - chargeDistance;  // Effective beam reach from the charge point to the shape's end
   const spawnRadius = Math.max(8, width / 2);
   const CHARGE_DURATION = runeProps.chargeDuration ?? 700;
-  const sound = _spellSound;
+  const sound = positionalSound;
 
   // Declare necessary references to resolve at play-time
   const references = {
     tokenMesh: "^token.object.mesh",
-    wallMask: {x, y, type: "move", radius: Math.round(length * 1.5)}
+    wallMask: {polygon: {x, y, type: "move", radius: Math.round(length * 1.5)}}
   };
 
   // Configure beam charge point and progression speed
@@ -584,7 +568,7 @@ function configureRayVFXEffect(action) {
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
     const result = group.roll[0]?.roll?.data.result ?? null;
-    const {tokenRef, meshRef} = _registerTargetRefs(references, "rayTarget", j, token);
+    const {tokenRef, meshRef} = registerTargetRefs(references, "rayTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     const start = timingFn(tokenCenter(token), timingCtx);
     impacts.push(_buildTargetImpact({action, group, token, result, start, tokenRef, runeProps, textures,
@@ -631,22 +615,22 @@ function configureRayVFXEffect(action) {
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
-function configureContactVFXEffect(action) {
+function _configureContactVFXEffect(action) {
   if ( action.target.type !== "single" ) return null;
   const gesture = SPELL_VFX_GESTURES[action.gesture.id];
   const runeProps = gesture.runes?.[action.rune.id];
   if ( !runeProps ) return null;
   const channel = gesture.channel ?? null;
-  const {textures, particleElevation} = resolveSpellVFXContext(action);
+  const {textures, particleElevation} = _resolveSpellVFXContext(action);
 
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = _resolveCasterGeometry(action);
+  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = resolveActorGeometry(action);
   const chargeDuration = channel?.chargeDuration ?? runeProps.chargeDuration ?? 450;
   const deliveryDuration = channel?.deliveryDuration ?? runeProps.deliveryDuration ?? 100;
   const lingerDuration = channel?.lingerDuration ?? 0;
   const impactStart = chargeDuration + deliveryDuration;
 
-  const sound = _spellSound;
+  const sound = positionalSound;
 
   // Charge gathers at the caster's palm (halfway out toward the target) so the origin reads as the caster
   const references = {tokenMesh: "^token.object.mesh"};
@@ -667,7 +651,7 @@ function configureContactVFXEffect(action) {
     if ( !result ) continue;
     const isHit = (result === T.HIT) || (result === T.GLANCE);
     const targetElevation = (token.elevation ?? 0) + 1;
-    const {tokenRef, meshRef} = _registerTargetRefs(references, "contactTarget", j, token);
+    const {tokenRef, meshRef} = registerTargetRefs(references, "contactTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     channelTarget ??= {hit: isHit, radiusPx: (token.width * gridSize) / 2, elevation: targetElevation};
 
@@ -755,28 +739,28 @@ const BLAST_IMPACT_TIMINGS = {
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXData|null}
  */
-function configureBlastVFXEffect(action) {
+function _configureBlastVFXEffect(action) {
   const regionShape = action.region?.shapes[0];
   if ( !regionShape || (regionShape.type !== "circle") ) return null;
   const runeProps = SPELL_VFX_GESTURES.blast.runes?.[action.rune.id];
   if ( !runeProps ) return null;
-  const {textures} = resolveSpellVFXContext(action);
+  const {textures} = _resolveSpellVFXContext(action);
   const shapeData = regionShape.toObject();
   const {x, y, radius} = shapeData;
   const origin = {x, y};
   const {elevation: casterElevation, radiusPx: casterRadiusPx,
-    center: casterCenter, meshSort: casterMeshSort} = _resolveCasterGeometry(action);
+    center: casterCenter, meshSort: casterMeshSort} = resolveActorGeometry(action);
   const particleElevation = (action.region?.elevation?.top ?? casterElevation) + 1;
   const CHARGE_DURATION = runeProps.chargeDuration ?? 0;
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
   const distancePixels = canvas.dimensions.distancePixels;
 
-  const sound = _spellSound;
+  const sound = positionalSound;
 
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
     tokenMesh: "^token.object.mesh",
-    wallMask: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}
+    wallMask: {polygon: {x, y, type: "move", radius: Math.round(radius * MASK_RADIUS_FACTOR)}}
   };
 
   const projectileSpec = runeProps.projectile;
@@ -857,7 +841,7 @@ function configureBlastVFXEffect(action) {
   for ( const [actor, group] of struck ) {
     const token = action.targets.get(actor).token;
     const result = group.roll[0]?.roll?.data.result ?? null;
-    const {tokenRef, meshRef} = _registerTargetRefs(references, "blastTarget", j, token);
+    const {tokenRef, meshRef} = registerTargetRefs(references, "blastTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     const start = runeProps.impactStart?.({...timingCtx, index: j - 1, total: struck.length})
       ?? timingFn(tokenCenter(token), timingCtx);
@@ -922,21 +906,31 @@ function configureBlastVFXEffect(action) {
  * @param {CrucibleSpellAction} action
  * @returns {SpellVFXContext}
  */
-function resolveSpellVFXContext(action) {
-  const runeId = action.rune.id;
+function _resolveSpellVFXContext(action) {
   return {
     particleElevation: action.region?.elevation.top ?? 0,
-    textures: {
-      air: getVFXTexturePaths(runeId, "air"),
-      falling: getVFXTexturePaths(runeId, "falling"),
-      ground: getVFXTexturePaths(runeId, "ground"),
-      impact: getVFXTexturePaths(runeId, "impact"),
-      orb: getVFXTexturePaths(runeId, "orb"),
-      projectile: getVFXTexturePaths(runeId, "projectile"),
-      root: getVFXTexturePaths(runeId, "root"),
-      spray: getVFXTexturePaths(runeId, "spray"),
-      streak: getVFXTexturePaths(runeId, "streak")
-    }
+    textures: resolveRuneTextures(action.rune.id)
+  };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the texture paths of every particle category for a rune.
+ * @param {string} runeId
+ * @returns {SpellVFXTextures}
+ */
+export function resolveRuneTextures(runeId) {
+  return {
+    air: getVFXTexturePaths(runeId, "air"),
+    falling: getVFXTexturePaths(runeId, "falling"),
+    ground: getVFXTexturePaths(runeId, "ground"),
+    impact: getVFXTexturePaths(runeId, "impact"),
+    orb: getVFXTexturePaths(runeId, "orb"),
+    projectile: getVFXTexturePaths(runeId, "projectile"),
+    root: getVFXTexturePaths(runeId, "root"),
+    spray: getVFXTexturePaths(runeId, "spray"),
+    streak: getVFXTexturePaths(runeId, "streak")
   };
 }
 
@@ -1024,7 +1018,7 @@ function _resolveDeliverySound(ctx, params, soundType="damage") {
  * (e.g. `circleParticleBloom` for growing flora at the target). Default radius is `gridSize * 0.12`;
  * override via `spec.radiusFactor`. Injected as both `radius` and `chargeRadius` so behaviors that
  * read either key are satisfied.
- * @param {CrucibleSpellAction} action
+ * @param {string} runeId
  * @param {SpecOrArray} specs   `SpecOrArray = Spec | Spec[]` where each `Spec` has
  *   `{animation?, duration?, radiusFactor?, frames?, categories?, params?}`.
  * @param {object} ctx
@@ -1033,13 +1027,13 @@ function _resolveDeliverySound(ctx, params, soundType="damage") {
  * @param {SpellVFXTextures} [ctx.textures]     Required when any spec uses `categories`.
  * @returns {object[]}
  */
-function _buildImpactParticles(action, specs, {anchor = "destination", elevation, textures}) {
+function _buildImpactParticles(runeId, specs, {anchor = "destination", elevation, textures}) {
   if ( !specs ) return [];
   const specArray = Array.isArray(specs) ? specs : [specs];
   const gridSize = canvas.dimensions.size;
   return specArray.map(spec => {
     const layerTextures = spec.frames
-      ? getVFXFrames(action.rune.id, ...spec.frames)
+      ? getVFXFrames(runeId, ...spec.frames)
       : spec.categories.flatMap(c => textures[c]);
     const radius = Math.round(gridSize * (spec.radiusFactor ?? 0.12));
     return {
@@ -1055,6 +1049,17 @@ function _buildImpactParticles(action, specs, {anchor = "destination", elevation
 /* -------------------------------------------- */
 
 /**
+ * Get the reusable impact treatment of a rune.
+ * @param {string} runeId
+ * @returns {RuneImpactData|null}
+ */
+export function getRuneImpact(runeId) {
+  return RUNE_IMPACTS[runeId] ?? null;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Resolve the shared per-target hit treatment for every gesture from the runeProps declarative toggles
  * (`impactSprite`, `recoil`, default true), the burst size (`impactSpriteSize`, default 2 feet, which a gesture's
  * own `burstSize` overrides, and `impactSpriteScale`, a rune's multiplier on whichever applies), and the opt-in
@@ -1062,7 +1067,7 @@ function _buildImpactParticles(action, specs, {anchor = "destination", elevation
  * A critical hit rocks harder via `impactSpriteShake`; a force-moved target keeps the burst/glow but drops the
  * recoil (the knockback glide replaces it). A rune that wants a "soft" restorative arrival just disables the
  * burst and recoil and supplies its own particle spec.
- * @param {CrucibleSpellAction} action
+ * @param {string} runeId
  * @param {object} ctx
  * @param {SpellVFXTextures} ctx.textures
  * @param {number} ctx.elevation
@@ -1072,10 +1077,10 @@ function _buildImpactParticles(action, specs, {anchor = "destination", elevation
  * @param {number} [ctx.burstDuration=800]    Override the burst hold (ms).
  * @param {number} [ctx.flashDuration=150]    Override the burst ADD-blend flash window (ms).
  * @param {boolean} [ctx.suppressGlow=false]  Skip the rune's impact glow (e.g. when the gesture glows elsewhere).
- * @param {object} runeProps
+ * @param {RuneImpactData} runeProps
  * @returns {{animations: object[], particles: object[]}}
  */
-function _resolveHitTreatment(action, ctx, runeProps) {
+export function resolveHitTreatment(runeId, ctx, runeProps) {
   const {textures, elevation, crit=false, knockback=false, burstSize, burstDuration=800,
     flashDuration=150, suppressGlow=false} = ctx;
   const gridSize = canvas.dimensions.size;
@@ -1096,7 +1101,7 @@ function _resolveHitTreatment(action, ctx, runeProps) {
         duration: burstDuration, flash: true, flashDuration, rotation: angle}});
   }
   if ( runeProps?.impactParticles ) {
-    particles.push(..._buildImpactParticles(action, runeProps.impactParticles,
+    particles.push(..._buildImpactParticles(runeId, runeProps.impactParticles,
       {anchor: "destination", elevation, textures}));
   }
   if ( runeProps?.impactGlow && !suppressGlow ) {
@@ -1161,7 +1166,7 @@ function _buildChannelDelivery(action, runeProps, chargeCtx, {channel, deliveryD
  * `sustainedChargeAnchor`), the looping delivery sound, and the rune's `buildDelivery(ctx)` returning
  * the layered particle composition.
  * @param {CrucibleSpellAction} action
- * @param {object} ctx  Builder context produced by configureRayVFXEffect.
+ * @param {object} ctx  Builder context produced by _configureRayVFXEffect.
  * @returns {{chargeParticles: object[], delivery: object}|null}
  */
 function _buildRayChargeAndDelivery(action, ctx) {
@@ -1192,23 +1197,6 @@ function _buildRayChargeAndDelivery(action, ctx) {
 /* -------------------------------------------- */
 /*  Configuration Helpers                       */
 /* -------------------------------------------- */
-
-/**
- * Build a particle exposure curve that starts hot and settles back to normal.
- * @param {number} t    Normalized time [0, 1] when the particle cools to normal exposure
- * @param {object} [options]
- * @param {boolean} [options.reverse=false]  Start normal and become hot after t
- * @param {number} [options.normal=0]        The normal exposure value
- * @param {number} [options.hot=1]           The hot exposure value
- * @returns {{curve: Array<{time: number, value: number}>}}
- */
-function _exposureInHot(t, {reverse=false, normal=0, hot=0.5}={}) {
-  const curve = reverse
-    ? [{time: 0, value: normal}, {time: t, value: hot}]
-    : [{time: 0, value: hot}, {time: t, value: normal}];
-  if ( t < 1 ) curve.push({time: 1, value: curve[1].value});
-  return {curve};
-}
 
 /**
  * Build a bolt of lightning striking from overhead, bursting a disc of bolts on the ground where it lands.
@@ -1292,7 +1280,7 @@ const _CHARGE_FROST_ICICLES = {
     {categories: ["spray"], above: true, radiusFactor: 2.0,
       params: {lifetime: 350, spawnRate: 480,
         alpha: {min: 0.5, max: 1.0}, scale: {min: 0.5, max: 1.0},
-        exposure: _exposureInHot(0.5, {reverse: true})}},
+        exposure: exposureInHot(0.5, {reverse: true})}},
     {categories: ["air"], above: false, animation: "circleParticleResidue", radiusFactor: 1.5,
       params: {lifetime: {min: 1500, max: 2200}, spawnRate: 120, count: 30, initial: 0.3,
         alpha: {min: 0.08, max: 0.22}, scale: {min: 0.8, max: 1.4},
@@ -1311,7 +1299,7 @@ const _CHARGE_LIFE_BLOOMS = {
       params: {sort: 0, lifetime: {min: 2000, max: 4000}, spawnRate: 10, scale: {min: 1.0, max: 1.5}}},
     {categories: ["spray"], above: true, radiusFactor: 2.5,
       params: {lifetime: {min: 900, max: 1500}, spawnRate: 80, scale: {min: 0.5, max: 0.8},
-        exposure: _exposureInHot(0.5)}}
+        exposure: exposureInHot(0.5)}}
   ]
 };
 
@@ -1353,7 +1341,7 @@ const _STORM_SWIRL_AURA = {spinSpeed: 0.6, jumpInterval: {min: 250, max: 700}, a
 // Electricity crackling in place: brief overexposed sparks blooming wherever they are spawned
 const _STORM_CRACKLE = {growFraction: 0.15, lifetime: {min: 70, max: 160}, alpha: {min: 0.8, max: 1.0},
   scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3}, blend: PIXI.BLEND_MODES.ADD,
-  exposure: _exposureInHot(0.7)};
+  exposure: exposureInHot(0.7)};
 const _STORM_SWIRL_SPARKS = {..._STORM_CRACKLE, spawnRate: 20, spawnRateEnd: 90};
 
 // Reusable aura charge-up for Storm spells, its sparks gathering wherever the gesture releases from
@@ -1429,7 +1417,7 @@ const _IMPACT_STORM = {
       frames: ["SprayBolts"],
       params: {count: 14, speed: {min: 90, max: 260}, lifetime: {min: 180, max: 420},
         alpha: {min: 0.7, max: 1.0}, scale: {min: 0.65, max: 1.3},
-        fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL, exposure: _exposureInHot(0.7)}
+        fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL, exposure: exposureInHot(0.7)}
     },
     {
       animation: "circleParticleBloom",
@@ -1471,6 +1459,18 @@ const _IMPACT_LIFE = {
         elevation: 0}
     }
   ]
+};
+
+/**
+ * The reusable impact treatment of each rune, keyed by rune id.
+ * @type {Record<string, object>}
+ */
+const RUNE_IMPACTS = {
+  death: _IMPACT_DEATH,
+  flame: _IMPACT_FLAME,
+  frost: _IMPACT_FROST,
+  life: _IMPACT_LIFE,
+  storm: _IMPACT_STORM
 };
 
 /* -------------------------------------------- */
@@ -1525,16 +1525,7 @@ const _IMPACT_LIFE = {
  * Impact:
  * - `stickDuration` (number): ms the projectile sprite stays at the impact location after a
  *   HIT/GLANCE before fading. Omit or 0 for no stick.
- * - `impactSprite` (boolean): show the impact burst sprite on a hit (default true).
- * - `impactSpriteFrame` (string): a specific impact texture frame (e.g. "storm/ImpactBoltsSmall"); defaults to a
- *   random `impact`-category texture.
- * - `impactSpriteAngle` (degrees): turn the impact sprite this far off the incoming direction, to a random side.
- * - `recoil` (boolean): rock/shake the struck token on a hit (default true).
- * - `impactParticles` ({frames|categories, params}): a particle burst at the target on hit. Resolved
- *   by {@link _buildImpactParticles}; selects textures by frame-name prefixes or VFX_TEXTURES
- *   categories, with optional `params` overrides on top of canonical defaults.
- * - `impactGlow` (object): {@link impactSpriteGlow} params for a restorative-magic glow on the target.
- * - `impactShock` (object): {@link impactSpriteShock} params for an electrocution strobe on the target.
+ * - The {@link RuneImpactData} fields, which configure the hit treatment on the target.
  *
  * @type {Record<string, object>}
  */
@@ -1599,7 +1590,7 @@ const ARROW_VFX_PROPS = {
     flightSound: {rune: "storm", type: "crackle", fade: 60, release: 150, volume: 0.45},
     trail: {frames: ["SprayBolts"], params: {align: false, body: true, speed: {min: 10, max: 40},
       lifetime: {min: 90, max: 200}, spawnRate: 160, scale: {min: 0.4, max: 0.8},
-      alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: _exposureInHot(0.7)}}
+      alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: exposureInHot(0.7)}}
   }
 };
 
@@ -1740,7 +1731,7 @@ const RAY_VFX_PROPS = {
           params: {speed: beamSpeed, angleSpread: 0.5, radius: spawnRadius, spawnRate: 1200,
             rotationSpread: 0.05, alpha: {min: 0.5, max: 0.9}, scale: {min: 0.5, max: 1.1},
             fade: {in: 30, out: 150}, blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: _exposureInHot(0.5), elevation: beamElevation}
+            exposure: exposureInHot(0.5), elevation: beamElevation}
         },
         { // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
           animation: "rayParticleRootCastoff", anchor: "origin", textures: textures.spray,
@@ -1748,7 +1739,7 @@ const RAY_VFX_PROPS = {
           params: {speed: beamSpeed, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
             rotationSpread: 0.3, lifetime: {min: 200, max: 400}, alpha: {min: 0.75, max: 1.0},
             scale: {min: 0.6, max: 1.2}, fade: {in: 0, out: 150}, blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: _exposureInHot(0.5), elevation: beamElevation}
+            exposure: exposureInHot(0.5), elevation: beamElevation}
         },
         { // Ground cascade: static shards deposited along the beam path as the front sweeps through
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.impact,
@@ -1789,7 +1780,7 @@ const RAY_VFX_PROPS = {
             lifetime: {min: LINE_DURATION + 3500, max: LINE_DURATION + 5000},
             scale: {min: 0.9, max: 1.6}, alpha: {min: 0.45, max: 0.8},
             fade: {in: 100, out: 1500}, blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: _exposureInHot(1, {normal: -1, hot: 1}), elevation: 0}
+            exposure: exposureInHot(1, {normal: -1, hot: 1}), elevation: 0}
         },
         { // Ground smoke: low haze rising slowly along the line, drifting up and dissipating
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.air,
@@ -1956,8 +1947,7 @@ const RAY_VFX_PROPS = {
  * - All the chargeXxx fields consumed by {@link _resolveChargeLayers} (chargeBehavior, chargeAnchor,
  *   chargeAbove, chargeLayers, sprayParams, ...). When `projectile` is declared these apply to the
  *   projectile component's charge phase, not the blast component's.
- * - All the impactXxx fields consumed by {@link _resolveHitTreatment} (impactSprite, recoil,
- *   impactParticles, impactGlow) - matches the arrow/ray declarative impact shape.
+ * - The {@link RuneImpactData} fields, which configure the hit treatment on the target.
  * @type {Record<string, object>}
  */
 const BLAST_VFX_PROPS = {
@@ -2140,7 +2130,7 @@ const BLAST_VFX_PROPS = {
             scaleCurve: [{time: 0, value: 1.0}, {time: 1, value: 1.0}],
             fade: {in: 200, out: 2500},
             blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: _exposureInHot(1, {normal: -1, hot: 1}),
+            exposure: exposureInHot(1, {normal: -1, hot: 1}),
             elevation: 0}
         },
         { // Air smoke residue: brown-tinted smoke drifting upward from the explosion
@@ -2210,7 +2200,7 @@ const BLAST_VFX_PROPS = {
             spawnRate: 220, lifetime: {min: 1800, max: 2600},
             scale: {min: 0.6, max: 1.1}, alpha: {min: 0.6, max: 0.95},
             fade: {in: 0.1, out: 0.4},
-            exposure: _exposureInHot(0.7, {reverse: true}),
+            exposure: exposureInHot(0.7, {reverse: true}),
             elevation: casterElevation + 1}
         },
         { // Drifting bubble residue lingering above as the energy dissipates
@@ -2342,8 +2332,7 @@ const BLAST_VFX_PROPS = {
  *   e.g. for a fan which strikes everything at once rather than sweeping an arm across it.
  * - All the chargeXxx fields consumed by {@link _resolveChargeLayers} (chargeBehavior, chargeAnchor,
  *   chargeAbove, chargeLayers, sprayParams, ...).
- * - All the impactXxx fields consumed by {@link _resolveHitTreatment} (impactSprite, recoil,
- *   impactParticles, impactGlow) - matches the arrow/ray declarative impact shape.
+ * - The {@link RuneImpactData} fields, which configure the hit treatment on the target.
  * @type {Record<string, object>}
  */
 const FAN_VFX_PROPS = {
@@ -2507,7 +2496,7 @@ const FAN_VFX_PROPS = {
             lifetime: {min: 5000, max: 7000}, spawnRate: 70, elevation: 0,
             fade: {in: 0, out: 2500},
             blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: _exposureInHot(1, {normal: -1, hot: 1})
+            exposure: exposureInHot(1, {normal: -1, hot: 1})
           }
         },
         { // Sustained SprayEmbers stoking the area with ADD-blend sparks throughout the delivery
@@ -2548,7 +2537,7 @@ const FAN_VFX_PROPS = {
           scale: {min: 0.6, max: 1.1}, alpha: {min: 0.6, max: 0.95},
           elevation: casterElevation + 1,
           blend: PIXI.BLEND_MODES.NORMAL,
-          exposure: _exposureInHot(0.6, {reverse: true}),
+          exposure: exposureInHot(0.6, {reverse: true}),
           fade: {in: 0.15, out: 0.45}}
       }];
     },
@@ -2564,7 +2553,7 @@ const FAN_VFX_PROPS = {
             reach: Math.round(radius * 0.9),
             lifetime: {min: sweepDuration, max: sweepDuration},
             rotationSpeed: 5,
-            exposure: _exposureInHot(1.0),
+            exposure: exposureInHot(1.0),
             alpha: {min: 0.85, max: 1.0}, scale: {min: 1.0, max: 1.3},
             elevation: casterElevation + 1,
             fade: {in: 0.05, out: 0.15}
@@ -2611,7 +2600,7 @@ const FAN_VFX_PROPS = {
         frames: ["SprayBolts"], duration: 2850,
         params: {count: null, initial: 0, spawnRate: 40, speed: {min: 70, max: 220},
           lifetime: {min: 160, max: 380}, alpha: {min: 0.7, max: 1.0}, scale: {min: 0.55, max: 1.1},
-          fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.ADD, exposure: _exposureInHot(0.7)}
+          fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.ADD, exposure: exposureInHot(0.7)}
       },
       _IMPACT_STORM.impactParticles[1]
     ],
@@ -2707,7 +2696,7 @@ const FAN_VFX_PROPS = {
 /**
  * Per-rune VFX overrides for the contact gestures, shared by Touch and (scaled up) by Influence. A small
  * single-layer charge gathered at the caster's hand plus the shared per-rune impact treatment. The charge
- * field shape is documented on {@link ARROW_VFX_PROPS}; the impact field shape on {@link _resolveHitTreatment}.
+ * field shape is documented on {@link ARROW_VFX_PROPS}; the impact field shape on {@link RuneImpactData}.
  * One row serves both gestures, so an entry may also declare:
  * - `channel` ({glow, impactShock, sound, coat: {frames, params}}): how the rune differs when Influence channels
  *   it. `glow: false` forgoes the channel's tinted glow, `impactShock` replaces the row's own at the climax, `sound`
@@ -2824,30 +2813,30 @@ const TOUCH_VFX_PROPS = {
  * - `resolve` - called at play-time to compute reference values before VFXReferenceField resolution.
  * - `finalize` - called at play-time after resolution to inject runtime callbacks.
  * - `runes` - per-rune VFX overrides for this gesture (see {@link ARROW_VFX_PROPS} / {@link RAY_VFX_PROPS}).
- * - `channel` - optional sustained-channel descriptor consumed by {@link configureContactVFXEffect} to turn a
+ * - `channel` - optional sustained-channel descriptor consumed by {@link _configureContactVFXEffect} to turn a
  *   contact gesture into a lingering melee channel (Influence). See {@link _buildChannelDelivery}.
  * @type {Record<string, {configure?: SpellVFXGestureConfigurator, resolve?: function,
  *   finalize?: function, runes?: Record<string, object>, channel?: object}>}
  */
 const SPELL_VFX_GESTURES = {
-  arrow: {configure: configureArrowVFXEffect, runes: ARROW_VFX_PROPS},
+  arrow: {configure: _configureArrowVFXEffect, runes: ARROW_VFX_PROPS},
   aspect: {},
   aura: {},
-  blast: {configure: configureBlastVFXEffect, runes: BLAST_VFX_PROPS},
+  blast: {configure: _configureBlastVFXEffect, runes: BLAST_VFX_PROPS},
   cone: {},
   conjure: {},
   create: {},
-  fan: {configure: configureFanVFXEffect, runes: FAN_VFX_PROPS},
-  influence: {configure: configureContactVFXEffect, runes: TOUCH_VFX_PROPS, channel: {
+  fan: {configure: _configureFanVFXEffect, runes: FAN_VFX_PROPS},
+  influence: {configure: _configureContactVFXEffect, runes: TOUCH_VFX_PROPS, channel: {
     chargeDuration: 550, deliveryDuration: 1800, lingerDuration: 900, coatRadiusFactor: 1.1, burstSize: 3.5,
     glow: {frost: 0x8FE3FF, flame: 0xFF7A2A, life: 0xFF5DC0, death: 0x3FD9A0}
   }},
   pulse: {},
-  ray: {configure: configureRayVFXEffect, runes: RAY_VFX_PROPS},
+  ray: {configure: _configureRayVFXEffect, runes: RAY_VFX_PROPS},
   sense: {},
   step: {},
   strike: {},
   surge: {},
-  touch: {configure: configureContactVFXEffect, runes: TOUCH_VFX_PROPS},
+  touch: {configure: _configureContactVFXEffect, runes: TOUCH_VFX_PROPS},
   ward: {}
 };

@@ -54,7 +54,6 @@ system:
             summons: []
             changes: []
       tags:
-        - melee
         - natural
         - reflex
         - poison

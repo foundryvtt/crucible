@@ -1,4 +1,8 @@
 /**
+ * @import {VFXPhaseSoundData} from "./components/vfx-component.mjs";
+ */
+
+/**
  * Choose a random sound to play from a provided list of options.
  * Prefix the returned path with a specific path prefix
  * @param {string} domain     The outer domain in VFX_SOUNDS
@@ -42,6 +46,17 @@ export const VFX_SOUNDS = {
  * @property {string} src         Filename within the rune's prefix directory.
  * @property {boolean} [loop]     Whether the sample is a looping segment (S2 passive, S3 damage).
  * @property {number} [duration]  Measured playback duration in seconds (S1 charge, S4 impact).
+ */
+
+/**
+ * A rune sound library cue with optional playback envelope overrides.
+ * @typedef _RuneSoundCue
+ * @property {string} rune        The rune whose sound library provides the sound
+ * @property {string} type        The sound type within that library, such as "impact" or "crackle"
+ */
+
+/**
+ * @typedef {_RuneSoundCue & Partial<Pick<VFXPhaseSoundData, "volume"|"fade"|"offset"|"release">>} RuneSoundCue
  */
 
 /**

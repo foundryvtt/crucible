@@ -1,9 +1,9 @@
-_id: elvish0000000000
-name: Elvish
+_id: elf0000000000000
+name: Elf
 type: ancestry
 img: icons/magic/nature/leaf-rune-glow-green.webp
 effects: []
-folder: cvTY534vgfLqkvXj
+folder: ZEUx6vEoijd34BgK
 flags: {}
 system:
   description: >-
@@ -12,8 +12,10 @@ system:
     traits of a people for whom elegance is a way of life. Your predisposition
     toward quick-thinking and precise movement the evolutionary results of
     hundreds of years of tradition.</p>
-  identifier: elvish
-  talents: []
+  identifier: elf
+  talents:
+    - item: Compendium.crucible.ancestry.Item.elfLineage000000
+      level: null
   ui:
     color: '#51d277'
   abilities:
@@ -28,15 +30,15 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157415
-  modifiedTime: 1788548152507
+  modifiedTime: 1790438536918
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: 150000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_key: '!items!elvish0000000000'
+_key: '!items!elf0000000000000'

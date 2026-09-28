@@ -8,6 +8,19 @@ const {ArrayField, BooleanField, ColorField, NumberField, ObjectField, SchemaFie
 const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
 
 /**
+ * A positional sound played by a phase or timed cue of a {@link CrucibleVFXComponent}.
+ * @typedef VFXPhaseSoundData
+ * @property {string} src         The sound file path
+ * @property {number} align       Alignment of the sound to its phase in SOUND_ALIGNMENT
+ * @property {number} volume      Playback volume
+ * @property {number} radius      Audible radius in grid units
+ * @property {boolean} loop       Loop the sound for the length of its phase
+ * @property {number} fade        Milliseconds of fade in and out
+ * @property {number} offset      Milliseconds to shift the sound relative to its aligned time
+ * @property {number} release     Milliseconds to hold the sound past the end of its phase
+ */
+
+/**
  * Shared base class for all Crucible VFX components, extending the core {@link VFXComponent} with
  * conventions common to Crucible gesture animations.
  * 1. Deterministic RNG seed

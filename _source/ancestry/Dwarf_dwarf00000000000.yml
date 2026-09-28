@@ -1,9 +1,9 @@
-_id: dwarven000000000
-name: Dwarven
+_id: dwarf00000000000
+name: Dwarf
 type: ancestry
 img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
 effects: []
-folder: cvTY534vgfLqkvXj
+folder: ZEUx6vEoijd34BgK
 flags: {}
 system:
   description: >-
@@ -12,8 +12,10 @@ system:
     hallmarks of a people born of earth and stone. A legacy of physical
     resilience is yours to inherit, for in your breast beats a heart of
     stone.</p>
-  identifier: dwarven
-  talents: []
+  identifier: dwarf
+  talents:
+    - item: Compendium.crucible.ancestry.Item.dwarfLineage0000
+      level: null
   ui:
     color: '#cb9943'
   abilities:
@@ -28,15 +30,15 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157415
-  modifiedTime: 1788548149824
+  modifiedTime: 1790438536153
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: 200000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_key: '!items!dwarven000000000'
+_key: '!items!dwarf00000000000'

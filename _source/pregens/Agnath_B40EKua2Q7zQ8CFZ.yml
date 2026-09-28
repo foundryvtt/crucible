@@ -59,8 +59,10 @@ system:
         for toughness has origins amid a people exposed to the relentless
         struggle of a harsh northern clime. Your people are known for their
         strength and resilience above all else.</p>
-      identifier: orcish
-      talents: []
+      identifier: orc
+      talents:
+        - item: Compendium.crucible.ancestry.Item.orcLineage000000
+          level: null
       ui:
         color: '#c14425'
       abilities:
@@ -75,7 +77,7 @@ system:
       characteristics:
         blooded: true
         temperature: ''
-      name: Orcish
+      name: Orc
       img: icons/creatures/magical/construct-iron-stomping-yellow.webp
     background:
       description: >-
@@ -290,7 +292,7 @@ prototypeToken:
   depth: 4
 items:
   - _id: ZKTHoQXGY0mBBq7B
-    name: Fine Greatsword
+    name: Greatsword
     type: weapon
     img: icons/weapons/swords/greatsword-crossguard-flanged-red.webp
     effects: []
@@ -320,10 +322,10 @@ items:
       slot: 3
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671605
-      modifiedTime: 1789677671605
+      createdTime: 1790471167557
+      modifiedTime: 1790471167557
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -333,7 +335,7 @@ items:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.ZKTHoQXGY0mBBq7B'
   - _id: f4uwtWGdrCKeoxb7
-    name: Fine Splint Mail
+    name: Splint Mail
     type: armor
     img: icons/equipment/chest/breastplate-layered-steel-black.webp
     effects: []
@@ -364,9 +366,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671605
-      modifiedTime: 1789677671605
+      systemVersion: 0.11.1
+      createdTime: 1790471167557
+      modifiedTime: 1790471167557
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -419,6 +421,8 @@ items:
             - harmless
             - rallying
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: talisman
       nodes:
@@ -431,9 +435,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671605
-      modifiedTime: 1789677671605
+      systemVersion: 0.11.1
+      createdTime: 1790471167558
+      modifiedTime: 1790471167558
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -467,10 +471,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671606
-      modifiedTime: 1789677671606
+      createdTime: 1790471167558
+      modifiedTime: 1790471167558
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -531,6 +535,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: flame
       nodes:
         - int0a
@@ -544,9 +550,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671606
-      modifiedTime: 1789677671606
+      systemVersion: 0.11.1
+      createdTime: 1790471167558
+      modifiedTime: 1790471167558
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -578,10 +584,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671607
-      modifiedTime: 1789677671607
+      createdTime: 1790471167558
+      modifiedTime: 1790471167558
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -618,10 +624,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671607
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167559
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671607
+      createdTime: 1790471167559
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -673,6 +679,8 @@ items:
             weapon: true
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - str1a
       iconicSpells: 0
@@ -683,9 +691,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671607
-      modifiedTime: 1789677671607
+      systemVersion: 0.11.1
+      createdTime: 1790471167561
+      modifiedTime: 1790471167561
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -724,10 +732,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671608
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167561
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671608
+      createdTime: 1790471167561
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -762,10 +770,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671608
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167561
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671608
+      createdTime: 1790471167561
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -800,9 +808,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671608
-      modifiedTime: 1789677671608
+      systemVersion: 0.11.1
+      createdTime: 1790471167561
+      modifiedTime: 1790471167561
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -870,6 +878,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: storm
       training: elemental
       nodes:
@@ -883,9 +893,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671608
-      modifiedTime: 1789677671608
+      systemVersion: 0.11.1
+      createdTime: 1790471167562
+      modifiedTime: 1790471167562
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -923,10 +933,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671609
-      modifiedTime: 1789677671609
+      createdTime: 1790471167562
+      modifiedTime: 1790471167562
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -968,10 +978,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671609
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167562
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671609
+      createdTime: 1790471167562
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1011,9 +1021,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671609
-      modifiedTime: 1789677671609
+      systemVersion: 0.11.1
+      createdTime: 1790471167562
+      modifiedTime: 1790471167562
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1052,10 +1062,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671609
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167562
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671609
+      createdTime: 1790471167562
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1107,6 +1117,8 @@ items:
             - melee
             - movement
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - str2c
       iconicSpells: 0
@@ -1117,10 +1129,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671610
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167563
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671610
+      createdTime: 1790471167563
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1152,10 +1164,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671610
-      modifiedTime: 1789677671610
+      createdTime: 1790471167563
+      modifiedTime: 1790471167563
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1219,6 +1231,8 @@ items:
           composition: 1
           summon: null
           inflection: ''
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - preint1
       iconicSpells: 0
@@ -1231,10 +1245,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671610
-      modifiedTime: 1789677671610
+      createdTime: 1790471167563
+      modifiedTime: 1790471167563
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1276,10 +1290,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671610
-      modifiedTime: 1789677671610
+      createdTime: 1790471167563
+      modifiedTime: 1790471167563
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1351,11 +1365,14 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
           range:
             maximum: null
             weapon: true
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - str3a
       iconicSpells: 0
@@ -1366,9 +1383,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671611
-      modifiedTime: 1789677671611
+      systemVersion: 0.11.1
+      createdTime: 1790471167564
+      modifiedTime: 1790471167564
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1403,9 +1420,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671611
-      modifiedTime: 1789677671611
+      systemVersion: 0.11.1
+      createdTime: 1790471167564
+      modifiedTime: 1790471167564
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1478,6 +1495,8 @@ items:
           effects: []
           tags: []
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - int2a
       spellcraft: ''
@@ -1490,9 +1509,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671611
-      modifiedTime: 1789677671611
+      systemVersion: 0.11.1
+      createdTime: 1790471167564
+      modifiedTime: 1790471167564
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1518,8 +1537,7 @@ items:
       enchantment: minor
       equipped: true
       invested: true
-      properties:
-        - investment
+      properties: []
       description:
         public: >-
           <blockquote><p>A band of elegant pale blue steel that features a
@@ -1528,10 +1546,11 @@ items:
           finger.</p></blockquote><p>This enchanted ring grants the ability to
           glide laterally during a fall.</p>
         private: >-
-          <p>This item is presented as an example of a Fine Ring with the
+          <p>This item is presented as an example of <strong>Fine</strong>
+          jewelry with the
           @UUID[Compendium.crucible.affixes.ActiveEffect.gliding000000000]{Gliding}
           prefix.</p><p>This affix can be applied to any accessory and this ring
-          could be further enchanted with a Tier 1 suffix.</p>
+          could be further enchanted with a <strong>Tier 1 Suffix</strong>.</p>
       actions: []
     effects:
       - name: Gliding
@@ -1589,6 +1608,8 @@ items:
                 - reaction
                 - movement
               summon: null
+              persistRegion: false
+              regionBehavior: null
           properties: []
         _id: gliding000000000
         img: icons/creatures/magical/spirit-undead-winged-ghost.webp
@@ -1609,9 +1630,9 @@ items:
         _stats:
           coreVersion: '14.368'
           systemId: crucible
-          systemVersion: 0.10.2
-          createdTime: 1789677671612
-          modifiedTime: 1789677671612
+          systemVersion: 0.11.1
+          createdTime: 1790471167565
+          modifiedTime: 1790471167565
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1622,9 +1643,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671612
-      modifiedTime: 1789677671612
+      systemVersion: 0.11.1
+      createdTime: 1790471167564
+      modifiedTime: 1790471167564
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1661,10 +1682,11 @@ items:
           ring grants the ability to withdraw an additional reserve of
           <strong>Focus</strong> in moments of duress.</p>
         private: >-
-          <p>This item is presented as an example of a Fine Ring with the
-          @UUID[Compendium.crucible.affixes.ActiveEffect.focusing00000000]{Reserved
-          Focus} prefix.</p><p>This affix can be applied to any accessory and
-          this ring could be further enchanted with a Tier 1 suffix.</p>
+          <p>This item is presented as an example of <strong>Fine</strong>
+          jewelry with the
+          @UUID[Compendium.crucible.affixes.ActiveEffect.focusing00000000]{Focusing}
+          prefix.</p><p>This affix can be applied to any accessory and this ring
+          could be further enchanted with a <strong>Tier 1 Suffix</strong>.</p>
       actions: []
     effects:
       - name: Focusing
@@ -1716,6 +1738,8 @@ items:
               effects: []
               tags: []
               summon: null
+              persistRegion: false
+              regionBehavior: null
           properties: []
         _id: focusing00000000
         img: icons/magic/control/orb-web-hold.webp
@@ -1737,9 +1761,9 @@ items:
         _stats:
           coreVersion: '14.368'
           systemId: crucible
-          systemVersion: 0.10.2
-          createdTime: 1789677671613
-          modifiedTime: 1789677671613
+          systemVersion: 0.11.1
+          createdTime: 1790471167566
+          modifiedTime: 1790471167566
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1750,9 +1774,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671613
-      modifiedTime: 1789677671613
+      systemVersion: 0.11.1
+      createdTime: 1790471167565
+      modifiedTime: 1790471167565
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1794,9 +1818,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671613
-      modifiedTime: 1789677671613
+      systemVersion: 0.11.1
+      createdTime: 1790471167566
+      modifiedTime: 1790471167566
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1837,9 +1861,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671613
-      modifiedTime: 1789677671613
+      systemVersion: 0.11.1
+      createdTime: 1790471167566
+      modifiedTime: 1790471167566
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1908,6 +1932,8 @@ items:
             - consume
             - healing
           summon: null
+          persistRegion: false
+          regionBehavior: null
       uses:
         value: 1
         max: 1
@@ -1920,9 +1946,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671614
-      modifiedTime: 1789677671614
+      systemVersion: 0.11.1
+      createdTime: 1790471167566
+      modifiedTime: 1790471167566
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1991,6 +2017,8 @@ items:
             - consume
             - rallying
           summon: null
+          persistRegion: false
+          regionBehavior: null
       uses:
         value: 1
         max: 1
@@ -2003,9 +2031,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671614
-      modifiedTime: 1789677671614
+      systemVersion: 0.11.1
+      createdTime: 1790471167567
+      modifiedTime: 1790471167567
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2017,6 +2045,97 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.yLNYBGqQWWHS5cU0'
+  - name: Orc Lineage
+    type: talent
+    img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+    system:
+      nodes:
+        - origin
+      description: >-
+        <p>The harsh northern clime forged your people to fight hardest when
+        death is nearest.</p><p><strong>Scarred Hide.</strong> The more
+        grievously you are wounded, the harder you are to put down. You gain
+        resistance to <strong>Physical</strong> damage equal to your
+        @Rule[ability.toughness] multiplied by the fraction of your maximum
+        @Rule[resource.wounds] you have suffered, rounded down.</p>
+      actions:
+        - id: deathlessFury
+          name: Deathless Fury
+          img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+          condition: While your Health does not exceed your Wounds
+          description: >-
+            <p>While your @Rule[resource.health] does not exceed your
+            @Rule[resource.wounds], you may expend @Rule[resource.heroism] to
+            enter a deathless fury. While the fury lasts you ignore all
+            penalties of being @Condition[weakened] and your @Action[default
+            strike] attacks gain <strong>+1 Boon</strong>.</p><p>The fury ends
+            when your @Rule[resource.health] exceeds your @Rule[resource.wounds]
+            or when <strong>Combat</strong> ends.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - name: Deathless Fury
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: combatEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+                lights: []
+          tags: []
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: athletics
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _id: orcLineage000000
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790471167556
+      modifiedTime: 1790471167556
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!B40EKua2Q7zQ8CFZ.orcLineage000000'
 effects: []
 flags:
   core: {}
@@ -2045,9 +2164,9 @@ flags:
 _stats:
   coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.11.0
-  createdTime: 1789677671603
-  modifiedTime: 1789677671603
+  systemVersion: 0.11.1
+  createdTime: 1790471167556
+  modifiedTime: 1790471167556
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -28,7 +28,7 @@ system:
       target:
         type: single
         number: 1
-        scope: 0
+        scope: 2
         self: false
       effects: []
       name: Alchemical Resolve

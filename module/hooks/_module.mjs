@@ -1,7 +1,11 @@
+import ACTION_HOOKS from "./action.mjs";
+import ANCESTRY_TALENT_HOOKS from "./ancestry-talents.mjs";
+import TALENT_HOOKS from "./talent.mjs";
+
 export {default as accessory} from "./accessory.mjs";
-export {default as action} from "./action.mjs";
+export const action = Object.assign(ACTION_HOOKS, ANCESTRY_TALENT_HOOKS.action);
 export {default as consumable} from "./consumable.mjs";
-export {default as talent} from "./talent.mjs";
+export const talent = Object.assign(TALENT_HOOKS, ANCESTRY_TALENT_HOOKS.talent);
 export {default as tool} from "./tool.mjs";
 export {default as spell} from "./spell.mjs";
 export {default as spellcraft} from "./spellcraft.mjs";

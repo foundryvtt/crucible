@@ -125,12 +125,15 @@ pages:
         captain, has his ship boarded by pirates. By fortunate circumstance, the
         fierce rocking of the ship has toppled one of the invaders over on the
         deck of his ship. Advancing towards the sprawling pirate, Albert draws
-        his blade and slashes down upon the unwelcome guest. Attacking a
-        @Condition[prone] creature confers <strong>2 boons</strong> to Albert's
-        attack roll.</p><p>These two boons upgrade the first die in the
-        <strong>3d8</strong> dice pool twice, from a <strong>d8</strong> to a
-        <strong>d12</strong>, resulting in a dice pool of <strong>1d12 + 1d8 +
-        1d8</strong>.</p></section><p>Boons or banes resulting from
+        his blade and slashes down upon the unwelcome guest while his first mate
+        closes in from the other side. Striking a @Condition[prone] creature in
+        melee confers <strong>1 boon</strong> to Albert's attack roll, and the
+        pirate, beset by both sailors, is also @Condition[flanked] 1, which
+        confers another <strong>1 boon</strong>.</p><p>These two boons upgrade
+        the first die in the <strong>3d8</strong> dice pool twice, from a
+        <strong>d8</strong> to a <strong>d12</strong>, resulting in a dice pool
+        of <strong>1d12 + 1d8 + 1d8</strong>.</p></section><p>Boons or banes
+        resulting from
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleConditio]{Conditions}
         like Prone will be handled automatically by layers of automation in the
         Crucible software, but additional boons may always be awarded by the

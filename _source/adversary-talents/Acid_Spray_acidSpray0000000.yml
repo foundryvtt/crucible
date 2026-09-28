@@ -49,7 +49,6 @@ system:
             regions: []
             summons: []
       tags:
-        - melee
         - natural
         - reflex
         - acid

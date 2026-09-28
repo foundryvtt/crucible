@@ -10,11 +10,11 @@ system:
     - id: intimidate
       name: Intimidate
       description: >-
-        <p>You physically intimidate an enemy that is within your engagement
-        range, performing an <strong>Intimidation</strong>
-        <strong>Skill</strong> attack against your target's passive
-        <strong>Intimidation</strong> defense. On a success, they sustain
-        <strong>Void</strong> damage to their <strong>Morale</strong>.</p>
+        <p>You bring your intimidating presence to bear upon an enemy within 30
+        feet, performing an @Rule[skill.intimidation] @Rule[action.skill] attack
+        against your target's passive @Rule[skill.intimidation] defense. On a
+        success, they sustain @Rule[action.void] damage to their
+        @Rule[resource.morale].</p>
       tags:
         - void
         - morale
@@ -29,14 +29,14 @@ system:
       target:
         type: single
         number: 1
-        scope: 0
+        scope: 3
         self: false
       effects: []
       img: icons/magic/death/skull-humanoid-crown-white-blue.webp
       condition: ''
       range:
         minimum: null
-        maximum: null
+        maximum: 30
         weapon: false
       summon: null
   nodes:

@@ -230,13 +230,21 @@ export function migrateTalentGrants(source) {
   if ( !source.talents?.length ) return;
   source.talents = source.talents.reduce((arr, t) => {
     const grant = typeof t === "string" ? {item: t, level: null} : t;
-    const id = grant.item?.split(".").pop();
-    if ( id in TALENT_ID_MIGRATIONS ) {
-      const target = TALENT_ID_MIGRATIONS[id];
-      if ( !target ) return arr; // Retired without replacement
-      grant.item = target;
-    }
+    grant.item = migrateTalentUuid(grant.item);
     if ( grant.item ) arr.push(grant);
     return arr;
   }, []);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Apply {@link TALENT_ID_MIGRATIONS} to a talent UUID.
+ * @param {string} uuid         The talent UUID
+ * @returns {string|null}       The migrated UUID, or null if the talent was retired without replacement
+ */
+export function migrateTalentUuid(uuid) {
+  const id = uuid?.split(".").pop();
+  if ( id in TALENT_ID_MIGRATIONS ) return TALENT_ID_MIGRATIONS[id];
+  return uuid || null;
 }

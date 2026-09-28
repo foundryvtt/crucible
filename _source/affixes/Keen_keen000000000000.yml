@@ -21,7 +21,7 @@ img: icons/skills/melee/strike-blade-scimitar-blue-red.webp
 disabled: false
 start: null
 description: >-
-  <p>Reduce the <strong>Critical Threshold</strong> needed to obtain a
+  <p>Reduce the <strong>Critical Success Threshold</strong> needed to obtain a
   <strong>Critical Hit</strong> on a successful <strong>Strike</strong>. This
   threshold is reduced by 1 for each <strong>Tier</strong> of this affix.</p>
 origin: null

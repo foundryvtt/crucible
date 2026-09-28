@@ -149,7 +149,7 @@ HOOKS.vicious = {
           event.effects.push(SYSTEM.EFFECTS.bleeding(this, {damageType: dt}));
           break;
         }
-        else if ( (dt === "bludgeoning") && action.tags.has("melee") ) {
+        else if ( (dt === "bludgeoning") && !event.weaponItem.config.category.ranged ) {
           event.effects.push(SYSTEM.EFFECTS.staggered(this));
           break;
         }

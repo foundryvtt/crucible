@@ -64,6 +64,36 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   }
 
   /* -------------------------------------------- */
+  /*  Illumination                                */
+  /* -------------------------------------------- */
+
+  /**
+   * Is the center of this Token exposed to bright light?
+   * @returns {boolean}
+   */
+  isFullyIlluminated() {
+    if ( !this.rendered ) return true; // Lighting is only known for the viewed Scene
+    const point = this.getCenterPoint();
+    if ( canvas.effects.testInsideDarkness(point) ) return false;
+
+    // Global illumination is bright light within its configured range of darkness levels
+    const globalLight = canvas.environment.globalLightSource;
+    if ( globalLight.active ) {
+      const {min, max} = globalLight.data.darkness;
+      const darknessLevel = canvas.effects.getDarknessLevel(point);
+      if ( (darknessLevel >= min) && (darknessLevel <= max) ) return true;
+    }
+
+    // A point light only brightens the point within its bright radius
+    for ( const source of canvas.effects.lightSources ) {
+      if ( !source.active || (source === globalLight) ) continue;
+      if ( Math.hypot(point.x - source.data.x, point.y - source.data.y) > source.data.bright ) continue;
+      if ( source.testPoint(point) ) return true;
+    }
+    return false;
+  }
+
+  /* -------------------------------------------- */
   /*  Database Operations                         */
   /* -------------------------------------------- */
 

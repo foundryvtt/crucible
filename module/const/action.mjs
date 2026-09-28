@@ -510,9 +510,11 @@ export const TAGS = {
     },
     preActivate() {
       const item = this.usage.consumable;
+      const uses = this.usage.consumeUses ?? 1;
+      if ( !uses ) return;
       const updateEvent = this.selfUpdateEvent;
       updateEvent.itemSnapshots.push(item.snapshot());
-      updateEvent.actorUpdates.items.push(item.system.consume(1, {save: false}));
+      updateEvent.actorUpdates.items.push(item.system.consume(uses, {save: false}));
     }
   },
 
@@ -556,18 +558,15 @@ export const TAGS = {
       this.usage.context.tags.gesture = _loc("SPELL.COMPONENTS.GestureSpecific", {gesture: this.gesture.name});
       if ( this.inflection ) this.usage.context.tags.inflection = _loc("SPELL.COMPONENTS.InflectionSpecific", {inflection: this.inflection.name});
       this.usage.actorFlags.lastSpell = this.id;
-      const isSelf = this.gesture.target.type === "self";
-      this.usage.isAttack = !isSelf;
-      this.usage.isRanged = !isSelf && (this.range.maximum > 1);
     },
     configureVFX(vfxConfig) {
-      return crucible.api.canvas.vfx.spells.configureSpellVFXEffect(this, vfxConfig);
+      return crucible.api.canvas.vfx.spells.configureEffect(this, vfxConfig);
     },
     resolveVFX(vfxEffect, references) {
-      crucible.api.canvas.vfx.spells.resolveSpellVFXReferences(this, vfxEffect, references);
+      crucible.api.canvas.vfx.spells.resolveEffect(this, vfxEffect, references);
     },
     finalizeVFX(vfxEffect, references) {
-      crucible.api.canvas.vfx.spells.finalizeSpellVFXEffect(this, vfxEffect, references);
+      crucible.api.canvas.vfx.spells.finalizeEffect(this, vfxEffect, references);
     }
   },
 
@@ -698,17 +697,11 @@ export const TAGS = {
       this.usage.weapon ??= strikes[0];
 
       // Record usage properties
-      const isSelf = this.target.type === "self";
       this.usage.hasDice = true;
-      this.usage.isAttack = !isSelf; // Self-target actions do not count as attacks, even if they make attack rolls
-      if ( this.tags.has("ranged") ) {
-        if ( strikes.every(w => w.config.category.ranged) ) this.usage.isRanged = this.usage.isAttack;
-        else this.tags.delete("ranged");
-      }
-      if ( this.tags.has("melee") ) {
-        if ( strikes.every(w => !w.config.category.ranged) ) this.usage.isMelee = this.usage.isAttack;
-        else this.tags.delete("melee");
-      }
+
+      // Melee and ranged tags require a certain category of weapon
+      if ( this.tags.has("ranged") && !strikes.every(w => w.config.category.ranged) ) this.tags.delete("ranged");
+      if ( this.tags.has("melee") && !strikes.every(w => !w.config.category.ranged) ) this.tags.delete("melee");
       this.usage.defenseType ??= "physical";
 
       // Prepare cost and range for the base strike sequence
@@ -750,11 +743,6 @@ export const TAGS = {
           this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
         }
       }
-
-      // Record actor status flags
-      if ( this.usage.isAttack ) this.usage.actorStatus.hasAttacked = true;
-      if ( this.usage.isMelee ) this.usage.actorStatus.meleeAttack = true;
-      if ( this.usage.isRanged ) this.usage.actorStatus.rangedAttack = true;
     },
     acquireTargets(targets) {
       const weapon = this.usage.strikes[0];
@@ -918,7 +906,7 @@ export const TAGS = {
     category: "attack",
     label: "ACTION.TAG.Natural",
     tooltip: "ACTION.TAG.NaturalTooltip",
-    propagate: ["melee"],
+    propagate: ["strike"],
     priority: 9,
     canUse() {
       if ( !this.usage.strikes.length || !this.usage.strikes.every(w => w.system.properties.has("natural")) ) {
@@ -943,6 +931,9 @@ export const TAGS = {
       this.usage.defenseType ??= "physical";
       this.usage.bonuses.ability = this.usage.danger;
       this.usage.bonuses.base = 1;
+    },
+    configure() {
+      this.target.isAttack = false; // An environmental hazard is not an attack made by a creature
     },
     async roll(target) {
       const n = this.target.multiple ?? 1;
@@ -1220,6 +1211,7 @@ export const TAGS = {
     tooltip: "ACTION.TAG.MovementTooltip",
     category: "movement",
     canUse() {
+      if ( this.usage.movement.ignoreRestrained ) return;
       if ( this.actor.statuses.has("restrained") ) throw new Error(_loc("ACTION.WARNINGS.Restrained"));
     },
     prepare() {

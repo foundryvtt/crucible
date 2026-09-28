@@ -160,14 +160,14 @@ pages:
         damage-over-time, however, can have the effects of that indirect damage
         reduced to zero by Resistance.</p><h2 class="divider">Critical Hits and
         Misses</h2><p>If the Attack Roll exceeds the Defense Score by an amount
-        greater than the attacker's Critical Hit Threshold (6 in most cases) it
-        becomes a <strong>Critical Hit</strong>. Similarly if the Attack Roll is
-        lower than the Defense Score by an amount greater than the attacker's
-        Critical Miss Threshold (6 in most cases) it becomes a <strong>Critical
-        Miss</strong>.</p><p>A Critical Hit does not directly increase the
-        damage of an attack - although because of the way that Overflow
-        contributes to total damage, Critical Hits always deal more damage than
-        normal hits.</p><p>Critical Hits and Critical Misses present
+        greater than the attacker's Critical Success Threshold (6 in most cases)
+        it becomes a <strong>Critical Hit</strong>. Similarly if the Attack Roll
+        is lower than the Defense Score by an amount greater than the attacker's
+        Critical Failure Threshold (6 in most cases) it becomes a
+        <strong>Critical Miss</strong>.</p><p>A Critical Hit does not directly
+        increase the damage of an attack - although because of the way that
+        Overflow contributes to total damage, Critical Hits always deal more
+        damage than normal hits.</p><p>Critical Hits and Critical Misses present
         opportunities for other things to occur. Many talents allow your
         character to cause special effects when achieving a Critical Hit, or to
         react to an enemy if an incoming attack is a Critical Miss.</p><section

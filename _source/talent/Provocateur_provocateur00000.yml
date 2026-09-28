@@ -23,6 +23,7 @@ system:
         - morale
         - skill
         - performance
+        - vocal
       cost:
         action: 1
         focus: 1
@@ -60,7 +61,7 @@ system:
       img: icons/magic/control/mouth-smile-deception-purple.webp
       range:
         minimum: null
-        maximum: null
+        maximum: 30
         weapon: false
       summon: null
   nodes:

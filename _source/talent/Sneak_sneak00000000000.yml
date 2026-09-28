@@ -64,6 +64,7 @@ system:
             dc: null
             properties: []
       tags:
+        - harmless
         - subtle
         - skill
         - stealth

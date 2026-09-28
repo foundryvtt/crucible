@@ -58,7 +58,9 @@ system:
   movement:
     size: 4
     stride: 10
-  talents: []
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: null
   identifier: hobgoblin
 effects: []
 folder: XE2BjE0vCGKPdZU7

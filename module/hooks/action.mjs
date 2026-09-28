@@ -286,7 +286,7 @@ HOOKS.bodyBlock = {
     const listFormatter = new Intl.ListFormat(game.i18n.lang, {style: "long", type: "disjunction"});
     const validDefenses = listFormatter.format(validResultTypes.map(r => _loc(RESULT_TYPE_LABELS[r])));
     const invalidError = _loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: this.name, defense: validDefenses});
-    if ( !targetAction?.tags.has("melee") ) {
+    if ( !targetAction?.target.isAttack || (targetAction.range.category !== "melee") ) {
       throw new Error(invalidError);
     }
     const myEvents = targetAction.eventsByActor.get(this.actor);
@@ -303,11 +303,45 @@ HOOKS.bodyBlock = {
 /* -------------------------------------------- */
 
 HOOKS.bullrush = {
-  prepare() {
-    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
-    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
+  /**
+   * Create hooks for an action which moves through the space of one other creature: an ally lets you pass freely,
+   * while an enemy contests your passage and a failed attack against it cancels the movement.
+   * @param {number} strides      The movement budget as a multiple of the actor's Stride
+   * @returns {object}
+   */
+  _passThroughCreature(strides) {
+    const isAlly = (action, target) => {
+      return action.actor.getDispositionTowards(target) === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+    };
+    return {
+      prepare() {
+        this.range.maximum = this.actor.system.movement.stride * strides;
+        // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
+        this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
+        this.usage.movement.targeting = "path";
+      },
+      acquireTargets(targets) {
+        for ( const target of targets.slice(1) ) target.error ||= _loc("ACTION.WARNINGS.PassThroughMaxOne");
+      },
+      configure() {
+        const [target] = this.targets.keys();
+        if ( target && isAlly(this, target) ) this.target.isAttack = false;
+      },
+      preActivate() {
+        for ( const target of this.targets.keys() ) {
+          if ( isAlly(this, target) ) this.targets.delete(target);
+        }
+      },
+      postActivate() {
+        const contests = Array.from(this.eventsByTarget.values()).filter(group => group.hasRoll);
+        if ( !contests.length || contests.some(group => group.isSuccess) ) return;
+        const i = this.events.findIndex(event => (event.type === "movement") && (event.target === this.actor));
+        if ( i >= 0 ) this.negate(this.events[i - 1], this.events[i]);
+      }
+    };
   }
 };
+Object.assign(HOOKS.bullrush, HOOKS.bullrush._passThroughCreature(1));
 
 /* -------------------------------------------- */
 
@@ -321,7 +355,8 @@ HOOKS.bullrush = {
 function _canUsePostDefend(action, {requiredResult}) {
   const lastAction = ChatMessage.implementation.getLastAction();
   const rolls = lastAction?.eventsByTarget.get(action.actor)?.roll ?? [];
-  if ( !lastAction?.tags.has("melee") || !rolls.some(r => r.roll.data.result === requiredResult) ) {
+  if ( !lastAction?.target.isAttack || (lastAction.range.category !== "melee")
+    || !rolls.some(r => r.roll.data.result === requiredResult) ) {
     const resultLabel = _loc(crucible.api.dice.AttackRoll.RESULT_TYPE_LABELS[requiredResult]);
     throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: action.name, defense: resultLabel}));
   }
@@ -692,7 +727,7 @@ HOOKS.evasiveShot = {
   },
   canUse() {
     const lastAction = this.actor.lastConfirmedAction;
-    if ( !lastAction?.tags.has("ranged") ) {
+    if ( !lastAction?.target.isAttack || (lastAction.range.category !== "ranged") || !lastAction.tags.has("strike") ) {
       throw new Error(_loc("ACTION.WARNINGS.MustFollowRanged", {action: this.name}));
     }
   },
@@ -1107,7 +1142,8 @@ HOOKS.healingTonic = {
 HOOKS.horrificCritical = {
   canUse() {
     const lastAction = this.actor.lastConfirmedAction;
-    if ( !lastAction?.tags.has("melee") || !lastAction?.events.some(e => (e.type === "strike") && e.isCriticalSuccess) ) {
+    if ( !lastAction?.target.isAttack || (lastAction.range.category !== "melee")
+      || !lastAction.events.some(e => (e.type === "strike") && e.isCriticalSuccess) ) {
       throw new Error(_loc("ACTION.WARNINGS.LastNotMeleeCrit", {action: this.name}));
     }
   }
@@ -2255,8 +2291,8 @@ HOOKS.ruthlessMomentum = {
   },
   canUse() {
     const lastAction = ChatMessage.implementation.getLastAction({confirmed: true, actor: this.actor});
-    if ( (lastAction?.actor !== this.actor) || !lastAction.tags.has("melee")
-      || !lastAction.events.some(e => (e.type === "strike") && e.target.isIncapacitated) ) {
+    if ( (lastAction?.actor !== this.actor) || !lastAction.target.isAttack || (lastAction.range.category !== "melee")
+      || !Array.from(lastAction.eventsByTarget.keys()).some(t => t.isIncapacitated) ) {
       throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeKill", {action: this.name}));
     }
   }
@@ -2602,12 +2638,7 @@ HOOKS.tramplingCharge = {
 
 /* -------------------------------------------- */
 
-HOOKS.tumble = {
-  prepare() {
-    // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
-    this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
-  }
-};
+HOOKS.tumble = HOOKS.bullrush._passThroughCreature(2);
 
 /* -------------------------------------------- */
 
@@ -2670,26 +2701,13 @@ HOOKS.vampiricBite = {
 
 HOOKS.vaultingSweep = {
   prepare() {
-    const reach = this.actor.equipment.weapons.mainhand?.system.range ?? 1;
-    this.range.maximum = this.actor.system.movement.stride + reach;
-    this.target.size = Math.ceil(this.actor.size / 2) + reach;
-  },
-  async preActivate() {
-    const center = this.region?.shapes[0];
-    if ( !this.token || !center ) return;
-    const gridSize = canvas.grid.size;
-    const waypoint = {
-      x: center.x - ((this.token.width * gridSize) / 2),
-      y: center.y - ((this.token.height * gridSize) / 2),
-      action: "jump"
-    };
-    const plan = await crucible.api.canvas.movement.createMovementPlan(this.token, [waypoint],
-      {constrainOptions: {crucible: {movementStrength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL}}});
-    if ( !plan ) return;
-    plan.cost = 0;
-    // The movement event's `movement` must be {id, origin}; confirm-time enactment reads event.movement.id
-    const {x, y, elevation} = plan.origin;
-    this.recordEvent({type: "movement", target: this.actor, movement: {id: plan.id, origin: {x, y, elevation}}});
+    const stride = this.actor.system.movement.stride;
+    Object.assign(this.range, {minimum: Math.ceil(stride / 2), maximum: stride});
+    Object.assign(this.usage.movement, {
+      action: "jump",
+      strength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL,
+      targeting: "destination" // Strike only creatures where you land
+    });
   }
 };
 

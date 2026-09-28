@@ -59,7 +59,9 @@ system:
         discovery. The traditions of your people embrace a lust for life and the
         importance of quick-thinking and quick-action.</p>
       identifier: gnome
-      talents: []
+      talents:
+        - item: Compendium.crucible.ancestry.Item.gnomeLineage0000
+          level: null
       ui:
         color: '#afa2c3'
       abilities:
@@ -332,6 +334,8 @@ items:
             - harmless
             - rallying
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: talisman
       nodes:
@@ -344,9 +348,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671570
-      modifiedTime: 1789677671570
+      systemVersion: 0.11.1
+      createdTime: 1790471167525
+      modifiedTime: 1790471167525
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -381,10 +385,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671571
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167526
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671571
+      createdTime: 1790471167526
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -448,6 +452,8 @@ items:
             other uses similar those above, the effectiveness of which is
             decided by the Gamemaster.</p>
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: soul
       nodes:
         - pre0b
@@ -461,9 +467,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671571
-      modifiedTime: 1789677671571
+      systemVersion: 0.11.1
+      createdTime: 1790471167526
+      modifiedTime: 1790471167526
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -527,6 +533,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: frost
       nodes:
         - wis0b
@@ -540,9 +548,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671571
-      modifiedTime: 1789677671571
+      systemVersion: 0.11.1
+      createdTime: 1790471167526
+      modifiedTime: 1790471167526
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -588,10 +596,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671573
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167526
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671573
+      createdTime: 1790471167526
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -663,12 +671,15 @@ items:
                 properties: []
                 regions: []
                 summons: []
+                lights: []
           img: icons/magic/control/mouth-smile-deception-purple.webp
           range:
             minimum: null
             maximum: null
             weapon: false
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - pre0a
       iconicSpells: 0
@@ -681,10 +692,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671573
-      modifiedTime: 1789677671573
+      createdTime: 1790471167527
+      modifiedTime: 1790471167527
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -719,10 +730,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671573
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167527
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671573
+      createdTime: 1790471167527
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -757,10 +768,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671573
-      modifiedTime: 1789677671573
+      createdTime: 1790471167527
+      modifiedTime: 1790471167527
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -829,10 +840,13 @@ items:
                 properties: []
                 regions: []
                 summons: []
+                lights: []
           tags:
             - talisman
             - ranged
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - pre3a
       iconicSpells: 0
@@ -844,10 +858,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671574
-      modifiedTime: 1789677671574
+      createdTime: 1790471167527
+      modifiedTime: 1790471167527
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -882,10 +896,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671574
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167527
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671574
+      createdTime: 1790471167527
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -934,6 +948,8 @@ items:
             - talisman
             - ranged
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - pre1a
       iconicSpells: 0
@@ -945,10 +961,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671574
-      modifiedTime: 1789677671574
+      createdTime: 1790471167528
+      modifiedTime: 1790471167528
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -981,10 +997,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671574
-      modifiedTime: 1789677671574
+      createdTime: 1790471167528
+      modifiedTime: 1790471167528
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1065,7 +1081,10 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 2
       nodes:
         - sig3.wisdom.presence
@@ -1079,9 +1098,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671575
-      modifiedTime: 1789677671575
+      systemVersion: 0.11.1
+      createdTime: 1790471167528
+      modifiedTime: 1790471167528
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1153,6 +1172,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: kinesis
       nodes:
         - pre0b
@@ -1166,9 +1187,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671575
-      modifiedTime: 1789677671575
+      systemVersion: 0.11.1
+      createdTime: 1790471167528
+      modifiedTime: 1790471167528
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1207,10 +1228,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671575
-      modifiedTime: 1789677671575
+      createdTime: 1790471167528
+      modifiedTime: 1790471167528
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1275,6 +1296,7 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
               duration:
                 value: null
                 units: ''
@@ -1285,6 +1307,8 @@ items:
             - ranged
             - maintained
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - pre4b
       iconicSpells: 0
@@ -1296,10 +1320,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677671575
-      modifiedTime: 1789677671575
+      createdTime: 1790471167529
+      modifiedTime: 1790471167529
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1348,9 +1372,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671575
-      modifiedTime: 1789677671575
+      systemVersion: 0.11.1
+      createdTime: 1790471167529
+      modifiedTime: 1790471167529
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1382,9 +1406,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671576
-      modifiedTime: 1789677671576
+      systemVersion: 0.11.1
+      createdTime: 1790471167529
+      modifiedTime: 1790471167529
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1446,6 +1470,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: flame
       nodes:
         - int0a
@@ -1459,9 +1485,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671576
-      modifiedTime: 1789677671576
+      systemVersion: 0.11.1
+      createdTime: 1790471167529
+      modifiedTime: 1790471167529
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1500,10 +1526,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671576
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167530
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671576
+      createdTime: 1790471167530
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1514,7 +1540,7 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!lP2MOJyk5oHs6oSS.rimecaller000000'
-  - name: Fine Ice Staff
+  - name: Ice Staff
     type: weapon
     img: icons/weapons/staves/staff-ornate-engraved-blue.webp
     system:
@@ -1543,9 +1569,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671576
-      modifiedTime: 1789677671576
+      systemVersion: 0.11.1
+      createdTime: 1790471167530
+      modifiedTime: 1790471167530
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1557,7 +1583,7 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!lP2MOJyk5oHs6oSS.SjdMWF0cT3nk5grD'
-  - name: Fine Studded Leather Armor
+  - name: Studded Leather Armor
     type: armor
     img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
     effects: []
@@ -1586,9 +1612,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671577
-      modifiedTime: 1789677671577
+      systemVersion: 0.11.1
+      createdTime: 1790471167530
+      modifiedTime: 1790471167530
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1625,10 +1651,12 @@ items:
           reserve of <strong>Focus</strong> that can be drawn upon in moments of
           duress.</p>
         private: >-
-          <p>This item is presented as an example of a Fine Pearl with the
+          <p>This item is presented as an example of a <strong>Fine</strong>
+          trinket with the
           @UUID[Compendium.crucible.affixes.ActiveEffect.focusing00000000]{Focusing}
           prefix.</p><p>This affix can be applied to any accessory and this
-          pearl could be further enchanted with a Tier 1 suffix.</p>
+          pearl could be further enchanted with a <strong>Tier 1
+          Suffix</strong>.</p>
       actions: []
     effects:
       - name: Focusing
@@ -1680,6 +1708,8 @@ items:
               effects: []
               tags: []
               summon: null
+              persistRegion: false
+              regionBehavior: null
           properties: []
         _id: focusing00000000
         img: icons/magic/control/orb-web-hold.webp
@@ -1701,9 +1731,9 @@ items:
         _stats:
           coreVersion: '14.368'
           systemId: crucible
-          systemVersion: 0.10.2
-          createdTime: 1789677671577
-          modifiedTime: 1789677671577
+          systemVersion: 0.11.1
+          createdTime: 1790471167531
+          modifiedTime: 1790471167531
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1716,9 +1746,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671577
-      modifiedTime: 1789677671577
+      systemVersion: 0.11.1
+      createdTime: 1790471167530
+      modifiedTime: 1790471167530
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1798,9 +1828,9 @@ items:
         _stats:
           coreVersion: '14.368'
           systemId: crucible
-          systemVersion: 0.10.2
-          createdTime: 1789677671578
-          modifiedTime: 1789677671578
+          systemVersion: 0.11.1
+          createdTime: 1790471167532
+          modifiedTime: 1790471167532
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1811,9 +1841,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671578
-      modifiedTime: 1789677671578
+      systemVersion: 0.11.1
+      createdTime: 1790471167531
+      modifiedTime: 1790471167531
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1895,9 +1925,12 @@ items:
                 regions: []
                 summons: []
                 dc: null
+                lights: []
                 properties: []
           tags:
             - consume
+          persistRegion: false
+          regionBehavior: null
       uses:
         value: 1
         max: 1
@@ -1912,9 +1945,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671579
-      modifiedTime: 1789677671579
+      systemVersion: 0.11.1
+      createdTime: 1790471167532
+      modifiedTime: 1790471167532
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1957,13 +1990,15 @@ items:
             <strong>Morale</strong> dependent on the quality of the
             tonic.</p><ul><li><p><strong>Shoddy</strong> - Heals 2
             <strong>Morale</strong> each
-            Round</p></li><li><p><strong>Standard</strong> - Heals 4
-            <strong>Morale</strong> each Round</p></li><li><p><strong>Fine
-            </strong>- Heals 8 <strong>Morale </strong>each
-            Round</p></li><li><p><strong>Superior</strong> - Heals 16
-            <strong>Morale</strong> each
-            Round</p></li><li><p><strong>Masterwork</strong> - Heals 32
-            <strong>Morale</strong> each Round</p></li></ul>
+            <strong>Round</strong></p></li><li><p><strong>Standard</strong> -
+            Heals 4 <strong>Morale</strong> each
+            <strong>Round</strong></p></li><li><p><strong>Fine </strong>- Heals
+            8 <strong>Morale </strong>each
+            <strong>Round</strong></p></li><li><p><strong>Superior</strong> -
+            Heals 16 <strong>Morale</strong> each
+            <strong>Round</strong></p></li><li><p><strong>Masterwork</strong> -
+            Heals 32 <strong>Morale</strong> each
+            <strong>Round</strong></p></li></ul>
           cost:
             action: 2
             focus: 0
@@ -2001,10 +2036,13 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
           tags:
             - consume
             - rallying
           summon: null
+          persistRegion: false
+          regionBehavior: null
       uses:
         value: 1
         max: 1
@@ -2017,9 +2055,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671579
-      modifiedTime: 1789677671579
+      systemVersion: 0.11.1
+      createdTime: 1790471167532
+      modifiedTime: 1790471167532
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2088,6 +2126,8 @@ items:
             - consume
             - healing
           summon: null
+          persistRegion: false
+          regionBehavior: null
       uses:
         value: 1
         max: 1
@@ -2100,9 +2140,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677671579
-      modifiedTime: 1789677671579
+      systemVersion: 0.11.1
+      createdTime: 1790471167532
+      modifiedTime: 1790471167532
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2155,6 +2195,8 @@ items:
             maximum: null
             weapon: false
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - wis1a
       iconicSpells: 0
@@ -2167,10 +2209,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677671569
+      systemVersion: 0.11.1
+      modifiedTime: 1790471167533
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677671569
+      createdTime: 1790471167533
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -2181,6 +2223,91 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!lP2MOJyk5oHs6oSS.assessResolve000'
+  - name: Gnome Lineage
+    type: talent
+    img: icons/commodities/tech/cog-brass.webp
+    system:
+      nodes:
+        - origin
+      description: >-
+        <p>A gnome's knack for improvisation lets you coax just a little more
+        out of the tools and concoctions you carry.</p><p><strong>Tinker's
+        Belt.</strong> Your cleverly arranged gear keeps more within reach. You
+        have <strong>+1</strong> toolbelt slot.</p>
+      actions:
+        - id: tinkersTrick
+          name: Tinker's Trick
+          img: icons/commodities/tech/cog-brass.webp
+          condition: ''
+          description: >-
+            <p>You expend @Rule[resource.heroism] to ready a clever trick. The
+            next consumable you use from your toolbelt before the end of your
+            turn costs no @Rule[resource.action] and is not consumed.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - name: Tinker's Trick
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: turnEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+                lights: []
+          tags: []
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: deception
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _id: gnomeLineage0000
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790471167525
+      modifiedTime: 1790471167525
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.gnomeLineage0000'
 effects: []
 flags:
   core: {}
@@ -2277,9 +2404,9 @@ flags:
 _stats:
   coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.11.0
-  createdTime: 1789677671569
-  modifiedTime: 1789677671569
+  systemVersion: 0.11.1
+  createdTime: 1790471167525
+  modifiedTime: 1790471167525
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

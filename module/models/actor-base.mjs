@@ -23,7 +23,6 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @property {CrucibleItem[]} toolbelt
  * @property {number} accessorySlots
  * @property {number} toolbeltSlots
- * @property {boolean} canFreeMove
  * @property {boolean} unarmored
  */
 
@@ -136,7 +135,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     schema.movement = new fields.SchemaField({
       sizeBonus: new fields.NumberField({...requiredInteger, initial: 0}),
       strideBonus: new fields.NumberField({...requiredInteger, initial: 0}),
-      engagementBonus: new fields.NumberField({...requiredInteger, initial: 0}),
+      engagementBonus: new fields.NumberField({...requiredInteger, initial: 0}), // A count of enemies, not a distance
       grappleBonus: new fields.NumberField({...requiredInteger, initial: 0, persisted: false}),
       blockerStrength: new fields.NumberField({...requiredInteger, initial: 0, persisted: false})
     });
@@ -268,7 +267,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @returns {boolean}
    */
   get hasFreeMove() {
-    return this.equipment.canFreeMove && !this.parent.status.hasMoved;
+    return this.movement.canFreeMove && !this.parent.status.hasMoved;
   }
 
   /**
@@ -549,9 +548,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareToolbelt", toolbelt);
 
     // Additional data
-    const canFreeMove = this.#canFreeMove(armor);
     const unarmored = armor.system.category === "unarmored";
-    Object.assign(this.equipment, {armor, weapons, accessories, toolbelt, canFreeMove, unarmored});
+    Object.assign(this.equipment, {armor, weapons, accessories, toolbelt, unarmored});
+    this.movement.freeMoveBlockers = this.#prepareFreeMoveBlockers(armor);
   }
 
   /* -------------------------------------------- */
@@ -617,15 +616,20 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Determine whether the Actor is able to use a free move once per round.
-   * @param {CrucibleItem} armor    The equipped Armor item.
-   * @returns {boolean}             Can the Actor use a free move?
+   * Declare reasons why the Actor may be ineligible to use a free move for the round, keyed by cause.
+   * Each value names a localization key that describes the blocking reason. Values may be left blank to un-block.
+   * Talents may waive (or declare) certain blockers in the prepareMovement hook.
+   * @param {CrucibleItem} armor                    The equipped Armor item
+   * @returns {Record<string, string>}              Free move blocking reasons
    */
-  #canFreeMove(armor) {
-    if ( this.isWeakened ) return false;
+  #prepareFreeMoveBlockers(armor) {
     const statuses = this.parent.statuses;
-    if ( statuses.has("prone") || statuses.has("slowed") ) return false;
-    return (armor.system.category !== "heavy") || this.talentIds.has("armoredefficienc");
+    return {
+      weakened: this.isWeakened ? "ACTIVE_EFFECT.STATUSES.Weakened" : "",
+      prone: statuses.has("prone") ? "ACTIVE_EFFECT.STATUSES.Prone" : "",
+      slowed: statuses.has("slowed") ? "ACTIVE_EFFECT.STATUSES.Slowed" : "",
+      heavyArmor: armor.system.category === "heavy" ? "ARMOR.CATEGORIES.Heavy" : ""
+    };
   }
 
   /* -------------------------------------------- */
@@ -815,7 +819,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Training, resolved before defenses because armor proficiency alters the dodge scaling threshold
     this.parent.callActorHooks("prepareTraining", this.training);
-    this.#prepareFinalTraining();
+    this._prepareFinalTraining();
 
     // Resource pools
     this.#prepareBaseResources();
@@ -891,6 +895,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareBaseMovement() {
     const m = this.movement;
     m.baseEngagement = 1;
+    m.costMultipliers = {};
   }
 
   /* -------------------------------------------- */
@@ -905,11 +910,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     m.size = m.baseSize + m.sizeBonus;
     m.stride = m.free = m.baseStride + m.strideBonus;
 
-    // Engagement
+    // Engagement: the number of enemies which may engage this creature before it counts as flanked, not a distance
     const {mainhand, offhand} = this.parent.equipment.weapons;
     if ( mainhand && mainhand.system.properties.has("engaging") ) m.engagementBonus += 1;
     if ( offhand && offhand.system.properties.has("engaging") ) m.engagementBonus += 1;
     m.engagement = m.baseEngagement + m.engagementBonus;
+
+    // Free move eligibility
+    m.canFreeMove = !Object.values(m.freeMoveBlockers).some(Boolean);
   }
 
   /* -------------------------------------------- */
@@ -1116,8 +1124,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Total the training point contributions and resolve the rank each total attains.
+   * @protected
    */
-  #prepareFinalTraining() {
+  _prepareFinalTraining() {
     const ranks = Object.values(SYSTEM.PROFICIENCY.RANKS); // Ascending by points required
     const cap = this.details.progression.trainingCap;
     for ( const [id, t] of Object.entries(this.training) ) {

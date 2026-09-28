@@ -323,7 +323,7 @@
       "IconicSpell": "Iconic Spell",
       "IconicSpellTooltip": "This action is an Iconic Spell learned through mastery of its components.",
       "Keen": "Keen",
-      "KeenTooltip": "This action is precise, lowering its critical hit threshold by 2 and making a Critical Hit more likely.",
+      "KeenTooltip": "This action is precise, lowering its Critical Success Threshold by 2 and making a Critical Hit more likely.",
       "MainHand": "Main-Hand",
       "MainHandTooltip": "This action utilizes your main-hand weapon to make an attack.",
       "Maintained": "Maintained",
@@ -516,6 +516,7 @@
       "NoViewedScene": "A viewed Scene is required to acquire targets for this action.",
       "OncePerRound": "You may only perform the {action} action once per round.",
       "OncePerTurn": "You may only perform the {action} action once per turn.",
+      "PassThroughMaxOne": "You may move through the space of only one other creature.",
       "ReactionUnaware": "You may not use a reaction while Unaware!",
       "RequiresAlchemistsToolkit": "You must have an Alchemist's Toolkit equipped in your Toolbelt.",
       "RequiresElementalCondition": "{target} does not suffer an elemental condition which this action can affect.",
@@ -590,6 +591,9 @@
     "Challenge": {
       "Dominance": "Dominance"
     },
+    "DeathlessFury": {
+      "CannotUse": "{name} can only enter a Deathless Fury while their Health does not exceed their Wounds."
+    },
     "FieldStudy": {
       "Effect": "Field Study: {knowledge}",
       "Label": "Topic of Study",
@@ -609,6 +613,9 @@
       "AlreadyGrappled": "{name} is already Grappled by another creature.",
       "AlreadyGrappling": "You are already Grappling another creature.",
       "TooLarge": "{name} is too large for you to Grapple."
+    },
+    "Grudgebearer": {
+      "Grudge": "Grudge: {target}"
     },
     "ImbueAffix": {
       "AffixLabel": "Affix",
@@ -994,6 +1001,11 @@
       "PointsGranted": "Trained",
       "PointsSpent": "Spent",
       "Resources": "Resources"
+    },
+    "SUBSTITUTION": {
+      "Confirm": "Choose Replacements",
+      "Hint": "Your Background grants Talents which your Ancestry also grants. Choose a replacement for each from the same node of the Talent Tree.",
+      "Title": "Duplicate Talent Grants"
     },
     "TABS": {
       "actions": "Actions",

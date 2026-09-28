@@ -60,7 +60,9 @@ system:
         people known most for their physical resilience and the deep well of
         their knowledge. You have inherited the strength of mountains.</p>
       identifier: giantkin
-      talents: []
+      talents:
+        - item: Compendium.crucible.ancestry.Item.giantkinLineage0
+          level: null
       ui:
         color: '#acd7dd'
       abilities:
@@ -295,10 +297,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677665412
-      modifiedTime: 1789677665412
+      createdTime: 1790471161400
+      modifiedTime: 1790471161400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -359,6 +361,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: life
       training: physical
       nodes:
@@ -372,9 +376,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677665412
-      modifiedTime: 1789677665412
+      systemVersion: 0.11.1
+      createdTime: 1790471161400
+      modifiedTime: 1790471161400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -424,6 +428,8 @@ items:
             weapon: false
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - int0b
       iconicSpells: 0
@@ -435,10 +441,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677665413
-      modifiedTime: 1789677665413
+      createdTime: 1790471161400
+      modifiedTime: 1790471161400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -486,6 +492,8 @@ items:
             weapon: true
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - dex0a
       iconicSpells: 0
@@ -495,10 +503,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677665413
-      modifiedTime: 1789677665413
+      createdTime: 1790471161401
+      modifiedTime: 1790471161401
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -535,10 +543,10 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      modifiedTime: 1789677665413
+      systemVersion: 0.11.1
+      modifiedTime: 1790471161401
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1789677665413
+      createdTime: 1790471161401
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -595,6 +603,8 @@ items:
           tags:
             - noncombat
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: wilderness
       spellcraft: ''
@@ -605,9 +615,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677665414
-      modifiedTime: 1789677665414
+      systemVersion: 0.11.1
+      createdTime: 1790471161401
+      modifiedTime: 1790471161401
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -649,9 +659,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789677665414
-      modifiedTime: 1789677665414
+      systemVersion: 0.11.1
+      createdTime: 1790471161401
+      modifiedTime: 1790471161401
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -686,10 +696,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789677665414
-      modifiedTime: 1789677665414
+      createdTime: 1790471161402
+      modifiedTime: 1790471161402
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -700,6 +710,96 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!z8PYWkq3bxce7vwb.unarmedblocking0'
+  - name: Giantkin Lineage
+    type: talent
+    img: icons/environment/wilderness/tree-oak.webp
+    system:
+      nodes:
+        - origin
+      description: >-
+        <p>The elemental forces which presided over your birth still answer when
+        you call upon them.</p><p><strong>Powerful Build.</strong> Your massive
+        frame bears burdens that would stagger others. Your carrying capacity is
+        increased by <strong>50%</strong>.</p>
+      actions:
+        - id: elementalBirthright
+          name: Elemental Birthright
+          img: icons/environment/wilderness/tree-oak.webp
+          condition: ''
+          description: >-
+            <p>You expend @Rule[resource.heroism] to call upon the elemental
+            forces of your birthright. Until the start of your next turn, you
+            gain resistance to <strong>Acid</strong>, <strong>Cold</strong>,
+            <strong>Electricity</strong>, and <strong>Fire</strong> damage equal
+            to your @Rule[ability.wisdom], and any <strong>Acid</strong>,
+            <strong>Cold</strong>, <strong>Electricity</strong>, or
+            <strong>Fire</strong> damage you deal is increased by your
+            @Rule[ability.wisdom].</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - name: Elemental Birthright
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+                lights: []
+          tags: []
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: elemental
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _id: giantkinLineage0
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790471161399
+      modifiedTime: 1790471161399
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!z8PYWkq3bxce7vwb.giantkinLineage0'
 effects: []
 flags:
   core: {}
@@ -707,10 +807,10 @@ flags:
     lastSpell: spell.life.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.11.0
+  systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1789677665411
-  modifiedTime: 1789677665411
+  createdTime: 1790471161399
+  modifiedTime: 1790471161399
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

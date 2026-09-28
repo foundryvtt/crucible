@@ -134,7 +134,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.cost = CrucibleSpellAction.#prepareCost.call(this);
       this.target = {...this.gesture.target};
       if ( this.rune.restoration && (this.target.type === "single") ) this.target.self = true;
-      this.range = this.gesture.range;
+      this.range = {...this.gesture.range};
       this._prepareRegionBehavior(); // The gesture supplies the target type, which super() resolved too early to see
       if ( this.composition >= STATES.COMPOSING ) {
         this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
@@ -295,12 +295,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.inflection ) this.tags.add(this._isInflectionSubtle() ? "subtle" : "vocal");
 
     super._prepare();
-
-    // Classify iconic attacks after super(), since the healing and rallying tags may assert restoration during it
-    if ( this.isIconic ) {
-      this.usage.isAttack = (this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF) && !this.usage.restoration;
-      this.usage.isRanged = this.usage.isAttack && (this.range.maximum > 1);
-    }
 
     // Add Weapon cost
     if ( this.cost.weapon ) {

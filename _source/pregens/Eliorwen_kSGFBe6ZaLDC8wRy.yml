@@ -59,8 +59,10 @@ system:
         inherited traits of a people for whom elegance is a way of life. Your
         predisposition toward quick-thinking and precise movement the
         evolutionary results of hundreds of years of tradition.</p>
-      identifier: elvish
-      talents: []
+      identifier: elf
+      talents:
+        - item: Compendium.crucible.ancestry.Item.elfLineage000000
+          level: null
       ui:
         color: '#51d277'
       abilities:
@@ -75,7 +77,7 @@ system:
       characteristics:
         blooded: true
         temperature: ''
-      name: Elvish
+      name: Elf
       img: icons/magic/nature/leaf-rune-glow-green.webp
     background:
       description: >-
@@ -298,10 +300,10 @@ items:
       slot: 0
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702075
-      modifiedTime: 1789656702075
+      createdTime: 1790471161426
+      modifiedTime: 1790471161426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -340,10 +342,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702076
-      modifiedTime: 1789656702076
+      createdTime: 1790471161426
+      modifiedTime: 1790471161426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -382,9 +384,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702076
-      modifiedTime: 1789656702076
+      systemVersion: 0.11.1
+      createdTime: 1790471161427
+      modifiedTime: 1790471161427
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -434,6 +436,8 @@ items:
             - ranged
             - difficult
           summon: null
+          persistRegion: false
+          regionBehavior: null
       iconicSpells: 0
       training: projectile
       nodes:
@@ -446,9 +450,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702077
-      modifiedTime: 1789656702077
+      systemVersion: 0.11.1
+      createdTime: 1790471161427
+      modifiedTime: 1790471161427
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -511,6 +515,8 @@ items:
             - spell
             - harmless
           summon: null
+          persistRegion: false
+          regionBehavior: null
       spellcraft: earth
       nodes:
         - wis0b
@@ -524,9 +530,9 @@ items:
     _stats:
       coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.10.2
-      createdTime: 1789656702077
-      modifiedTime: 1789656702077
+      systemVersion: 0.11.1
+      createdTime: 1790471161427
+      modifiedTime: 1790471161427
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -559,10 +565,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702077
-      modifiedTime: 1789656702077
+      createdTime: 1790471161428
+      modifiedTime: 1790471161428
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -624,6 +630,7 @@ items:
                 summons: []
                 dc: null
                 properties: []
+                lights: []
           name: Mark Prey
           img: icons/skills/targeting/crosshair-mark-rough-pink.webp
           condition: ''
@@ -632,6 +639,8 @@ items:
             weapon: true
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - dex1a
       iconicSpells: 0
@@ -644,10 +653,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702078
-      modifiedTime: 1789656702078
+      createdTime: 1790471161428
+      modifiedTime: 1790471161428
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -682,10 +691,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702078
-      modifiedTime: 1789656702078
+      createdTime: 1790471161429
+      modifiedTime: 1790471161429
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -738,6 +747,8 @@ items:
             weapon: false
             minimum: null
           summon: null
+          persistRegion: false
+          regionBehavior: null
       nodes:
         - dextou1
       iconicSpells: 0
@@ -750,10 +761,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.10.2
+      systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1789656702078
-      modifiedTime: 1789656702078
+      createdTime: 1790471161429
+      modifiedTime: 1790471161429
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -765,16 +776,102 @@ items:
       default: 0
       WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.tumblethrough000'
+  - name: Elf Lineage
+    type: talent
+    img: icons/magic/nature/leaf-rune-glow-green.webp
+    system:
+      nodes:
+        - origin
+      description: >-
+        <p>Centuries of elven tradition have honed your eye to find the flaw in
+        any defense.</p><p><strong>Trance.</strong> Rather than sleep, you rest
+        in a meditative trance which keeps your mind clear. You are immune to
+        the @Condition[asleep] and @Condition[disoriented] conditions.</p>
+      actions:
+        - id: perfectPrecision
+          name: Perfect Precision
+          img: icons/magic/nature/leaf-rune-glow-green.webp
+          condition: ''
+          description: >-
+            <p>You expend @Rule[resource.heroism] to strike with flawless
+            precision. Until the end of your turn, your
+            @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.lZfPVvBSsCEqlte4#critical-hits-and-misses]{Critical
+            Success Threshold} is reduced by <strong>3</strong>.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 1
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects:
+            - name: Perfect Precision
+              scope: 1
+              result:
+                type: any
+                all: false
+              statuses: []
+              duration:
+                value: null
+                units: ''
+                expiry: turnEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                dc: null
+                properties: []
+                lights: []
+          tags: []
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: awareness
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _id: elfLineage000000
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790471161425
+      modifiedTime: 1790471161425
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.elfLineage000000'
 effects: []
 flags:
   core: {}
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.11.0
+  systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1789656702073
-  modifiedTime: 1789656702073
+  createdTime: 1790471161425
+  modifiedTime: 1790471161425
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

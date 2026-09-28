@@ -488,6 +488,11 @@ export const HOOKS = Object.freeze({
     argNames: ["action", "origin", "rollData"],
     argLabels: ["item: CrucibleItem", "action: CrucibleAction", "origin: CrucibleActor", "rollData: object"]
   },
+  finalizeAttack: {
+    group: "TALENT.HOOKS.GroupAction",
+    argNames: ["action", "target", "rollData"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "target: CrucibleActor", "rollData: AttackRollData"]
+  },
   receiveAttack: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["action", "roll"],

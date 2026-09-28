@@ -14,10 +14,6 @@ const {DialogV2} = foundry.applications.api;
  * @typedef ActorRoundStatus
  * @property {boolean} hasMoved
  * @property {string} freeMovementId
- * @property {boolean} hasAttacked
- * @property {boolean} wasAttacked
- * @property {boolean} rangedAttack
- * @property {boolean} meleeAttack
  */
 
 /**
@@ -26,6 +22,19 @@ const {DialogV2} = foundry.applications.api;
  * @property {string} text                 Display string
  * @property {number} [fontSize=32]        Font size in pixels
  * @property {Color|string|number} [fillColor=0xFFFFFF]   Fill color
+ */
+
+/**
+ * A Talent granted by a detail item, optionally gated by level.
+ * @typedef CrucibleDetailTalentGrant
+ * @property {string} item            The UUID of the granted Talent
+ * @property {number|null} level      The level at which the Talent is granted
+ */
+
+/**
+ * The original and replacement UUIDs of a background talent grant which the ancestry duplicates.
+ * An Array of these is stored in `flags.crucible.substitutions`.
+ * @typedef {[original: string, replacement: string]} CrucibleTalentSubstitution
  */
 
 /**
@@ -401,7 +410,7 @@ export default class CrucibleActor extends Actor {
    */
   _configureAttackerRollData(action, rollData) {
     const {boons, banes} = rollData;
-    const {isAttack=false} = action.usage;
+    const {isAttack} = action.target;
     const statuses = CONFIG.statusEffects;
 
     // Global conditions
@@ -410,6 +419,7 @@ export default class CrucibleActor extends Actor {
     // Attack-related conditions
     if ( isAttack ) {
       if ( this.statuses.has("blinded") ) banes.blind = {label: statuses.blinded.name, number: 2};
+      // TODO: a future action tag for attacks that aren't affected by physical restraints could skip prone/restrained?
       if ( this.statuses.has("prone") ) banes.prone = {label: statuses.prone.name, number: 1};
       if ( this.statuses.has("restrained") ) banes.restrained = {label: statuses.restrained.name, number: 2};
     }
@@ -438,27 +448,38 @@ export default class CrucibleActor extends Actor {
    * @internal
    */
   _configureTargetRollData(action, rollData) {
-    const {boons, banes, restoration=false} = rollData;
-    const {isAttack=false, isRanged=false} = action.usage;
+    const {boons, banes, defenseType, restoration=false} = rollData;
+    const rangeCategory = action.range.category;
     const statuses = CONFIG.statusEffects;
 
-    // Attack-related conditions
-    if ( isAttack ) {
-      if ( this.statuses.has("blinded") ) boons.blind = {label: statuses.blinded.name, number: 2};
-      if ( this.statuses.has("guarded") && !restoration ) {
-        banes.guarded = {label: statuses.guarded.name, number: 1};
+    // Attack-related conditions apply to hostile rolls only, never to a roll which restores its target
+    if ( !action.target.isAttack ) return;
+    if ( restoration ) {
+      delete boons.flanked; // Discard the flanking boon previewed for the attack as a whole
+      return;
+    }
+
+    // Blinded and guarded targets
+    // TODO: a future action tag for attacks which do not rely on sight could exempt them from a blinded target
+    if ( this.statuses.has("blinded") ) boons.blind = {label: statuses.blinded.name, number: 2};
+    if ( this.statuses.has("guarded") ) banes.guarded = {label: statuses.guarded.name, number: 1};
+
+    // Prone targets cannot evade a Reflex attack and are harder to strike physically from range
+    if ( this.statuses.has("prone") ) {
+      const prone = {label: statuses.prone.name, number: 1};
+      if ( defenseType === "reflex" ) boons.prone = prone;
+      else if ( defenseType === "physical" ) {
+        if ( rangeCategory === "melee" ) boons.prone = prone;
+        else if ( rangeCategory === "ranged" ) banes.prone = prone;
       }
-      if ( this.statuses.has("prone") ) {
-        if ( isRanged ) banes.prone = {label: statuses.prone.name, number: 1};
-        else boons.prone = {label: statuses.prone.name, number: 1};
-      }
-      // Flanking is per-target, so the optimistic boon previewed in action usage is replaced or cleared here.
-      // A ranged attack keeps whatever usage offered, since only a hook (like Thread the Needle) can grant it.
-      rollData.flanked = action.targets.get(this)?.flanked ?? 0;
-      if ( !isRanged ) {
-        if ( rollData.flanked ) boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: rollData.flanked};
-        else delete boons.flanked;
-      }
+    }
+
+    // Flanking is per-target, so the optimistic boon previewed in action usage is replaced or cleared here.
+    // A ranged attack keeps whatever usage offered, since only a hook (like Thread the Needle) can grant it.
+    rollData.flanked = action.targets.get(this)?.flanked ?? 0;
+    if ( rangeCategory === "melee" ) {
+      if ( rollData.flanked ) boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: rollData.flanked};
+      else delete boons.flanked;
     }
   }
 
@@ -475,10 +496,9 @@ export default class CrucibleActor extends Actor {
   static _configureRollData(action, actor, target, rollData) {
     actor._configureAttackerRollData(action, rollData);
     target._configureTargetRollData(action, rollData);
-
-    // Call attacker & defender hooks now that base rollData is populated
-    actor.callActorHooks("prepareAttack", action, target, rollData);
-    target.callActorHooks("defendAttack", action, actor, rollData);
+    actor.callActorHooks("prepareAttack", action, target, rollData);  // The attacker customizes the attack
+    target.callActorHooks("defendAttack", action, actor, rollData);   // The defender registers special defenses
+    actor.callActorHooks("finalizeAttack", action, target, rollData); // The attacker controls final bonuses
   }
 
   /* -------------------------------------------- */
@@ -491,6 +511,11 @@ export default class CrucibleActor extends Actor {
    */
   getResistance(resource, damageType, restoration=false) {
     if ( restoration ) return 0;
+
+    // Damage against a pool which does not exist is fully resisted and treated as immune
+    if ( this.system.resources?.[resource]?.max === 0 ) return Infinity;
+
+    // Damage type resistance and status immunities
     let r = this.resistances[damageType]?.total ?? 0;
     switch ( resource ) {
       case "health":
@@ -879,7 +904,7 @@ export default class CrucibleActor extends Actor {
       resource: options.resource || spell.rune.resource,
       damageType: options.damageType || spell.damage.type,
       damageBonus: options.damageBonus || spell.damage.bonus || 0,
-      multiplier: options.multiplier || spell.damage.multiplier || 1,
+      multiplier: options.multiplier || ((spell.damage.multiplier ?? 1) * (spell.usage.bonuses.multiplier ?? 1)),
       restoration: options.restoration ?? spell.usage.restoration
     };
 
@@ -1847,7 +1872,8 @@ export default class CrucibleActor extends Actor {
         continue;
       }
       applied.push(type);
-      await this._applyDetailItem(config.item, {type, notify: false});
+      const substitutions = (type === "background") ? this._validateTalentSubstitutions(config.item) : undefined;
+      await this._applyDetailItem(config.item, {type, notify: false, substitutions});
     }
     return {applied, unresolved, cancelled};
   }
@@ -2282,7 +2308,8 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
+  /*  Detail Items: Ancestry, Background, etc...  */
+  /* -------------------------------------------- */
 
   /**
    * Apply actor detail data.
@@ -2294,10 +2321,11 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
    * @param {boolean} [options.local=false]     Apply the item locally without saving changes to the database
    * @param {boolean} [options.notify=true]     Display a notification about the application result?
+   * @param {CrucibleTalentSubstitution[]} [options.substitutions]  Background talent substitutions
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true}={}) {
+  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true, substitutions}={}) {
     type ??= item?.type;
     if ( item ) {
       if ( !canApply ) throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
@@ -2317,9 +2345,13 @@ export default class CrucibleActor extends Actor {
       for ( const id of this.#detailGrantedItemIds(otherDetail) ) deleteItemIds.delete(id);
     }
 
-    // Clear the detail data
+    // Record intentional background talent substitutions
     const key = `system.details.${type}`;
     const updateData = {};
+    if ( type !== "background" ) substitutions = undefined;
+    if ( substitutions ) updateData["flags.crucible.substitutions"] = substitutions;
+
+    // Clear the detail data
     let message;
     if ( !item ) {
       updateData[key] = _replace(null);
@@ -2330,11 +2362,12 @@ export default class CrucibleActor extends Actor {
     else {
       const itemData = item.toObject();
       const detail = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+      detail.talents = CrucibleActor.#substituteTalentGrants(detail.talents || [], substitutions);
       updateData[key] = _replace(detail);
       const updateItems = [];
 
       // Grant Talents
-      const talents = detail.talents || [];
+      const talents = detail.talents;
       const {toCreate: talentsToCreate, toKeep: talentsToKeep} = await this.#prepareGrantedDetailTalents(talents);
       for ( const id of talentsToKeep ) deleteItemIds.delete(id); // Talent already owned
       updateItems.push(...talentsToCreate);                       // Add new Talent
@@ -2402,6 +2435,145 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Get the current background data with any substituted talent grants restored to their originals.
+   * @returns {object|null}
+   */
+  #getOriginalBackground() {
+    const background = this._source.system.details.background; // Preparation substitutes a default when absent
+    if ( !background ) return null;
+    const originals = new Map((this.#getTalentSubstitutions() ?? []).map(([o, r]) => [r, o]));
+    const talents = (background.talents || []).map(grant => {
+      const original = originals.get(grant.item);
+      return original ? {...grant, item: original} : grant;
+    });
+    return {...foundry.utils.deepClone(background), talents};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the recorded background talent substitutions with both UUIDs of each passed through talent ID migrations.
+   * Substitutions involving a talent which was retired without replacement are discarded.
+   * @returns {CrucibleTalentSubstitution[]|undefined}
+   */
+  #getTalentSubstitutions() {
+    const recorded = this.getFlag("crucible", "substitutions");
+    if ( !recorded ) return;
+    const {migrateTalentUuid} = SYSTEM.TALENT;
+    return recorded.reduce((arr, [original, replacement]) => {
+      original = migrateTalentUuid(original);
+      replacement = migrateTalentUuid(replacement);
+      if ( original && replacement ) arr.push([original, replacement]);
+      return arr;
+    }, []);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prompt for replacements of background talent grants which the ancestry also grants.
+   * Each replacement is chosen from the other talents which share a talent tree node with the duplicated talent.
+   * @param {object} [details]
+   * @param {object|null} [details.ancestry]      Ancestry data, defaulting to the current ancestry
+   * @param {object|null} [details.background]    Background data with its original grants, defaulting to the current
+   *                                              background
+   * @returns {Promise<CrucibleTalentSubstitution[]|null>}  The substitutions to record, or null if dismissed
+   * @internal
+   */
+  async _promptTalentSubstitutions({ancestry=this.system.details.ancestry,
+    background=this.#getOriginalBackground()}={}) {
+    const substitutions = [];
+    if ( !background ) return substitutions;
+    const prior = new Map(this.#getTalentSubstitutions() ?? []);
+
+    // Talents which cannot be chosen as a replacement
+    const ancestryIds = CrucibleActor.#grantedTalentIds(ancestry);
+    const excludedIds = new Set([...ancestryIds, ...CrucibleActor.#grantedTalentIds(background)]);
+    const detailIds = new Set([...CrucibleActor.#grantedTalentIds(this.system.details.ancestry),
+      ...CrucibleActor.#grantedTalentIds(this.system.details.background)]);
+    for ( const i of this.items ) {
+      if ( (i.type === "talent") && !detailIds.has(i.id) ) excludedIds.add(i.id);
+    }
+
+    // Offer a choice of replacement for each duplicated grant
+    const {StringField} = foundry.data.fields;
+    const fields = {};
+    const originals = {};
+    for ( const {item: uuid} of background.talents ) {
+      const id = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( !ancestryIds.has(id) || (id in fields) ) continue;
+      originals[id] = uuid;
+      const talent = await CrucibleActor.#resolveGrant(this, uuid, "Talent");
+      if ( !talent ) continue;
+      const choices = {};
+      for ( const node of talent.system.nodes ) {
+        for ( const t of node.talents ) {
+          if ( !excludedIds.has(t.id) ) choices[t.uuid] = t.name;
+        }
+      }
+      if ( foundry.utils.isEmpty(choices) ) continue;
+      const initial = (prior.get(uuid) in choices) ? prior.get(uuid) : undefined;
+      fields[id] = new StringField({required: true, blank: false, choices, initial, label: talent.name});
+    }
+    if ( foundry.utils.isEmpty(fields) ) return substitutions;
+
+    // Prompt for replacements
+    const content = document.createElement("div");
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = _loc("ACTOR.SUBSTITUTION.Hint");
+    content.append(hint);
+    for ( const [name, field] of Object.entries(fields) ) {
+      content.append(field.toFormGroup({}, {name, value: field.initial, sort: true}));
+    }
+    const response = await DialogV2.input({
+      window: {title: _loc("ACTOR.SUBSTITUTION.Title"), icon: "fa-solid fa-shuffle"},
+      ok: {label: _loc("ACTOR.SUBSTITUTION.Confirm"), icon: "fa-solid fa-shuffle"},
+      content
+    });
+    if ( !response ) return null;
+    for ( const [id, replacement] of Object.entries(response) ) substitutions.push([originals[id], replacement]);
+    return substitutions;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Re-apply the current background with new talent substitutions, restoring its original grants first.
+   * @param {CrucibleTalentSubstitution[]} substitutions   The background talent substitutions
+   * @param {object} [options]
+   * @param {boolean} [options.local=false]     Apply the background locally without saving changes to the database
+   * @returns {Promise<void>}
+   * @internal
+   */
+  async _reapplyBackground(substitutions, {local=false}={}) {
+    const background = this.#getOriginalBackground();
+    if ( !background ) return;
+    const cls = getDocumentClass("Item");
+    const item = new cls({name: background.name, img: background.img, type: "background", system: background});
+    await this._applyDetailItem(item, {type: "background", local, notify: false, substitutions});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Retain recorded background talent substitutions only while a background still grants the replaced talent and
+   * the ancestry still duplicates it.
+   * @param {CrucibleItem} background     The background being applied in place of the current one
+   * @returns {CrucibleTalentSubstitution[]|undefined}  Retained substitutions, if any were recorded
+   * @internal
+   */
+  _validateTalentSubstitutions(background) {
+    const recorded = this.#getTalentSubstitutions();
+    if ( !recorded ) return;
+    const granted = new Set(background.system.talents.map(g => g.item));
+    const ancestry = new Set((this.system.details.ancestry?.talents || []).map(g => g.item));
+    return recorded.filter(([original]) => granted.has(original) && ancestry.has(original));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * View actor detail data as an editable item.
    * This is an internal helper method not intended for external use.
    * @param {string} type         The data type, either "archetype" or "taxonomy"
@@ -2438,14 +2610,28 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Clean data for an Item that is being added to this Actor.
-   * @param {CrucibleItem} item
-   * @internal
+   * Identify the IDs of talents granted by detail data.
+   * @param {object|null} detail          The detail data
+   * @returns {Set<string>}
    */
-  _cleanItemData(item) {
-    const itemData = game.items.fromCompendium(item, {clearFolder: true, clearOwnership: true, keepId: true});
-    delete itemData.ownership;
-    return itemData;
+  static #grantedTalentIds(detail) {
+    return new Set((detail?.talents || []).map(g => foundry.utils.parseUuid(g.item)?.documentId));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Replace talent grants with their substitutions.
+   * @param {CrucibleDetailTalentGrant[]} talents     The talent grants of the detail item
+   * @param {CrucibleTalentSubstitution[]} [substitutions]  Substitutions to apply
+   * @returns {CrucibleDetailTalentGrant[]}
+   */
+  static #substituteTalentGrants(talents, substitutions=[]) {
+    const replacements = new Map(substitutions);
+    return talents.map(grant => {
+      const replacement = replacements.get(grant.item);
+      return replacement ? {...grant, item: replacement} : grant;
+    });
   }
 
   /* -------------------------------------------- */
@@ -3011,6 +3197,19 @@ export default class CrucibleActor extends Actor {
       });
     }
     return batchOperation;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clean data for an Item that is being added to this Actor.
+   * @param {CrucibleItem} item
+   * @internal
+   */
+  _cleanItemData(item) {
+    const itemData = game.items.fromCompendium(item, {clearFolder: true, clearOwnership: true, keepId: true});
+    delete itemData.ownership;
+    return itemData;
   }
 
   /* -------------------------------------------- */
