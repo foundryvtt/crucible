@@ -1,0 +1,158 @@
+name: Potion of Gliding
+type: consumable
+_id: potionOfGliding0
+img: icons/consumables/potions/potion-bottle-fumes-blue.webp
+system:
+  identifier: potionOfGliding
+  category: flask
+  quantity: 1
+  weight: 1
+  price: 160
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+  description:
+    public: >-
+      <p>A slender vial of shimmering pale-blue liquid that feels almost
+      weightless in the hand, its contents swirling gently as though caught in
+      an unseen updraft.</p>
+    private: ''
+  actions:
+    - id: potionGliding
+      name: Potion of Gliding
+      img: icons/consumables/potions/potion-bottle-fumes-blue.webp
+      condition: ''
+      description: >-
+        <p>For the duration of this potion's effect, its drinker benefits from
+        the
+        @UUID[Compendium.crucible.adversary-talents.Item.glider0000000000]{Glider}
+        talent as if they were a creature that possessed that trait, turning
+        what would otherwise be falls into controlled
+        <strong>Glides</strong>.</p><p>The potion's quality determines the
+        duration of this effect:</p><ul><li><p><strong>Shoddy</strong>- 10
+        minutes</p></li><li><p><strong>Standard</strong> - 1
+        hour</p></li><li><p><strong>Fine</strong> - 4
+        hours</p></li><li><p><strong>Superior</strong> - 12
+        hours</p></li><li><p><strong>Masterwork</strong>- 24 hours</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 1
+        self: true
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: 0
+            units: minutes
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            lights: []
+      tags:
+        - consume
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects:
+  - name: Gliding
+    img: icons/consumables/potions/potion-bottle-fumes-blue.webp
+    description: >-
+      <p>You may glide laterally during a fall, descending safely as if carried
+      on the wind.</p>
+    statuses: []
+    duration:
+      value: 3600
+      units: seconds
+      expiry: null
+      expired: false
+    transfer: false
+    origin: Item.potionOfGliding0
+    flags: {}
+    system:
+      changes: []
+      dc: null
+      dot: []
+      maintenance:
+        cost: null
+        hands: 0
+      properties: []
+      regions: []
+      summons: []
+      lights: []
+    _id: ZzbjgV2jy66lDkdl
+    type: base
+    disabled: false
+    start: null
+    tint: '#ffffff'
+    showIcon: 1
+    folder: null
+    sort: 0
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790640622176
+      modifiedTime: 1790640622176
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!potionOfGliding0.ZzbjgV2jy66lDkdl'
+folder: WqUGvC0ubhjrpvz9
+sort: 450000
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790640622176
+  modifiedTime: 1790640628761
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource:
+    worldId: ember-crucible
+    uuid: Item.potionOfGliding0
+    coreVersion: '14.368'
+    systemId: crucible
+    systemVersion: 0.11.1
+_key: '!items!potionOfGliding0'

@@ -23,9 +23,7 @@ duration:
   units: seconds
   expiry: null
   expired: false
-description: >-
-  <p>@Action[default search] checks or @Rule[skill.awareness] checks for
-  sight-based cues gain <strong>+2 Boons</strong>.</p>
+description: <p>@Action[default search] checks gain @Rule[dice.boon]{+2 Boons}.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
@@ -38,7 +36,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   createdTime: 1790539857242
-  modifiedTime: 1790546888623
+  modifiedTime: 1790640008071
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null

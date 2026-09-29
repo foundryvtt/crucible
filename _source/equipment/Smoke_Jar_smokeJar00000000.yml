@@ -1,0 +1,115 @@
+name: Smoke Jar
+type: consumable
+_id: smokeJar00000000
+img: icons/commodities/tech/smoke-bomb-purple.webp
+system:
+  identifier: smokeJar
+  category: bomb
+  quantity: 1
+  weight: 1
+  price: 125
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+    - thrown
+  description:
+    public: >-
+      <p>A heavy clay jar packed with smoldering reagents and sealed with wax.
+      When exposed to air, the contents erupt into rapid burning embers and
+      thick grey smoke that blots out sight across a wide area before the haze
+      drifts apart on its own. Favored by tricksters, bandits and skirmishers
+      for covering an escape.</p>
+    private: ''
+  actions:
+    - id: smokeJar
+      name: Smoke Jar
+      img: icons/commodities/tech/smoke-bomb-purple.webp
+      condition: ''
+      description: >-
+        <p>When thrown, the @ref[name] shatters on impact and erupts into a
+        billowing cloud of smoke filling a <strong>10 foot</strong> radius
+        <strong>Blast</strong>. The smoke is non-magical and
+        @Rule[action.harmless], but still heavily obscures sight: creatures
+        cannot see through or within the cloud of smoke using light-based
+        vision. The smoke disperses on its own after <strong>3
+        Rounds</strong>.</p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 0
+        self: true
+        size: 10
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 3
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            lights: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+      tags:
+        - consume
+        - harmless
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: 9u3lR2Lbhj3cdjQk
+sort: 250000
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790640988988
+  modifiedTime: 1790640993038
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource:
+    worldId: ember-crucible
+    uuid: Item.smokeJar00000000
+    coreVersion: '14.368'
+    systemId: crucible
+    systemVersion: 0.11.1
+_key: '!items!smokeJar00000000'

@@ -1,0 +1,141 @@
+name: Eyes of the Inspector
+type: accessory
+_id: eyesOfTheInspect
+img: icons/tools/scribal/spectacles-glasses.webp
+system:
+  identifier: eyesOfTheInspector
+  category: jewelry
+  quantity: 1
+  weight: 0
+  price: 60
+  quality: fine
+  broken: false
+  enchantment: minor
+  equipped: false
+  invested: false
+  properties:
+    - investment
+  description:
+    public: >-
+      <p>Carefully polished spectacles, the rims of which are inscribed with
+      glyphs and sigils.</p><p>While <strong>Invested</strong> and wearing these
+      glasses, you feel more deductive. You gain @Rule[dice.boon]{+2 Boons} when
+      using @Action[default search], and <strong>+1 Enchantment Bonus</strong>
+      on any @Rule[skill.awareness] checks.</p>
+    private: ''
+  actions: []
+effects:
+  - name: Awareness
+    type: affix
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    system:
+      adjective: Perceptive
+      identifier: awarenessSkill
+      changes: []
+      affixType: prefix
+      tier:
+        min: 1
+        max: 3
+        value: 1
+      itemTypes: []
+      properties: []
+      actions: []
+    _id: awarenessSkill00
+    img: systems/crucible/icons/skills/awareness.jpg
+    disabled: false
+    start: null
+    description: >-
+      <p>Increase the <strong>Enchantment Bonus</strong> for
+      <strong>Awareness</strong> skill checks by 1 for each
+      <strong>Tier</strong> of this prefix.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    folder: Z5Wpk76q0YDN7RIJ
+    sort: 200000
+    flags: {}
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790640056944
+      modifiedTime: 1790640056944
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.awarenessSkill00
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!eyesOfTheInspect.awarenessSkill00'
+  - folder: GMOd5EievONqi3W8
+    name: Inspection
+    type: affix
+    _id: inspection000000
+    img: icons/creatures/eyes/human-single-brown.webp
+    system:
+      changes: []
+      identifier: inspection
+      adjective: Inspection
+      affixType: suffix
+      itemTypes:
+        - accessory
+      properties: []
+      tier:
+        min: 1
+        max: 1
+        value: 1
+      actions: []
+    disabled: false
+    start: null
+    duration:
+      value: null
+      units: seconds
+      expiry: null
+      expired: false
+    description: <p>@Action[default search] checks gain @Rule[dice.boon]{+2 Boons}.</p>
+    origin: null
+    tint: '#ffffff'
+    transfer: false
+    statuses: []
+    showIcon: 1
+    sort: 0
+    flags: {}
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1790640056944
+      modifiedTime: 1790640056944
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.affixes.ActiveEffect.inspection000000
+      duplicateSource: null
+      exportSource: null
+    _key: '!items.effects!eyesOfTheInspect.inspection000000'
+folder: dNk8eE87Ep8GtNse
+sort: 200000
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790640056944
+  modifiedTime: 1790640088488
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource:
+    worldId: ember-crucible
+    uuid: Item.eyesOfTheInspect
+    coreVersion: '14.368'
+    systemId: crucible
+    systemVersion: 0.11.1
+_key: '!items!eyesOfTheInspect'
