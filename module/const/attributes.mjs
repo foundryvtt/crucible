@@ -112,7 +112,7 @@ export const DAMAGE_CATEGORIES = defineEnum({
  * @type {Readonly<Record<string, {id: string, label: string, type: string}>>}
  */
 export const DAMAGE_TYPES = defineEnum({
-    acid: {
+  acid: {
     label: "DAMAGE.Acid",
     type: "elemental"
   },

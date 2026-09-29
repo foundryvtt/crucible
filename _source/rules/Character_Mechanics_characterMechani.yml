@@ -259,22 +259,69 @@ pages:
         associated
         @UUID[Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.conditionsOvervi]{Condition}
         which can be caused as a consequence of that damage type, usually as a
-        result of a <strong>Critical
-        Hit</strong>.</p><table><thead><tr><th><p>Physical Damage
-        Types</p></th><th><p>Related
-        Conditions</p></th></tr></thead><tbody><tr><td><p>Bludgeoning</p></td><td><p>@Condition[staggered]</p></td></tr><tr><td><p>Piercing</p></td><td><p>@Condition[bleeding]</p></td></tr><tr><td><p>Slashing</p></td><td><p>@Condition[bleeding]</p></td></tr><tr><td><p>Poison</p></td><td><p>@Condition[poisoned]</p></td></tr><tr><th><p>Elemental
-        Damage Types</p></th><th><p>Related
-        Conditions</p></th></tr><tr><td><p>Acid</p></td><td><p>@Condition[corroding]</p></td></tr><tr><td><p>Fire</p></td><td><p>@Condition[burning]</p></td></tr><tr><td><p>Cold</p></td><td><p>@Condition[freezing]</p></td></tr><tr><td><p>Electricity</p></td><td><p>@Condition[shocked]</p></td></tr><tr><th><p>Spiritual
-        Damage Types</p></th><th><p>Related
-        Conditions</p></th></tr><tr><td><p>Corruption</p></td><td><p>@Condition[decaying]</p></td></tr><tr><td><p>Psychic</p></td><td><p>@Condition[confused]</p></td></tr><tr><td><p>Radiant</p></td><td><p>@Condition[irradiated]</p></td></tr><tr><td><p>Void</p></td><td><p>@Condition[entropy]</p></td></tr></tbody></table><h2
-        class="divider">Damage Resistance</h2><p>When an Action deals damage,
-        that damage may be reduced by an amount of Resistance that the target
-        creature has. This amount of resistance may even reduce the damage
-        caused by the Action to be zero!</p><section
-        class="gameplay"><h4>Example: Damage Resistance</h4><p>Suppose a
-        mechanical automaton, a Brass Sentinel, has resistance of
-        <strong>+5</strong> to <strong>Slashing</strong> damage. If the Brass
-        Sentinel receives an attack that deals <strong>13 Slashing
+        result of a <strong>Critical Hit</strong>. The damage types fall into
+        three categories:</p><h3 class="divider">Physical Damage
+        Types</h3><dl><dt><p>Bludgeoning</p></dt><dd
+        data-rule="damageType.bludgeoning"><p>The crack of a swung club, or the
+        crush of a giant's grip. <strong>Bludgeoning</strong> damage is caused
+        by blunt force, and is associated with the @Condition[staggered]
+        condition.</p></dd><dt><p>Piercing</p></dt><dd
+        data-rule="damageType.piercing"><p>The sting of an arrow, or the stab of
+        a beast's fangs. <strong>Piercing</strong> damage is caused by the sharp
+        point of an implement, and is associated with the @Condition[bleeding]
+        condition.</p></dd><dt><p>Slashing</p></dt><dd
+        data-rule="damageType.slashing"><p>The slice of a whirling blade, or the
+        rip of a beast's claws. <strong>Slashing</strong> damage is caused by
+        the pull of a sharpened weapon across flesh, and is associated with the
+        @Condition[bleeding] condition.</p></dd><dt><p>Poison</p></dt><dd
+        data-rule="damageType.poison"><p>The slow drain of an ingested toxin, or
+        the sudden burn of a snake's venomous bite. <strong>Poison</strong>
+        damage is caused by manufactured or natural toxins, and is associated
+        with the @Condition[poisoned] condition.</p></dd></dl><h3
+        class="divider">Elemental Damage Types</h3><dl><dt><p>Acid</p></dt><dd
+        data-rule="damageType.acid"><p>The blistering pain of a caustic liquid,
+        or the sizzling aftermath of a creature's corrosive spit.
+        <strong>Acid</strong> damage is caused by manufactured or natural
+        erosive sources, and is associated with the @Condition[corroding]
+        condition.</p></dd><dt><p>Fire</p></dt><dd
+        data-rule="damageType.fire"><p>The scorching heat of a flaming building,
+        or the melting intensity of a dragon's breath. <strong>Fire</strong>
+        damage is caused by flames and heat, and is associated with the
+        @Condition[burning] condition.</p></dd><dt><p>Cold</p></dt><dd
+        data-rule="damageType.cold"><p>The sapping chill of a glacial waste, or
+        the frigid bite of a frost elemental's touch. <strong>Cold</strong>
+        damage is caused by icy temperatures, and is associated with the
+        @Condition[freezing] condition.</p></dd><dt><p>Electricity</p></dt><dd
+        data-rule="damageType.electricity"><p>The arc of a heavily-charged
+        machine, or the explosive jolt of a lightning strike.
+        <strong>Electricity</strong> damage is caused by the flow of powerful
+        electric charge, and is associated with the @Condition[shocked]
+        condition.</p></dd></dl><h3 class="divider">Spiritual Damage
+        Types</h3><dl><dt><p>Corruption</p></dt><dd
+        data-rule="damageType.corruption"><p>The festering rot of an infected
+        wound, or the decay of a pestilent curse. <strong>Corruption</strong>
+        damage is caused by the atrophy of the living, and is associated with
+        the @Condition[decaying] condition.</p></dd><dt><p>Psychic</p></dt><dd
+        data-rule="damageType.psychic"><p>The bewildering shock of seeing your
+        allies fall, or the stun of a telepathic attack.
+        <strong>Psychic</strong> damage is caused by assailments of the mind,
+        and is associated with the @Condition[confused]
+        condition.</p></dd><dt><p>Radiant</p></dt><dd
+        data-rule="damageType.radiant"><p>The concentrated power of the stars,
+        or the searing brand of divine light. <strong>Radiant</strong> damage is
+        caused by intense or heavenly illumination, and is associated with the
+        @Condition[irradiated] condition.</p></dd><dt><p>Void</p></dt><dd
+        data-rule="damageType.void"><p>The insatiable hunger of darkness, or the
+        cold nothingness of inescapable oblivion. <strong>Void</strong> damage
+        is caused by forces of unmaking, and is associated with the
+        @Condition[entropy] condition.</p></dd></dl><h2 class="divider">Damage
+        Resistance</h2><p>When an Action deals damage, that damage may be
+        reduced by an amount of Resistance that the target creature has. This
+        amount of resistance may even reduce the damage caused by the Action to
+        be zero!</p><section class="gameplay"><h4>Example: Damage
+        Resistance</h4><p>Suppose a mechanical automaton, a Brass Sentinel, has
+        resistance of <strong>+5</strong> to <strong>Slashing</strong> damage.
+        If the Brass Sentinel receives an attack that deals <strong>13 Slashing
         damage</strong>, the effective damage dealt is reduced to <strong>8
         Slashing Damage</strong>.</p></section><h2 class="divider">Damage
         Vulnerability</h2><p>When a creature is vulnerable to a type of damage
@@ -304,12 +351,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.350'
+      coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1761697235112
-      modifiedTime: 1762098125781
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1790699853150
+      lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!characterMechani.Resistances00000'
   - _id: abilityScores000
     name: Ability Scores

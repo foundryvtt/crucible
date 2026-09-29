@@ -231,6 +231,7 @@ export const RULES = {
   action: ACTION.TAGS, // Tags which pertain to an action; `reload`, `rest`, and `strike` also exist under `actions`
   actions: Object.fromEntries(ACTION.DEFAULT_ACTIONS.map(a => [a.id, a])),
   condition: {...statusEffects, ...derivedConditions}, // Encompasses everything `@Condition` may link to
+  damageType: prepareRules(ATTRIBUTES.DAMAGE_TYPES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000"),
   defense: ATTRIBUTES.DEFENSES,
   dice: DICE.RULES,
   movement: ACTOR.MOVEMENT_RULES,
