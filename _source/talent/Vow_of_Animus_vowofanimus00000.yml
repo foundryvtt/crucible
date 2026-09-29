@@ -8,9 +8,7 @@ system:
     @Rule[dice.boon]{+2 Boons} to <strong>Strike</strong> or
     <strong>Spell</strong> attacks against to subject of your vow. You may only
     swear such a vow against one enemy at a time. Swearing a new vow
-    relinquishes your prior vow.</p><h3 class="divider">Playtest
-    Notes</h3><p>The removal of an existing vow when a new one is created is not
-    currently automated.</p>
+    relinquishes your prior vow.</p>
   actions:
     - id: vowOfAnimus
       name: Vow of Animus
