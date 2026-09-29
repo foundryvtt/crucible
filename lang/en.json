@@ -301,7 +301,7 @@
       "CostWeapon": "W",
       "CostWeaponAction": "W{action}A",
       "Deadly": "Deadly",
-      "DeadlyTooltip": "This action has the potential to deal a tremendous amount of damage, increasing the damage multiplier for any damage dealt by x1.",
+      "DeadlyTooltip": "This action has the potential to deal a tremendous amount of damage, increasing the overflow damage multiplier by an additional x1.",
       "Difficult": "Difficult",
       "DifficultTooltip": "This action is complicated or challenging to perform. You incur 1 additional bane when attempting the action.",
       "Disarm": "Disarm",

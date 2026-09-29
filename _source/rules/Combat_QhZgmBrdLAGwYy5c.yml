@@ -683,9 +683,9 @@ pages:
         creature's natural weapon.</p></td></tr></tbody></table><h3>Attack
         Modifiers</h3><table><thead><tr><th
         style="width:30%"><p>Tag</p></th><th><p>Rules
-        Effect</p></th></tr></thead><tbody><tr><td><p>Deadly</p></td><td><p>Gains
-        a +1 damage
-        multiplier.</p></td></tr><tr><td><p>Difficult</p></td><td><p>Incurs +1
+        Effect</p></th></tr></thead><tbody><tr><td><p>Deadly</p></td><td><p>Overflow 
+        damage multiplier is increased by an additional 1x
+        </p></td></tr><tr><td><p>Difficult</p></td><td><p>Incurs +1
         Bane to the attack
         roll.</p></td></tr><tr><td><p>Empowered</p></td><td><p>Increases base
         damage by +6.</p></td></tr><tr><td><p>Accurate</p></td><td><p>Adds +2
