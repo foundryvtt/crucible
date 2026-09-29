@@ -354,6 +354,8 @@ HOOKS.unshakeable = {
 /*  Accessory-Only Affixes                      */
 /* -------------------------------------------- */
 
+// TODO: Come up with a more reusable & robust mechanism for "X thing temporarily grants Y Talent"
+// Shares this Glider talent bridge with HOOKS.potionOfGliding in consumable.mjs
 HOOKS.gliding = {
   prepareActions(item, actions) {
     return crucible.api.hooks.talent.glider0000000000.prepareActions.call(this, item, actions);

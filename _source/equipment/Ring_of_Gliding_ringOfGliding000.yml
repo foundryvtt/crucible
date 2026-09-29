@@ -18,13 +18,13 @@ system:
       <blockquote><p>A band of elegant pale blue steel that features a spiraling
       pattern to the metal that presents the illusion that it is perpetually
       spinning slowly upon its wearer's finger.</p></blockquote><p>This
-      enchanted ring grants the ability to glide laterally during a fall.</p>
+      enchanted ring allows its wearer to glide rather than fall.</p>
     private: >-
       <p>This item is presented as an example of <strong>Superior</strong>
       jewelry with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.gliding000000000]{Gliding}
-      prefix.</p><p>This affix can be applied to any accessory and this ring
-      could be further enchanted with a <strong>Tier 1 Suffix</strong>.</p>
+      suffix.</p><p>This affix can be applied to any accessory and this ring
+      could be further enchanted with a <strong>Tier 2 Prefix</strong>.</p>
   actions: []
 effects:
   - name: Gliding

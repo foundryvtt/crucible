@@ -1800,12 +1800,12 @@ HOOKS.smokeJar = {
     if ( reverse ) return;
     const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
     if ( !effect || !this.region ) return;
-    const [light] = await this.token.parent.createEmbeddedDocuments("AmbientLight", [{
-      ...this.region.shapes[0].origin,
-      elevation: this.region.elevation.bottom + this.target.size,
-      ...SMOKE_JAR_LIGHT
-    }]);
-    effect.system.lights = [...(effect.system.lights ?? []), light.uuid];
+    const {x, y} = this.region.shapes[0];
+    const elevation = this.region.elevation.bottom;
+    const lightData = {x, y, elevation, levels: Array.from(this.region.levels), ...SMOKE_JAR_LIGHT};
+    const [light] = await this.region.parent.createEmbeddedDocuments("AmbientLight", [lightData]);
+    effect.system.lights ||= [];
+    effect.system.lights.push(light.uuid);
   }
 };
 

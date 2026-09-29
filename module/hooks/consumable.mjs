@@ -3,23 +3,19 @@ const HOOKS = {};
 /* -------------------------------------------- */
 
 // TODO: Come up with a more reusable & robust mechanism for "X thing temporarily grants Y Talent"
+// Shares this Glider talent bridge with HOOKS.gliding in affix.mjs
 HOOKS.potionOfGliding = {
-  _EFFECT_ID: "potionGliding000",
-  _FALL_GLIDE_ACTION: {
-    description: "<p>@ref[actor.name] glides rather than falls, flying downward under control. The movement must descend and suffers no falling damage. If the creature ends its glide while still aloft it gains the @Condition[flying] condition.</p>",
-    id: "fallGlide",
-    img: "icons/svg/wing.svg",
-    name: "Glide",
-    tags: ["fly"],
-    target: {
-      type: "self",
-      number: 0,
-      scope: 1
-    }
+  get _EFFECT_ID() {
+    return SYSTEM.EFFECTS.getEffectId("potionGliding");
   },
   prepareActions(item, actions) {
-    if ( !this.effects.has(HOOKS.potionOfGliding._EFFECT_ID) ) return;
-    actions.fallGlide ??= (new crucible.api.models.CrucibleAction(HOOKS.potionOfGliding._FALL_GLIDE_ACTION)).bind(this);
+
+    // Consumable actions are registered under an item-qualified key which the Glider talent hook does not recognize
+    const key = `fallGlide.${item.id}`;
+    const glide = actions[key];
+    delete actions[key];
+    if ( !glide || !this.effects.has(HOOKS.potionOfGliding._EFFECT_ID) ) return;
+    actions.fallGlide ??= glide;
     return crucible.api.hooks.talent.glider0000000000.prepareActions.call(this, item, actions);
   },
   prepareMovement(item, movement) {

@@ -80,6 +80,36 @@ system:
       summon: null
       persistRegion: false
       regionBehavior: null
+    - id: fallGlide
+      name: Glide
+      img: icons/svg/wing.svg
+      condition: ''
+      description: >-
+        <p>You glide rather than fall, flying downward under control. The
+        movement must descend and suffers no falling damage. If you end your
+        glide while still aloft you gain the @Condition[flying] condition.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 0
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - movement
+        - fly
+      summon: null
+      persistRegion: false
+      regionBehavior: null
   uses:
     value: 1
     max: 1
@@ -87,51 +117,7 @@ system:
     runes: []
     gestures: []
     inflections: []
-effects:
-  - name: Gliding
-    img: icons/consumables/potions/potion-bottle-fumes-blue.webp
-    description: >-
-      <p>You may glide laterally during a fall, descending safely as if carried
-      on the wind.</p>
-    statuses: []
-    duration:
-      value: 3600
-      units: seconds
-      expiry: null
-      expired: false
-    transfer: false
-    origin: Item.potionOfGliding0
-    flags: {}
-    system:
-      changes: []
-      dc: null
-      dot: []
-      maintenance:
-        cost: null
-        hands: 0
-      properties: []
-      regions: []
-      summons: []
-      lights: []
-    _id: ZzbjgV2jy66lDkdl
-    type: base
-    disabled: false
-    start: null
-    tint: '#ffffff'
-    showIcon: 1
-    folder: null
-    sort: 0
-    _stats:
-      coreVersion: '14.368'
-      systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1790640622176
-      modifiedTime: 1790640622176
-      lastModifiedBy: ZXJsFnFZuf21WDAk
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _key: '!items.effects!potionOfGliding0.ZzbjgV2jy66lDkdl'
+effects: []
 folder: WqUGvC0ubhjrpvz9
 sort: 450000
 ownership:

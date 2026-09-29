@@ -239,9 +239,8 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /* -------------------------------------------- */
 
   /**
-   * Find the supporting surface the token rests on or would fall onto, and the level it comes to rest on. A scene
-   * that defines any movement surface uses those surfaces as its only floors (surface mode); a scene with no surfaces
-   * treats the base of every level as an implied floor (level mode).
+   * Find the supporting surface the token rests on or would fall onto, and the level it comes to rest on.
+   * A surface must contain 75% of the token's footprint; see {@link CrucibleScene#findSupportingSurface}.
    * @param {TokenCoordinates} [position] The position to evaluate against. Defaults to the token's source position.
    * @returns {{elevation: number, region: RegionDocument|null, level: Level}|null}
    * @internal
@@ -250,71 +249,8 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     const scene = this.parent;
     if ( !scene ) return null;
     const { elevation, level } = position;
-
-    // Surface mode: surfaces are the only floors. Walk surfaces from highest to lowest (Scene#getSurfaces orders by
-    // elevation) and return the first at or below the token whose footprint contains the required share of it. If
-    // none is beneath, nothing catches the token - a gap with no surface is an explicit authoring choice.
-    if ( scene.usesSurfaces ) {
-      const surfaces = scene.getSurfaces({ level, type: "move" });
-      if ( !surfaces.length ) return null;
-      const points = this.getContainmentTestPoints(position);
-      const required = Math.ceil(points.length * .75);
-      const allowedMisses = points.length - required;
-      for ( let i = surfaces.length; i--; ) {
-        const surface = surfaces[i];
-        if ( surface.elevation > elevation ) continue;
-        let inside = 0;
-        let missed = 0;
-        for ( const p of points ) {
-          if ( surface.region.polygonTree.testPoint(p) ) {
-            if ( ++inside >= required ) {
-              const restLevel = this.#findRestingLevel(surface.region, surface.elevation, level);
-              return {elevation: surface.elevation, region: surface.region, level: restLevel};
-            }
-          }
-          else if ( ++missed > allowedMisses ) break;
-        }
-      }
-      return null;
-    }
-
-    // Level mode: with no surfaces defined, the base of every level is an implied floor. The supporting surface is the
-    // highest level base at or below the token; it rests on (or falls to) that base and adopts that level.
-    let floorLevel = null;
-    for ( const lvl of scene.levels ) {
-      if ( lvl.elevation.base > elevation ) continue;
-      if ( !floorLevel || (lvl.elevation.base > floorLevel.elevation.base) ) floorLevel = lvl;
-    }
-    if ( !floorLevel ) return null;
-    return {elevation: floorLevel.elevation.base, region: null, level: floorLevel};
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Resolve the level a token comes to rest on when landing on a surface region at a given elevation. Candidates are
-   * the levels the region belongs to (an unrestricted region belongs to all); the result is the single candidate
-   * whose elevation range is home to the landing elevation, or the current level when there is no unambiguous home.
-   * @param {RegionDocument} region   The landed surface's region
-   * @param {number} elevation        The landing elevation
-   * @param {string} levelId          The token's current level id
-   * @returns {Level|null}            The level the token rests on
-   */
-  #findRestingLevel(region, elevation, levelId) {
-    const scene = this.parent;
-    const current = scene.levels.get(levelId) ?? null;
-    const candidates = region.levels.size
-      ? Array.from(region.levels, id => scene.levels.get(id))
-      : scene.levels.contents;
-    let home = null;
-    for ( const level of candidates ) {
-      if ( !level ) continue;
-      if ( (elevation >= level.elevation.bottom) && (elevation < level.elevation.top) ) {
-        if ( home ) return current;  // Ambiguous - more than one candidate level is home to this elevation
-        home = level;
-      }
-    }
-    return home ?? current;
+    const points = scene.usesSurfaces ? this.getContainmentTestPoints(position) : [];
+    return scene.findSupportingSurface(points, {elevation, level, coverage: 0.75});
   }
 
   /* -------------------------------------------- */
@@ -322,8 +258,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /**
    * Find the lowest movement-restricting surface at or above the given elevation that the token can cling to.
    * Require adjacency rather than overlap, test this by padding out the token's footprint one grid space on all sides.
-   * Require elevation overlap of the region with the climb position.
-   * The level the token would cling to is resolved alongside the surface.
+   * See {@link CrucibleScene#findClimbableSurface}.
    * @param {TokenCoordinates} [position] The position to evaluate against. Defaults to the token's source position.
    * @returns {{elevation: number, region: RegionDocument, level: Level}|null}
    * @internal
@@ -332,23 +267,12 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     const scene = this.parent;
     if ( !scene ) return null;
     const { elevation, level } = position;
-    const surfaces = scene.getSurfaces({ level, type: "move" });
-    if ( !surfaces.length ) return null;
 
     // Pad the token footprint by one grid space per side so adjacent spaces register as overlap
     const { sizeX, sizeY } = scene.grid;
     const padded = {...position, x: position.x - sizeX, y: position.y - sizeY,
       width: (position.width ?? this._source.width) + 2, height: (position.height ?? this._source.height) + 2};
     const points = this.getContainmentTestPoints(padded);
-
-    // Search surfaces from lowest to highest, identifying the first which can be climbed.
-    for ( const surface of surfaces ) {
-      if ( (surface.elevation < elevation) || (surface.region.elevation.bottom > elevation) ) continue;
-      if ( points.some(p => surface.region.polygonTree.testPoint(p)) ) {
-        const restLevel = this.#findRestingLevel(surface.region, surface.elevation, level);
-        return {elevation: surface.elevation, region: surface.region, level: restLevel};
-      }
-    }
-    return null;
+    return scene.findClimbableSurface(points, {elevation, level});
   }
 }
