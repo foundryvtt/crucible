@@ -2,6 +2,34 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+// TODO: Come up with a more reusable & robust mechanism for "X thing temporarily grants Y Talent"
+HOOKS.potionOfGliding = {
+  _EFFECT_ID: "potionGliding000",
+  _FALL_GLIDE_ACTION: {
+    description: "<p>@ref[actor.name] glides rather than falls, flying downward under control. The movement must descend and suffers no falling damage. If the creature ends its glide while still aloft it gains the @Condition[flying] condition.</p>",
+    id: "fallGlide",
+    img: "icons/svg/wing.svg",
+    name: "Glide",
+    tags: ["fly"],
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    }
+  },
+  prepareActions(item, actions) {
+    if ( !this.effects.has(HOOKS.potionOfGliding._EFFECT_ID) ) return;
+    actions.fallGlide ??= (new crucible.api.models.CrucibleAction(HOOKS.potionOfGliding._FALL_GLIDE_ACTION)).bind(this);
+    return crucible.api.hooks.talent.glider0000000000.prepareActions.call(this, item, actions);
+  },
+  prepareMovement(item, movement) {
+    if ( !this.effects.has(HOOKS.potionOfGliding._EFFECT_ID) ) return;
+    return crucible.api.hooks.talent.glider0000000000.prepareMovement.call(this, item, movement);
+  }
+};
+
+/* -------------------------------------------- */
+
 /**
  * Default Token light configuration applied by a lit Torch when the token has no custom light source.
  */

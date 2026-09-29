@@ -11,56 +11,51 @@ system:
   changes: []
   affixType: suffix
   tier:
-    min: 1
-    max: 3
-    value: 1
+    min: 2
+    max: 2
+    value: 2
   itemTypes:
     - accessory
   actions:
-    - id: gliding
-      name: Gliding
-      img: icons/creatures/magical/spirit-undead-winged-ghost.webp
+    - id: fallGlide
+      name: Glide
+      img: icons/svg/wing.svg
       condition: ''
       description: >-
-        <p>If used while @Condition[falling], you may laterally move a number of
-        spaces from your initial location as you glide. The gliding distance
-        depends on the <strong>Tier</strong> of this
-        prefix.</p><ul><li><p><strong>Tier 1:</strong> <strong>1 foot</strong>
-        per 20 feet of descent.</p></li><li><p><strong>Tier 2:</strong>
-        <strong>2 feet</strong> per 20 feet of
-        descent.</p></li><li><p><strong>Tier 3:</strong> <strong>4 feet</strong>
-        per 20 feet of descent.</p></li></ul><p>You take no falling damage upon
-        landing, nor are you rendered @Condition[prone].</p>
+        <p>You glide rather than fall, flying downward under control. The
+        movement must descend and suffers no falling damage. If you end your
+        glide while still aloft you gain the @Condition[flying] condition.</p>
       cost:
         action: 0
         focus: 0
         heroism: 0
-        hands: 0
         weapon: false
+        hands: 0
       range:
         minimum: null
         maximum: null
         weapon: false
       target:
         type: self
-        number: 1
-        scope: 4
+        number: 0
+        scope: 1
         self: false
       effects: []
       tags:
-        - reaction
         - movement
-      summon:
-        actorUuid: null
-        permanent: true
+        - fly
+      summon: null
+      persistRegion: false
+      regionBehavior: null
 _id: gliding000000000
 img: icons/creatures/magical/spirit-undead-winged-ghost.webp
 disabled: false
 start: null
 description: >-
-  <p>Grants the <strong>Gliding</strong> action, allowing the bearer to
-  laterally glide during a fall. The gliding distance scales with the
-  <strong>Tier</strong> of this prefix.</p>
+  <p>Grants the bearer the benefits of the
+  @UUID[Compendium.crucible.adversary-talents.Item.glider0000000000]{Glider}
+  talent as if they were a creature that possessed that trait, turning what
+  would otherwise be falls into controlled <strong>Glides</strong>.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
@@ -70,12 +65,12 @@ folder: K0gXiZIzkjseMkc0
 sort: 100000
 flags: {}
 _stats:
-  coreVersion: '14.359'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.9.0
+  systemVersion: 0.11.1
   createdTime: 1775502000000
-  modifiedTime: 1775567246349
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1790641822657
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
   exportSource: null

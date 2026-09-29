@@ -354,6 +354,23 @@ HOOKS.unshakeable = {
 /*  Accessory-Only Affixes                      */
 /* -------------------------------------------- */
 
+HOOKS.gliding = {
+  prepareActions(item, actions) {
+    return crucible.api.hooks.talent.glider0000000000.prepareActions.call(this, item, actions);
+  },
+  prepareMovement(item, movement) {
+    return crucible.api.hooks.talent.glider0000000000.prepareMovement.call(this, item, movement);
+  }
+};
+
+HOOKS.inspection = {
+  prepareAction(item, action) {
+    if ( action.id !== "search" ) return;
+    const pool = item.system.affixes.inspection.system.isCursed ? action.usage.banes : action.usage.boons;
+    pool[item.system.identifier] = {label: item.name, number: 2};
+  }
+};
+
 HOOKS.luminary = {
   prepareAction(item, action) {
     if ( !action.tags.has("composed") || !action.inflection?.id ) return;

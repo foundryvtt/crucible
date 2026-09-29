@@ -7,7 +7,7 @@ system:
   quantity: 1
   weight: 0
   price: 20
-  quality: fine
+  quality: superior
   broken: false
   enchantment: minor
   equipped: false
@@ -20,8 +20,8 @@ system:
       spinning slowly upon its wearer's finger.</p></blockquote><p>This
       enchanted ring grants the ability to glide laterally during a fall.</p>
     private: >-
-      <p>This item is presented as an example of <strong>Fine</strong> jewelry
-      with the
+      <p>This item is presented as an example of <strong>Superior</strong>
+      jewelry with the
       @UUID[Compendium.crucible.affixes.ActiveEffect.gliding000000000]{Gliding}
       prefix.</p><p>This affix can be applied to any accessory and this ring
       could be further enchanted with a <strong>Tier 1 Suffix</strong>.</p>
@@ -40,57 +40,53 @@ effects:
       changes: []
       affixType: suffix
       tier:
-        min: 1
-        max: 3
-        value: 1
+        min: 2
+        max: 2
+        value: 2
       itemTypes:
         - accessory
       actions:
-        - id: gliding
-          name: Gliding
-          img: icons/creatures/magical/spirit-undead-winged-ghost.webp
+        - id: fallGlide
+          name: Glide
+          img: icons/svg/wing.svg
           condition: ''
           description: >-
-            <p>If used while @Condition[falling], you may laterally move a
-            number of spaces from your initial location as you glide. The
-            gliding distance depends on the <strong>Tier</strong> of this
-            prefix.</p><ul><li><p><strong>Tier 1:</strong> <strong>1
-            foot</strong> per 20 feet of descent.</p></li><li><p><strong>Tier
-            2:</strong> <strong>2 feet</strong> per 20 feet of
-            descent.</p></li><li><p><strong>Tier 3:</strong> <strong>4
-            feet</strong> per 20 feet of descent.</p></li></ul><p>You take no
-            falling damage upon landing, nor are you rendered
-            @Condition[prone].</p>
+            <p>You glide rather than fall, flying downward under control. The
+            movement must descend and suffers no falling damage. If you end your
+            glide while still aloft you gain the @Condition[flying]
+            condition.</p>
           cost:
             action: 0
             focus: 0
             heroism: 0
-            hands: 0
             weapon: false
+            hands: 0
           range:
             minimum: null
             maximum: null
             weapon: false
           target:
             type: self
-            number: 1
-            scope: 4
+            number: 0
+            scope: 1
             self: false
           effects: []
           tags:
-            - reaction
             - movement
-          summon:
-            actorUuid: null
-            permanent: true
+            - fly
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      properties: []
     _id: gliding000000000
     img: icons/creatures/magical/spirit-undead-winged-ghost.webp
     disabled: false
     start: null
     description: >-
-      <p>Grants the <strong>Gliding</strong> action, allowing the bearer to
-      laterally glide during a fall. The gliding distance scales with the
-      <strong>Tier</strong> of this prefix.</p>
+      <p>Grants the bearer the benefits of the
+      @UUID[Compendium.crucible.adversary-talents.Item.glider0000000000]{Glider}
+      talent as if they were a creature that possessed that trait, turning what
+      would otherwise be falls into controlled <strong>Glides</strong>.</p>
     origin: null
     tint: '#ffffff'
     transfer: false
@@ -100,12 +96,12 @@ effects:
     sort: 100000
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.368'
       systemId: crucible
-      systemVersion: 0.9.0
-      createdTime: 1775567264731
-      modifiedTime: 1775567264731
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      systemVersion: 0.11.1
+      createdTime: 1790642189398
+      modifiedTime: 1790642189398
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: Compendium.crucible.affixes.ActiveEffect.gliding000000000
       duplicateSource: null
       exportSource: null
@@ -119,11 +115,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.1
   createdTime: 1772307157776
-  modifiedTime: 1789417666374
+  modifiedTime: 1790642206407
   lastModifiedBy: ZXJsFnFZuf21WDAk
 _id: ringOfGliding000
 sort: 400000
