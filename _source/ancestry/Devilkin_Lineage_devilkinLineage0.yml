@@ -7,7 +7,7 @@ system:
   description: >-
     <p>The infernal fire of your heritage smolders just beneath your skin,
     waiting to be unleashed through your blows.</p><p><strong>Thermal
-    Vision.</strong> You gain the benefits of @UUID[Compendium.crucible.adversary-talents.thermalVision000].</p>
+    Vision.</strong> You gain the benefits of @UUID[Compendium.crucible.adversary-talents.thermalVision000] with a 30 foot radius.</p>
   actions:
     - id: hellbrand
       name: Hellbrand
