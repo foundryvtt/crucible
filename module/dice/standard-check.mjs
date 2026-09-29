@@ -281,6 +281,15 @@ export default class StandardCheck extends Roll {
     else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
     damage.resistanceLabel = damage.resistance < 0 ? "DICE.DamageVulnerability" : "DICE.DamageResistance";
     damage.resistanceValue = (damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(damage.resistance);
+
+    // Display effective vulnerability if total damage was capped at twice the pre-mitigation amount
+    if ( (damage.resistance < 0) && !damage.restoration ) {
+      const preMitigation = crucible.api.models.CrucibleAction.computeDamage({...damage, resistance: 0});
+      if ( (preMitigation > 0) && (preMitigation < -damage.resistance) ) {
+        damage.resistanceValue = `${-damage.resistance} (${preMitigation})`;
+        damage.resistanceTooltip = _loc("DICE.DamageVulnerabilityCapped");
+      }
+    }
     damage.cssClass = "";
     if ( damage.resistance < 0 ) damage.cssClass = "vulnerable";
     else if ( damage.resistance > 0 ) damage.cssClass = "resistance";

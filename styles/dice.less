@@ -126,8 +126,12 @@
         color: var(--color-primary);
       }
       .tag {
-        width: 24px;
+        min-width: 24px;
+        white-space: nowrap;
         text-align: center;
+        &.capped {
+          font-variant-numeric: lining-nums;
+        }
       }
       &.total {
         margin: -0.2rem 0 0;
