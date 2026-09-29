@@ -322,8 +322,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167502
-      modifiedTime: 1790471167502
+      createdTime: 1790690490586
+      modifiedTime: 1790690490586
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -341,10 +341,10 @@ items:
         <p>A chaotic force of creation, responsible for living matter. The
         <strong>Life</strong> rune governs health and matters relating to
         biological growth.</p><p>The <strong>Life</strong> rune scales using
-        <strong>Wisdom</strong> and provides <strong>Restoration</strong> of
-        <strong>Health</strong>. In special circumstances it may be used to
+        @Rule[ability.wisdom] and provides <strong>Restoration</strong> of
+        @Rule[resource.health]. In special circumstances it may be used to
         inflict <strong>Poison</strong> damage opposed by
-        <strong>Fortitude</strong>. It is opposed by the orderly rune of
+        @Rule[defense.fortitude]. It is opposed by the orderly rune of
         <strong>Death</strong>.</p>
       actions:
         - id: bloom
@@ -400,8 +400,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167502
-      modifiedTime: 1790471167502
+      createdTime: 1790690490587
+      modifiedTime: 1790690490587
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -466,8 +466,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167502
-      modifiedTime: 1790471167502
+      createdTime: 1790690490587
+      modifiedTime: 1790690490587
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -528,8 +528,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167503
-      modifiedTime: 1790471167503
+      createdTime: 1790690490587
+      modifiedTime: 1790690490587
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -546,7 +546,7 @@ items:
       description: >-
         <p>You funnel the arcane power of a <strong>Rune</strong> into a point
         and project it outwards in a beam.</p><p>The <strong>Ray</strong>
-        gesture scales using <strong>Wisdom</strong> and produces a line that is
+        gesture scales using @Rule[ability.wisdom] and produces a line that is
         <strong>1 foot</strong> wide and <strong>30 feet</strong> long
         originating from the spellcaster, dealing <strong>6 Base Damage</strong>
         to targets which fail to resist the spell. The gesture requires
@@ -567,9 +567,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167503
+      modifiedTime: 1790690490587
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167503
+      createdTime: 1790690490587
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -600,11 +600,11 @@ items:
             pose simple questions to a <strong>Beast</strong> which can perceive
             you. As long as the creature is not hostile it will respond
             accurately within the limits of its own
-            knowledge.</p><ul><li><p>Beasts with an <strong>Intellect</strong>
+            knowledge.</p><ul><li><p>Beasts with an @Rule[ability.intellect]
             score of zero are incapable of understanding
-            you.</p></li><li><p>Beasts with an <strong>Intellect</strong> score
-            of 1 can only respond with "yes" or "no"
-            responses.</p></li><li><p>Beasts with an <strong>Intellect</strong>
+            you.</p></li><li><p>Beasts with an @Rule[ability.intellect] score of
+            1 can only respond with "yes" or "no"
+            responses.</p></li><li><p>Beasts with an @Rule[ability.intellect]
             score greater than 1 can provide simple multi-word
             responses.</p></li></ul>
           cost:
@@ -639,8 +639,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167503
-      modifiedTime: 1790471167503
+      createdTime: 1790690490588
+      modifiedTime: 1790690490588
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -664,7 +664,7 @@ items:
       quality: standard
       broken: false
       enchantment: mundane
-      equipped: false
+      equipped: true
       invested: false
       properties: []
       description:
@@ -676,15 +676,15 @@ items:
       actions: []
       damageType: poison
       dropped: false
-      slot: 1
+      slot: 2
     effects: []
     flags: {}
     _stats:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167503
-      modifiedTime: 1790471167503
+      createdTime: 1790690490588
+      modifiedTime: 1790690490588
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -725,17 +725,16 @@ items:
             wholesome. You name the condition under which it fails; when that
             condition is met, the <strong>Gamemaster</strong> decides the
             consequences. Your sabotage is discovered only by an intentional
-            <strong>Awareness</strong> check which beats your passive
-            <strong>Cooking</strong>.</p></li><li><p><strong>Create.</strong>
-            Given time and reasonable access to ingredients, you may prepare any
-            food or drink you are familiar with and have it come out as you
-            intended, from field porridge to a wedding cake to a cordial you
-            tasted once in another country. Explicitly defined crafting recipes
-            must still be rolled, but you can successfully prepare any dish
-            outside of this system without requiring a dice
-            roll.</p></li></ul><p>You may attempt other uses similar to those
-            above, the effectiveness of which is decided by the
-            <strong>Gamemaster</strong>.</p>
+            @Rule[skill.awareness] check which beats your passive
+            @Rule[skill.cooking].</p></li><li><p><strong>Create.</strong> Given
+            time and reasonable access to ingredients, you may prepare any food
+            or drink you are familiar with and have it come out as you intended,
+            from field porridge to a wedding cake to a cordial you tasted once
+            in another country. Explicitly defined crafting recipes must still
+            be rolled, but you can successfully prepare any dish outside of this
+            system without requiring a dice roll.</p></li></ul><p>You may
+            attempt other uses similar to those above, the effectiveness of
+            which is decided by the <strong>Gamemaster</strong>.</p>
           cost:
             action: 3
             focus: 0
@@ -769,8 +768,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167504
-      modifiedTime: 1790471167504
+      createdTime: 1790690490588
+      modifiedTime: 1790690490588
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -790,12 +789,12 @@ items:
       description: >-
         <p>You are highly skilled in weaving the <strong>Rune of Life</strong>.
         When you cast a <strong>Spell</strong> or use an action that involves
-        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
-        restore <strong>Health</strong> cause the @Condition[mending]
+        this <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical
+        Hits} which restore @Rule[resource.health] cause the @Condition[mending]
         condition.</p><p>The <strong>Mending</strong> effect lasts for <strong>1
         Round</strong> and deals the ability score your <strong>Rune of
         Life</strong> scales with as additional <strong>Restoration</strong> to
-        <strong>Health</strong>.</p>
+        @Rule[resource.health].</p>
       actions: []
       nodes:
         - wis3b
@@ -810,8 +809,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167504
-      modifiedTime: 1790471167504
+      createdTime: 1790690490588
+      modifiedTime: 1790690490588
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -830,7 +829,7 @@ items:
         <p>You are unparalleled at manipulating vital arcana to treat injuries.
         You learn <strong>Rune: Life</strong> if you do not already know it.
         When healing allies using the <strong>Rune of Life</strong> you gain
-        <strong>+2 Boons</strong> to your roll.</p>
+        @Rule[dice.boon]{+2 Boons} to your roll.</p>
       actions:
         - id: fontOfLife
           img: icons/magic/life/heart-hand-gold-green-light.webp
@@ -882,8 +881,8 @@ items:
             <p>You bring forth an aura of life-giving magic. Immediately upon
             activation and for the next <strong>3 Rounds</strong>, whenever an
             ally first enters or starts their turn within <strong>20
-            feet</strong> of you, they regain <strong>Health</strong> equal to
-            your <strong>Wisdom</strong> score.</p>
+            feet</strong> of you, they regain @Rule[resource.health] equal to
+            your @Rule[ability.wisdom] score.</p>
           summon: null
           persistRegion: true
           regionBehavior:
@@ -896,7 +895,7 @@ items:
                 description: >-
                   <p>Whenever an ally first enters or starts their turn within
                   <strong>20 feet</strong> of you, they regain
-                  <strong>Health</strong> equal to your <strong>Wisdom</strong>
+                  @Rule[resource.health] equal to your @Rule[ability.wisdom]
                   score.</p>
                 effects: []
                 tags:
@@ -923,9 +922,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167504
+      modifiedTime: 1790690490589
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167504
+      createdTime: 1790690490589
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -954,9 +953,9 @@ items:
 
         <p>If your bestial form becomes @Condition[incapacitated] you revert
         back to your normal form with any excess damage becoming
-        <strong>Wounds</strong>. If your <strong>Morale</strong> is
+        @Rule[resource.wounds]. If your @Rule[resource.morale] is
         @Condition[broken] while in beast form your transformation ends and any
-        excess damage becomes <strong>Madness</strong>.</p>
+        excess damage becomes @Rule[resource.madness].</p>
 
         <h3 class="divider">Playtest Notes</h3>
 
@@ -1053,8 +1052,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167504
-      modifiedTime: 1790471167504
+      createdTime: 1790690490589
+      modifiedTime: 1790690490589
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1120,8 +1119,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167505
-      modifiedTime: 1790471167505
+      createdTime: 1790690490590
+      modifiedTime: 1790690490590
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1142,8 +1141,8 @@ items:
         <p>Through long practice and toughened resolve you are able to block
         enemy blows using your bare limbs. While <strong>Unarmed</strong> or
         wielding only <strong>Natural</strong> weapons, half your
-        <strong>Toughness</strong> score contributes to your
-        <strong>Block</strong> defense.</p>
+        @Rule[ability.toughness] score contributes to your @Rule[defense.block]
+        defense.</p>
       actions: []
       nodes:
         - tou0a
@@ -1158,8 +1157,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167505
-      modifiedTime: 1790471167505
+      createdTime: 1790690490590
+      modifiedTime: 1790690490590
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1196,8 +1195,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167505
-      modifiedTime: 1790471167505
+      createdTime: 1790690490590
+      modifiedTime: 1790690490590
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1232,8 +1231,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167505
-      modifiedTime: 1790471167505
+      createdTime: 1790690490590
+      modifiedTime: 1790690490590
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1253,7 +1252,7 @@ items:
       description: >-
         <p>Your prodigious hardiness conveys a supernatural capability to
         recover from wounds quickly. At the start of your turn if you are not
-        @Condition[weakened] you gain <strong>+1 Health</strong>.</p>
+        @Condition[weakened] you gain @Rule[resource.health]{+1 Health}.</p>
       actions: []
       nodes:
         - tou2c
@@ -1268,8 +1267,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167505
-      modifiedTime: 1790471167505
+      createdTime: 1790690490591
+      modifiedTime: 1790690490591
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1288,8 +1287,8 @@ items:
         <p>Your body has endured so many injuries that it has learned how to
         mend itself with remarkable efficiency. When you perform the
         @Action[default rest] action, you recover additional
-        <strong>Wounds</strong> equal to half your <strong>Toughness</strong>
-        score (rounded down).</p>
+        @Rule[resource.wounds] equal to half your @Rule[ability.toughness] score
+        (rounded down).</p>
       actions: []
       nodes:
         - tou1b
@@ -1304,8 +1303,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167506
-      modifiedTime: 1790471167506
+      createdTime: 1790690490591
+      modifiedTime: 1790690490591
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1325,13 +1324,13 @@ items:
         <p>You keep the fire and the pot, and you have the ingenuity to cook
         meals in circumstances that are far from ideal.</p><p>A meal you prepare
         lasts <strong>16 hours</strong> rather than 8. Those who eat it recover
-        an additional amount of <strong>Wounds</strong> and
-        <strong>Madness</strong> equal to half your <strong>Wisdom</strong> when
+        an additional amount of @Rule[resource.wounds] and
+        @Rule[resource.madness] equal to half your @Rule[ability.wisdom] when
         the @Action[default rest] concludes. You may prepare a meal wherever the
         party is able to <strong>Rest</strong> at all, without fire or
         shelter.</p><h3 class="divider">Playtest Notes</h3><p>Meals are not yet
-        implemented. This talent describes how the <strong>Cooking</strong>
-        trade will behave once meal preparation is a <strong>Rest</strong>
+        implemented. This talent describes how the @Rule[skill.cooking] trade
+        will behave once meal preparation is a <strong>Rest</strong>
         activity.</p>
       actions: []
       nodes:
@@ -1347,8 +1346,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167506
-      modifiedTime: 1790471167506
+      createdTime: 1790690490591
+      modifiedTime: 1790690490591
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1368,9 +1367,9 @@ items:
         <p>The orderly force of discipline and permanence. The
         <strong>Control</strong> rune governs thought, reason, and
         persistence.</p><p>The <strong>Control</strong> rune scales using
-        <strong>Wisdom</strong>, targets <strong>Willpower</strong>, and deals
-        <strong>Psychic</strong> damage to <strong>Morale</strong>. It is
-        opposed by the chaotic rune of <strong>Kinesis</strong>.</p>
+        @Rule[ability.wisdom], targets @Rule[defense.willpower], and deals
+        <strong>Psychic</strong> damage to @Rule[resource.morale]. It is opposed
+        by the chaotic rune of <strong>Kinesis</strong>.</p>
       actions:
         - id: motivate
           img: icons/magic/control/hypnosis-mesmerism-eye.webp
@@ -1429,8 +1428,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167506
-      modifiedTime: 1790471167506
+      createdTime: 1790690490591
+      modifiedTime: 1790690490591
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1449,8 +1448,8 @@ items:
       description: >-
         <p>Enhance a spell by taking extra time in its formation, reducing other
         resource costs in exchange. The <strong>Compose</strong> inflection
-        reduces the <strong>Focus</strong> cost of a spell by 1 while increasing
-        its <strong>Action</strong> cost by 1 in exchange.</p>
+        reduces the @Rule[resource.focus] cost of a spell by 1 while increasing
+        its @Rule[resource.action] cost by 1 in exchange.</p>
       actions: []
       spellcraft: compose
       iconicSpells: 1
@@ -1466,9 +1465,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167507
+      modifiedTime: 1790690490592
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167507
+      createdTime: 1790690490592
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1489,7 +1488,7 @@ items:
         <p>You channel the arcane power of a <strong>Rune</strong> into a
         rushing wave of energy that surges forward from your current
         position.</p><p>The <strong>Surge</strong> gesture scales with
-        <strong>Wisdom</strong> and produces a line that is <strong>10
+        @Rule[ability.wisdom] and produces a line that is <strong>10
         feet</strong> wide and <strong>15 feet</strong> long originating from
         the spellcaster, dealing <strong>8 Base Damage</strong> to targets which
         fail to resist the spell. The gesture requires <strong>2 Hands</strong>
@@ -1510,8 +1509,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167507
-      modifiedTime: 1790471167507
+      createdTime: 1790690490592
+      modifiedTime: 1790690490592
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1532,10 +1531,10 @@ items:
         <strong>Soul</strong> rune governs the fundamental procession of souls
         through life and death and relates to matters of sapience, personality,
         and mental health.</p><p>The <strong>Soul</strong> rune scales using
-        <strong>Presence</strong> and provides <strong>Restoration</strong> of
-        <strong>Morale</strong>. In special circumstances it may be used to
+        @Rule[ability.presence] and provides <strong>Restoration</strong> of
+        @Rule[resource.morale]. In special circumstances it may be used to
         inflict <strong>Psychic</strong> damage opposed by
-        <strong>Willpower</strong>. It is opposed by the chaotic rune of
+        @Rule[defense.willpower]. It is opposed by the chaotic rune of
         <strong>Oblivion</strong>.</p>
       actions:
         - id: evoke
@@ -1593,8 +1592,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167507
-      modifiedTime: 1790471167507
+      createdTime: 1790690490592
+      modifiedTime: 1790690490592
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1612,7 +1611,7 @@ items:
     system:
       description: >-
         <p>Despair takes your voice and your courage, but never your command of
-        the arcane. You may continue to spend <strong>Focus</strong> even while
+        the arcane. You may continue to spend @Rule[resource.focus] even while
         you are @Condition[broken].</p>
       actions: []
       nodes:
@@ -1628,8 +1627,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167507
-      modifiedTime: 1790471167507
+      createdTime: 1790690490592
+      modifiedTime: 1790690490592
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1649,7 +1648,7 @@ items:
       category: jewelry
       quantity: 1
       weight: 0
-      price: 20
+      price: 100
       quality: fine
       broken: false
       enchantment: minor
@@ -1664,7 +1663,7 @@ items:
           resonance. While holding it you have the surreal sensation of the
           world around you slowing down ever so
           slightly.</p></blockquote><p>This enchanted amulet provides a bonus to
-          <strong>Reflex</strong> defense.</p>
+          @Rule[defense.reflex] defense.</p>
         private: >-
           <p>This item is presented as an example of <strong>Fine</strong>
           jewelry with the
@@ -1714,8 +1713,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167508
-          modifiedTime: 1790471167508
+          createdTime: 1790690490593
+          modifiedTime: 1790690490593
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1727,8 +1726,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167508
-      modifiedTime: 1790471167508
+      createdTime: 1790690490593
+      modifiedTime: 1790690490593
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1748,7 +1747,7 @@ items:
       category: jewelry
       quantity: 1
       weight: 0
-      price: 20
+      price: 100
       quality: fine
       broken: false
       enchantment: minor
@@ -1762,7 +1761,7 @@ items:
           close inspection you notice a delicate craft imbued within its
           workmanship. While holding it you feel your breaths deepen and the
           minor aches within your muscles dissipate.</p></blockquote><p>This
-          enchanted charm provides a bonus to <strong>Fortitude</strong>
+          enchanted charm provides a bonus to @Rule[defense.fortitude]
           defense.</p>
         private: >-
           <p>This item is presented as an example of <strong>Fine</strong>
@@ -1813,8 +1812,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167509
-          modifiedTime: 1790471167509
+          createdTime: 1790690490594
+          modifiedTime: 1790690490594
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1826,8 +1825,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167509
-      modifiedTime: 1790471167509
+      createdTime: 1790690490594
+      modifiedTime: 1790690490594
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1871,11 +1870,11 @@ items:
             immobile object, such as a tree or spike driven into the ground. The
             area of the trap is a circle with a radius of 2 feet.</p><p>When
             triggered, the creature that set the trap makes a
-            <strong>Wilderness</strong> skill attack against the
-            <strong>Reflex</strong> defense of a single target which triggered
-            the trap. If not resisted, it deals <strong>Piercing</strong> damage
-            and applies the @Condition[restrained] condition. The base damage
-            dealt by the trap varies according to the quality of the
+            @Rule[skill.wilderness] skill attack against the
+            @Rule[defense.reflex] defense of a single target which triggered the
+            trap. If not resisted, it deals <strong>Piercing</strong> damage and
+            applies the @Condition[restrained] condition. The base damage dealt
+            by the trap varies according to the quality of the
             trap.</p><ul><li><p><strong>Shoddy</strong> - 1
             damage</p></li><li><p><strong>Standard</strong> - 2
             damage</p></li><li><p><strong>Fine</strong> - 4
@@ -1912,8 +1911,8 @@ items:
                 img: icons/environment/traps/trap-jaw-steel.webp
                 description: >-
                   <p>The creature that set the trap makes a
-                  <strong>Wilderness</strong> skill attack against the
-                  <strong>Reflex</strong> defense of the single target which
+                  @Rule[skill.wilderness] skill attack against the
+                  @Rule[defense.reflex] defense of the single target which
                   triggered the trap. If not resisted, it deals
                   <strong>Piercing</strong> damage and applies the
                   @Condition[restrained] condition.</p>
@@ -1971,8 +1970,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167510
-      modifiedTime: 1790471167510
+      createdTime: 1790690490594
+      modifiedTime: 1790690490594
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2010,8 +2009,8 @@ items:
           img: icons/consumables/potions/bottle-bulb-corked-purple.webp
           condition: ''
           description: >-
-            <p>Immediately recover an amount of <strong>Morale
-            </strong>dependant on the quality of the
+            <p>Immediately recover an amount of @Rule[resource.morale]{Morale}
+            dependant on the quality of the
             elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
             <strong>Morale</strong>.</p></li><li><p><strong>Standard</strong> -
             Immediately heals 12
@@ -2056,8 +2055,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167510
-      modifiedTime: 1790471167510
+      createdTime: 1790690490595
+      modifiedTime: 1790690490595
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2148,8 +2147,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167500
-      modifiedTime: 1790471167500
+      createdTime: 1790690490595
+      modifiedTime: 1790690490595
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2253,8 +2252,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790471167500
-  modifiedTime: 1790471167500
+  createdTime: 1790690490585
+  modifiedTime: 1790690490585
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

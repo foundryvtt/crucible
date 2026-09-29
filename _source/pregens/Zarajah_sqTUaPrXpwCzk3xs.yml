@@ -299,8 +299,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161410
-      modifiedTime: 1790471161410
+      createdTime: 1790690160018
+      modifiedTime: 1790690160018
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -342,8 +342,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161411
-      modifiedTime: 1790471161411
+      createdTime: 1790690160018
+      modifiedTime: 1790690160018
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -368,12 +368,11 @@ items:
           condition: ''
           description: >-
             <p>Following a @Action[default rest], you find the common ground you
-            share with each of your companions. You make a
-            <strong>Society</strong> check against the <strong>Rallying
-            Threshold</strong> of each member of your party. Upon a success they
-            shed <strong>Madness</strong> equal to half your
-            <strong>Wisdom</strong>, or your full <strong>Wisdom</strong> upon a
-            <strong>Critical Success</strong>.</p>
+            share with each of your companions. You make a @Rule[skill.society]
+            check against the @Rule[defense.madness] of each member of your
+            party. Upon a success they shed <strong>Madness</strong> equal to
+            half your @Rule[ability.wisdom], or your full @Rule[ability.wisdom]
+            upon a @Rule[dice.criticalSuccess].</p>
           cost:
             action: 0
             focus: 0
@@ -411,8 +410,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161411
-      modifiedTime: 1790471161411
+      createdTime: 1790690160018
+      modifiedTime: 1790690160018
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -431,11 +430,10 @@ items:
         <p>The chaotic force of space and physical movement. The
         <strong>Kinesis</strong> rune governs all things related to the act of
         movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
-        using <strong>Presence</strong>, targets <strong>Physical</strong>
-        defense, and deals <strong>Bludgeoning</strong>,
-        <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
-        <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Control</strong>.</p>
+        using @Rule[ability.presence], targets @Rule[defense.physical] defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to @Rule[resource.health]. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
       actions:
         - id: propel
           name: Propel
@@ -456,8 +454,8 @@ items:
             long as they have a free hand with which to do
             so.</p></li><li><p>Suspend in midair an object or willing creature
             that you touch with weight less than or equal to 10 times your
-            <strong>Presence</strong>, altering its position up to 20 feet in
-            any direction from its original location. You can maintain this
+            @Rule[ability.presence], altering its position up to 20 feet in any
+            direction from its original location. You can maintain this
             suspension indefinitely as long as you take no further Action and
             are not @Condition[incapacitated].</p></li></ul><p>Propel may only
             affect a creature or object you can physically touch unless
@@ -499,8 +497,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161412
-      modifiedTime: 1790471161412
+      createdTime: 1790690160018
+      modifiedTime: 1790690160018
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -524,10 +522,10 @@ items:
           name: Distract
           condition: ''
           description: >-
-            <p>You make a <strong>Deception</strong> based <strong>Skill
-            Attack</strong> against the <strong>Willpower </strong>defense of a
+            <p>You make a @Rule[skill.deception] based <strong>Skill
+            Attack</strong> against the @Rule[defense.willpower] defense of a
             target within <strong>30 feet</strong> which can see or hear you. On
-            a success, the target loses <strong>1 Focus</strong>.</p>
+            a success, the target loses @Rule[resource.focus]{1 Focus}.</p>
           tags:
             - void
             - skill
@@ -541,7 +539,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 0
+            scope: 3
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
@@ -565,8 +563,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161412
-      modifiedTime: 1790471161412
+      createdTime: 1790690160019
+      modifiedTime: 1790690160019
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -590,14 +588,14 @@ items:
           condition: ''
           description: >-
             <p>You use your equipped <strong>Talisman</strong> to attempt to
-            regain some <strong>Focus</strong>. You perform a
+            regain some @Rule[resource.focus]. You perform a
             @Rule[action.harmless] <strong>Strike</strong> against your own
-            <strong>Rallying</strong> threshold.</p><p>On a success you recover
-            <strong>+1 Focus</strong> if using a one-handed
-            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
-            two-handed <strong>Talisman</strong>. On a <strong>Critical
-            Success</strong> the amount of <strong>Focus</strong> recovered
-            increases by an additional +1.</p>
+            @Rule[defense.madness].</p><p>On a success you recover
+            @Rule[resource.focus]{+1 Focus} if using a one-handed
+            <strong>Talisman</strong> and @Rule[resource.focus]{+2 Focus} if
+            using a two-handed <strong>Talisman</strong>. On a
+            @Rule[dice.criticalSuccess] the amount of @Rule[resource.focus]
+            recovered increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -635,8 +633,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161412
-      modifiedTime: 1790471161412
+      createdTime: 1790690160020
+      modifiedTime: 1790690160020
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -655,9 +653,9 @@ items:
       description: >-
         <p>The chaotic force of elemental, thermal energy. The
         <strong>Flame</strong> rune governs fire and heat.</p><p>The
-        <strong>Flame</strong> rune scales using <strong>Intellect</strong>,
-        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
-        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Flame</strong> rune scales using @Rule[ability.intellect],
+        targets @Rule[defense.reflex], and deals <strong>Fire</strong> damage to
+        @Rule[resource.health]. It is opposed by the orderly rune of
         <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
@@ -715,8 +713,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1790471161413
-      createdTime: 1790471161413
+      modifiedTime: 1790690160020
+      createdTime: 1790690160020
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -734,11 +732,11 @@ items:
       description: >-
         <p>You hurl a projectile imbued with the magical power of a
         <strong>Rune</strong> at a distant target.</p><p>The
-        <strong>Arrow</strong> gesture scales using <strong>Intellect</strong>
-        and targets a single creature up to a distance of <strong>60
-        feet</strong>, dealing <strong>8 Base Damage</strong> to targets which
-        fail to resist the spell. This gesture requires <strong>1 Hand</strong>
-        to cast and has a base cost of <strong>3 Action</strong> and <strong>1
+        <strong>Arrow</strong> gesture scales using @Rule[ability.intellect] and
+        targets a single creature up to a distance of <strong>60 feet</strong>,
+        dealing <strong>8 Base Damage</strong> to targets which fail to resist
+        the spell. This gesture requires <strong>1 Hand</strong> to cast and has
+        a base cost of <strong>3 Action</strong> and <strong>1
         Focus</strong>.</p>
       actions: []
       spellcraft: arrow
@@ -755,8 +753,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161413
-      modifiedTime: 1790471161413
+      createdTime: 1790690160021
+      modifiedTime: 1790690160021
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -777,14 +775,9 @@ items:
       description: >-
         <p>The infernal fire of your heritage smolders just beneath your skin,
         waiting to be unleashed through your blows.</p><p><strong>Thermal
-        Vision.</strong> You perceive the world through differences in
-        temperature, allowing you to locate creatures whose body temperatures
-        are <strong>Gelid</strong>, <strong>Cool</strong>,
-        <strong>Warm</strong>, or <strong>Boiling</strong> up to <strong>30
-        feet</strong> away as long as they are not behind total cover and you
-        are not @Condition[blinded] or @Condition[incapacitated]. A creature
-        detected in this way is treated as visible for the purposes of Actions
-        which require sight.</p>
+        Vision.</strong> You gain the benefits of
+        @UUID[Compendium.crucible.adversary-talents.thermalVision000] with a 30
+        foot radius.</p>
       actions:
         - id: hellbrand
           name: Hellbrand
@@ -795,8 +788,8 @@ items:
             hellfire for <strong>3 Rounds</strong>. Each of your attacks which
             deals damage to @Rule[resource.health] also deals additional
             <strong>Fire</strong> damage equal to half your
-            @Rule[ability.presence]. A <strong>Critical Hit</strong> sets the
-            target @Condition[burning].</p>
+            @Rule[ability.presence]. A @Rule[dice.criticalSuccess]{Critical Hit}
+            sets the target @Condition[burning].</p>
           cost:
             action: 0
             focus: 0
@@ -851,8 +844,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161409
-      modifiedTime: 1790471161409
+      createdTime: 1790690160021
+      modifiedTime: 1790690160021
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -871,8 +864,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790471161409
-  modifiedTime: 1790471161409
+  createdTime: 1790690160017
+  modifiedTime: 1790690160017
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

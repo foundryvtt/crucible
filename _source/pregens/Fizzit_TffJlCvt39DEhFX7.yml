@@ -297,8 +297,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161431
-      modifiedTime: 1790471161431
+      createdTime: 1790690160037
+      modifiedTime: 1790690160037
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -342,8 +342,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161431
-      modifiedTime: 1790471161431
+      createdTime: 1790690160038
+      modifiedTime: 1790690160038
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -385,8 +385,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161431
-      modifiedTime: 1790471161431
+      createdTime: 1790690160038
+      modifiedTime: 1790690160038
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -410,14 +410,14 @@ items:
           condition: ''
           description: >-
             <p>You use your equipped <strong>Talisman</strong> to attempt to
-            regain some <strong>Focus</strong>. You perform a
+            regain some @Rule[resource.focus]. You perform a
             @Rule[action.harmless] <strong>Strike</strong> against your own
-            <strong>Rallying</strong> threshold.</p><p>On a success you recover
-            <strong>+1 Focus</strong> if using a one-handed
-            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
-            two-handed <strong>Talisman</strong>. On a <strong>Critical
-            Success</strong> the amount of <strong>Focus</strong> recovered
-            increases by an additional +1.</p>
+            @Rule[defense.madness].</p><p>On a success you recover
+            @Rule[resource.focus]{+1 Focus} if using a one-handed
+            <strong>Talisman</strong> and @Rule[resource.focus]{+2 Focus} if
+            using a two-handed <strong>Talisman</strong>. On a
+            @Rule[dice.criticalSuccess] the amount of @Rule[resource.focus]
+            recovered increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -455,8 +455,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161432
-      modifiedTime: 1790471161432
+      createdTime: 1790690160038
+      modifiedTime: 1790690160038
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -492,8 +492,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161432
-      modifiedTime: 1790471161432
+      createdTime: 1790690160038
+      modifiedTime: 1790690160038
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -513,10 +513,10 @@ items:
         <strong>Soul</strong> rune governs the fundamental procession of souls
         through life and death and relates to matters of sapience, personality,
         and mental health.</p><p>The <strong>Soul</strong> rune scales using
-        <strong>Presence</strong> and provides <strong>Restoration</strong> of
-        <strong>Morale</strong>. In special circumstances it may be used to
+        @Rule[ability.presence] and provides <strong>Restoration</strong> of
+        @Rule[resource.morale]. In special circumstances it may be used to
         inflict <strong>Psychic</strong> damage opposed by
-        <strong>Willpower</strong>. It is opposed by the chaotic rune of
+        @Rule[defense.willpower]. It is opposed by the chaotic rune of
         <strong>Oblivion</strong>.</p>
       actions:
         - id: evoke
@@ -574,8 +574,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161432
-      modifiedTime: 1790471161432
+      createdTime: 1790690160039
+      modifiedTime: 1790690160039
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -594,9 +594,9 @@ items:
         <p>The orderly force of water and cold. The <strong>Frost</strong> rune
         governs the creation of water or other fluids and their transfer between
         liquid and frozen states.</p><p>The <strong>Frost</strong> rune scales
-        using <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and
-        deals <strong>Cold</strong> damage to <strong>Health</strong>. It is
-        opposed by the chaotic rune of <strong>Flame</strong>.</p>
+        using @Rule[ability.wisdom], targets @Rule[defense.fortitude], and deals
+        <strong>Cold</strong> damage to @Rule[resource.health]. It is opposed by
+        the chaotic rune of <strong>Flame</strong>.</p>
       actions:
         - id: condense
           name: Condense
@@ -655,8 +655,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161433
-      modifiedTime: 1790471161433
+      createdTime: 1790690160039
+      modifiedTime: 1790690160039
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -678,8 +678,8 @@ items:
         and joins <strong>Combat</strong> at <strong>Initiative 1</strong>. Your
         <strong>Sprite</strong> is a <strong>Minion</strong> of half your own
         <strong>Level</strong>.</p><p>The <strong>Create</strong> gesture scales
-        with <strong>Wisdom</strong> and the <strong>Sprite</strong> survives
-        for <strong>6 Rounds</strong>. You may only have one active
+        with @Rule[ability.wisdom] and the <strong>Sprite</strong> survives for
+        <strong>6 Rounds</strong>. You may only have one active
         <strong>Sprite</strong>; casting another spell using the
         <strong>Create</strong> gesture replaces your previous
         <strong>Sprite</strong>. This gesture requires <strong>2 Hands</strong>
@@ -703,9 +703,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471161433
+      modifiedTime: 1790690160040
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471161433
+      createdTime: 1790690160040
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -730,12 +730,11 @@ items:
           condition: Your target can hear and understand you.
           description: >-
             <p>You exaggerate your opponent's shortcomings with a scathing bon
-            mot, improvising a <strong>Performance</strong> skill attack against
-            your target's <strong>Willpower</strong>. On a success they suffer
-            modest <strong>Psychic</strong> damage to
-            <strong>Morale</strong>.</p><p>On a <strong>Critical
-            Success</strong>, they also become @Condition[enraged] for <strong>1
-            Round</strong>.</p>
+            mot, improvising a @Rule[skill.performance] skill attack against
+            your target's @Rule[defense.willpower]. On a @Rule[dice.success]
+            they suffer modest <strong>Psychic</strong> damage to
+            @Rule[resource.morale].</p><p>On a @Rule[dice.criticalSuccess], they
+            also become @Condition[enraged] for <strong>1 Round</strong>.</p>
           tags:
             - weakened
             - willpower
@@ -743,6 +742,7 @@ items:
             - morale
             - skill
             - performance
+            - vocal
           cost:
             action: 1
             focus: 1
@@ -781,7 +781,7 @@ items:
           img: icons/magic/control/mouth-smile-deception-purple.webp
           range:
             minimum: null
-            maximum: null
+            maximum: 30
             weapon: false
           summon: null
           persistRegion: false
@@ -800,8 +800,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161433
-      modifiedTime: 1790471161433
+      createdTime: 1790690160040
+      modifiedTime: 1790690160040
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -887,8 +887,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161430
-      modifiedTime: 1790471161430
+      createdTime: 1790690160040
+      modifiedTime: 1790690160040
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -907,8 +907,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790471161430
-  modifiedTime: 1790471161430
+  createdTime: 1790690160037
+  modifiedTime: 1790690160037
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

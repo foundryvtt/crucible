@@ -304,8 +304,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161416
-      modifiedTime: 1790471161416
+      createdTime: 1790690160024
+      modifiedTime: 1790690160024
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -350,8 +350,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161416
-      modifiedTime: 1790471161416
+      createdTime: 1790690160025
+      modifiedTime: 1790690160025
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -392,8 +392,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161416
-      modifiedTime: 1790471161416
+      createdTime: 1790690160025
+      modifiedTime: 1790690160025
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -415,10 +415,10 @@ items:
           name: Distract
           condition: ''
           description: >-
-            <p>You make a <strong>Deception</strong> based <strong>Skill
-            Attack</strong> against the <strong>Willpower </strong>defense of a
+            <p>You make a @Rule[skill.deception] based <strong>Skill
+            Attack</strong> against the @Rule[defense.willpower] defense of a
             target within <strong>30 feet</strong> which can see or hear you. On
-            a success, the target loses <strong>1 Focus</strong>.</p>
+            a success, the target loses @Rule[resource.focus]{1 Focus}.</p>
           tags:
             - void
             - skill
@@ -432,7 +432,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 0
+            scope: 3
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
@@ -458,9 +458,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471161416
+      modifiedTime: 1790690160025
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471161416
+      createdTime: 1790690160025
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -481,11 +481,11 @@ items:
           condition: ''
           description: >-
             <p>You dart forward nimbly, attacking with sudden and unexpected
-            swiftness to perform a <strong>Strike </strong>with a weapon which
-            scales using <strong>Dexterity</strong> against a single target,
-            with an increased range of <strong>+2 feet</strong>.</p><p>The
-            attack is @Rule[action.difficult], but you do not move from your
-            current position nor does this attack provoke a @Action[default
+            swiftness to perform a <strong>Strike</strong> with a weapon which
+            scales using @Rule[ability.dexterity] against a single target, with
+            an increased range of <strong>+2 feet</strong>.</p><p>The attack is
+            @Rule[action.difficult], but you do not move from your current
+            position nor does this attack provoke a @Action[default
             reactiveStrike].</p>
           cost:
             action: 0
@@ -523,8 +523,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161417
-      modifiedTime: 1790471161417
+      createdTime: 1790690160026
+      modifiedTime: 1790690160026
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -542,9 +542,9 @@ items:
     system:
       description: >-
         <p>You seem to always be prepared for the moment at hand. You may
-        sacrifice your <strong>Free Movement</strong> for the round to instead
+        sacrifice your @Rule[movement.freeMovement] for the round to instead
         equip an <strong>Item</strong> from your inventory without spending any
-        <strong>Action</strong> points.</p>
+        @Rule[resource.action] points.</p>
       nodes:
         - wis0a
       actions: []
@@ -560,8 +560,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161417
-      modifiedTime: 1790471161417
+      createdTime: 1790690160026
+      modifiedTime: 1790690160026
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -594,12 +594,12 @@ items:
           condition: ''
           description: >-
             <p>Target one enemy which you can see at a distance of at least
-            <strong>20 feet</strong>. You make a <strong>Stealth</strong> check
-            against their <strong>Awareness</strong>. Upon a success that
-            creature loses track of you until the start of your next turn, or
-            until you perform an action targeting them which is not
-            @Rule[action.subtle]. Upon a <strong>Critical Success</strong> the
-            effect instead persists for <strong>2 Rounds</strong>.</p>
+            <strong>20 feet</strong>. You make a @Rule[skill.stealth] check
+            against their @Rule[skill.awareness]. Upon a success that creature
+            loses track of you until the start of your next turn, or until you
+            perform an action targeting them which is not @Rule[action.subtle].
+            Upon a @Rule[dice.criticalSuccess] the effect instead persists for
+            <strong>2 Rounds</strong>.</p>
           cost:
             action: 1
             focus: 1
@@ -639,6 +639,7 @@ items:
                 properties: []
                 lights: []
           tags:
+            - harmless
             - subtle
             - skill
             - stealth
@@ -658,8 +659,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161418
-      modifiedTime: 1790471161418
+      createdTime: 1790690160026
+      modifiedTime: 1790690160026
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -724,8 +725,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161418
-      modifiedTime: 1790471161418
+      createdTime: 1790690160027
+      modifiedTime: 1790690160027
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -744,9 +745,9 @@ items:
     system:
       description: >-
         <p>You take in your surroundings without needing to stop and look. You
-        may sacrifice your <strong>Free Movement</strong> for the
+        may sacrifice your @Rule[movement.freeMovement] for the
         <strong>Round</strong> to instead @Action[default search] without
-        spending any <strong>Action</strong> points.</p>
+        spending any @Rule[resource.action] points.</p>
       actions: []
       nodes:
         - wis0a
@@ -761,8 +762,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161418
-      modifiedTime: 1790471161418
+      createdTime: 1790690160027
+      modifiedTime: 1790690160027
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -793,7 +794,7 @@ items:
           description: >-
             <p>You expend @Rule[resource.heroism] to push through adversity.
             Until the end of your turn, your attacks and skill checks ignore any
-            <strong>Banes</strong> imposed upon them. Banes you choose to take
+            @Rule[dice.bane]{Banes} imposed upon them. Banes you choose to take
             upon yourself are not ignored.</p>
           cost:
             action: 0
@@ -849,8 +850,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161415
-      modifiedTime: 1790471161415
+      createdTime: 1790690160027
+      modifiedTime: 1790690160027
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -868,8 +869,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790471161415
-  modifiedTime: 1790471161415
+  createdTime: 1790690160023
+  modifiedTime: 1790690160023
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

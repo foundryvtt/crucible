@@ -324,8 +324,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167557
-      modifiedTime: 1790471167557
+      createdTime: 1790690490646
+      modifiedTime: 1790690490646
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -367,8 +367,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167557
-      modifiedTime: 1790471167557
+      createdTime: 1790690490646
+      modifiedTime: 1790690490646
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -391,14 +391,14 @@ items:
           condition: ''
           description: >-
             <p>You use your equipped <strong>Talisman</strong> to attempt to
-            regain some <strong>Focus</strong>. You perform a
+            regain some @Rule[resource.focus]. You perform a
             @Rule[action.harmless] <strong>Strike</strong> against your own
-            <strong>Rallying</strong> threshold.</p><p>On a success you recover
-            <strong>+1 Focus</strong> if using a one-handed
-            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
-            two-handed <strong>Talisman</strong>. On a <strong>Critical
-            Success</strong> the amount of <strong>Focus</strong> recovered
-            increases by an additional +1.</p>
+            @Rule[defense.madness].</p><p>On a success you recover
+            @Rule[resource.focus]{+1 Focus} if using a one-handed
+            <strong>Talisman</strong> and @Rule[resource.focus]{+2 Focus} if
+            using a two-handed <strong>Talisman</strong>. On a
+            @Rule[dice.criticalSuccess] the amount of @Rule[resource.focus]
+            recovered increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -436,8 +436,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167558
-      modifiedTime: 1790471167558
+      createdTime: 1790690490647
+      modifiedTime: 1790690490647
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -473,8 +473,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167558
-      modifiedTime: 1790471167558
+      createdTime: 1790690490647
+      modifiedTime: 1790690490647
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -492,9 +492,9 @@ items:
       description: >-
         <p>The chaotic force of elemental, thermal energy. The
         <strong>Flame</strong> rune governs fire and heat.</p><p>The
-        <strong>Flame</strong> rune scales using <strong>Intellect</strong>,
-        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
-        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Flame</strong> rune scales using @Rule[ability.intellect],
+        targets @Rule[defense.reflex], and deals <strong>Fire</strong> damage to
+        @Rule[resource.health]. It is opposed by the orderly rune of
         <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
@@ -551,8 +551,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167558
-      modifiedTime: 1790471167558
+      createdTime: 1790690490648
+      modifiedTime: 1790690490648
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -569,8 +569,9 @@ items:
     system:
       description: >-
         <p>You are trained in wearing the heaviest types of armor while still
-        retaining mobility. You are able to use a <strong>Free Move</strong>
-        once per turn while wearing <strong>Heavy</strong> armor.</p>
+        retaining mobility. You are able to use a
+        @Rule[movement.freeMovement]{Free Move} once per turn while wearing
+        <strong>Heavy</strong> armor.</p>
       actions: []
       nodes:
         - str0b
@@ -586,8 +587,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167558
-      modifiedTime: 1790471167558
+      createdTime: 1790690490648
+      modifiedTime: 1790690490648
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -606,11 +607,11 @@ items:
     system:
       description: >-
         <p>Your grasp of your weaponry is firm and unyielding. While wielding a
-        two-handed weapon that scales with <strong>Strength</strong> you may
-        cast spells which require two hands, and attempts to
-        <strong>Disarm</strong> you are made with <strong>+2
-        Banes</strong>.</p><p>Additionally, you may wield a one-handed
-        <strong>Heavy</strong> weapon in your off-hand.</p>
+        two-handed weapon that scales with @Rule[ability.strength] you may cast
+        spells which require two hands, and attempts to <strong>Disarm</strong>
+        you are made with @Rule[dice.bane]{+2 Banes}.</p><p>Additionally, you
+        may wield a one-handed <strong>Heavy</strong> weapon in your
+        off-hand.</p>
       actions: []
       nodes:
         - str1b
@@ -625,9 +626,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167559
+      modifiedTime: 1790690490648
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167559
+      createdTime: 1790690490648
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -655,9 +656,9 @@ items:
           condition: ''
           description: >-
             <p>Following a basic @Action[default strike] which did not
-            <strong>Critically Miss</strong>, you <strong>Strike</strong> the
-            same target again with the backswing of your weapon at reduced
-            <strong>Action</strong> cost.</p>
+            @Rule[dice.criticalFailure]{Critically Miss}, you
+            <strong>Strike</strong> the same target again with the backswing of
+            your weapon at reduced @Rule[resource.action] cost.</p>
           tags:
             - afterStrike
             - melee
@@ -692,8 +693,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167561
-      modifiedTime: 1790471167561
+      createdTime: 1790690490649
+      modifiedTime: 1790690490649
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -712,11 +713,11 @@ items:
       description: >-
         <p>You hurl a projectile imbued with the magical power of a
         <strong>Rune</strong> at a distant target.</p><p>The
-        <strong>Arrow</strong> gesture scales using <strong>Intellect</strong>
-        and targets a single creature up to a distance of <strong>60
-        feet</strong>, dealing <strong>8 Base Damage</strong> to targets which
-        fail to resist the spell. This gesture requires <strong>1 Hand</strong>
-        to cast and has a base cost of <strong>3 Action</strong> and <strong>1
+        <strong>Arrow</strong> gesture scales using @Rule[ability.intellect] and
+        targets a single creature up to a distance of <strong>60 feet</strong>,
+        dealing <strong>8 Base Damage</strong> to targets which fail to resist
+        the spell. This gesture requires <strong>1 Hand</strong> to cast and has
+        a base cost of <strong>3 Action</strong> and <strong>1
         Focus</strong>.</p>
       actions: []
       spellcraft: arrow
@@ -733,9 +734,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167561
+      modifiedTime: 1790690490649
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167561
+      createdTime: 1790690490649
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -771,9 +772,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167561
+      modifiedTime: 1790690490649
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167561
+      createdTime: 1790690490649
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -788,12 +789,12 @@ items:
       description: >-
         <p>You are highly skilled in weaving the <strong>Rune of Flame</strong>.
         When you cast a <strong>Spell</strong> or use an action that involves
-        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
-        deal damage cause the @Condition[burning] condition.</p><p>The
-        <strong>Burning</strong> effect lasts for <strong>3 Rounds</strong> and
-        deals half the ability score your <strong>Rune of Flame</strong> scales
-        with as <strong>Fire</strong> damage to both <strong>Health</strong> and
-        <strong>Morale</strong>.</p>
+        this <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical
+        Hits} which deal damage cause the @Condition[burning]
+        condition.</p><p>The <strong>Burning</strong> effect lasts for <strong>3
+        Rounds</strong> and deals half the ability score your <strong>Rune of
+        Flame</strong> scales with as <strong>Fire</strong> damage to both
+        @Rule[resource.health] and @Rule[resource.morale].</p>
       actions: []
       nodes:
         - int3a
@@ -809,8 +810,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167561
-      modifiedTime: 1790471167561
+      createdTime: 1790690490649
+      modifiedTime: 1790690490649
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -830,8 +831,8 @@ items:
         <p>The chaotic force of raw electrical energy. The
         <strong>Storm</strong> rune governs sources of electrical charge and
         discharge.</p><p>The <strong>Storm</strong> rune scales using
-        <strong>Intellect</strong>, targets <strong>Reflex</strong>, and deals
-        <strong>Electricity</strong> damage to <strong>Health</strong>. It is
+        @Rule[ability.intellect], targets @Rule[defense.reflex], and deals
+        <strong>Electricity</strong> damage to @Rule[resource.health]. It is
         opposed by the orderly rune of <strong>Earth</strong>.</p>
       actions:
         - id: energize
@@ -894,8 +895,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167562
-      modifiedTime: 1790471167562
+      createdTime: 1790690490649
+      modifiedTime: 1790690490649
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -914,12 +915,13 @@ items:
       description: >-
         <p>You are highly skilled in weaving the <strong>Rune of Storm</strong>.
         When you cast a <strong>Spell</strong> or use an action that involves
-        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
-        deal damage cause the @Condition[shocked] condition.</p><p>The
-        <strong>Shocked</strong> effect lasts for <strong>3 Rounds</strong>,
-        deals half the ability score your <strong>Rune of Storm</strong> scales
-        with as <strong>Electricity</strong> damage to <strong>Morale</strong>,
-        and applies the @Condition[staggered] condition.</p>
+        this <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical
+        Hits} which deal damage cause the @Condition[shocked]
+        condition.</p><p>The <strong>Shocked</strong> effect lasts for <strong>3
+        Rounds</strong>, deals half the ability score your <strong>Rune of
+        Storm</strong> scales with as <strong>Electricity</strong> damage to
+        @Rule[resource.morale], and applies the @Condition[staggered]
+        condition.</p>
       actions: []
       nodes:
         - int3a
@@ -935,8 +937,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167562
-      modifiedTime: 1790471167562
+      createdTime: 1790690490650
+      modifiedTime: 1790690490650
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -962,7 +964,7 @@ items:
         mainhand weapon, spells you cast using <strong>Gesture: Strike</strong>
         benefit from your weapon's damage bonus.</p><p>Immediately after
         performing a <strong>Strike</strong> with a melee weapon, you may cast a
-        spell with its <strong>Action</strong> cost reduced by 1.</p>
+        spell with its @Rule[resource.action] cost reduced by 1.</p>
       actions: []
       iconicSpells: 1
       nodes:
@@ -979,9 +981,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167562
+      modifiedTime: 1790690490650
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167562
+      createdTime: 1790690490650
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1000,7 +1002,7 @@ items:
       description: >-
         <p>You focus the arcane power of a <strong>Rune</strong> into a narrow
         cone that projects outwards from your location.</p><p>The
-        <strong>Cone</strong> gesture scales with <strong>Intellect</strong> and
+        <strong>Cone</strong> gesture scales with @Rule[ability.intellect] and
         produces a 60 degree cone with a <strong>30 foot</strong> radius
         originating from the spellcaster. The Cone deals <strong>8 Base
         Damage</strong> to targets which fail to resist the spell. This gesture
@@ -1022,8 +1024,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167562
-      modifiedTime: 1790471167562
+      createdTime: 1790690490650
+      modifiedTime: 1790690490650
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1043,10 +1045,10 @@ items:
         <p>You empower a direct close-range attack with the arcane essence of a
         <strong>Rune</strong>, performing a <strong>Strike</strong> with your
         equipped weapon.</p><p>The <strong>Strike</strong> gesture scales using
-        <strong>Strength</strong> and deal damage based on your used weapon but
+        @Rule[ability.strength] and deal damage based on your used weapon but
         with the damage type of the incorporated <strong>Rune</strong>. This
         gesture does not require any free hand and has a base cost of <strong>1
-        Focus</strong> in addition to the <strong>Action</strong> cost of your
+        Focus</strong> in addition to the @Rule[resource.action] cost of your
         weapon <strong>Strike</strong>.</p>
       actions: []
       spellcraft: strike
@@ -1063,9 +1065,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167562
+      modifiedTime: 1790690490651
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167562
+      createdTime: 1790690490651
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1094,7 +1096,7 @@ items:
           condition: You incapacitate an enemy with a melee attack.
           description: >-
             <p>After defeating an enemy, you immediately move up to your
-            <strong>Stride </strong>and <strong>Strike</strong> another foe that
+            @Rule[movement.stride] and <strong>Strike</strong> another foe that
             you pass next to or end your movement adjacent to.</p>
           cost:
             action: -2
@@ -1130,9 +1132,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167563
+      modifiedTime: 1790690490651
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167563
+      createdTime: 1790690490651
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1150,8 +1152,7 @@ items:
         <p>You go beyond simply defeating your enemies, you make an example of
         them. When you slay a foe, every enemy within <strong>20 feet</strong>
         who can see their @Condition[dead] ally suffers damage to their
-        <strong>Morale</strong> equal to your <strong>Strength
-        </strong>score.</p>
+        @Rule[resource.morale] equal to your @Rule[ability.strength] score.</p>
       actions: []
       nodes:
         - str3b
@@ -1166,8 +1167,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167563
-      modifiedTime: 1790471167563
+      createdTime: 1790690490651
+      modifiedTime: 1790690490651
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1196,12 +1197,12 @@ items:
             feet</strong>.</p><p>Designate a <strong>Rune</strong> and
             <strong>Gesture</strong> which you know to attempt to counter the
             spell. Choosing a <strong>Rune</strong> which is opposed to one used
-            in the spell grants <strong>+2 Boons</strong> to your attempt.
+            in the spell grants @Rule[dice.boon]{+2 Boons} to your attempt.
             Selecting the identical <strong>Gesture</strong> as the one being
-            cast also adds <strong>+2 Boons</strong> to your
+            cast also adds @Rule[dice.boon]{+2 Boons} to your
             attempt.</p><p>Perform a @Rule[action.harmless]
             <strong>Spell</strong> attack against your target's
-            <strong>Willpower</strong> defense. If your roll exceeds their
+            @Rule[defense.willpower] defense. If your roll exceeds their
             defense, the spell is countered and its magic is nullified,
             producing no effects.</p>
           tags:
@@ -1247,8 +1248,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167563
-      modifiedTime: 1790471167563
+      createdTime: 1790690490652
+      modifiedTime: 1790690490652
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1292,8 +1293,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167563
-      modifiedTime: 1790471167563
+      createdTime: 1790690490652
+      modifiedTime: 1790690490652
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1322,10 +1323,10 @@ items:
           condition: ''
           description: >-
             <p>You make a <strong>Strike</strong> with a
-            <strong>Strength</strong>-scaling weapon which, if successful,
-            applies the @Condition[exposed] condition to your target for
-            <strong>3 Rounds</strong>. This attack is @Rule[action.difficult] to
-            perform and deals @Rule[action.weakened] damage.</p>
+            @Rule[ability.strength]-scaling weapon which, if successful, applies
+            the @Condition[exposed] condition to your target for <strong>3
+            Rounds</strong>. This attack is @Rule[action.difficult] to perform
+            and deals @Rule[action.weakened] damage.</p>
           tags:
             - brute
             - melee
@@ -1384,8 +1385,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167564
-      modifiedTime: 1790471167564
+      createdTime: 1790690490652
+      modifiedTime: 1790690490652
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1421,8 +1422,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167564
-      modifiedTime: 1790471167564
+      createdTime: 1790690490652
+      modifiedTime: 1790690490652
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1452,12 +1453,12 @@ items:
             mended, and where a single blow will part it. With a <strong>Smith's
             Toolkit</strong> equipped, you can produce any one of the following
             effects:</p><ul><li><p><strong>Read.</strong> You study an item
-            created by <strong>Smithing</strong> which you can clearly see
-            within <strong>30 feet</strong>, learning its
-            <strong>Quality</strong> tier and whether it is
-            <strong>Broken</strong>. You learn nothing of its enchantment, its
-            affixes, or its history.</p></li><li><p><strong>Destroy.</strong>
-            You instantaneously sunder a non-magical iron or steel fitting no
+            created by @Rule[skill.smithing] which you can clearly see within
+            <strong>30 feet</strong>, learning its <strong>Quality</strong> tier
+            and whether it is <strong>Broken</strong>. You learn nothing of its
+            enchantment, its affixes, or its
+            history.</p></li><li><p><strong>Destroy.</strong> You
+            instantaneously sunder a non-magical iron or steel fitting no
             thicker than your thumb which you can physically touch, such as a
             chain link, a padlock, or a manacle, or a non-magical weapon,
             shield, or suit of armor in your possession which is not equipped,
@@ -1466,14 +1467,14 @@ items:
             iron or steel. You name the condition under which it fails; when
             that condition is met, the <strong>Gamemaster</strong> decides the
             consequences. Your sabotage is discovered only by an intentional
-            <strong>Awareness</strong> check which beats your passive
-            <strong>Smithing</strong>.</p></li><li><p><strong>Create.</strong>
-            Given time and reasonable access to materials, you may forge any
-            small work of iron or steel you are familiar with: a working copy of
-            a non-magical key which you hold, a set of climbing spikes, a
-            scatter of caltrops, a grapple hook. Explicitly defined crafting
-            recipes must still be rolled, but you can successfully forge any
-            such work outside of this system without requiring a dice
+            @Rule[skill.awareness] check which beats your passive
+            @Rule[skill.smithing].</p></li><li><p><strong>Create.</strong> Given
+            time and reasonable access to materials, you may forge any small
+            work of iron or steel you are familiar with: a working copy of a
+            non-magical key which you hold, a set of climbing spikes, a scatter
+            of caltrops, a grapple hook. Explicitly defined crafting recipes
+            must still be rolled, but you can successfully forge any such work
+            outside of this system without requiring a dice
             roll.</p></li></ul><p>You may attempt other uses similar to those
             above, the effectiveness of which is decided by the
             <strong>Gamemaster</strong>.</p>
@@ -1510,8 +1511,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167564
-      modifiedTime: 1790471167564
+      createdTime: 1790690490653
+      modifiedTime: 1790690490653
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1531,7 +1532,7 @@ items:
       category: jewelry
       quantity: 1
       weight: 0
-      price: 20
+      price: 90
       quality: fine
       broken: false
       enchantment: minor
@@ -1543,14 +1544,14 @@ items:
           <blockquote><p>A band of elegant pale blue steel that features a
           spiraling pattern to the metal that presents the illusion that it is
           perpetually spinning slowly upon its wearer's
-          finger.</p></blockquote><p>This enchanted ring grants the ability to
-          glide laterally during a fall.</p>
+          finger.</p></blockquote><p>This enchanted ring allows its wearer to
+          glide rather than fall.</p>
         private: >-
-          <p>This item is presented as an example of <strong>Fine</strong>
+          <p>This item is presented as an example of <strong>Superior</strong>
           jewelry with the
           @UUID[Compendium.crucible.affixes.ActiveEffect.gliding000000000]{Gliding}
-          prefix.</p><p>This affix can be applied to any accessory and this ring
-          could be further enchanted with a <strong>Tier 1 Suffix</strong>.</p>
+          suffix.</p><p>This affix can be applied to any accessory and this ring
+          could be further enchanted with a <strong>Tier 2 Prefix</strong>.</p>
       actions: []
     effects:
       - name: Gliding
@@ -1631,8 +1632,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167565
-          modifiedTime: 1790471167565
+          createdTime: 1790690490654
+          modifiedTime: 1790690490654
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1644,8 +1645,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167564
-      modifiedTime: 1790471167564
+      createdTime: 1790690490653
+      modifiedTime: 1790690490653
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1665,7 +1666,7 @@ items:
       category: jewelry
       quantity: 1
       weight: 1
-      price: 20
+      price: 90
       quality: fine
       broken: false
       enchantment: minor
@@ -1680,7 +1681,7 @@ items:
           aesthetic. The ring serves as a powerful spellcasting focus for the
           <strong>Invested</strong> wearer.</p></blockquote><p>This enchanted
           ring grants the ability to withdraw an additional reserve of
-          <strong>Focus</strong> in moments of duress.</p>
+          @Rule[resource.focus] in moments of duress.</p>
         private: >-
           <p>This item is presented as an example of <strong>Fine</strong>
           jewelry with the
@@ -1762,8 +1763,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167566
-          modifiedTime: 1790471167566
+          createdTime: 1790690490655
+          modifiedTime: 1790690490655
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1775,8 +1776,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167565
-      modifiedTime: 1790471167565
+      createdTime: 1790690490655
+      modifiedTime: 1790690490655
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1819,8 +1820,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167566
-      modifiedTime: 1790471167566
+      createdTime: 1790690490655
+      modifiedTime: 1790690490655
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1862,8 +1863,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167566
-      modifiedTime: 1790471167566
+      createdTime: 1790690490656
+      modifiedTime: 1790690490656
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1901,9 +1902,9 @@ items:
           img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
           condition: ''
           description: >-
-            <p>Immediately recover an amount of <strong>Health</strong>
-            dependant on the quality of the
-            elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
+            <p>Immediately recover an amount of @Rule[resource.health] dependant
+            on the quality of the elixir.</p><ul><li><p><strong>Shoddy</strong>
+            - Immediately heals 6
             <strong>Health</strong>.</p></li><li><p><strong>Standard</strong> -
             Immediately heals 12
             <strong>Health</strong>.</p></li><li><p><strong>Fine</strong> -
@@ -1947,8 +1948,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167566
-      modifiedTime: 1790471167566
+      createdTime: 1790690490656
+      modifiedTime: 1790690490656
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1986,8 +1987,8 @@ items:
           img: icons/consumables/potions/bottle-bulb-corked-purple.webp
           condition: ''
           description: >-
-            <p>Immediately recover an amount of <strong>Morale
-            </strong>dependant on the quality of the
+            <p>Immediately recover an amount of @Rule[resource.morale]{Morale}
+            dependant on the quality of the
             elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
             <strong>Morale</strong>.</p></li><li><p><strong>Standard</strong> -
             Immediately heals 12
@@ -2032,8 +2033,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167567
-      modifiedTime: 1790471167567
+      createdTime: 1790690490656
+      modifiedTime: 1790690490656
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2068,7 +2069,7 @@ items:
             @Rule[resource.wounds], you may expend @Rule[resource.heroism] to
             enter a deathless fury. While the fury lasts you ignore all
             penalties of being @Condition[weakened] and your @Action[default
-            strike] attacks gain <strong>+1 Boon</strong>.</p><p>The fury ends
+            strike] attacks gain @Rule[dice.boon]{+1 Boon}.</p><p>The fury ends
             when your @Rule[resource.health] exceeds your @Rule[resource.wounds]
             or when <strong>Combat</strong> ends.</p>
           cost:
@@ -2125,8 +2126,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167556
-      modifiedTime: 1790471167556
+      createdTime: 1790690490657
+      modifiedTime: 1790690490657
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2165,8 +2166,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790471167556
-  modifiedTime: 1790471167556
+  createdTime: 1790690490645
+  modifiedTime: 1790690490645
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

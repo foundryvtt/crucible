@@ -322,8 +322,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167537
-      modifiedTime: 1790471167537
+      createdTime: 1790690490621
+      modifiedTime: 1790690490621
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -366,8 +366,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167537
-      modifiedTime: 1790471167537
+      createdTime: 1790690490621
+      modifiedTime: 1790690490621
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -458,9 +458,9 @@ items:
           condition: ''
           description: >-
             <p>You attempt to physically restrain or subdue an opponent. Perform
-            an <strong>Athletics</strong> skill attack against an adjacent
-            target. If successful, both you and your target are
-            @Condition[restrained] for <strong>1 Round</strong>.</p>
+            an @Rule[skill.athletics] skill attack against an adjacent target.
+            If successful, both you and your target are @Condition[restrained]
+            for <strong>1 Round</strong>.</p>
           summon: null
           persistRegion: false
           regionBehavior: null
@@ -477,8 +477,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167537
-      modifiedTime: 1790471167537
+      createdTime: 1790690490621
+      modifiedTime: 1790690490621
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -544,8 +544,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167538
-      modifiedTime: 1790471167538
+      createdTime: 1790690490622
+      modifiedTime: 1790690490622
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -629,8 +629,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167538
-      modifiedTime: 1790471167538
+      createdTime: 1790690490622
+      modifiedTime: 1790690490622
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -693,8 +693,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167538
-      modifiedTime: 1790471167538
+      createdTime: 1790690490622
+      modifiedTime: 1790690490622
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -758,9 +758,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167538
+      modifiedTime: 1790690490622
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167538
+      createdTime: 1790690490622
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -781,28 +781,30 @@ items:
       actions:
         - id: bullrush
           description: >-
-            <p>Make an <strong>Athletics Skill</strong> attack against an
-            adjacent enemy contested by your target's <strong>Fortitude</strong>
-            defense. On a success you may move up to your
-            <strong>Stride</strong> directly through the enemy's space. Your
-            enemy is knocked @Condition[prone] and may not make any
-            @Action[default reactiveStrike] against you. On a failure your
-            movement is blocked and your remain in your current position.</p>
+            <p>You move up to your @Rule[movement.stride] with forceful
+            momentum, passing through the space of one other creature along your
+            path. An ally lets you pass freely.</p><p>An enemy contests your
+            passage: make an @Rule[skill.athletics] @Rule[action.skill] attack
+            against its @Rule[defense.fortitude] defense. On a
+            @Rule[dice.success] you drive through its space, knocking it
+            @Condition[prone], and it may not make any @Action[default
+            reactiveStrike] against you. On a @Rule[dice.failure] your movement
+            is blocked and you remain in your current position.</p>
           tags:
             - harmless
             - fortitude
             - skill
             - athletics
           cost:
-            action: 3
-            focus: 0
+            action: 0
+            focus: 1
             weapon: false
             heroism: 0
             hands: 0
           target:
-            type: single
+            type: movement
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects:
             - name: Bull Rush
@@ -832,7 +834,7 @@ items:
           img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
           condition: ''
           range:
-            maximum: 10
+            maximum: null
             weapon: false
             minimum: null
           summon: null
@@ -851,8 +853,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167538
-      modifiedTime: 1790471167538
+      createdTime: 1790690490623
+      modifiedTime: 1790690490623
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -869,8 +871,8 @@ items:
     system:
       description: >-
         <p>You can wield weapons with the <strong>Slow</strong> trait and wear
-        <strong>Armor</strong> with the <strong>Bulky</strong> trait without
-        suffering <strong>Banes</strong> to your <strong>Initiative</strong>
+        @Rule[defense.armor] with the <strong>Bulky</strong> trait without
+        suffering @Rule[dice.bane]{Banes} to your <strong>Initiative</strong>
         rolls.</p>
       actions: []
       nodes:
@@ -887,9 +889,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167539
+      modifiedTime: 1790690490623
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167539
+      createdTime: 1790690490623
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -956,8 +958,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167539
-      modifiedTime: 1790471167539
+      createdTime: 1790690490623
+      modifiedTime: 1790690490623
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -976,8 +978,7 @@ items:
         <p>You go beyond simply defeating your enemies, you make an example of
         them. When you slay a foe, every enemy within <strong>20 feet</strong>
         who can see their @Condition[dead] ally suffers damage to their
-        <strong>Morale</strong> equal to your <strong>Strength
-        </strong>score.</p>
+        @Rule[resource.morale] equal to your @Rule[ability.strength] score.</p>
       actions: []
       nodes:
         - str3b
@@ -992,8 +993,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167539
-      modifiedTime: 1790471167539
+      createdTime: 1790690490624
+      modifiedTime: 1790690490624
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1013,8 +1014,8 @@ items:
         <p>Your body has endured so many injuries that it has learned how to
         mend itself with remarkable efficiency. When you perform the
         @Action[default rest] action, you recover additional
-        <strong>Wounds</strong> equal to half your <strong>Toughness</strong>
-        score (rounded down).</p>
+        @Rule[resource.wounds] equal to half your @Rule[ability.toughness] score
+        (rounded down).</p>
       actions: []
       nodes:
         - tou1b
@@ -1029,8 +1030,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167539
-      modifiedTime: 1790471167539
+      createdTime: 1790690490624
+      modifiedTime: 1790690490624
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1057,10 +1058,10 @@ items:
           img: icons/skills/wounds/injury-face-impact-orange.webp
           condition: ''
           description: >-
-            <p>You expend <strong>Heroism</strong> to instantly recover two
-            times your <strong>Toughness</strong> in <strong>Health</strong>.
-            Your <strong>Healing Threshold</strong> is reduced by 2 for the next
-            <strong>3 Rounds</strong>.</p>
+            <p>You expend @Rule[resource.heroism] to instantly recover two times
+            your @Rule[ability.toughness] in @Rule[resource.health]. Your
+            @Rule[defense.wounds] is reduced by 2 for the next <strong>3
+            Rounds</strong>.</p>
           cost:
             action: 1
             focus: 0
@@ -1116,8 +1117,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167540
-      modifiedTime: 1790471167540
+      createdTime: 1790690490624
+      modifiedTime: 1790690490624
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1152,8 +1153,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167540
-      modifiedTime: 1790471167540
+      createdTime: 1790690490625
+      modifiedTime: 1790690490625
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1172,7 +1173,7 @@ items:
       description: >-
         <p>You revel in the thrill of combat, hurling yourself into the fray
         with reckless abandon.</p><p>While @Condition[enraged] you may still
-        spend <strong>Focus</strong> on any action which is not a spell.</p>
+        spend @Rule[resource.focus] on any action which is not a spell.</p>
       actions:
         - id: berserkerRage
           name: Berserker Rage
@@ -1183,7 +1184,7 @@ items:
             <p>You become @Condition[enraged]. While <strong>Enraged</strong>
             you deal 4 additional damage on all melee attacks. You may attempt
             to end the effect on your own turn by succeeding on a
-            <strong>Willpower</strong> test against a <strong>DC</strong> of 20.
+            @Rule[defense.willpower] test against a <strong>DC</strong> of 20.
             The effect ends automatically when <strong>Combat</strong> is
             concluded.</p><h3 class="divider">Playtest Notes</h3><p>The
             aforementioned "Willpower test" is legacy terminology. The mechanism
@@ -1247,9 +1248,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167540
+      modifiedTime: 1790690490625
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167540
+      createdTime: 1790690490625
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1277,10 +1278,10 @@ items:
           condition: ''
           description: >-
             <p>You make a <strong>Strike</strong> with a
-            <strong>Strength</strong>-scaling weapon which, if successful,
-            applies the @Condition[exposed] condition to your target for
-            <strong>3 Rounds</strong>. This attack is @Rule[action.difficult] to
-            perform and deals @Rule[action.weakened] damage.</p>
+            @Rule[ability.strength]-scaling weapon which, if successful, applies
+            the @Condition[exposed] condition to your target for <strong>3
+            Rounds</strong>. This attack is @Rule[action.difficult] to perform
+            and deals @Rule[action.weakened] damage.</p>
           tags:
             - brute
             - melee
@@ -1339,8 +1340,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167540
-      modifiedTime: 1790471167540
+      createdTime: 1790690490625
+      modifiedTime: 1790690490625
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1358,9 +1359,10 @@ items:
     system:
       description: >-
         <p>Your battle lust spurs you to feats of heightened action. When you
-        achieve a <strong>Critical Hit</strong> that deals damage to
-        <strong>Health</strong> you immediately gain <strong>+1 Action</strong>.
-        This benefit may only happen once per <strong>Round</strong>.</p>
+        achieve a @Rule[dice.criticalSuccess]{Critical Hit} that deals damage to
+        @Rule[resource.health] you immediately gain @Rule[resource.action]{+1
+        Action}. This benefit may only happen once per
+        <strong>Round</strong>.</p>
       actions: []
       nodes:
         - str4a
@@ -1376,8 +1378,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167540
-      modifiedTime: 1790471167540
+      createdTime: 1790690490625
+      modifiedTime: 1790690490625
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1401,10 +1403,10 @@ items:
           description: >-
             <p>You deliver a <strong>Strike</strong> with a two-handed weapon.
             If your attack is successful and your opponent is under half their
-            maximum <strong>Health</strong>, the strike is @Rule[action.deadly],
+            maximum @Rule[resource.health], the strike is @Rule[action.deadly],
             and the opponent suffers the @Condition[bleeding] condition for
             <strong>3 Rounds</strong>, taking additional damage each round equal
-            to your <strong>Strength</strong> score.</p>
+            to your @Rule[ability.strength] score.</p>
           tags:
             - melee
             - twohand
@@ -1465,9 +1467,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167541
+      modifiedTime: 1790690490626
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167541
+      createdTime: 1790690490626
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1487,7 +1489,7 @@ items:
         <p>Currents of magic flow strangely around you, as if unaware of your
         presence.</p><p>You cannot perform any action with the
         <strong>Spell</strong> tag. <strong>Spells</strong> which target you
-        suffer <strong>+2 Banes</strong> regardless of whether they impose
+        suffer @Rule[dice.bane]{+2 Banes} regardless of whether they impose
         harmful or beneficial effects.</p>
       actions: []
       iconicSpells: 0
@@ -1501,8 +1503,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167541
-      modifiedTime: 1790471167541
+      createdTime: 1790690490626
+      modifiedTime: 1790690490626
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1527,9 +1529,9 @@ items:
           img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
           description: >-
             <p>Make an unarmed <strong>Strike</strong> against the
-            <strong>Fortitude</strong> defense of an adjacent enemy. If your
+            @Rule[defense.fortitude] defense of an adjacent enemy. If your
             <strong>Initiative</strong> is superior to that of your target, you
-            gain <strong>+1 Boon</strong> to this attack.</p><p>The attack is
+            gain @Rule[dice.boon]{+1 Boon} to this attack.</p><p>The attack is
             @Rule[action.difficult] and only deals @Rule[action.weakened]
             damage, but if successful it inflicts the @Condition[staggered] for
             <strong>1 Round</strong>.</p><p>This action always uses an
@@ -1596,8 +1598,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167541
-      modifiedTime: 1790471167541
+      createdTime: 1790690490627
+      modifiedTime: 1790690490627
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1615,7 +1617,7 @@ items:
     system:
       description: >-
         <p>Your physical resilience makes you too tough to be deeply affected by
-        a powerful blow. The <strong>Critical Success</strong> threshold for
+        a powerful blow. The @Rule[dice.criticalSuccessThreshold] for
         <strong>Strikes</strong> against you is increased by +1, making you
         harder to critically hit.</p>
       actions: []
@@ -1632,8 +1634,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167541
-      modifiedTime: 1790471167541
+      createdTime: 1790690490627
+      modifiedTime: 1790690490627
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1651,8 +1653,8 @@ items:
     system:
       description: >-
         <p>Pain sharpens your concentration. Once per round, when you sustain
-        <strong>Health</strong> damage from an attack, you gain <strong>+1
-        Focus</strong>.</p>
+        @Rule[resource.health] damage from an attack, you gain
+        @Rule[resource.focus]{+1 Focus}.</p>
       actions: []
       nodes:
         - tou4a
@@ -1667,8 +1669,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167541
-      modifiedTime: 1790471167541
+      createdTime: 1790690490627
+      modifiedTime: 1790690490627
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1703,8 +1705,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167542
-      modifiedTime: 1790471167542
+      createdTime: 1790690490628
+      modifiedTime: 1790690490628
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1818,8 +1820,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167542
-      modifiedTime: 1790471167542
+      createdTime: 1790690490628
+      modifiedTime: 1790690490628
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1857,9 +1859,9 @@ items:
           img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
           condition: ''
           description: >-
-            <p>Immediately recover an amount of <strong>Health</strong>
-            dependant on the quality of the
-            elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
+            <p>Immediately recover an amount of @Rule[resource.health] dependant
+            on the quality of the elixir.</p><ul><li><p><strong>Shoddy</strong>
+            - Immediately heals 6
             <strong>Health</strong>.</p></li><li><p><strong>Standard</strong> -
             Immediately heals 12
             <strong>Health</strong>.</p></li><li><p><strong>Fine</strong> -
@@ -1903,8 +1905,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167542
-      modifiedTime: 1790471167542
+      createdTime: 1790690490628
+      modifiedTime: 1790690490628
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1990,8 +1992,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167542
-      modifiedTime: 1790471167542
+      createdTime: 1790690490629
+      modifiedTime: 1790690490629
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2011,7 +2013,7 @@ items:
       category: jewelry
       quantity: 1
       weight: 0
-      price: 20
+      price: 90
       quality: fine
       broken: false
       enchantment: minor
@@ -2024,7 +2026,7 @@ items:
           <blockquote><p>This steel ring feels permanently cool to the touch and
           gives the sensation of weighing more than expected given its narrow
           band.</p></blockquote><p>This enchanted ring provides a bonus to
-          <strong>Armor</strong> defense.</p>
+          @Rule[defense.armor] defense.</p>
         private: >-
           <p>This item is presented as an example of a Fine Ring with the
           @UUID[Compendium.crucible.affixes.ActiveEffect.reinforcement000]{Reinforcement}
@@ -2072,8 +2074,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167543
-          modifiedTime: 1790471167543
+          createdTime: 1790690490630
+          modifiedTime: 1790690490630
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -2085,8 +2087,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167543
-      modifiedTime: 1790471167543
+      createdTime: 1790690490629
+      modifiedTime: 1790690490629
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2106,7 +2108,7 @@ items:
       category: jewelry
       quantity: 1
       weight: 0
-      price: 20
+      price: 90
       quality: fine
       broken: false
       enchantment: minor
@@ -2119,7 +2121,7 @@ items:
           <blockquote><p>This elegant ornamented ring feels slightly slick and
           difficult to grasp. While held it vibrates almost
           imperceptibly.</p></blockquote><p>This enchanted ring provides a bonus
-          to <strong>Dodge</strong> defense.</p>
+          to @Rule[defense.dodge] defense.</p>
         private: >-
           <p>This item is presented as an example of <strong>Fine</strong>
           jewelry with the
@@ -2169,8 +2171,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167544
-          modifiedTime: 1790471167544
+          createdTime: 1790690490630
+          modifiedTime: 1790690490630
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -2182,8 +2184,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167544
-      modifiedTime: 1790471167544
+      createdTime: 1790690490630
+      modifiedTime: 1790690490630
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2215,7 +2217,7 @@ items:
           description: >-
             <p>You expend @Rule[resource.heroism] to push through adversity.
             Until the end of your turn, your attacks and skill checks ignore any
-            <strong>Banes</strong> imposed upon them. Banes you choose to take
+            @Rule[dice.bane]{Banes} imposed upon them. Banes you choose to take
             upon yourself are not ignored.</p>
           cost:
             action: 0
@@ -2271,8 +2273,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167536
-      modifiedTime: 1790471167536
+      createdTime: 1790690490631
+      modifiedTime: 1790690490631
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2311,8 +2313,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790471167536
-  modifiedTime: 1790471167536
+  createdTime: 1790690490620
+  modifiedTime: 1790690490620
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

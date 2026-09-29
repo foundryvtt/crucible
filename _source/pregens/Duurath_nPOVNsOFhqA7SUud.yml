@@ -297,8 +297,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161421
-      modifiedTime: 1790471161421
+      createdTime: 1790690160029
+      modifiedTime: 1790690160029
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -341,8 +341,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161422
-      modifiedTime: 1790471161422
+      createdTime: 1790690160029
+      modifiedTime: 1790690160029
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -384,8 +384,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161422
-      modifiedTime: 1790471161422
+      createdTime: 1790690160029
+      modifiedTime: 1790690160029
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -401,8 +401,9 @@ items:
     system:
       description: >-
         <p>You are trained in wearing the heaviest types of armor while still
-        retaining mobility. You are able to use a <strong>Free Move</strong>
-        once per turn while wearing <strong>Heavy</strong> armor.</p>
+        retaining mobility. You are able to use a
+        @Rule[movement.freeMovement]{Free Move} once per turn while wearing
+        <strong>Heavy</strong> armor.</p>
       actions: []
       nodes:
         - str0b
@@ -418,8 +419,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161422
-      modifiedTime: 1790471161422
+      createdTime: 1790690160029
+      modifiedTime: 1790690160029
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -505,8 +506,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161423
-      modifiedTime: 1790471161423
+      createdTime: 1790690160030
+      modifiedTime: 1790690160030
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -529,11 +530,11 @@ items:
         - id: intimidate
           name: Intimidate
           description: >-
-            <p>You physically intimidate an enemy that is within your engagement
-            range, performing an <strong>Intimidation</strong>
-            <strong>Skill</strong> attack against your target's passive
-            <strong>Intimidation</strong> defense. On a success, they sustain
-            <strong>Void</strong> damage to their <strong>Morale</strong>.</p>
+            <p>You bring your intimidating presence to bear upon an enemy within
+            30 feet, performing an @Rule[skill.intimidation] @Rule[action.skill]
+            attack against your target's passive @Rule[skill.intimidation]
+            defense. On a success, they sustain @Rule[action.void] damage to
+            their @Rule[resource.morale].</p>
           tags:
             - void
             - morale
@@ -548,14 +549,14 @@ items:
           target:
             type: single
             number: 1
-            scope: 0
+            scope: 3
             self: false
           effects: []
           img: icons/magic/death/skull-humanoid-crown-white-blue.webp
           condition: ''
           range:
             minimum: null
-            maximum: null
+            maximum: 30
             weapon: false
           summon: null
           persistRegion: false
@@ -575,9 +576,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471161423
+      modifiedTime: 1790690160030
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471161423
+      createdTime: 1790690160030
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -636,8 +637,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161423
-      modifiedTime: 1790471161423
+      createdTime: 1790690160030
+      modifiedTime: 1790690160030
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -656,7 +657,7 @@ items:
       description: >-
         <p>You have expertise in using a <strong>Shield</strong> to defend
         yourself and others.</p><p>Once per turn while you have a
-        <strong>Shield</strong> equipped, the <strong>Action</strong> cost of
+        <strong>Shield</strong> equipped, the @Rule[resource.action] cost of
         using the @Action[default defend] action is reduced by 1.</p>
       nodes:
         - tou0a
@@ -673,9 +674,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471161424
+      modifiedTime: 1790690160031
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471161424
+      createdTime: 1790690160031
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -704,8 +705,8 @@ items:
           condition: ''
           description: >-
             <p>Each ally, excluding yourself, within <strong>10 feet</strong>
-            gains <strong>+1 Boon</strong> to actions performed until the end of
-            their next turn.</p>
+            gains @Rule[dice.boon]{+1 Boon} to actions performed until the end
+            of their next turn.</p>
           tags: []
           cost:
             action: 3
@@ -760,8 +761,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161424
-      modifiedTime: 1790471161424
+      createdTime: 1790690160031
+      modifiedTime: 1790690160031
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -852,8 +853,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161420
-      modifiedTime: 1790471161420
+      createdTime: 1790690160032
+      modifiedTime: 1790690160032
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -871,8 +872,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790471161420
-  modifiedTime: 1790471161420
+  createdTime: 1790690160028
+  modifiedTime: 1790690160028
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

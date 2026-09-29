@@ -304,14 +304,14 @@ items:
           condition: ''
           description: >-
             <p>You use your equipped <strong>Talisman</strong> to attempt to
-            regain some <strong>Focus</strong>. You perform a
+            regain some @Rule[resource.focus]. You perform a
             @Rule[action.harmless] <strong>Strike</strong> against your own
-            <strong>Rallying</strong> threshold.</p><p>On a success you recover
-            <strong>+1 Focus</strong> if using a one-handed
-            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
-            two-handed <strong>Talisman</strong>. On a <strong>Critical
-            Success</strong> the amount of <strong>Focus</strong> recovered
-            increases by an additional +1.</p>
+            @Rule[defense.madness].</p><p>On a success you recover
+            @Rule[resource.focus]{+1 Focus} if using a one-handed
+            <strong>Talisman</strong> and @Rule[resource.focus]{+2 Focus} if
+            using a two-handed <strong>Talisman</strong>. On a
+            @Rule[dice.criticalSuccess] the amount of @Rule[resource.focus]
+            recovered increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -349,8 +349,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167525
-      modifiedTime: 1790471167525
+      createdTime: 1790690490608
+      modifiedTime: 1790690490608
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -386,9 +386,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167526
+      modifiedTime: 1790690490608
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167526
+      createdTime: 1790690490608
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -407,10 +407,10 @@ items:
         <strong>Soul</strong> rune governs the fundamental procession of souls
         through life and death and relates to matters of sapience, personality,
         and mental health.</p><p>The <strong>Soul</strong> rune scales using
-        <strong>Presence</strong> and provides <strong>Restoration</strong> of
-        <strong>Morale</strong>. In special circumstances it may be used to
+        @Rule[ability.presence] and provides <strong>Restoration</strong> of
+        @Rule[resource.morale]. In special circumstances it may be used to
         inflict <strong>Psychic</strong> damage opposed by
-        <strong>Willpower</strong>. It is opposed by the chaotic rune of
+        @Rule[defense.willpower]. It is opposed by the chaotic rune of
         <strong>Oblivion</strong>.</p>
       actions:
         - id: evoke
@@ -468,8 +468,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167526
-      modifiedTime: 1790471167526
+      createdTime: 1790690490609
+      modifiedTime: 1790690490609
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -488,9 +488,9 @@ items:
         <p>The orderly force of water and cold. The <strong>Frost</strong> rune
         governs the creation of water or other fluids and their transfer between
         liquid and frozen states.</p><p>The <strong>Frost</strong> rune scales
-        using <strong>Wisdom</strong>, targets <strong>Fortitude</strong>, and
-        deals <strong>Cold</strong> damage to <strong>Health</strong>. It is
-        opposed by the chaotic rune of <strong>Flame</strong>.</p>
+        using @Rule[ability.wisdom], targets @Rule[defense.fortitude], and deals
+        <strong>Cold</strong> damage to @Rule[resource.health]. It is opposed by
+        the chaotic rune of <strong>Flame</strong>.</p>
       actions:
         - id: condense
           name: Condense
@@ -549,8 +549,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167526
-      modifiedTime: 1790471167526
+      createdTime: 1790690490609
+      modifiedTime: 1790690490609
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -572,8 +572,8 @@ items:
         and joins <strong>Combat</strong> at <strong>Initiative 1</strong>. Your
         <strong>Sprite</strong> is a <strong>Minion</strong> of half your own
         <strong>Level</strong>.</p><p>The <strong>Create</strong> gesture scales
-        with <strong>Wisdom</strong> and the <strong>Sprite</strong> survives
-        for <strong>6 Rounds</strong>. You may only have one active
+        with @Rule[ability.wisdom] and the <strong>Sprite</strong> survives for
+        <strong>6 Rounds</strong>. You may only have one active
         <strong>Sprite</strong>; casting another spell using the
         <strong>Create</strong> gesture replaces your previous
         <strong>Sprite</strong>. This gesture requires <strong>2 Hands</strong>
@@ -597,9 +597,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167526
+      modifiedTime: 1790690490609
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167526
+      createdTime: 1790690490609
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -624,12 +624,11 @@ items:
           condition: Your target can hear and understand you.
           description: >-
             <p>You exaggerate your opponent's shortcomings with a scathing bon
-            mot, improvising a <strong>Performance</strong> skill attack against
-            your target's <strong>Willpower</strong>. On a success they suffer
-            modest <strong>Psychic</strong> damage to
-            <strong>Morale</strong>.</p><p>On a <strong>Critical
-            Success</strong>, they also become @Condition[enraged] for <strong>1
-            Round</strong>.</p>
+            mot, improvising a @Rule[skill.performance] skill attack against
+            your target's @Rule[defense.willpower]. On a @Rule[dice.success]
+            they suffer modest <strong>Psychic</strong> damage to
+            @Rule[resource.morale].</p><p>On a @Rule[dice.criticalSuccess], they
+            also become @Condition[enraged] for <strong>1 Round</strong>.</p>
           tags:
             - weakened
             - willpower
@@ -637,6 +636,7 @@ items:
             - morale
             - skill
             - performance
+            - vocal
           cost:
             action: 1
             focus: 1
@@ -675,7 +675,7 @@ items:
           img: icons/magic/control/mouth-smile-deception-purple.webp
           range:
             minimum: null
-            maximum: null
+            maximum: 30
             weapon: false
           summon: null
           persistRegion: false
@@ -694,8 +694,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167527
-      modifiedTime: 1790471167527
+      createdTime: 1790690490609
+      modifiedTime: 1790690490609
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -714,8 +714,8 @@ items:
       description: >-
         <p>Enhance a spell by taking extra time in its formation, reducing other
         resource costs in exchange. The <strong>Compose</strong> inflection
-        reduces the <strong>Focus</strong> cost of a spell by 1 while increasing
-        its <strong>Action</strong> cost by 1 in exchange.</p>
+        reduces the @Rule[resource.focus] cost of a spell by 1 while increasing
+        its @Rule[resource.action] cost by 1 in exchange.</p>
       actions: []
       spellcraft: compose
       iconicSpells: 1
@@ -731,9 +731,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167527
+      modifiedTime: 1790690490610
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167527
+      createdTime: 1790690490610
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -770,8 +770,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167527
-      modifiedTime: 1790471167527
+      createdTime: 1790690490610
+      modifiedTime: 1790690490610
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -799,9 +799,9 @@ items:
             <p>You set your <strong>Talisman</strong> into a defensive orbit
             which persists until you dismiss it. While the Aegis turns and you
             have a <strong>Talisman</strong> equipped, you gain a bonus to your
-            <strong>Block</strong> defense equal to your current
-            <strong>Focus</strong>, to a maximum of +3. Each time the Aegis
-            turns a blow aside you spend <strong>1 Focus</strong>.</p><p>Dismiss
+            @Rule[defense.block] defense equal to your current
+            @Rule[resource.focus], to a maximum of +3. Each time the Aegis turns
+            a blow aside you spend @Rule[resource.focus]{1 Focus}.</p><p>Dismiss
             the Aegis by removing its effect.</p>
           cost:
             action: 1
@@ -860,8 +860,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167527
-      modifiedTime: 1790471167527
+      createdTime: 1790690490610
+      modifiedTime: 1790690490610
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -897,9 +897,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167527
+      modifiedTime: 1790690490610
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167527
+      createdTime: 1790690490610
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -963,8 +963,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167528
-      modifiedTime: 1790471167528
+      createdTime: 1790690490610
+      modifiedTime: 1790690490610
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -999,8 +999,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167528
-      modifiedTime: 1790471167528
+      createdTime: 1790690490611
+      modifiedTime: 1790690490611
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1024,7 +1024,7 @@ items:
         Push} or
         @UUID[Compendium.crucible.talent.Item.inflectionpull00]{Inflection:
         Pull} to a <strong>Spell</strong>, you ignore the inflection's
-        <strong>Focus</strong> cost.</p></li><li><p>You double the distance at
+        @Rule[resource.focus] cost.</p></li><li><p>You double the distance at
         which you can <strong>Pull</strong>, <strong>Flick</strong>, or
         <strong>Suspend</strong> using the
         @Action[Compendium.crucible.talent.Item.runeKinesis00000 propel]
@@ -1039,7 +1039,7 @@ items:
           description: >-
             <p>You suspend yourself aloft on currents of kinetic force, gaining
             the @Condition[flying] condition to fly and hover. You sustain the
-            effect with <strong>Focus</strong> each round; it ends if you become
+            effect with @Rule[resource.focus] each round; it ends if you become
             @Condition[incapacitated].</p>
           tags:
             - maintained
@@ -1099,8 +1099,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167528
-      modifiedTime: 1790471167528
+      createdTime: 1790690490611
+      modifiedTime: 1790690490611
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1120,11 +1120,10 @@ items:
         <p>The chaotic force of space and physical movement. The
         <strong>Kinesis</strong> rune governs all things related to the act of
         movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
-        using <strong>Presence</strong>, targets <strong>Physical</strong>
-        defense, and deals <strong>Bludgeoning</strong>,
-        <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
-        <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Control</strong>.</p>
+        using @Rule[ability.presence], targets @Rule[defense.physical] defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to @Rule[resource.health]. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
       actions:
         - id: propel
           name: Propel
@@ -1145,8 +1144,8 @@ items:
             long as they have a free hand with which to do
             so.</p></li><li><p>Suspend in midair an object or willing creature
             that you touch with weight less than or equal to 10 times your
-            <strong>Presence</strong>, altering its position up to 20 feet in
-            any direction from its original location. You can maintain this
+            @Rule[ability.presence], altering its position up to 20 feet in any
+            direction from its original location. You can maintain this
             suspension indefinitely as long as you take no further Action and
             are not @Condition[incapacitated].</p></li></ul><p>Propel may only
             affect a creature or object you can physically touch unless
@@ -1188,8 +1187,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167528
-      modifiedTime: 1790471167528
+      createdTime: 1790690490611
+      modifiedTime: 1790690490611
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1209,12 +1208,11 @@ items:
         <p>You intensify the arcane power of a <strong>Rune</strong> into a
         concentrated direct contact which is generally a more powerful evolution
         of the basic <strong>Touch</strong> gesture.</p><p>The
-        <strong>Influence</strong> gesture scales using
-        <strong>Presence</strong> and targets a single adjacent creature. It
-        deals <strong>10 Base Damage</strong> to targets which fail to resist
-        the spell. This gesture requires <strong>1 Hand</strong> to cast and has
-        a base cost of <strong>3 Action</strong> and <strong>1
-        Focus</strong>.</p>
+        <strong>Influence</strong> gesture scales using @Rule[ability.presence]
+        and targets a single adjacent creature. It deals <strong>10 Base
+        Damage</strong> to targets which fail to resist the spell. This gesture
+        requires <strong>1 Hand</strong> to cast and has a base cost of
+        <strong>3 Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
       spellcraft: influence
       nodes:
@@ -1230,8 +1228,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167528
-      modifiedTime: 1790471167528
+      createdTime: 1790690490611
+      modifiedTime: 1790690490611
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1257,7 +1255,7 @@ items:
           condition: ''
           description: >-
             <p>You surround yourself with an aura of attendant motes which is
-            <strong>Maintained</strong> at a cost of <strong>1 Focus</strong>
+            @Rule[action.maintained] at a cost of @Rule[resource.focus]{1 Focus}
             per turn. Any enemy which enters the aura or ends its turn within it
             suffers a <strong>Talisman</strong> attack.</p><h3
             class="divider">Playtest Notes</h3><p>The aura is placed and
@@ -1322,8 +1320,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167529
-      modifiedTime: 1790471167529
+      createdTime: 1790690490612
+      modifiedTime: 1790690490612
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1348,7 +1346,7 @@ items:
         and joins <strong>Combat</strong> at <strong>Initiative 1</strong>. Your
         <strong>Visitor</strong> is a <strong>Minion</strong> equal to your own
         <strong>Level</strong>.</p><p>The <strong>Conjure</strong> gesture
-        scales with <strong>Wisdom</strong> and the <strong>Visitor</strong>
+        scales with @Rule[ability.wisdom] and the <strong>Visitor</strong>
         survives for <strong>12 Rounds</strong>. You may only have one active
         <strong>Visitor</strong>. Casting another spell using the
         <strong>Conjure</strong> gesture replaces your previous
@@ -1373,8 +1371,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167529
-      modifiedTime: 1790471167529
+      createdTime: 1790690490612
+      modifiedTime: 1790690490612
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1394,7 +1392,7 @@ items:
       description: >-
         <p>You recognize that fire can spread with inevitable and unstoppable
         purpose. Your usage of the <strong>Rune of Flame</strong> scales with
-        <strong>Wisdom</strong> instead of <strong>Intellect</strong>.</p>
+        @Rule[ability.wisdom] instead of @Rule[ability.intellect].</p>
       actions: []
       iconicSpells: 0
       training: elemental
@@ -1407,8 +1405,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167529
-      modifiedTime: 1790471167529
+      createdTime: 1790690490614
+      modifiedTime: 1790690490614
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1427,9 +1425,9 @@ items:
       description: >-
         <p>The chaotic force of elemental, thermal energy. The
         <strong>Flame</strong> rune governs fire and heat.</p><p>The
-        <strong>Flame</strong> rune scales using <strong>Intellect</strong>,
-        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
-        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Flame</strong> rune scales using @Rule[ability.intellect],
+        targets @Rule[defense.reflex], and deals <strong>Fire</strong> damage to
+        @Rule[resource.health]. It is opposed by the orderly rune of
         <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
@@ -1486,8 +1484,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167529
-      modifiedTime: 1790471167529
+      createdTime: 1790690490614
+      modifiedTime: 1790690490614
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1506,12 +1504,13 @@ items:
       description: >-
         <p>You are highly skilled in weaving the <strong>Rune of Frost</strong>.
         When you cast a <strong>Spell</strong> or use an action that involves
-        this <strong>Rune</strong>, your <strong>Critical Hits</strong> which
-        deal damage cause the @Condition[freezing] condition.</p><p>The
-        <strong>Freezing</strong> effect lasts for <strong>1 Round</strong>,
-        deals half the ability score your <strong>Rune of Frost</strong> scales
-        with as <strong>Frost</strong> damage to <strong>Health</strong>, and
-        applies the @Condition[slowed] condition.</p>
+        this <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical
+        Hits} which deal damage cause the @Condition[freezing]
+        condition.</p><p>The <strong>Freezing</strong> effect lasts for
+        <strong>1 Round</strong>, deals half the ability score your <strong>Rune
+        of Frost</strong> scales with as <strong>Frost</strong> damage to
+        @Rule[resource.health], and applies the @Condition[slowed]
+        condition.</p>
       actions: []
       nodes:
         - wis3b
@@ -1527,9 +1526,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167530
+      modifiedTime: 1790690490614
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167530
+      createdTime: 1790690490614
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1570,8 +1569,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167530
-      modifiedTime: 1790471167530
+      createdTime: 1790690490615
+      modifiedTime: 1790690490615
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1613,8 +1612,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167530
-      modifiedTime: 1790471167530
+      createdTime: 1790690490615
+      modifiedTime: 1790690490615
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1634,7 +1633,7 @@ items:
       category: trinket
       quantity: 1
       weight: 0
-      price: 20
+      price: 150
       quality: fine
       broken: false
       enchantment: minor
@@ -1648,7 +1647,7 @@ items:
           cool to the touch regardless of ambient
           temperature.</p></blockquote><p>This enchanted pearl grants its bearer
           the <strong>Replenish Focus</strong> action, providing an additional
-          reserve of <strong>Focus</strong> that can be drawn upon in moments of
+          reserve of @Rule[resource.focus] that can be drawn upon in moments of
           duress.</p>
         private: >-
           <p>This item is presented as an example of a <strong>Fine</strong>
@@ -1732,8 +1731,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167531
-          modifiedTime: 1790471167531
+          createdTime: 1790690490616
+          modifiedTime: 1790690490616
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1747,8 +1746,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167530
-      modifiedTime: 1790471167530
+      createdTime: 1790690490615
+      modifiedTime: 1790690490615
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1768,7 +1767,7 @@ items:
       category: jewelry
       quantity: 1
       weight: 0
-      price: 20
+      price: 90
       quality: fine
       broken: false
       enchantment: minor
@@ -1781,7 +1780,7 @@ items:
           <blockquote><p>This steel ring feels permanently cool to the touch and
           gives the sensation of weighing more than expected given its narrow
           band.</p></blockquote><p>This enchanted ring provides a bonus to
-          <strong>Armor</strong> defense.</p>
+          @Rule[defense.armor] defense.</p>
         private: >-
           <p>This item is presented as an example of a Fine Ring with the
           @UUID[Compendium.crucible.affixes.ActiveEffect.reinforcement000]{Reinforcement}
@@ -1829,8 +1828,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167532
-          modifiedTime: 1790471167532
+          createdTime: 1790690490616
+          modifiedTime: 1790690490616
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1842,8 +1841,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167531
-      modifiedTime: 1790471167531
+      createdTime: 1790690490616
+      modifiedTime: 1790690490616
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1946,8 +1945,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167532
-      modifiedTime: 1790471167532
+      createdTime: 1790690490617
+      modifiedTime: 1790690490617
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1986,14 +1985,14 @@ items:
           condition: ''
           description: >-
             <p>Immediately, and at the beginning of each of the next 5
-            <strong>Rounds</strong>, recover an amount of
-            <strong>Morale</strong> dependent on the quality of the
+            <strong>Rounds</strong>, recover an amount of @Rule[resource.morale]
+            dependent on the quality of the
             tonic.</p><ul><li><p><strong>Shoddy</strong> - Heals 2
             <strong>Morale</strong> each
             <strong>Round</strong></p></li><li><p><strong>Standard</strong> -
             Heals 4 <strong>Morale</strong> each
-            <strong>Round</strong></p></li><li><p><strong>Fine </strong>- Heals
-            8 <strong>Morale </strong>each
+            <strong>Round</strong></p></li><li><p><strong>Fine</strong> - Heals
+            8 <strong>Morale</strong> each
             <strong>Round</strong></p></li><li><p><strong>Superior</strong> -
             Heals 16 <strong>Morale</strong> each
             <strong>Round</strong></p></li><li><p><strong>Masterwork</strong> -
@@ -2056,8 +2055,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167532
-      modifiedTime: 1790471167532
+      createdTime: 1790690490617
+      modifiedTime: 1790690490617
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2095,9 +2094,9 @@ items:
           img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
           condition: ''
           description: >-
-            <p>Immediately recover an amount of <strong>Health</strong>
-            dependant on the quality of the
-            elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
+            <p>Immediately recover an amount of @Rule[resource.health] dependant
+            on the quality of the elixir.</p><ul><li><p><strong>Shoddy</strong>
+            - Immediately heals 6
             <strong>Health</strong>.</p></li><li><p><strong>Standard</strong> -
             Immediately heals 12
             <strong>Health</strong>.</p></li><li><p><strong>Fine</strong> -
@@ -2141,8 +2140,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167532
-      modifiedTime: 1790471167532
+      createdTime: 1790690490617
+      modifiedTime: 1790690490617
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2163,10 +2162,10 @@ items:
         intuition about whether its body or its spirit is the more
         resilient.</p><p>Perform a <strong>Knowledge Test</strong> using the
         appropriate <strong>Skill</strong> for the creature. On a success, you
-        learn whether the creature has greater maximum <strong>Health</strong>
-        or greater maximum <strong>Morale</strong>. On a <strong>Critical
-        Success</strong> the Gamemaster additionally describes how the creature
-        is likely to behave should it become @Condition[broken].</p>
+        learn whether the creature has greater maximum @Rule[resource.health] or
+        greater maximum @Rule[resource.morale]. On a @Rule[dice.criticalSuccess]
+        the Gamemaster additionally describes how the creature is likely to
+        behave should it become @Condition[broken].</p>
       actions:
         - id: assessResolve
           description: >-
@@ -2210,9 +2209,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167533
+      modifiedTime: 1790690490618
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167533
+      createdTime: 1790690490618
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -2297,8 +2296,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167525
-      modifiedTime: 1790471167525
+      createdTime: 1790690490618
+      modifiedTime: 1790690490618
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2405,8 +2404,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790471167525
-  modifiedTime: 1790471167525
+  createdTime: 1790690490607
+  modifiedTime: 1790690490607
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

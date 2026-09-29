@@ -300,8 +300,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161404
-      modifiedTime: 1790471161404
+      createdTime: 1790690160013
+      modifiedTime: 1790690160013
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -344,8 +344,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161404
-      modifiedTime: 1790471161404
+      createdTime: 1790690160013
+      modifiedTime: 1790690160013
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -436,9 +436,9 @@ items:
           condition: ''
           description: >-
             <p>You attempt to physically restrain or subdue an opponent. Perform
-            an <strong>Athletics</strong> skill attack against an adjacent
-            target. If successful, both you and your target are
-            @Condition[restrained] for <strong>1 Round</strong>.</p>
+            an @Rule[skill.athletics] skill attack against an adjacent target.
+            If successful, both you and your target are @Condition[restrained]
+            for <strong>1 Round</strong>.</p>
           summon: null
           persistRegion: false
           regionBehavior: null
@@ -455,8 +455,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161405
-      modifiedTime: 1790471161405
+      createdTime: 1790690160014
+      modifiedTime: 1790690160014
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -522,8 +522,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161406
-      modifiedTime: 1790471161406
+      createdTime: 1790690160014
+      modifiedTime: 1790690160014
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -607,8 +607,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161406
-      modifiedTime: 1790471161406
+      createdTime: 1790690160015
+      modifiedTime: 1790690160015
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -671,8 +671,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161407
-      modifiedTime: 1790471161407
+      createdTime: 1790690160015
+      modifiedTime: 1790690160015
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -736,9 +736,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471161407
+      modifiedTime: 1790690160015
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471161407
+      createdTime: 1790690160015
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -759,28 +759,30 @@ items:
       actions:
         - id: bullrush
           description: >-
-            <p>Make an <strong>Athletics Skill</strong> attack against an
-            adjacent enemy contested by your target's <strong>Fortitude</strong>
-            defense. On a success you may move up to your
-            <strong>Stride</strong> directly through the enemy's space. Your
-            enemy is knocked @Condition[prone] and may not make any
-            @Action[default reactiveStrike] against you. On a failure your
-            movement is blocked and your remain in your current position.</p>
+            <p>You move up to your @Rule[movement.stride] with forceful
+            momentum, passing through the space of one other creature along your
+            path. An ally lets you pass freely.</p><p>An enemy contests your
+            passage: make an @Rule[skill.athletics] @Rule[action.skill] attack
+            against its @Rule[defense.fortitude] defense. On a
+            @Rule[dice.success] you drive through its space, knocking it
+            @Condition[prone], and it may not make any @Action[default
+            reactiveStrike] against you. On a @Rule[dice.failure] your movement
+            is blocked and you remain in your current position.</p>
           tags:
             - harmless
             - fortitude
             - skill
             - athletics
           cost:
-            action: 3
-            focus: 0
+            action: 0
+            focus: 1
             weapon: false
             heroism: 0
             hands: 0
           target:
-            type: single
+            type: movement
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects:
             - name: Bull Rush
@@ -810,7 +812,7 @@ items:
           img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
           condition: ''
           range:
-            maximum: 10
+            maximum: null
             weapon: false
             minimum: null
           summon: null
@@ -829,8 +831,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161408
-      modifiedTime: 1790471161408
+      createdTime: 1790690160016
+      modifiedTime: 1790690160016
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -861,7 +863,7 @@ items:
           description: >-
             <p>You expend @Rule[resource.heroism] to push through adversity.
             Until the end of your turn, your attacks and skill checks ignore any
-            <strong>Banes</strong> imposed upon them. Banes you choose to take
+            @Rule[dice.bane]{Banes} imposed upon them. Banes you choose to take
             upon yourself are not ignored.</p>
           cost:
             action: 0
@@ -917,8 +919,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161403
-      modifiedTime: 1790471161403
+      createdTime: 1790690160016
+      modifiedTime: 1790690160016
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -936,8 +938,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790471161403
-  modifiedTime: 1790471161403
+  createdTime: 1790690160012
+  modifiedTime: 1790690160012
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

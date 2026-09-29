@@ -315,8 +315,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167516
-      modifiedTime: 1790471167516
+      createdTime: 1790690490598
+      modifiedTime: 1790690490598
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -359,8 +359,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167516
-      modifiedTime: 1790471167516
+      createdTime: 1790690490598
+      modifiedTime: 1790690490598
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -402,8 +402,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167516
-      modifiedTime: 1790471167516
+      createdTime: 1790690490598
+      modifiedTime: 1790690490598
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -419,8 +419,9 @@ items:
     system:
       description: >-
         <p>You are trained in wearing the heaviest types of armor while still
-        retaining mobility. You are able to use a <strong>Free Move</strong>
-        once per turn while wearing <strong>Heavy</strong> armor.</p>
+        retaining mobility. You are able to use a
+        @Rule[movement.freeMovement]{Free Move} once per turn while wearing
+        <strong>Heavy</strong> armor.</p>
       actions: []
       nodes:
         - str0b
@@ -436,8 +437,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167516
-      modifiedTime: 1790471167516
+      createdTime: 1790690490599
+      modifiedTime: 1790690490599
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -523,8 +524,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167517
-      modifiedTime: 1790471167517
+      createdTime: 1790690490599
+      modifiedTime: 1790690490599
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -547,11 +548,11 @@ items:
         - id: intimidate
           name: Intimidate
           description: >-
-            <p>You physically intimidate an enemy that is within your engagement
-            range, performing an <strong>Intimidation</strong>
-            <strong>Skill</strong> attack against your target's passive
-            <strong>Intimidation</strong> defense. On a success, they sustain
-            <strong>Void</strong> damage to their <strong>Morale</strong>.</p>
+            <p>You bring your intimidating presence to bear upon an enemy within
+            30 feet, performing an @Rule[skill.intimidation] @Rule[action.skill]
+            attack against your target's passive @Rule[skill.intimidation]
+            defense. On a success, they sustain @Rule[action.void] damage to
+            their @Rule[resource.morale].</p>
           tags:
             - void
             - morale
@@ -566,14 +567,14 @@ items:
           target:
             type: single
             number: 1
-            scope: 0
+            scope: 3
             self: false
           effects: []
           img: icons/magic/death/skull-humanoid-crown-white-blue.webp
           condition: ''
           range:
             minimum: null
-            maximum: null
+            maximum: 30
             weapon: false
           summon: null
           persistRegion: false
@@ -593,9 +594,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167517
+      modifiedTime: 1790690490599
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167517
+      createdTime: 1790690490599
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -654,8 +655,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167517
-      modifiedTime: 1790471167517
+      createdTime: 1790690490599
+      modifiedTime: 1790690490599
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -674,7 +675,7 @@ items:
       description: >-
         <p>You have expertise in using a <strong>Shield</strong> to defend
         yourself and others.</p><p>Once per turn while you have a
-        <strong>Shield</strong> equipped, the <strong>Action</strong> cost of
+        <strong>Shield</strong> equipped, the @Rule[resource.action] cost of
         using the @Action[default defend] action is reduced by 1.</p>
       nodes:
         - tou0a
@@ -691,9 +692,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167517
+      modifiedTime: 1790690490600
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167517
+      createdTime: 1790690490600
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -722,8 +723,8 @@ items:
           condition: ''
           description: >-
             <p>Each ally, excluding yourself, within <strong>10 feet</strong>
-            gains <strong>+1 Boon</strong> to actions performed until the end of
-            their next turn.</p>
+            gains @Rule[dice.boon]{+1 Boon} to actions performed until the end
+            of their next turn.</p>
           tags: []
           cost:
             action: 3
@@ -778,8 +779,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167518
-      modifiedTime: 1790471167518
+      createdTime: 1790690490600
+      modifiedTime: 1790690490600
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -798,11 +799,10 @@ items:
         <p>The chaotic force of space and physical movement. The
         <strong>Kinesis</strong> rune governs all things related to the act of
         movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
-        using <strong>Presence</strong>, targets <strong>Physical</strong>
-        defense, and deals <strong>Bludgeoning</strong>,
-        <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
-        <strong>Health</strong>. It is opposed by the orderly rune of
-        <strong>Control</strong>.</p>
+        using @Rule[ability.presence], targets @Rule[defense.physical] defense,
+        and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to @Rule[resource.health]. It is
+        opposed by the orderly rune of <strong>Control</strong>.</p>
       actions:
         - id: propel
           name: Propel
@@ -823,8 +823,8 @@ items:
             long as they have a free hand with which to do
             so.</p></li><li><p>Suspend in midair an object or willing creature
             that you touch with weight less than or equal to 10 times your
-            <strong>Presence</strong>, altering its position up to 20 feet in
-            any direction from its original location. You can maintain this
+            @Rule[ability.presence], altering its position up to 20 feet in any
+            direction from its original location. You can maintain this
             suspension indefinitely as long as you take no further Action and
             are not @Condition[incapacitated].</p></li></ul><p>Propel may only
             affect a creature or object you can physically touch unless
@@ -866,8 +866,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167518
-      modifiedTime: 1790471167518
+      createdTime: 1790690490600
+      modifiedTime: 1790690490600
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -911,8 +911,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167518
-      modifiedTime: 1790471167518
+      createdTime: 1790690490600
+      modifiedTime: 1790690490600
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -931,7 +931,7 @@ items:
     system:
       description: >-
         <p>Your feats of arcana are fueled by anger. While @Condition[enraged]
-        you may still spend <strong>Focus</strong> and you deal 2 additional
+        you may still spend @Rule[resource.focus] and you deal 2 additional
         damage to all <strong>Spell</strong> attacks.</p>
       actions: []
       nodes:
@@ -947,8 +947,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167518
-      modifiedTime: 1790471167518
+      createdTime: 1790690490601
+      modifiedTime: 1790690490601
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -972,11 +972,11 @@ items:
           description: >-
             <p>You produce a courageous bellow that inspires allies within
             <strong>12 feet</strong> of you to remain stalwart in the face of
-            peril. You make an <strong>Intimidation</strong> check against the
-            <strong>Rallying Threshold</strong> of each ally. Upon a success,
-            they become @Condition[resolute] for <strong>3 Rounds</strong>. Upon
-            a <strong>Critical Success</strong>, they also recover an amount of
-            <strong>Morale</strong> equal to your <strong>Presence</strong>
+            peril. You make an @Rule[skill.intimidation] check against the
+            @Rule[defense.madness] of each ally. Upon a success, they become
+            @Condition[resolute] for <strong>3 Rounds</strong>. Upon a
+            @Rule[dice.criticalSuccess], they also recover an amount of
+            @Rule[resource.morale] equal to your @Rule[ability.presence]
             score.</p>
           tags:
             - vocal
@@ -1044,8 +1044,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167518
-      modifiedTime: 1790471167518
+      createdTime: 1790690490601
+      modifiedTime: 1790690490601
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1063,7 +1063,7 @@ items:
     system:
       description: >-
         <p>Your strong will makes you exceedingly difficult to influence. You
-        gain +1 to your <strong>Willpower</strong> defense and <strong>+5
+        gain +1 to your @Rule[defense.willpower] defense and <strong>+5
         Resistance</strong> to <strong>Psychic</strong> damage.</p>
       actions: []
       nodes:
@@ -1080,8 +1080,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167519
-      modifiedTime: 1790471167519
+      createdTime: 1790690490601
+      modifiedTime: 1790690490601
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1105,10 +1105,10 @@ items:
         - id: formidablePresence
           name: Formidable Presence
           description: >-
-            <p>You make an <strong>Intimidation</strong> skill attack against
-            the <strong>Willpower</strong> defense of enemies within <strong>12
+            <p>You make an @Rule[skill.intimidation] skill attack against the
+            @Rule[defense.willpower] defense of enemies within <strong>12
             feet</strong>, dealing <strong>Void</strong> damage to
-            <strong>Morale</strong> and causing the @Condition[frightened]
+            @Rule[resource.morale] and causing the @Condition[frightened]
             condition for <strong>1 Round</strong> to those whose defense you
             overcome.</p>
           tags:
@@ -1177,9 +1177,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167519
+      modifiedTime: 1790690490602
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167519
+      createdTime: 1790690490602
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1198,8 +1198,8 @@ items:
         <p>You understand that panic can be contagious, you just have to cause
         it. When you cause a foe to become @Condition[broken] or
         @Condition[insane], every enemy within <strong>10 feet</strong> who can
-        see that creature suffers damage to their <strong>Morale</strong> equal
-        to your <strong>Presence</strong>.</p>
+        see that creature suffers damage to their @Rule[resource.morale] equal
+        to your @Rule[ability.presence].</p>
       actions: []
       nodes:
         - pre4a
@@ -1214,8 +1214,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167519
-      modifiedTime: 1790471167519
+      createdTime: 1790690490602
+      modifiedTime: 1790690490602
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1250,9 +1250,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167519
+      modifiedTime: 1790690490602
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167519
+      createdTime: 1790690490602
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1269,9 +1269,9 @@ items:
       description: >-
         <p>You shape the arcane power of a <strong>Rune</strong> into a
         protective barrier used to shield yourself from harm.</p><p>The
-        <strong>Ward</strong> gesture scales using <strong>Toughness</strong>
-        and provides <strong>+6 Resistance</strong> against the damage type of
-        the <strong>Rune</strong> used in the spell. This resistance lasts for
+        <strong>Ward</strong> gesture scales using @Rule[ability.toughness] and
+        provides <strong>+6 Resistance</strong> against the damage type of the
+        <strong>Rune</strong> used in the spell. This resistance lasts for
         <strong>1 Round</strong> and you may only have a single
         <strong>Ward</strong> at a time. Casting another spell using the Ward
         gesture replaces your prior Ward. This gesture requires <strong>1
@@ -1292,9 +1292,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167519
+      modifiedTime: 1790690490602
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167519
+      createdTime: 1790690490602
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1329,8 +1329,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167520
-      modifiedTime: 1790471167520
+      createdTime: 1790690490603
+      modifiedTime: 1790690490603
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1358,7 +1358,7 @@ items:
           condition: You Block an incoming melee Strike.
           description: >-
             <p>When you defend against a melee attack with a
-            <strong>Block</strong> you may expend <strong>Focus</strong> to
+            @Rule[defense.block] you may expend @Rule[resource.focus] to
             retaliate with a reduced-cost <strong>Strike</strong> using your
             mainhand weapon.</p>
           tags:
@@ -1395,9 +1395,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790471167520
+      modifiedTime: 1790690490603
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790471167520
+      createdTime: 1790690490603
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1419,8 +1419,8 @@ items:
         <p>You are expert in using your armor in combination with your shield to
         create a defensive shell.</p><p>When you have the @Condition[guarded]
         condition and have a <strong>Heavy Shield</strong> equipped, your base
-        <strong>Armor</strong> defense is reduced by half but your
-        <strong>Block</strong> defense increases by a corresponding amount.</p>
+        @Rule[defense.armor] defense is reduced by half but your
+        @Rule[defense.block] defense increases by a corresponding amount.</p>
       actions: []
       iconicSpells: 0
       training: armor
@@ -1433,8 +1433,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167520
-      modifiedTime: 1790471167520
+      createdTime: 1790690490603
+      modifiedTime: 1790690490603
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1452,8 +1452,8 @@ items:
       description: >-
         <p>Your defenses frustrate attackers who struggle to find a gap in your
         guard. When an enemy's <strong>Strike</strong> against you results in a
-        <strong>Block</strong> or <strong>Glancing Blow</strong>, that enemy
-        suffers <strong>+1 Bane</strong> on their next <strong>Strike</strong>
+        @Rule[defense.block] or <strong>Glancing Blow</strong>, that enemy
+        suffers @Rule[dice.bane]{+1 Bane} on their next <strong>Strike</strong>
         against you.</p>
       actions: []
       nodes:
@@ -1469,8 +1469,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167520
-      modifiedTime: 1790471167520
+      createdTime: 1790690490603
+      modifiedTime: 1790690490603
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1505,8 +1505,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167520
-      modifiedTime: 1790471167520
+      createdTime: 1790690490604
+      modifiedTime: 1790690490604
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1528,13 +1528,13 @@ items:
         have the following benefits:</p><ul><li><p>You cannot be moved against
         your will or knocked @Condition[prone].</p></li><li><p>Your space cannot
         be crossed by enemies, even when using abilities that would normally
-        move through a creature.</p></li><li><p>Your <strong>Engagement</strong>
+        move through a creature.</p></li><li><p>Your @Rule[movement.engagement]
         increases by +1, holding more foes at bay.</p></li><li><p>Your
-        <strong>Reflex</strong> defense is treated as the sum of your
-        <strong>Armor</strong> and <strong>Block </strong>defenses, if greater,
-        as you endure attacks rather than avoiding them. An attack against your
-        <strong>Reflex</strong> which you resist is treated as having been
-        defended by <strong>Block</strong>.</p></li></ul>
+        @Rule[defense.reflex] defense is treated as the sum of your
+        @Rule[defense.armor] and @Rule[defense.block] defenses, if greater, as
+        you endure attacks rather than avoiding them. An attack against your
+        @Rule[defense.reflex] which you resist is treated as having been
+        defended by @Rule[defense.block].</p></li></ul>
       actions:
         - id: getBehindMe
           name: Get Behind Me
@@ -1604,8 +1604,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471167521
-      modifiedTime: 1790471167521
+      createdTime: 1790690490604
+      modifiedTime: 1790690490604
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1625,7 +1625,7 @@ items:
       category: jewelry
       quantity: 1
       weight: 0
-      price: 20
+      price: 90
       quality: fine
       broken: false
       enchantment: minor
@@ -1638,7 +1638,7 @@ items:
           <blockquote><p>This elegant ornamented ring feels slightly slick and
           difficult to grasp. While held it vibrates almost
           imperceptibly.</p></blockquote><p>This enchanted ring provides a bonus
-          to <strong>Dodge</strong> defense.</p>
+          to @Rule[defense.dodge] defense.</p>
         private: >-
           <p>This item is presented as an example of <strong>Fine</strong>
           jewelry with the
@@ -1688,8 +1688,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790471167521
-          modifiedTime: 1790471167521
+          createdTime: 1790690490605
+          modifiedTime: 1790690490605
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1701,8 +1701,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167521
-      modifiedTime: 1790471167521
+      createdTime: 1790690490604
+      modifiedTime: 1790690490604
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1740,8 +1740,8 @@ items:
           img: icons/consumables/potions/bottle-bulb-corked-purple.webp
           condition: ''
           description: >-
-            <p>Immediately recover an amount of <strong>Morale
-            </strong>dependant on the quality of the
+            <p>Immediately recover an amount of @Rule[resource.morale]{Morale}
+            dependant on the quality of the
             elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
             <strong>Morale</strong>.</p></li><li><p><strong>Standard</strong> -
             Immediately heals 12
@@ -1786,8 +1786,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167522
-      modifiedTime: 1790471167522
+      createdTime: 1790690490605
+      modifiedTime: 1790690490605
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1826,18 +1826,18 @@ items:
           condition: ''
           description: >-
             <p>Immediately, and at the beginning of each of the next 5
-            <strong>Rounds</strong>, recover an amount of
-            <strong>Health</strong> dependent on the quality of the
+            <strong>Rounds</strong>, recover an amount of @Rule[resource.health]
+            dependent on the quality of the
             tonic.</p><ul><li><p><strong>Shoddy</strong> - Heals 2
             <strong>Health</strong> each
             <strong>Round</strong></p></li><li><p><strong>Standard</strong> -
-            Heals 4 <strong>Health </strong>each
-            <strong>Round</strong></p></li><li><p><strong>Fine </strong>- Heals
-            8 <strong>Health </strong>each
+            Heals 4 <strong>Health</strong> each
+            <strong>Round</strong></p></li><li><p><strong>Fine</strong> - Heals
+            8 <strong>Health</strong> each
             <strong>Round</strong></p></li><li><p><strong>Superior</strong> -
-            Heals 16 <strong>Health </strong>each
+            Heals 16 <strong>Health</strong> each
             <strong>Round</strong></p></li><li><p><strong>Masterwork</strong> -
-            Heals 32 <strong>Health </strong>each
+            Heals 32 <strong>Health</strong> each
             <strong>Round</strong></p></li></ul>
           cost:
             action: 2
@@ -1896,8 +1896,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167522
-      modifiedTime: 1790471167522
+      createdTime: 1790690490605
+      modifiedTime: 1790690490605
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1940,8 +1940,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167522
-      modifiedTime: 1790471167522
+      createdTime: 1790690490605
+      modifiedTime: 1790690490605
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2033,8 +2033,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471167513
-      modifiedTime: 1790471167513
+      createdTime: 1790690490606
+      modifiedTime: 1790690490606
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2053,8 +2053,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790471167513
-  modifiedTime: 1790471167513
+  createdTime: 1790690490597
+  modifiedTime: 1790690490597
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

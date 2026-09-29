@@ -302,8 +302,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161395
-      modifiedTime: 1790471161395
+      createdTime: 1790690160004
+      modifiedTime: 1790690160004
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -345,8 +345,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161395
-      modifiedTime: 1790471161395
+      createdTime: 1790690160005
+      modifiedTime: 1790690160005
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -369,14 +369,14 @@ items:
           condition: ''
           description: >-
             <p>You use your equipped <strong>Talisman</strong> to attempt to
-            regain some <strong>Focus</strong>. You perform a
+            regain some @Rule[resource.focus]. You perform a
             @Rule[action.harmless] <strong>Strike</strong> against your own
-            <strong>Rallying</strong> threshold.</p><p>On a success you recover
-            <strong>+1 Focus</strong> if using a one-handed
-            <strong>Talisman</strong> and <strong>+2 Focus</strong> if using a
-            two-handed <strong>Talisman</strong>. On a <strong>Critical
-            Success</strong> the amount of <strong>Focus</strong> recovered
-            increases by an additional +1.</p>
+            @Rule[defense.madness].</p><p>On a success you recover
+            @Rule[resource.focus]{+1 Focus} if using a one-handed
+            <strong>Talisman</strong> and @Rule[resource.focus]{+2 Focus} if
+            using a two-handed <strong>Talisman</strong>. On a
+            @Rule[dice.criticalSuccess] the amount of @Rule[resource.focus]
+            recovered increases by an additional +1.</p>
           cost:
             action: 0
             focus: 0
@@ -414,8 +414,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161395
-      modifiedTime: 1790471161395
+      createdTime: 1790690160005
+      modifiedTime: 1790690160005
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -451,8 +451,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161396
-      modifiedTime: 1790471161396
+      createdTime: 1790690160006
+      modifiedTime: 1790690160006
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -470,9 +470,9 @@ items:
       description: >-
         <p>The chaotic force of elemental, thermal energy. The
         <strong>Flame</strong> rune governs fire and heat.</p><p>The
-        <strong>Flame</strong> rune scales using <strong>Intellect</strong>,
-        targets <strong>Reflex</strong>, and deals <strong>Fire</strong> damage
-        to <strong>Health</strong>. It is opposed by the orderly rune of
+        <strong>Flame</strong> rune scales using @Rule[ability.intellect],
+        targets @Rule[defense.reflex], and deals <strong>Fire</strong> damage to
+        @Rule[resource.health]. It is opposed by the orderly rune of
         <strong>Frost</strong>.</p>
       actions:
         - id: enkindle
@@ -529,8 +529,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161396
-      modifiedTime: 1790471161396
+      createdTime: 1790690160006
+      modifiedTime: 1790690160006
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -547,8 +547,9 @@ items:
     system:
       description: >-
         <p>You are trained in wearing the heaviest types of armor while still
-        retaining mobility. You are able to use a <strong>Free Move</strong>
-        once per turn while wearing <strong>Heavy</strong> armor.</p>
+        retaining mobility. You are able to use a
+        @Rule[movement.freeMovement]{Free Move} once per turn while wearing
+        <strong>Heavy</strong> armor.</p>
       actions: []
       nodes:
         - str0b
@@ -564,8 +565,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161396
-      modifiedTime: 1790471161396
+      createdTime: 1790690160007
+      modifiedTime: 1790690160007
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -584,11 +585,11 @@ items:
     system:
       description: >-
         <p>Your grasp of your weaponry is firm and unyielding. While wielding a
-        two-handed weapon that scales with <strong>Strength</strong> you may
-        cast spells which require two hands, and attempts to
-        <strong>Disarm</strong> you are made with <strong>+2
-        Banes</strong>.</p><p>Additionally, you may wield a one-handed
-        <strong>Heavy</strong> weapon in your off-hand.</p>
+        two-handed weapon that scales with @Rule[ability.strength] you may cast
+        spells which require two hands, and attempts to <strong>Disarm</strong>
+        you are made with @Rule[dice.bane]{+2 Banes}.</p><p>Additionally, you
+        may wield a one-handed <strong>Heavy</strong> weapon in your
+        off-hand.</p>
       actions: []
       nodes:
         - str1b
@@ -603,8 +604,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161397
-      modifiedTime: 1790471161397
+      createdTime: 1790690160007
+      modifiedTime: 1790690160007
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -633,9 +634,9 @@ items:
           condition: ''
           description: >-
             <p>Following a basic @Action[default strike] which did not
-            <strong>Critically Miss</strong>, you <strong>Strike</strong> the
-            same target again with the backswing of your weapon at reduced
-            <strong>Action</strong> cost.</p>
+            @Rule[dice.criticalFailure]{Critically Miss}, you
+            <strong>Strike</strong> the same target again with the backswing of
+            your weapon at reduced @Rule[resource.action] cost.</p>
           tags:
             - afterStrike
             - melee
@@ -670,8 +671,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161397
-      modifiedTime: 1790471161397
+      createdTime: 1790690160007
+      modifiedTime: 1790690160007
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -706,7 +707,7 @@ items:
             @Rule[resource.wounds], you may expend @Rule[resource.heroism] to
             enter a deathless fury. While the fury lasts you ignore all
             penalties of being @Condition[weakened] and your @Action[default
-            strike] attacks gain <strong>+1 Boon</strong>.</p><p>The fury ends
+            strike] attacks gain @Rule[dice.boon]{+1 Boon}.</p><p>The fury ends
             when your @Rule[resource.health] exceeds your @Rule[resource.wounds]
             or when <strong>Combat</strong> ends.</p>
           cost:
@@ -763,8 +764,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161393
-      modifiedTime: 1790471161393
+      createdTime: 1790690160007
+      modifiedTime: 1790690160007
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -783,8 +784,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790471161393
-  modifiedTime: 1790471161393
+  createdTime: 1790690160002
+  modifiedTime: 1790690160002
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -302,8 +302,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161426
-      modifiedTime: 1790471161426
+      createdTime: 1790690160033
+      modifiedTime: 1790690160033
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -344,8 +344,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161426
-      modifiedTime: 1790471161426
+      createdTime: 1790690160034
+      modifiedTime: 1790690160034
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -385,8 +385,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161427
-      modifiedTime: 1790471161427
+      createdTime: 1790690160034
+      modifiedTime: 1790690160034
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -413,7 +413,7 @@ items:
           description: >-
             <p>You can loose a shot under pressure, although with decreased
             accuracy. You perform a <strong>Strike</strong> that is
-            @Rule[action.difficult], but has a reduced <strong>Action</strong>
+            @Rule[action.difficult], but has a reduced @Rule[resource.action]
             cost.</p>
           cost:
             action: -1
@@ -451,8 +451,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161427
-      modifiedTime: 1790471161427
+      createdTime: 1790690160034
+      modifiedTime: 1790690160034
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -472,8 +472,8 @@ items:
         <p>The orderly force of elemental earth, responsible for physical
         matter. The <strong>Earth</strong> rune governs minerals, metals, soils,
         and other physical compounds.</p><p>The <strong>Earth</strong> rune
-        scales using <strong>Wisdom</strong>, targets <strong>Reflex</strong>,
-        and deals <strong>Acid</strong> damage to <strong>Health</strong>. It is
+        scales using @Rule[ability.wisdom], targets @Rule[defense.reflex], and
+        deals <strong>Acid</strong> damage to @Rule[resource.health]. It is
         opposed by the chaotic rune of <strong>Storm</strong>.</p>
       actions:
         - id: mould
@@ -531,8 +531,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161427
-      modifiedTime: 1790471161427
+      createdTime: 1790690160034
+      modifiedTime: 1790690160034
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -549,9 +549,9 @@ items:
     system:
       description: >-
         <p>You seem to always be prepared for the moment at hand. You may
-        sacrifice your <strong>Free Movement</strong> for the round to instead
+        sacrifice your @Rule[movement.freeMovement] for the round to instead
         equip an <strong>Item</strong> from your inventory without spending any
-        <strong>Action</strong> points.</p>
+        @Rule[resource.action] points.</p>
       nodes:
         - wis0a
       actions: []
@@ -567,8 +567,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161428
-      modifiedTime: 1790471161428
+      createdTime: 1790690160035
+      modifiedTime: 1790690160035
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -655,8 +655,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161428
-      modifiedTime: 1790471161428
+      createdTime: 1790690160035
+      modifiedTime: 1790690160035
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -677,7 +677,7 @@ items:
         <p>You identify moments of opportunity to strike at an enemy's weak
         points. When attacking a target that is @Condition[unaware],
         @Condition[flanked], or @Condition[exposed] using a weapon which scales
-        with <strong>Dexterity</strong>, you gain +2 damage to any
+        with @Rule[ability.dexterity], you gain +2 damage to any
         <strong>Strike</strong>.</p>
       actions: []
       nodes:
@@ -693,8 +693,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161429
-      modifiedTime: 1790471161429
+      createdTime: 1790690160035
+      modifiedTime: 1790690160035
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -716,28 +716,28 @@ items:
         - id: tumble
           name: Tumble
           description: >-
-            <p>Make a <strong>Athletics Skill</strong> attack against an
-            adjacent enemy contested by your target's <strong>Reflex</strong>
-            defense.</p><p>On a success you may move up to twice your
-            <strong>Stride</strong>, including the ability to pass through your
-            target enemy's space, without provoking any @Action[default
-            reactiveStrike].</p><p>On a failure your movement is blocked and
-            your remain in your current position.</p>
+            <p>You tumble nimbly up to twice your @Rule[movement.stride],
+            passing through the space of one other creature along your path
+            without provoking any @Action[default reactiveStrike]. An ally lets
+            you pass freely.</p><p>An enemy contests your passage: make an
+            @Rule[skill.athletics] @Rule[action.skill] attack against its
+            @Rule[defense.reflex] defense. On a @Rule[dice.failure] your
+            movement is blocked and you remain in your current position.</p>
           tags:
             - harmless
             - reflex
             - skill
             - athletics
           cost:
-            action: 3
-            focus: 0
+            action: 0
+            focus: 1
             weapon: false
             heroism: 0
             hands: 0
           target:
-            type: single
+            type: movement
             number: 1
-            scope: 2
+            scope: 4
             self: false
           effects: []
           img: icons/skills/movement/ball-spinning-blue.webp
@@ -763,8 +763,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790471161429
-      modifiedTime: 1790471161429
+      createdTime: 1790690160035
+      modifiedTime: 1790690160035
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -851,8 +851,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790471161425
-      modifiedTime: 1790471161425
+      createdTime: 1790690160036
+      modifiedTime: 1790690160036
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -870,8 +870,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790471161425
-  modifiedTime: 1790471161425
+  createdTime: 1790690160033
+  modifiedTime: 1790690160033
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
