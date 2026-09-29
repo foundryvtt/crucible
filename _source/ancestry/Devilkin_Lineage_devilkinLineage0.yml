@@ -7,13 +7,7 @@ system:
   description: >-
     <p>The infernal fire of your heritage smolders just beneath your skin,
     waiting to be unleashed through your blows.</p><p><strong>Thermal
-    Vision.</strong> You perceive the world through differences in temperature,
-    allowing you to locate creatures whose body temperatures are
-    <strong>Gelid</strong>, <strong>Cool</strong>, <strong>Warm</strong>, or
-    <strong>Boiling</strong> up to <strong>30 feet</strong> away as long as they
-    are not behind total cover and you are not @Condition[blinded] or
-    @Condition[incapacitated]. A creature detected in this way is treated as
-    visible for the purposes of Actions which require sight.</p>
+    Vision.</strong> You gain the benefits of @UUID[Compendium.crucible.adversary-talents.thermalVision000] with a 30 foot radius.</p>
   actions:
     - id: hellbrand
       name: Hellbrand

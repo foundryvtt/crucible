@@ -21,7 +21,7 @@ img: icons/magic/life/heart-pink.webp
 disabled: false
 start: null
 description: >-
-  <p>Reduce the @Rule[resource.wounds] defense threshold by 1 for each
+  <p>Reduce the @Rule[defense.wounds] by 1 for each
   <strong>Tier</strong> of this prefix, making the wearer easier to heal from
   wounds.</p>
 origin: null

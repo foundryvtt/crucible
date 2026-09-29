@@ -22,8 +22,8 @@ disabled: false
 start: null
 description: >-
   <p><strong>Strikes</strong> against your @Rule[resource.health] require a
-  higher overflow to achieve a @Rule[dice.criticalSuccess]{Critical Hit}. The critical
-  threshold is increased by 1 for each <strong>Tier</strong> of this prefix.</p>
+  higher overflow to achieve a @Rule[dice.criticalSuccess]{Critical Hit}. The @Rule[dice.criticalSuccessThreshold]
+  is increased by 1 for each <strong>Tier</strong> of this prefix.</p>
 origin: null
 tint: '#ffffff'
 transfer: false

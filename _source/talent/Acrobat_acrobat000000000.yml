@@ -5,7 +5,7 @@ system:
   description: >-
     <p>You fight with the fluid grace of an acrobat, treating your weapon as a
     vaulting pole as readily as an armament. While wielding a <strong>Balanced
-    2H </strong>weapon, your movement does not provoke a @Action[default
+    2H</strong> weapon, your movement does not provoke a @Action[default
     reactiveStrike], and jumping costs you no more movement than walking. Your
     whirling weapon also bats aside incoming missiles, imposing @Rule[dice.bane]{+2
     Banes} on ranged weapon attacks made against you.</p>
