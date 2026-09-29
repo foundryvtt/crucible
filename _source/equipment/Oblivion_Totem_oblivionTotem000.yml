@@ -1,0 +1,45 @@
+folder: dhytTyAU2zNv4suy
+name: Oblivion Totem
+type: weapon
+img: icons/weapons/staves/staff-orb-purple.webp
+system:
+  category: talisman2
+  quantity: 1
+  weight: 4
+  price: 640
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties: []
+  damageType: void
+  identifier: oblivionTotem
+  invested: false
+  description:
+    public: >-
+      <p>A tall pole crowned with a dark violet orb that — in the palm of a
+      capable spellcaster — becomes a conduit for their power.</p><p>It gathers
+      the emptiness between the stars within the orb before blasting its target
+      with <strong>Void</strong> damage to <strong>Health</strong>.</p>
+    private: ''
+  actions: []
+  dropped: false
+  slot: 0
+effects: []
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790688634915
+  modifiedTime: 1790688634915
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+ownership:
+  default: 0
+  M1BSmH2nkSHNPBss: 3
+_id: oblivionTotem000
+sort: 0
+_key: '!items!oblivionTotem000'

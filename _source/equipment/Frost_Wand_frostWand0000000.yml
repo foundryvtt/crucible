@@ -1,7 +1,7 @@
-folder: uvvY6c0nbJBhAjM6
-name: Frost Mirror
+folder: wWAXVPWfiftwfmp4
+name: Frost Wand
 type: weapon
-img: icons/tools/scribal/lens-blue.webp
+img: icons/weapons/wands/wand-gem-blue.webp
 system:
   category: talisman1
   quantity: 1
@@ -13,12 +13,14 @@ system:
   equipped: false
   properties: []
   damageType: cold
-  identifier: frostMirror
+  identifier: frostWand
   invested: false
   description:
     public: >-
-      <p>A small bronze rimmed mirror, with a lens made of pure ice. Used to
-      channel icy winds and chilling flow.</p>
+      <p>A slender wand tipped with a pale blue gem that — in the palm of a
+      capable spellcaster — becomes a conduit for their power.</p><p>It gathers
+      frigid energy within its gem before blasting its target with
+      <strong>Cold</strong> damage to <strong>Health</strong>.</p>
     private: ''
   actions: []
   dropped: false
@@ -29,8 +31,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790584064460
-  modifiedTime: 1790584064460
+  createdTime: 1790688608026
+  modifiedTime: 1790688609439
   lastModifiedBy: M1BSmH2nkSHNPBss
   compendiumSource: null
   duplicateSource: null
@@ -38,6 +40,6 @@ _stats:
 ownership:
   default: 0
   M1BSmH2nkSHNPBss: 3
-_id: frostMirror00000
-sort: 0
-_key: '!items!frostMirror00000'
+_id: frostWand0000000
+sort: 400000
+_key: '!items!frostWand0000000'

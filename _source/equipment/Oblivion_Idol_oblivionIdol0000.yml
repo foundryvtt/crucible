@@ -1,7 +1,7 @@
-folder: uvvY6c0nbJBhAjM6
-name: Hollow Idol
+folder: wWAXVPWfiftwfmp4
+name: Oblivion Idol
 type: weapon
-img: icons/equipment/neck/amulet-carved-stone-purple.webp
+img: icons/commodities/gems/pearl-glass-purple.webp
 system:
   category: talisman1
   quantity: 1
@@ -13,12 +13,10 @@ system:
   equipped: false
   properties: []
   damageType: void
-  identifier: hollowIdol
+  identifier: oblivionIdol
   invested: false
   description:
-    public: >-
-      <p>A small, more than empty pendant. Utter darkness can be seen
-      within.</p>
+    public: "<p>A crystalline orb of dark glass that — in the palm of a capable spellcaster — becomes a conduit for their power.</p><p>It gathers the emptiness between the stars within its hollow before blasting its target with <strong>Void</strong> damage to <strong>Health</strong>.</p>"
     private: ''
   actions: []
   dropped: false
@@ -29,8 +27,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790584077317
-  modifiedTime: 1790584077317
+  createdTime: 1790688615336
+  modifiedTime: 1790688615336
   lastModifiedBy: M1BSmH2nkSHNPBss
   compendiumSource: null
   duplicateSource: null
@@ -38,6 +36,6 @@ _stats:
 ownership:
   default: 0
   M1BSmH2nkSHNPBss: 3
-_id: hollowIdol000000
+_id: oblivionIdol0000
 sort: 0
-_key: '!items!hollowIdol000000'
+_key: '!items!oblivionIdol0000'
