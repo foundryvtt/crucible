@@ -6,14 +6,13 @@ system:
   description: >-
     <p>You have mended enough ruined steel to know that a break is only the
     metal telling you how it was made. Given a hammer and an hour, you can
-    persuade it back.</p><p>The repairs you make using the
-    @Rule[skill.smithing] trade benefit from <strong>Expert
-    Repair</strong>:</p><ul><li><p>You may attempt such repairs without a
-    workbench, though attempts made without one are @Rule[action.difficult].
-    </p></li><li><p>A repair you succeed at never costs the item a
-    <strong>Quality</strong> tier.</p></li></ul><h3 class="divider">Playtest
-    Notes</h3><p>Repair is not yet automated. The rules it follows are described
-    in the
+    persuade it back.</p><p>The repairs you make using the @Rule[skill.smithing]
+    trade benefit from <strong>Expert Repair</strong>:</p><ul><li><p>You may
+    attempt such repairs without a workbench, though attempts made without one
+    are @Rule[action.difficult]. </p></li><li><p>A repair you succeed at never
+    costs the item a <strong>Quality</strong> tier.</p></li></ul><h3
+    class="divider">Playtest Notes</h3><p>Repair is not yet automated. The rules
+    it follows are described in the
     @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
     journal.</p>
   actions: []

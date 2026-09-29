@@ -12,10 +12,10 @@ system:
       description: >-
         <p>You exaggerate your opponent's shortcomings with a scathing bon mot,
         improvising a @Rule[skill.performance] skill attack against your
-        target's @Rule[defense.willpower]. On a @Rule[dice.success] they suffer modest
-        <strong>Psychic</strong> damage to @Rule[resource.morale].</p><p>On a
-        @Rule[dice.criticalSuccess], they also become @Condition[enraged]
-        for <strong>1 Round</strong>.</p>
+        target's @Rule[defense.willpower]. On a @Rule[dice.success] they suffer
+        modest <strong>Psychic</strong> damage to
+        @Rule[resource.morale].</p><p>On a @Rule[dice.criticalSuccess], they
+        also become @Condition[enraged] for <strong>1 Round</strong>.</p>
       tags:
         - weakened
         - willpower

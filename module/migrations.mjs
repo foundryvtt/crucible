@@ -40,11 +40,7 @@ export async function syncOwnedItems({force=false, reload=true, talents=true, sp
   let equipmentIndex;
   if ( equipment ) {
     const pack = game.packs.get("crucible.equipment");
-    await pack.getDocuments();
-    equipmentIndex = pack.contents.reduce((obj, item) => {
-      obj[item.system.identifier] = item;
-      return obj;
-    }, {});
+    equipmentIndex = _indexEquipment(await pack.getDocuments());
   }
 
   // Sync actor-owned items
@@ -111,11 +107,7 @@ export async function syncWorldItems({equipment=true}={}) {
   console.groupCollapsed("Crucible | World Item Synchronization");
   if ( equipment ) {
     const source = game.packs.get("crucible.equipment");
-    await source.getDocuments();
-    const equipmentIndex = source.contents.reduce((obj, item) => {
-      obj[item.system.identifier] = item;
-      return obj;
-    }, {});
+    const equipmentIndex = _indexEquipment(await source.getDocuments());
 
     // Plan and commit one update operation per collection
     for await ( const {documents, pack} of _worldCollections("Item") ) {
@@ -131,6 +123,22 @@ export async function syncWorldItems({equipment=true}={}) {
     }
   }
   console.groupEnd();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Index equipment items by identifier, preferring the standard quality item where several share an identifier.
+ * @param {CrucibleItem[]} items                      The equipment compendium items
+ * @returns {Record<string, CrucibleItem>}
+ */
+function _indexEquipment(items) {
+  const index = {};
+  for ( const item of items ) {
+    const {identifier, quality} = item.system;
+    if ( !(identifier in index) || (quality === "standard") ) index[identifier] = item;
+  }
+  return index;
 }
 
 /* -------------------------------------------- */

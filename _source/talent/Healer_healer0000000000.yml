@@ -5,8 +5,8 @@ system:
   description: >-
     <p>You are unparalleled at manipulating vital arcana to treat injuries. You
     learn <strong>Rune: Life</strong> if you do not already know it. When
-    healing allies using the <strong>Rune of Life</strong> you gain @Rule[dice.boon]{+2
-    Boons} to your roll.</p>
+    healing allies using the <strong>Rune of Life</strong> you gain
+    @Rule[dice.boon]{+2 Boons} to your roll.</p>
   actions:
     - id: fontOfLife
       img: icons/magic/life/heart-hand-gold-green-light.webp

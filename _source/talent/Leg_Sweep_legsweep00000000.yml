@@ -3,8 +3,8 @@ type: talent
 img: icons/skills/melee/strike-sword-slashing-red.webp
 system:
   description: >-
-    <p>You use a weapon which scales using @Rule[ability.strength] to sweep
-    your enemy off balance, swinging low to knock them from their feet.</p>
+    <p>You use a weapon which scales using @Rule[ability.strength] to sweep your
+    enemy off balance, swinging low to knock them from their feet.</p>
   actions:
     - id: legSweep
       condition: ''

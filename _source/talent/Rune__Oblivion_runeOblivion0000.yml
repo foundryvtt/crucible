@@ -7,8 +7,8 @@ system:
     <strong>Oblivion</strong> rune governs unmaking of matter or decoherence of
     spirit.</p><p>The <strong>Oblivion</strong> rune scales using
     @Rule[ability.intellect], targets @Rule[defense.willpower], and deals
-    <strong>Void</strong> damage to @Rule[resource.morale]. It is opposed by
-    the orderly rune of <strong>Soul</strong>.</p>
+    <strong>Void</strong> damage to @Rule[resource.morale]. It is opposed by the
+    orderly rune of <strong>Soul</strong>.</p>
   actions:
     - id: erase
       name: Erase

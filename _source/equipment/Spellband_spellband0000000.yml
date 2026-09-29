@@ -6,7 +6,7 @@ system:
   category: jewelry
   quantity: 1
   weight: 1
-  price: 20
+  price: 90
   quality: fine
   broken: false
   enchantment: minor
@@ -85,8 +85,8 @@ effects:
     start: null
     description: >-
       <p>Grants the <strong>Replenish Focus</strong> action, allowing the bearer
-      to restore @Rule[resource.focus] in moments of duress. The amount
-      restored scales with the <strong>Tier</strong> of this affix.</p>
+      to restore @Rule[resource.focus] in moments of duress. The amount restored
+      scales with the <strong>Tier</strong> of this affix.</p>
     origin: null
     tint: '#ffffff'
     transfer: false

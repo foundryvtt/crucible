@@ -15,9 +15,9 @@ system:
       img: icons/skills/melee/weapons-crossed-swords-white-blue.webp
       condition: You Dodge an incoming melee Strike.
       description: >-
-        <p>When you defend against a melee attack using the
-        @Rule[defense.dodge] defense, you can react and expend
-        @Rule[resource.focus] to instead @Rule[defense.parry] the attack.</p>
+        <p>When you defend against a melee attack using the @Rule[defense.dodge]
+        defense, you can react and expend @Rule[resource.focus] to instead
+        @Rule[defense.parry] the attack.</p>
       tags:
         - reaction
       cost:

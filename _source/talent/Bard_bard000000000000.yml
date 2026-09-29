@@ -10,8 +10,8 @@ system:
     inspire courage in your allies, demoralize your foes, and be quick with
     unconventional solutions to problems.</p><p>You learn <strong>Rune: Soul
     </strong>if you do not already know it. When restoring the
-    @Rule[resource.morale] of allies using the <strong>Rune of Soul</strong>
-    you gain @Rule[dice.boon]{+2 Boons} to your roll.</p>
+    @Rule[resource.morale] of allies using the <strong>Rune of Soul</strong> you
+    gain @Rule[dice.boon]{+2 Boons} to your roll.</p>
   actions:
     - id: laughingMatter
       name: Laughing Matter

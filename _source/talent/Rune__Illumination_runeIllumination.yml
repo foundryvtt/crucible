@@ -5,10 +5,9 @@ system:
   description: >-
     <p>The orderly force of light and energy. The <strong>Illumination</strong>
     rune governs light and radiance.</p><p>The <strong>Illumination</strong>
-    rune scales using @Rule[ability.presence], targets
-    @Rule[defense.reflex], and deals <strong>Radiant</strong> damage to
-    @Rule[resource.health]. It is opposed by the chaotic rune of
-    <strong>Illusion</strong>.</p>
+    rune scales using @Rule[ability.presence], targets @Rule[defense.reflex],
+    and deals <strong>Radiant</strong> damage to @Rule[resource.health]. It is
+    opposed by the chaotic rune of <strong>Illusion</strong>.</p>
   actions:
     - id: reveal
       name: Reveal

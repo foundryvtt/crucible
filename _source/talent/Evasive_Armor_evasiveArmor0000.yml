@@ -6,8 +6,7 @@ system:
   description: >-
     <p>You are fast enough to lean into blows and take them on your armor's
     strongest points. Any @Rule[defense.reflex] defense in excess of your
-    @Rule[defense.physical] defense is added as bonus
-    @Rule[defense.armor].</p>
+    @Rule[defense.physical] defense is added as bonus @Rule[defense.armor].</p>
   actions: []
   nodes:
     - dextou4

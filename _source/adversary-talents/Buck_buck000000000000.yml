@@ -64,8 +64,7 @@ system:
         @Rule[action.natural]{Natural} attacks with its hooves against a single
         target that is behind it. The strike is @Rule[action.difficult] and
         deals <strong>bludgeoning</strong> damage if it hits.</p><p>On a
-        @Rule[dice.criticalSuccess] the target is knocked
-        @Condition[prone].</p>
+        @Rule[dice.criticalSuccess] the target is knocked @Condition[prone].</p>
       condition: ''
   spellcraft: ''
   iconicSpells: 0

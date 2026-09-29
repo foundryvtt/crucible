@@ -4,12 +4,12 @@ type: armor
 _id: dressClothing000
 img: icons/equipment/chest/robe-layered-red.webp
 system:
-  identifier: clothingDress
+  identifier: clothing
   category: unarmored
   quantity: 1
   weight: 2
-  price: 60
-  quality: standard
+  price: 100
+  quality: fine
   broken: false
   enchantment: mundane
   equipped: false

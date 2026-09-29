@@ -5,12 +5,13 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of
     Illumination</strong>. When you cast a <strong>Spell</strong> or use an
-    action that involves this <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical
-    Hits} which deal damage cause the @Condition[irradiated]
-    condition.</p><p>The <strong>Irradiated</strong> effect lasts for <strong>1
-    Round</strong> and deals the ability score your <strong>Rune of
-    Illumination</strong> scales with as <strong>Radiant</strong> damage to both
-    @Rule[resource.health] and @Rule[resource.morale].</p>
+    action that involves this <strong>Rune</strong>, your
+    @Rule[dice.criticalSuccess]{Critical Hits} which deal damage cause the
+    @Condition[irradiated] condition.</p><p>The <strong>Irradiated</strong>
+    effect lasts for <strong>1 Round</strong> and deals the ability score your
+    <strong>Rune of Illumination</strong> scales with as
+    <strong>Radiant</strong> damage to both @Rule[resource.health] and
+    @Rule[resource.morale].</p>
   actions: []
   nodes:
     - pre3b

@@ -13,10 +13,10 @@ system:
       condition: ''
       description: >-
         <p>The creature chomps down upon its target. If the attack is successful
-        and the target is equal or lesser in @Rule[movement.size], the target
-        is also @Condition[restrained] until this creature chooses to release it
-        or the restraint is otherwise broken. Only one target may be restrained
-        by this action at a given time.</p>
+        and the target is equal or lesser in @Rule[movement.size], the target is
+        also @Condition[restrained] until this creature chooses to release it or
+        the restraint is otherwise broken. Only one target may be restrained by
+        this action at a given time.</p>
       cost:
         action: 0
         focus: 1

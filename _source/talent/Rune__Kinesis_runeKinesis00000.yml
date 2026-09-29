@@ -6,10 +6,10 @@ system:
     <p>The chaotic force of space and physical movement. The
     <strong>Kinesis</strong> rune governs all things related to the act of
     movement and physicality.</p><p>The <strong>Kinesis</strong> rune scales
-    using @Rule[ability.presence], targets @Rule[defense.physical] defense,
-    and deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-    <strong>Slashing</strong> damage to @Rule[resource.health]. It is opposed
-    by the orderly rune of <strong>Control</strong>.</p>
+    using @Rule[ability.presence], targets @Rule[defense.physical] defense, and
+    deals <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+    <strong>Slashing</strong> damage to @Rule[resource.health]. It is opposed by
+    the orderly rune of <strong>Control</strong>.</p>
   actions:
     - id: propel
       name: Propel
@@ -28,13 +28,13 @@ system:
         along the object's path can react to catch it as long as they have a
         free hand with which to do so.</p></li><li><p>Suspend in midair an
         object or willing creature that you touch with weight less than or equal
-        to 10 times your @Rule[ability.presence], altering its position up to
-        20 feet in any direction from its original location. You can maintain
-        this suspension indefinitely as long as you take no further Action and
-        are not @Condition[incapacitated].</p></li></ul><p>Propel may only
-        affect a creature or object you can physically touch unless otherwise
-        specified. You may attempt other uses similar those above, the
-        effectiveness of which is decided by the Gamemaster.</p>
+        to 10 times your @Rule[ability.presence], altering its position up to 20
+        feet in any direction from its original location. You can maintain this
+        suspension indefinitely as long as you take no further Action and are
+        not @Condition[incapacitated].</p></li></ul><p>Propel may only affect a
+        creature or object you can physically touch unless otherwise specified.
+        You may attempt other uses similar those above, the effectiveness of
+        which is decided by the Gamemaster.</p>
       cost:
         action: 3
         focus: 1

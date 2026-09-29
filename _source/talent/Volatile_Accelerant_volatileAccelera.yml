@@ -16,12 +16,12 @@ system:
         <p>You throw a measure of oil, powdered metal, or biting salts onto an
         enemy already suffering @Condition[burning], @Condition[freezing],
         @Condition[corroding], or @Condition[shocked], performing a
-        @Rule[skill.science] skill attack against their
-        @Rule[defense.fortitude] defense.</p><p>Upon a success they sustain
-        damage of the same type, and to the same resource, as the reaction you
-        fed, and its remaining duration is extended by <strong>1 Round</strong>.
-        Upon a @Rule[dice.criticalSuccess] the reaction also burns hotter,
-        increasing the damage it deals each round by <strong>1</strong>.</p><h3
+        @Rule[skill.science] skill attack against their @Rule[defense.fortitude]
+        defense.</p><p>Upon a success they sustain damage of the same type, and
+        to the same resource, as the reaction you fed, and its remaining
+        duration is extended by <strong>1 Round</strong>. Upon a
+        @Rule[dice.criticalSuccess] the reaction also burns hotter, increasing
+        the damage it deals each round by <strong>1</strong>.</p><h3
         class="divider">Playtest Notes</h3><p>This action is intended to consume
         a unit of alchemical reagent from your inventory, offering an
         alternative use for the same ingredients you would otherwise craft with.

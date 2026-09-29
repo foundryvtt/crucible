@@ -13,8 +13,8 @@ system:
       img: icons/magic/movement/abstract-ribbons-red-orange.webp
       condition: ''
       description: >-
-        <p>You expend @Rule[resource.heroism] and benefit from @Rule[dice.boon]{+2
-        Boons} to any action which scales using
+        <p>You expend @Rule[resource.heroism] and benefit from
+        @Rule[dice.boon]{+2 Boons} to any action which scales using
         @Rule[ability.strength] for <strong>3 Rounds</strong>. You may perform
         this action outside of your turn in <strong>Combat</strong> before
         making a @Rule[action.reaction].</p>

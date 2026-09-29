@@ -14,9 +14,9 @@ system:
       condition: ''
       description: >-
         <p>You expend @Rule[resource.heroism] to instantly recover half your
-        @Rule[ability.intellect] in @Rule[resource.action]. You may perform
-        this action outside of your turn in <strong>Combat</strong> before
-        making a @Rule[action.reaction].</p>
+        @Rule[ability.intellect] in @Rule[resource.action]. You may perform this
+        action outside of your turn in <strong>Combat</strong> before making a
+        @Rule[action.reaction].</p>
       cost:
         action: 0
         focus: 0

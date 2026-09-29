@@ -14,9 +14,9 @@ system:
       condition: ''
       description: >-
         <p>The @ref[actor.name]{creature} attacks swiftly with claws or
-        talons.</p><p>If at least one attack results in a @Rule[dice.criticalSuccess],
-        it inflicts the @Condition[bleeding] condition for
-        <strong>2 Rounds</strong>.</p>
+        talons.</p><p>If at least one attack results in a
+        @Rule[dice.criticalSuccess], it inflicts the @Condition[bleeding]
+        condition for <strong>2 Rounds</strong>.</p>
       cost:
         action: 1
         focus: 0

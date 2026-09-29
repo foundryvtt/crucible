@@ -19,14 +19,14 @@ system:
         @Action[Compendium.crucible.talent.Item.grapple000000000 grapple]
         through the air towards a target point up to a distance of two times
         your @Rule[ability.strength] score.</p><p>You make an
-        @Rule[skill.athletics] skill attack against the
-        @Rule[defense.reflex] defense of your grappled target. On a success
-        the target is thrown, leaving it @Condition[prone]. If its movement is
-        stopped short by a wall or another creature, it slams into the obstacle
-        and suffers <strong>Bludgeoning</strong> damage from the attack. A
-        creature hurled into open space takes no damage from the throw itself,
-        although it may @Action[default fall].</p><p>Regardless of the outcome,
-        your <strong>Grapple</strong> is released as part of this action.</p>
+        @Rule[skill.athletics] skill attack against the @Rule[defense.reflex]
+        defense of your grappled target. On a success the target is thrown,
+        leaving it @Condition[prone]. If its movement is stopped short by a wall
+        or another creature, it slams into the obstacle and suffers
+        <strong>Bludgeoning</strong> damage from the attack. A creature hurled
+        into open space takes no damage from the throw itself, although it may
+        @Action[default fall].</p><p>Regardless of the outcome, your
+        <strong>Grapple</strong> is released as part of this action.</p>
       tags:
         - reflex
         - bludgeoning

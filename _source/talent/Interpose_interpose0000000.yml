@@ -15,9 +15,9 @@ system:
         by a single-target attack that targeted their <strong>Physical
         Defense</strong>, you may <strong>Interpose</strong> to become the
         target of that attack instead.</p><p>The attack is negated and
-        re-evaluated against your own @Rule[defense.physical]{Physical Defense} using
-        the same dice rolls from the original attack. The consequences of the
-        attack are resolved according to this new result with you as its
+        re-evaluated against your own @Rule[defense.physical]{Physical Defense}
+        using the same dice rolls from the original attack. The consequences of
+        the attack are resolved according to this new result with you as its
         target.</p>
       cost:
         action: 1

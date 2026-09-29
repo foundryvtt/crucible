@@ -17,9 +17,9 @@ system:
       description: >-
         <p>Name aloud a theory of what happened in this place. If the
         <strong>Gamemaster</strong> judges that the place could bear your theory
-        out or contradict it, perform an @Rule[skill.awareness] check
-        against <strong>DC 14</strong>.</p><ul><li><p>@Rule[dice.boon]{+2 Boons}
-        if your theory follows from evidence you have already
+        out or contradict it, perform an @Rule[skill.awareness] check against
+        <strong>DC 14</strong>.</p><ul><li><p>@Rule[dice.boon]{+2 Boons} if your
+        theory follows from evidence you have already
         gathered.</p></li><li><p>@Rule[dice.bane]{+2 Banes} if it is conjecture,
         or if the place has been cleaned, trampled, or reoccupied
         since.</p></li></ul><p>Upon a <strong>Success</strong> you deduce one

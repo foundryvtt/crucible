@@ -21,8 +21,8 @@ system:
         @Rule[ability.intellect] score of zero are incapable of understanding
         you.</p></li><li><p>Beasts with an @Rule[ability.intellect] score of 1
         can only respond with "yes" or "no" responses.</p></li><li><p>Beasts
-        with an @Rule[ability.intellect] score greater than 1 can provide
-        simple multi-word responses.</p></li></ul>
+        with an @Rule[ability.intellect] score greater than 1 can provide simple
+        multi-word responses.</p></li></ul>
       cost:
         action: 0
         focus: 0

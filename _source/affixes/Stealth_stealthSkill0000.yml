@@ -20,9 +20,8 @@ img: systems/crucible/icons/skills/stealth.jpg
 disabled: false
 start: null
 description: >-
-  <p>Increase the <strong>Enchantment Bonus</strong> for
-  @Rule[skill.stealth] skill checks by 1 for each <strong>Tier</strong> of
-  this prefix.</p>
+  <p>Increase the <strong>Enchantment Bonus</strong> for @Rule[skill.stealth]
+  skill checks by 1 for each <strong>Tier</strong> of this prefix.</p>
 origin: null
 tint: '#ffffff'
 transfer: false

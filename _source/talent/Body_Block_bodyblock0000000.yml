@@ -14,12 +14,12 @@ system:
     - id: bodyBlock
       condition: You defend against a melee attack with your Armor or as a Glance.
       description: >-
-        <p>An attack which otherwise is defended by your @Rule[defense.armor]
-        or produced a <strong>Glancing Blow</strong> is converted to a
+        <p>An attack which otherwise is defended by your @Rule[defense.armor] or
+        produced a <strong>Glancing Blow</strong> is converted to a
         @Rule[defense.block] and deals no damage.</p><h3
         class="divider">Playtest Notes</h3><p>The conversion to a
-        @Rule[defense.block] is not currently implemented, only the
-        restriction of when this talent's action can be used.</p>
+        @Rule[defense.block] is not currently implemented, only the restriction
+        of when this talent's action can be used.</p>
       tags:
         - reaction
       cost:

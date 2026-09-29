@@ -12,8 +12,8 @@ system:
     concludes. You may prepare a meal wherever the party is able to
     <strong>Rest</strong> at all, without fire or shelter.</p><h3
     class="divider">Playtest Notes</h3><p>Meals are not yet implemented. This
-    talent describes how the @Rule[skill.cooking] trade will behave once
-    meal preparation is a <strong>Rest</strong> activity.</p>
+    talent describes how the @Rule[skill.cooking] trade will behave once meal
+    preparation is a <strong>Rest</strong> activity.</p>
   actions: []
   nodes:
     - tou4d

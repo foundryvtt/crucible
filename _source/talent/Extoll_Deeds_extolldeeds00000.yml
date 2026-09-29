@@ -8,10 +8,11 @@ system:
   description: >-
     <p>You inspire courage within your allies by extolling the heroic deeds of a
     companion. You may react by composing a verse, making a quip, or shouting a
-    battle cry when an ally you can see scores a @Rule[dice.criticalSuccess]{Critical Hit}
-    against an enemy creature or renders one @Condition[incapacitated]. The
-    celebration of these heroic deeds restores the @Rule[resource.morale] of
-    your allies within <strong>10 feet</strong>.</p>
+    battle cry when an ally you can see scores a
+    @Rule[dice.criticalSuccess]{Critical Hit} against an enemy creature or
+    renders one @Condition[incapacitated]. The celebration of these heroic deeds
+    restores the @Rule[resource.morale] of your allies within <strong>10
+    feet</strong>.</p>
   actions:
     - id: extollDeeds
       condition: An ally whom you can see slays an enemy or achieves a Critical Success.

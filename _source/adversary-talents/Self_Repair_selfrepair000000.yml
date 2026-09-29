@@ -14,8 +14,8 @@ system:
       condition: ''
       description: >-
         <p>The construct recovers its @Rule[ability.toughness] value in
-        @Rule[resource.health] and immediately ends a single status condition
-        of its choice that is currently affecting it.</p>
+        @Rule[resource.health] and immediately ends a single status condition of
+        its choice that is currently affecting it.</p>
       cost:
         action: 3
         focus: 1

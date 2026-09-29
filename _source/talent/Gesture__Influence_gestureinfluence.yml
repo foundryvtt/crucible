@@ -6,11 +6,11 @@ system:
     <p>You intensify the arcane power of a <strong>Rune</strong> into a
     concentrated direct contact which is generally a more powerful evolution of
     the basic <strong>Touch</strong> gesture.</p><p>The
-    <strong>Influence</strong> gesture scales using @Rule[ability.presence]
-    and targets a single adjacent creature. It deals <strong>10 Base
-    Damage</strong> to targets which fail to resist the spell. This gesture
-    requires <strong>1 Hand</strong> to cast and has a base cost of <strong>3
-    Action</strong> and <strong>1 Focus</strong>.</p>
+    <strong>Influence</strong> gesture scales using @Rule[ability.presence] and
+    targets a single adjacent creature. It deals <strong>10 Base Damage</strong>
+    to targets which fail to resist the spell. This gesture requires <strong>1
+    Hand</strong> to cast and has a base cost of <strong>3 Action</strong> and
+    <strong>1 Focus</strong>.</p>
   actions: []
   spellcraft: influence
   nodes:

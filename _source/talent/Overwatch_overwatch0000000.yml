@@ -14,12 +14,12 @@ system:
         creature other than itself.
       description: >-
         <p>As a @Rule[action.reaction] you may make a ranged
-        <strong>Strike</strong> against that enemy. On a @Rule[dice.criticalSuccess]{Critical
-        Hit} against a caster, the spell is interrupted and the magic is
-        lost. A self-targeted action that is not a spell, such as
-        @Action[default move] or @Action[default defend], does not trigger this
-        <strong>Reaction</strong>, which may be used only once per
-        <strong>Round</strong>.</p>
+        <strong>Strike</strong> against that enemy. On a
+        @Rule[dice.criticalSuccess]{Critical Hit} against a caster, the spell is
+        interrupted and the magic is lost. A self-targeted action that is not a
+        spell, such as @Action[default move] or @Action[default defend], does
+        not trigger this <strong>Reaction</strong>, which may be used only once
+        per <strong>Round</strong>.</p>
       tags:
         - reaction
         - ranged

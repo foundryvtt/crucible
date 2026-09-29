@@ -22,8 +22,9 @@ disabled: false
 start: null
 description: >-
   <p>Reduce the @Rule[dice.criticalSuccessThreshold] needed to obtain a
-  @Rule[dice.criticalSuccess]{Critical Hit} on a successful <strong>Strike</strong>. This
-  threshold is reduced by 1 for each <strong>Tier</strong> of this affix.</p>
+  @Rule[dice.criticalSuccess]{Critical Hit} on a successful
+  <strong>Strike</strong>. This threshold is reduced by 1 for each
+  <strong>Tier</strong> of this affix.</p>
 origin: null
 tint: '#ffffff'
 transfer: false

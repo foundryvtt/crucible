@@ -72,8 +72,8 @@ system:
       description: >-
         <p>You loose a soaring melody to the <strong>Hunter</strong>, swift of
         foot and unerring of eye. You and allied creatures within <strong>15
-        feet</strong> gain @Rule[ability.dexterity]{+1 Dexterity} and @Rule[ability.intellect]{+1
-        Intellect}.</p>
+        feet</strong> gain @Rule[ability.dexterity]{+1 Dexterity} and
+        @Rule[ability.intellect]{+1 Intellect}.</p>
       tags:
         - vocal
       cost:
@@ -122,8 +122,8 @@ system:
       description: >-
         <p>You intone a rooted hymn to the <strong>Mountain</strong>, who
         weathered every age unbroken. You and allied creatures within <strong>15
-        feet</strong> gain @Rule[ability.toughness]{+1 Toughness} and @Rule[ability.presence]{+1
-        Presence}.</p>
+        feet</strong> gain @Rule[ability.toughness]{+1 Toughness} and
+        @Rule[ability.presence]{+1 Presence}.</p>
       tags:
         - vocal
       cost:
@@ -172,8 +172,8 @@ system:
       description: >-
         <p>You hum a mocking lament that names your enemies the crawling
         <strong>Worm</strong>, fit only to grovel. Enemy creatures within
-        <strong>15 feet</strong> suffer @Rule[dice.bane]{+1 Bane} to all of their
-        actions.</p>
+        <strong>15 feet</strong> suffer @Rule[dice.bane]{+1 Bane} to all of
+        their actions.</p>
       tags:
         - vocal
       cost:

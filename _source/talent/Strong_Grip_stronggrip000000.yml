@@ -7,8 +7,8 @@ system:
     <p>Your grasp of your weaponry is firm and unyielding. While wielding a
     two-handed weapon that scales with @Rule[ability.strength] you may cast
     spells which require two hands, and attempts to <strong>Disarm</strong> you
-    are made with @Rule[dice.bane]{+2 Banes}.</p><p>Additionally, you may wield a
-    one-handed <strong>Heavy</strong> weapon in your off-hand.</p>
+    are made with @Rule[dice.bane]{+2 Banes}.</p><p>Additionally, you may wield
+    a one-handed <strong>Heavy</strong> weapon in your off-hand.</p>
   actions: []
   nodes:
     - str1b

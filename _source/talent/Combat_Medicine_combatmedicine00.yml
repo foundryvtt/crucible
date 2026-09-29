@@ -13,9 +13,9 @@ system:
       condition: ''
       description: >-
         <p>You rapidly treat the wounds of an ally within <strong>4
-        feet</strong>. Perform a @Rule[skill.medicine]{Medicine Check} against the
-        target's @Rule[defense.wounds]. Your ally's
-        @Rule[resource.health] is increased by overflow of the check.</p>
+        feet</strong>. Perform a @Rule[skill.medicine]{Medicine Check} against
+        the target's @Rule[defense.wounds]. Your ally's @Rule[resource.health]
+        is increased by overflow of the check.</p>
       tags:
         - healing
         - health

@@ -1,0 +1,42 @@
+folder: D03SIA37tnsn3qBB
+name: Clothing
+type: armor
+_id: clothing00000000
+img: icons/equipment/chest/shirt-collared-green.webp
+system:
+  identifier: clothing
+  category: unarmored
+  quantity: 1
+  weight: 1
+  price: 100
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A well-made shirt, trousers or skirt, a jerkin or vest, undergarments,
+      stockings, and sturdy shoes or boots. Respectable everyday attire for a
+      townsperson or tradesperson.</p>
+    private: ''
+  actions: []
+  armor:
+    base: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+flags: {}
+_stats:
+  coreVersion: '14.367'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790712000000
+  modifiedTime: 1790712000000
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!clothing00000000'

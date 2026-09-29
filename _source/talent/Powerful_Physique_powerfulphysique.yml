@@ -4,9 +4,8 @@ img: icons/skills/social/intimidation-impressing.webp
 system:
   description: >-
     <p>You can wield weapons with the <strong>Slow</strong> trait and wear
-    @Rule[defense.armor] with the <strong>Bulky</strong> trait without
-    suffering @Rule[dice.bane]{Banes} to your <strong>Initiative</strong>
-    rolls.</p>
+    @Rule[defense.armor] with the <strong>Bulky</strong> trait without suffering
+    @Rule[dice.bane]{Banes} to your <strong>Initiative</strong> rolls.</p>
   actions: []
   nodes:
     - str1b

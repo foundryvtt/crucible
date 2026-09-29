@@ -15,9 +15,10 @@ system:
       description: >-
         <p>You charge forward in a straight line, passing through the space of
         any creatures you encounter and making a <strong>Strike</strong> against
-        each successive foe. Any creature @Rule[dice.criticalSuccess]{Critically Hit} by the
-        attack may be pushed into an adjacent space of your choosing. You may
-        not end your charge in the same space as another creature.</p>
+        each successive foe. Any creature @Rule[dice.criticalSuccess]{Critically
+        Hit} by the attack may be pushed into an adjacent space of your
+        choosing. You may not end your charge in the same space as another
+        creature.</p>
       tags:
         - shield
         - melee

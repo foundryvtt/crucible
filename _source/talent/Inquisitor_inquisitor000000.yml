@@ -7,11 +7,11 @@ system:
     <p>You are an expert in combat against magic users, trained to conserve your
     energy and strike at the precise moment to thwart an incantation.</p><p>The
     cost of your @Action[default reactiveStrike] is reduced by an additional
-    @Rule[resource.action]{1 Action} but always costs @Rule[resource.focus]{1 Focus}. When
-    you <strong>Strike</strong> an enemy in reaction to them casting a spell, a
-    successful hit drains @Rule[resource.focus]{1 Focus} from that enemy and refunds
-    your own; on a @Rule[dice.criticalSuccess]{Critical Hit} their spell is interrupted and
-    the magic is lost.</p>
+    @Rule[resource.action]{1 Action} but always costs @Rule[resource.focus]{1
+    Focus}. When you <strong>Strike</strong> an enemy in reaction to them
+    casting a spell, a successful hit drains @Rule[resource.focus]{1 Focus} from
+    that enemy and refunds your own; on a @Rule[dice.criticalSuccess]{Critical
+    Hit} their spell is interrupted and the magic is lost.</p>
   actions:
     - id: abjure
       name: Abjure

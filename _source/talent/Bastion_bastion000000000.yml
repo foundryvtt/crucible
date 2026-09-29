@@ -9,12 +9,11 @@ system:
     knocked @Condition[prone].</p></li><li><p>Your space cannot be crossed by
     enemies, even when using abilities that would normally move through a
     creature.</p></li><li><p>Your @Rule[movement.engagement] increases by +1,
-    holding more foes at bay.</p></li><li><p>Your @Rule[defense.reflex]
-    defense is treated as the sum of your @Rule[defense.armor] and
-    @Rule[defense.block] defenses, if greater, as you endure attacks rather
-    than avoiding them. An attack against your @Rule[defense.reflex] which you
-    resist is treated as having been defended by
-    @Rule[defense.block].</p></li></ul>
+    holding more foes at bay.</p></li><li><p>Your @Rule[defense.reflex] defense
+    is treated as the sum of your @Rule[defense.armor] and @Rule[defense.block]
+    defenses, if greater, as you endure attacks rather than avoiding them. An
+    attack against your @Rule[defense.reflex] which you resist is treated as
+    having been defended by @Rule[defense.block].</p></li></ul>
   actions:
     - id: getBehindMe
       name: Get Behind Me

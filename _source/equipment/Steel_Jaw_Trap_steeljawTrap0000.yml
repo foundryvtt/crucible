@@ -29,12 +29,12 @@ system:
         damage if triggered. It must be affixed by heavy chain to an immobile
         object, such as a tree or spike driven into the ground. The area of the
         trap is a circle with a radius of 2 feet.</p><p>When triggered, the
-        creature that set the trap makes a @Rule[skill.wilderness] skill
-        attack against the @Rule[defense.reflex] defense of a single target
-        which triggered the trap. If not resisted, it deals
-        <strong>Piercing</strong> damage and applies the @Condition[restrained]
-        condition. The base damage dealt by the trap varies according to the
-        quality of the trap.</p><ul><li><p><strong>Shoddy</strong> - 1
+        creature that set the trap makes a @Rule[skill.wilderness] skill attack
+        against the @Rule[defense.reflex] defense of a single target which
+        triggered the trap. If not resisted, it deals <strong>Piercing</strong>
+        damage and applies the @Condition[restrained] condition. The base damage
+        dealt by the trap varies according to the quality of the
+        trap.</p><ul><li><p><strong>Shoddy</strong> - 1
         damage</p></li><li><p><strong>Standard</strong> - 2
         damage</p></li><li><p><strong>Fine</strong> - 4
         damage</p></li><li><p><strong>Superior</strong> - 8
@@ -69,10 +69,9 @@ system:
             name: Trigger Steel-Jaw Trap
             img: icons/environment/traps/trap-jaw-steel.webp
             description: >-
-              <p>The creature that set the trap makes a
-              @Rule[skill.wilderness] skill attack against the
-              @Rule[defense.reflex] defense of the single target which
-              triggered the trap. If not resisted, it deals
+              <p>The creature that set the trap makes a @Rule[skill.wilderness]
+              skill attack against the @Rule[defense.reflex] defense of the
+              single target which triggered the trap. If not resisted, it deals
               <strong>Piercing</strong> damage and applies the
               @Condition[restrained] condition.</p>
             effects:

@@ -15,13 +15,12 @@ system:
       description: >-
         <p>You become @Condition[enraged]. While <strong>Enraged</strong> you
         deal 4 additional damage on all melee attacks. You may attempt to end
-        the effect on your own turn by succeeding on a
-        @Rule[defense.willpower] test against a <strong>DC</strong> of 20. The
-        effect ends automatically when <strong>Combat</strong> is
-        concluded.</p><h3 class="divider">Playtest Notes</h3><p>The
-        aforementioned "Willpower test" is legacy terminology. The mechanism for
-        ending <strong>Berserker Rage</strong> on yourself is not currently
-        determined or automated.</p>
+        the effect on your own turn by succeeding on a @Rule[defense.willpower]
+        test against a <strong>DC</strong> of 20. The effect ends automatically
+        when <strong>Combat</strong> is concluded.</p><h3
+        class="divider">Playtest Notes</h3><p>The aforementioned "Willpower
+        test" is legacy terminology. The mechanism for ending <strong>Berserker
+        Rage</strong> on yourself is not currently determined or automated.</p>
       tags: []
       cost:
         action: 1

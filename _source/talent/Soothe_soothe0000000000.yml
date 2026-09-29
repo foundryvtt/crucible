@@ -11,8 +11,8 @@ system:
       description: >-
         <p>You perform a calming verse, benefiting all allies who can perceive
         you within <strong>12 feet</strong>. Make a @Rule[skill.performance]
-        check against the @Rule[defense.madness] of each ally. On
-        success, each ally's @Rule[resource.morale] is restored.</p>
+        check against the @Rule[defense.madness] of each ally. On success, each
+        ally's @Rule[resource.morale] is restored.</p>
       tags:
         - rallying
         - morale

@@ -13,11 +13,11 @@ system:
       condition: ''
       description: >-
         <p>You reassure an ally with a falsehood you know to be untrue, making a
-        @Rule[skill.deception] check against their @Rule[defense.madness].
-        Upon a success they recover @Rule[resource.morale] equal to
-        the overflow of the check. Should they see through your fiction, you
-        lose @Rule[resource.morale] equal to the amount by which your check
-        fell short.</p>
+        @Rule[skill.deception] check against their @Rule[defense.madness]. Upon
+        a success they recover @Rule[resource.morale] equal to the overflow of
+        the check. Should they see through your fiction, you lose
+        @Rule[resource.morale] equal to the amount by which your check fell
+        short.</p>
       cost:
         action: 2
         focus: 0

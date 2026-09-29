@@ -21,10 +21,11 @@ img: icons/skills/melee/strike-axe-blood-red.webp
 disabled: false
 start: null
 description: >-
-  <p>A <strong>Strike</strong> that scores a @Rule[dice.criticalSuccess]{Critical Hit} with
-  this weapon brutally exploits the wound.</p><ul><li><p>Weapons that deal
-  <strong>Piercing</strong> or <strong>Slashing</strong> damage cause the target
-  to begin @Condition[bleeding].</p></li><li><p>Weapons that deal
+  <p>A <strong>Strike</strong> that scores a
+  @Rule[dice.criticalSuccess]{Critical Hit} with this weapon brutally exploits
+  the wound.</p><ul><li><p>Weapons that deal <strong>Piercing</strong> or
+  <strong>Slashing</strong> damage cause the target to begin
+  @Condition[bleeding].</p></li><li><p>Weapons that deal
   <strong>Bludgeoning</strong> damage cause the target to become
   @Condition[staggered].</p></li></ul>
 origin: null

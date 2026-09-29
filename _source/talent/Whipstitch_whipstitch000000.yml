@@ -29,19 +29,18 @@ system:
         that condition is met, the <strong>Gamemaster</strong> decides the
         consequences. Your sabotage is discovered only by an intentional
         @Rule[skill.awareness] check which beats your passive
-        @Rule[skill.tailoring].</p></li><li><p><strong>Create.</strong>
-        Given time and reasonable access to cloth and leather, you may make or
-        remake any garment you are familiar with, including the dress of a
-        specific people, household, or order whose attire you have seen
-        firsthand, which holds until the garment is closely handled or cleaned.
-        As you work you may sew in an object weighing a pound or less, found
-        only by an intentional @Rule[skill.awareness] check which beats your
-        passive @Rule[skill.tailoring]. Explicitly defined crafting recipes
-        must still be rolled, but you can successfully make any such garment
-        outside of this system without requiring a dice
-        roll.</p></li></ul><p>You may attempt other uses similar to those above,
-        the effectiveness of which is decided by the
-        <strong>Gamemaster</strong>.</p>
+        @Rule[skill.tailoring].</p></li><li><p><strong>Create.</strong> Given
+        time and reasonable access to cloth and leather, you may make or remake
+        any garment you are familiar with, including the dress of a specific
+        people, household, or order whose attire you have seen firsthand, which
+        holds until the garment is closely handled or cleaned. As you work you
+        may sew in an object weighing a pound or less, found only by an
+        intentional @Rule[skill.awareness] check which beats your passive
+        @Rule[skill.tailoring]. Explicitly defined crafting recipes must still
+        be rolled, but you can successfully make any such garment outside of
+        this system without requiring a dice roll.</p></li></ul><p>You may
+        attempt other uses similar to those above, the effectiveness of which is
+        decided by the <strong>Gamemaster</strong>.</p>
       cost:
         action: 3
         focus: 0

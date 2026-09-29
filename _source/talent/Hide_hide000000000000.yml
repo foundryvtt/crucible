@@ -21,11 +21,11 @@ system:
       condition: You are not engaged.
       description: >-
         <p>You make a single @Rule[skill.stealth] check against the
-        @Rule[skill.awareness] of the most perceptive enemy within
-        <strong>30 feet</strong>, taking @Rule[dice.bane]{+1 Bane} for each
-        further enemy who might notice you. With no enemy near enough to notice
-        you no check is required. Upon a success you are concealed until you
-        perform an action which is not @Rule[action.subtle].</p>
+        @Rule[skill.awareness] of the most perceptive enemy within <strong>30
+        feet</strong>, taking @Rule[dice.bane]{+1 Bane} for each further enemy
+        who might notice you. With no enemy near enough to notice you no check
+        is required. Upon a success you are concealed until you perform an
+        action which is not @Rule[action.subtle].</p>
       cost:
         action: 2
         focus: 1

@@ -6,9 +6,9 @@ system:
     <p>The chaotic force of trickery and whimsy. The <strong>Illusion</strong>
     rune governs magical manifestations of falsehood or misdirection.</p><p>The
     <strong>Illusion</strong> rune scales using @Rule[ability.intellect],
-    targets @Rule[defense.willpower] defense, and deals
-    <strong>Psychic</strong> damage to @Rule[resource.morale]. It is opposed by
-    the orderly rune of <strong>Illumination</strong>.</p>
+    targets @Rule[defense.willpower] defense, and deals <strong>Psychic</strong>
+    damage to @Rule[resource.morale]. It is opposed by the orderly rune of
+    <strong>Illumination</strong>.</p>
   actions:
     - id: seeming
       name: Seeming

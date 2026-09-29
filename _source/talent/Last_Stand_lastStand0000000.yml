@@ -15,8 +15,8 @@ system:
       description: >-
         <p>You expend @Rule[resource.heroism] to instantly recover two times
         your @Rule[ability.toughness] in @Rule[resource.health]. Your
-        @Rule[defense.wounds] is reduced by 2 for the next
-        <strong>3 Rounds</strong>.</p>
+        @Rule[defense.wounds] is reduced by 2 for the next <strong>3
+        Rounds</strong>.</p>
       cost:
         action: 1
         focus: 0

@@ -16,8 +16,8 @@ system:
       description: >-
         <p>You imbue your strike with momentum and intensity, increasing the
         <strong>Damage Bonus</strong> of your strike according to your missing
-        @Rule[resource.health].</p><ul><li><p>If your <strong>Health</strong>
-        is below 75%, your <strong>Strike</strong> deals <strong>+1
+        @Rule[resource.health].</p><ul><li><p>If your <strong>Health</strong> is
+        below 75%, your <strong>Strike</strong> deals <strong>+1
         Damage</strong></p></li><li><p>If your <strong>Health</strong> is below
         50%, your <strong>Strike</strong> deals <strong>+2
         Damage</strong></p></li><li><p>If your <strong>Health</strong> is below

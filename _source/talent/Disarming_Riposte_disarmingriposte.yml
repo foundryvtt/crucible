@@ -5,8 +5,8 @@ system:
   description: >-
     <p>Your ripostes are precise enough to strip a weapon from your foe's grasp.
     When your @UUID[Compendium.crucible.talent.Item.counterriposte00]{Counter
-    Riposte} achieves a @Rule[dice.criticalSuccess]{Critical Hit}, the target is disarmed,
-    dropping their main-hand weapon.</p>
+    Riposte} achieves a @Rule[dice.criticalSuccess]{Critical Hit}, the target is
+    disarmed, dropping their main-hand weapon.</p>
   actions: []
   nodes:
     - str4b

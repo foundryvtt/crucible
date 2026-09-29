@@ -18,8 +18,8 @@ system:
       condition: ''
       description: >-
         <p>You expend @Rule[resource.heroism], drawing icy clarity from your
-        circumstances to restore @Rule[resource.focus]{1 Focus}, plus 1 additional
-        @Rule[resource.focus] for every 25% of your maximum
+        circumstances to restore @Rule[resource.focus]{1 Focus}, plus 1
+        additional @Rule[resource.focus] for every 25% of your maximum
         @Rule[resource.health] you are missing, to a maximum of 5.</p>
       tags:
         - subtle

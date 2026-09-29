@@ -24,9 +24,9 @@ system:
       img: icons/consumables/potions/bottle-bulb-corked-purple.webp
       condition: ''
       description: >-
-        <p>Immediately recover an amount of @Rule[resource.morale]{Morale} dependant on
-        the quality of the elixir.</p><ul><li><p><strong>Shoddy</strong> -
-        Immediately heals 6
+        <p>Immediately recover an amount of @Rule[resource.morale]{Morale}
+        dependant on the quality of the
+        elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
         <strong>Morale</strong>.</p></li><li><p><strong>Standard</strong> -
         Immediately heals 12
         <strong>Morale</strong>.</p></li><li><p><strong>Fine</strong> -

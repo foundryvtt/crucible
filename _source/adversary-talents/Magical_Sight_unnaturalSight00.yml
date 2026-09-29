@@ -7,8 +7,8 @@ system:
   description: >-
     <p>The @ref[actor.name]{creature} has otherworldly sight that makes it
     especially aware of dangers or opportunities. It gains @Rule[dice.boon]{+2
-    Boons} to any @Rule[skill.awareness] check and can see
-    @Condition[invisible] creatures.</p>
+    Boons} to any @Rule[skill.awareness] check and can see @Condition[invisible]
+    creatures.</p>
   actions: []
   iconicSpells: 0
 effects: []

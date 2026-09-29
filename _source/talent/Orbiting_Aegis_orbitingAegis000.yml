@@ -16,8 +16,8 @@ system:
         <strong>Talisman</strong> equipped, you gain a bonus to your
         @Rule[defense.block] defense equal to your current
         @Rule[resource.focus], to a maximum of +3. Each time the Aegis turns a
-        blow aside you spend @Rule[resource.focus]{1 Focus}.</p><p>Dismiss the Aegis
-        by removing its effect.</p>
+        blow aside you spend @Rule[resource.focus]{1 Focus}.</p><p>Dismiss the
+        Aegis by removing its effect.</p>
       cost:
         action: 1
         focus: 0

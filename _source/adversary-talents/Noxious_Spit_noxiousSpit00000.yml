@@ -13,10 +13,10 @@ system:
       condition: ''
       description: >-
         <p>The @ref[actor.name]{creature} spits globule of toxin at a target
-        creature within 20 feet, attacking its @Rule[defense.reflex] and
-        dealing <strong>Poison</strong> damage.</p><p>On a @Rule[dice.criticalSuccess]{Critical
-        Hit} the attack causes the @Condition[poisoned] condition for
-        <strong>3 Turns</strong>.</p>
+        creature within 20 feet, attacking its @Rule[defense.reflex] and dealing
+        <strong>Poison</strong> damage.</p><p>On a
+        @Rule[dice.criticalSuccess]{Critical Hit} the attack causes the
+        @Condition[poisoned] condition for <strong>3 Turns</strong>.</p>
       cost:
         action: 0
         focus: 1

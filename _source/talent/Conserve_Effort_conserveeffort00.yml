@@ -4,8 +4,8 @@ img: icons/magic/time/arrows-circling-pink.webp
 system:
   description: >-
     <p>You find calmness and focus in conserving your effort in battle. When you
-    end your turn with un-spent @Rule[resource.action] you gain @Rule[resource.focus]{+1
-    Focus}.</p>
+    end your turn with un-spent @Rule[resource.action] you gain
+    @Rule[resource.focus]{+1 Focus}.</p>
   actions: []
   nodes:
     - wis2a

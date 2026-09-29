@@ -14,8 +14,8 @@ system:
       name: Poison Blades
       description: >-
         <p>You nimbly lather your blades in toxic alchemical oils which apply
-        the @Condition[poisoned] condition on @Rule[dice.criticalSuccess]{Critical
-        Hits}.</p>
+        the @Condition[poisoned] condition on
+        @Rule[dice.criticalSuccess]{Critical Hits}.</p>
       tags:
         - subtle
       cost:

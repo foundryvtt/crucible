@@ -5,9 +5,10 @@ img: icons/skills/melee/maneuver-sword-katana-yellow.webp
 system:
   description: >-
     <p>You find focus and calm within the thrill of battle. When you achieve a
-    @Rule[dice.criticalSuccess]{Critical Hit} that deals damage to @Rule[resource.health]
-    or @Rule[resource.morale] you gain @Rule[resource.focus]{+1 Focus}. This benefit
-    may occur at most once per <strong>Round</strong>.</p>
+    @Rule[dice.criticalSuccess]{Critical Hit} that deals damage to
+    @Rule[resource.health] or @Rule[resource.morale] you gain
+    @Rule[resource.focus]{+1 Focus}. This benefit may occur at most once per
+    <strong>Round</strong>.</p>
   actions: []
   nodes:
     - strwis2

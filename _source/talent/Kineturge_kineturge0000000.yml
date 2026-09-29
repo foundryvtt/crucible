@@ -7,8 +7,8 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Kinesis</strong>.
     When you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which deal damage
-    cause the @Condition[bleeding] condition.</p><p>The
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which
+    deal damage cause the @Condition[bleeding] condition.</p><p>The
     <strong>Bleeding</strong> effect lasts for <strong>1 Round</strong> and
     deals the ability score your <strong>Rune of Kinesis</strong> scales with as
     additional <strong>Piercing</strong> damage to @Rule[resource.health].</p>

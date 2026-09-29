@@ -5,8 +5,8 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Earth</strong>.
     When you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which deal damage
-    cause the @Condition[corroding] condition.</p><p>The
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which
+    deal damage cause the @Condition[corroding] condition.</p><p>The
     <strong>Corroding</strong> effect lasts for <strong>3 Rounds</strong> and
     deals half the ability score your <strong>Rune of Earth</strong> scales with
     as <strong>Acid</strong> damage to @Rule[resource.health] each Round.</p>

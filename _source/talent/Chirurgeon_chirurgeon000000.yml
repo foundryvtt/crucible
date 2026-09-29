@@ -17,12 +17,12 @@ system:
       description: >-
         <p>You delve into your medical supplies, hastily combining whatever you
         might have available to salve the target's wounds or calm the target's
-        mind. Perform a @Rule[skill.medicine]{Medicine Check}.</p><p>The attempt is
-        contested by the higher of the target's @Rule[defense.wounds]
-        or @Rule[defense.madness]. If successful
-        the target immediately regains both @Rule[resource.health] and
-        @Rule[resource.morale] as well as half that amount at the beginning of
-        each of their subsequent <strong>3 Turns</strong>.</p>
+        mind. Perform a @Rule[skill.medicine]{Medicine Check}.</p><p>The attempt
+        is contested by the higher of the target's @Rule[defense.wounds] or
+        @Rule[defense.madness]. If successful the target immediately regains
+        both @Rule[resource.health] and @Rule[resource.morale] as well as half
+        that amount at the beginning of each of their subsequent <strong>3
+        Turns</strong>.</p>
       cost:
         action: 3
         focus: 0

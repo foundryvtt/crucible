@@ -7,7 +7,7 @@ system:
   category: jewelry
   quantity: 1
   weight: 0
-  price: 60
+  price: 200
   quality: fine
   broken: false
   enchantment: minor

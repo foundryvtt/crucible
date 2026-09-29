@@ -15,8 +15,9 @@ system:
         <p>The @ref[actor.name]{creature} expels a bolt of lighting in a 30 foot
         ray that is 4 feet wide, attacking the @Rule[defense.reflex] of each
         target along that path and dealing <strong>Electricity</strong>
-        damage.</p><p>On a @Rule[dice.criticalSuccess]{Critical Hit} the attack causes the
-        @Condition[shocked] condition for <strong>3 Turns</strong>.</p>
+        damage.</p><p>On a @Rule[dice.criticalSuccess]{Critical Hit} the attack
+        causes the @Condition[shocked] condition for <strong>3
+        Turns</strong>.</p>
       cost:
         action: 1
         focus: 1

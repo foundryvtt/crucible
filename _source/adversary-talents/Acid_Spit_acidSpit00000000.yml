@@ -11,9 +11,9 @@ system:
       condition: ''
       description: >-
         <p>The @ref[actor.name]{creature} spits a glob of acidic bile at a
-        target within 20 feet.</p><p>On a @Rule[dice.criticalSuccess]{Critical Hit}, this
-        attack causes the @Condition[corroding] condition for <strong>3
-        Turns</strong>.</p>
+        target within 20 feet.</p><p>On a @Rule[dice.criticalSuccess]{Critical
+        Hit}, this attack causes the @Condition[corroding] condition for
+        <strong>3 Turns</strong>.</p>
       cost:
         action: 0
         focus: 1

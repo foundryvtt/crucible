@@ -6,7 +6,7 @@ system:
   category: clothing
   enchantment: mundane
   quality: standard
-  price: 40
+  price: 120
   quantity: 1
   weight: 2
   equipped: false

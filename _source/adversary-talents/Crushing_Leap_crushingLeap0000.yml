@@ -15,8 +15,8 @@ system:
         <p>You leap into the air, landing at a point you can see within 30 feet
         and crashing down with crushing force. All creatures within the area of
         the resulting <strong>Blast</strong> face an attack against their
-        @Rule[defense.reflex], suffering <strong>Bludgeoning</strong> damage
-        and are knocked @Condition[prone]. The <strong>Blast</strong> extends
+        @Rule[defense.reflex], suffering <strong>Bludgeoning</strong> damage and
+        are knocked @Condition[prone]. The <strong>Blast</strong> extends
         outward from your own footprint, so larger creatures crash down over a
         wider area. This action scales with your highest ability of
         @Rule[ability.strength] or @Rule[ability.toughness].</p>

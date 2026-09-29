@@ -6,8 +6,8 @@ system:
   description: >-
     <p>Your battle lust spurs you to feats of heightened action. When you
     achieve a @Rule[dice.criticalSuccess]{Critical Hit} that deals damage to
-    @Rule[resource.health] you immediately gain @Rule[resource.action]{+1 Action}.
-    This benefit may only happen once per <strong>Round</strong>.</p>
+    @Rule[resource.health] you immediately gain @Rule[resource.action]{+1
+    Action}. This benefit may only happen once per <strong>Round</strong>.</p>
   actions: []
   nodes:
     - str4a

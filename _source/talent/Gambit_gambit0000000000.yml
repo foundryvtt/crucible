@@ -30,8 +30,8 @@ system:
         The next attack or check you make this turn rolls the maximum possible
         result on every die in its pool. If that action makes more than one
         roll, only the first is maximized. You can activate this action by
-        spending either <strong>6 Gambit</strong> charges or @Rule[resource.heroism]{1
-        Heroism}.</p>
+        spending either <strong>6 Gambit</strong> charges or
+        @Rule[resource.heroism]{1 Heroism}.</p>
       cost:
         action: 0
         focus: 0

@@ -1,9 +1,8 @@
 name: Reliable
 type: affix
 description: >-
-  <p>Reduces the @Rule[dice.criticalFailureThreshold] for attack rolls
-  made with this weapon. The threshold decreases by <strong>1 per
-  Tier</strong>.</p>
+  <p>Reduces the @Rule[dice.criticalFailureThreshold] for attack rolls made with
+  this weapon. The threshold decreases by <strong>1 per Tier</strong>.</p>
 duration:
   value: null
   units: seconds

@@ -7,8 +7,8 @@ system:
     governs the creation of water or other fluids and their transfer between
     liquid and frozen states.</p><p>The <strong>Frost</strong> rune scales using
     @Rule[ability.wisdom], targets @Rule[defense.fortitude], and deals
-    <strong>Cold</strong> damage to @Rule[resource.health]. It is opposed by
-    the chaotic rune of <strong>Flame</strong>.</p>
+    <strong>Cold</strong> damage to @Rule[resource.health]. It is opposed by the
+    chaotic rune of <strong>Flame</strong>.</p>
   actions:
     - id: condense
       name: Condense

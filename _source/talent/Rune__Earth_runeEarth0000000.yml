@@ -7,8 +7,8 @@ system:
     The <strong>Earth</strong> rune governs minerals, metals, soils, and other
     physical compounds.</p><p>The <strong>Earth</strong> rune scales using
     @Rule[ability.wisdom], targets @Rule[defense.reflex], and deals
-    <strong>Acid</strong> damage to @Rule[resource.health]. It is opposed by
-    the chaotic rune of <strong>Storm</strong>.</p>
+    <strong>Acid</strong> damage to @Rule[resource.health]. It is opposed by the
+    chaotic rune of <strong>Storm</strong>.</p>
   actions:
     - id: mould
       name: Mould

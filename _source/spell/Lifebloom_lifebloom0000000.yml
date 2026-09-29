@@ -82,8 +82,8 @@ system:
             img: icons/magic/nature/tree-spirit-glow-black-yellow.webp
             description: >-
               <p>Each round, allies who start their turn within this aura
-              recover your @Rule[ability.wisdom] in both
-              @Rule[resource.health] and @Rule[resource.morale].</p>
+              recover your @Rule[ability.wisdom] in both @Rule[resource.health]
+              and @Rule[resource.morale].</p>
             effects: []
             tags:
               - healing

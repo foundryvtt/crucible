@@ -6,11 +6,12 @@ system:
   description: >-
     <p>You are highly skilled in weaving the <strong>Rune of Soul</strong>. When
     you cast a <strong>Spell</strong> or use an action that involves this
-    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which restore
-    @Rule[resource.morale] cause the @Condition[inspired] condition.</p><p>The
-    <strong>Inspired</strong> effect lasts for <strong>1 Round</strong> and
-    deals the ability score your <strong>Rune of Soul</strong> scales with as
-    additional <strong>Restoration</strong> to @Rule[resource.morale].</p>
+    <strong>Rune</strong>, your @Rule[dice.criticalSuccess]{Critical Hits} which
+    restore @Rule[resource.morale] cause the @Condition[inspired]
+    condition.</p><p>The <strong>Inspired</strong> effect lasts for <strong>1
+    Round</strong> and deals the ability score your <strong>Rune of
+    Soul</strong> scales with as additional <strong>Restoration</strong> to
+    @Rule[resource.morale].</p>
   actions: []
   nodes:
     - pre3b

@@ -138,6 +138,9 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
       source.properties.findSplice(p => p === "organic", "natural");
     }
 
+    /** @deprecated since 0.11.2 */
+    if ( ["clothingCommon", "clothingDress"].includes(source.identifier) ) source.identifier = "clothing";
+
     return source;
   }
 }

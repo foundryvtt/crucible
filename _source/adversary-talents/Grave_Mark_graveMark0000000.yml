@@ -4,23 +4,23 @@ img: icons/magic/death/undead-skeleton-worn-blue.webp
 system:
   nodes: []
   description: >-
-    <p>When the @ref[actor.name]{creature} achieves a @Rule[dice.criticalSuccess]{Critical
-    Hit} with a melee attack, it leaves a baleful <strong>Grave
-    Mark</strong> upon its target.</p>
+    <p>When the @ref[actor.name]{creature} achieves a
+    @Rule[dice.criticalSuccess]{Critical Hit} with a melee attack, it leaves a
+    baleful <strong>Grave Mark</strong> upon its target.</p>
   actions:
     - id: graveMark
       name: Grave Mark
       img: icons/magic/death/undead-skeleton-worn-blue.webp
       condition: When achieving a Critical Hit with a melee attack.
       description: >-
-        <p>After achieving a @Rule[dice.criticalSuccess]{Critical Hit} with a melee attack,
-        the @ref[actor.name]{creature} attacks the target's
-        @Rule[defense.willpower] defense, leaving a <strong>Grave
-        Mark</strong> upon a success that inflicts the @Condition[exhausted]
-        condition, which persists until the target completes a @Action[default
-        rest].</p><p>If a humanoid creature bearing a <strong>Grave
-        Mark</strong> dies while under the effects of the mark, it rises from
-        death on its subsequent <strong>Turn</strong> as a
+        <p>After achieving a @Rule[dice.criticalSuccess]{Critical Hit} with a
+        melee attack, the @ref[actor.name]{creature} attacks the target's
+        @Rule[defense.willpower] defense, leaving a <strong>Grave Mark</strong>
+        upon a success that inflicts the @Condition[exhausted] condition, which
+        persists until the target completes a @Action[default rest].</p><p>If a
+        humanoid creature bearing a <strong>Grave Mark</strong> dies while under
+        the effects of the mark, it rises from death on its subsequent
+        <strong>Turn</strong> as a
         @UUID[Compendium.crucible.taxonomy.Item.ghoul00000000000]{Ghoul}.</p>
       cost:
         action: 0

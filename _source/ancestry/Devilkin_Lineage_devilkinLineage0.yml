@@ -7,7 +7,9 @@ system:
   description: >-
     <p>The infernal fire of your heritage smolders just beneath your skin,
     waiting to be unleashed through your blows.</p><p><strong>Thermal
-    Vision.</strong> You gain the benefits of @UUID[Compendium.crucible.adversary-talents.thermalVision000] with a 30 foot radius.</p>
+    Vision.</strong> You gain the benefits of
+    @UUID[Compendium.crucible.adversary-talents.thermalVision000] with a 30 foot
+    radius.</p>
   actions:
     - id: hellbrand
       name: Hellbrand
@@ -18,7 +20,8 @@ system:
         hellfire for <strong>3 Rounds</strong>. Each of your attacks which deals
         damage to @Rule[resource.health] also deals additional
         <strong>Fire</strong> damage equal to half your @Rule[ability.presence].
-        A @Rule[dice.criticalSuccess]{Critical Hit} sets the target @Condition[burning].</p>
+        A @Rule[dice.criticalSuccess]{Critical Hit} sets the target
+        @Condition[burning].</p>
       cost:
         action: 0
         focus: 0

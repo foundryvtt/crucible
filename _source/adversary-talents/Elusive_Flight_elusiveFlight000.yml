@@ -7,8 +7,9 @@ system:
   description: >-
     <p>This @ref[actor.name]{creature} is especially elusive while in flight,
     able to swoop in and out of combat without provoking any @Action[default
-    reactiveStrike]. It can be @Rule[movement.engagement]{engaged} if it lands upon the ground and such
-    strikes may be used if it attempts to return to flight.</p>
+    reactiveStrike]. It can be @Rule[movement.engagement]{engaged} if it lands
+    upon the ground and such strikes may be used if it attempts to return to
+    flight.</p>
   actions: []
   iconicSpells: 0
 effects: []

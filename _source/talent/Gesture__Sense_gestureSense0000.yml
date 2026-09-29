@@ -11,11 +11,11 @@ system:
     <strong>30 feet</strong> radius and position that remains centered upon the
     spellcaster. This gesture requires <strong>1 Hand</strong> to cast and has a
     base cost of <strong>3 Action</strong> and <strong>1 Focus</strong>. It may
-    optionally be @Rule[action.maintained] at the additional cost of
-    <strong>1 Focus</strong> every subsequent round.</p><p>This spell allows the
-    caster to detect the presence of spellcraft using the same
-    <strong>Rune</strong> as the one incorporated in this spell. The sense will
-    also momentarily detect the presence of creatures according to their
+    optionally be @Rule[action.maintained] at the additional cost of <strong>1
+    Focus</strong> every subsequent round.</p><p>This spell allows the caster to
+    detect the presence of spellcraft using the same <strong>Rune</strong> as
+    the one incorporated in this spell. The sense will also momentarily detect
+    the presence of creatures according to their
     type.</p><ul><li><p><strong>Control</strong>:
     Fiends</p></li><li><p><strong>Death</strong>:
     Undead</p></li><li><p><strong>Earth</strong>: Oozes and Earth

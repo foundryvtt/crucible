@@ -4,11 +4,11 @@ img: icons/magic/unholy/hand-marked-pink.webp
 system:
   description: >-
     <p>There are older things than Runes, and they can lend power. When you have
-    no @Rule[resource.focus] remaining, you may spend @Rule[resource.morale]
-    in its place. Each point of insufficient @Rule[resource.focus] costs
-    @Rule[resource.morale]{10 Morale} in exchange. You may still make this exchange
-    while otherwise prevented from spending @Rule[resource.focus], for example
-    by the @Condition[broken] condition, although such a trade may incur
+    no @Rule[resource.focus] remaining, you may spend @Rule[resource.morale] in
+    its place. Each point of insufficient @Rule[resource.focus] costs
+    @Rule[resource.morale]{10 Morale} in exchange. You may still make this
+    exchange while otherwise prevented from spending @Rule[resource.focus], for
+    example by the @Condition[broken] condition, although such a trade may incur
     @Rule[resource.madness].</p>
   actions: []
   nodes:

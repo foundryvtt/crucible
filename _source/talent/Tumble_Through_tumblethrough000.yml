@@ -15,8 +15,8 @@ system:
         provoking any @Action[default reactiveStrike]. An ally lets you pass
         freely.</p><p>An enemy contests your passage: make an
         @Rule[skill.athletics] @Rule[action.skill] attack against its
-        @Rule[defense.reflex] defense. On a @Rule[dice.failure] your movement is blocked and
-        you remain in your current position.</p>
+        @Rule[defense.reflex] defense. On a @Rule[dice.failure] your movement is
+        blocked and you remain in your current position.</p>
       tags:
         - harmless
         - reflex

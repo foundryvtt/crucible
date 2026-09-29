@@ -4,8 +4,8 @@ img: icons/magic/earth/construct-stone.webp
 system:
   description: >-
     <p>You cannot be involuntarily moved or knocked @Condition[prone] by any
-    action that is not a @Rule[dice.criticalSuccess] rolled by an enemy or
-    a @Rule[dice.criticalFailure] rolled by yourself.</p><h3
+    action that is not a @Rule[dice.criticalSuccess] rolled by an enemy or a
+    @Rule[dice.criticalFailure] rolled by yourself.</p><h3
     class="divider">Playtest Notes</h3><p>This talent is not yet automated.</p>
   actions: []
   nodes:

@@ -12,8 +12,8 @@ system:
       img: icons/skills/social/thumbs-up.webp
       condition: An ally whom you can see becomes Weakened or suffers a Critical Failure.
       description: >-
-        <p>You may react to an ally's @Rule[dice.criticalFailure] with a
-        grim joke at their expense or your own, restoring their
+        <p>You may react to an ally's @Rule[dice.criticalFailure] with a grim
+        joke at their expense or your own, restoring their
         @Rule[resource.morale] by half of your @Rule[ability.presence]
         score.</p>
       cost:

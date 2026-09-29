@@ -6,7 +6,7 @@ system:
   category: clothing
   quantity: 1
   weight: 1
-  price: 50
+  price: 120
   quality: standard
   broken: false
   enchantment: mundane

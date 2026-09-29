@@ -28,14 +28,14 @@ system:
         single letter within each word and leaving no obvious trace of your
         work. Your alteration is discovered only by an intentional
         @Rule[skill.awareness] check which beats your passive
-        @Rule[skill.glyphweaving].</p></li><li><p><strong>Create.</strong>
-        Given time and materials, you may produce any written or painted work
-        you can picture which carries no affix: a letter in another's hand down
-        to the tremor in it, a portrait that flatters without lying, a seal
-        across a door which cannot be rejoined once broken, a mark on a trail
-        only your companions will notice, a line of chalk that glows faintly for
-        an hour.</p></li></ul><p>You may attempt other uses similar to those
-        above, the effectiveness of which is decided by the
+        @Rule[skill.glyphweaving].</p></li><li><p><strong>Create.</strong> Given
+        time and materials, you may produce any written or painted work you can
+        picture which carries no affix: a letter in another's hand down to the
+        tremor in it, a portrait that flatters without lying, a seal across a
+        door which cannot be rejoined once broken, a mark on a trail only your
+        companions will notice, a line of chalk that glows faintly for an
+        hour.</p></li></ul><p>You may attempt other uses similar to those above,
+        the effectiveness of which is decided by the
         <strong>Gamemaster</strong>.</p>
       cost:
         action: 3

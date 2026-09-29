@@ -14,10 +14,10 @@ system:
       description: >-
         <p>Following a @Action[default rest], you find the common ground you
         share with each of your companions. You make a @Rule[skill.society]
-        check against the @Rule[defense.madness] of each member of
-        your party. Upon a success they shed <strong>Madness</strong> equal to
-        half your @Rule[ability.wisdom], or your full @Rule[ability.wisdom]
-        upon a @Rule[dice.criticalSuccess].</p>
+        check against the @Rule[defense.madness] of each member of your party.
+        Upon a success they shed <strong>Madness</strong> equal to half your
+        @Rule[ability.wisdom], or your full @Rule[ability.wisdom] upon a
+        @Rule[dice.criticalSuccess].</p>
       cost:
         action: 0
         focus: 0
