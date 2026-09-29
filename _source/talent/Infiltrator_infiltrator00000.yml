@@ -8,7 +8,7 @@ system:
     notice of watchful sentries. When you use
     @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you may
     target up to three creatures simultaneously, resolving a separate
-    @Rule[skill.stealth] check against the @Rule[skill.awareness] of
+    @Rule[skill.stealth] check against the passive @Rule[skill.awareness] of
     each.</p><h3 class="divider">Playtest Notes</h3><p>All three checks resolve,
     but Crucible does not yet record which creatures have lost track of you, so
     beating one target conceals you no differently from beating all three and

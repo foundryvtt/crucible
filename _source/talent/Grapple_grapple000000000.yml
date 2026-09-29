@@ -78,8 +78,8 @@ system:
       condition: ''
       description: >-
         <p>You attempt to physically restrain or subdue an opponent. Perform an
-        @Rule[skill.athletics] skill attack against an adjacent target. If
-        successful, both you and your target are @Condition[restrained] for
+        @Rule[skill.athletics] skill attack against an adjacent target contested by their passive @Rule[skill.athletics] skill. 
+        If successful, both you and your target are @Condition[restrained] for
         <strong>1 Round</strong>.</p>
       summon: null
   iconicSpells: 0
