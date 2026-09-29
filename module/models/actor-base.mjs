@@ -164,7 +164,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Actor hook functions which apply to this Actor.
-   * @type {Object<string, {item: CrucibleItem, fn: Function}[]>}
+   * @type {Object<string, {item: CrucibleItem, fn: Function, affix?: CrucibleActiveEffect}[]>}
    */
   actorHooks = this.actorHooks;
 
@@ -540,6 +540,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const weapons = this._prepareWeapons(items.weapon);
     if ( weapons.mainhand ) this.#registerActorHooks(weapons.mainhand);
     if ( weapons.offhand ) this.#registerActorHooks(weapons.offhand);
+
+    // All affixable equipment is now known, and suppression must be resolved before any affix hook is called
+    this.#suppressAffixes([armor, weapons.mainhand, weapons.offhand, ...accessories]);
     this.parent.callActorHooks("prepareWeapons", weapons);
 
     // Step 4: Toolbelt
@@ -773,6 +776,41 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     weapons.slow = mh?.system.properties.has("oversized") ? 1 : 0;
     weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
     return weapons;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Suppress duplicate affixes so that each identifier takes effect once, excluding weapon affixes.
+   * The worst cursed instance prevails over any benign instance, otherwise the highest tier prevails.
+   * @param {Array<CrucibleItem|undefined>} items   Equipped items, in precedence order for tied tiers
+   */
+  #suppressAffixes(items) {
+    const prevails = (a, b) => {
+      if ( a.system.isCursed !== b.system.isCursed ) return a.system.isCursed;
+      return a.system.tier.value > b.system.tier.value;
+    };
+
+    // Identify the prevailing instance of each affix identifier
+    const candidates = [];
+    const prevailing = new Map();
+    for ( const item of items ) {
+      if ( !item?.system.constructor.AFFIXABLE ) continue;
+      if ( item.system.requiresInvestment && !item.system.invested ) continue;
+      for ( const affix of Object.values(item.system.affixes) ) {
+        const {identifier, itemTypes} = affix.system;
+        if ( (itemTypes.size === 1) && itemTypes.has("weapon") ) continue;
+        candidates.push(affix);
+        const current = prevailing.get(identifier);
+        if ( !current || prevails(affix, current) ) prevailing.set(identifier, affix);
+      }
+    }
+
+    // Suppress every other instance
+    for ( const affix of candidates ) {
+      const source = prevailing.get(affix.system.identifier);
+      if ( source !== affix ) affix.system._suppression = {reason: "AFFIX.SUPPRESSION.Duplicate", source};
+    }
   }
 
   /* -------------------------------------------- */
@@ -1230,6 +1268,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( item.system.schema.has("equipped") && !item.system.equipped ) return;
     if ( item.system.requiresInvestment && !item.system.invested ) return;
     for ( const action of item.actions ) {
+      if ( action.affix?.isSuppressed ) continue;
       const actionId = item.type === "consumable" ? `${action.id}.${item.id}` : action.id;
       this.actions[actionId] = action.bind(this.parent);
     }
@@ -1266,7 +1305,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       for ( const [hook, fn] of Object.entries(affixHooks) ) {
         if ( hook in SYSTEM.ACTOR.HOOKS ) {
           this.actorHooks[hook] ||= [];
-          this.actorHooks[hook].push({item, fn});
+          this.actorHooks[hook].push({item, fn, affix});
         }
       }
     }

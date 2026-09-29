@@ -17,6 +17,12 @@ import * as crucibleFields from "./fields.mjs";
  */
 
 /**
+ * @typedef CrucibleAffixSuppression
+ * @property {string} reason                  A localization key describing why the affix is suppressed
+ * @property {CrucibleActiveEffect} source    The affix which caused this one to be suppressed
+ */
+
+/**
  * An ActiveEffect subtype data model representing an affix embedded on an equipment item.
  * Affixes extend item behavior through module-level hook functions registered in crucible.api.hooks.affix.
  * @extends {foundry.data.ActiveEffectTypeDataModel<CrucibleAffixEffectData>}
@@ -47,6 +53,13 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTIVE_EFFECT", "AFFIX"];
 
+  /**
+   * Why this affix is prevented from taking effect, assigned during preparation of the owning Actor.
+   * @type {CrucibleAffixSuppression|null}
+   * @internal
+   */
+  _suppression = null;
+
   /* -------------------------------------------- */
 
   /**
@@ -57,6 +70,14 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
     return this.properties.has("cursed");
   }
 
+  /**
+   * Is this affix prevented from taking effect? Read by {@link foundry.documents.ActiveEffect#isSuppressed}.
+   * @type {boolean}
+   */
+  get isSuppressed() {
+    return !!this._suppression;
+  }
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -64,6 +85,7 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
     const ae = this.parent;
     ae.transfer = false;
     this.changes = [];
+    this._suppression = null;
     this.tier.value = Math.clamp(this.tier.value, this.tier.min, this.tier.max);
     this.adjective ||= ae.name;
     if ( this.isCursed ) ae.name = _loc("AFFIX.CursedName", {name: ae.name});

@@ -1084,6 +1084,9 @@
     "PROPERTIES": {
       "Cursed": "Cursed"
     },
+    "SUPPRESSION": {
+      "Duplicate": "Superseded by another instance of the same affix"
+    },
     "WARNINGS": {
       "CursedGamemasterOnly": "Only a Gamemaster may remove a Cursed affix from an item."
     },

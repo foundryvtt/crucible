@@ -317,7 +317,8 @@ export default class CrucibleActor extends Actor {
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     if ( hookConfig.async ) throw new Error(`Actor hook "${hook}" is async; use callActorHooksAsync`);
     const hooks = this.system.actorHooks[hook] ||= [];
-    for ( const {item, fn} of hooks ) {
+    for ( const {item, fn, affix} of hooks ) {
+      if ( affix?.isSuppressed ) continue;
       if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
       try {
         fn.call(this, item, ...args);
@@ -343,7 +344,8 @@ export default class CrucibleActor extends Actor {
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.system.actorHooks[hook] ||= [];
-    for ( const {item, fn} of hooks ) {
+    for ( const {item, fn, affix} of hooks ) {
+      if ( affix?.isSuppressed ) continue;
       if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
       try {
         await fn.call(this, item, ...args);
