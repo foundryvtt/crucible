@@ -501,7 +501,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const levels = token?.level ? [token.level] : [];
     const tokenElevation = token?._source.elevation ?? 0;
     const tokenDepth = token?._source.depth ?? 0;
-    const elevation = this.action.usage.region.elevation ?? {bottom: tokenElevation, top: tokenElevation + tokenDepth};
+    const {bottom=tokenElevation, top=tokenElevation + tokenDepth} = this.action.usage.region.elevation ?? {};
+    const elevation = {bottom, top};
     const attachment = {};
 
     // Common configurations based on the shape

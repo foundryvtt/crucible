@@ -1801,7 +1801,8 @@ HOOKS.smokeJar = {
     const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
     if ( !effect || !this.region ) return;
     const {x, y} = this.region.shapes[0];
-    const elevation = this.region.elevation.bottom;
+    const {bottom, top} = this.region.elevation;
+    const elevation = (bottom + top) / 2;
     const lightData = {x, y, elevation, levels: Array.from(this.region.levels), ...SMOKE_JAR_LIGHT};
     const [light] = await this.region.parent.createEmbeddedDocuments("AmbientLight", [lightData]);
     effect.system.lights ||= [];
