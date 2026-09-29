@@ -203,8 +203,7 @@
     "ActiveEffect": {
       "affix": {
         "htmlFields": ["actions.*.description"]
-      },
-      "flanked": {}
+      }
     },
     "Actor": {
       "hero": {

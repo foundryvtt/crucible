@@ -290,14 +290,13 @@ async function _resetHeroTalents() {
 /* -------------------------------------------- */
 
 /**
- * Delete the ActiveEffects which the retired automatic flanking system committed to Actors, wherever they persist.
- * Flanking is now derived per-attacker at the moment of use, so these persisted effects are inert automation
- * artifacts. They are identified by their "flanked" subtype, which no manually applied condition ever carries.
+ * Delete leftover "flanked" ActiveEffects attached to actors or tokens.
  * @returns {Promise<void>}
  */
 async function _deleteFlankedEffects() {
   console.groupCollapsed("Crucible | Retired Flanking Effect Cleanup");
-  const retiredIds = effects => (effects ?? []).filter(e => e.type === "flanked").map(e => e._id);
+  const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
+  const retiredIds = effects => (effects?.some(e => e._id === flankedId) ? [flankedId] : []);
   const deleteRetired = async (actor, ids) => {
     await actor.deleteEmbeddedDocuments("ActiveEffect", ids);
     console.debug(`Deleted ${ids.length} retired flanking effect(s) from ${actor.name} [${actor.uuid}]`);

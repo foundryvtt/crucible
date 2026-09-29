@@ -419,4 +419,20 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     if ( this.isSuppressed ) tags.context.section = "suppressed";
     return tags;
   }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source, options) {
+    source = super.migrateData(source, options);
+
+    /** @deprecated since 0.11.2 */
+    if ( source.type === "flanked" ) {
+      source.type = "base";
+      source.disabled = true;
+    }
+    return source;
+  }
 }
