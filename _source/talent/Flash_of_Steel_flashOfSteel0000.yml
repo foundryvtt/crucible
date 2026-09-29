@@ -14,7 +14,7 @@ system:
       img: icons/skills/melee/spear-tips-double-purple.webp
       condition: ''
       description: >-
-        <p>You make a <strong>Thrown </strong>weapon attack, targeting a weak
+        <p>You make a <strong>Thrown</strong> weapon attack, targeting a weak
         point in your enemy's defenses. If the attack hits, the target becomes
         @Condition[exposed] until the start of their next turn.</p>
       cost:

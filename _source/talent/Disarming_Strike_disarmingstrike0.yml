@@ -14,7 +14,7 @@ system:
       img: icons/skills/melee/hand-grip-staff-teal.webp
       condition: ''
       description: >-
-        <p>You make a <strong>Strike </strong>against a the
+        <p>You make a <strong>Strike</strong> against a the
         @Rule[defense.reflex] defense of a single target. The technique is
         @Rule[action.difficult] to perform and deals @Rule[action.weakened]
         damage. If successful, the target's mainhand weapon is

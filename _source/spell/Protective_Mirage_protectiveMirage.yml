@@ -3,7 +3,7 @@ type: spell
 img: icons/magic/defensive/illusion-evasion-echo-purple.webp
 system:
   description: >-
-    <p>You <strong>Aspect </strong>yourself in a mirage of shifting
+    <p>You <strong>Aspect</strong> yourself in a mirage of shifting
     <strong>Illumination</strong> and <strong>Shadow</strong> which mask your
     current position and allow you to <strong>Elude</strong> incoming blows.</p>
   actions:

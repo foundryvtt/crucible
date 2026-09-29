@@ -272,7 +272,7 @@ system:
       description: >-
         <p>You keen a brittle threnody for the <strong>Husk</strong>, hollow and
         ready to crumble. Enemy creatures within <strong>15 feet</strong> suffer
-        <strong>Vulnerability </strong>of 2 to all damage types.</p>
+        <strong>Vulnerability</strong> of 2 to all damage types.</p>
       tags:
         - vocal
       cost:

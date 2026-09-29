@@ -30,13 +30,13 @@ system:
         tonic.</p><ul><li><p><strong>Shoddy</strong> - Heals 2
         <strong>Health</strong> each
         <strong>Round</strong></p></li><li><p><strong>Standard</strong> - Heals
-        4 <strong>Health </strong>each
-        <strong>Round</strong></p></li><li><p><strong>Fine </strong>- Heals 8
-        <strong>Health </strong>each
+        4 <strong>Health</strong> each
+        <strong>Round</strong></p></li><li><p><strong>Fine</strong> - Heals 8
+        <strong>Health</strong> each
         <strong>Round</strong></p></li><li><p><strong>Superior</strong> - Heals
-        16 <strong>Health </strong>each
+        16 <strong>Health</strong> each
         <strong>Round</strong></p></li><li><p><strong>Masterwork</strong> -
-        Heals 32 <strong>Health </strong>each
+        Heals 32 <strong>Health</strong> each
         <strong>Round</strong></p></li></ul>
       cost:
         action: 2

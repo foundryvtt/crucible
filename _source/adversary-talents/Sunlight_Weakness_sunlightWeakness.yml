@@ -4,7 +4,7 @@ img: icons/magic/time/day-night-sunset-sunrise.webp
 system:
   nodes: []
   description: >-
-    <p>While in sunlight, the @ref[actor.name]{creature} suffers @Rule[dice.bane]{2
+    <p>While in sunlight, the @ref[actor.name]{creature} suffers @Rule[dice.bane]{+2
     Banes} to all actions. </p><p>This mechanic is handled through an
     <strong>Active Effect</strong> that is easily toggled when applicable.</p>
   actions: []

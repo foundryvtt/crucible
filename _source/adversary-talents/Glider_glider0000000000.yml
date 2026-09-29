@@ -8,7 +8,7 @@ system:
     it is @Condition[incapacitated] or @Condition[restrained], a fall becomes a
     <strong>Glide</strong>: a downward <strong>Fly</strong> movement instead of
     an impact, suffering no falling damage.</p><p>While gliding the creature's
-    @Rule[movement.stride] is doubled and it is granted a free move, so it can
+    @Rule[movement.stride] is doubled and it is granted a @Rule[movement.freeMovement]{free move}, so it can
     always glide at least a short distance. Its glide must descend, and wherever
     the movement ends is where it comes to rest; if it ends the glide still
     aloft it gains the @Condition[flying] condition.</p>
