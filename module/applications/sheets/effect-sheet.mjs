@@ -52,10 +52,22 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _initializeApplicationOptions(options) {
+    options = super._initializeApplicationOptions(options);
+    options.window.contentClasses.findSplice(c => c === "standard-form"); // Added by ActiveEffectConfig
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   async _preparePartContext(partId, context) {
     const partContext = await super._preparePartContext(partId, context);
     const effect = this.document;
     switch ( partId ) {
+      case "tabs":
+        partContext.tabClasses = ""; // Don't add core .top-tabs
+        break;
       case "header":
         partContext.tags = effect.system.getTags?.() ?? {};
         break;
