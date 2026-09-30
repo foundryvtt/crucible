@@ -1795,6 +1795,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const potentialTokens = canvas.tokens.quadtree.getObjects(this.region.bounds);
     const targetDispositions = this.#getTargetDispositions();
 
+    // A region resting upon a surface of another level also contains tokens on that level
+    const targetLevel = this.region.flags.crucible?.targetLevel;
+    const regionLevel = this.region.levels.first();
+
     // Identify tokens contained within the region which match the correct disposition and visibility
     const targets = [];
     for ( const token of potentialTokens ) {
@@ -1802,7 +1806,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;       // Exclude self
       if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;         // Require correct disposition
       if ( tokenDoc.hidden ) continue;                                            // Ignore hidden
-      if ( !tokenDoc.testInsideRegion(this.region, tokenDoc._source) ) continue;  // Require region containment
+      const onTargetLevel = !!targetLevel && (tokenDoc._source.level === targetLevel);
+      const position = onTargetLevel ? {...tokenDoc._source, level: regionLevel} : tokenDoc._source;
+      if ( !tokenDoc.testInsideRegion(this.region, position) ) continue;          // Require region containment
       targets.push(CrucibleAction.#getTargetFromToken(tokenDoc));
     }
 

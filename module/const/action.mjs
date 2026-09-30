@@ -598,6 +598,10 @@ export const TAGS = {
         event.summon.tokenData ||= {};
         event.summon.tokenData.x ??= position.x;
         event.summon.tokenData.y ??= position.y;
+        if ( this.region ) {
+          event.summon.tokenData.elevation ??= this.region.elevation.bottom;
+          event.summon.tokenData.level ??= this.region.flags.crucible?.targetLevel ?? this.region.levels.first();
+        }
         if ( this.token ) {
           event.summon.tokenData.elevation ??= this.token.elevation;
           event.summon.tokenData.level ??= this.token.level;

@@ -139,13 +139,14 @@ export default class CrucibleScene extends Scene {
    * @param {number} options.elevation            The elevation from which to search downward
    * @param {string} options.level                The id of the level from which to search
    * @param {number} [options.coverage=1]         The fraction of test points which a surface must contain
+   * @param {boolean} [options.inclusive=true]    Whether a surface exactly at the search elevation may be returned
    * @returns {{elevation: number, region: RegionDocument|null, level: Level}|null}
    */
-  findSupportingSurface(points, {elevation, level, coverage=1}) {
+  findSupportingSurface(points, {elevation, level, coverage=1, inclusive=true}) {
+    const isAbove = e => (inclusive ? (e > elevation) : (e >= elevation));
 
-    // Surface mode: surfaces are the only floors. Walk surfaces from highest to lowest (Scene#getSurfaces orders by
-    // elevation) and return the first at or below the elevation which contains the required share of test points.
-    // If none is beneath, nothing provides support - a gap with no surface is an explicit authoring choice.
+    // If the Scene uses Surfaces, then only Surface regions are treated as floors.
+    // Search highest to lowest and return the first region that is at-or-below the elevation which satisfies the test.
     if ( this.usesSurfaces ) {
       const surfaces = this.getSurfaces({level, type: "move"});
       if ( !surfaces.length ) return null;
@@ -153,7 +154,7 @@ export default class CrucibleScene extends Scene {
       const allowedMisses = points.length - required;
       for ( let i = surfaces.length; i--; ) {
         const surface = surfaces[i];
-        if ( surface.elevation > elevation ) continue;
+        if ( isAbove(surface.elevation) ) continue;
         let inside = 0;
         let missed = 0;
         for ( const p of points ) {
@@ -169,11 +170,11 @@ export default class CrucibleScene extends Scene {
       return null;
     }
 
-    // Level mode: with no surfaces defined, the base of every level is an implied floor. The supporting surface is the
-    // highest level base at or below the elevation, which also becomes the resting level.
+    // If there are no Surfaces in the Scene, the base of every Level is an implicit floor.
+    // The supporting surface is the highest level base at or below the elevation, which is also the resting Level.
     let floorLevel = null;
     for ( const lvl of this.levels ) {
-      if ( lvl.elevation.base > elevation ) continue;
+      if ( isAbove(lvl.elevation.base) ) continue;
       if ( !floorLevel || (lvl.elevation.base > floorLevel.elevation.base) ) floorLevel = lvl;
     }
     if ( !floorLevel ) return null;

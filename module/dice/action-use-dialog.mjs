@@ -366,6 +366,11 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const regionData = this.#getRegionData(origin, token, range, target, targetConfig);
     const autoPlace = (regionConfig.anchor === "self") && (["emanation", "circle"].includes(regionConfig.shape));
 
+    // Placed regions rest upon the surface beneath them unless the action specifies its own elevation
+    const restOnSurface = !!token && (regionConfig.anchor === "vertex") && (target.type !== "wall")
+      && !this.action.usage.region.elevation;
+    const casterSpan = {...regionData.elevation};
+
     // Clear existing targets before placement begins
     canvas.tokens.setTargets([]);
 
@@ -409,6 +414,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
                 range.maximum ?? 0, {snap});
               Object.assign(position, placement);
               shape.move(position, {snap: false});
+              if ( restOnSurface ) this.#restOnSurface(document, shape, {origin, token, casterSpan});
               return false;
             }
 
@@ -429,6 +435,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
               Object.assign(position, canvas.grid.getSnappedPoint(position, {mode: CONST.GRID_SNAPPING_MODES.VERTEX}));
             }
             shape.move(position, {snap: false});
+            if ( restOnSurface ) this.#restOnSurface(document, shape, {origin, token, casterSpan});
             return false; // Bypass core default snapping
           }
         }
@@ -475,6 +482,41 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
     // Re-render the dialog
     this.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Find the surface which supports a placed region, reaching other levels only downward along an open path.
+   * @param {Point[]} points                  Test points which the surface must contain
+   * @param {Point} center                    The center of the placed region
+   * @param {object} context
+   * @param {CrucibleToken} context.token     The acting token
+   * @param {number} context.coverage         The fraction of test points which the surface must contain
+   * @returns {{elevation: number, region: RegionDocument|null, level: Level|null}|null}
+   */
+  #findPlacementSurface(points, center, {token, coverage}) {
+    const scene = canvas.scene;
+    const casterLevel = scene.levels.get(token.level);
+    if ( !casterLevel ) return null;
+
+    // Without surfaces the floor of every level is solid, so only the caster's own level can be reached
+    if ( !scene.usesSurfaces ) return {elevation: casterLevel.elevation.base, region: null, level: casterLevel};
+
+    // Search downward from the top of the viewed level, a finite top belonging to the level above
+    const viewed = canvas.level ?? casterLevel;
+    const {top} = viewed.elevation;
+    const surface = scene.findSupportingSurface(points, {elevation: top, level: viewed.id, coverage,
+      inclusive: !Number.isFinite(top)});
+    if ( !surface?.level || (surface.level === casterLevel) ) return surface;
+
+    // A surface upon another level must lie below the caster, unobstructed by any surface in between
+    if ( surface.elevation > token._source.elevation ) return null;
+    const origin = token.getMovementOrigin(token._source);
+    const destination = {...center, elevation: surface.elevation};
+    const levels = [casterLevel, surface.level];
+    const blocked = levels.some(level => scene.testSurfaceCollision(origin, destination, {level}));
+    return blocked ? null : surface;
   }
 
   /* -------------------------------------------- */
@@ -605,6 +647,60 @@ export default class ActionUseDialog extends StandardCheckDialog {
       shapes: [shape],
       attachment
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Rest a placed region upon the supporting surface beneath it, if one is within range.
+   * @param {RegionDocument} document                  The region being placed
+   * @param {BaseShapeData} shape                       The placed shape, already moved to its final position
+   * @param {object} context
+   * @param {ElevatedPoint} context.origin              The center of the acting token
+   * @param {CrucibleToken} context.token               The acting token
+   * @param {{bottom: number, top: number}} context.casterSpan   The caster-relative elevation span
+   */
+  #restOnSurface(document, shape, {origin, token, casterSpan}) {
+    const {range, target} = this.action;
+    const d = canvas.dimensions.distancePixels;
+    const isSummon = target.type === "summon";
+
+    // Test the center of a blast, or the footprint of a summon
+    let height;
+    let center;
+    let points;
+    if ( isSummon ) {
+      height = target.size;
+      const s = target.size * d;
+      const f = [0.25, 0.5, 0.75];
+      center = {x: shape.x + (s / 2), y: shape.y + (s / 2)};
+      points = f.flatMap(fx => f.map(fy => ({x: shape.x + (fx * s), y: shape.y + (fy * s)})));
+    }
+    else {
+      height = shape.radius / d;
+      center = {x: shape.x, y: shape.y};
+      points = [center];
+    }
+    const surface = this.#findPlacementSurface(points, center, {token, coverage: isSummon ? 0.75 : 1});
+
+    // Rest upon a surface which is within range, otherwise revert to the caster-relative span
+    let elevation = casterSpan;
+    let targetLevel = null;
+    if ( surface ) {
+      const span = {bottom: surface.elevation, top: surface.elevation + height};
+      const distance = isSummon
+        ? crucible.api.canvas.grid.getLinearRange(token, {x: shape.x, y: shape.y, width: target.size,
+          height: target.size, depth: target.size, elevation: span.bottom})
+        : canvas.grid.measurePath([origin, {x: shape.x, y: shape.y,
+          elevation: Math.clamp(origin.elevation ?? 0, span.bottom, span.top)}]).distance;
+      if ( distance <= (range.maximum ?? 0) ) {
+        elevation = span;
+
+        // The region stays within the caster's level to remain wall-constrained, so record the surface's level
+        if ( surface.level && (surface.level.id !== token.level) ) targetLevel = surface.level.id;
+      }
+    }
+    document.updateSource({elevation, flags: {crucible: {targetLevel}}});
   }
 
   /* -------------------------------------------- */
