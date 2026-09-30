@@ -1,5 +1,6 @@
 import CrucibleTokenRuler from "./token-ruler.mjs";
 import CrucibleTokenHUD from "../applications/hud/token-hud.mjs";
+import CrucibleDoorControl from "./door-control.mjs";
 import {MOVEMENT_ACTIONS, TRAVEL_PACES} from "../const/actor.mjs";
 import {registerVFXAnimations} from "./vfx/animations/_module.mjs";
 import {registerComponents} from "./vfx/components/_module.mjs";
@@ -13,6 +14,7 @@ export * as vfx from "./vfx/_module.mjs";
 export * as movement from "./movement.mjs";
 export {default as CrucibleMovementPolygon} from "./movement-polygon.mjs";
 export {default as CrucibleTokenObject} from "./token.mjs";
+export {default as CrucibleDoorControl} from "./door-control.mjs";
 export {CrucibleTokenRuler};
 
 /**
@@ -21,6 +23,7 @@ export {CrucibleTokenRuler};
 export function configure() {
   CONFIG.Token.rulerClass = CrucibleTokenRuler;
   CONFIG.Token.hudClass = CrucibleTokenHUD;
+  CONFIG.Canvas.doorControlClass = CrucibleDoorControl;
   // Stride of 10, 6 strides per turn, 10 seconds per round, x2 multiplier for visual satisfaction
   CONFIG.Token.movement.defaultSpeed = (10 * 6) * 2 / 10;
 
