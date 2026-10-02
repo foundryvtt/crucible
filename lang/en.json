@@ -559,6 +559,8 @@
     "DurationUntilEnded": "Until Ended",
     "EffectSpecific": "Effect: {effect}",
     "MaintainContent": "<p>Spend {cost} Focus to maintain {effect}?</p>",
+    "MaintainReplaceContent": "<p>Using {action} will end your maintained {effect} at the end of this action.</p>",
+    "MaintainReplaceTitle": "Replace Maintained Effect",
     "MaintainTitle": "Maintain Focus: {effect}",
     "NoTargets": "No Targets",
     "Overview": "Action Overview",

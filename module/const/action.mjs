@@ -1216,6 +1216,11 @@ export const TAGS = {
       if ( !effect ) return;
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
       effect.system.maintenance = {cost: maintainedCost};
+
+      // Only one effect may be maintained at a time; end any currently maintained effect
+      const current = this.actor.maintainedEffect;
+      if ( current ) this.recordEvent({type: "effect", target: this.actor,
+        effects: [{_id: current.id, _action: "delete"}]});
     }
   },
 
