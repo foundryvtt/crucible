@@ -1,7 +1,7 @@
 folder: dhytTyAU2zNv4suy
-name: Flame Staff
+name: Oblivion Totem
 type: weapon
-img: icons/weapons/staves/staff-engraved-red.webp
+img: icons/weapons/staves/staff-orb-purple.webp
 system:
   category: talisman2
   quantity: 1
@@ -12,15 +12,15 @@ system:
   enchantment: mundane
   equipped: false
   properties: []
-  damageType: fire
-  identifier: flameStaff
+  damageType: void
+  identifier: oblivionTotem
   invested: false
   description:
     public: >-
-      <p>A simple two-handed staff capped with a fiery red gem that — in the
-      palm of a capable spellcaster — becomes a conduit for their
-      power.</p><p>It gathers searing energy within its gem before blasting its
-      target with <strong>Fire</strong> damage to <strong>Health</strong>.</p>
+      <p>A tall pole crowned with a dark violet orb that — in the palm of a
+      capable spellcaster — becomes a conduit for their power.</p><p>It gathers
+      the emptiness between the stars within the orb before blasting its target
+      with <strong>Void</strong> damage to <strong>Health</strong>.</p>
     private: ''
   actions: []
   dropped: false
@@ -31,8 +31,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790688622414
-  modifiedTime: 1790688626486
+  createdTime: 1790688634915
+  modifiedTime: 1790688634915
   lastModifiedBy: M1BSmH2nkSHNPBss
   compendiumSource: null
   duplicateSource: null
@@ -40,6 +40,6 @@ _stats:
 ownership:
   default: 0
   M1BSmH2nkSHNPBss: 3
-_id: flameStaff000000
-sort: 200000
-_key: '!items!flameStaff000000'
+_id: oblivionTotem000
+sort: 0
+_key: '!items!oblivionTotem000'

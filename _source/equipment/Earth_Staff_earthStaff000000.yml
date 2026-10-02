@@ -1,7 +1,7 @@
 folder: dhytTyAU2zNv4suy
-name: Flame Staff
+name: Earth Staff
 type: weapon
-img: icons/weapons/staves/staff-engraved-red.webp
+img: icons/weapons/staves/staff-simple-jeweled-green.webp
 system:
   category: talisman2
   quantity: 1
@@ -12,15 +12,15 @@ system:
   enchantment: mundane
   equipped: false
   properties: []
-  damageType: fire
-  identifier: flameStaff
+  damageType: acid
+  identifier: earthStaff
   invested: false
   description:
     public: >-
-      <p>A simple two-handed staff capped with a fiery red gem that — in the
-      palm of a capable spellcaster — becomes a conduit for their
-      power.</p><p>It gathers searing energy within its gem before blasting its
-      target with <strong>Fire</strong> damage to <strong>Health</strong>.</p>
+      <p>A simple two-handed staff set with a green gem that — in the palm of
+      a capable spellcaster — becomes a conduit for their power.</p><p>It
+      gathers caustic energy within its gem before blasting its target with
+      <strong>Acid</strong> damage to <strong>Health</strong>.</p>
     private: ''
   actions: []
   dropped: false
@@ -31,7 +31,7 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790688622414
+  createdTime: 1790688619961
   modifiedTime: 1790688626486
   lastModifiedBy: M1BSmH2nkSHNPBss
   compendiumSource: null
@@ -40,6 +40,6 @@ _stats:
 ownership:
   default: 0
   M1BSmH2nkSHNPBss: 3
-_id: flameStaff000000
-sort: 200000
-_key: '!items!flameStaff000000'
+_id: earthStaff000000
+sort: 100000
+_key: '!items!earthStaff000000'

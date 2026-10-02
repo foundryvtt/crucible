@@ -1,0 +1,20 @@
+type: Item
+folder: fqtkBZ47aF32jY4Q
+name: Talisman (2h)
+color: null
+sorting: a
+_id: dhytTyAU2zNv4suy
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1790681529616
+  modifiedTime: 1790681529616
+  lastModifiedBy: M1BSmH2nkSHNPBss
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!dhytTyAU2zNv4suy'
