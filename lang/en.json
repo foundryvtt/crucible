@@ -67,6 +67,10 @@
         "Name": "Fall",
         "NameDistance": "Fall ({distance} feet)"
       },
+      "Interact": {
+        "Description": "Open or close a door within reach.",
+        "Name": "Interact"
+      },
       "Investiture": {
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
         "Name": "Investiture"
@@ -449,6 +453,10 @@
         },
         "ESTOCADE": {
           "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
+        },
+        "INTERACT": {
+          "DoorOutOfRange": "That door is out of reach.",
+          "NoDoor": "There is no door within reach to interact with."
         },
         "REVIVE": {
           "RequiresDead": "Revive requires a Dead target."
