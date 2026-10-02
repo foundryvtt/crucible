@@ -20,7 +20,7 @@ system:
       img: icons/magic/nature/stealth-hide-eyes-green.webp
       condition: You are not engaged.
       description: >-
-        <p>You make a single @Rule[skill.stealth] check against the
+        <p>You make a single @Rule[skill.stealth] check against the passive
         @Rule[skill.awareness] of the most perceptive enemy within <strong>30
         feet</strong>, taking @Rule[dice.bane]{+1 Bane} for each further enemy
         who might notice you. With no enemy near enough to notice you no check
