@@ -1461,7 +1461,6 @@
       "EffectGainedDuration": "Gained ({duration})",
       "HeaderEnd": "{actor} - Turn End",
       "HeaderStart": "{actor} - Turn Start",
-      "Maintaining": "{effect} (Maintaining)",
       "TableTitleEffects": "Effect Changes",
       "TableTitleResources": "Resource Changes"
     },
