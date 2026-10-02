@@ -1020,6 +1020,7 @@
       "NoAncestry": "Choose an Ancestry",
       "NoBackground": "Choose a Background",
       "NoDragTalent": "Talents can only be added to a Hero Actor via the Talent Tree.",
+      "NoToken": "You must have a controlled Token or an assigned character to do that.",
       "OverspentAbility": "Too many Ability Points have been spent",
       "OverspentProficiency": "Too many Proficiency Points have been spent",
       "OverspentTalent": "Too many Talents have been taken",
