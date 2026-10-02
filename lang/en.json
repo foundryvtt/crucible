@@ -445,8 +445,7 @@
     "WARNINGS": {
       "SPECIFIC": {
         "DELAY": {
-          "AlreadyDelayed": "You may not delay your turn again this combat round.",
-          "WrongTurn": "You may only use the Delay action on your own turn in combat."
+          "AlreadyDelayed": "You may not delay your turn again this combat round."
         },
         "ESTOCADE": {
           "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
@@ -513,6 +512,7 @@
       "NonCombat": "You may not use {action} during Combat.",
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
+      "NotYourTurn": "You may only use the {action} action on your own turn in combat.",
       "NoViewedScene": "A viewed Scene is required to acquire targets for this action.",
       "OncePerRound": "You may only perform the {action} action once per round.",
       "OncePerTurn": "You may only perform the {action} action once per turn.",

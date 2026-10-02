@@ -625,7 +625,7 @@ HOOKS.defensiveRoll = {
 HOOKS.delay = {
   canUse() {
     if ( game.combat?.combatant?.actor !== this.actor ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.DELAY.WrongTurn"));
+      throw new Error(_loc("ACTION.WARNINGS.NotYourTurn", {action: this.name}));
     }
     if ( this.actor.flags.crucible?.delay ) {
       throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.DELAY.AlreadyDelayed"));
