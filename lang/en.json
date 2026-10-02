@@ -633,6 +633,10 @@
     },
     "Throw": {
       "NotGrappling": "You may only Throw a creature you are Grappling."
+    },
+    "VowOfAnimus": {
+      "VowName": "Sworn Vow: {target}",
+      "VowDescription":"You vowed to vanquish a specific foe who became the subkect of your animus."
     }
   },
   "ACTIVE_EFFECT": {
