@@ -49,7 +49,7 @@
         </div>
         <div class="counter">
             <label>{{localize damage.resistanceLabel}}</label>
-            <span class="tag">{{damage.resistanceValue}}</span>
+            <span class="tag {{#if damage.resistanceTooltip}}capped{{/if}}"{{#if damage.resistanceTooltip}} data-tooltip-text="{{damage.resistanceTooltip}}"{{/if}}>{{damage.resistanceValue}}</span>
         </div>
         <div class="counter total">
             <label>{{localize "DICE.DamageTotal"}}</label>

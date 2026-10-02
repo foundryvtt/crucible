@@ -1738,6 +1738,7 @@
     "DamageResistance": "Damage Resistance",
     "DamageTotal": "Damage Total",
     "DamageVulnerability": "Damage Vulnerability",
+    "DamageVulnerabilityCapped": "Vulnerability cannot increase damage beyond twice its pre-mitigation amount.",
     "DC": "DC",
     "DCAdditionalPassive": "{dcLabel}, Passive",
     "DCAdditionalGroup": "{dcLabel}, Group",
