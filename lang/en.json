@@ -71,6 +71,10 @@
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
         "Name": "Investiture"
       },
+      "Maintain": {
+        "Description": "Spend the Focus cost of a maintained effect to sustain it for another round.",
+        "Name": "Maintain"
+      },
       "Move": {
         "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
         "Name": "Move"
@@ -510,6 +514,7 @@
       "NoConsumable": "No consumable Item identified for action \"{action}\"",
       "NoConsumableUses": "Consumable item \"{item}\" has no uses remaining for Action \"{action}\"",
       "NoLanternOil": "You must have a unit of Lantern Oil in your inventory to light a lantern.",
+      "NoMaintainedEffect": "You have no effect which can be maintained!",
       "NonCombat": "You may not use {action} during Combat.",
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",

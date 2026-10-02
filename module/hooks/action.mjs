@@ -2036,6 +2036,14 @@ HOOKS.rest = {
   }
 };
 
+/* -------------------------------------------- */
+
+HOOKS.maintain = {
+  canUse() {
+    if ( !this.actor.maintainedEffect ) throw new Error(_loc("ACTION.WARNINGS.NoMaintainedEffect"));
+  }
+};
+
 /**
  * Shared event recorder used by the rest and recover action postActivate hooks.
  * @param {CrucibleAction} action

@@ -1546,6 +1546,24 @@ export const DEFAULT_ACTIONS = Object.freeze([
     }
   },
 
+  // Maintain (only added while the Actor has a maintained effect; its focus cost is drawn from that effect)
+  {
+    id: "maintain",
+    name: "ACTION.DEFAULT_ACTIONS.Maintain.Name",
+    img: "icons/magic/time/clock-stopwatch-white-blue.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Maintain.Description",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    cost: {
+      action: 0
+    },
+    tags: [],
+    autoFavorite: true
+  },
+
   // Reload
   {
     id: "reload",

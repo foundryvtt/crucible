@@ -194,6 +194,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * The singleton effect which this Actor is maintaining, if any.
+   * @type {CrucibleActiveEffect|null}
+   */
+  get maintainedEffect() {
+    return this.system.maintainedEffect;
+  }
+
+  /**
    * The prepared object of actor status data
    * @returns {ActorRoundStatus}
    */
