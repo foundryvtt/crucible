@@ -2508,6 +2508,57 @@ HOOKS.lightLantern = {
 
 /* -------------------------------------------- */
 
+/**
+ * The embedded Pick Up Torch action configuration shared by the pickup regions of both throw flows.
+ */
+const PICKUP_REGION_ACTION = Object.freeze({
+  id: "pickupTorch",
+  name: "Pick Up Torch",
+  img: "icons/sundries/lights/torch-brown-lit.webp",
+  description: "<p>Grab the burning torch, wielding it with whatever burn time remains.</p>",
+  effects: [],
+  tags: [
+    "harmless"
+  ],
+  target: {
+    scope: 4,
+    self: true
+  }
+});
+
+
+/**
+ * The Burning Torch weapon granted by the Light Torch action. A simple one-handed weapon which may be wielded
+ * (shedding light on its wielder's token, see the weapon "torch" hooks) or thrown via its Throw Torch action.
+ */
+const BURNING_TORCH = Object.freeze({
+  name: "Burning Torch",
+  type: "weapon",
+  img: "icons/sundries/lights/torch-brown-lit.webp",
+  system: {
+    identifier: "torchBurning",
+    category: "simple1",
+    damageType: "fire",
+    quantity: 1,
+    weight: 1,
+    price: 1,
+    quality: "standard",
+    enchantment: "mundane",
+    equipped: true,
+    invested: false,
+    broken: false,
+    dropped: false,
+    slot: 0, // Either hand: the first open hand will wield it
+    properties: [],
+    description: {
+      public: "<p>A burning torch which sheds flickering illumination on its wielder. It may be wielded as an improvised weapon, or thrown to leave its light where it lands.</p>",
+      private: ""
+    },
+  }
+});
+
+/* -------------------------------------------- */
+
 HOOKS.lightTorch = {
   preActivate() {
     if ( this.effects[0] ) {
@@ -2516,6 +2567,18 @@ HOOKS.lightTorch = {
         showIcon: 0 // Never
       });
     }
+  },
+  async confirm(reverse) {
+    if ( reverse ) {
+      const weapon = this.actor.items.get(this.metadata.torchWeaponId);
+      if ( weapon ) await weapon.delete();
+      return;
+    }
+
+    // The lit torch becomes a wieldable weapon in the first open hand, and the unlit torch is spent
+    const [weapon] = await this.actor.createEmbeddedDocuments("Item", [foundry.utils.deepClone(BURNING_TORCH)]);
+    this.metadata.torchWeaponId = weapon.id;
+    await this.item?.delete();
   }
 };
 

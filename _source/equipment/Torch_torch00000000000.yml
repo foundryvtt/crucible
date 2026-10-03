@@ -64,8 +64,7 @@ system:
             summons: []
             dc: null
             properties: []
-      tags:
-        - consume
+      tags: []
       summon: null
   uses:
     value: 1

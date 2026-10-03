@@ -29,19 +29,24 @@ HOOKS.potionOfGliding = {
 /**
  * Default Token light configuration applied by a lit Torch when the token has no custom light source.
  */
-const TORCH_LIGHT = Object.freeze({alpha: 0.75, angle: 360, bright: 15, color: "#ff8800", coloration: 101, dim: 30,
-  attenuation: 0.6, luminosity: 0.5, saturation: 0, contrast: 0, shadows: 0, negative: false, priority: 0,
+export const TORCH_LIGHT = Object.freeze({alpha: 0.75, angle: 360, bright: 15, color: "#ff8800", coloration: 101,
+  dim: 30, attenuation: 0.6, luminosity: 0.5, saturation: 0, contrast: 0, shadows: 0, negative: false, priority: 0,
   animation: {type: "flame", speed: 2, intensity: 2, reverse: false}, darkness: {min: 0, max: 1}});
 
 /* -------------------------------------------- */
 
-HOOKS.torch = {
-  prepareToken(_item, token) {
-    if ( !this.effects.has("torchBurning0000") ) return;
-    if ( (token.light.bright !== 0) || (token.light.dim !== 0) ) return; // Don't override manually configured light
-    foundry.utils.mergeObject(token.light, TORCH_LIGHT);
-  }
-};
+/**
+ * Apply the default torch light configuration to the token of an Actor wielding a lit torch, unless the token has
+ * been manually configured with a light source of its own. Registered only for the Burning Torch weapon, so an
+ * actor whose torch has been thrown - whose burn effect tracks the thrown torch's remaining time - is not lit.
+ * @param {CrucibleActor} actor   The Actor preparing the token
+ * @param {CrucibleToken} token   The token being prepared
+ */
+export function prepareTorchToken(actor, token) {
+  if ( !actor.effects.has("torchBurning0000") ) return;
+  if ( (token.light.bright !== 0) || (token.light.dim !== 0) ) return; // Don't override manually configured light
+  foundry.utils.mergeObject(token.light, TORCH_LIGHT);
+}
 
 /* -------------------------------------------- */
 

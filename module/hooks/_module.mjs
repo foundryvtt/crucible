@@ -1,6 +1,7 @@
 import ACTION_HOOKS from "./action.mjs";
 import ANCESTRY_TALENT_HOOKS from "./ancestry-talents.mjs";
 import TALENT_HOOKS from "./talent.mjs";
+import {prepareTorchToken} from "./consumable.mjs";
 
 export {default as accessory} from "./accessory.mjs";
 export const action = Object.assign(ACTION_HOOKS, ANCESTRY_TALENT_HOOKS.action);
@@ -11,6 +12,11 @@ export {default as spell} from "./spell.mjs";
 export {default as spellcraft} from "./spellcraft.mjs";
 export {default as affix} from "./affix.mjs";
 export const weapon = {
+  torchBurning: {
+    prepareToken(_item, token) {
+      prepareTorchToken(this, token);
+    }
+  },
   chainHook: {
     preActivateAction(...args) {
       crucible.api.hooks.affix.returning.preActivateAction(...args);
