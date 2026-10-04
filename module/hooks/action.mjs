@@ -661,7 +661,7 @@ HOOKS.defensiveRoll = {
 HOOKS.delay = {
   canUse() {
     if ( game.combat?.combatant?.actor !== this.actor ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.DELAY.WrongTurn"));
+      throw new Error(_loc("ACTION.WARNINGS.NotYourTurn", {action: this.name}));
     }
     if ( this.actor.flags.crucible?.delay ) {
       throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.DELAY.AlreadyDelayed"));
@@ -1226,6 +1226,68 @@ HOOKS.inspireHeroism = {
       {key: "system.rollBonuses.boons.inspireHeroism.number", type: "override", value: 1},
       {key: "system.rollBonuses.boons.inspireHeroism.label", type: "override", value: this.name}
     );
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * How far, in grid units, an Actor may be from a door and still use the Interact Action on it.
+ * @type {number}
+ */
+const INTERACT_RANGE = 5;
+
+/* -------------------------------------------- */
+
+HOOKS.interact = {
+  suppressFromSheet: true,
+
+  /**
+   * Interact is never used directly from a character sheet; it is triggered by clicking an interactable object on
+   * the scene (see CrucibleDoorControl), which records the targeted wall in `usage.wallId` before the Action is
+   * used. Because `usage` is shared across all clones of an Actor's Action and persists between uses, every check
+   * below is fully re-validated on each use rather than assumed from the last.
+   */
+  canUse() {
+    const wall = canvas.walls?.get(this.usage.wallId);
+    if ( !wall?.document.isDoor ) throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERACT.NoDoor"));
+    if ( game.combat?.combatant?.actor !== this.actor ) {
+      throw new Error(_loc("ACTION.WARNINGS.NotYourTurn", {action: this.name}));
+    }
+
+    // The door must be within interaction range of the acting token (canvas placeable, not the document, for .center)
+    const token = this.actor.getActiveTokens(true, false)[0];
+    if ( !token || !canvas.ready ) throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERACT.NoDoor"));
+    const [mx, my] = wall.midpoint;
+    const {distance} = canvas.grid.measurePath([token.center, {x: mx, y: my}]);
+    if ( distance > INTERACT_RANGE ) throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERACT.DoorOutOfRange"));
+  },
+
+  preActivate() {
+    const wall = canvas.walls?.get(this.usage.wallId);
+    if ( !wall?.document.isDoor ) throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.INTERACT.NoDoor"));
+    const states = CONST.WALL_DOOR_STATES;
+
+    // Store the targeted wall and the door's intended state on the Action, which persists via the ChatMessage
+    // flags. Confirming or reversing this specific Action then always results in a deterministic wall state for
+    // this Action, even if the door has been toggled by something else in the meantime.
+    this.metadata.wallId = wall.id;
+    this.metadata.doorState = (wall.document.ds === states.OPEN) ? states.CLOSED : states.OPEN;
+  },
+
+  async confirm(reverse) {
+    const wall = canvas.walls?.get(this.metadata.wallId);
+    const intended = this.metadata.doorState;
+    if ( !wall || (intended === undefined) ) return;
+    const states = CONST.WALL_DOOR_STATES;
+    const prior = (intended === states.OPEN) ? states.CLOSED : states.OPEN;
+
+    // Confirm: enact the intended state unless the wall is already in it. Reverse: restore the state the wall was
+    // in before this Action, but only while it is still in the state this Action produced - otherwise another
+    // Action has already accounted for the change, and undoing it here would apply it a second time.
+    if ( reverse ? (wall.document.ds === intended) : (wall.document.ds !== intended) ) {
+      await wall.document.update({ds: reverse ? prior : intended});
+    }
   }
 };
 
