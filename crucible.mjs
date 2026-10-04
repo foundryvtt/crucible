@@ -490,10 +490,7 @@ Hooks.once("init", async function() {
   CONFIG.debug.talentTree = false;
   CONFIG.debug.flanking = false;
   CONFIG.debug.vfx = true;
-  if ( crucible.developmentMode ) {
-    registerDevelopmentHooks();
-    enableSpellcheckContext();
-  }
+
 
   // Replace core layer class with custom grid layer class
   CONFIG.Canvas.layers.grid.layerClass = canvas.grid.CrucibleGridLayer;
@@ -505,6 +502,17 @@ Hooks.once("init", async function() {
     senseCreature: new canvas.detectionModes.DetectionModeSenseCreature(),
     thermalVision: new canvas.detectionModes.DetectionModeThermalVision()
   });
+});
+
+/* -------------------------------------------- */
+/*  Game Setup                                  */
+/* -------------------------------------------- */
+
+Hooks.once("setup", function() {
+  if ( crucible.developmentMode ) {
+    registerDevelopmentHooks();
+    enableSpellcheckContext();
+  }
 });
 
 /* -------------------------------------------- */
@@ -927,7 +935,7 @@ async function standardizeItemIds() {
  */
 function registerDevelopmentHooks() {
   Hooks.on("preCreateItem", (item, data, options, _user) => {
-    if ( options.keepId === false ) return;
+    if ( options.keepId === false || !crucible.developmentMode ) return;
     // Generate a new ID
     if ( !item.parent && !item.id ) {
       const id = generateId(item.name, 16);

@@ -46,7 +46,16 @@ system:
       level: 1
     - item: Compendium.crucible.talent.Item.adrenaline000000
       level: 4
-  training: {}
+  training:
+    athletics: 2
+    stealth: 1
+    society: 0
+    deception: 0
+    intimidation: 1
+    light: 3
+    shield: 3
+    unarmed: 1
+    armor: 2
   spells: []
   equipment:
     - item: Compendium.crucible.equipment.Item.spear00000000000
@@ -72,7 +81,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   createdTime: 1791130481763
-  modifiedTime: 1791130481799
+  modifiedTime: 1791131157400
   lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
