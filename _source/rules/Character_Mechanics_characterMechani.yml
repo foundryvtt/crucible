@@ -337,7 +337,16 @@ pages:
         damage</strong>.</p></section><h2 class="divider">Damage
         Immunity</h2><p>In exceptional cases, a creature may be entirely
         <strong>Immune</strong> to a certain damage type. In this case, the
-        creature never takes damage of that type no matter its magnitude.</p>
+        creature never takes damage of that type no matter its
+        magnitude.</p><section class="foundryvtt"><h4>Damage Breakdown</h4><p>The
+        damage breakdown shown on an attack's chat card reports only the amount
+        of Resistance or Vulnerability that affected that hit, not the target's
+        full value. A modest hit against a highly resistant creature shows a
+        Resistance no greater than the damage it would have dealt, and a capped
+        hit against a vulnerable creature shows a Vulnerability no greater than
+        the damage before vulnerability. Striking harder can reveal more. A
+        creature that is Immune to a damage type always shows its
+        immunity.</p></section>
     video:
       controls: true
       volume: 0.5

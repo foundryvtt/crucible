@@ -279,11 +279,18 @@ export default class StandardCheck extends Roll {
     damage.hasMultiplier = damage.multiplier !== 1;
     if ( damage.restoration ) damage.typeLabel = SYSTEM.RESOURCES[damage.resource].label;
     else if ( damage.type ) damage.typeLabel = SYSTEM.DAMAGE_TYPES[damage.type].label;
-    damage.resistanceLabel = damage.resistance < 0 ? "DICE.DamageVulnerability" : "DICE.DamageResistance";
-    damage.resistanceValue = (damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(damage.resistance);
+
+    // Report only the resistance or vulnerability which applied, so a weak hit does not reveal the full amount
+    let applied = damage.resistance ?? Infinity;
+    if ( applied !== Infinity ) {
+      const preMitigation = crucible.api.models.CrucibleAction.computeDamage({...damage, resistance: 0});
+      applied = Math.clamp(applied, -preMitigation, preMitigation);
+    }
+    damage.resistanceLabel = applied < 0 ? "DICE.DamageVulnerability" : "DICE.DamageResistance";
+    damage.resistanceValue = applied === Infinity ? "∞" : Math.abs(applied);
     damage.cssClass = "";
-    if ( damage.resistance < 0 ) damage.cssClass = "vulnerable";
-    else if ( damage.resistance > 0 ) damage.cssClass = "resistance";
+    if ( applied < 0 ) damage.cssClass = "vulnerable";
+    else if ( applied > 0 ) damage.cssClass = "resistance";
     if ( damage.total === 0 ) damage.cssClass += " ineffective";
     return damage;
   }
