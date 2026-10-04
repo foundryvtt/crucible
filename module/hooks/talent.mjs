@@ -2063,11 +2063,36 @@ HOOKS.weakpoints000000 = {
 /* -------------------------------------------- */
 
 HOOKS.vowofanimus00000 = {
+  _TRACKER_ID: "vowOfAnimusTrack",
   // TODO would be better handled if hooks can exist on active effects as a defendAttack hook
   prepareAttack(item, action, target, rollData) {
-    if ( !["strike", "skill"].some(t => action.tags.has(t)) ) return;
-    if ( !target.effects.has(SYSTEM.EFFECTS.getEffectId(item.actions[0].id)) ) return;
+    if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
+    if ( target.effects.get(SYSTEM.EFFECTS.getEffectId(item.actions[0].id))?.origin !== this.uuid ) return;
     rollData.boons.vowOfAnimus = {label: item.name, number: 2};
+  },
+  finalizeAction(item, action) {
+    if ( action.id !== item.actions[0].id ) return;
+    const [newTarget] = action.targets.keys();
+    if ( !newTarget ) return;
+    const vowId = SYSTEM.EFFECTS.getEffectId(action.id);
+
+    // Relinquish the vow sworn against a different prior target
+    const tracker = this.effects.get(HOOKS.vowofanimus00000._TRACKER_ID);
+    const previous = tracker?.origin ? fromUuidSync(tracker.origin) : null;
+    if ( previous && (previous.uuid !== newTarget.uuid) && (previous.effects.get(vowId)?.origin === this.uuid) ) {
+      action.recordEvent({type: "effect", target: previous, effects: [{_id: vowId, _action: "delete"}]});
+    }
+
+    // Track the subject of the new vow
+    action.recordEvent({type: "effect", target: this, effects: [{
+      _id: HOOKS.vowofanimus00000._TRACKER_ID,
+      name: _loc("ACTIONS.VowOfAnimus.VowName", {target: newTarget.name}),
+      description: `<p>${_loc("ACTIONS.VowOfAnimus.VowDescription")}</p>`,
+      img: item.img,
+      origin: newTarget.uuid,
+      duration: action.effects[0].duration,
+      system: {dc: null}
+    }]});
   }
 };
 
