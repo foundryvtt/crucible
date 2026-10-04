@@ -44,13 +44,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157483
-  modifiedTime: 1788724343817
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1791130481801
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null
 _id: fighter000000000
-sort: 2000000
+sort: 2800000
 _key: '!items!fighter000000000'

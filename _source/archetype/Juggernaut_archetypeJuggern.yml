@@ -47,13 +47,13 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
-  modifiedTime: 1788725583055
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1791130481801
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   exportSource: null
   createdTime: 1781218465590
 _id: archetypeJuggern
-sort: 2700000
+sort: 3000000
 _key: '!items!archetypeJuggern'

@@ -33,7 +33,7 @@ system:
   equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
-sort: 2100000
+sort: 2900000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -41,10 +41,10 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157481
-  modifiedTime: 1788723806466
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1791130481801
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

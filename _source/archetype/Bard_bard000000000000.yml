@@ -47,12 +47,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307157482
-  modifiedTime: 1788723932381
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1791130481800
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: bard000000000000
-sort: 1100000
+sort: 1900000
 _key: '!items!bard000000000000'

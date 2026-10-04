@@ -40,13 +40,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157482
-  modifiedTime: 1788724119050
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1791130481801
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null
 _id: berserker0000000
-sort: 1900000
+sort: 2700000
 _key: '!items!berserker0000000'

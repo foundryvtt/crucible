@@ -48,13 +48,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.10.2
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   createdTime: 1772307157484
-  modifiedTime: 1788725932635
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1791130481801
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null
 _id: mage000000000000
-sort: 1200000
+sort: 2000000
 _key: '!items!mage000000000000'

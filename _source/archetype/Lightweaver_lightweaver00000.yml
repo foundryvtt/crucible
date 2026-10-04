@@ -55,14 +55,14 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1776980261367
-  modifiedTime: 1788725855013
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1791130481799
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   exportSource: null
   compendiumSource: null
   duplicateSource: null
-sort: 0
+sort: 500000
 _key: '!items!lightweaver00000'

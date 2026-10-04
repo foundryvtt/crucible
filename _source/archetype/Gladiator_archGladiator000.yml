@@ -1,0 +1,81 @@
+type: archetype
+name: Gladiator
+_id: archGladiator000
+img: icons/skills/melee/spear-tips-triple-orange.webp
+system:
+  description: >-
+    <p>Formidable warriors who are near peerless in the art of one-on-one
+    combat, using a mixture of honed reflex and toughened grit to outlast and
+    outmatch their opponents.</p>
+  identifier: gladiator
+  abilities:
+    wisdom: 0
+    presence: 1
+    intellect: 1
+    strength: 2
+    toughness: 4
+    dexterity: 4
+  talents:
+    - item: Compendium.crucible.talent.Item.gladiator0000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.shieldBash000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.bulwark000000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.testudo000000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.counterstrike000
+      level: 2
+    - item: Compendium.crucible.talent.Item.counterevade0000
+      level: 2
+    - item: Compendium.crucible.talent.Item.lunge00000000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.dirtytricks00000
+      level: 3
+    - item: Compendium.crucible.talent.Item.armoredInstinct0
+      level: 2
+    - item: Compendium.crucible.talent.Item.ironResolve00000
+      level: 3
+    - item: Compendium.crucible.talent.Item.harrier000000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.bloodletter00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.weakpoints000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.tumblethrough000
+      level: 1
+    - item: Compendium.crucible.talent.Item.adrenaline000000
+      level: 4
+  training: {}
+  spells: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.spear00000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.roundShield00000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.studdedLeatherAr
+      quantity: 1
+      equipped: true
+      autoScale: true
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791130481763
+  modifiedTime: 1791130481799
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 300000
+_key: '!items!archGladiator000'

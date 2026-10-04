@@ -68,12 +68,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.367'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1771797216892
-  modifiedTime: 1788726265076
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1791130481799
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: necromancer00000
-sort: 0
+sort: 600000
 _key: '!items!necromancer00000'
