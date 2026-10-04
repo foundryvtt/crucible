@@ -2525,8 +2525,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Out of range (skipped when range is indeterminate: no target or no rendered canvas)
     if ( target && this.token?.object && canvas.ready ) {
       const dist = crucible.api.canvas.grid.getLinearRangeCost(this.token.object, target);
-      const max = this.range.weapon ? ((this._source.range.maximum ?? 0) + (weapon.system.range ?? 0))
-        : (this.range.maximum ?? 0);
+      let max = this.range.maximum ?? 0;
+      if ( this.range.weapon ) max = (this._source.range.maximum ?? 0) + (weapon.system.range ?? 0);
+      else if ( this.tags.has("thrown") ) max = (this._source.range.maximum ?? 0) + weapon.system.thrownRange;
       const min = this._source.range.minimum ?? 0;
       if ( (max && (dist > max)) || (min && (dist < min)) ) return {available: false, reason: "outOfRange", rank};
     }

@@ -773,8 +773,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
-    weapons.slow = mh?.system.properties.has("oversized") ? 1 : 0;
-    weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
+    weapons.slow = 0;
+    for ( const w of [mh, oh] ) {
+      if ( w?.system.properties.has("oversized") ) weapons.slow += w.system.activeCategory.hands;
+    }
     return weapons;
   }
 

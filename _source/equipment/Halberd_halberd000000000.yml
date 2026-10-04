@@ -13,7 +13,7 @@ system:
   enchantment: mundane
   equipped: false
   properties:
-    - parrying
+    - reach
   description:
     public: >-
       <p>Combining an axe blade, a spear point, and a hook on a single pole, the

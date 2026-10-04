@@ -91,10 +91,10 @@ pages:
         some benefit, some also come with a tradeoff to ensure that they are not
         strictly superior to weapons which lack that
         property.</p><h4>Ambush</h4><p>This weapon can be easily concealed and
-        retrieved quickly. This weapon may be drawn for free during your own
-        turn or as part of a Reaction. Its compact size reduces its effective
-        range by 1 foot for melee weapons or 10 feet for ranged
-        weapons.</p><h4>Blocking</h4><p>This weapon provides +1 to Block defense
+        retrieved quickly. Equipping or unequipping this weapon costs no Action,
+        although recovering it after it has been dropped costs the usual 1
+        Action. Its compact size reduces its effective range by half, rounded
+        up.</p><h4>Blocking</h4><p>This weapon provides +1 to Block defense
         while equipped and not Broken. The weapon's defensive design reduces its
         base damage by 1 for one-handed weapons or 2 for two-handed
         weapons.</p><h4>Engaging</h4><p>This weapon is designed to better allow
@@ -106,21 +106,32 @@ pages:
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiency}
         required for its use; a wielder with no training at all suffers only a
         -2 penalty rather than -4. Simple and natural weapons are always
-        Intuitive.</p><h4>Oversized</h4><p>This weapon is large for its category
-        and is unwieldy in combat without special training. The weapon gains +1
-        base damage for one-handed weapons or +2 for two-handed weapons, but is
-        slow and provides +2 Banes to Initiative
-        rolls.</p><h4>Parrying</h4><p>This weapon provides +1 to Parry defense
+        Intuitive.</p><h4>Natural</h4><p>This weapon is a part of the creature
+        which wields it, such as claws, fangs, or a tail. Natural weapons use
+        Natural Weapon training rather than the training of their weapon
+        category, and are always Intuitive. They do not occupy a hand, cannot be
+        dropped or thrown, and are not described by a quality tier. Some actions
+        may only be performed using natural weapons.</p><h4>Oversized</h4><p>This
+        weapon is large for its category and is unwieldy in combat without
+        special training. The weapon gains +1 base damage for one-handed weapons
+        or +2 for two-handed weapons, but is slow to wield, imposing 1 Bane to
+        Initiative rolls for each hand used to wield it.</p><h4>Parrying</h4><p>This weapon provides +1 to Parry defense
         while equipped and not Broken. The weapon's defensive balance increases
         the Critical Success Threshold for Strikes made with this weapon by +1,
-        making critical hits harder to achieve.</p><h4>Versatile</h4><p>This
-        normally one-handed weapon can be used effectively with two hands. While
-        equipped without any item in the off-hand its base damage is increased
-        by +2 and Action cost is increased by +1.</p><h4>Thrown</h4><p>This
-        weapon can be used to Strike at range up to a distance of 20 feet. When
-        used to Strike a target that is not within melee range, the Weapon
-        becomes unequipped and must be retrieved before it can be used
-        again.</p>
+        making critical hits harder to achieve.</p><h4>Reach</h4><p>This weapon
+        trades striking power for a longer effective range. Its range is
+        increased by half, rounded up, but its base damage is reduced by 1 for
+        one-handed weapons or 2 for two-handed weapons.</p><h4>Thrown</h4><p>This
+        weapon is designed to be thrown. It can be used to Strike at range up to
+        a distance of 30 feet, rather than the 10 feet of an improvised throw,
+        and does not suffer the Banes of an improvised throw. A thrown weapon is
+        dropped and must be recovered before it can be used
+        again.</p><h4>Versatile</h4><p>This weapon can be wielded with either
+        one or two hands. In its alternate grip it uses the statistics of the
+        corresponding weapon category of its kind, including base damage,
+        Action cost, and range: a one-handed Simple, Balanced, or Heavy weapon
+        wielded in two hands uses the statistics of the two-handed weapon of
+        that category.</p>
       markdown: ''
     video:
       controls: true

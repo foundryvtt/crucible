@@ -266,16 +266,15 @@ export const PROPERTIES = defineEnum({
   natural: {label: "WEAPON.TAGS.Natural", tooltip: "WEAPON.TAGS.NaturalTooltip"},
   oversized: {label: "WEAPON.TAGS.Oversized", tooltip: "WEAPON.TAGS.OversizedTooltip"},
   parrying: {label: "WEAPON.TAGS.Parrying", tooltip: "WEAPON.TAGS.ParryingTooltip"},
+  reach: {label: "WEAPON.TAGS.Reach", tooltip: "WEAPON.TAGS.ReachTooltip"},
   thrown: {label: "WEAPON.TAGS.Thrown", tooltip: "WEAPON.TAGS.ThrownTooltip"},
   versatile: {label: "WEAPON.TAGS.Versatile", tooltip: "WEAPON.TAGS.VersatileTooltip"},
   /** @deprecated since 0.9.1 */
-  keen: {label: "WEAPON.TAGS.Keen", tooltip: "WEAPON.TAGS.KeenTooltip", deprecated: "0.9.1"},
+  keen: {label: "WEAPON.TAGS.Keen", deprecated: "0.9.1"},
   /** @deprecated since 0.9.1 */
-  reach: {label: "WEAPON.TAGS.Reach", tooltip: "WEAPON.TAGS.ReachTooltip", deprecated: "0.9.1"},
+  reliable: {label: "WEAPON.TAGS.Reliable", deprecated: "0.9.1"},
   /** @deprecated since 0.9.1 */
-  reliable: {label: "WEAPON.TAGS.Reliable", tooltip: "WEAPON.TAGS.ReliableTooltip", deprecated: "0.9.1"},
-  /** @deprecated since 0.9.1 */
-  returning: {label: "WEAPON.TAGS.Returning", tooltip: "WEAPON.TAGS.ReturningTooltip", deprecated: "0.9.1"}
+  returning: {label: "WEAPON.TAGS.Returning", deprecated: "0.9.1"}
 });
 
 /**

@@ -749,6 +749,10 @@ export const TAGS = {
           this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
         }
       }
+      else if ( this.tags.has("thrown") ) {
+        const thrownRange = Math.min(...strikes.map(w => w.system.thrownRange));
+        this.range.maximum = (this._source.range.maximum ?? 0) + thrownRange;
+      }
     },
     acquireTargets(targets) {
       const weapon = this.usage.strikes[0];
@@ -892,8 +896,7 @@ export const TAGS = {
       }
     },
     prepare() {
-      this.range.maximum ??= 10;
-      this.range.weapon = false;
+      this.range.weapon = false; // Thrown range is resolved per weapon by the strike tag
     },
     preActivate() {
       if ( !this.usage.strikes?.length ) return;

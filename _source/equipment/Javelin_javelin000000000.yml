@@ -13,6 +13,7 @@ system:
   equipped: false
   invested: false
   properties:
+    - reach
     - thrown
   description:
     public: >-

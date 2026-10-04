@@ -86,6 +86,12 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   scaling;
 
+  /**
+   * Maximum distance in feet at which this weapon may be thrown.
+   * @type {number}
+   */
+  thrownRange;
+
   /* -------------------------------------------- */
 
   /**
@@ -157,6 +163,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
     // Weapon Range
     this.range = this.#prepareRange();
+    this.thrownRange = this.properties.has("thrown") ? 30 : 10;
 
     // Weapon Bonuses
     this.actionBonuses = {ability: 0, skill: -4, enchantment: 0};
@@ -219,6 +226,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     };
     if ( this.properties.has("oversized") ) damage.base += category.hands;
     if ( this.properties.has("blocking") || this.properties.has("engaging") ) damage.base -= category.hands;
+    if ( this.properties.has("reach") ) damage.base -= category.hands;
     if ( this.properties.has("parrying") ) damage.criticalSuccessThreshold += 1;
     return damage;
   }
@@ -256,7 +264,8 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   #prepareRange() {
     const category = this.activeCategory;
     let range = category.range;
-    if ( this.properties.has("ambush") ) range = Math.max(range - (category.ranged ? 10 : 1), 1);
+    if ( this.properties.has("reach") ) range = Math.ceil(range * 1.5);
+    if ( this.properties.has("ambush") ) range = Math.ceil(range * 0.5);
     return range;
   }
 

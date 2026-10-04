@@ -23,7 +23,7 @@ export const weapon = {
       const thrownWeapon = action.usage.weapon ?? action.usage.strikes?.[0];
       if ( thrownWeapon?.id !== item.id ) return;
       // Additive (not assignment) so the bonus composes with Peltast / Powerful Throw regardless of hook order
-      action.range.maximum += 50;
+      action.range.maximum += 30;
     }
   }
 };

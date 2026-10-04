@@ -12,7 +12,8 @@ system:
   quality: standard
   enchantment: mundane
   equipped: false
-  properties: []
+  properties:
+    - reach
   description:
     public: >-
       <p>A polearm with a curved, sword-like blade affixed to the end of a long
