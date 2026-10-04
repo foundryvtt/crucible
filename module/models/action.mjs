@@ -1276,6 +1276,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.region ??= this.region;
     context.movement ??= this.movement;
     context.message ??= this.message;
+    context.metadata ??= foundry.utils.deepClone(this.metadata);
     context.autoFavorite ??= this._autoFavorite;
     const clone = new this.constructor(actionData, context);
 

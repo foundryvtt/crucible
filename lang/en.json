@@ -68,8 +68,10 @@
         "NameDistance": "Fall ({distance} feet)"
       },
       "Interact": {
-        "Description": "Open or close a door within reach.",
-        "Name": "Interact"
+        "CloseDoor": "Close Door",
+        "Description": "Interact with an object in your environment, such as opening a door, pulling a lever, or picking up an object. If your @Rule[movement.freeMovement] for the round is still available, it is spent in place of the @Rule[resource.action] cost.",
+        "Name": "Interact",
+        "OpenDoor": "Open Door"
       },
       "Investiture": {
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
@@ -456,10 +458,6 @@
         "ESTOCADE": {
           "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
         },
-        "INTERACT": {
-          "DoorOutOfRange": "That door is out of reach.",
-          "NoDoor": "There is no door within reach to interact with."
-        },
         "REVIVE": {
           "RequiresDead": "Revive requires a Dead target."
         }
@@ -490,6 +488,7 @@
       "GemConjuredFlameShoddy": "A Shoddy quality Gem of Conjured Flame fails to summon any elemental.",
       "HideObservers": "Additional Observers",
       "IncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
+      "InteractRange": "You are too far away to interact with that object.",
       "InvalidTarget": "You must designate at least one {type} target for {action}!",
       "InvalidTargetScope": "That creature is not a valid target for {action}.",
       "InvalidTargetsGeneric": "Invalid targets for this action!",

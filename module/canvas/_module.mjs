@@ -13,9 +13,8 @@ export * as particles from "./particles/_module.mjs";
 export * as vfx from "./vfx/_module.mjs";
 export * as movement from "./movement.mjs";
 export {default as CrucibleMovementPolygon} from "./movement-polygon.mjs";
-export {default as CrucibleDoorControl} from "./door-control.mjs";
 export {default as CrucibleTokenObject} from "./token.mjs";
-export {CrucibleTokenRuler};
+export {CrucibleDoorControl, CrucibleTokenRuler};
 
 /**
  * Configure canvas extensions for the Crucible system.
@@ -23,7 +22,6 @@ export {CrucibleTokenRuler};
 export function configure() {
   CONFIG.Token.rulerClass = CrucibleTokenRuler;
   CONFIG.Token.hudClass = CrucibleTokenHUD;
-  // Player door clicks during Combat route through the "interact" Action, drawing from the Action economy
   CONFIG.Canvas.doorControlClass = CrucibleDoorControl;
   // Stride of 10, 6 strides per turn, 10 seconds per round, x2 multiplier for visual satisfaction
   CONFIG.Token.movement.defaultSpeed = (10 * 6) * 2 / 10;

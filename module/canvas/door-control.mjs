@@ -1,63 +1,110 @@
 /**
- * A specialized DoorControl which routes a player's left-click on a door icon during Combat through the "interact"
- * CrucibleAction, so that toggling the door draws from the acting Actor's Action economy like any other Action.
- *
- * The "interact" Action enforces its own reach and turn-order requirements (see module/hooks/action.mjs). GM
- * clicks, clicks outside of combat, and clicks on locked doors are left entirely to the default core behavior.
- * @extends {CONFIG.Canvas.doorControlClass}
+ * A DoorControl which routes door toggles by a combatant during tracked combat through the Interact action.
+ * @extends {foundry.canvas.containers.DoorControl}
  */
-export default class CrucibleDoorControl extends CONFIG.Canvas.doorControlClass {
-
-  /** @override */
-  async _onMouseDown(event) {
-    if ( !this._shouldUseAction() ) return super._onMouseDown(event);
-    event.stopPropagation();
-    return this._useInteractAction();
-  }
-
-  /* -------------------------------------------- */
+export default class CrucibleDoorControl extends foundry.canvas.containers.DoorControl {
 
   /**
-   * Should this click be routed through the "interact" Action instead of the default core door toggle?
-   * @returns {boolean}
+   * The maximum separation in feet between a token's border and a door it may interact with.
+   * @type {number}
    */
-  _shouldUseAction() {
-    if ( game.user.isGM ) return false;
-    if ( !game.combat?.started ) return false;
-    if ( this.wall.document.ds === CONST.WALL_DOOR_STATES.LOCKED ) return false;
-    return this.wall.document.isDoor;
+  static #INTERACTION_RANGE = 1;
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onMouseDown(event) {
+    if ( !this.#requiresAction(event) ) return super._onMouseDown(event);
+    const actor = this.#identifyActor();
+    if ( !actor && !game.user.isGM ) {
+      event.stopPropagation();
+      return ui.notifications.warn(_loc("ACTOR.WARNINGS.NoToken"));
+    }
+    if ( !actor || !game.combat.getCombatantsByActor(actor).length ) return super._onMouseDown(event);
+    event.stopPropagation();
+    return this.#interact(actor);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Resolve the Actor performing the click: the user's own controlled Token if exactly one is selected, otherwise
-   * their assigned character. Clicking a door doesn't imply acting as whoever's turn it is; if the resolved Actor
-   * isn't the active combatant, the "interact" Action's canUse hook raises its own warning.
+   * Identify the actor on whose behalf the user interacts with this door.
    * @returns {CrucibleActor|null}
    */
-  _getActingActor() {
-    const controlled = canvas.tokens?.controlled ?? [];
-    if ( controlled.length === 1 ) return controlled[0].actor;
-    return game.user.character ?? null;
+  #identifyActor() {
+    const controlled = canvas.tokens.controlled;
+    if ( !game.user.isGM ) return (controlled.length === 1) ? controlled[0].actor : game.user.character;
+
+    // A Gamemaster acts only as a controlled combatant, preferring the one whose turn it is
+    const combatants = controlled.filter(t => t.actor && game.combat.getCombatantsByActor(t.actor).length);
+    const current = combatants.find(t => t.actor === game.combat.combatant?.actor);
+    return (current ?? combatants[0])?.actor ?? null;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Perform the "interact" Action against this door's wall. The targeted wall is recorded on the Action's usage
-   * before it is used, in the same fashion as forcedTargets, so the Action doesn't have to guess which door was
-   * meant.
+   * Measure the separation in feet between a token's border and the nearest point of this door.
+   * @param {CrucibleTokenObject} token
+   * @returns {number}
+   */
+  #measureDistance(token) {
+    const r = token.bounds;
+    const [x0, y0, x1, y1] = this.wall.document.c;
+    const a = {x: x0, y: y0};
+    const b = {x: x1, y: y1};
+    if ( r.lineSegmentIntersects(a, b, {inside: true}) ) return 0;
+    let d = Infinity;
+    const {left, right, top, bottom} = r;
+    for ( const c of [{x: left, y: top}, {x: right, y: top}, {x: right, y: bottom}, {x: left, y: bottom}] ) {
+      const p = foundry.utils.closestPointToSegment(c, a, b);
+      d = Math.min(d, Math.hypot(p.x - c.x, p.y - c.y));
+    }
+    for ( const p of [a, b] ) {
+      d = Math.min(d, Math.hypot(p.x - Math.clamp(p.x, r.left, r.right), p.y - Math.clamp(p.y, r.top, r.bottom)));
+    }
+    return d / (canvas.grid.size / canvas.grid.distance);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Use the Interact action to toggle this door.
+   * @param {CrucibleActor} actor
    * @returns {Promise<void>}
    */
-  async _useInteractAction() {
-    const actor = this._getActingActor();
-    if ( !actor ) return ui.notifications.warn(_loc("ACTOR.WARNINGS.NoToken"));
-    const action = actor.actions.interact;
-    if ( !action ) {
-      return ui.notifications.warn(_loc("ACTOR.WARNINGS.NoAction", {actor: actor.name, action: "interact"}));
+  async #interact(actor) {
+    const interact = actor.actions.interact;
+    if ( game.combat.combatant?.actor !== actor ) {
+      ui.notifications.warn(_loc("ACTION.WARNINGS.NotYourTurn", {action: interact.name}));
+      return;
     }
-    action.usage.wallId = this.wall.document.id;
+    const token = canvas.tokens.controlled.find(t => t.actor === actor) ?? actor.getActiveTokens()[0];
+    if ( !token || (this.#measureDistance(token) > CrucibleDoorControl.#INTERACTION_RANGE) ) {
+      ui.notifications.warn(_loc("ACTION.WARNINGS.InteractRange"));
+      return;
+    }
+
+    // Record the door toggle as the interaction applied when the action is confirmed
+    const {OPEN, CLOSED} = CONST.WALL_DOOR_STATES;
+    const prior = this.wall.document.ds;
+    const ds = (prior === OPEN) ? CLOSED : OPEN;
+    const label = _loc(`ACTION.DEFAULT_ACTIONS.Interact.${ds === OPEN ? "OpenDoor" : "CloseDoor"}`);
+    const interaction = {uuid: this.wall.document.uuid, changes: {ds}, prior: {ds: prior}};
+    const action = interact.clone({name: `${interact._source.name} (${label})`}, {metadata: {interaction}});
     await action.use({dialog: false});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Should this click be routed through the Interact action rather than toggling the door directly?
+   * @param {PIXI.FederatedEvent} event
+   * @returns {boolean}
+   */
+  #requiresAction(event) {
+    if ( (event.button !== 0) || !game.combat?.started ) return false;
+    if ( !game.user.can("WALL_DOORS") || (game.paused && !game.user.isGM) ) return false;
+    return this.wall.document.ds !== CONST.WALL_DOOR_STATES.LOCKED;
   }
 }

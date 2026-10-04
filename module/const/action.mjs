@@ -1462,11 +1462,10 @@ export const DEFAULT_ACTIONS = Object.freeze([
   },
 
   // Interact
-  // Only ever triggered by interacting with an object on the scene (e.g. a door), never from the sheet
   {
     id: "interact",
     name: "ACTION.DEFAULT_ACTIONS.Interact.Name",
-    img: "icons/environment/wilderness/cave-entrance.webp",
+    img: "icons/sundries/misc/key-round-steel-blue.webp",
     description: "ACTION.DEFAULT_ACTIONS.Interact.Description",
     target: {
       type: "self",
@@ -1474,8 +1473,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     cost: {
       action: 1
-    },
-    tags: ["harmless"]
+    }
   },
 
   // Reactive Strike
