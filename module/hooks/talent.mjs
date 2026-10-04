@@ -1,3 +1,5 @@
+import {interruptAction} from "./helpers.mjs";
+
 const HOOKS = {};
 
 /* -------------------------------------------- */
@@ -1092,22 +1094,9 @@ HOOKS.inquisitor000000 = {
     const critHit = action.events.some(e =>
       (e.target !== this) && (e.roll?.data?.result >= HIT) && e.roll?.isCriticalSuccess);
     if ( !critHit ) return;
-    const targetMessage = game.messages.get(action.metadata.inquisitorTargetMessageId);
-    if ( !targetMessage || (targetMessage.getFlag("crucible", "confirmed") !== reverse) ) return;
-
-    // Interrupt the caster's spell after its activation cost
-    const CrucibleAction = action.constructor;
-    if ( !reverse ) {
-      const target = CrucibleAction.fromChatMessage(targetMessage);
-      target.negate(target.selfEvents.activation);
-      await target.updateMessage();
-    }
-    await CrucibleAction.confirmMessage(targetMessage, {reverse});
-    if ( reverse ) {
-      const target = CrucibleAction.fromChatMessage(targetMessage);
-      target.clearNegation();
-      await target.updateMessage();
-    }
+    const messageId = action.metadata.inquisitorTargetMessageId;
+    if ( game.messages.get(messageId)?.getFlag("crucible", "confirmed") !== reverse ) return;
+    await interruptAction(action, messageId, {reverse});
   }
 };
 

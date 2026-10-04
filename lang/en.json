@@ -468,7 +468,8 @@
         "other": "{name} must have {hands} free hands to use {action}!"
       },
       "CannotAffordMove": "{name} has insufficient action to move this distance which requires {cost}A!",
-      "CannotSpendAction": "{name} cannot spend Action because they are Incapacitated!",
+      "CannotConfirmTarget": "Cannot {change} {action} while the action it responds to is {state}.",
+      "CannotSpendAction":"{name} cannot spend Action because they are Incapacitated!",
       "CannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
       "CannotTargetSelf": "You cannot target yourself with this Action!",
       "CannotThrow": "You cannot throw this weapon.",
@@ -2317,7 +2318,6 @@
     "COUNTERSPELL": {
       "WARNINGS": {
         "BadTarget": "You can only Counterspell the caster of the last action, and that action must be a spell.",
-        "CannotConfirm": "Cannot {change} a Counterspell if the targeted spell is already {state}",
         "InvalidTerms": "Unable to parse {terms} as valid Counterspell terms.",
         "MissingComponents": "A Counterspell enricher must have at least 1 rune and 1 gesture.",
         "NoTalent": "{actor} does not have the Counterspell talent.",

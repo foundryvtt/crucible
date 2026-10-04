@@ -4,8 +4,9 @@ img: icons/skills/targeting/target-strike-triple-blue.webp
 system:
   description: >-
     <p>You hold the battlefield in your sights, ready to punish any foe who acts
-    within your line of fire. A spellcaster who weaves magic before you risks
-    not only your shot, but the unraveling of their incantation.</p>
+    within your line of fire. Any enemy who acts against another creature
+    risks your shot, and a spellcaster who weaves magic before you risks the
+    unraveling of their spellcraft as well.</p>
   actions:
     - id: coveringFire
       name: Covering Fire
@@ -14,9 +15,9 @@ system:
         creature other than itself.
       description: >-
         <p>As a @Rule[action.reaction] you may make a ranged
-        <strong>Strike</strong> against that enemy. On a
-        @Rule[dice.criticalSuccess]{Critical Hit} against a caster, the spell is
-        interrupted and the magic is lost. A self-targeted action that is not a
+        <strong>Strike</strong> against that enemy. If the triggering action is
+        a spell, a @Rule[dice.criticalSuccess]{Critical Hit} interrupts it and
+        the magic is lost. A self-targeted action that is not a
         spell, such as @Action[default move] or @Action[default defend], does
         not trigger this <strong>Reaction</strong>, which may be used only once
         per <strong>Round</strong>.</p>
@@ -32,14 +33,14 @@ system:
       target:
         type: single
         number: 1
-        scope: 0
+        scope: 3
         self: false
       effects: []
       img: icons/skills/targeting/target-strike-triple-blue.webp
       range:
         minimum: null
         maximum: null
-        weapon: false
+        weapon: true
       summon: null
   nodes:
     - sig3.intellect.dexterity

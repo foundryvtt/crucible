@@ -1,3 +1,5 @@
+import {interruptAction} from "./helpers.mjs";
+
 const HOOKS = {};
 
 /* -------------------------------------------- */
@@ -557,35 +559,16 @@ HOOKS.counterspell = {
     const isSuccess = targetEvents.roll[0]?.roll.isSuccess;
     if ( !isSuccess ) return;
     // TODO: Fetch this ID from action instead of message flag
-    const targetMessage = game.messages.get(this.message?.getFlag("crucible", "targetMessageId"));
-    if ( !targetMessage ) return;
-    if ( targetMessage.getFlag("crucible", "confirmed") !== reverse ) {
-      const desiredChange = _loc(`DICE.${reverse ? "Reverse" : "Confirm"}`);
-      const problemState = _loc(`ACTION.${reverse ? "Unconfirmed" : "Confirmed"}`);
-      const errorText = _loc("SPELL.COUNTERSPELL.WARNINGS.CannotConfirm", {change: desiredChange, state: problemState});
-      ui.notifications.warn(errorText);
-      throw new Error(errorText);
-    }
-
-    // Negate the countered spell, retaining its activation cost
-    const CrucibleAction = this.constructor;
-    if ( !reverse ) {
-      const target = CrucibleAction.fromChatMessage(targetMessage);
-      target.negate(target.selfEvents.activation);
-      await target.updateMessage();
-    }
-    await CrucibleAction.confirmMessage(targetMessage, {reverse});
-    if ( reverse ) {
-      const target = CrucibleAction.fromChatMessage(targetMessage);
-      target.clearNegation();
-      await target.updateMessage();
-    }
+    await interruptAction(this, this.message?.getFlag("crucible", "targetMessageId"), {reverse});
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.coveringFire = {
+  _isSpell(action) {
+    return action.tags.has("composed") || action.tags.has("iconicSpell");
+  },
   canUse() {
     if ( this.actor.system.status.coveringFire ) {
       throw new Error(_loc("ACTION.WARNINGS.OncePerRound", {action: this.name}));
@@ -593,6 +576,30 @@ HOOKS.coveringFire = {
   },
   prepare() {
     this.usage.actorStatus.coveringFire = true;
+  },
+  acquireTargets(targets) {
+    const targetAction = ChatMessage.implementation.getLastAction();
+    const enemy = targetAction?.actor;
+    let triggered = false;
+    let isSpell = false;
+    if ( enemy && (enemy !== this.actor) ) {
+      isSpell = HOOKS.coveringFire._isSpell(targetAction);
+      if ( isSpell ) triggered = !targetAction.message.flags.crucible.confirmed;
+      else triggered = Array.from(targetAction.eventsByTarget.keys()).some(a => a !== enemy);
+    }
+    this.usage.spellMessageId = (triggered && isSpell) ? targetAction.message.id : undefined;
+    for ( const target of targets ) {
+      if ( !triggered ) target.error ??= _loc("ACTION.WARNINGS.CannotUse", {name: this.actor.name, action: this.name});
+      else if ( target.actor !== enemy ) target.error ??= _loc("ACTION.WARNINGS.MustTargetTarget", {action: this.name});
+    }
+  },
+  preActivate() {
+    if ( this.usage.spellMessageId ) this.metadata.spellMessageId = this.usage.spellMessageId;
+  },
+  async confirm(reverse) {
+    if ( !this.metadata.spellMessageId ) return;
+    const targetEvents = [...this.eventsByActor].find(([actor]) => actor !== this.actor)?.[1];
+    if ( targetEvents?.isCriticalSuccess ) await interruptAction(this, this.metadata.spellMessageId, {reverse});
   }
 };
 
