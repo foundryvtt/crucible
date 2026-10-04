@@ -75,6 +75,10 @@
         "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
         "Name": "Move"
       },
+      "PickupTorch": {
+        "Description": "Pick up a thrown torch within reach, wielding it with whatever burn time remains.",
+        "Name": "Pick Up Torch"
+      },
       "ReactiveStrike": {
         "Description": "Perform a strike when an enemy leaves your engagement and you are not fully engaged.",
         "Name": "Reactive Strike"
@@ -513,6 +517,7 @@
       "NonCombat": "You may not use {action} during Combat.",
       "NoReloadRequired": "Your weapons do not require reloading",
       "NotFlanked": "{action} requires a flanked target. Target \"{target}\" is not flanked.",
+      "NoTorchNearby": "There is no torch nearby to pick up.",
       "NoViewedScene": "A viewed Scene is required to acquire targets for this action.",
       "OncePerRound": "You may only perform the {action} action once per round.",
       "OncePerTurn": "You may only perform the {action} action once per turn.",

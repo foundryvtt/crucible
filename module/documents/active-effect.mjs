@@ -23,6 +23,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   static #DELETABLE_TYPES = {
     AmbientLight: "lights",
     Region: "regions",
+    Tile: "tiles",
     Token: "summons"
   };
 
@@ -109,7 +110,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @returns {Promise<void>}
    */
   async #deleteOwnedReferences(references, userId) {
-    if ( !game.user.isActiveGM ) return;
+    if ( !game.user?.isActiveGM ) return;
     const user = game.users.get(userId);
     if ( !user ) return;
     for ( const uuid of references ) {
@@ -121,10 +122,14 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
         if ( !doc.attachment.token || references.has(doc.attachment.token.uuid) ) continue;
       }
       if ( (doc.documentName in CrucibleActiveEffect.#DELETABLE_TYPES) && doc.testUserPermission(user, "OWNER") ) {
-        await doc.delete();
+        try {
+          await doc.delete();
+        } catch (err) {
+          // The document may have been removed by a concurrent cascade; remaining references must still be retired
+        }
         continue;
       }
-      ui.notifications.warn(_loc("ACTIVE_EFFECT.WARNINGS.ReferenceNotDeleted", {name: doc.name}));
+      ui.notifications?.warn(_loc("ACTIVE_EFFECT.WARNINGS.ReferenceNotDeleted", {name: doc.name}));
     }
   }
 
@@ -309,7 +314,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /** @inheritDoc */
   async _onDelete(options, userId) {
     await super._onDelete(options, userId);
-    await this.#deleteOwnedReferences(this.#ownedReferences, userId); // Delete every owned Document
+    await this.#deleteOwnedReferences(this.#ownedReferences ?? new Set(), userId); // Delete every owned Document
   }
 
   /* -------------------------------------------- */

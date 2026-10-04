@@ -41,6 +41,13 @@ export const TARGET_SCOPES = defineIntEnum({
 });
 
 /**
+ * How many squares away a thrown torch may lie for the Pick Up Torch action to be available. Generous enough that
+ * a large token stopping a diagonal short of the landing point remains within reach.
+ * @type {number}
+ */
+export const PICKUP_REACH_SQUARES = 4;
+
+/**
  * @typedef ActionTargetType
  * @property {string} id                        The target type id
  * @property {string} label                     Localization key for the target type label
@@ -1510,6 +1517,23 @@ export const DEFAULT_ACTIONS = Object.freeze([
       action: 0
     },
     tags: ["noncombat"]
+  },
+
+  // Pick Up Torch (only added while a thrown torch lies within reach of the Actor)
+  {
+    id: "pickupTorch",
+    name: "ACTION.DEFAULT_ACTIONS.PickupTorch.Name",
+    img: "icons/sundries/lights/torch-brown-lit.webp",
+    description: "ACTION.DEFAULT_ACTIONS.PickupTorch.Description",
+    target: {
+      type: "self",
+      scope: 1
+    },
+    cost: {
+      action: 0
+    },
+    tags: ["harmless"],
+    autoFavorite: true
   },
 
   // Recover

@@ -99,7 +99,8 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     const embeddedAction = Object.assign(crucible.api.models.CrucibleAction.defineBaseSchema(), {
       target: new fields.SchemaField({
         scope: new fields.NumberField({required: true, initial: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
-          choices: SYSTEM.ACTION.TARGET_SCOPES.choices})
+          choices: SYSTEM.ACTION.TARGET_SCOPES.choices}),
+        self: new fields.BooleanField({initial: false})
       }),
       spellcraft: new fields.SchemaField({
         rune: new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.RUNES}),

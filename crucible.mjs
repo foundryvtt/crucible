@@ -851,6 +851,47 @@ Hooks.on("hotbarDrop", async (bar, data, slot) => {
 });
 
 /* -------------------------------------------- */
+
+/**
+ * Refresh each Actor's action availability as its tokens move, so that position-gated actions such as
+ * "Pick Up Torch" appear and disappear without waiting for an unrelated Actor update.
+ * @param {TokenDocument} tokenDocument  The token which moved
+ * @param {object} changes               The changed TokenDocument data
+ */
+/**
+ * Refresh the Pick Up Torch availability of every Actor tokenized in the scene, so that the action appears and
+ * disappears without waiting for an unrelated Actor update. Blocked or failed movement commits no token change, so
+ * region lifecycle events must also refresh the availability to retire stale buttons.
+ * @param {Scene} scene  The scene whose tokenized actors should refresh
+ */
+function refreshPickupTorchAvailability(scene) {
+  for ( const token of scene?.tokens ?? [] ) {
+    const actor = token.actor;
+    if ( !actor?.actions || !game.actors.has(actor.id) ) continue;
+    const had = !!actor.actions.pickupTorch;
+    actor.prepareData();
+    const has = !!actor.actions.pickupTorch;
+    if ( had !== has ) actor.sheet?.render(false);
+  }
+}
+
+Hooks.on("updateToken", (tokenDocument, changes) => {
+  if ( !("x" in changes) && !("y" in changes) ) return;
+  const hasPickupRegion = tokenDocument.parent?.regions.some(r => r.behaviors.some(b => b.system?.action?.id === "pickupTorch"));
+  if ( hasPickupRegion ) refreshPickupTorchAvailability(tokenDocument.parent);
+});
+
+Hooks.on("createRegion", (region) => {
+  if ( region.behaviors.some(b => b.system?.action?.id === "pickupTorch") ) refreshPickupTorchAvailability(region.parent);
+});
+
+Hooks.on("deleteRegion", (region) => {
+  if ( region.behaviors.some(b => b.system?.action?.id === "pickupTorch") ) refreshPickupTorchAvailability(region.parent);
+});
+
+/* -------------------------------------------- */
+
+/* -------------------------------------------- */
 /*  Convenience Functions                       */
 /* -------------------------------------------- */
 

@@ -1232,6 +1232,28 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
         case "cast":
           if ( !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
           break;
+        case "pickupTorch": {
+          const scene = game.scenes.active;
+          const gs = scene?.grid?.size ?? 100;
+          const pickupRegions = scene?.regions.filter(r => r.behaviors.some(b => b.system?.action?.id === "pickupTorch")) ?? [];
+          const wielders = scene?.tokens.filter(t => t.actorId === this.parent.id) ?? [];
+          const near = pickupRegions.some(r => {
+            const shape = r.shapes[0];
+            if ( !shape ) return false;
+            // The reach is measured from the token's edge, so that walking onto the torch always satisfies it
+            return wielders.some(u => {
+              const halfW = u.width * gs / 2;
+              const halfH = u.height * gs / 2;
+              const edge = Math.hypot(
+                Math.max(Math.abs(shape.x - (u.x + halfW)) - halfW, 0),
+                Math.max(Math.abs(shape.y - (u.y + halfH)) - halfH, 0)
+              );
+              return edge <= (SYSTEM.ACTION.PICKUP_REACH_SQUARES * gs);
+            });
+          });
+          if ( !near ) continue;
+          break;
+        }
         case "reload":
           if ( !w.reload ) continue;
           break;

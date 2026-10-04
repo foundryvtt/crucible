@@ -1,3 +1,14 @@
+import {TORCH_LIGHT} from "./consumable.mjs";
+
+/**
+ * The default token light configuration, to which a token's light is restored when the wielded torch leaves the
+ * actor's hands.
+ */
+const DEFAULT_TOKEN_LIGHT = Object.freeze({
+  alpha: 0.5, angle: 360, attenuation: 0.5, bright: 0, color: null, coloration: 1, contrast: 0,
+  darkness: {min: 0, max: 1}, dim: 0, luminosity: 0.5, negative: false, priority: 0, saturation: 0, shadows: 0
+});
+
 const HOOKS = {};
 
 /* -------------------------------------------- */
@@ -2554,8 +2565,446 @@ const BURNING_TORCH = Object.freeze({
       public: "<p>A burning torch which sheds flickering illumination on its wielder. It may be wielded as an improvised weapon, or thrown to leave its light where it lands.</p>",
       private: ""
     },
+    actions: [{
+      id: "throwTorch",
+      name: "Throw Torch",
+      img: "icons/sundries/lights/torch-brown-lit.webp",
+      condition: "",
+      description: "<p>You hurl the burning @ref[item.name] up to 20 feet, releasing it where it lands. The torch is removed from your grasp, and its light persists in the scene until the torch burns out.</p>",
+      cost: {
+        action: 1,
+        focus: 0,
+        heroism: 0,
+        weapon: false,
+        hands: 0
+      },
+      range: {
+        minimum: null,
+        maximum: 20,
+        weapon: false
+      },
+      target: {
+        type: "blast",
+        number: 0,
+        scope: 1,
+        self: false,
+        size: 2
+      },
+      persistRegion: true,
+      regionBehavior: {
+        name: "Pick Up Torch",
+        system: {
+          action: {...PICKUP_REGION_ACTION},
+          events: [
+            "tokenEnter"
+          ],
+          frequency: "roundActor"
+        }
+      },
+      effects: [{
+        name: "Throw Torch",
+        scope: 1,
+        result: {
+          type: "any",
+          all: false
+        },
+        statuses: [],
+        duration: {
+          value: 1,
+          units: "hours",
+          expiry: null,
+          expired: false
+        },
+        showIcon: 0, // Never
+        system: {
+          changes: [],
+          dot: [],
+          maintenance: null,
+          properties: [],
+          regions: [],
+          summons: [],
+          lights: [],
+          dc: null
+        }
+      }],
+      tags: [
+        "harmless"
+      ],
+      summon: null
+    }]
   }
 });
+
+/**
+ * Ambient light configuration for a thrown, burning torch, carrying the flame from the thrower to its landing point.
+ */
+const TORCH_SCENE_LIGHT = Object.freeze({config: {alpha: 0.75, bright: 15, color: "#ff8800", coloration: 101, dim: 30,
+  attenuation: 0.6, luminosity: 0.5, saturation: 0, contrast: 0, shadows: 0, negative: false, priority: 0,
+  animation: {type: "flame", speed: 2, intensity: 2, reverse: false}}});
+
+/**
+ * How long, in milliseconds, the thrown torch takes to fly from the thrower to its landing point. Both the light's
+ * travel and the arrival of the ground tile are timed from this figure.
+ * @type {number}
+ */
+const TORCH_FLIGHT_MS = 1500;
+
+/**
+ * How many document updates carry the thrown torch's light along its flight. Each update triggers a lighting
+ * refresh, so the light travels in fine but discrete steps beneath the soft edge of its glow.
+ * @type {number}
+ */
+const TORCH_LIGHT_HOPS = 48;
+
+/**
+ * The pickup confirmations currently in flight, keyed by message id. Checked and filled synchronously, so that a
+ * double-clicked card, or a card and the sheet action confirmed together, cannot race their deletions and grant
+ * the torch twice.
+ * @type {Set<string>}
+ */
+const pickupLocks = new Set();
+
+/* -------------------------------------------- */
+
+/**
+ * Refresh the tokens of an Actor so that prepared changes, such as the torch's wielded light, take effect
+ * immediately, re-initializing the token's light and vision sources from current data.
+ * @param {CrucibleActor} actor   The Actor whose tokens should refresh
+ */
+async function refreshActorTokens(actor, lightOverride = null) {
+  for ( const token of actor.getActiveTokens(true, true) ?? [] ) {
+    // Mirror the movement path's preparation: the full document prepare, performed for each update round
+    token.prepareData?.();
+    token.prepareData?.();
+    // The light written back: an explicit override (the torch's light configuration on pickup), or the default
+    // light (the throw, clearing both the wielded torch's light and any stale configuration left behind)
+    const light = lightOverride ?? DEFAULT_TOKEN_LIGHT;
+    // The database skips updates whose values match the current document, which would leave the token's rendered
+    // light source stale; force a real change by toggling through an intermediate brightness first
+    const currentBright = token.light.bright ?? 0;
+    if ( (light.bright ?? 0) === currentBright ) {
+      await token.update({"light.bright": currentBright > 0 ? currentBright / 2 : 5});
+    }
+    await token.update({
+      "light.bright": light.bright,
+      "light.dim": light.dim,
+      "light.angle": light.angle,
+      "light.alpha": light.alpha,
+      "light.color": light.color,
+      "light.attenuation": light.attenuation,
+      "light.luminosity": light.luminosity,
+      "light.saturation": light.saturation,
+      "light.contrast": light.contrast,
+      "light.shadows": light.shadows,
+      "light.negative": light.negative,
+      "light.priority": light.priority,
+      "light.darkness": light.darkness
+    });
+    // Force the token's full render pipeline with a real position update, exactly as movement performs -
+    // a 1-pixel nudge and its reversal re-run the light source refresh through the core's update path
+    await token.update({x: token.x + 1});
+    await token.update({x: token.x - 1});
+    // Force the token's full render pipeline with a real position update, exactly as movement performs -
+    // a 1-pixel nudge and its reversal re-run the light source refresh through the core's update path
+    await token.update({x: token.x + 1});
+    await token.update({x: token.x - 1});
+    token.object?.initializeSources();
+    // A second pass after the scene settles: region and light creations during the same confirmation can
+    // re-render the token's light source from stale state, so clear it again once they have landed
+    setTimeout(() => token.object?.initializeSources(), 800);
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Transfer a thrown torch to the actor which grabbed it: the previous holder's burn effect ends, retiring the
+ * scene light, the ground tile, and the pickup region it owns, and the grabber wields a fresh Burning Torch
+ * carrying over whatever burn time remains.
+ * @param {CrucibleAction} action   The Pick Up Torch action being confirmed
+ */
+async function confirmTorchPickup(action) {
+  const region = fromUuidSync(action.metadata.pickupRegionUuid ?? "");
+  const behavior = region?.behaviors.find(b => b.type === "crucible.action");
+  const originEffect = behavior?.system?.origin ? fromUuidSync(behavior.system.origin) : null;
+  const prevHolder = originEffect?.parent ?? null;
+  // The behavior origin may be the throw's own tracking effect rather than the burn itself, so resolve the burn
+  // from the previous holder by id, falling back to the origin effect
+  const burn = prevHolder?.effects.get("torchBurning0000") ?? originEffect;
+  const target = action.targets.keys().next().value ?? action.actor;
+  if ( !burn || !prevHolder || !target ) return;
+
+  // Preserve the remaining burn time
+  const {remaining, units} = burn.duration;
+  let seconds = null;
+  if ( Number.isFinite(remaining) && (remaining > 0) ) {
+    seconds = (units === "rounds") ? Math.ceil(SYSTEM.TIME.roundSeconds * remaining)
+      : Math.max(game.time.calendar.componentsToTime({[units.slice(0, -1)]: remaining}), 1);
+  }
+
+  // The previous holder's burn effect ends, retiring the scene light - and with it the torch tile - and the
+  // pickup region it owns
+  await burn.delete();
+
+  // The grabbing actor wields the torch, carrying over whatever burn time remains. Any burn effect they already
+  // carry - e.g. from a previously picked up torch - is replaced by the fresh one
+  await target.createEmbeddedDocuments("Item", [foundry.utils.deepClone(BURNING_TORCH)]);
+  const priorBurn = target.effects.get("torchBurning0000");
+  if ( priorBurn ) await priorBurn.delete();
+  await target.createEmbeddedDocuments("ActiveEffect", [{
+    name: "Burning Torch",
+    img: "icons/sundries/lights/torch-brown-lit.webp",
+    _id: "torchBurning0000",
+    showIcon: 0, // Never
+    duration: seconds ? {value: seconds, units: "seconds", expiry: null} : {},
+    system: {changes: [], dot: [], maintenance: null, properties: [], regions: [], summons: [], lights: [], dc: null}
+  }], {keepId: true});
+  refreshActorTokens(target, TORCH_LIGHT);
+
+  // Retire any sibling pickup cards for the same torch, so their confirmation cannot race the transfer
+  const siblings = game.messages.filter(m => (m !== action.message)
+    && (m.flags?.crucible?.action?.id === "pickupTorch")
+    && (m.flags.crucible.metadata?.pickupRegionUuid === region?.uuid)
+    && !m.getFlag("crucible", "confirmed"));
+  for ( const msg of siblings ) await msg.setFlag("crucible", "confirmed", true);
+}
+
+/**
+ * Create the pickup region for a thrown torch around a landing point, with its behavior performing as the thrower
+ * and enabled with the burn effect as its origin.
+ * @param {CrucibleActor} actor             The actor which threw the torch
+ * @param {CrucibleActiveEffect} burn       The burn effect which will own the region
+ * @param {TokenDocument} targetToken       The token in whose square the torch landed
+ * @param {Point} landing                   The landing point in scene pixels
+ * @returns {Promise<RegionDocument>}       The created pickup region
+ */
+async function createPickupRegion(actor, burn, targetToken, landing) {
+  const scene = targetToken.parent ?? canvas.scene;
+  const gs = canvas.grid?.size ?? 100;
+  const elevation = targetToken._source.elevation ?? 0;
+  const [region] = await scene.createEmbeddedDocuments("Region", [{
+    name: "Throw Torch",
+    shapes: [{type: "circle", x: landing.x, y: landing.y, radius: 2 * gs}],
+    elevation: {bottom: elevation, top: elevation},
+    behaviors: [{type: "crucible.action", disabled: true, system: {
+      actor: actor.uuid,
+      origin: burn.uuid,
+      action: {...PICKUP_REGION_ACTION},
+      events: ["tokenEnter"],
+      affectedActors: targetToken.actor ? {[targetToken.actor.uuid]: {
+        round: game.combat?.round ?? -1,
+        turn: game.combat?.turn ?? -1
+      }} : {},
+      frequency: "roundActor"
+    }}]
+  }]);
+  await burn.update({"system.regions": [...(burn.system.regions ?? []), region.uuid]});
+  const behavior = region.behaviors.find(b => b.type === "crucible.action");
+  await behavior?.update({disabled: false});
+  return region;
+}
+
+/**
+ * Fly a thrown torch's scene light from the thrower to its landing point along a shallow arc, illuminating along
+ * the path, then settle the torch onto the ground as a flagged tile once the light arrives. The light is tracked
+ * on the burn effect, so it is extinguished when the torch is picked up or burns out.
+ * @param {CrucibleActiveEffect} burn    The burn effect which will own the light
+ * @param {RegionDocument} region        The torch's pickup region, defining the scene, elevation, and levels
+ * @param {Point} origin                 The thrower's center point in scene pixels
+ * @param {Point} landing                The landing point in scene pixels
+ * @returns {Promise<void>}
+ */
+async function flyThrownTorchLight(burn, region, origin, landing) {
+  const gs = canvas.grid?.size ?? 100;
+  const [light] = await region.parent.createEmbeddedDocuments("AmbientLight", [{
+    x: origin.x, y: origin.y, elevation: (region.elevation.bottom + region.elevation.top) / 2,
+    levels: Array.from(region.levels),
+    flags: {crucible: {torchRegion: region.uuid}},
+    ...TORCH_SCENE_LIGHT
+  }]);
+  await burn.update({"system.lights": [...(burn.system.lights ?? []), light.uuid]});
+
+  // Carry the light along the arc to its landing point. The hops are spaced document updates which are not
+  // awaited, and are forgiven if the light is removed mid-flight (e.g. on reversal)
+  const lift = gs * 1.5;
+  const at = (t) => ({
+    x: origin.x + ((landing.x - origin.x) * t),
+    y: (origin.y + ((landing.y - origin.y) * t)) - (lift * 4 * t * (1 - t))
+  });
+  for ( let i = 1; i <= TORCH_LIGHT_HOPS; i++ ) {
+    setTimeout(async () => {
+      try { await light.update(at(i / TORCH_LIGHT_HOPS)); }
+      catch (err) { /* The light was removed mid-flight (e.g. on reversal) */ }
+    }, Math.round((TORCH_FLIGHT_MS * i) / TORCH_LIGHT_HOPS));
+  }
+
+  // Once the light settles, the torch comes to rest on the ground as a tile, flagged with its light so that the
+  // tile is removed whenever the light is
+  setTimeout(async () => {
+    if ( !light.parent ) return; // The torch was extinguished mid-flight
+    try {
+      const [tile] = await region.parent.createEmbeddedDocuments("Tile", [{
+        name: "Burning Torch",
+        texture: {src: "icons/sundries/lights/torch-brown-lit.webp"},
+        x: landing.x - (gs / 2), y: landing.y - (gs / 2), width: gs, height: gs,
+        flags: {crucible: {torchBurnLight: light.uuid}}
+      }]);
+      // The burn effect owns the tile, so the ownership cascade retires it when the torch is picked up or burns out
+      if ( burn.parent && tile ) await burn.update({"system.tiles": [...(burn.system.tiles ?? []), tile.uuid]});
+    } catch (err) { /* The scene was removed mid-flight */ }
+  }, TORCH_FLIGHT_MS);
+}
+
+HOOKS.throwTorch = {
+  async preActivate() {
+    if ( !this.region || !this.token ) return;
+
+    // The wielded torch is released, taking its wielded light with it
+    await this.item?.delete();
+    refreshActorTokens(this.actor);
+  },
+
+  async confirm(reverse) {
+    const burn = this.actor.effects.get("torchBurning0000");
+    if ( !burn || !this.region ) return;
+
+    // Reversing the throw releases the region and the scene light, which the effect cascades then retire together
+    // with the ground tile. The light is identified by the region it was thrown for, as metadata set during
+    // confirmation is not persisted with the message
+    if ( reverse ) {
+      const isThrownLight = (uuid) => fromUuidSync(uuid)?.getFlag("crucible", "torchRegion") !== this.region.uuid;
+      await burn.update({
+        "system.regions": [...(burn.system.regions ?? [])].filter(uuid => uuid !== this.region.uuid),
+        "system.lights": [...(burn.system.lights ?? [])].filter(isThrownLight),
+        "system.tiles": []
+      });
+      return;
+    }
+
+    // The burn effect owns the pickup region, so the action's own region-tracking effect would be redundant
+    // bookkeeping lingering on the thrower for an hour; strip it from the event stream so it never applies
+    const anchorId = SYSTEM.EFFECTS.getEffectId("throwTorch");
+    for ( const event of this.events ) {
+      const anchorIndex = (event.effects ?? []).findIndex(effect => effect._id === anchorId);
+      if ( anchorIndex !== -1 ) event.effects.splice(anchorIndex, 1);
+    }
+
+    // The burn effect owns the pickup region, so that the region retires when the torch is picked up or burns out
+    await burn.update({"system.regions": [...(burn.system.regions ?? []), this.region.uuid]});
+
+    // The scene light carries the flame from the thrower to the landing point and the torch settles there
+    const origin = this.token.getCenterPoint(this.token._source);
+    await flyThrownTorchLight(burn, this.region, origin, this.region.shapes[0]);
+  },
+
+  async postConfirm(reverse) {
+    // Undo: the torch returns to the hand, shedding its light again
+    if ( reverse ) {
+      await this.actor.createEmbeddedDocuments("Item", [foundry.utils.deepClone(BURNING_TORCH)]);
+      refreshActorTokens(this.actor);
+    }
+  }
+};
+
+HOOKS.throwWeapon = {
+
+  /**
+   * When the thrown weapon is a Burning Torch, the wielded light is released as the weapon leaves the hand.
+   */
+  preActivate() {
+    // The wielded torch is resolved from the Actor: the reconstituted action from the chat message does
+    // not carry the serialized weapon choice
+    const weapon = this.actor.items.find(i => i.system?.identifier === "torchBurning" && i.system.equipped);
+    if ( weapon?.system?.identifier !== "torchBurning" ) return;
+    refreshActorTokens(this.actor);
+  },
+
+  async confirm(reverse) {
+    // The wielded torch is resolved from the Actor: the reconstituted action from the chat message does
+    // not carry the serialized weapon choice
+    const weapon = this.actor.items.find(i => i.system?.identifier === "torchBurning" && i.system.equipped);
+    if ( weapon?.system?.identifier !== "torchBurning" ) return;
+    const burn = this.actor.effects.get("torchBurning0000");
+    const target = this.targets.keys().next().value;
+    const targetToken = this.targets.get(target)?.token;
+    if ( !burn || !targetToken ) return;
+
+    // Undo: the torch returns to the thrower's hand, shedding its light again. The scene light is identified by
+    // its region flag, as metadata set during confirmation is not persisted with the message
+    if ( reverse ) {
+      await burn.update({
+        "system.regions": [],
+        "system.lights": [...(burn.system.lights ?? [])].filter(uuid => !fromUuidSync(uuid)?.getFlag("crucible", "torchRegion")),
+        "system.tiles": []
+      });
+      await this.actor.createEmbeddedDocuments("Item", [foundry.utils.deepClone(BURNING_TORCH)]);
+      refreshActorTokens(this.actor);
+      return;
+    }
+
+    // The torch lands at the target and keeps burning there; the wielded weapon item becomes the ground tile
+    const landing = targetToken.getCenterPoint(targetToken._source);
+    const region = await createPickupRegion(this.actor, burn, targetToken, landing);
+    const origin = this.token.getCenterPoint(this.token._source);
+    await flyThrownTorchLight(burn, region, origin, landing);
+    const wielded = this.actor.items.find(i => i.system?.identifier === "torchBurning") ?? weapon;
+    await wielded?.delete();
+    refreshActorTokens(this.actor);
+  }
+};
+
+
+/* -------------------------------------------- */
+
+HOOKS.pickupTorch = {
+
+  /**
+   * A thrown torch must lie within reach of the grabbing token. Both pickup flows - walking onto the torch, or
+   * using the Pick Up Torch action nearby - resolve the torch from the pickup region this stores.
+   */
+  canUse() {
+    const forced = this.usage.forcedTargets?.[0];
+    const token = forced?.getActiveTokens(true, false)[0] ?? (this.token?.object ?? this.actor.getActiveTokens(true, false)[0]);
+    if ( !token || !canvas.ready ) throw new Error(_loc("ACTION.WARNINGS.NoTorchNearby"));
+    const gs = canvas.grid.size;
+    const halfW = (token.w ?? 1) * gs / 2;
+    const halfH = (token.h ?? token.w ?? 1) * gs / 2;
+    const candidates = canvas.scene.regions
+      .filter(r => r.behaviors.some(b => b.type === "crucible.action" && (b.system?.action?.id === "pickupTorch")))
+      .map(r => ({region: r, shape: r.shapes[0]}))
+      .filter(c => c.shape);
+    let nearest = null;
+    let nearestDist = Infinity;
+    for ( const candidate of candidates ) {
+      // The reach is measured from the token's edge, so that walking onto the torch always satisfies it
+      const edge = Math.hypot(
+        Math.max(Math.abs(candidate.shape.x - token.center.x) - halfW, 0),
+        Math.max(Math.abs(candidate.shape.y - token.center.y) - halfH, 0)
+      );
+      if ( edge < nearestDist ) {
+        nearest = candidate;
+        nearestDist = edge;
+      }
+    }
+    if ( !nearest || (nearestDist > (SYSTEM.ACTION.PICKUP_REACH_SQUARES * gs)) ) throw new Error(_loc("ACTION.WARNINGS.NoTorchNearby"));
+    this.metadata.pickupRegionUuid = nearest.region.uuid;
+  },
+
+  async confirm(reverse) {
+    if ( reverse ) return;
+    // The mutex is checked and filled synchronously, so a second confirmation entering in the same tick is turned
+    // away before any transfer begins
+    const lockKey = this.message?.id ?? this.metadata.pickupRegionUuid;
+    if ( pickupLocks.has(lockKey) ) return;
+    pickupLocks.add(lockKey);
+    try {
+      await confirmTorchPickup(this);
+    } finally {
+      pickupLocks.delete(lockKey);
+    }
+  }
+};
+
 
 /* -------------------------------------------- */
 
