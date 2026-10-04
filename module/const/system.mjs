@@ -220,26 +220,45 @@ function prepareRules(rulesEnum, page) {
 }
 
 /**
- * @typedef {{name?: string, label?: string, tooltip?: string, page?: string}} RuleItem
+ * Prepare an item type's property enum for use in RULES, aliasing shared item properties to their `item` rule.
+ * @param {Record<string, object>} properties   The item type's property enum
+ * @param {string} page                         The UUID of the rules compendium journal page documenting the type
+ * @returns {RulesRecord}
+ */
+function preparePropertyRules(properties, page) {
+  return Object.values(properties).reduce((acc, {tooltip: _t, ...entry}) => {
+    if ( entry.deprecated ) return acc;
+    acc[entry.id] = (entry.id in ITEM.PROPERTIES) ? {...entry, alias: `item.${entry.id}`} : {...entry, page};
+    return acc;
+  }, {});
+}
+
+const EQUIPMENT_PAGE = "Compendium.crucible.rules.JournalEntry.e33DSvx0cfa7fey6.JournalEntryPage";
+
+/**
+ * @typedef {{name?: string, label?: string, tooltip?: string, page?: string, alias?: string}} RuleItem
  * @typedef {Record<string, RuleItem|RulesRecord>} RulesRecord
  * Define rules objects used by the `@Rule` enricher.
  * A rule whose `tooltip` resolves blank derives its content from the `data-rule` element of its `page`.
+ * A rule with an `alias` displays the tooltip of the rule it names.
  * @type {RulesRecord}
  */
 export const RULES = {
   ability: ATTRIBUTES.ABILITIES,
+  accessory: preparePropertyRules(ACCESSORY.PROPERTIES, `${EQUIPMENT_PAGE}.Accessories00000`),
   action: ACTION.TAGS, // Tags which pertain to an action; `reload`, `rest`, and `strike` also exist under `actions`
   actions: Object.fromEntries(ACTION.DEFAULT_ACTIONS.map(a => [a.id, a])),
+  armor: preparePropertyRules(ARMOR.PROPERTIES, `${EQUIPMENT_PAGE}.JTsl6ENdxSDW765Q`),
   condition: {...statusEffects, ...derivedConditions}, // Encompasses everything `@Condition` may link to
+  consumable: preparePropertyRules(CONSUMABLE.PROPERTIES, `${EQUIPMENT_PAGE}.Text000000000000`),
   damageType: prepareRules(ATTRIBUTES.DAMAGE_TYPES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000"),
   defense: ATTRIBUTES.DEFENSES,
   dice: DICE.RULES,
+  item: prepareRules(ITEM.PROPERTIES, `${EQUIPMENT_PAGE}.6QxbcLoOhUkXTbAj`),
   movement: ACTOR.MOVEMENT_RULES,
   resource: prepareRules(ATTRIBUTES.RESOURCES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000"),
   skill: prepareRules(PROFICIENCY.SKILLS, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000"),
-  weapon: prepareRules(Object.fromEntries(Object.entries(WEAPON.PROPERTIES).filter(([k, p]) => {
-    return !(k in ITEM.PROPERTIES) && !p.deprecated;
-  })), "Compendium.crucible.rules.JournalEntry.e33DSvx0cfa7fey6.JournalEntryPage.LYj7sghAMoQj9FFR")
+  weapon: preparePropertyRules(WEAPON.PROPERTIES, `${EQUIPMENT_PAGE}.LYj7sghAMoQj9FFR`)
 };
 
 /* -------------------------------------------- */

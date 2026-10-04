@@ -364,10 +364,13 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label
       : _loc("ITEM.PROPERTIES.NotInvested");
 
-    // Properties
+    // Properties, whose tooltips are extracted from the rules journal when documented there
+    const type = this.parent.type;
+    const rules = SYSTEM.RULES[type] ?? {};
     for ( const prop of this.properties ) {
       if ( ["investment", "stackable"].includes(prop) ) continue;
-      tags[prop] = this.constructor.ITEM_PROPERTIES[prop];
+      const cfg = this.constructor.ITEM_PROPERTIES[prop];
+      tags[prop] = (prop in rules) ? {label: cfg.label, dataset: {"rule-id": `${type}.${prop}`}} : cfg;
     }
     return tags;
   }

@@ -195,17 +195,21 @@ pages:
         item relative to its most common form. Items with higher manufactured
         quality, stronger magical enchantment, or special properties will have a
         higher rarity value and therefore a greater
-        value.</p><h4>Investment</h4><p>Some items, particularly accessories,
+        value.</p><dl><dt><p>Investment</p></dt><dd
+        data-rule="item.investment"><p>Some items, particularly accessories,
         require the bearer to <strong>invest</strong> in them before their
-        magical effects become active. An invested item must be both equipped
-        and invested to function. A character may invest in any number of
-        equipped items.</p><h4>Unique Items</h4><p>Some items are designated as
+        magical affixes become active. An item which requires Investment must be
+        both equipped and invested before its affixes take effect. A character
+        may invest in any number of equipped items.</p></dd><dt><p>Stackable</p></dt><dd
+        data-rule="item.stackable"><p>Some items - typically consumables, tools,
+        and loot - are <strong>Stackable</strong>, allowing multiple identical
+        units to be carried as a single inventory entry with a
+        quantity.</p></dd><dt><p>Unique</p></dt><dd
+        data-rule="item.unique"><p>Some items are designated as
         <strong>Unique</strong>, representing one-of-a-kind artifacts or items
         of singular craftsmanship. Unique items cannot be enchanted with affixes
         and instead retain a manually assigned enchantment
-        tier.</p><h4>Stackable</h4><p>Some items - typically consumables, tools,
-        and loot - are <strong>Stackable</strong>, allowing multiple identical
-        units to be carried as a single inventory entry with a quantity.</p><h2
+        tier.</p></dd></dl><h2
         class="divider">Investment</h2><p>Some items require
         <strong>Investment</strong> in order to fully benefit from their
         properties. Items which require Investment may be Equipped and used to
@@ -387,9 +391,18 @@ pages:
         some physical characteristic of the armor. While all properties provide
         some benefit, some also come with a tradeoff to ensure that they are not
         strictly superior to armor which lacks that
-        property.</p><h4>Bulky</h4><p>Armor that is <strong>Bulky</strong> is
-        cumbersome to wield and conveys a penalty of +2 Banes to all Initiative
-        rolls.</p>
+        property.</p><dl><dt><p>Bulky</p></dt><dd
+        data-rule="armor.bulky"><p>Armor that is <strong>Bulky</strong> is
+        cumbersome to wear and conveys a penalty of +2 Banes to all Initiative
+        rolls.</p></dd><dt><p>Natural</p></dt><dd
+        data-rule="armor.natural"><p>This armor is a part of the creature which
+        wears it, such as a thick hide, scales, or a carapace. Armor of the
+        Natural category always has this property. Creatures which cannot use
+        equipment may still wear natural armor.</p></dd><dt><p>Noisy</p></dt><dd
+        data-rule="armor.noisy"><p>Armor that is <strong>Noisy</strong> makes it
+        difficult to move quietly, conveying a penalty of +2 Banes to Stealth
+        skill checks and to actions which use the Stealth skill. This penalty is
+        not yet automated.</p></dd></dl>
     video:
       controls: true
       volume: 0.5
@@ -605,9 +618,10 @@ pages:
         area.</p></dd><dt><p>Other</p></dt><dd><p>Consumables that do not fit
         neatly into other categories.</p></dd></dl><h2
         class="divider">Consumable Properties</h2><p>Consumables may have the
-        following special properties:</p><h4>Thrown</h4><p>This consumable can
-        be used at range, typically by throwing it at a target or target area.
-        The effective range depends on the specific item.</p><h2
+        following special properties:</p><dl><dt><p>Thrown</p></dt><dd
+        data-rule="consumable.thrown"><p>This consumable can be used at range,
+        typically by throwing it at a target or target area. The effective range
+        depends on the specific item.</p></dd></dl><h2
         class="divider">Spell Scrolls</h2><p>A <strong>Spell Scroll</strong> is
         a specialized piece of vellum or parchment upon which are carefully
         inlaid the glyphs of one or more spellcraft components. Activating a

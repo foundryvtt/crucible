@@ -52,16 +52,13 @@ export const CATEGORIES = defineEnum({
 export const PROPERTIES = defineEnum({
   ...foundry.utils.deepClone(ITEM_PROPERTIES),
   bulky: {
-    label: "ARMOR.PROPERTIES.Bulky",
-    tooltip: "ARMOR.PROPERTIES.BulkyTooltip"
+    label: "ARMOR.PROPERTIES.Bulky"
   },
   natural: {
-    label: "ARMOR.PROPERTIES.Natural",
-    tooltip: "ARMOR.PROPERTIES.NaturalTooltip"
+    label: "ARMOR.PROPERTIES.Natural"
   },
   noisy: {
-    label: "ARMOR.PROPERTIES.Noisy",
-    tooltip: "ARMOR.PROPERTIES.NoisyTooltip"
+    label: "ARMOR.PROPERTIES.Noisy"
   }
 });
 

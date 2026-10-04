@@ -320,12 +320,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   getTags(scope="full") {
     const tags = super.getTags(scope);
 
-    // Property tooltips are extracted from the rules journal
-    for ( const prop of this.properties ) {
-      if ( !(prop in tags) || !(prop in SYSTEM.RULES.weapon) ) continue;
-      tags[prop] = {label: tags[prop].label, dataset: {"rule-id": `weapon.${prop}`}};
-    }
-
     // Equipment Slot and Type
     if ( this.properties.has("natural") ) tags.equipped = SYSTEM.WEAPON.PROPERTIES.natural.label;
     else if ( this.equipped ) {

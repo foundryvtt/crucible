@@ -218,10 +218,16 @@ function extractRuleContent(page, ruleId) {
  */
 async function displayTagTooltip(event) {
   const element = event.target;
-  const ruleId = element.dataset.ruleId;
+  let ruleId = element.dataset.ruleId;
   let tooltip = element.dataset.crucibleTooltipText;
   let name = element.innerText;
-  const cfg = foundry.utils.getProperty(SYSTEM.RULES, ruleId);
+  let cfg = foundry.utils.getProperty(SYSTEM.RULES, ruleId);
+
+  // Alias a rule so that it resolves via some other
+  if ( cfg?.alias ) {
+    ruleId = cfg.alias;
+    cfg = foundry.utils.getProperty(SYSTEM.RULES, ruleId);
+  }
 
   // A rule id takes precedence over an action tag of the same name, such as the "thrown" weapon property
   if ( !cfg ) tooltip ||= SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
