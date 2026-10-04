@@ -8,17 +8,18 @@ system:
   category: medium
   quantity: 1
   weight: 20
-  price: 400
+  price: 520
   quality: standard
   enchantment: mundane
   equipped: false
-  properties:
-    - bulky
+  properties: []
   description:
     public: >-
-      <p>Toughened skins from large beasts or monsters, these rugged armors are
-      worn by hunters and wildfolk, offering durable—but crude—defense in the
-      field.</p>
+      <p>Toughened skins from large beasts or monsters, assembled together into
+      multiple layers of overlapping armor. The resulting armor offers durable —
+      albeit crude — protection favored often favored by berserkers or warriors
+      who wear them to proudly demonstrate their hunting or monster-felling
+      prowess.</p>
     private: ''
   armor:
     base: 9
@@ -30,12 +31,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.11.1
   createdTime: 1749828917776
-  modifiedTime: 1773514792272
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1791127388674
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 folder: gQTZ7J9hqDpVTtPb
 ownership:
   default: 0

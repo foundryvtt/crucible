@@ -1,0 +1,43 @@
+type: armor
+name: Light Hides
+_id: lightHides000000
+img: icons/equipment/chest/vest-cloth-tattered-tan.webp
+system:
+  identifier: lightHides
+  category: light
+  quantity: 1
+  weight: 16
+  price: 480
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>Toughened skins and leathers harvested from beasts of the wilderness.
+      This rugged armor offers modest protection while remaining light enough to
+      be preferred by hunters or wildfolk who travel long distances.</p>
+    private: ''
+  actions: []
+  armor:
+    base: 7
+effects: []
+folder: fLJrHfDuvr4Z8bXK
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791127403745
+  modifiedTime: 1791127403745
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!lightHides000000'

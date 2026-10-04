@@ -303,12 +303,7 @@ HOOKS.bodyBlock = {
 /* -------------------------------------------- */
 
 HOOKS.bullrush = {
-  /**
-   * Create hooks for an action which moves through the space of one other creature: an ally lets you pass freely,
-   * while an enemy contests your passage and a failed attack against it cancels the movement.
-   * @param {number} strides      The movement budget as a multiple of the actor's Stride
-   * @returns {object}
-   */
+  // Move-through logic shared with Tumble Through, but defined here for reusability.
   _passThroughCreature(strides) {
     const isAlly = (action, target) => {
       return action.actor.getDispositionTowards(target) === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
@@ -316,7 +311,6 @@ HOOKS.bullrush = {
     return {
       prepare() {
         this.range.maximum = this.actor.system.movement.stride * strides;
-        // Forceful movement: passes through ordinary tokens but is halted by an unstoppable blocker (e.g. a Bastion)
         this.usage.movement.strength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
         this.usage.movement.targeting = "path";
       },
