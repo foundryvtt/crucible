@@ -80,6 +80,12 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   defense;
 
+  /**
+   * Dot-delimited ability scaling for attacks made with this weapon.
+   * @type {string}
+   */
+  scaling;
+
   /* -------------------------------------------- */
 
   /**
@@ -139,9 +145,9 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
       this.properties.add("intuitive");
     }
 
-    // Proficiencies which wield this weapon effectively. A natural weapon answers to Natural rather than to its
-    // category. Prepared rather than derived at the point of use so that `prepareWeapons` hooks may extend it
+    // Ability and skill scaling through proficiencies and scaling configuration
     this.proficiencies = this.properties.has("natural") ? ["natural"] : [...category.training];
+    this.scaling = category.scaling;
 
     // Weapon Damage
     this.damage = this.#prepareDamage();
@@ -180,7 +186,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const actor = this.parent.actor;
 
     // Ability Bonus
-    this.actionBonuses.ability = actor.getAbilityBonus(category.scaling.split("."));
+    this.actionBonuses.ability = actor.getAbilityBonus(this.scaling.split("."));
 
     // Skill Bonus
     this.actionBonuses.skill = actor.getSkillBonus(this.proficiencies, {intuitive: this.properties.has("intuitive")});

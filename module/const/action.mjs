@@ -254,12 +254,12 @@ export const TAGS = {
     priority: 5,
     prepare() {
       for ( const c of this.usage.weaponChoices ?? [] ) {
-        if ( !c.item.config.category.scaling.includes("dexterity") ) c.viable = false;
+        if ( !c.item.system.scaling.includes("dexterity") ) c.viable = false;
       }
     },
     canUse() {
       const weaponsUsed = this.usage.strikes?.length ? this.usage.strikes : [this.actor.equipment.weapons.mainhand];
-      if ( !weaponsUsed.every(w => w?.config.category.scaling.includes("dexterity")) ) {
+      if ( !weaponsUsed.every(w => w?.system.scaling.includes("dexterity")) ) {
         throw new Error(_loc("ACTION.WARNINGS.MustScaleDex"));
       }
     }
@@ -274,12 +274,12 @@ export const TAGS = {
     priority: 5,
     prepare() {
       for ( const c of this.usage.weaponChoices ?? [] ) {
-        if ( !c.item.config.category.scaling.includes("strength") ) c.viable = false;
+        if ( !c.item.system.scaling.includes("strength") ) c.viable = false;
       }
     },
     canUse() {
       const weaponsUsed = this.usage.strikes?.length ? this.usage.strikes : [this.actor.equipment.weapons.mainhand];
-      if ( !weaponsUsed.every(w => w?.config.category.scaling.includes("strength")) ) {
+      if ( !weaponsUsed.every(w => w?.system.scaling.includes("strength")) ) {
         throw new Error(_loc("ACTION.WARNINGS.MustScaleStrength"));
       }
     }
@@ -678,6 +678,8 @@ export const TAGS = {
   // Perform a Strike sequence
   strike: {
     tag: "strike",
+    label: "ACTION.TAG.Strike",
+    tooltip: "ACTION.TAG.StrikeTooltip",
     priority: Infinity, // Last
     internal: true,
     initialize() {
@@ -712,7 +714,7 @@ export const TAGS = {
       let weaponRange = 0;
       const contextTags = {};
       for ( const [i, weapon] of strikes.entries() ) {
-        this.scaling.push(...weapon.config.category.scaling.split("."));
+        this.scaling.push(...weapon.system.scaling.split("."));
         if ( this.cost.weapon ) this.cost.action += (weapon.system.actionCost || 0);
         if ( this.range.weapon ) {
           if ( !weaponRange ) weaponRange = weapon.system.range;

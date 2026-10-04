@@ -147,21 +147,27 @@ HOOKS.amorphous0000000 = {
 /* -------------------------------------------- */
 
 HOOKS.arcanearcher0000 = {
+  _PROJECTILES: ["projectile1", "projectile2"],
   prepareAction(item, action) {
-    if ( !action.tags.has("composed") ) return;
     const mh = this.equipment.weapons.mainhand;
-    if ( !["projectile1", "projectile2"].includes(mh.category) ) return;
-
-    // Ignore hands for Gesture: Arrow
+    if ( !HOOKS.arcanearcher0000._PROJECTILES.includes(mh.category) ) return;
+    if ( !action.tags.has("composed") ) return;
     if ( action.gesture.id === "arrow" ) {
       action.cost.hands = 0;
       action.range.weapon = true;
       action.range.maximum = mh.system.range;
+      action.scaling.splice(0, Infinity, action.rune.scaling, "wisdom");
+      action.usage.bonuses.ability = this.getAbilityBonus(action.scaling);
     }
-
-    // Reduce cost of spell following strike
     const lastAction = this.lastConfirmedAction;
     if ( lastAction?.tags.has("strike") ) action.cost.action -= 1;
+  },
+  prepareWeapons(_item, weapons) {
+    const projectiles = HOOKS.arcanearcher0000._PROJECTILES;
+    if ( !projectiles.includes(weapons.mainhand?.category) ) return;
+    for ( const w of [weapons.mainhand, weapons.offhand] ) {
+      if ( projectiles.includes(w?.category) ) w.system.scaling = "dexterity.wisdom";
+    }
   }
 };
 
@@ -653,14 +659,14 @@ HOOKS.conserveeffort00 = {
 
 HOOKS.deftgrip00000000 = {
   prepareWeapons(_item, weapons) {
-    if ( weapons.twoHanded && weapons.mainhand?.config.category.scaling.includes("dexterity") ) {
+    if ( weapons.twoHanded && weapons.mainhand?.system.scaling.includes("dexterity") ) {
       weapons.spellHands = Math.max(weapons.spellHands, 2);
     }
   },
   prepareAction(_item, action) {
     if ( action.id !== "equipItem" ) return;
     const weapon = this.items.get(action.usage.actorUpdates.items?.[0]?._id);
-    if ( (weapon?.type !== "weapon") || !weapon.config.category.scaling.includes("dexterity") ) return;
+    if ( (weapon?.type !== "weapon") || !weapon.system.scaling.includes("dexterity") ) return;
     if ( action.cost.action && this.system.hasFreeMove ) {
       action.cost.action = 0;
       action.usage.actorStatus.hasMoved = true;
@@ -668,7 +674,7 @@ HOOKS.deftgrip00000000 = {
   },
   defendAttack(item, action, _origin, rollData) {
     const {twoHanded, mainhand} = this.equipment.weapons;
-    if ( action.tags.has("disarm") && twoHanded && mainhand?.config.category.scaling.includes("dexterity") ) {
+    if ( action.tags.has("disarm") && twoHanded && mainhand?.system.scaling.includes("dexterity") ) {
       rollData.banes.deftGrip = {label: item.name, number: 2};
     }
   }
@@ -1864,13 +1870,13 @@ HOOKS.stronggrip000000 = {
     equipment.weapons.heavyOffhand = true;
   },
   prepareWeapons(_item, weapons) {
-    if ( weapons.twoHanded && weapons.mainhand?.config.category.scaling.includes("strength") ) {
+    if ( weapons.twoHanded && weapons.mainhand?.system.scaling.includes("strength") ) {
       weapons.spellHands = Math.max(weapons.spellHands, 2);
     }
   },
   defendAttack(item, action, _origin, rollData) {
     const {twoHanded, mainhand} = this.equipment.weapons;
-    if ( action.tags.has("disarm") && twoHanded && mainhand?.config.category.scaling.includes("strength") ) {
+    if ( action.tags.has("disarm") && twoHanded && mainhand?.system.scaling.includes("strength") ) {
       rollData.banes.strongGrip = {label: item.name, number: 2};
     }
   }
@@ -2049,7 +2055,7 @@ HOOKS.weakpoints000000 = {
   prepareAttack(_item, action, target, rollData) {
     if ( !action.tags.has("strike") ) return;
     const weapon = action.usage.weapon;
-    if ( !weapon?.system.config.category.scaling.includes("dexterity") ) return;
+    if ( !weapon?.system.scaling.includes("dexterity") ) return;
     if ( rollData.flanked || ["exposed", "unaware"].some(s => target.statuses.has(s)) ) rollData.damageBonus += 2;
   }
 };

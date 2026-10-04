@@ -380,6 +380,8 @@
       "SkillTooltip": "This action involves a targeted or opposed Skill check.",
       "Spell": "Spell",
       "SpellTooltip": "This action involves spellcraft.",
+      "Strike": "Strike",
+      "StrikeTooltip": "This action makes one or more Strikes using an equipped weapon. Any action which attacks with a wielded weapon is a Strike, not only the basic Strike action.",
       "Subtle": "Subtle",
       "SubtleTooltip": "This action is generally un-noticeable, preserving stealth and invisibility when used.",
       "Summon": "Summon",

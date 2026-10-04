@@ -5,12 +5,16 @@ system:
   description: >-
     <p>Your skill with archery can shape your spellcraft, partially substituting
     for the somatic gestures of traditional spellcasting.</p><p>While using a
-    <strong>Projectile</strong> weapon as your mainhand weapon, you ignore the
-    free-hand requirement for casting spells using the <strong>Arrow</strong>
-    gesture and the range of those spells becomes your weapon
-    range.</p><p>Immediately after performing a <strong>Strike</strong> with a
-    projectile weapon, you may cast a spell with its @Rule[resource.action] cost
-    reduced by 1.</p>
+    <strong>Projectile</strong> weapon as your mainhand weapon, your
+    @Rule[action.strike]{Strikes} scale using @Rule[ability.wisdom] instead of
+    @Rule[ability.strength] in addition to
+    @Rule[ability.dexterity].</p><p>Spells you cast using
+    @UUID[Compendium.crucible.talent.Item.gesturearrow0000]{Gesture: Arrow}
+    ignore the free-hand requirement, use your weapon range, and the gesture
+    scales using @Rule[ability.wisdom] instead of
+    @Rule[ability.intellect].</p><p>Immediately after performing a
+    <strong>Strike</strong> with a projectile weapon, you may cast a spell with
+    its @Rule[resource.action] cost reduced by 1.</p>
   actions: []
   iconicSpells: 1
   nodes:
@@ -24,10 +28,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.0
-  coreVersion: '14.356'
+  systemVersion: 0.11.1
+  coreVersion: '14.368'
   createdTime: 1772307160125
-  modifiedTime: 1773514792555
+  modifiedTime: 1791142473043
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: Item.arcanearcher0000
   duplicateSource: null
