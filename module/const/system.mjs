@@ -236,7 +236,10 @@ export const RULES = {
   dice: DICE.RULES,
   movement: ACTOR.MOVEMENT_RULES,
   resource: prepareRules(ATTRIBUTES.RESOURCES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000"),
-  skill: prepareRules(PROFICIENCY.SKILLS, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000")
+  skill: prepareRules(PROFICIENCY.SKILLS, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000"),
+  weapon: prepareRules(Object.fromEntries(Object.entries(WEAPON.PROPERTIES).filter(([k, p]) => {
+    return !(k in ITEM.PROPERTIES) && !p.deprecated;
+  })), "Compendium.crucible.rules.JournalEntry.e33DSvx0cfa7fey6.JournalEntryPage.LYj7sghAMoQj9FFR")
 };
 
 /* -------------------------------------------- */

@@ -90,48 +90,56 @@ pages:
         some physical characteristic of the weapon. While all properties provide
         some benefit, some also come with a tradeoff to ensure that they are not
         strictly superior to weapons which lack that
-        property.</p><h4>Ambush</h4><p>This weapon can be easily concealed and
+        property.</p><dl><dt><p>Ambush</p></dt><dd
+        data-rule="weapon.ambush"><p>This weapon can be easily concealed and
         retrieved quickly. Equipping or unequipping this weapon costs no Action,
         although recovering it after it has been dropped costs the usual 1
         Action. Its compact size reduces its effective range by half, rounded
-        up.</p><h4>Blocking</h4><p>This weapon provides +1 to Block defense
+        up.</p></dd><dt><p>Blocking</p></dt><dd
+        data-rule="weapon.blocking"><p>This weapon provides +1 to Block defense
         while equipped and not Broken. The weapon's defensive design reduces its
         base damage by 1 for one-handed weapons or 2 for two-handed
-        weapons.</p><h4>Engaging</h4><p>This weapon is designed to better allow
+        weapons.</p></dd><dt><p>Engaging</p></dt><dd
+        data-rule="weapon.engaging"><p>This weapon is designed to better allow
         you to combat multiple foes, increasing your Engagement by +1. The
         weapon's defensive design reduces its base damage by 1 for one-handed
-        weapons or 2 for two-handed weapons.</p><h4>Intuitive</h4><p>This weapon
-        is intuitive enough to be used untrained. You are treated as having one
-        additional point in the
+        weapons or 2 for two-handed weapons.</p></dd><dt><p>Intuitive</p></dt><dd
+        data-rule="weapon.intuitive"><p>This weapon is intuitive enough to be
+        used untrained. You are treated as having one additional point in the
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.proficiencies000]{Proficiency}
         required for its use; a wielder with no training at all suffers only a
         -2 penalty rather than -4. Simple and natural weapons are always
-        Intuitive.</p><h4>Natural</h4><p>This weapon is a part of the creature
+        Intuitive.</p></dd><dt><p>Natural</p></dt><dd
+        data-rule="weapon.natural"><p>This weapon is a part of the creature
         which wields it, such as claws, fangs, or a tail. Natural weapons use
         Natural Weapon training rather than the training of their weapon
         category, and are always Intuitive. They do not occupy a hand, cannot be
         dropped or thrown, and are not described by a quality tier. Some actions
-        may only be performed using natural weapons.</p><h4>Oversized</h4><p>This
-        weapon is large for its category and is unwieldy in combat without
-        special training. The weapon gains +1 base damage for one-handed weapons
-        or +2 for two-handed weapons, but is slow to wield, imposing 1 Bane to
-        Initiative rolls for each hand used to wield it.</p><h4>Parrying</h4><p>This weapon provides +1 to Parry defense
+        may only be performed using natural weapons.</p></dd><dt><p>Oversized</p></dt><dd
+        data-rule="weapon.oversized"><p>This weapon is large for its category
+        and is unwieldy in combat without special training. The weapon gains +1
+        base damage for one-handed weapons or +2 for two-handed weapons, but is
+        slow to wield, imposing 1 Bane to Initiative rolls for each hand used to
+        wield it.</p></dd><dt><p>Parrying</p></dt><dd
+        data-rule="weapon.parrying"><p>This weapon provides +1 to Parry defense
         while equipped and not Broken. The weapon's defensive balance increases
         the Critical Success Threshold for Strikes made with this weapon by +1,
-        making critical hits harder to achieve.</p><h4>Reach</h4><p>This weapon
-        trades striking power for a longer effective range. Its range is
-        increased by half, rounded up, but its base damage is reduced by 1 for
-        one-handed weapons or 2 for two-handed weapons.</p><h4>Thrown</h4><p>This
-        weapon is designed to be thrown. It can be used to Strike at range up to
-        a distance of 30 feet, rather than the 10 feet of an improvised throw,
-        and does not suffer the Banes of an improvised throw. A thrown weapon is
-        dropped and must be recovered before it can be used
-        again.</p><h4>Versatile</h4><p>This weapon can be wielded with either
+        making critical hits harder to achieve.</p></dd><dt><p>Reach</p></dt><dd
+        data-rule="weapon.reach"><p>This weapon trades striking power for a
+        longer effective range. Its range is increased by half, rounded up, but
+        its base damage is reduced by 1 for one-handed weapons or 2 for
+        two-handed weapons.</p></dd><dt><p>Thrown</p></dt><dd
+        data-rule="weapon.thrown"><p>This weapon is designed to be thrown. It
+        can be used to Strike at range up to a distance of 30 feet, rather than
+        the 10 feet of an improvised throw, and does not suffer the Banes of an
+        improvised throw. A thrown weapon is dropped and must be recovered
+        before it can be used again.</p></dd><dt><p>Versatile</p></dt><dd
+        data-rule="weapon.versatile"><p>This weapon can be wielded with either
         one or two hands. In its alternate grip it uses the statistics of the
-        corresponding weapon category of its kind, including base damage,
-        Action cost, and range: a one-handed Simple, Balanced, or Heavy weapon
-        wielded in two hands uses the statistics of the two-handed weapon of
-        that category.</p>
+        corresponding weapon category of its kind, including base damage, Action
+        cost, and range: a one-handed Simple, Balanced, or Heavy weapon wielded
+        in two hands uses the statistics of the two-handed weapon of that
+        category.</p></dd></dl>
       markdown: ''
     video:
       controls: true

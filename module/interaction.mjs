@@ -219,10 +219,13 @@ function extractRuleContent(page, ruleId) {
 async function displayTagTooltip(event) {
   const element = event.target;
   const ruleId = element.dataset.ruleId;
-  let tooltip = element.dataset.crucibleTooltipText || SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
+  let tooltip = element.dataset.crucibleTooltipText;
   let name = element.innerText;
   const cfg = foundry.utils.getProperty(SYSTEM.RULES, ruleId);
-  if ( cfg ) {
+
+  // A rule id takes precedence over an action tag of the same name, such as the "thrown" weapon property
+  if ( !cfg ) tooltip ||= SYSTEM.ACTION.TAGS[element.dataset.tag]?.tooltip;
+  else {
     const page = cfg.page ? await fromUuid(cfg.page) : null;
     tooltip ||= _loc(cfg.tooltip) || cfg.description;
     // Maybe derive tooltip content from authoritative journal text
