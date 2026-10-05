@@ -45,7 +45,6 @@ system:
             regions: []
             summons: []
             changes: []
-            dc: null
             properties: []
         - name: Grappling
           scope: 1
@@ -67,7 +66,6 @@ system:
             regions: []
             summons: []
             changes: []
-            dc: null
             properties: []
       tags:
         - difficult

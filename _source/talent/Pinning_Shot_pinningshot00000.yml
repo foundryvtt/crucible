@@ -47,7 +47,6 @@ system:
             maintenance: null
             regions: []
             summons: []
-            dc: null
             properties: []
       name: Pinning Shot
       img: icons/skills/ranged/arrow-strike-glowing-teal.webp
