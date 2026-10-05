@@ -352,8 +352,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    */
   getTags(scope="full") {
     const {QUALITY_TIERS: QT} = SYSTEM.ITEM;
+    const type = this.parent.type;
+    const rules = SYSTEM.RULES[type] ?? {};
     const tags = {};
-    tags.category = this.config.category.label;
+    const categoryLabel = this.config.category.label;
+    tags.category = (this.category in rules)
+      ? {label: categoryLabel, dataset: {"rule-id": `${type}.${this.category}`}} : categoryLabel;
     if ( this.quality && (this.quality !== "standard") ) tags.quality = QT[this.quality].label;
     if ( this.config.enchantment.id !== "mundane" ) tags.enchantment = this.config.enchantment.label;
     if ( this.isCursed ) tags.cursed = {label: SYSTEM.ITEM.AFFIX_PROPERTIES.cursed.label, unmet: true};
@@ -365,8 +369,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       : _loc("ITEM.PROPERTIES.NotInvested");
 
     // Properties, whose tooltips are extracted from the rules journal when documented there
-    const type = this.parent.type;
-    const rules = SYSTEM.RULES[type] ?? {};
     for ( const prop of this.properties ) {
       if ( ["investment", "stackable"].includes(prop) ) continue;
       const cfg = this.constructor.ITEM_PROPERTIES[prop];

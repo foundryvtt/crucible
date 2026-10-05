@@ -233,6 +233,19 @@ function preparePropertyRules(properties, page) {
   }, {});
 }
 
+/**
+ * Prepare an item type's category enum for use in RULES, reading each label from the enum once it is localized.
+ * @param {Record<string, object>} categories   The item type's category enum
+ * @param {string} page                         The UUID of the rules compendium journal page documenting the type
+ * @returns {RulesRecord}
+ */
+function prepareCategoryRules(categories, page) {
+  return Object.keys(categories).reduce((acc, id) => {
+    acc[id] = {id, page, get label() { return categories[id].label; }};
+    return acc;
+  }, {});
+}
+
 const EQUIPMENT_PAGE = "Compendium.crucible.rules.JournalEntry.e33DSvx0cfa7fey6.JournalEntryPage";
 
 /**
@@ -248,7 +261,10 @@ export const RULES = {
   accessory: preparePropertyRules(ACCESSORY.PROPERTIES, `${EQUIPMENT_PAGE}.Accessories00000`),
   action: ACTION.TAGS, // Tags which pertain to an action; `reload`, `rest`, and `strike` also exist under `actions`
   actions: Object.fromEntries(ACTION.DEFAULT_ACTIONS.map(a => [a.id, a])),
-  armor: preparePropertyRules(ARMOR.PROPERTIES, `${EQUIPMENT_PAGE}.JTsl6ENdxSDW765Q`),
+  armor: {
+    ...preparePropertyRules(ARMOR.PROPERTIES, `${EQUIPMENT_PAGE}.JTsl6ENdxSDW765Q`),
+    ...prepareCategoryRules(ARMOR.CATEGORIES, `${EQUIPMENT_PAGE}.JTsl6ENdxSDW765Q`) // Natural shares its property rule
+  },
   condition: {...statusEffects, ...derivedConditions}, // Encompasses everything `@Condition` may link to
   consumable: preparePropertyRules(CONSUMABLE.PROPERTIES, `${EQUIPMENT_PAGE}.Text000000000000`),
   damageType: prepareRules(ATTRIBUTES.DAMAGE_TYPES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000"),
@@ -258,7 +274,10 @@ export const RULES = {
   movement: ACTOR.MOVEMENT_RULES,
   resource: prepareRules(ATTRIBUTES.RESOURCES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000"),
   skill: prepareRules(PROFICIENCY.SKILLS, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000"),
-  weapon: preparePropertyRules(WEAPON.PROPERTIES, `${EQUIPMENT_PAGE}.LYj7sghAMoQj9FFR`)
+  weapon: {
+    ...preparePropertyRules(WEAPON.PROPERTIES, `${EQUIPMENT_PAGE}.LYj7sghAMoQj9FFR`),
+    ...prepareCategoryRules(WEAPON.CATEGORIES, `${EQUIPMENT_PAGE}.LYj7sghAMoQj9FFR`)
+  }
 };
 
 /* -------------------------------------------- */

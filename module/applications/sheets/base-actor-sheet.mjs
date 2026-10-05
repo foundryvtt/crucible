@@ -513,7 +513,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Flag an equipped weapon which the actor lacks the training to wield effectively
     if ( (item.type === "weapon") && config.equipped ) {
       const tooltip = item.system._getUntrainedTooltip(this.actor);
-      if ( tooltip ) config.tags.category = {label: config.tags.category, unmet: true, tooltip};
+      if ( tooltip ) config.tags.category = {...config.tags.category, unmet: true, tooltip};
     }
   }
 

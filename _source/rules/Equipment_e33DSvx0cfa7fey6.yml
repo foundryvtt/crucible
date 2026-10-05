@@ -36,18 +36,18 @@ pages:
         style="width:20%"><p>Scaling</p></th><th
         style="width:10%"><p>Range</p></th><th
         style="width:10%"><p>Action</p></th><th
-        style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr></thead><tbody><tr><td><p>Natural</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Offhand</p></td></tr><tr><td><p>Unarmed</p></td><td><p>STR,DEX</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Offhand</p></td></tr><tr><td><p>Light
+        style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr></thead><tbody><tr><td><p>Unarmed</p></td><td><p>STR,DEX</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Offhand</p></td></tr><tr><td><p>Light
         (1h)</p></td><td><p>DEX</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Offhand</p></td></tr><tr><td><p>Simple
         (1h)</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>4</p></td><td><p>Offhand</p></td></tr><tr><td><p>Balanced
         (1h)</p></td><td><p>STR,
-        DEX</p></td><td><p>2</p></td><td><p>2</p></td><td><p>4</p></td><td><p>Offhand</p></td></tr><tr><td><p>Heavy
+        DEX</p></td><td><p>2</p></td><td><p>2</p></td><td><p>5</p></td><td><p>Offhand</p></td></tr><tr><td><p>Heavy
         (1h)</p></td><td><p>STR</p></td><td><p>2</p></td><td><p>3</p></td><td><p>6</p></td><td><p></p></td></tr><tr><th><p>Two-Handed
         Melee</p></th><th style="width:20%"><p>Scaling</p></th><th
         style="width:10%"><p>Range</p></th><th
         style="width:10%"><p>Action</p></th><th
         style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr><tr><td><p>Simple
         (2h)</p></td><td><p>STR</p></td><td><p>2</p></td><td><p>3</p></td><td><p>6</p></td><td><p></p></td></tr><tr><td><p>Balanced
-        (2h)</p></td><td><p>STR,DEX</p></td><td><p>3</p></td><td><p>3</p></td><td><p>6</p></td><td><p></p></td></tr><tr><td><p>Heavy
+        (2h)</p></td><td><p>STR,DEX</p></td><td><p>3</p></td><td><p>3</p></td><td><p>7</p></td><td><p></p></td></tr><tr><td><p>Heavy
         (2h)</p></td><td><p>STR</p></td><td><p>3</p></td><td><p>3</p></td><td><p>8</p></td><td><p></p></td></tr><tr><th><p>Ranged</p></th><th
         style="width:20%"><p>Scaling</p></th><th
         style="width:10%"><p>Range</p></th><th
@@ -64,7 +64,84 @@ pages:
         style="width:10%"><p>Action</p></th><th
         style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr><tr><td><p>Light
         Shield</p></td><td><p>DEX</p></td><td><p>1</p></td><td><p>2</p></td><td><p>2</p></td><td><p>Block</p></td></tr><tr><td><p>Heavy
-        Shield</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Block</p></td></tr></tbody></table><h2
+        Shield</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Block</p></td></tr></tbody></table><p>Each weapon category is
+        described below.</p><dl><dt><p>Unarmed</p></dt><dd
+        data-rule="weapon.unarmed"><p>Fists, claws, and weapons strapped to the
+        hand such as katars and spiked knuckles. Unarmed weapons occupy one hand,
+        may be wielded in either hand, and scale with both
+        @Rule[ability.strength] and @Rule[ability.dexterity]. They use
+        <strong>Unarmed</strong> training.</p></dd><dt><p>Light
+        (1h)</p></dt><dd data-rule="weapon.light1"><p>Small, quick weapons such
+        as daggers, rapiers, and stilettos. Light weapons are wielded in one
+        hand, may be used in the offhand, and scale with
+        @Rule[ability.dexterity]. They use <strong>Light Weapon</strong>
+        training.</p></dd><dt><p>Simple (1h)</p></dt><dd
+        data-rule="weapon.simple1"><p>Straightforward weapons such as clubs,
+        maces, and javelins. Simple one-handed weapons may be used in the
+        offhand and scale with @Rule[ability.strength]. They use <strong>Heavy
+        Weapon</strong> training.</p></dd><dt><p>Balanced (1h)</p></dt><dd
+        data-rule="weapon.balanced1"><p>Versatile weapons such as shortswords,
+        scimitars, hand axes, and spears. Balanced one-handed weapons may be
+        used in the offhand and scale with both @Rule[ability.strength] and
+        @Rule[ability.dexterity]. They use either <strong>Heavy
+        Weapon</strong> or <strong>Light Weapon</strong>
+        training.</p></dd><dt><p>Heavy (1h)</p></dt><dd
+        data-rule="weapon.heavy1"><p>Weighty weapons such as battle axes,
+        bastard swords, and war hammers. Heavy one-handed weapons can only be
+        wielded in the main hand and scale with @Rule[ability.strength]. They
+        use <strong>Heavy Weapon</strong> training.</p></dd><dt><p>Simple
+        (2h)</p></dt><dd data-rule="weapon.simple2"><p>Large, straightforward
+        weapons such as greatclubs. Simple two-handed weapons scale with
+        @Rule[ability.strength] and use <strong>Heavy Weapon</strong>
+        training.</p></dd><dt><p>Balanced (2h)</p></dt><dd
+        data-rule="weapon.balanced2"><p>Long, versatile weapons such as
+        quarterstaves, glaives, and longswords. Balanced two-handed weapons
+        scale with both @Rule[ability.strength] and @Rule[ability.dexterity].
+        They use either <strong>Heavy Weapon</strong> or <strong>Light
+        Weapon</strong> training.</p></dd><dt><p>Heavy (2h)</p></dt><dd
+        data-rule="weapon.heavy2"><p>Massive weapons such as greatswords,
+        greataxes, and halberds. Heavy two-handed weapons scale with
+        @Rule[ability.strength] and use <strong>Heavy Weapon</strong>
+        training.</p></dd><dt><p>Projectile (1h)</p></dt><dd
+        data-rule="weapon.projectile1"><p>Ranged weapons which launch a
+        projectile by hand, such as slings and dart guns. One-handed projectile
+        weapons may be used in the offhand and scale with both
+        @Rule[ability.strength] and @Rule[ability.dexterity]. They use
+        <strong>Projectile</strong> training.</p></dd><dt><p>Projectile
+        (2h)</p></dt><dd data-rule="weapon.projectile2"><p>Bows such as
+        shortbows and longbows. Two-handed projectile weapons scale with both
+        @Rule[ability.strength] and @Rule[ability.dexterity] and use
+        <strong>Projectile</strong> training.</p></dd><dt><p>Talisman
+        (1h)</p></dt><dd data-rule="weapon.talisman1"><p>Implements such as
+        orbs, wands, and holy symbols through which spellcasters focus their
+        spellcraft, or strike foes at range. One-handed talismans may be used in
+        the offhand and scale with @Rule[ability.presence]. They use
+        <strong>Talisman</strong> training.</p></dd><dt><p>Talisman
+        (2h)</p></dt><dd data-rule="weapon.talisman2"><p>Large implements such
+        as staves and scepters through which spellcasters focus their
+        spellcraft, or strike foes at range. Two-handed talismans scale with
+        @Rule[ability.presence] and use <strong>Talisman</strong>
+        training.</p></dd><dt><p>Mechanical (1h)</p></dt><dd
+        data-rule="weapon.mechanical1"><p>Ranged devices such as hand crossbows
+        and pistols. One-handed mechanical weapons may be used in the offhand
+        and scale with @Rule[ability.dexterity]. They must be
+        @Rule[actions.reload]{reloaded} after each Strike, and use
+        <strong>Mechanical</strong> training.</p></dd><dt><p>Mechanical
+        (2h)</p></dt><dd data-rule="weapon.mechanical2"><p>Heavy ranged devices
+        such as heavy crossbows. Two-handed mechanical weapons scale with
+        @Rule[ability.dexterity]. They must be
+        @Rule[actions.reload]{reloaded} after each Strike, and use
+        <strong>Mechanical</strong> training.</p></dd><dt><p>Light
+        Shield</p></dt><dd data-rule="weapon.shieldLight"><p>Smaller shields
+        such as bucklers and round shields. Light shields can only be wielded in
+        the offhand, increase Block defense, and scale with
+        @Rule[ability.dexterity]. They use <strong>Shield</strong>
+        training.</p></dd><dt><p>Heavy Shield</p></dt><dd
+        data-rule="weapon.shieldHeavy"><p>Large shields such as kite shields and
+        tower shields. Heavy shields can only be wielded in the offhand, provide
+        greater Block defense than light shields, and scale with
+        @Rule[ability.strength]. They use <strong>Shield</strong>
+        training.</p></dd></dl><h2
         class="divider">Quality Tier</h2><p><strong>Quality</strong> of a Weapon
         describes its craftsmanship, materials, and condition. Quality tiers
         provide an additional bonus to the base damage of the weapon and
@@ -302,7 +379,28 @@ pages:
         Dex</p></td></tr><tr><td><p>Medium</p></td><td><p>9-13</p></td><td><p>3-5</p></td><td><p>6
         Dex</p></td></tr><tr><td><p>Heavy</p></td><td><p>14-18</p></td><td><p>0-2</p></td><td><p>8
         Dex</p></td></tr><tr><td><p>Natural</p></td><td><p>0-18</p></td><td><p>-1
-        to 8</p></td><td><p>0 Dex</p></td></tr></tbody></table><p>The total
+        to 8</p></td><td><p>0 Dex</p></td></tr></tbody></table><p>Each armor
+        category is described below.</p><dl><dt><p>Unarmored</p></dt><dd
+        data-rule="armor.unarmored"><p>Ordinary clothing which affords no
+        physical protection. Unarmored characters have no Armor defense and a
+        Base Dodge of 8, which improves with every point of
+        @Rule[ability.dexterity].</p></dd><dt><p>Light Armor</p></dt><dd
+        data-rule="armor.light"><p>Flexible protection such as padded, leather,
+        or studded leather armor. Light Armor provides 4 to 8 Armor defense and
+        a Base Dodge of 6 to 8, which improves with each point of
+        @Rule[ability.dexterity] above 4.</p></dd><dt><p>Medium
+        Armor</p></dt><dd data-rule="armor.medium"><p>Sturdier protection such
+        as brigandine, ring mail, or scale mail. Medium Armor provides 9 to 13
+        Armor defense and a Base Dodge of 3 to 5, which improves with each point
+        of @Rule[ability.dexterity] above 6.</p></dd><dt><p>Heavy
+        Armor</p></dt><dd data-rule="armor.heavy"><p>Full protection such as
+        chain mail, splint mail, or plate mail. Heavy Armor provides 14 to 18
+        Armor defense and a Base Dodge of 0 to 2, which improves with each point
+        of @Rule[ability.dexterity] above 8. Wearing Heavy Armor does not permit
+        a free <strong>Move</strong> action each turn.</p></dd></dl><p>Natural
+        Armor is described under Armor Properties below. Your rank in
+        <strong>Armored Combat</strong> lowers the Dexterity threshold of the
+        armor you wear.</p><p>The total
         <strong>Physical Defense</strong> contributed by the piece of Armor is
         equal to the sum of Armor and Dodge components.</p><section
         class="formula"><p class="value">Physical Defense</p><p
@@ -399,8 +497,10 @@ pages:
         rolls.</p></dd><dt><p>Natural</p></dt><dd
         data-rule="armor.natural"><p>This armor is a part of the creature which
         wears it, such as a thick hide, scales, or a carapace. Armor of the
-        Natural category always has this property. Creatures which cannot use
-        equipment may still wear natural armor.</p></dd><dt><p>Noisy</p></dt><dd
+        Natural category always has this property. Natural Armor provides 0 to
+        18 Armor defense, and its Base Dodge declines as its Armor increases,
+        never exceeding the Dodge of an unarmored creature. Creatures which
+        cannot use equipment may still wear natural armor.</p></dd><dt><p>Noisy</p></dt><dd
         data-rule="armor.noisy"><p>Armor that is <strong>Noisy</strong> makes it
         difficult to move quietly, conveying a penalty of +2 Banes to Stealth
         skill checks and to actions which use the Stealth skill. This penalty is

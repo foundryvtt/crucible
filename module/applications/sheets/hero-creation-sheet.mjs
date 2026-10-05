@@ -452,7 +452,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       // Flag weapons which the hero lacks the training to wield effectively
       if ( item.type === "weapon" ) {
         const untrainedTooltip = item.system._getUntrainedTooltip(this._clone);
-        if ( untrainedTooltip ) tags.category = {label: tags.category, unmet: true, tooltip: untrainedTooltip};
+        if ( untrainedTooltip ) tags.category = {...tags.category, unmet: true, tooltip: untrainedTooltip};
       }
       return {
         uuid: item.uuid,
