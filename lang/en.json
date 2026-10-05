@@ -2421,6 +2421,8 @@
       "CurseToxicity": "Curse of Toxicity"
     },
     "RUNES": {
+      "Blight": "Blight",
+      "BlightAdj": "Blighted",
       "Control": "Control",
       "ControlAdj": "Controlling",
       "Death": "Death",
@@ -2444,7 +2446,9 @@
       "Soul": "Soul",
       "SoulAdj": "Soulful",
       "Storm": "Storm",
-      "StormAdj": "Voltaic"
+      "StormAdj": "Voltaic",
+      "Torment": "Torment",
+      "TormentAdj": "Tormenting"
     },
     "SHEET": {
       "Knowledge": "Required Knowledge"
