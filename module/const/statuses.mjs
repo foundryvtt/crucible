@@ -296,7 +296,7 @@ export const statusEffects = {
     img: "icons/magic/control/hypnosis-mesmerism-watch.webp",
     hud: false,
     generator: EFFECTS.dominated,
-    page: "" // TODO
+    page: "Compendium.crucible.rules.JournalEntry.crucibleConditio.JournalEntryPage.dominated0000000"
   },
   entropy: {
     id: "entropy",

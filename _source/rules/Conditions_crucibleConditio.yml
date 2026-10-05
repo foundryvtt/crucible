@@ -1586,6 +1586,31 @@ pages:
       modifiedTime: 1780589890650
       lastModifiedBy: fzBjA63BB4hW4rQb
     _key: '!journal.pages!crucibleConditio.confused00000000'
+  - _id: dominated0000000
+    name: Dominated
+    type: text
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Dominated</strong> creature has its will overpowered by
+        another, and suffers <strong>Psychic</strong> damage to
+        <strong>Morale</strong> at the start of each turn.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: rpL70eBEekWih461
+    sort: 1553906
+    ownership:
+      default: -1
+      ifaQA7jTJsr3UWFE: 3
+    flags: {}
+    _key: '!journal.pages!crucibleConditio.dominated0000000'
   - _id: entropy000000000
     name: Entropy
     type: text
