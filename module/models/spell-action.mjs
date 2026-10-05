@@ -241,7 +241,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     nameFormat ||= rune.nameFormat;
     switch ( nameFormat ) {
       case SYSTEM.SPELL.NAME_FORMATS.NOUN:
-        name = _loc("SPELL.NameFormatNoun", {rune, gesture});
+        name = _loc("SPELL.NameFormatNoun", {rune: rune.spellName, gesture});
         break;
       case SYSTEM.SPELL.NAME_FORMATS.ADJ:
         name = _loc("SPELL.NameFormatAdj", {rune: rune.adjective, gesture});

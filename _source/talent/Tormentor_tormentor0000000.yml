@@ -5,9 +5,9 @@ system:
   nodes:
     - pre4d
   description: >-
-    <p>A spirit which can be lifted can just as surely be broken. Your
-    <strong>Rune of Soul</strong> becomes the <strong>Rune of
-    Torment</strong>. Its spells deal @Rule[damageType.psychic] damage to
+    <p>A spirit which can be lifted can just as surely be broken. Spells you
+    compose with the <strong>Rune of Soul</strong> become spells of
+    torment. They deal @Rule[damageType.psychic] damage to
     @Rule[resource.morale] instead of restoring it, and are resisted by
     @Rule[defense.willpower].</p>
   actions: []

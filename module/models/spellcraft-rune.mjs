@@ -19,6 +19,7 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
         return obj;
       }, {})}),
       nameFormat: new fields.NumberField({choices: Object.values(SYSTEM.SPELL.NAME_FORMATS)}),
+      spellName: new fields.StringField(),
       scaling: new fields.StringField({choices: SYSTEM.ABILITIES}),
       training: new fields.StringField({required: true, blank: false, choices: SYSTEM.PROFICIENCY.SPELLCRAFT})
     };
@@ -51,7 +52,9 @@ export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
   /** @inheritDoc */
   _initialize() {
     super._initialize();
-    this.adjective = _loc(`${this.name}Adj`);
+    const spellName = this.spellName || this.name;
+    this.adjective = _loc(`${spellName}Adj`);
+    this.spellName = _loc(spellName);
     this.name = _loc(this.name);
   }
 

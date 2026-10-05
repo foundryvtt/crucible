@@ -53,8 +53,8 @@ const PROJECTILE_DAMAGE_PRESETS = {
       alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: exposureInHot(0.7)}}
   },
   fire: {rune: "flame", size: 2, speed: 150, trail: true},
-  poison: { // TODO Repeats the Arrow+Life projectile pending manual tuning
-    rune: "poison", frame: "poison/ProjectileBubble", size: 3, speed: 30,
+  poison: {
+    rune: "poison", frame: "poison/ProjectileWispy", size: 3, speed: 30,
     flightSound: {rune: "poison", type: "passive", release: 400, fade: 400},
     trail: {frames: ["SprayBubble"], params: {align: false, speed: {min: 2, max: 12},
       lifetime: {min: 800, max: 1400}, spawnRate: 40, scale: {min: 0.4, max: 0.9},

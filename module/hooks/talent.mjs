@@ -1711,7 +1711,7 @@ HOOKS.blightcaller0000 = {
   prepareSpells(_item, grimoire) {
     const life = grimoire.runes.get("life");
     if ( !life ) return;
-    grimoire.runes.set("life", life.clone({name: "SPELL.RUNES.Blight", restoration: false}, {once: true}));
+    grimoire.runes.set("life", life.clone({spellName: "SPELL.RUNES.Blight", restoration: false}, {once: true}));
   }
 };
 
@@ -1721,7 +1721,7 @@ HOOKS.tormentor0000000 = {
   prepareSpells(_item, grimoire) {
     const soul = grimoire.runes.get("soul");
     if ( !soul ) return;
-    grimoire.runes.set("soul", soul.clone({name: "SPELL.RUNES.Torment", restoration: false}, {once: true}));
+    grimoire.runes.set("soul", soul.clone({spellName: "SPELL.RUNES.Torment", restoration: false}, {once: true}));
   }
 };
 

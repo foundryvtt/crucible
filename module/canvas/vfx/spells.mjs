@@ -1466,7 +1466,6 @@ const _IMPACT_LIFE = {
   ]
 };
 
-// TODO Poison repeats the Life charge and impact without the bloom and root art it lacks, pending manual tuning
 const _CHARGE_POISON_SPRAY = {
   chargeBehavior: "circleParticleBloom", chargeAnchor: "source",
   chargeLayers: [
@@ -1615,9 +1614,8 @@ const ARROW_VFX_PROPS = {
   }
 };
 
-// TODO Arrow+Poison repeats Arrow+Life pending manual tuning
 ARROW_VFX_PROPS.poison = {...ARROW_VFX_PROPS.life, ..._CHARGE_POISON_SPRAY, ..._IMPACT_POISON,
-  projectileFrame: "poison/ProjectileBubble", flightSound: {...ARROW_VFX_PROPS.life.flightSound, rune: "poison"}};
+  projectileFrame: "poison/ProjectileWispy", flightSound: {...ARROW_VFX_PROPS.life.flightSound, rune: "poison"}};
 
 /* -------------------------------------------- */
 
@@ -1932,6 +1930,29 @@ const RAY_VFX_PROPS = {
           fade: {in: 250, out: 1200}, blend: PIXI.BLEND_MODES.NORMAL, elevation: beamElevation}
       }];
     }
+  }
+};
+
+// Ray+Poison: Life's beam, with a toxic wispy film spreading along the ground where Life lays roots
+RAY_VFX_PROPS.poison = {...RAY_VFX_PROPS.life, ..._CHARGE_POISON_SPRAY, ..._IMPACT_POISON,
+  buildDelivery(ctx) {
+    const {palette, width} = ctx;
+    const castoff = RAY_VFX_PROPS.life.buildDelivery.call(this, ctx).at(-1);
+    const DELIVERY_DURATION = this.deliveryDuration;
+    const LINGER = 5000;
+    return [
+      {
+        animation: "rayParticleGroundCascade", anchor: "origin",
+        textures: getVFXFrames(palette, "GroundWispy"),
+        duration: DELIVERY_DURATION, mask: true,
+        params: {width: Math.round(width * 0.7), spacing: 40,
+          rotationSpread: Math.PI,
+          lifetime: {min: DELIVERY_DURATION + LINGER, max: DELIVERY_DURATION + LINGER + 1500},
+          scale: {min: 0.9, max: 1.5}, alpha: {min: 0.45, max: 0.8},
+          fade: {in: 200, out: 1800}, blend: PIXI.BLEND_MODES.NORMAL, elevation: 0}
+      },
+      castoff
+    ];
   }
 };
 
@@ -2332,6 +2353,58 @@ const BLAST_VFX_PROPS = {
   }
 };
 
+// Blast+Poison: thick, choking clouds of noxious gas billow and churn across the area over a toxic ground haze
+BLAST_VFX_PROPS.poison = {...BLAST_VFX_PROPS.life, ..._CHARGE_POISON_SPRAY, ..._IMPACT_POISON,
+  chargeAnchor: "forward",
+  buildDelivery(ctx) {
+    const {palette, origin, radius, particleElevation, casterElevation} = ctx;
+    const CLOUD_DURATION = this.deliveryDuration;
+    const residue = BLAST_VFX_PROPS.life.buildDelivery.call(this, ctx).at(-1);
+    return [
+      { // Ground haze pooling under the clouds
+        animation: "circleParticleBloom", anchor: "origin",
+        textures: getVFXFrames(palette, "GroundWispy"),
+        duration: CLOUD_DURATION, mask: true,
+        params: {
+          chargeRadius: Math.round(radius * 1.2),
+          spawnRate: 40, lifetime: {min: 3000, max: 5000},
+          scale: {min: 2.0, max: 3.0}, alpha: {min: 0.25, max: 0.45},
+          growFraction: 0.35,
+          fade: {in: 0.15, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL,
+          sort: 0, elevation: 0}
+      },
+      { // Cloud bank: dense billows swelling as they drift slowly across the area
+        animation: "shapeParticleResidue", anchor: "origin",
+        textures: getVFXFrames(palette, "AuraWispy"),
+        duration: CLOUD_DURATION, mask: true,
+        params: {spawnRate: 18,
+          speed: {min: 3, max: 12},
+          lifetime: {min: 3000, max: 4500},
+          scale: {min: 2.5, max: 3.5},
+          scaleCurve: [{time: 0, value: 0.5}, {time: 0.4, value: 1.0}, {time: 1.0, value: 1.3}],
+          fade: {in: 500, out: 1500},
+          rotationSpeed: {min: -0.25, max: 0.25},
+          blend: PIXI.BLEND_MODES.NORMAL,
+          area: {type: "circle", x: origin.x, y: origin.y, radius: Math.round(radius * 0.9)},
+          elevation: particleElevation + 1}
+      },
+      { // Churn: wisps turning lazily through the clouds
+        animation: "circleParticleVortex", anchor: "origin",
+        textures: getVFXFrames(palette, "AirWispy"),
+        duration: CLOUD_DURATION, mask: true,
+        params: {chargeRadius: Math.round(radius),
+          swirlSpeed: 0.8, spinSpeed: 0.6,
+          spawnRate: 45, lifetime: {min: 2000, max: 3000},
+          scale: {min: 2.0, max: 3.0}, alpha: {min: 0.25, max: 0.45},
+          fade: {in: 0.2, out: 0.4},
+          blend: PIXI.BLEND_MODES.NORMAL,
+          elevation: casterElevation + 1}
+      },
+      residue
+    ];
+  }
+};
+
 /* -------------------------------------------- */
 
 /**
@@ -2705,8 +2778,58 @@ const FAN_VFX_PROPS = {
   }
 };
 
-// TODO Fan+Poison repeats Fan+Life pending manual tuning
-FAN_VFX_PROPS.poison = {...FAN_VFX_PROPS.life, ..._IMPACT_POISON};
+// Fan+Poison: Flame's sweeping flamethrower as a jet of noxious spray, leaving toxic puddles along the cone edge
+FAN_VFX_PROPS.poison = {...FAN_VFX_PROPS.flame, ..._IMPACT_POISON,
+  buildCharge(ctx) {
+    const {palette, particleElevation} = ctx;
+    return [
+      { // Spray condensing at the nozzle just before the jet erupts
+        animation: "circleParticleGather", anchor: "forward",
+        textures: getVFXFrames(palette, "SprayWispy", "SprayBubble"),
+        duration: 200,
+        params: {chargeRadius: 25, lifetime: 180, spawnRate: 600,
+          alpha: {min: 0.6, max: 0.9}, scale: {min: 0.5, max: 0.9},
+          elevation: particleElevation, blend: PIXI.BLEND_MODES.NORMAL}
+      }
+    ];
+  },
+  buildDelivery(ctx) {
+    const {palette, radius, startAngleRad, endAngleRad, sweepDuration, casterElevation, casterRadiusPx} = ctx;
+    const innerRadius = Math.round((casterRadiusPx * 2) / 3);
+    const outerRadius = Math.round(casterRadiusPx);
+    const jetReach = Math.round(radius * 0.6);
+    const jetSpeed = 700;
+    const jetLifetime = Math.round((jetReach / jetSpeed) * 1000);
+    const sweepLayer = (start, end, offset) => ({
+      animation: "fanParticleSweep", anchor: "origin",
+      textures: getVFXFrames(palette, "StreakWispy", "StreakTendril", "StreakBubble"),
+      duration: sweepDuration, offset, mask: true,
+      params: {startAngleRad: start, endAngleRad: end,
+        innerRadius, outerRadius,
+        radialSpeed: jetSpeed, armSpread: 0.22, spawnRate: 420,
+        lifetime: {min: Math.round(jetLifetime * 0.7), max: jetLifetime},
+        alpha: {min: 0.5, max: 0.85}, scale: {min: 0.8, max: 1.4},
+        elevation: casterElevation + 1, blend: PIXI.BLEND_MODES.NORMAL}
+    });
+    return [
+      sweepLayer(startAngleRad, endAngleRad, 0),
+      sweepLayer(endAngleRad, startAngleRad, sweepDuration),
+      { // Toxic puddles deposited along the cone perimeter as the front sweeps
+        animation: "fanParticleArcDeposit", anchor: "origin",
+        textures: getVFXFrames(palette, "GroundWispy"),
+        duration: sweepDuration, mask: true,
+        params: {
+          startAngleRad, endAngleRad,
+          radiusFactor: 0.9, radialJitter: 35, arcSpread: 0.07,
+          alpha: {min: 0.25, max: 0.5}, scale: {min: 1.0, max: 1.6},
+          lifetime: {min: 5000, max: 7000}, spawnRate: 70, elevation: 0,
+          fade: {in: 0, out: 2500},
+          blend: PIXI.BLEND_MODES.NORMAL
+        }
+      }
+    ];
+  }
+};
 
 /* -------------------------------------------- */
 
@@ -2818,7 +2941,6 @@ const TOUCH_VFX_PROPS = {
   }
 };
 
-// TODO Touch+Poison and Influence+Poison repeat Touch+Life and Influence+Life pending manual tuning
 TOUCH_VFX_PROPS.poison = {...TOUCH_VFX_PROPS.life, ..._IMPACT_POISON};
 
 /* -------------------------------------------- */
