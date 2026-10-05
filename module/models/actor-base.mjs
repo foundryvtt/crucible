@@ -1072,11 +1072,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Armor and Dodge from equipped Armor
     const armorData = equipment.armor.system;
-    const dodgeScaling = Math.max(armorData.dodge.scaling - this.training.armor.rank, 0);
+    const dex = abilities.dexterity.value;
+    const {scaling} = armorData.dodge;
+    const reduction = Math.min(this.training.armor.rank, scaling); // Armored Combat proficiency
+    const dodgeScaling = scaling - reduction;
     defenses.armor.base = armorData.armor.base;
-    defenses.armor.bonus += armorData.armor.bonus;
+    defenses.armor.bonus += armorData.armor.bonus + Math.min(reduction, Math.max(scaling - dex, 0));
     defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus += Math.max(abilities.dexterity.value - dodgeScaling, 0);
+    defenses.dodge.bonus += Math.max(dex - dodgeScaling, 0);
     defenses.dodge.max = defenses.dodge.base + (12 - dodgeScaling);
 
     // Block and Parry from equipped Weapons
