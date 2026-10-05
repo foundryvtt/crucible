@@ -92,7 +92,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       obj[ability.id] = new fields.SchemaField({
         base: new fields.NumberField({...requiredInteger, initial: 0, min: 0, max: 3}),
         increases: new fields.NumberField({...requiredInteger, initial: 0, min: 0, max: 12}),
-        bonus: new fields.NumberField({...requiredInteger, initial: 0, min: 0})
+        bonus: new fields.NumberField({...requiredInteger, initial: 0})
       }, {label: ability.label});
       return obj;
     }, {}));
