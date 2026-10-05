@@ -297,8 +297,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160037
-      modifiedTime: 1790690160037
+      createdTime: 1791160737437
+      modifiedTime: 1791160737437
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -317,21 +317,22 @@ items:
       category: talisman1
       quantity: 1
       weight: 2
-      price: 320
+      price: 780
       quality: standard
       broken: false
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - versatile
       damageType: electricity
       identifier: arcaneOrb
       invested: false
       description:
         public: >-
-          <p>A sphere of crystal or glass that — in the palm of a capable
-          spellcaster — becomes a conduit for their power. It gathers voltaic
-          energy within its orb before blasting a target with electrifying
-          force.</p>
+          <p>A sphere of clouded crystal in which tiny threads of lightning
+          crackle and coil. Spellcasters may focus their spellcraft through this
+          talisman, or use it to strike foes with @Rule[damageType.electricity]
+          damage.</p>
         private: ''
       actions: []
       dropped: false
@@ -342,8 +343,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160038
-      modifiedTime: 1790690160038
+      createdTime: 1791160737437
+      modifiedTime: 1791160737437
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -359,21 +360,23 @@ items:
       category: talisman1
       quantity: 1
       weight: 3
-      price: 480
+      price: 750
       quality: standard
       broken: false
       enchantment: mundane
       equipped: true
-      properties: []
+      properties:
+        - blocking
       damageType: bludgeoning
       slot: 1
       identifier: grimoire
       invested: false
       description:
         public: >-
-          <p>This heavy tome is used as a repository of knowledge as well as an
-          implement for spellcraft. In the hands of an arcane practitioner, it
-          can project concussive blasts of force towards a target.</p>
+          <p>A heavy, iron-bound tome of arcane notation, as useful for
+          battering a foe as for study. Spellcasters may focus their spellcraft
+          through this talisman, or use it to strike foes with
+          @Rule[damageType.bludgeoning] damage.</p>
         private: ''
       actions: []
       dropped: false
@@ -385,8 +388,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160038
-      modifiedTime: 1790690160038
+      createdTime: 1791160737437
+      modifiedTime: 1791160737437
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -455,8 +458,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160038
-      modifiedTime: 1790690160038
+      createdTime: 1791160737438
+      modifiedTime: 1791160737438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -492,8 +495,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160038
-      modifiedTime: 1790690160038
+      createdTime: 1791160737438
+      modifiedTime: 1791160737438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -574,8 +577,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160039
-      modifiedTime: 1790690160039
+      createdTime: 1791160737438
+      modifiedTime: 1791160737438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -655,8 +658,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160039
-      modifiedTime: 1790690160039
+      createdTime: 1791160737438
+      modifiedTime: 1791160737438
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -703,9 +706,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790690160040
+      modifiedTime: 1791160737439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790690160040
+      createdTime: 1791160737439
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -800,8 +803,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160040
-      modifiedTime: 1790690160040
+      createdTime: 1791160737439
+      modifiedTime: 1791160737439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -887,8 +890,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160040
-      modifiedTime: 1790690160040
+      createdTime: 1791160737439
+      modifiedTime: 1791160737439
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -907,8 +910,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790690160037
-  modifiedTime: 1790690160037
+  createdTime: 1791160737436
+  modifiedTime: 1791160737436
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -5,8 +5,8 @@ img: icons/equipment/neck/necklace-simple-bone-skull.webp
 system:
   category: talisman1
   quantity: 1
-  weight: 2
-  price: 320
+  weight: 1
+  price: 600
   quality: standard
   broken: false
   enchantment: mundane
@@ -17,8 +17,9 @@ system:
   invested: false
   description:
     public: >-
-      <p>This macabre talisman invokes the fear and energies of death to aid
-      spellcaft or afflict enemies with corrupting influence.</p>
+      <p>A small skull bound in twine and feathers, said to whisper of rot and
+      ruin. Spellcasters may focus their spellcraft through this talisman, or
+      use it to strike foes with @Rule[damageType.corruption] damage.</p>
     private: ''
   actions: []
   dropped: false

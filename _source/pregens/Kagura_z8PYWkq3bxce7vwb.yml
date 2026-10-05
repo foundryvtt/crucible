@@ -299,8 +299,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160009
-      modifiedTime: 1790690160009
+      createdTime: 1791160737399
+      modifiedTime: 1791160737399
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -377,8 +377,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160010
-      modifiedTime: 1790690160010
+      createdTime: 1791160737399
+      modifiedTime: 1791160737399
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -443,8 +443,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160010
-      modifiedTime: 1790690160010
+      createdTime: 1791160737400
+      modifiedTime: 1791160737400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -505,8 +505,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160010
-      modifiedTime: 1790690160010
+      createdTime: 1791160737400
+      modifiedTime: 1791160737400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -544,9 +544,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790690160011
+      modifiedTime: 1791160737400
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790690160011
+      createdTime: 1791160737400
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -616,8 +616,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160011
-      modifiedTime: 1790690160011
+      createdTime: 1791160737401
+      modifiedTime: 1791160737401
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -636,8 +636,8 @@ items:
       identifier: primordialSeed
       category: talisman1
       quantity: 1
-      weight: 2
-      price: 320
+      weight: 1
+      price: 600
       quality: standard
       broken: false
       enchantment: mundane
@@ -646,9 +646,10 @@ items:
       properties: []
       description:
         public: >-
-          <p>This talisman, favored by druidic adherants attuned to the power of
-          the land, aids in the practice of spellcraft or can be used in combat
-          to direct a gout of poisonous spores towards an enemy.</p>
+          <p>A gnarled seed pod from some ancient plant, swollen with a potent
+          and bitter sap. Spellcasters may focus their spellcraft through this
+          talisman, or use it to strike foes with @Rule[damageType.poison]
+          damage.</p>
         private: ''
       actions: []
       damageType: poison
@@ -660,8 +661,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160011
-      modifiedTime: 1790690160011
+      createdTime: 1791160737401
+      modifiedTime: 1791160737401
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -698,8 +699,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160011
-      modifiedTime: 1790690160011
+      createdTime: 1791160737401
+      modifiedTime: 1791160737401
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -789,8 +790,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160011
-      modifiedTime: 1790690160011
+      createdTime: 1791160737402
+      modifiedTime: 1791160737402
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -809,8 +810,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790690160008
-  modifiedTime: 1790690160008
+  createdTime: 1791160737397
+  modifiedTime: 1791160737397
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

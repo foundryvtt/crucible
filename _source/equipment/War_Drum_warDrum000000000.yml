@@ -1,0 +1,45 @@
+name: War Drum
+type: weapon
+img: icons/tools/instruments/drum-brown-red.webp
+system:
+  identifier: warDrum
+  category: talisman2
+  quantity: 1
+  weight: 6
+  price: 1120
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - oversized
+  description:
+    public: >-
+      <p>A hide drum whose rhythm stirs dread or fury in all who hear it.
+      Spellcasters may focus their spellcraft through this talisman, or use it
+      to strike foes with @Rule[damageType.psychic] damage.</p>
+    private: ''
+  actions: []
+  damageType: psychic
+  dropped: false
+  slot: 0
+effects: []
+folder: asQ2QKQQ3PrQX4yk
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791157224348
+  modifiedTime: 1791157224348
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: warDrum000000000
+sort: 0
+_key: '!items!warDrum000000000'

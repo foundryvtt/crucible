@@ -1,0 +1,46 @@
+name: Prismatic Spindle
+type: weapon
+img: icons/weapons/staves/staff-orante-gold.webp
+system:
+  identifier: prismaticSpindle
+  category: talisman2
+  quantity: 1
+  weight: 4
+  price: 1200
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - reach
+  description:
+    public: >-
+      <p>A long, slender spindle of faceted crystal that gathers light and spins
+      it into searing prismatic beams. Spellcasters may focus their spellcraft
+      through this talisman, or use it to strike foes with
+      @Rule[damageType.radiant] damage.</p>
+    private: ''
+  actions: []
+  damageType: radiant
+  dropped: false
+  slot: 0
+effects: []
+folder: asQ2QKQQ3PrQX4yk
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791157224348
+  modifiedTime: 1791159711845
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: prismaticSpindle
+sort: 0
+_key: '!items!prismaticSpindle'

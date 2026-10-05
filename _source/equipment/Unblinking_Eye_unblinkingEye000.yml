@@ -1,12 +1,12 @@
-name: Holy Symbol
+name: Unblinking Eye
 type: weapon
-img: icons/equipment/neck/amulet-round-star-gold.webp
+img: icons/commodities/biological/eye-purple.webp
 system:
-  identifier: holySymbol
+  identifier: unblinkingEye
   category: talisman1
   quantity: 1
   weight: 1
-  price: 780
+  price: 720
   quality: standard
   broken: false
   enchantment: mundane
@@ -16,13 +16,12 @@ system:
     - ambush
   description:
     public: >-
-      <p>An amulet bearing the sign of a divine patron, which glows faintly in
-      the presence of faith. Spellcasters may focus their spellcraft through
-      this talisman, or use it to strike foes with @Rule[damageType.radiant]
-      damage.</p>
+      <p>A glassy eye set in a ring of dark sinew, which never closes and always
+      seems to be watching. Spellcasters may focus their spellcraft through this
+      talisman, or use it to strike foes with @Rule[damageType.void] damage.</p>
     private: ''
   actions: []
-  damageType: radiant
+  damageType: void
   dropped: false
   slot: 0
 effects: []
@@ -38,9 +37,9 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1749828473016
-  modifiedTime: 1791159898887
+  createdTime: 1791157224348
+  modifiedTime: 1791159798764
   lastModifiedBy: WRGzDgYAt3ZuX6TU
-_id: holySymbol000000
-sort: 400000
-_key: '!items!holySymbol000000'
+_id: unblinkingEye000
+sort: 0
+_key: '!items!unblinkingEye000'

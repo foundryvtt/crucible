@@ -1,9 +1,9 @@
 type: Item
 folder: fqtkBZ47aF32jY4Q
-name: Talisman
+name: Talisman (2h)
 color: null
 sorting: a
-_id: uvvY6c0nbJBhAjM6
+_id: asQ2QKQQ3PrQX4yk
 description: ''
 sort: 0
 flags: {}
@@ -11,8 +11,8 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '14.368'
   systemId: crucible
-  systemVersion: 0.8.6
+  systemVersion: 0.11.1
   lastModifiedBy: null
-_key: '!folders!uvvY6c0nbJBhAjM6'
+_key: '!folders!asQ2QKQQ3PrQX4yk'

@@ -5,22 +5,22 @@ img: icons/weapons/daggers/dagger-jeweled-black.webp
 system:
   category: talisman1
   quantity: 1
-  weight: 2
-  price: 320
+  weight: 1
+  price: 750
   quality: standard
   broken: false
   enchantment: mundane
   equipped: false
-  properties: []
+  properties:
+    - ambush
   damageType: piercing
   identifier: ceremonialDagger
   invested: false
   description:
     public: >-
-      <p>This blade is less functional and more ornamented than a regular
-      dagger. Its inscriptions and craftsmanship are purposeful for use as a
-      tool for spellcraft. In combat, it projects piercing blasts of arcane
-      energy.</p>
+      <p>An ornate ritual blade, better suited to sacrament than to swordplay.
+      Spellcasters may focus their spellcraft through this talisman, or use it
+      to strike foes with @Rule[damageType.piercing] damage.</p>
     private: ''
   actions: []
   dropped: false

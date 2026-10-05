@@ -302,8 +302,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160004
-      modifiedTime: 1790690160004
+      createdTime: 1791160072876
+      modifiedTime: 1791160072876
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -345,8 +345,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160005
-      modifiedTime: 1790690160005
+      createdTime: 1791160072876
+      modifiedTime: 1791160072876
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -414,8 +414,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160005
-      modifiedTime: 1790690160005
+      createdTime: 1791160072876
+      modifiedTime: 1791160072876
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -451,8 +451,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160006
-      modifiedTime: 1790690160006
+      createdTime: 1791160072877
+      modifiedTime: 1791160072877
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -529,8 +529,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160006
-      modifiedTime: 1790690160006
+      createdTime: 1791160072877
+      modifiedTime: 1791160072877
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -565,8 +565,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160007
-      modifiedTime: 1790690160007
+      createdTime: 1791160072877
+      modifiedTime: 1791160072877
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -604,8 +604,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160007
-      modifiedTime: 1790690160007
+      createdTime: 1791160072877
+      modifiedTime: 1791160072877
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -671,8 +671,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160007
-      modifiedTime: 1790690160007
+      createdTime: 1791160072878
+      modifiedTime: 1791160072878
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -764,8 +764,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160007
-      modifiedTime: 1790690160007
+      createdTime: 1791160072878
+      modifiedTime: 1791160072878
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -775,6 +775,50 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iPMperuo6ZvBLnp9.orcLineage000000'
+  - name: Cinder Wand
+    type: weapon
+    img: icons/weapons/wands/wand-carved-fire.webp
+    system:
+      identifier: cinderWand
+      category: talisman1
+      quantity: 1
+      weight: 1
+      price: 630
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: false
+      invested: false
+      properties: []
+      description:
+        public: >-
+          <p>A blackened wand whose tip smolders with a perpetual ember.
+          Spellcasters may focus their spellcraft through this talisman, or use
+          it to strike foes with @Rule[damageType.fire] damage.</p>
+        private: ''
+      actions: []
+      damageType: fire
+      dropped: false
+      slot: 0
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791160072875
+      modifiedTime: 1791160072875
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: COd0nyqVNNPppISa
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      WRGzDgYAt3ZuX6TU: 3
+    _key: '!actors.items!iPMperuo6ZvBLnp9.COd0nyqVNNPppISa'
 effects: []
 flags:
   core: {}
@@ -784,8 +828,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790690160002
-  modifiedTime: 1790690160002
+  createdTime: 1791160072875
+  modifiedTime: 1791160072875
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

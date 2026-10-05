@@ -5,21 +5,23 @@ system:
   category: talisman1
   quantity: 1
   weight: 3
-  price: 480
+  price: 750
   quality: standard
   broken: false
   enchantment: mundane
   equipped: false
-  properties: []
+  properties:
+    - blocking
   damageType: bludgeoning
   slot: 0
   identifier: grimoire
   invested: false
   description:
     public: >-
-      <p>This heavy tome is used as a repository of knowledge as well as an
-      implement for spellcraft. In the hands of an arcane practitioner, it can
-      project concussive blasts of force towards a target.</p>
+      <p>A heavy, iron-bound tome of arcane notation, as useful for battering a
+      foe as for study. Spellcasters may focus their spellcraft through this
+      talisman, or use it to strike foes with @Rule[damageType.bludgeoning]
+      damage.</p>
     private: ''
   actions: []
   dropped: false

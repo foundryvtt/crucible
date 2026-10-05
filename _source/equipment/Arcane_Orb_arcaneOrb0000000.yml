@@ -6,20 +6,21 @@ system:
   category: talisman1
   quantity: 1
   weight: 2
-  price: 320
+  price: 780
   quality: standard
   broken: false
   enchantment: mundane
   equipped: false
-  properties: []
+  properties:
+    - versatile
   damageType: electricity
   identifier: arcaneOrb
   invested: false
   description:
     public: >-
-      <p>A sphere of crystal or glass that — in the palm of a capable
-      spellcaster — becomes a conduit for their power. It gathers voltaic energy
-      within its orb before blasting a target with electrifying force.</p>
+      <p>A sphere of clouded crystal in which tiny threads of lightning crackle
+      and coil. Spellcasters may focus their spellcraft through this talisman,
+      or use it to strike foes with @Rule[damageType.electricity] damage.</p>
     private: ''
   actions: []
   dropped: false

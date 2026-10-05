@@ -300,8 +300,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160013
-      modifiedTime: 1790690160013
+      createdTime: 1791160737404
+      modifiedTime: 1791160737404
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -344,8 +344,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160013
-      modifiedTime: 1790690160013
+      createdTime: 1791160737404
+      modifiedTime: 1791160737404
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -436,9 +436,10 @@ items:
           condition: ''
           description: >-
             <p>You attempt to physically restrain or subdue an opponent. Perform
-            an @Rule[skill.athletics] skill attack against an adjacent target.
-            If successful, both you and your target are @Condition[restrained]
-            for <strong>1 Round</strong>.</p>
+            an @Rule[skill.athletics] skill attack against an adjacent target
+            contested by their passive @Rule[skill.athletics] skill.  If
+            successful, both you and your target are @Condition[restrained] for
+            <strong>1 Round</strong>.</p>
           summon: null
           persistRegion: false
           regionBehavior: null
@@ -455,8 +456,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160014
-      modifiedTime: 1790690160014
+      createdTime: 1791160737405
+      modifiedTime: 1791160737405
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -522,8 +523,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160014
-      modifiedTime: 1790690160014
+      createdTime: 1791160737405
+      modifiedTime: 1791160737405
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -607,8 +608,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160015
-      modifiedTime: 1790690160015
+      createdTime: 1791160737405
+      modifiedTime: 1791160737405
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -671,8 +672,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160015
-      modifiedTime: 1790690160015
+      createdTime: 1791160737406
+      modifiedTime: 1791160737406
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -736,9 +737,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790690160015
+      modifiedTime: 1791160737407
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790690160015
+      createdTime: 1791160737407
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -831,8 +832,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160016
-      modifiedTime: 1790690160016
+      createdTime: 1791160737407
+      modifiedTime: 1791160737407
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -919,8 +920,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160016
-      modifiedTime: 1790690160016
+      createdTime: 1791160737407
+      modifiedTime: 1791160737407
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -938,8 +939,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790690160012
-  modifiedTime: 1790690160012
+  createdTime: 1791160737403
+  modifiedTime: 1791160737403
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

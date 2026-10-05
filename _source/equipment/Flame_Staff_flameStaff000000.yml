@@ -6,7 +6,7 @@ system:
   category: talisman2
   quantity: 1
   weight: 4
-  price: 640
+  price: 1050
   quality: standard
   broken: false
   enchantment: mundane
@@ -15,15 +15,17 @@ system:
   properties: []
   description:
     public: >-
-      <p>This mage staff is a talisman to assist with spellcraft or hurl gouts
-      of arcane flame at enemies.</p>
+      <p>A long staff of red-lacquered wood whose engravings glow like embers
+      when it is wielded in anger. Spellcasters may focus their spellcraft
+      through this talisman, or use it to strike foes with
+      @Rule[damageType.fire] damage.</p>
     private: ''
   actions: []
   damageType: fire
   dropped: false
   slot: 0
 effects: []
-folder: uvvY6c0nbJBhAjM6
+folder: asQ2QKQQ3PrQX4yk
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

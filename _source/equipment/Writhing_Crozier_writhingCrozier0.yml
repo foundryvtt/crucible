@@ -1,0 +1,45 @@
+name: Writhing Crozier
+type: weapon
+img: icons/weapons/staves/staff-ornate-eye.webp
+system:
+  identifier: writhingCrozier
+  category: talisman2
+  quantity: 1
+  weight: 4
+  price: 1150
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - engaging
+  description:
+    public: >-
+      <p>A hooked staff of black wood that slowly twists and coils of its own
+      accord. Spellcasters may focus their spellcraft through this talisman, or
+      use it to strike foes with @Rule[damageType.void] damage.</p>
+    private: ''
+  actions: []
+  damageType: void
+  dropped: false
+  slot: 0
+effects: []
+folder: asQ2QKQQ3PrQX4yk
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791157224348
+  modifiedTime: 1791159821988
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: writhingCrozier0
+sort: 0
+_key: '!items!writhingCrozier0'

@@ -923,39 +923,45 @@ actors:
       details:
         archetype:
           description: >-
-            Fighters who specialize in physically restraining their adversaries
-            and rendering them susceptible to further attacks.
+            <p>Relentless brawlers who close the distance, seize their foes in
+            unbreakable holds, and overpower them through sheer brawn and
+            resilience. They fight bare-handed, turning their own bulk into both
+            weapon and shield.</p>
           abilities:
-            wisdom: 2
-            presence: 0
-            intellect: 0
-            strength: 5
+            wisdom: 1
+            presence: 1
+            intellect: 1
+            strength: 4
             toughness: 4
             dexterity: 1
           talents:
-            - item: Compendium.crucible.talent.Item.powerfulphysique
-              level: null
-            - item: Compendium.crucible.talent.Item.legsweep00000000
-              level: null
-            - item: Compendium.crucible.talent.Item.concussiveblows0
-              level: null
             - item: Compendium.crucible.talent.Item.grapple000000000
               level: null
-          identifier: grappler
+            - item: Compendium.crucible.talent.Item.unarmedblocking0
+              level: 1
+            - item: Compendium.crucible.talent.Item.thickskin0000000
+              level: 2
+            - item: Compendium.crucible.talent.Item.wrestler00000000
+              level: 3
+            - item: Compendium.crucible.talent.Item.juggernaut000000
+              level: 4
+          identifier: juggernaut
           training:
-            unarmed: 4
-            armor: 1
-            athletics: 3
-            intimidation: 2
+            athletics: 2
             awareness: 1
-            performance: 1
             stealth: 0
-            smithing: 0
             wilderness: 1
+            medicine: 0
+            intimidation: 2
+            performance: 1
+            smithing: 0
+            heavy: 3
+            unarmed: 3
+            armor: 3
           spells: []
           equipment: []
-          name: Grappler
-          img: icons/magic/control/buff-strength-muscle-damage.webp
+          name: Juggernaut
+          img: icons/magic/control/buff-strength-muscle-damage-orange.webp
         taxonomy:
           description: >-
             <p>Hulking giantkin which are reknowned for their brute strength and
@@ -1063,9 +1069,9 @@ actors:
           immune: false
       resources:
         health:
-          value: 99
+          value: 105
         morale:
-          value: 48
+          value: 45
         action:
           value: 8
         focus:
@@ -1185,17 +1191,18 @@ actors:
           category: medium
           quantity: 1
           weight: 20
-          price: 400
+          price: 520
           quality: standard
           enchantment: mundane
           equipped: true
-          properties:
-            - bulky
+          properties: []
           description:
             public: >-
-              <p>Toughened skins from large beasts or monsters, these rugged
-              armors are worn by hunters and wildfolk, offering durable—but
-              crude—defense in the field.</p>
+              <p>Toughened skins from large beasts or monsters, assembled
+              together into multiple layers of overlapping armor. The resulting
+              armor offers durable — albeit crude — protection favored often
+              favored by berserkers or warriors who wear them to proudly
+              demonstrate their hunting or monster-felling prowess.</p>
             private: ''
           armor:
             base: 9
@@ -1258,168 +1265,6 @@ actors:
           duplicateSource: null
           exportSource: null
         sort: 800000
-        ownership:
-          default: 0
-      - name: Powerful Physique
-        type: talent
-        img: icons/skills/social/intimidation-impressing.webp
-        system:
-          description: >-
-            <p>You can wield weapons with the <strong>Slow</strong> trait and
-            wear @Rule[defense.armor] with the <strong>Bulky</strong> trait
-            without suffering @Rule[dice.bane]{Banes} to your
-            <strong>Initiative</strong> rolls.</p>
-          actions: []
-          nodes:
-            - str1b
-          iconicSpells: 0
-          training: armor
-          spellcraft: ''
-          requirements:
-            training: {}
-        effects: []
-        flags:
-          core: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
-          coreVersion: '14.368'
-          systemId: crucible
-          systemVersion: 0.11.1
-          modifiedTime: null
-          lastModifiedBy: null
-          createdTime: null
-          duplicateSource: null
-          exportSource: null
-        _id: powerfulphysique
-        folder: p4F0SmUoKJr0riBd
-        sort: 0
-        ownership:
-          default: 0
-      - name: Leg Sweep
-        type: talent
-        img: icons/skills/melee/strike-sword-slashing-red.webp
-        system:
-          description: >-
-            <p>You use a weapon which scales using @Rule[ability.strength] to
-            sweep your enemy off balance, swinging low to knock them from their
-            feet.</p>
-          actions:
-            - id: legSweep
-              condition: ''
-              description: >-
-                <p>You make a <strong>Strike</strong> attack with your mainhand
-                weapon. This technique is @Rule[action.difficult] to execute and
-                deals reduced damage, but if successful renders your target
-                @Condition[prone].</p>
-              tags:
-                - brute
-                - melee
-                - difficult
-                - weakened
-              cost:
-                action: 0
-                focus: 0
-                weapon: true
-                heroism: 0
-                hands: 0
-              target:
-                type: single
-                number: 1
-                scope: 3
-                self: false
-              effects:
-                - name: Leg Sweep
-                  scope: 3
-                  statuses:
-                    - prone
-                  result:
-                    type: success
-                    all: false
-                  system:
-                    changes: []
-                    dot: []
-                    maintenance:
-                      cost: null
-                      hands: 0
-                    regions: []
-                    summons: []
-                    dc: null
-                    properties: []
-                    lights: []
-                  duration:
-                    value: null
-                    units: ''
-                    expiry: null
-                    expired: false
-              name: Leg Sweep
-              img: icons/skills/melee/strike-sword-slashing-red.webp
-              range:
-                maximum: null
-                weapon: true
-                minimum: null
-              summon: null
-              persistRegion: false
-              regionBehavior: null
-          nodes:
-            - str0a
-          iconicSpells: 0
-          training: athletics
-          spellcraft: ''
-          requirements:
-            training: {}
-        effects: []
-        flags:
-          core: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.legsweep00000000
-          coreVersion: '14.368'
-          systemId: crucible
-          systemVersion: 0.11.1
-          modifiedTime: null
-          lastModifiedBy: null
-          createdTime: null
-          duplicateSource: null
-          exportSource: null
-        _id: legsweep00000000
-        folder: tRHknqOEBLR808Cb
-        sort: 75000
-        ownership:
-          default: 0
-      - name: Concussive Blows
-        type: talent
-        _id: concussiveblows0
-        img: icons/skills/melee/strike-hammer-destructive-orange.webp
-        system:
-          description: >-
-            <p>Your physical power wielding melee weapons which deal
-            <strong>Bludgeoning</strong> damage can cause the
-            @Condition[staggered] condition on
-            @Rule[dice.criticalSuccess]{Critical Hits} which deal damage to
-            @Rule[resource.health].</p><p>The @Condition[staggered] effect lasts
-            for <strong>1 Round</strong> and reduces your target's maximum
-            @Rule[resource.action] by 2.</p>
-          actions: []
-          nodes:
-            - str4a
-          iconicSpells: 0
-          training: heavy
-          spellcraft: ''
-          requirements:
-            training: {}
-        effects: []
-        folder: c0nl6X8tp4Of0Y4O
-        sort: 0
-        flags: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.concussiveblows0
-          coreVersion: '14.368'
-          systemId: crucible
-          systemVersion: 0.11.1
-          modifiedTime: null
-          lastModifiedBy: null
-          createdTime: null
-          duplicateSource: null
-          exportSource: null
         ownership:
           default: 0
       - name: Strong Grip
@@ -1665,8 +1510,10 @@ actors:
               description: >-
                 <p>You attempt to physically restrain or subdue an opponent.
                 Perform an @Rule[skill.athletics] skill attack against an
-                adjacent target. If successful, both you and your target are
-                @Condition[restrained] for <strong>1 Round</strong>.</p>
+                adjacent target contested by their passive
+                @Rule[skill.athletics] skill.  If successful, both you and your
+                target are @Condition[restrained] for <strong>1
+                Round</strong>.</p>
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -1695,6 +1542,109 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
+      - name: Unarmed Blocking
+        type: talent
+        _id: unarmedblocking0
+        img: icons/magic/earth/strike-fist-stone-light.webp
+        system:
+          description: >-
+            <p>Through long practice and toughened resolve you are able to block
+            enemy blows using your bare limbs. While <strong>Unarmed</strong> or
+            wielding only <strong>Natural</strong> weapons, half your
+            @Rule[ability.toughness] score contributes to your
+            @Rule[defense.block] defense.</p>
+          actions: []
+          nodes:
+            - tou0a
+          iconicSpells: 0
+          training: unarmed
+          spellcraft: ''
+          requirements:
+            training: {}
+        effects: []
+        flags: {}
+        _stats:
+          systemId: crucible
+          systemVersion: 0.11.1
+          coreVersion: '14.368'
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.unarmedblocking0
+          duplicateSource: null
+          exportSource: null
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Thick Skin
+        type: talent
+        img: icons/magic/defensive/armor-stone-skin.webp
+        system:
+          description: >-
+            <p>Your physical toughness makes you more resistant to harm. You
+            gain <strong>+2 Resistance</strong> to <strong>Bludgeoning</strong>,
+            <strong>Slashing</strong>, and <strong>Piercing</strong> damage.</p>
+          actions: []
+          nodes:
+            - tou3b
+          iconicSpells: 0
+          spellcraft: ''
+          requirements:
+            training: {}
+          training: ''
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          systemId: crucible
+          systemVersion: 0.11.1
+          coreVersion: '14.368'
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
+          duplicateSource: null
+          exportSource: null
+        _id: thickskin0000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Wrestler
+        type: talent
+        _id: wrestler00000000
+        img: icons/magic/control/buff-strength-muscle-damage.webp
+        system:
+          description: >-
+            <p>Through leverage and technique you seize and hold creatures far
+            larger than yourself. The @Rule[movement.size] of creature you can
+            @Action[Compendium.crucible.talent.Item.grapple000000000 grapple],
+            and be <strong>Grappled</strong> by, increases by 1.</p>
+          actions: []
+          nodes:
+            - str1b
+          iconicSpells: 0
+          training: unarmed
+          spellcraft: ''
+          requirements:
+            training: {}
+        effects: []
+        flags: {}
+        _stats:
+          systemId: crucible
+          systemVersion: 0.11.1
+          coreVersion: '14.368'
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.wrestler00000000
+          duplicateSource: null
+          exportSource: null
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
     effects: []
     folder: yhNxctruag3MRzdB
     sort: 100000
@@ -2359,51 +2309,6 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Bastard Sword
-        type: weapon
-        img: icons/weapons/swords/greatsword-crossguard-silver.webp
-        effects: []
-        flags:
-          core: {}
-        system:
-          category: heavy1
-          quantity: 1
-          weight: 3
-          price: 240
-          quality: standard
-          enchantment: mundane
-          equipped: true
-          properties:
-            - versatile
-          description:
-            public: >-
-              <p>A bastard sword, also known as a hand-and-a-half sword, is a
-              versatile weapon with a straight, double-edged blade around 40
-              inches long. This weapon is forged for both single-handed agility
-              and two-handed power.</p>
-            private: ''
-          damageType: slashing
-          broken: false
-          actions: []
-          identifier: bastardSword
-          invested: false
-          dropped: false
-          slot: 1
-        _stats:
-          compendiumSource: null
-          coreVersion: '14.368'
-          systemId: crucible
-          systemVersion: 0.11.1
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-          duplicateSource: null
-          exportSource: null
-        _id: 02UERaeQcYL7F2Bl
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
       - _id: defensiveroll000
         name: Defensive Roll
         type: talent
@@ -2837,6 +2742,53 @@ actors:
         sort: 0
         ownership:
           default: 0
+      - name: Shortsword
+        type: weapon
+        img: icons/weapons/swords/sword-guard.webp
+        effects: []
+        flags:
+          ember:
+            crucibleOverride: true
+        system:
+          category: balanced1
+          quantity: 1
+          weight: 3
+          price: 240
+          quality: standard
+          enchantment: mundane
+          equipped: true
+          properties:
+            - parrying
+            - intuitive
+          description:
+            public: >-
+              <p>The shortsword is a straight-bladed weapon which is nimble to
+              wield and quick to strike in close combat. It features a
+              crossguard ideal for parrying incoming blows.</p>
+            private: ''
+          damageType: slashing
+          broken: false
+          identifier: shortsword
+          invested: false
+          actions: []
+          dropped: false
+          slot: 1
+        _stats:
+          compendiumSource: null
+          coreVersion: '14.368'
+          systemId: crucible
+          systemVersion: 0.11.1
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: m2JDltYXjcxJu9YP
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     folder: yhNxctruag3MRzdB
     sort: 200000
@@ -3168,8 +3120,8 @@ actors:
         system:
           category: talisman1
           quantity: 1
-          weight: 2
-          price: 320
+          weight: 1
+          price: 600
           quality: standard
           broken: false
           enchantment: mundane
@@ -3180,8 +3132,10 @@ actors:
           invested: false
           description:
             public: >-
-              <p>This macabre talisman invokes the fear and energies of death to
-              aid spellcaft or afflict enemies with corrupting influence.</p>
+              <p>A small skull bound in twine and feathers, said to whisper of
+              rot and ruin. Spellcasters may focus their spellcraft through this
+              talisman, or use it to strike foes with
+              @Rule[damageType.corruption] damage.</p>
             private: ''
           actions: []
           dropped: false
@@ -3770,22 +3724,23 @@ actors:
           category: talisman1
           quantity: 1
           weight: 3
-          price: 480
+          price: 750
           quality: standard
           broken: false
           enchantment: mundane
           equipped: true
-          properties: []
+          properties:
+            - blocking
           damageType: bludgeoning
           slot: 2
           identifier: grimoire
           invested: false
           description:
             public: >-
-              <p>This heavy tome is used as a repository of knowledge as well as
-              an implement for spellcraft. In the hands of an arcane
-              practitioner, it can project concussive blasts of force towards a
-              target.</p>
+              <p>A heavy, iron-bound tome of arcane notation, as useful for
+              battering a foe as for study. Spellcasters may focus their
+              spellcraft through this talisman, or use it to strike foes with
+              @Rule[damageType.bludgeoning] damage.</p>
             private: ''
           actions: []
           dropped: false
@@ -5108,6 +5063,7 @@ actors:
           enchantment: mundane
           equipped: true
           properties:
+            - reach
             - versatile
           description:
             public: >-
@@ -8756,7 +8712,7 @@ actors:
           category: talisman2
           quantity: 1
           weight: 4
-          price: 640
+          price: 1050
           quality: standard
           broken: false
           enchantment: mundane
@@ -8765,8 +8721,10 @@ actors:
           properties: []
           description:
             public: >-
-              <p>This mage staff is a talisman to assist with spellcraft or hurl
-              gouts of arcane flame at enemies.</p>
+              <p>A long staff of red-lacquered wood whose engravings glow like
+              embers when it is wielded in anger. Spellcasters may focus their
+              spellcraft through this talisman, or use it to strike foes with
+              @Rule[damageType.fire] damage.</p>
             private: ''
           actions: []
           damageType: fire
@@ -11472,6 +11430,49 @@ actors:
         sort: 0
         ownership:
           default: 0
+      - name: Cinder Wand
+        type: weapon
+        img: icons/weapons/wands/wand-carved-fire.webp
+        system:
+          identifier: cinderWand
+          category: talisman1
+          quantity: 1
+          weight: 1
+          price: 630
+          quality: standard
+          broken: false
+          enchantment: mundane
+          equipped: false
+          invested: false
+          properties: []
+          description:
+            public: >-
+              <p>A blackened wand whose tip smolders with a perpetual ember.
+              Spellcasters may focus their spellcraft through this talisman, or
+              use it to strike foes with @Rule[damageType.fire] damage.</p>
+            private: ''
+          actions: []
+          damageType: fire
+          dropped: false
+          slot: 0
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: null
+          coreVersion: '14.368'
+          systemId: crucible
+          systemVersion: 0.11.1
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: 3mBjuNnRRj0eHLBg
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
@@ -12131,9 +12132,9 @@ actors:
               description: >-
                 <p>Target one enemy which you can see at a distance of at least
                 <strong>20 feet</strong>. You make a @Rule[skill.stealth] check
-                against their @Rule[skill.awareness]. Upon a success that
-                creature loses track of you until the start of your next turn,
-                or until you perform an action targeting them which is not
+                against their passive @Rule[skill.awareness]. Upon a success
+                that creature loses track of you until the start of your next
+                turn, or until you perform an action targeting them which is not
                 @Rule[action.subtle]. Upon a @Rule[dice.criticalSuccess] the
                 effect instead persists for <strong>2 Rounds</strong>.</p>
               cost:
@@ -12947,7 +12948,7 @@ actors:
             slip the notice of watchful sentries. When you use
             @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you
             may target up to three creatures simultaneously, resolving a
-            separate @Rule[skill.stealth] check against the
+            separate @Rule[skill.stealth] check against the passive
             @Rule[skill.awareness] of each.</p><h3 class="divider">Playtest
             Notes</h3><p>All three checks resolve, but Crucible does not yet
             record which creatures have lost track of you, so beating one target
@@ -15946,10 +15947,7 @@ actors:
         sizeBonus: 0
         strideBonus: 0
         engagementBonus: 0
-      status:
-        lastAction: rest
-        hasAttacked: true
-        rangedAttack: true
+      status: null
       favorites:
         - move
         - defend
@@ -16705,12 +16703,15 @@ actors:
             <p>Your skill with archery can shape your spellcraft, partially
             substituting for the somatic gestures of traditional
             spellcasting.</p><p>While using a <strong>Projectile</strong> weapon
-            as your mainhand weapon, you ignore the free-hand requirement for
-            casting spells using the <strong>Arrow</strong> gesture and the
-            range of those spells becomes your weapon range.</p><p>Immediately
-            after performing a <strong>Strike</strong> with a projectile weapon,
-            you may cast a spell with its @Rule[resource.action] cost reduced by
-            1.</p>
+            as your mainhand weapon, your @Rule[action.strike]{Strikes} scale
+            using @Rule[ability.wisdom] instead of @Rule[ability.strength] in
+            addition to @Rule[ability.dexterity].</p><p>Spells you cast using
+            @UUID[Compendium.crucible.talent.Item.gesturearrow0000]{Gesture:
+            Arrow} ignore the free-hand requirement, use your weapon range, and
+            the gesture scales using @Rule[ability.wisdom] instead of
+            @Rule[ability.intellect].</p><p>Immediately after performing a
+            <strong>Strike</strong> with a projectile weapon, you may cast a
+            spell with its @Rule[resource.action] cost reduced by 1.</p>
           actions: []
           iconicSpells: 1
           nodes:
@@ -17872,21 +17873,30 @@ actors:
       crucible:
         lastSpell: spell.illusion.arrow
         actionHistory:
-          - id: rest
-            messageId: mKXq5234p0ilHVOp
-            combat: null
-          - id: rest
-            messageId: HWaauc1H7N2J5mEe
-            combat: null
-          - id: strike
-            messageId: 9V8INpbEcegAaUpJ
-            combat: null
-          - id: strike
-            messageId: 2KjhNxuDZjODCLZn
-            combat: null
-          - id: rest
-            messageId: ZN7uvsLwg0t6Okp0
-            combat: null
+          - id: move
+            messageId: uNqUmrnoCtggN0Fp
+            combat:
+              id: Dqh7M6oq3rTHEujf
+              round: 1
+              turn: 0
+              combatantId: KADxvoR1nun8GlDL
+              tokenId: XFCfsXeGFVJ8Vb5s
+          - id: move
+            messageId: Vs2ICrYqvVIhqgrH
+            combat:
+              id: Dqh7M6oq3rTHEujf
+              round: 1
+              turn: 0
+              combatantId: KADxvoR1nun8GlDL
+              tokenId: XFCfsXeGFVJ8Vb5s
+          - id: move
+            messageId: i7JMh1Xt9SmGgXki
+            combat:
+              id: Dqh7M6oq3rTHEujf
+              round: 1
+              turn: 0
+              combatantId: KADxvoR1nun8GlDL
+              tokenId: XFCfsXeGFVJ8Vb5s
     _stats:
       compendiumSource: null
       coreVersion: '14.368'
@@ -19439,48 +19449,6 @@ actors:
         ownership:
           default: 0
           WRGzDgYAt3ZuX6TU: 3
-      - name: Ice Staff
-        type: weapon
-        img: icons/weapons/staves/staff-ornate-engraved-blue.webp
-        system:
-          identifier: iceStaff
-          category: talisman2
-          quantity: 1
-          weight: 4
-          price: 640
-          quality: fine
-          broken: false
-          enchantment: mundane
-          equipped: true
-          invested: false
-          properties: []
-          description:
-            public: >-
-              <p>This mage staff is a talisman to assist with spellcraft or hurl
-              blasts of frigid ice towards enemies.</p>
-            private: ''
-          actions: []
-          damageType: cold
-          dropped: false
-          slot: 3
-        effects: []
-        flags: {}
-        _stats:
-          compendiumSource: null
-          coreVersion: '14.368'
-          systemId: crucible
-          systemVersion: 0.11.1
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-          duplicateSource: null
-          exportSource: null
-        _id: SjdMWF0cT3nk5grD
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
-          WRGzDgYAt3ZuX6TU: 3
       - name: Studded Leather Armor
         type: armor
         img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
@@ -20200,6 +20168,97 @@ actors:
         sort: 0
         ownership:
           default: 0
+      - name: Arcane Orb
+        type: weapon
+        img: icons/commodities/materials/glass-orb-blue-gold.webp
+        system:
+          category: talisman1
+          quantity: 1
+          weight: 2
+          price: 780
+          quality: standard
+          broken: false
+          enchantment: mundane
+          equipped: true
+          properties:
+            - versatile
+          damageType: electricity
+          identifier: arcaneOrb
+          invested: false
+          description:
+            public: >-
+              <p>A sphere of clouded crystal in which tiny threads of lightning
+              crackle and coil. Spellcasters may focus their spellcraft through
+              this talisman, or use it to strike foes with
+              @Rule[damageType.electricity] damage.</p>
+            private: ''
+          actions: []
+          dropped: false
+          slot: 1
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: null
+          coreVersion: '14.368'
+          systemId: crucible
+          systemVersion: 0.11.1
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: xizERZm48MUroStp
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+          WRGzDgYAt3ZuX6TU: 3
+      - name: Grimoire
+        type: weapon
+        img: icons/sundries/books/book-symbol-spiral-silver-blue.webp
+        system:
+          category: talisman1
+          quantity: 1
+          weight: 3
+          price: 750
+          quality: standard
+          broken: false
+          enchantment: mundane
+          equipped: true
+          properties:
+            - blocking
+          damageType: bludgeoning
+          slot: 2
+          identifier: grimoire
+          invested: false
+          description:
+            public: >-
+              <p>A heavy, iron-bound tome of arcane notation, as useful for
+              battering a foe as for study. Spellcasters may focus their
+              spellcraft through this talisman, or use it to strike foes with
+              @Rule[damageType.bludgeoning] damage.</p>
+            private: ''
+          actions: []
+          dropped: false
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          compendiumSource: null
+          coreVersion: '14.368'
+          systemId: crucible
+          systemVersion: 0.11.1
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: iRbztfBKIJFieidQ
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
@@ -20968,8 +21027,8 @@ actors:
           identifier: primordialSeed
           category: talisman1
           quantity: 1
-          weight: 2
-          price: 320
+          weight: 1
+          price: 600
           quality: standard
           broken: false
           enchantment: mundane
@@ -20978,10 +21037,10 @@ actors:
           properties: []
           description:
             public: >-
-              <p>This talisman, favored by druidic adherants attuned to the
-              power of the land, aids in the practice of spellcraft or can be
-              used in combat to direct a gout of poisonous spores towards an
-              enemy.</p>
+              <p>A gnarled seed pod from some ancient plant, swollen with a
+              potent and bitter sap. Spellcasters may focus their spellcraft
+              through this talisman, or use it to strike foes with
+              @Rule[damageType.poison] damage.</p>
             private: ''
           actions: []
           damageType: poison
@@ -23023,8 +23082,10 @@ actors:
               description: >-
                 <p>You attempt to physically restrain or subdue an opponent.
                 Perform an @Rule[skill.athletics] skill attack against an
-                adjacent target. If successful, both you and your target are
-                @Condition[restrained] for <strong>1 Round</strong>.</p>
+                adjacent target contested by their passive
+                @Rule[skill.athletics] skill.  If successful, both you and your
+                target are @Condition[restrained] for <strong>1
+                Round</strong>.</p>
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -25167,7 +25228,7 @@ actors:
           category: talisman2
           quantity: 1
           weight: 4
-          price: 640
+          price: 1050
           quality: fine
           broken: false
           enchantment: mundane
@@ -25176,8 +25237,10 @@ actors:
           properties: []
           description:
             public: >-
-              <p>This mage staff is a talisman to assist with spellcraft or hurl
-              gouts of arcane flame at enemies.</p>
+              <p>A long staff of red-lacquered wood whose engravings glow like
+              embers when it is wielded in anger. Spellcasters may focus their
+              spellcraft through this talisman, or use it to strike foes with
+              @Rule[damageType.fire] damage.</p>
             private: ''
           actions: []
           damageType: fire
@@ -27859,6 +27922,49 @@ actors:
         sort: 0
         ownership:
           default: 0
+      - name: Cinder Wand
+        type: weapon
+        img: icons/weapons/wands/wand-carved-fire.webp
+        system:
+          identifier: cinderWand
+          category: talisman1
+          quantity: 1
+          weight: 1
+          price: 630
+          quality: standard
+          broken: false
+          enchantment: mundane
+          equipped: false
+          invested: false
+          properties: []
+          description:
+            public: >-
+              <p>A blackened wand whose tip smolders with a perpetual ember.
+              Spellcasters may focus their spellcraft through this talisman, or
+              use it to strike foes with @Rule[damageType.fire] damage.</p>
+            private: ''
+          actions: []
+          damageType: fire
+          dropped: false
+          slot: 0
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: null
+          coreVersion: '14.368'
+          systemId: crucible
+          systemVersion: 0.11.1
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: COd0nyqVNNPppISa
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+          WRGzDgYAt3ZuX6TU: 3
     effects: []
     flags:
       core: {}
@@ -28472,9 +28578,9 @@ actors:
               description: >-
                 <p>Target one enemy which you can see at a distance of at least
                 <strong>20 feet</strong>. You make a @Rule[skill.stealth] check
-                against their @Rule[skill.awareness]. Upon a success that
-                creature loses track of you until the start of your next turn,
-                or until you perform an action targeting them which is not
+                against their passive @Rule[skill.awareness]. Upon a success
+                that creature loses track of you until the start of your next
+                turn, or until you perform an action targeting them which is not
                 @Rule[action.subtle]. Upon a @Rule[dice.criticalSuccess] the
                 effect instead persists for <strong>2 Rounds</strong>.</p>
               cost:
@@ -30827,21 +30933,22 @@ actors:
           category: talisman1
           quantity: 1
           weight: 2
-          price: 320
+          price: 780
           quality: standard
           broken: false
           enchantment: mundane
           equipped: true
-          properties: []
+          properties:
+            - versatile
           damageType: electricity
           identifier: arcaneOrb
           invested: false
           description:
             public: >-
-              <p>A sphere of crystal or glass that — in the palm of a capable
-              spellcaster — becomes a conduit for their power. It gathers
-              voltaic energy within its orb before blasting a target with
-              electrifying force.</p>
+              <p>A sphere of clouded crystal in which tiny threads of lightning
+              crackle and coil. Spellcasters may focus their spellcraft through
+              this talisman, or use it to strike foes with
+              @Rule[damageType.electricity] damage.</p>
             private: ''
           actions: []
           dropped: false
@@ -30868,22 +30975,23 @@ actors:
           category: talisman1
           quantity: 1
           weight: 3
-          price: 480
+          price: 750
           quality: standard
           broken: false
           enchantment: mundane
           equipped: true
-          properties: []
+          properties:
+            - blocking
           damageType: bludgeoning
           slot: 1
           identifier: grimoire
           invested: false
           description:
             public: >-
-              <p>This heavy tome is used as a repository of knowledge as well as
-              an implement for spellcraft. In the hands of an arcane
-              practitioner, it can project concussive blasts of force towards a
-              target.</p>
+              <p>A heavy, iron-bound tome of arcane notation, as useful for
+              battering a foe as for study. Spellcasters may focus their
+              spellcraft through this talisman, or use it to strike foes with
+              @Rule[damageType.bludgeoning] damage.</p>
             private: ''
           actions: []
           dropped: false
@@ -32065,8 +32173,8 @@ actors:
           identifier: primordialSeed
           category: talisman1
           quantity: 1
-          weight: 2
-          price: 320
+          weight: 1
+          price: 600
           quality: standard
           broken: false
           enchantment: mundane
@@ -32075,10 +32183,10 @@ actors:
           properties: []
           description:
             public: >-
-              <p>This talisman, favored by druidic adherants attuned to the
-              power of the land, aids in the practice of spellcraft or can be
-              used in combat to direct a gout of poisonous spores towards an
-              enemy.</p>
+              <p>A gnarled seed pod from some ancient plant, swollen with a
+              potent and bitter sap. Spellcasters may focus their spellcraft
+              through this talisman, or use it to strike foes with
+              @Rule[damageType.poison] damage.</p>
             private: ''
           actions: []
           damageType: poison
@@ -32685,8 +32793,10 @@ actors:
               description: >-
                 <p>You attempt to physically restrain or subdue an opponent.
                 Perform an @Rule[skill.athletics] skill attack against an
-                adjacent target. If successful, both you and your target are
-                @Condition[restrained] for <strong>1 Round</strong>.</p>
+                adjacent target contested by their passive
+                @Rule[skill.athletics] skill.  If successful, both you and your
+                target are @Condition[restrained] for <strong>1
+                Round</strong>.</p>
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -36750,7 +36860,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.368'
-  modifiedTime: 1790690499272
+  modifiedTime: 1791160739336
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

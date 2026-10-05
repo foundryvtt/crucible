@@ -180,10 +180,7 @@ system:
     sizeBonus: 0
     strideBonus: 0
     engagementBonus: 0
-  status:
-    lastAction: rest
-    hasAttacked: true
-    rangedAttack: true
+  status: null
   favorites:
     - move
     - defend
@@ -338,8 +335,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490661
-      modifiedTime: 1790690490661
+      createdTime: 1791160738291
+      modifiedTime: 1791160738291
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -380,8 +377,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490661
-      modifiedTime: 1790690490661
+      createdTime: 1791160738292
+      modifiedTime: 1791160738292
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -421,8 +418,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490662
-      modifiedTime: 1790690490662
+      createdTime: 1791160738292
+      modifiedTime: 1791160738292
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -487,8 +484,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490662
-      modifiedTime: 1790690490662
+      createdTime: 1791160738292
+      modifiedTime: 1791160738292
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -567,8 +564,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490662
-      modifiedTime: 1790690490662
+      createdTime: 1791160738293
+      modifiedTime: 1791160738293
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -603,8 +600,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690490663
-      modifiedTime: 1790690490663
+      createdTime: 1791160738293
+      modifiedTime: 1791160738293
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -691,9 +688,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790690490663
+      modifiedTime: 1791160738293
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790690490663
+      createdTime: 1791160738293
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -729,9 +726,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790690490663
+      modifiedTime: 1791160738293
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790690490663
+      createdTime: 1791160738293
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -799,8 +796,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690490664
-      modifiedTime: 1790690490664
+      createdTime: 1791160738294
+      modifiedTime: 1791160738294
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -862,9 +859,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790690490664
+      modifiedTime: 1791160738294
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790690490664
+      createdTime: 1791160738294
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -927,8 +924,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490664
-      modifiedTime: 1790690490664
+      createdTime: 1791160738294
+      modifiedTime: 1791160738294
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -947,9 +944,13 @@ items:
         <p>Your skill with archery can shape your spellcraft, partially
         substituting for the somatic gestures of traditional
         spellcasting.</p><p>While using a <strong>Projectile</strong> weapon as
-        your mainhand weapon, you ignore the free-hand requirement for casting
-        spells using the <strong>Arrow</strong> gesture and the range of those
-        spells becomes your weapon range.</p><p>Immediately after performing a
+        your mainhand weapon, your @Rule[action.strike]{Strikes} scale using
+        @Rule[ability.wisdom] instead of @Rule[ability.strength] in addition to
+        @Rule[ability.dexterity].</p><p>Spells you cast using
+        @UUID[Compendium.crucible.talent.Item.gesturearrow0000]{Gesture: Arrow}
+        ignore the free-hand requirement, use your weapon range, and the gesture
+        scales using @Rule[ability.wisdom] instead of
+        @Rule[ability.intellect].</p><p>Immediately after performing a
         <strong>Strike</strong> with a projectile weapon, you may cast a spell
         with its @Rule[resource.action] cost reduced by 1.</p>
       actions: []
@@ -968,9 +969,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790690490665
+      modifiedTime: 1791160738295
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790690490665
+      createdTime: 1791160738295
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1050,8 +1051,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490665
-      modifiedTime: 1790690490665
+      createdTime: 1791160738295
+      modifiedTime: 1791160738295
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1130,8 +1131,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490665
-      modifiedTime: 1790690490665
+      createdTime: 1791160738295
+      modifiedTime: 1791160738295
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1165,8 +1166,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690490665
-      modifiedTime: 1790690490665
+      createdTime: 1791160738295
+      modifiedTime: 1791160738295
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1244,8 +1245,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490666
-      modifiedTime: 1790690490666
+      createdTime: 1791160738295
+      modifiedTime: 1791160738295
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1285,9 +1286,9 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1790690490666
+      modifiedTime: 1791160738296
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1790690490666
+      createdTime: 1791160738296
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -1327,8 +1328,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690490666
-      modifiedTime: 1790690490666
+      createdTime: 1791160738296
+      modifiedTime: 1791160738296
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1362,8 +1363,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490666
-      modifiedTime: 1790690490666
+      createdTime: 1791160738296
+      modifiedTime: 1791160738296
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1430,8 +1431,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690490667
-      modifiedTime: 1790690490667
+      createdTime: 1791160738296
+      modifiedTime: 1791160738296
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1473,8 +1474,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490667
-      modifiedTime: 1790690490667
+      createdTime: 1791160738297
+      modifiedTime: 1791160738297
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1536,8 +1537,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690490667
-      modifiedTime: 1790690490667
+      createdTime: 1791160738297
+      modifiedTime: 1791160738297
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1572,8 +1573,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490668
-      modifiedTime: 1790690490668
+      createdTime: 1791160738297
+      modifiedTime: 1791160738297
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1612,8 +1613,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690490668
-      modifiedTime: 1790690490668
+      createdTime: 1791160738297
+      modifiedTime: 1791160738297
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1698,8 +1699,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790690490669
-          modifiedTime: 1790690490669
+          createdTime: 1791160738298
+          modifiedTime: 1791160738298
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1711,8 +1712,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490669
-      modifiedTime: 1790690490669
+      createdTime: 1791160738298
+      modifiedTime: 1791160738298
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1829,8 +1830,8 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1790690490670
-          modifiedTime: 1790690490670
+          createdTime: 1791160738299
+          modifiedTime: 1791160738299
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: null
           duplicateSource: null
@@ -1842,8 +1843,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490670
-      modifiedTime: 1790690490670
+      createdTime: 1791160738299
+      modifiedTime: 1791160738299
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1887,8 +1888,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490670
-      modifiedTime: 1790690490670
+      createdTime: 1791160738299
+      modifiedTime: 1791160738299
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -1932,8 +1933,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490671
-      modifiedTime: 1790690490671
+      createdTime: 1791160738299
+      modifiedTime: 1791160738299
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2017,8 +2018,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490671
-      modifiedTime: 1790690490671
+      createdTime: 1791160738300
+      modifiedTime: 1791160738300
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2105,8 +2106,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690490671
-      modifiedTime: 1790690490671
+      createdTime: 1791160738300
+      modifiedTime: 1791160738300
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -2122,27 +2123,36 @@ flags:
   crucible:
     lastSpell: spell.illusion.arrow
     actionHistory:
-      - id: rest
-        messageId: mKXq5234p0ilHVOp
-        combat: null
-      - id: rest
-        messageId: HWaauc1H7N2J5mEe
-        combat: null
-      - id: strike
-        messageId: 9V8INpbEcegAaUpJ
-        combat: null
-      - id: strike
-        messageId: 2KjhNxuDZjODCLZn
-        combat: null
-      - id: rest
-        messageId: ZN7uvsLwg0t6Okp0
-        combat: null
+      - id: move
+        messageId: uNqUmrnoCtggN0Fp
+        combat:
+          id: Dqh7M6oq3rTHEujf
+          round: 1
+          turn: 0
+          combatantId: KADxvoR1nun8GlDL
+          tokenId: XFCfsXeGFVJ8Vb5s
+      - id: move
+        messageId: Vs2ICrYqvVIhqgrH
+        combat:
+          id: Dqh7M6oq3rTHEujf
+          round: 1
+          turn: 0
+          combatantId: KADxvoR1nun8GlDL
+          tokenId: XFCfsXeGFVJ8Vb5s
+      - id: move
+        messageId: i7JMh1Xt9SmGgXki
+        combat:
+          id: Dqh7M6oq3rTHEujf
+          round: 1
+          turn: 0
+          combatantId: KADxvoR1nun8GlDL
+          tokenId: XFCfsXeGFVJ8Vb5s
 _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1790690490660
-  modifiedTime: 1790690490660
+  createdTime: 1791160738290
+  modifiedTime: 1791160738290
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -1,0 +1,45 @@
+name: Verdigris Scepter
+type: weapon
+img: icons/weapons/staves/staff-ornate-green.webp
+system:
+  identifier: verdigrisScepter
+  category: talisman2
+  quantity: 1
+  weight: 6
+  price: 1180
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - oversized
+  description:
+    public: >-
+      <p>A heavy copper scepter, crusted green with the corrosion it delights in
+      spreading. Spellcasters may focus their spellcraft through this talisman,
+      or use it to strike foes with @Rule[damageType.acid] damage.</p>
+    private: ''
+  actions: []
+  damageType: acid
+  dropped: false
+  slot: 0
+effects: []
+folder: asQ2QKQQ3PrQX4yk
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791157224348
+  modifiedTime: 1791157224348
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: verdigrisScepter
+sort: 0
+_key: '!items!verdigrisScepter'

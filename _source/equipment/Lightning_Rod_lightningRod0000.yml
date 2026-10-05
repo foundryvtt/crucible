@@ -1,0 +1,45 @@
+name: Lightning Rod
+type: weapon
+img: icons/weapons/staves/staff-hooked-banded.webp
+system:
+  identifier: lightningRod
+  category: talisman2
+  quantity: 1
+  weight: 5
+  price: 1180
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - versatile
+  description:
+    public: >-
+      <p>A copper-capped iron rod that draws the charge of the storm to its tip.
+      Spellcasters may focus their spellcraft through this talisman, or use it
+      to strike foes with @Rule[damageType.electricity] damage.</p>
+    private: ''
+  actions: []
+  damageType: electricity
+  dropped: false
+  slot: 0
+effects: []
+folder: asQ2QKQQ3PrQX4yk
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791157224348
+  modifiedTime: 1791159685437
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+_id: lightningRod0000
+sort: 0
+_key: '!items!lightningRod0000'

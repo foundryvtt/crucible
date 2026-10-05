@@ -1,0 +1,44 @@
+name: Cinder Wand
+type: weapon
+img: icons/weapons/wands/wand-carved-fire.webp
+system:
+  identifier: cinderWand
+  category: talisman1
+  quantity: 1
+  weight: 1
+  price: 630
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A blackened wand whose tip smolders with a perpetual ember.
+      Spellcasters may focus their spellcraft through this talisman, or use it
+      to strike foes with @Rule[damageType.fire] damage.</p>
+    private: ''
+  actions: []
+  damageType: fire
+  dropped: false
+  slot: 0
+effects: []
+folder: uvvY6c0nbJBhAjM6
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791157224348
+  modifiedTime: 1791157224348
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: cinderWand000000
+sort: 0
+_key: '!items!cinderWand000000'

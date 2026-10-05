@@ -277,7 +277,7 @@ items:
       category: talisman2
       quantity: 1
       weight: 4
-      price: 640
+      price: 1050
       quality: standard
       broken: false
       enchantment: mundane
@@ -286,8 +286,10 @@ items:
       properties: []
       description:
         public: >-
-          <p>This mage staff is a talisman to assist with spellcraft or hurl
-          gouts of arcane flame at enemies.</p>
+          <p>A long staff of red-lacquered wood whose engravings glow like
+          embers when it is wielded in anger. Spellcasters may focus their
+          spellcraft through this talisman, or use it to strike foes with
+          @Rule[damageType.fire] damage.</p>
         private: ''
       actions: []
       damageType: fire
@@ -299,8 +301,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160018
-      modifiedTime: 1790690160018
+      createdTime: 1791160737410
+      modifiedTime: 1791160737410
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -342,8 +344,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160018
-      modifiedTime: 1790690160018
+      createdTime: 1791160737410
+      modifiedTime: 1791160737410
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -410,8 +412,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160018
-      modifiedTime: 1790690160018
+      createdTime: 1791160737410
+      modifiedTime: 1791160737410
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -497,8 +499,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160018
-      modifiedTime: 1790690160018
+      createdTime: 1791160737411
+      modifiedTime: 1791160737411
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -563,8 +565,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1790690160019
-      modifiedTime: 1790690160019
+      createdTime: 1791160737411
+      modifiedTime: 1791160737411
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -633,8 +635,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160020
-      modifiedTime: 1790690160020
+      createdTime: 1791160737412
+      modifiedTime: 1791160737412
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -713,8 +715,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1790690160020
-      createdTime: 1790690160020
+      modifiedTime: 1791160737412
+      createdTime: 1791160737412
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -753,8 +755,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160021
-      modifiedTime: 1790690160021
+      createdTime: 1791160737412
+      modifiedTime: 1791160737412
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -844,8 +846,8 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1790690160021
-      modifiedTime: 1790690160021
+      createdTime: 1791160737413
+      modifiedTime: 1791160737413
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: null
       duplicateSource: null
@@ -864,8 +866,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   coreVersion: '14.368'
-  createdTime: 1790690160017
-  modifiedTime: 1790690160017
+  createdTime: 1791160737409
+  modifiedTime: 1791160737409
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
