@@ -171,6 +171,9 @@ export const RUNE_SOUNDS = {
   }
 };
 
+// TODO Poison borrows the Life sounds for now
+RUNE_SOUNDS.poison = RUNE_SOUNDS.life;
+
 /* -------------------------------------------- */
 
 /**
