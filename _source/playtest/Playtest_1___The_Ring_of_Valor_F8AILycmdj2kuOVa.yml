@@ -2774,7 +2774,7 @@ actors:
           dropped: false
           slot: 1
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.shortsword000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -3748,7 +3748,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.grimoire00000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -8739,7 +8739,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.flameStaff000000
           duplicateSource: null
           exportSource: null
         sort: 300000
@@ -8781,7 +8781,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
           duplicateSource: null
           exportSource: null
         folder: gQTZ7J9hqDpVTtPb
@@ -9637,7 +9637,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.greatsword000000
           duplicateSource: null
           exportSource: null
         sort: 200000
@@ -9673,7 +9673,7 @@ actors:
           invested: false
           actions: []
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.splintMail000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -10940,7 +10940,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringOfGliding000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11070,7 +11070,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.spellband0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11113,7 +11113,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.smithsToolkit000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11155,7 +11155,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.rope000000000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11240,7 +11240,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11325,7 +11325,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11458,7 +11458,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.cinderWand000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11842,7 +11842,7 @@ actors:
           dropped: false
           slot: 2
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11887,7 +11887,7 @@ actors:
           dropped: false
           slot: 1
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -11928,7 +11928,7 @@ actors:
           invested: false
           actions: []
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -13215,7 +13215,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -13300,7 +13300,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -13344,7 +13344,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.lockpicks0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -13396,7 +13396,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.alchemistsToolki
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -13488,7 +13488,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringOfReinforcem
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -13584,7 +13584,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.charmOfTenacity0
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -14039,7 +14039,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.warHammer0000000
           duplicateSource: null
           exportSource: null
         sort: 200000
@@ -14082,7 +14082,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.heaterShield0000
           duplicateSource: null
           exportSource: null
         sort: 200000
@@ -14119,7 +14119,7 @@ actors:
           invested: false
           actions: []
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -15404,7 +15404,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringOfEvasion000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -15489,7 +15489,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -15598,7 +15598,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.healingTonic0000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -15641,7 +15641,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.crowbar000000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -16099,7 +16099,7 @@ actors:
           dropped: false
           slot: 0
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.scimitar00000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -16140,7 +16140,7 @@ actors:
           invested: false
           actions: []
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -16180,7 +16180,7 @@ actors:
           dropped: false
           slot: 3
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.shortbow00000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -17463,7 +17463,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.amuletOfNimblene
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -17593,7 +17593,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.spellband0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -17637,7 +17637,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.fletchersToolkit
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -17681,7 +17681,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.healersToolkit00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -17766,7 +17766,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -19476,7 +19476,7 @@ actors:
           invested: false
           actions: []
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -19614,7 +19614,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.focusingPearl000
           duplicateSource: null
           exportSource: null
         _id: z4DGP8cf3rKHEdjr
@@ -19700,7 +19700,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringOfReinforcem
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -19810,7 +19810,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.omniglotDecoctio
           duplicateSource: null
           exportSource: null
         _id: jRwhIBY0cjdWAj61
@@ -19913,7 +19913,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.rallyingTonic000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -19998,7 +19998,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -20198,7 +20198,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.arcaneOrb0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -20244,7 +20244,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.grimoire00000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -20689,7 +20689,7 @@ actors:
           invested: false
           actions: []
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -21049,7 +21049,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.primordialSeed00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -22087,7 +22087,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.amuletOfNimblene
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -22183,7 +22183,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.charmOfTenacity0
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -22328,7 +22328,7 @@ actors:
           ember:
             crucibleOverride: true
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.steeljawTrap0000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -22413,7 +22413,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -22944,7 +22944,7 @@ actors:
           invested: false
           actions: []
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -22987,7 +22987,7 @@ actors:
           dropped: false
           slot: 3
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.greataxe00000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -24427,7 +24427,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.causticPhial0000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -24512,7 +24512,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -24599,7 +24599,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.antitoxin0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -24691,7 +24691,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringOfReinforcem
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -24785,7 +24785,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringOfEvasion000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -25249,7 +25249,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.flameStaff000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -25291,7 +25291,7 @@ actors:
           invested: false
           actions: []
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -26550,7 +26550,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.gemOfIlluminatio
           duplicateSource: null
           exportSource: null
         _id: oP0XGz1QD2ZKZDfQ
@@ -26674,7 +26674,7 @@ actors:
               exportSource: null
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.spellband0000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -26805,7 +26805,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.frostdropFlask00
           duplicateSource: null
           exportSource: null
         _id: KAFgBhsOG630iidJ
@@ -26913,7 +26913,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.alchemistsFire00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -26998,7 +26998,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -27460,7 +27460,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.greatsword000000
           duplicateSource: null
           exportSource: null
         sort: 200000
@@ -27502,7 +27502,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.splintMail000000
           duplicateSource: null
           exportSource: null
         sort: 300000
@@ -27950,7 +27950,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.cinderWand000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -28294,7 +28294,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
           duplicateSource: null
           exportSource: null
         sort: 1200000
@@ -28339,7 +28339,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
           duplicateSource: null
           exportSource: null
         sort: 1200000
@@ -28380,7 +28380,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
           duplicateSource: null
           exportSource: null
         sort: 0
@@ -29164,7 +29164,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.warHammer0000000
           duplicateSource: null
           exportSource: null
         sort: 200000
@@ -29207,7 +29207,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.heaterShield0000
           duplicateSource: null
           exportSource: null
         sort: 200000
@@ -29250,7 +29250,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
           duplicateSource: null
           exportSource: null
         folder: gQTZ7J9hqDpVTtPb
@@ -30045,7 +30045,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.scimitar00000000
           duplicateSource: null
           exportSource: null
         sort: 900000
@@ -30086,7 +30086,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
           duplicateSource: null
           exportSource: null
         sort: 0
@@ -30120,7 +30120,7 @@ actors:
           dropped: false
           slot: 3
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.shortbow00000000
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -30917,7 +30917,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
           duplicateSource: null
           exportSource: null
         folder: gQTZ7J9hqDpVTtPb
@@ -30962,7 +30962,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.arcaneOrb0000000
           duplicateSource: null
           exportSource: null
         sort: 100000
@@ -31006,7 +31006,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.grimoire00000000
           duplicateSource: null
           exportSource: null
         _id: ncji9G3g4WqBffUK
@@ -31841,7 +31841,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
           duplicateSource: null
           exportSource: null
         folder: gQTZ7J9hqDpVTtPb
@@ -32195,7 +32195,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.primordialSeed00
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
@@ -32661,7 +32661,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
           duplicateSource: null
           exportSource: null
         folder: gQTZ7J9hqDpVTtPb
@@ -32704,7 +32704,7 @@ actors:
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.equipment.Item.greataxe00000000
           duplicateSource: null
           exportSource: null
         sort: 900000
@@ -36860,7 +36860,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.368'
-  modifiedTime: 1791160739336
+  modifiedTime: 1791162305770
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

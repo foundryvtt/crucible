@@ -301,12 +301,12 @@ pages:
         data-rule="damageType.corruption"><p>The festering rot of an infected
         wound, or the decay of a pestilent curse. <strong>Corruption</strong>
         damage is caused by forces which wither and rot the living, and is
-        associated with
-        the @Condition[decaying] condition.</p></dd><dt><p>Psychic</p></dt><dd
+        associated with the @Condition[decaying]
+        condition.</p></dd><dt><p>Psychic</p></dt><dd
         data-rule="damageType.psychic"><p>The bewildering shock of seeing your
         allies fall, or the stun of a telepathic attack.
-        <strong>Psychic</strong> damage is caused by assaults upon the mind,
-        and is associated with the @Condition[confused]
+        <strong>Psychic</strong> damage is caused by assaults upon the mind, and
+        is associated with the @Condition[confused]
         condition.</p></dd><dt><p>Radiant</p></dt><dd
         data-rule="damageType.radiant"><p>The concentrated power of the stars,
         or the searing brand of divine light. <strong>Radiant</strong> damage is
@@ -338,15 +338,15 @@ pages:
         Immunity</h2><p>In exceptional cases, a creature may be entirely
         <strong>Immune</strong> to a certain damage type. In this case, the
         creature never takes damage of that type no matter its
-        magnitude.</p><section class="foundryvtt"><h4>Damage Breakdown</h4><p>The
-        damage breakdown shown on an attack's chat card reports only the amount
-        of Resistance or Vulnerability that affected that hit, not the target's
-        full value. A modest hit against a highly resistant creature shows a
-        Resistance no greater than the damage it would have dealt, and a capped
-        hit against a vulnerable creature shows a Vulnerability no greater than
-        the damage before vulnerability. Striking harder can reveal more. A
-        creature that is Immune to a damage type always shows its
-        immunity.</p></section>
+        magnitude.</p><section class="foundryvtt"><h4>Damage
+        Breakdown</h4><p>The damage breakdown shown on an attack's chat card
+        reports only the amount of Resistance or Vulnerability that affected
+        that hit, not the target's full value. A modest hit against a highly
+        resistant creature shows a Resistance no greater than the damage it
+        would have dealt, and a capped hit against a vulnerable creature shows a
+        Vulnerability no greater than the damage before vulnerability. Striking
+        harder can reveal more. A creature that is Immune to a damage type
+        always shows its immunity.</p></section>
     video:
       controls: true
       volume: 0.5

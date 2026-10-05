@@ -322,10 +322,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738237
-      modifiedTime: 1791160738237
+      createdTime: 1791162453093
+      modifiedTime: 1791162453093
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
       exportSource: null
     folder: gQTZ7J9hqDpVTtPb
@@ -400,10 +400,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738237
-      modifiedTime: 1791160738237
+      createdTime: 1791162453094
+      modifiedTime: 1791162453094
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.runeLife00000000
       duplicateSource: null
       exportSource: null
     _id: runeLife00000000
@@ -466,10 +466,10 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1791160738238
-      modifiedTime: 1791160738238
+      createdTime: 1791162453094
+      modifiedTime: 1791162453094
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
       exportSource: null
     folder: null
@@ -528,10 +528,10 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1791160738238
-      modifiedTime: 1791160738238
+      createdTime: 1791162453095
+      modifiedTime: 1791162453095
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.precisionshot000
       duplicateSource: null
       exportSource: null
     folder: null
@@ -567,10 +567,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1791160738238
+      modifiedTime: 1791162453095
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791160738238
-      compendiumSource: null
+      createdTime: 1791162453095
+      compendiumSource: Compendium.crucible.talent.Item.gestureray000000
       duplicateSource: null
       exportSource: null
     _id: gestureray000000
@@ -639,10 +639,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738239
-      modifiedTime: 1791160738239
+      createdTime: 1791162453095
+      modifiedTime: 1791162453095
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
       duplicateSource: null
       exportSource: null
     _id: wildspeaker00000
@@ -684,10 +684,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738239
-      modifiedTime: 1791160738239
+      createdTime: 1791162453096
+      modifiedTime: 1791162453096
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.equipment.Item.primordialSeed00
       duplicateSource: null
       exportSource: null
     _id: bZMrylhhkvq5QkFL
@@ -769,10 +769,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738239
-      modifiedTime: 1791160738239
+      createdTime: 1791162453096
+      modifiedTime: 1791162453096
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.hearthwork000000
       duplicateSource: null
       exportSource: null
     _id: hearthwork000000
@@ -810,10 +810,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738239
-      modifiedTime: 1791160738239
+      createdTime: 1791162453097
+      modifiedTime: 1791162453097
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.mender0000000000
       duplicateSource: null
       exportSource: null
     folder: null
@@ -923,10 +923,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1791160738239
+      modifiedTime: 1791162453097
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791160738239
-      compendiumSource: null
+      createdTime: 1791162453097
+      compendiumSource: Compendium.crucible.talent.Item.healer0000000000
       duplicateSource: null
       exportSource: null
     folder: null
@@ -1053,10 +1053,10 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1791160738240
-      modifiedTime: 1791160738240
+      createdTime: 1791162453098
+      modifiedTime: 1791162453098
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.shapeshifter0000
       duplicateSource: null
       exportSource: null
     _id: shapeshifter0000
@@ -1120,10 +1120,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738240
-      modifiedTime: 1791160738240
+      createdTime: 1791162453098
+      modifiedTime: 1791162453098
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.wildStrike000000
       duplicateSource: null
       exportSource: null
     _id: wildStrike000000
@@ -1158,10 +1158,10 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1791160738240
-      modifiedTime: 1791160738240
+      createdTime: 1791162453098
+      modifiedTime: 1791162453098
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.unarmedblocking0
       duplicateSource: null
       exportSource: null
     folder: null
@@ -1196,10 +1196,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738241
-      modifiedTime: 1791160738241
+      createdTime: 1791162453099
+      modifiedTime: 1791162453099
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.feralBrawler0000
       duplicateSource: null
       exportSource: null
     _id: feralBrawler0000
@@ -1232,10 +1232,10 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1791160738241
-      modifiedTime: 1791160738241
+      createdTime: 1791162453099
+      modifiedTime: 1791162453099
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
       duplicateSource: null
       exportSource: null
     _id: thickskin0000000
@@ -1268,10 +1268,10 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1791160738241
-      modifiedTime: 1791160738241
+      createdTime: 1791162453099
+      modifiedTime: 1791162453099
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.lesserregenerati
       duplicateSource: null
       exportSource: null
     folder: null
@@ -1304,10 +1304,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738242
-      modifiedTime: 1791160738242
+      createdTime: 1791162453099
+      modifiedTime: 1791162453099
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
       duplicateSource: null
       exportSource: null
     _id: battleWorn000000
@@ -1347,10 +1347,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738242
-      modifiedTime: 1791160738242
+      createdTime: 1791162453100
+      modifiedTime: 1791162453100
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.slowSimmer000000
       duplicateSource: null
       exportSource: null
     _id: slowSimmer000000
@@ -1429,10 +1429,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738242
-      modifiedTime: 1791160738242
+      createdTime: 1791162453100
+      modifiedTime: 1791162453100
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.runeControl00000
       duplicateSource: null
       exportSource: null
     _id: runeControl00000
@@ -1466,10 +1466,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      modifiedTime: 1791160738243
+      modifiedTime: 1791162453100
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791160738243
-      compendiumSource: null
+      createdTime: 1791162453100
+      compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
       duplicateSource: null
       exportSource: null
     _id: inflectioncompos
@@ -1510,10 +1510,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738243
-      modifiedTime: 1791160738243
+      createdTime: 1791162453100
+      modifiedTime: 1791162453100
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.gestureSurge0000
       duplicateSource: null
       exportSource: null
     _id: gestureSurge0000
@@ -1593,10 +1593,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738243
-      modifiedTime: 1791160738243
+      createdTime: 1791162453100
+      modifiedTime: 1791162453100
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
       duplicateSource: null
       exportSource: null
     _id: runeSoul00000000
@@ -1628,10 +1628,10 @@ items:
       systemId: crucible
       systemVersion: 0.11.1
       coreVersion: '14.368'
-      createdTime: 1791160738244
-      modifiedTime: 1791160738244
+      createdTime: 1791162453101
+      modifiedTime: 1791162453101
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.talent.Item.undaunted0000000
       duplicateSource: null
       exportSource: null
     _id: undaunted0000000
@@ -1714,10 +1714,10 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1791160738245
-          modifiedTime: 1791160738245
+          createdTime: 1791162453101
+          modifiedTime: 1791162453101
           lastModifiedBy: WRGzDgYAt3ZuX6TU
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.affixes.ActiveEffect.nimbleness000000
           duplicateSource: null
           exportSource: null
         _key: >-
@@ -1727,10 +1727,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738245
-      modifiedTime: 1791160738245
+      createdTime: 1791162453101
+      modifiedTime: 1791162453101
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.equipment.Item.amuletOfNimblene
       duplicateSource: null
       exportSource: null
     _id: LeCFAttAPVRRRK19
@@ -1813,10 +1813,10 @@ items:
           coreVersion: '14.368'
           systemId: crucible
           systemVersion: 0.11.1
-          createdTime: 1791160738247
-          modifiedTime: 1791160738247
+          createdTime: 1791162453102
+          modifiedTime: 1791162453102
           lastModifiedBy: WRGzDgYAt3ZuX6TU
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.affixes.ActiveEffect.tenacity00000000
           duplicateSource: null
           exportSource: null
         _key: >-
@@ -1826,10 +1826,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738246
-      modifiedTime: 1791160738246
+      createdTime: 1791162453102
+      modifiedTime: 1791162453102
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.equipment.Item.charmOfTenacity0
       duplicateSource: null
       exportSource: null
     _id: boHBwA4YbTpmsmIh
@@ -1971,10 +1971,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738247
-      modifiedTime: 1791160738247
+      createdTime: 1791162453103
+      modifiedTime: 1791162453103
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.equipment.Item.steeljawTrap0000
       duplicateSource: null
       exportSource: null
     _id: xu20LRuea9Ti2TQ2
@@ -2056,10 +2056,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738248
-      modifiedTime: 1791160738248
+      createdTime: 1791162453103
+      modifiedTime: 1791162453103
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
       duplicateSource: null
       exportSource: null
     _id: 1HsyuXXEvN5gQWfa
@@ -2148,10 +2148,10 @@ items:
       coreVersion: '14.368'
       systemId: crucible
       systemVersion: 0.11.1
-      createdTime: 1791160738248
-      modifiedTime: 1791160738248
+      createdTime: 1791162453103
+      modifiedTime: 1791162453103
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.ancestry.Item.giantkinLineage0
       duplicateSource: null
       exportSource: null
     folder: null
@@ -2253,8 +2253,8 @@ _stats:
   coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.11.1
-  createdTime: 1791160738236
-  modifiedTime: 1791160738236
+  createdTime: 1791162453092
+  modifiedTime: 1791162453092
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -152,9 +152,13 @@ function _indexEquipment(items) {
 function _migrateEquipmentItem(item, index) {
   if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
   const currentSource = item.toObject();
-  const upstreamSource = index[item.system.identifier]?.toObject();
-  if ( !upstreamSource ) return null;
+  const upstream = index[item.system.identifier];
+  if ( !upstream ) return null;
+  const upstreamSource = upstream.toObject();
   const update = {_id: item.id, type: upstreamSource.type, name: upstreamSource.name, img: upstreamSource.img, system: upstreamSource.system};
+  if ( !currentSource._stats.compendiumSource ) {
+    update._stats = {...currentSource._stats, compendiumSource: upstream.uuid};
+  }
   const stateFields = [...item.system.constructor.STATEFUL_FIELDS, "quantity", "quality", "enchantment"];
   for ( const field of stateFields ) {
     const value = currentSource.system[field];
