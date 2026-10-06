@@ -64,7 +64,9 @@ system:
       level: null
     - item: Compendium.crucible.adversary-talents.Item.swoopingStrike00
       level: null
-    - item: Compendium.crucible.talent.Item.provocateur00000
+    - item: Compendium.crucible.adversary-talents.Item.rake000000000000
+      level: null
+    - item: Compendium.crucible.talent.Item.diversionist0000
       level: 0
   equipment:
     - item: Compendium.crucible.adversary-equipment.Item.beak000000000000
@@ -91,7 +93,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   createdTime: 1791237256042
-  modifiedTime: 1791297462430
+  modifiedTime: 1791306984973
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null

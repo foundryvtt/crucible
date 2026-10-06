@@ -1,0 +1,65 @@
+folder: cIS6eiJYaMi1oZQJ
+name: Earthmeld
+type: talent
+_id: earthmeld0000000
+img: icons/environment/wilderness/terrain-rocky-ground.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to move instantaneously through
+    stone.</p>
+  actions:
+    - id: earthmeld
+      img: icons/environment/wilderness/terrain-rocky-ground.webp
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: movement
+        number: 1
+        scope: 1
+        self: false
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects: []
+      tags:
+        - movement
+        - blink
+      name: Earthmeld
+      description: >-
+        <p>When the @ref[actor.name]{creature} is touching solid stone, it can
+        instantaneously transport itself to any unoccupied space in contact with
+        the same rock formation up to <strong>30 feet</strong> away. It does not
+        need to be able to see the destination to make this
+        <strong>Move</strong>.</p>
+      condition: ''
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791313165508
+  modifiedTime: 1791313474756
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!earthmeld0000000'

@@ -1,0 +1,95 @@
+folder: 6Up7ddrphLept3RW
+name: Seer
+type: archetype
+_id: seer000000000000
+img: icons/magic/perception/third-eye-blue-red.webp
+system:
+  description: <p>Oracles and soothsayers who practice the art of divination.</p>
+  identifier: seer
+  abilities:
+    wisdom: 4
+    presence: 3
+    intellect: 3
+    strength: 0
+    toughness: 2
+    dexterity: 0
+  talents:
+    - item: Compendium.crucible.talent.Item.runeControl00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.runeSoul00000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gestureSense0000
+      level: 2
+    - item: Compendium.crucible.talent.Item.gestureray000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.thoughtbinder000
+      level: 3
+    - item: Compendium.crucible.talent.Item.refocus000000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.witheringBolt000
+      level: 0
+    - item: Compendium.crucible.talent.Item.intuitweakness00
+      level: 2
+    - item: Compendium.crucible.talent.Item.irrepressiblespi
+      level: 3
+    - item: Compendium.crucible.talent.Item.gesturearrow0000
+      level: 2
+    - item: Compendium.crucible.talent.Item.runeStorm0000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gatheringStorm00
+      level: 5
+    - item: Compendium.crucible.talent.Item.spiritbreaker000
+      level: 4
+    - item: Compendium.crucible.talent.Item.inflectioncompos
+      level: 3
+    - item: Compendium.crucible.talent.Item.inflectionReshap
+      level: 4
+    - item: Compendium.crucible.talent.Item.rout000000000000
+      level: 5
+    - item: Compendium.crucible.talent.Item.orbitingAegis000
+      level: 5
+    - item: Compendium.crucible.talent.Item.inspirator000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.gestureAura00000
+      level: 6
+    - item: Compendium.crucible.talent.Item.channeledResonan
+      level: 6
+    - item: Compendium.crucible.talent.Item.surgeweaver00000
+      level: 6
+  training:
+    awareness: 1
+    wilderness: 1
+    arcana: 1
+    society: 2
+    performance: 0
+    alchemy: 0
+    talisman: 3
+    physical: 2
+    spiritual: 4
+  spells: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.lightHides000000
+      quantity: 1
+      equipped: false
+      autoScale: false
+    - item: Compendium.crucible.equipment.Item.prismaticSpindle
+      quantity: 1
+      equipped: false
+      autoScale: false
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791306342666
+  modifiedTime: 1791310115558
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!seer000000000000'
