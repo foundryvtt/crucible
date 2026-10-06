@@ -387,10 +387,13 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    * Provide the Gamemaster with a Dialog to award milestone points to the group.
    * @param {object} [options]
    * @param {boolean} [options.createMessage=true]  Whether to create a chat message summarizing the award
-   * @param {boolean} [options.number=1]            A number of milestones as the default option
+   * @param {number} [options.number=1]             A number of milestones as the default option
+   * @param {string} [options.identifier]           A default milestone identifier
+   * @param {string} [options.reason]               A default reason which describes the milestone
    * @returns {Promise<void>}
    */
-  async awardMilestoneDialog(options={}) {
+  async awardMilestoneDialog({createMessage=true, number: defaultNumber=1, identifier: defaultIdentifier,
+    reason: defaultReason}={}) {
     if ( !game.user.isGM ) throw new Error(_loc("AWARD.WARNINGS.RequiresGM"));
 
     // Prepare form data
@@ -414,9 +417,9 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     });
     const identifierPlaceholder = `milestone${Object.keys(this.advancement.milestones).length+1}`;
     content.append(
-      identifier.toFormGroup({}, {name: "identifier", placeholder: identifierPlaceholder}),
-      number.toFormGroup({classes: ["slim"]}, {name: "number", value: options.number || 1, placeholder: "1"}),
-      reason.toFormGroup({stacked: true}, {name: "reason"}),
+      identifier.toFormGroup({}, {name: "identifier", value: defaultIdentifier, placeholder: identifierPlaceholder}),
+      number.toFormGroup({classes: ["slim"]}, {name: "number", value: defaultNumber || 1, placeholder: "1"}),
+      reason.toFormGroup({stacked: true}, {name: "reason", value: defaultReason}),
       recipients.toFormGroup({stacked: true}, {name: "recipients", type: "checkboxes", value: Object.keys(heroes),
         sort: true})
     );
@@ -433,7 +436,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Perform the award
     await this.awardMilestone(response.identifier, response.number, {
-      ...options,
+      createMessage,
       recipientIds: response.recipients,
       reason: response.reason
     });

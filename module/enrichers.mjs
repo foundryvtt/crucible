@@ -78,7 +78,7 @@ export function registerEnrichers() {
     },
     {
       id: "milestone",
-      pattern: /\[\[\/milestone( \d+)?\]\]/g,
+      pattern: /\[\[\/milestone(?: (\d+))?(?: ([A-Za-z][\w-]*))?]](?:{([^}]+)})?/g,
       enricher: enrichMilestone,
       onRender: renderMilestone
     },
@@ -454,17 +454,20 @@ async function onClickCounterspell(event) {
 /* -------------------------------------------- */
 
 /**
- * Enrich a Milestone award with the format [[/milestone]] or [[/milestone {quantity}]].
+ * Enrich a Milestone award with the format [[/milestone {quantity?} {identifier?}]]{name?}.
  * @param {RegExpMatchArray} terms
  * @returns {HTMLEnrichedContentElement}
  */
-function enrichMilestone([_match, term]) {
+function enrichMilestone([_match, term, identifier, name]) {
   const quantity = Number.isNumeric(term) ? Number(term) : 1;
   const plurals = new Intl.PluralRules(game.i18n.lang);
   const tag = document.createElement("enriched-content");
   tag.classList.add("award", "milestone");
   tag.dataset.quantity = String(quantity);
-  tag.innerHTML = `${quantity} ${_loc(`AWARD.MILESTONE.${plurals.select(quantity)}`)}`;
+  if ( identifier ) tag.dataset.identifier = identifier;
+  if ( name ) tag.dataset.name = name;
+  const label = `${quantity} ${_loc(`AWARD.MILESTONE.${plurals.select(quantity)}`)}`;
+  tag.textContent = name ? `${name} (${label})` : label;
   tag.setAttribute("aria-label", _loc("AWARD.TOOLTIPS.Milestone"));
   tag.toggleAttribute("data-tooltip", true);
   return tag;
@@ -493,8 +496,12 @@ async function onClickMilestone(event) {
   const party = crucible.api.models.CrucibleGroupActor.getParty();
   if ( !party ) return;
 
-  const quantity = event.currentTarget.dataset.quantity;
-  await party.awardMilestoneDialog(quantity);
+  // An explicitly identified milestone can only be awarded once
+  const {quantity, identifier, name} = event.currentTarget.dataset;
+  if ( identifier && (identifier in party.advancement.milestones) ) {
+    return ui.notifications.warn(_loc("AWARD.WARNINGS.DuplicateMilestone", {identifier, group: party.parent.name}));
+  }
+  await party.awardMilestoneDialog({number: Number(quantity), identifier, reason: name});
 }
 
 /* -------------------------------------------- */
