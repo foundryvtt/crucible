@@ -1,0 +1,99 @@
+folder: wTcQjW37uAKhpMQL
+name: Raven
+type: taxonomy
+_id: raven00000000000
+img: icons/creatures/birds/corvid-watchful-glowing-green.webp
+system:
+  description: >-
+    <p>Flying beasts of the corvid family. Ravens are highly intelligent and
+    social creatures able to emulate speech, and are more than capable of acting
+    as both hunter and scavenger.</p>
+  identifier: raven
+  category: beast
+  abilities:
+    wisdom: 2
+    presence: 1
+    intellect: 3
+    strength: 1
+    toughness: 1
+    dexterity: 4
+  movement:
+    size: 2
+    stride: 10
+  resistances:
+    acid:
+      value: 0
+      immune: false
+    bludgeoning:
+      value: -1
+      immune: false
+    cold:
+      value: 2
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    fire:
+      value: -2
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    poison:
+      value: 1
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.bestialSenses000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.elusiveFlight000
+      level: null
+    - item: Compendium.crucible.adversary-talents.Item.swoopingStrike00
+      level: null
+    - item: Compendium.crucible.talent.Item.provocateur00000
+      level: 0
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.beak000000000000
+      quantity: 1
+      equipped: false
+      autoScale: false
+    - item: Compendium.crucible.adversary-equipment.Item.talons0000000000
+      quantity: 1
+      equipped: false
+      autoScale: false
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: false
+    temperature: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791237256042
+  modifiedTime: 1791297462430
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!raven00000000000'
