@@ -1,0 +1,36 @@
+folder: xhBPnxcjrC9F4AVL
+name: Willful Life
+type: talent
+_id: willfulLife00000
+img: icons/magic/life/heart-hand-gold-green.webp
+system:
+  nodes:
+    - pre4d
+  description: >-
+    <p>You know you can heal any ally's physical ailments; your self confidence
+    drives the flow of mending magic when you attend their needs. Your use of
+    the <strong>Rune of Life</strong> scales with @Rule[ability.presence]
+    instead of @Rule[ability.wisdom].</p>
+  actions: []
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: physical
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791392614436
+  modifiedTime: 1791392614436
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!willfulLife00000'

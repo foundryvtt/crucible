@@ -1,0 +1,36 @@
+folder: xhBPnxcjrC9F4AVL
+name: Compelling Illusion
+type: talent
+_id: compellingIllusi
+img: icons/magic/perception/orb-crystal-ball-scrying.webp
+system:
+  nodes:
+    - pre4d
+  description: >-
+    <p>To you, the key to a successful illusion is not in its meticulous
+    construction, but in the conviction of your self-belief. Your usage of the
+    <strong>Rune of Illusion</strong> scales with @Rule[ability.presence]
+    instead of @Rule[ability.intellect].</p>
+  actions: []
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: spiritual
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791382559566
+  modifiedTime: 1791386107291
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!compellingIllusi'

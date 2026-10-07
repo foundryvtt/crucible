@@ -1,0 +1,35 @@
+folder: xhBPnxcjrC9F4AVL
+name: Adroit Kineses
+type: talent
+_id: adroitKinesis000
+img: icons/magic/movement/abstract-ribbons-red-orange.webp
+system:
+  nodes:
+    - dex4a
+  description: >-
+    <p>You wield kinetic power with unbridled speed, hurling myriad projectiles
+    with nimble finger-work. Your use of the <strong>Rune of Kinesis</strong>
+    scales with @Rule[ability.dexterity] instead of @Rule[ability.presence].</p>
+  actions: []
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: physical
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791391562931
+  modifiedTime: 1791391562931
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!adroitKinesis000'

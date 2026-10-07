@@ -1,0 +1,36 @@
+folder: xhBPnxcjrC9F4AVL
+name: Visceral Death
+type: talent
+_id: visceralDeath000
+img: icons/magic/unholy/strike-hand-glow-pink.webp
+system:
+  nodes:
+    - str4c
+  description: >-
+    <p>Your deliverance of death is less the introduction of decay, and more the
+    physical wrenching of life force out of your enemies. Your usage of the
+    <strong>Rune of Death</strong> scales with @Rule[ability.strength] instead
+    of @Rule[ability.presence].</p>
+  actions: []
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: physical
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791391474980
+  modifiedTime: 1791391474980
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!visceralDeath000'
