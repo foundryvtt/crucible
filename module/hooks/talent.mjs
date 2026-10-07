@@ -1657,21 +1657,47 @@ HOOKS.sneak00000000000 = {
 
 /* -------------------------------------------- */
 
-HOOKS.inexorableFlame0 = {
+/**
+ * Modifies a rune in an actor's grimoire so that it scales with the provided ability.
+ * @param {object} grimoire The grimoire of the actor being prepared
+ * @param {string} rune     The rune to change the scaling of
+ * @param {string} scaling  The ability the rune should newly scale with
+ */
+function applyRuneScalingChange(grimoire, rune, scaling) {
+  const component = grimoire.runes.get(rune);
+  if ( !component ) return;
+  grimoire.runes.set(rune, component.clone({scaling}, {once: true}));
+}
+
+/* -------------------------------------------- */
+
+HOOKS.acridEarth000000 = {
   prepareSpells(_item, grimoire) {
-    const flame = grimoire.runes.get("flame");
-    if ( !flame ) return;
-    grimoire.runes.set("flame", flame.clone({scaling: "wisdom"}, {once: true}));
+    applyRuneScalingChange(grimoire, "earth", "intellect");
   }
 };
 
 /* -------------------------------------------- */
 
-HOOKS.gatheringStorm00 = {
+HOOKS.adroitKinesis000 = {
   prepareSpells(_item, grimoire) {
-    const storm = grimoire.runes.get("storm");
-    if ( !storm ) return;
-    grimoire.runes.set("storm", storm.clone({scaling: "wisdom"}, {once: true}));
+    applyRuneScalingChange(grimoire, "kinesis", "dexterity");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.compellingIllusi = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "illusion", "presence");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.expeditiousIllum = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "illumination", "intellect");
   }
 };
 
@@ -1679,19 +1705,23 @@ HOOKS.gatheringStorm00 = {
 
 HOOKS.flashFrost000000 = {
   prepareSpells(_item, grimoire) {
-    const frost = grimoire.runes.get("frost");
-    if ( !frost ) return;
-    grimoire.runes.set("frost", frost.clone({scaling: "intellect"}, {once: true}));
+    applyRuneScalingChange(grimoire, "frost", "intellect");
   }
 };
 
 /* -------------------------------------------- */
 
-HOOKS.acridEarth000000 = {
+HOOKS.gatheringStorm00 = {
   prepareSpells(_item, grimoire) {
-    const earth = grimoire.runes.get("earth");
-    if ( !earth ) return;
-    grimoire.runes.set("earth", earth.clone({scaling: "intellect"}, {once: true}));
+    applyRuneScalingChange(grimoire, "storm", "wisdom");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.inexorableFlame0 = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "flame", "wisdom");
   }
 };
 
@@ -1699,9 +1729,47 @@ HOOKS.acridEarth000000 = {
 
 HOOKS.livingBoulder000 = {
   prepareSpells(_item, grimoire) {
-    const earth = grimoire.runes.get("earth");
-    if ( !earth ) return;
-    grimoire.runes.set("earth", earth.clone({scaling: "toughness"}, {once: true}));
+    applyRuneScalingChange(grimoire, "earth", "toughness");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.patientSoul00000 = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "soul", "wisdom");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.tenaciousControl = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "control", "toughness");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.undeniableOblivi = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "oblivion", "presence");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.visceralDeath000 = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "death", "strength");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.willfulLife00000 = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "life", "presence");
   }
 };
 
