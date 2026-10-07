@@ -61,22 +61,22 @@ system:
     - item: Compendium.crucible.adversary-talents.Item.bestialSenses000
       level: null
     - item: Compendium.crucible.adversary-talents.Item.elusiveFlight000
-      level: null
+      level: 2
     - item: Compendium.crucible.adversary-talents.Item.swoopingStrike00
-      level: null
+      level: 0
     - item: Compendium.crucible.adversary-talents.Item.rake000000000000
       level: null
     - item: Compendium.crucible.talent.Item.diversionist0000
-      level: 0
+      level: 1
   equipment:
     - item: Compendium.crucible.adversary-equipment.Item.beak000000000000
       quantity: 1
-      equipped: false
-      autoScale: false
+      equipped: true
+      autoScale: true
     - item: Compendium.crucible.adversary-equipment.Item.talons0000000000
       quantity: 1
-      equipped: false
-      autoScale: false
+      equipped: true
+      autoScale: true
   characteristics:
     blooded: true
     equipment: false
@@ -93,8 +93,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   createdTime: 1791237256042
-  modifiedTime: 1791306984973
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1791337140140
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

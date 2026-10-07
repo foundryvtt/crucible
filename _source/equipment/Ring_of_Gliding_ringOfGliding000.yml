@@ -12,7 +12,8 @@ system:
   enchantment: minor
   equipped: false
   invested: false
-  properties: []
+  properties:
+    - investment
   description:
     public: >-
       <blockquote><p>A band of elegant pale blue steel that features a spiraling
@@ -119,8 +120,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   createdTime: 1772307157776
-  modifiedTime: 1790642206407
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1791337406715
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: ringOfGliding000
 sort: 400000
 _key: '!items!ringOfGliding000'

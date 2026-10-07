@@ -64,27 +64,26 @@ pages:
         style="width:10%"><p>Action</p></th><th
         style="width:10%"><p>Damage</p></th><th><p>Special</p></th></tr><tr><td><p>Light
         Shield</p></td><td><p>DEX</p></td><td><p>1</p></td><td><p>2</p></td><td><p>2</p></td><td><p>Block</p></td></tr><tr><td><p>Heavy
-        Shield</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Block</p></td></tr></tbody></table><p>Each weapon category is
-        described below.</p><dl><dt><p>Unarmed</p></dt><dd
+        Shield</p></td><td><p>STR</p></td><td><p>1</p></td><td><p>2</p></td><td><p>3</p></td><td><p>Block</p></td></tr></tbody></table><p>Each
+        weapon category is described below.</p><dl><dt><p>Unarmed</p></dt><dd
         data-rule="weapon.unarmed"><p>Fists, claws, and weapons strapped to the
-        hand such as katars and spiked knuckles. Unarmed weapons occupy one hand,
-        may be wielded in either hand, and scale with both
+        hand such as katars and spiked knuckles. Unarmed weapons occupy one
+        hand, may be wielded in either hand, and scale with both
         @Rule[ability.strength] and @Rule[ability.dexterity]. They use
-        <strong>Unarmed</strong> training.</p></dd><dt><p>Light
-        (1h)</p></dt><dd data-rule="weapon.light1"><p>Small, quick weapons such
-        as daggers, rapiers, and stilettos. Light weapons are wielded in one
-        hand, may be used in the offhand, and scale with
-        @Rule[ability.dexterity]. They use <strong>Light Weapon</strong>
-        training.</p></dd><dt><p>Simple (1h)</p></dt><dd
-        data-rule="weapon.simple1"><p>Straightforward weapons such as clubs,
-        maces, and javelins. Simple one-handed weapons may be used in the
-        offhand and scale with @Rule[ability.strength]. They use <strong>Heavy
-        Weapon</strong> training.</p></dd><dt><p>Balanced (1h)</p></dt><dd
-        data-rule="weapon.balanced1"><p>Versatile weapons such as shortswords,
-        scimitars, hand axes, and spears. Balanced one-handed weapons may be
-        used in the offhand and scale with both @Rule[ability.strength] and
-        @Rule[ability.dexterity]. They use either <strong>Heavy
-        Weapon</strong> or <strong>Light Weapon</strong>
+        <strong>Unarmed</strong> training.</p></dd><dt><p>Light (1h)</p></dt><dd
+        data-rule="weapon.light1"><p>Small, quick weapons such as daggers,
+        rapiers, and stilettos. Light weapons are wielded in one hand, may be
+        used in the offhand, and scale with @Rule[ability.dexterity]. They use
+        <strong>Light Weapon</strong> training.</p></dd><dt><p>Simple
+        (1h)</p></dt><dd data-rule="weapon.simple1"><p>Straightforward weapons
+        such as clubs, maces, and javelins. Simple one-handed weapons may be
+        used in the offhand and scale with @Rule[ability.strength]. They use
+        <strong>Heavy Weapon</strong> training.</p></dd><dt><p>Balanced
+        (1h)</p></dt><dd data-rule="weapon.balanced1"><p>Versatile weapons such
+        as shortswords, scimitars, hand axes, and spears. Balanced one-handed
+        weapons may be used in the offhand and scale with both
+        @Rule[ability.strength] and @Rule[ability.dexterity]. They use either
+        <strong>Heavy Weapon</strong> or <strong>Light Weapon</strong>
         training.</p></dd><dt><p>Heavy (1h)</p></dt><dd
         data-rule="weapon.heavy1"><p>Weighty weapons such as battle axes,
         bastard swords, and war hammers. Heavy one-handed weapons can only be
@@ -129,23 +128,22 @@ pages:
         <strong>Mechanical</strong> training.</p></dd><dt><p>Mechanical
         (2h)</p></dt><dd data-rule="weapon.mechanical2"><p>Heavy ranged devices
         such as heavy crossbows. Two-handed mechanical weapons scale with
-        @Rule[ability.dexterity]. They must be
-        @Rule[actions.reload]{reloaded} after each Strike, and use
-        <strong>Mechanical</strong> training.</p></dd><dt><p>Light
-        Shield</p></dt><dd data-rule="weapon.shieldLight"><p>Smaller shields
-        such as bucklers and round shields. Light shields can only be wielded in
-        the offhand, increase Block defense, and scale with
-        @Rule[ability.dexterity]. They use <strong>Shield</strong>
-        training.</p></dd><dt><p>Heavy Shield</p></dt><dd
-        data-rule="weapon.shieldHeavy"><p>Large shields such as kite shields and
-        tower shields. Heavy shields can only be wielded in the offhand, provide
-        greater Block defense than light shields, and scale with
-        @Rule[ability.strength]. They use <strong>Shield</strong>
-        training.</p></dd></dl><h2
-        class="divider">Quality Tier</h2><p><strong>Quality</strong> of a Weapon
-        describes its craftsmanship, materials, and condition. Quality tiers
-        provide an additional bonus to the base damage of the weapon and
-        contribute towards its Rarity score.</p><table><thead><tr><th><p>Quality
+        @Rule[ability.dexterity]. They must be @Rule[actions.reload]{reloaded}
+        after each Strike, and use <strong>Mechanical</strong>
+        training.</p></dd><dt><p>Light Shield</p></dt><dd
+        data-rule="weapon.shieldLight"><p>Smaller shields such as bucklers and
+        round shields. Light shields can only be wielded in the offhand,
+        increase Block defense, and scale with @Rule[ability.dexterity]. They
+        use <strong>Shield</strong> training.</p></dd><dt><p>Heavy
+        Shield</p></dt><dd data-rule="weapon.shieldHeavy"><p>Large shields such
+        as kite shields and tower shields. Heavy shields can only be wielded in
+        the offhand, provide greater Block defense than light shields, and scale
+        with @Rule[ability.strength]. They use <strong>Shield</strong>
+        training.</p></dd></dl><h2 class="divider">Quality
+        Tier</h2><p><strong>Quality</strong> of a Weapon describes its
+        craftsmanship, materials, and condition. Quality tiers provide an
+        additional bonus to the base damage of the weapon and contribute towards
+        its Rarity score.</p><table><thead><tr><th><p>Quality
         Tier</p></th><th><p>Damage Bonus</p></th><th><p>Rarity
         Modifier</p></th></tr></thead><tbody><tr><td><p>Shoddy</p></td><td><p>-2</p></td><td><p>-1</p></td></tr><tr><td><p>Standard</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Fine</p></td><td><p>+1</p></td><td><p>+1</p></td></tr><tr><td><p>Superior</p></td><td><p>+2</p></td><td><p>+2</p></td></tr><tr><td><p>Masterwork</p></td><td><p>+3</p></td><td><p>+4</p></td></tr></tbody></table><p>The
         quality tier of a weapon is established at its time of initial creation
@@ -400,12 +398,12 @@ pages:
         a free <strong>Move</strong> action each turn.</p></dd></dl><p>Natural
         Armor is described under Armor Properties below. Training in
         <strong>Armored Combat</strong> improves the defense of Light, Medium,
-        and Heavy Armor, as described below.</p><p>The total
-        <strong>Physical Defense</strong> contributed by the piece of Armor is
-        equal to the sum of Armor and Dodge components.</p><section
-        class="formula"><p class="value">Physical Defense</p><p
-        class="equals">=</p><p class="equation">Base Armor + Bonus Armor + Base
-        Dodge + Bonus Dodge</p></section><section
+        and Heavy Armor, as described below.</p><p>The total <strong>Physical
+        Defense</strong> contributed by the piece of Armor is equal to the sum
+        of Armor and Dodge components.</p><section class="formula"><p
+        class="value">Physical Defense</p><p class="equals">=</p><p
+        class="equation">Base Armor + Bonus Armor + Base Dodge + Bonus
+        Dodge</p></section><section
         class="gameplay"><p>@UUID[Compendium.crucible.equipment.Item.scaleMail0000000]{Scale
         Mail} is Medium Armor which offers <strong>13 Armor Defense</strong> and
         <strong>3 Base Dodge Defense</strong>. As Medium Armor, the
@@ -435,40 +433,40 @@ pages:
         Defense</p></th></tr></thead><tbody><tr><td><p>Trained</p></td><td><p>1</p></td><td><p>+1</p></td></tr><tr><td><p>Proficient</p></td><td><p>2</p></td><td><p>+2</p></td></tr><tr><td><p>Expert</p></td><td><p>3</p></td><td><p>+3</p></td></tr><tr><td><p>Master</p></td><td><p>4</p></td><td><p>+4</p></td></tr></tbody></table><section
         class="gameplay"><p>Jex becomes <strong>Proficient</strong> in Armored
         Combat, which lowers the <strong>Scaling Threshold</strong> of their
-        Scale Mail from <strong>6 Dexterity</strong> to <strong>4</strong>.
-        With <strong>8 Dexterity</strong>, Jex is above the new threshold, so
-        both ranks improve their Dodge from <strong>5</strong> to
-        <strong>7</strong>, and their total <strong>Physical Defense</strong>
-        rises to <strong>20 (13 Armor + 7 Dodge)</strong>.</p><p>Brannoc, a
-        stalwart guardian with <strong>2 Dexterity</strong>, wears
+        Scale Mail from <strong>6 Dexterity</strong> to <strong>4</strong>. With
+        <strong>8 Dexterity</strong>, Jex is above the new threshold, so both
+        ranks improve their Dodge from <strong>5</strong> to <strong>7</strong>,
+        and their total <strong>Physical Defense</strong> rises to <strong>20
+        (13 Armor + 7 Dodge)</strong>.</p><p>Brannoc, a stalwart guardian with
+        <strong>2 Dexterity</strong>, wears
         @UUID[Compendium.crucible.equipment.Item.plateMail0000000]{Plate Mail},
         Heavy Armor with <strong>18 Armor</strong>, <strong>0 Base
         Dodge</strong>, and a <strong>Scaling Threshold</strong> of
         <strong>8</strong>. When Brannoc becomes <strong>Proficient</strong>,
         the threshold falls to <strong>6</strong>. Brannoc's Dexterity is still
-        below it, so each rank adds +1 Armor instead, and their
-        <strong>Physical Defense</strong> rises from <strong>18</strong> to
-        <strong>20 (20 Armor + 0 Dodge)</strong>.</p><p>Sefa has <strong>7
-        Dexterity</strong> and is an <strong>Expert</strong> in Plate Mail,
-        lowering its threshold from <strong>8</strong> to <strong>5</strong>.
-        Sefa gains 2 Dodge from the Dexterity above the new threshold, and the
-        one rank which their Dexterity could not reach adds +1 Armor. Their
-        <strong>Physical Defense</strong> is <strong>21 (19 Armor + 2
-        Dodge)</strong>, three more than without training.</p></section><p>Wearing <strong>Heavy Armor</strong>
-        does not permit a free <strong>Move</strong> action each turn as other
-        armor types do unless the character has a specific Talent which negates
-        this penalty.</p><h2 class="divider">Armor Defense</h2><p>Each piece of
-        Armor provides a certain amount of Base Armor defense, bounded by the
-        range allowed by its category. This Armor defense contributes directly
-        towards Physical Defense when the item is equipped. In addition to Base
-        Armor, the piece of armor may offer Bonus Armor according to its Quality
-        tier which is described below.</p><h2 class="divider">Dodge
-        Defense</h2><p>Each piece of Armor provides a baseline amount of Dodge
-        defense. The amount of base dodge defense provided by the armor is
-        defined according to a formula specific to its category.</p><section
-        class="formula"><p class="value">Base Dodge (Light)</p><p
-        class="equals">=</p><p class="equation">10 - (Base Armor / 2)</p><p
-        class="value">Base Dodge (Medium)</p><p class="equals">=</p><p
+        below it, so each rank adds +1 Armor instead, and their <strong>Physical
+        Defense</strong> rises from <strong>18</strong> to <strong>20 (20 Armor
+        + 0 Dodge)</strong>.</p><p>Sefa has <strong>7 Dexterity</strong> and is
+        an <strong>Expert</strong> in Plate Mail, lowering its threshold from
+        <strong>8</strong> to <strong>5</strong>. Sefa gains 2 Dodge from the
+        Dexterity above the new threshold, and the one rank which their
+        Dexterity could not reach adds +1 Armor. Their <strong>Physical
+        Defense</strong> is <strong>21 (19 Armor + 2 Dodge)</strong>, three more
+        than without training.</p></section><p>Wearing <strong>Heavy
+        Armor</strong> does not permit a free <strong>Move</strong> action each
+        turn as other armor types do unless the character has a specific Talent
+        which negates this penalty.</p><h2 class="divider">Armor
+        Defense</h2><p>Each piece of Armor provides a certain amount of Base
+        Armor defense, bounded by the range allowed by its category. This Armor
+        defense contributes directly towards Physical Defense when the item is
+        equipped. In addition to Base Armor, the piece of armor may offer Bonus
+        Armor according to its Quality tier which is described below.</p><h2
+        class="divider">Dodge Defense</h2><p>Each piece of Armor provides a
+        baseline amount of Dodge defense. The amount of base dodge defense
+        provided by the armor is defined according to a formula specific to its
+        category.</p><section class="formula"><p class="value">Base Dodge
+        (Light)</p><p class="equals">=</p><p class="equation">10 - (Base Armor /
+        2)</p><p class="value">Base Dodge (Medium)</p><p class="equals">=</p><p
         class="equation">10 - ((Base Armor-1) / 2)</p><p class="value">Base
         Dodge (Heavy)</p><p class="equals">=</p><p class="equation">10 - ((Base
         Armor-2) / 2)</p><p class="value">Base Dodge (Natural)</p><p
@@ -522,11 +520,12 @@ pages:
         Natural category always has this property. Natural Armor provides 0 to
         18 Armor defense, and its Base Dodge declines as its Armor increases,
         never exceeding the Dodge of an unarmored creature. Creatures which
-        cannot use equipment may still wear natural armor.</p></dd><dt><p>Noisy</p></dt><dd
-        data-rule="armor.noisy"><p>Armor that is <strong>Noisy</strong> makes it
-        difficult to move quietly, conveying a penalty of +2 Banes to Stealth
-        skill checks and to actions which use the Stealth skill. This penalty is
-        not yet automated.</p></dd></dl>
+        cannot use equipment may still wear natural
+        armor.</p></dd><dt><p>Noisy</p></dt><dd data-rule="armor.noisy"><p>Armor
+        that is <strong>Noisy</strong> makes it difficult to move quietly,
+        conveying a penalty of +2 Banes to Stealth skill checks and to actions
+        which use the Stealth skill. This penalty is not yet
+        automated.</p></dd></dl>
     video:
       controls: true
       volume: 0.5

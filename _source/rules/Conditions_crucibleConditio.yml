@@ -1610,6 +1610,16 @@ pages:
       default: -1
       ifaQA7jTJsr3UWFE: 3
     flags: {}
+    _stats:
+      coreVersion: '14.368'
+      systemId: null
+      systemVersion: null
+      createdTime: null
+      modifiedTime: null
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
     _key: '!journal.pages!crucibleConditio.dominated0000000'
   - _id: entropy000000000
     name: Entropy
@@ -1931,7 +1941,7 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.368'
   systemId: crucible
   systemVersion: 0.8.6
   createdTime: 1751302467753

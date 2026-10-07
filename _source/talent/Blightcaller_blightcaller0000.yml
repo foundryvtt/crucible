@@ -6,10 +6,9 @@ system:
     - wis4c
   description: >-
     <p>Life is growth without restraint, and growth unchecked festers. Spells
-    you compose with the <strong>Rune of Life</strong> become spells of
-    blight. They deal @Rule[damageType.poison] damage to
-    @Rule[resource.health] instead of restoring it, and are resisted by
-    @Rule[defense.fortitude].</p>
+    you compose with the <strong>Rune of Life</strong> become spells of blight.
+    They deal @Rule[damageType.poison] damage to @Rule[resource.health] instead
+    of restoring it, and are resisted by @Rule[defense.fortitude].</p>
   actions: []
   iconicSpells: 0
   training: physical
