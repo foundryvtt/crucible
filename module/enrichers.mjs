@@ -911,7 +911,7 @@ export function resolveReferences(text, relativeTo) {
 
 /**
  * Enrich a loot item reference into a draggable link that materializes a composed item on drop.
- * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier) or quality=tierName.
+ * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, or broken.
  * @param {RegExpMatchArray} matchArray
  * @returns {Promise<HTMLAnchorElement|Text>}
  * @example Explicit name and quality
@@ -925,6 +925,10 @@ export function resolveReferences(text, relativeTo) {
  * @example Multiple affixes with mixed tiers
  * ```html
  * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency fireDamage=3]
+ * ```
+ * @example A broken item
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.longsword0000000 broken]{Rusted Longsword}
  * ```
  */
 async function enrichLoot([match, baseUuid, tokenString, displayName]) {
@@ -940,7 +944,7 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
     if ( key === "quality" ) {
       quality = value;
     } else if ( key === "broken" ) {
-      broken = value;
+      broken = (value === undefined) || (value === "true");
     } else {
       affixes.push({id: key, tier: value ? Number(value) : 1});
     }
