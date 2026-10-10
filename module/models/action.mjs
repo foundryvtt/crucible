@@ -3154,6 +3154,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {BURROW, FLY} = CONFIG.specialStatusEffects;
     const actor = event.target;
 
+    // Resolve the moved token; movement statuses only apply on microgrid scenes
+    const isSelf = actor === this.actor;
+    const token = isSelf ? this.token
+      : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
+    if ( !token?.parent?.useMicrogrid ) return;
+
     // A grappled target cannot be moved except by the grappler
     const grapple = crucible.api.hooks.action.grapple;
     const grappled = actor.effects.get(grapple._GRAPPLED_EFFECT_ID);
@@ -3171,46 +3177,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         effects: [{_id: grapple._GRAPPLED_EFFECT_ID, _action: "delete"}]});
     }
 
-    // Resolve the moved token and its planned movement, matched by movement id
-    const isSelf = actor === this.actor;
-    const token = isSelf ? this.token
-      : (this.targets?.get(actor)?.token ?? actor.getActiveTokens?.(true, true)?.[0]);
-    const plan = (token?.movement?.id === event.movement.id) ? token.movement : null;
+    // Resolve the planned movement, matched by movement id
+    const plan = (token.movement?.id === event.movement.id) ? token.movement : null;
     if ( !plan ) return;
 
     // Planned movement "destination" remains the origin until executed; the final waypoint is the true destination
     const finalWaypoint = [...(plan.passed.waypoints ?? []), ...(plan.pending.waypoints ?? [])].at(-1);
     const destination = finalWaypoint ? {...plan.origin, ...finalWaypoint} : plan.destination;
-    let toAdd;
-    const restingAction = isSelf ? finalWaypoint?.action : null;
 
-    // End as flying if suspended above a supporting surface
-    if ( restingAction === "fly" ) {
-      const surface = token._findSupportingSurface(destination);
-      if ( surface && (surface.elevation < destination.elevation) ) toAdd = flying;
-    }
-
-    // End as burrowing if suspended above a deeper surface or below the level base if no surfaces are present
-    else if ( restingAction === "burrow" ) {
-      const surface = token._findSupportingSurface(destination);
-      let underground;
-      if ( surface ) underground = surface.elevation < destination.elevation;
-      else {
-        const base = token.parent?.levels.get(destination.level)?.elevation.base;
-        underground = (base !== undefined) && (destination.elevation < base);
-      }
-      if ( underground ) toAdd = burrowing;
-    }
-
-    // Otherwise add the falling condition, unless a climbing move ends adjacent to a climbable surface
-    else {
-      const staysAirborne = !isSelf && (actor.statuses.has(FLY) || actor.statuses.has(BURROW));
-      const surface = staysAirborne ? null : token._findSupportingSurface(destination);
-      if ( surface && (surface.elevation < destination.elevation) ) {
-        const isClimbing = isSelf && (finalWaypoint?.action === "climb");
-        if ( !(isClimbing && token._findClimbableSurface(destination)) ) toAdd = falling;
-      }
-    }
+    // Test the movement state at the destination; a moved target that was flying or burrowing stays suspended
+    const action = isSelf ? finalWaypoint?.action : null;
+    const suspended = !isSelf && (actor.statuses.has(FLY) || actor.statuses.has(BURROW));
+    const state = token._testRestingMovementState(destination, {action, suspended});
+    const toAdd = state ? CONFIG.statusEffects[state] : undefined;
 
     // Add a derived status effect change
     const clearable = isSelf ? [burrowing.id, falling.id, flying.id] : [falling.id];

@@ -12,6 +12,13 @@ export default class CrucibleScene extends Scene {
    */
   _microgrid;
 
+  /**
+   * Re-evaluate resting movement states once a burst of surface invalidations settles, e.g. a region hiding several
+   * surfaces at once.
+   * @type {function(): void}
+   */
+  #updateRestingMovementStatesDebounced = foundry.utils.debounce(this.#updateRestingMovementStates.bind(this), 100);
+
   /* -------------------------------------------- */
 
   /**
@@ -46,8 +53,10 @@ export default class CrucibleScene extends Scene {
   /** @inheritDoc */
   _invalidateSurfaces() {
     super._invalidateSurfaces();
-    // The usesSurfaces flag derives from getSurfaces, whose canonical invalidation is this hook
+    // Invalidate usesSurfaces which is re-derived in getSurfaces
     if ( this._microgrid ) this._microgrid.usesSurfaces = undefined;
+    // A surface that appears, disappears, or moves may leave tokens unsupported
+    if ( this.useMicrogrid && this.isView ) this.#updateRestingMovementStatesDebounced();
   }
 
   /* -------------------------------------------- */
@@ -206,6 +215,22 @@ export default class CrucibleScene extends Scene {
       }
     }
     return home ?? current;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Re-evaluate the resting movement state of each token this user is designated to act for, after the scene's
+   * surfaces change.
+   * @returns {Promise<PromiseSettledResult<void>[]>}
+   */
+  async #updateRestingMovementStates() {
+    if ( !this.isView ) return [];
+    const promises = [];
+    for ( const token of this.tokens ) {
+      if ( token.actor?.getDesignatedUser()?.isSelf ) promises.push(token.updateRestingMovementState());
+    }
+    return Promise.allSettled(promises);
   }
 
   /* -------------------------------------------- */

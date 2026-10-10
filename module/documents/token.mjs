@@ -235,7 +235,41 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   }
 
   /* -------------------------------------------- */
-  /*  Falling                                     */
+  /*  Resting Movement State                      */
+  /* -------------------------------------------- */
+
+  /**
+   * Update the at-rest movement state of a token, which could include flying, burrowing, or falling states.
+   * This is ordinarily handled proactively as part of a CrucibleAction##deriveMovementStatus, but this method can be
+   * called directly to enact ad-hoc corrections to that state, for example in response to a Region or Surface change.
+   * @returns {Promise<void>}
+   */
+  async updateRestingMovementState() {
+    const actor = this.actor;
+    if ( !actor || this.isGroup || !this.parent?.useMicrogrid ) return;
+    const {burrowing, falling, flying} = CONFIG.statusEffects;
+    const state = this._testRestingMovementState(this._source, {action: this.movementAction});
+
+    // Clear movement states which no longer apply, then apply flying or burrowing
+    for ( const {id} of [burrowing, falling, flying] ) {
+      if ( (id !== state) && actor.statuses.has(id) ) await actor.toggleStatusEffect(id, {active: false});
+    }
+    if ( !state || actor.statuses.has(state) ) return;
+
+    // Enable a flying or burrowing state effect
+    if ( state !== falling.id ) {
+      await actor.toggleStatusEffect(state, {active: true});
+      return;
+    }
+    const fall = actor.actions?.fall;
+    if ( !fall ) return;
+
+    // Handle falling specifically by routing through the action dialog
+    await actor.toggleStatusEffect(falling.id, {active: true});
+    const result = await fall.use({token: this});
+    if ( result === null ) await actor.toggleStatusEffect(falling.id, {active: false});
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -274,5 +308,44 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
       width: (position.width ?? this._source.width) + 2, height: (position.height ?? this._source.height) + 2};
     const points = this.getContainmentTestPoints(padded);
     return scene.findClimbableSurface(points, {elevation, level});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test which movement state the token is left in when resting at a position, given the movement action it rests in.
+   * @param {TokenCoordinates} [position]       The position to evaluate. Defaults to the token's source position.
+   * @param {object} [options]
+   * @param {string|null} [options.action]      The movement action the token rests in
+   * @param {boolean} [options.suspended=false] Whether the creature holds its elevation regardless of support
+   * @returns {"flying"|"burrowing"|"falling"|null}
+   * @internal
+   */
+  _testRestingMovementState(position=this._source, {action=null, suspended=false}={}) {
+
+    // Flying if above a supporting surface
+    if ( action === "fly" ) {
+      const surface = this._findSupportingSurface(position);
+      return (surface && (surface.elevation < position.elevation)) ? "flying" : null;
+    }
+
+    // Burrowing if above a deeper surface, or below the level base if no surfaces are present
+    if ( action === "burrow" ) {
+      const surface = this._findSupportingSurface(position);
+      let underground;
+      if ( surface ) underground = surface.elevation < position.elevation;
+      else {
+        const base = this.parent?.levels.get(position.level)?.elevation.base;
+        underground = (base !== undefined) && (position.elevation < base);
+      }
+      return underground ? "burrowing" : null;
+    }
+
+    // Otherwise falling if above its support, unless suspended or climbing adjacent to a climbable surface
+    if ( suspended ) return null;
+    const surface = this._findSupportingSurface(position);
+    if ( !surface || (surface.elevation >= position.elevation) ) return null;
+    if ( (action === "climb") && this._findClimbableSurface(position) ) return null;
+    return "falling";
   }
 }
