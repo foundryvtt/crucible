@@ -1,0 +1,67 @@
+name: Harrier
+type: archetype
+_id: harrier000000000
+img: icons/creatures/abilities/dragon-breath-purple.webp
+system:
+  description: >-
+    <p>Flighted enemies who excel in menacing their foes from above, engaging
+    and disengaging at will, never giving them a moment's rest.</p>
+  identifier: harrier
+  abilities:
+    wisdom: 0
+    presence: 1
+    intellect: 2
+    strength: 3
+    toughness: 3
+    dexterity: 3
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.elusiveFlight000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.swoopingStrike00
+      level: 1
+    - item: Compendium.crucible.adversary-talents.Item.packhunter000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.bloodletter00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.bloodfrenzy00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.harrier000000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.skirmisher000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.strikefirst00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.weakpoints000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.opportunist00000
+      level: 2
+  training:
+    athletics: 3
+    awareness: 2
+    stealth: 2
+    wilderness: 2
+    society: 0
+    deception: 2
+    intimidation: 0
+    performance: 1
+    natural: 4
+  spells: []
+  equipment: []
+effects: []
+folder: qAL3mvNAtEIemAia
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791677499618
+  modifiedTime: 1791677499618
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!harrier000000000'
