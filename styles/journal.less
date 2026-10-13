@@ -108,7 +108,39 @@
     document-embed .item-embed {
       margin: 1rem 0;
     }
+
+    // Anchor for the send-to-chat button
+    .readaloud {
+      position: relative;
+    }
   }
+}
+
+/* ----------------------------------------- */
+/*  Read-Aloud Blocks                        */
+/* ----------------------------------------- */
+
+// Authored read-aloud blocks, framed alike in Crucible journals and chat messages; actor embeds frame their own
+.crucible section.block.readaloud {
+  margin: 1rem 0;
+  padding: 0.25rem 1rem;
+  background: var(--color-frame-bg-25);
+  border: 1px solid var(--color-frame);
+  border-radius: 4px;
+}
+
+// Default placement in the top-right corner of the read-aloud, which must be positioned
+// An opaque background breaks the frame border behind the button
+.readaloud > button[data-chat-readaloud] {
+  --button-size: 24px;
+  --button-background-color: var(--color-frame-bg);
+  --button-hover-background-color: var(--color-frame-bg);
+  --button-border-color: var(--color-frame);
+  opacity: 1; // Crucible applications fade buttons at rest, which would show the frame through the button
+  position: absolute;
+  top: calc(-1 * var(--button-size) / 2);
+  right: calc(-1 * var(--button-size) / 2);
+  font-style: normal;
 }
 
 /** ----------------------------------------- *
@@ -330,6 +362,7 @@ document-embed.block.actor {
   --actor-embed-background: color-mix(in srgb, var(--color-text-primary) 8%, transparent);
   position: relative;
   display: block;
+  min-height: 100px; // Contain the absolute portrait when no read-aloud follows the header
   margin: 1rem 0;
   padding: 1rem 0 0 1rem;
 
@@ -357,6 +390,10 @@ document-embed.block.actor {
     border: 1px solid var(--actor-embed-border-color);
     border-bottom: none;
     border-radius: 4px 4px 0 0;
+    &:last-child { // No read-aloud follows
+      border-bottom: 1px solid var(--actor-embed-border-color);
+      border-radius: 4px;
+    }
     h4 {
       flex: 1;
       margin: 0;
@@ -379,13 +416,14 @@ document-embed.block.actor {
   }
 
   .readaloud {
+    position: relative;
     padding: 1.5rem;
     background: var(--actor-embed-background);
     border: 1px solid var(--actor-embed-border-color);
     border-radius: 0 0 4px 4px;
     font-family: var(--font-blockquote);
     font-style: italic;
-    > p:first-child {
+    > p:first-of-type {
       margin-top: 0;
       text-indent: 3rem;
     }

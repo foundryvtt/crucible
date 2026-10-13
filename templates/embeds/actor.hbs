@@ -5,10 +5,12 @@
         {{#if count}}<span class="count">(x{{count}})</span>{{/if}}
     </h4>
     <div class="meta">
-        <span class="threat">{{localize "ACTOR.LevelSpecific" level=threat}}</span>
+        <span class="threat">{{localize "ACTOR.LevelSpecific" level=level}}</span>
         <span class="category">{{subtitle}}</span>
     </div>
 </header>
+{{#if readaloud}}
 <section class="readaloud">
     {{{readaloud}}}
 </section>
+{{/if}}

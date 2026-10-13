@@ -61,11 +61,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   }
 
   /**
-   * The Handlebars template path used to render an @Embed block for adversaries.
-   */
-  static EMBED_TEMPLATE = "systems/crucible/templates/embeds/actor-adversary.hbs";
-
-  /**
    * The order in which abilities claim a point when automatic allocation would otherwise be tied.
    * @type {string[]}
    */
@@ -339,32 +334,14 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
 
-  /** @override */
-  async toEmbed(config, _options) {
-    const block = new foundry.applications.elements.HTMLDocumentEmbedElement();
-    block.className = "block actor";
-    config.inline ??= false; // Never use figures
-
-    // Prepare actor data
-    const actor = this.parent;
-    const rank = actor.system.advancement.rank || "normal";
+  /** @inheritDoc */
+  async _prepareEmbedContext(config) {
+    const context = await super._prepareEmbedContext(config);
+    const rank = this.advancement.rank || "normal";
     const rankName = rank !== "normal" ? SYSTEM.THREAT_RANKS[rank]?.label : "";
-    const context = {
-      name: actor.name,
-      img: config.image === "token" ? actor.prototypeToken.texture.src : actor.img,
-      link: actor.toAnchor().outerHTML,
-      count: config.count,
-      threat: [actor.system.advancement.threatLevel, rankName ? `(${rankName})` : ""].filterJoin(" "),
-      subtitle: [this.details.taxonomy?.name || "Unknown", this.details.archetype?.name || "Unknown"].join(" "),
-      readaloud: await CONFIG.ux.TextEditor.enrichHTML(this.details.biography.appearance, {
-        relativeTo: actor,
-        secrets: actor.isOwner
-      })
-    };
-
-    // Render the Embed
-    block.innerHTML = await foundry.applications.handlebars.renderTemplate(this.constructor.EMBED_TEMPLATE, context);
-    return block;
+    context.level = [this.advancement.threatLevel, rankName ? `(${rankName})` : ""].filterJoin(" ");
+    context.subtitle = [this.details.taxonomy?.name || "Unknown", this.details.archetype?.name || "Unknown"].join(" ");
+    return context;
   }
 
   /* -------------------------------------------- */

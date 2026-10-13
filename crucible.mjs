@@ -61,6 +61,7 @@ Hooks.once("init", async function() {
     applications,
     audio,
     canvas,
+    chat,
     dice,
     interaction,
     models,
@@ -716,6 +717,7 @@ Hooks.once("ready", async function() {
   // System-specific interaction
   document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
   document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+  document.body.addEventListener("click", chat.onClickChatReadaloud);
 
   // Resolve performance-mode-derived values onto `canvas.performance` (particle density, etc.)
   canvas.vfx.blocks.configurePerformanceMode();
@@ -745,6 +747,7 @@ Hooks.once("ready", async function() {
 Hooks.on("openDetachedWindow", (_id, window) => {
   window.document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
   window.document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+  window.document.body.addEventListener("click", chat.onClickChatReadaloud);
 });
 
 /* -------------------------------------------- */

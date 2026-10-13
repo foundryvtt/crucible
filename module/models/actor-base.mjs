@@ -3,6 +3,7 @@ import CruciblePhysicalItem from "./item-physical.mjs";
 
 /**
  * @import {PROFICIENCIES} from "../const/proficiencies.mjs";
+ * @import {DocumentHTMLEmbedConfig} from "@client/applications/ux/text-editor.mjs";
  */
 
 /**
@@ -151,6 +152,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTOR"];
+
+  /**
+   * The Handlebars template path used to render an @Embed block for this Actor.
+   */
+  static EMBED_TEMPLATE = "systems/crucible/templates/embeds/actor.hbs";
 
   /* -------------------------------------------- */
   /*  Derived Data Attributes                     */
@@ -1277,6 +1283,46 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       const actionId = item.type === "consumable" ? `${action.id}.${item.id}` : action.id;
       this.actions[actionId] = action.bind(this.parent);
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Embedding                                   */
+  /* -------------------------------------------- */
+
+  /** @override */
+  async toEmbed(config, _options) {
+    const block = new foundry.applications.elements.HTMLDocumentEmbedElement();
+    block.className = "block actor";
+    config.inline ??= false; // Never use figures
+    const context = await this._prepareEmbedContext(config);
+    block.innerHTML = await foundry.applications.handlebars.renderTemplate(this.constructor.EMBED_TEMPLATE, context);
+    const readaloud = block.querySelector(".readaloud");
+    if ( readaloud && game.user.isGM ) readaloud.prepend(crucible.api.chat.createChatReadaloudButton());
+    return block;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the rendering context for {@link CrucibleBaseActor.EMBED_TEMPLATE}.
+   * @param {DocumentHTMLEmbedConfig} config
+   * @returns {Promise<object>}
+   * @protected
+   */
+  async _prepareEmbedContext(config) {
+    const actor = this.parent;
+    return {
+      name: actor.name,
+      img: config.image === "token" ? actor.prototypeToken.texture.src : actor.img,
+      link: actor.toAnchor().outerHTML,
+      count: config.count,
+      level: this.advancement.threatLevel,
+      subtitle: "",
+      readaloud: await CONFIG.ux.TextEditor.enrichHTML(this.details.biography.appearance, {
+        relativeTo: actor,
+        secrets: actor.isOwner
+      })
+    };
   }
 
   /* -------------------------------------------- */

@@ -180,7 +180,10 @@ export default class CrucibleChatMessage extends ChatMessage {
    */
   static onRenderHTML(message, html, _messageData) {
     const flags = message.flags.crucible || {};
-    if ( !foundry.utils.isEmpty(flags) || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) {
+
+    // Apply a chat message theme based on the value of flags.crucible.theme, otherwise assign the `.crucible` theme
+    if ( flags.theme && (flags.theme !== "crucible") ) html.classList.add(flags.theme);
+    else if ( !foundry.utils.isEmpty(flags) || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) {
       html.classList.add("crucible");
       html.querySelector(".message-content").classList.add("themed", "theme-dark");
     }
