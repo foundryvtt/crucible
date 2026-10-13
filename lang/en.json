@@ -1752,6 +1752,7 @@
     "DC": "DC",
     "DCAdditionalPassive": "{dcLabel}, Passive",
     "DCAdditionalGroup": "{dcLabel}, Group",
+    "DCMinimum": "{dc}+",
     "DCSpecific": "DC {dc}",
     "DCTargetSpecific": "{skill} DC Target",
     "DiceTotal": "Dice Total",

@@ -1,5 +1,7 @@
 import { chooseActorsDialog } from "./interaction.mjs";
 
+/** @import {GroupCheckSkillConfig} from "./dice/group-check.mjs"; */
+
 /**
  * The pattern which matches `@ref` annotations, shared by the registered enricher and {@link resolveReferences}.
  * @type {RegExp}
@@ -31,7 +33,7 @@ export function registerEnrichers() {
     },
     { // Crucible Skill Checks
       id: "crucibleSkill",
-      pattern: /\[\[\/skillCheck ([\w\s]+)]]/g,
+      pattern: /\[\[\/skillCheck ([\w\s=]+)]](?:{([^}]+)})?/g,
       enricher: enrichSkillCheck,
       onRender: renderSkillCheck
     },
@@ -152,7 +154,7 @@ function enrichDND5ESkill([match, terms]) {
   if ( !(skillId in DND5E_SKILL_MAPPING) ) return new Text(match);
   const skill = SYSTEM.SKILLS[DND5E_SKILL_MAPPING[skillId]];
   const passive = rest.includes("passive");
-  const tag = createSkillCheckElement(skill, dc, {passive, group: false});
+  const tag = createSkillCheckElement([{skill, dc}], {passive, group: false});
   tag.classList.add("dnd5e-skill-check");
   return tag;
 }
@@ -677,38 +679,85 @@ async function enrichRule([match, ruleId, label]) {
 /* -------------------------------------------- */
 
 /**
- * Enrich a skill check notation into an interactive element that triggers a skill roll.
+ * Enrich a skill check with format [[/skillCheck {skill}={dc} {...skill}={dc} {...flags}]]{name}.
+ * A single skill may also be written positionally as [[/skillCheck {skill} {dc} {...flags}]].
  * @param {RegExpMatchArray} matchArray
  */
-function enrichSkillCheck([match, terms]) {
-  let [skillId, dc, ...rest] = terms.split(" ");
-  skillId = DND5E_SKILL_MAPPING[skillId] ?? skillId;
-  const skill = SYSTEM.SKILLS[skillId];
-  if ( !skill ) return new Text(match);
-  const passive = rest.includes("passive");
-  const group = rest.includes("group");
-  return createSkillCheckElement(skill, dc, {passive, group});
+function enrichSkillCheck([match, terms, name]) {
+  const parsed = parseSkillCheckTerms(terms);
+  if ( !parsed ) return new Text(match);
+  const {skills, passive, group} = parsed;
+  if ( passive && (skills.length > 1) ) return new Text(match);
+  return createSkillCheckElement(skills, {passive, group, name});
 }
 
 /* -------------------------------------------- */
 
 /**
- * Create an enriched-content element representing a skill check with the given skill, DC, and options.
- * @param {object} skill
- * @param {number} dc
- * @param {object} options
- * @param {boolean} options.passive
- * @param {boolean} options.group
+ * Parse the terms of a skill check into its allowed skills and flags.
+ * Returns null for invalid syntax: an unknown skill or term, a repeated skill, or a positional DC among several skills.
+ * @param {string} terms
+ * @returns {{skills: {skill: object, dc: number}[], passive: boolean, group: boolean}|null}
  */
-function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
+function parseSkillCheckTerms(terms) {
+  const skills = [];
+  const flags = new Set();
+  let positional = false;
+  for ( const term of terms.trim().split(/\s+/) ) {
+    if ( (term === "passive") || (term === "group") ) {
+      flags.add(term);
+      continue;
+    }
+
+    // A bare number is the DC of the bare skill before it
+    if ( /^\d+$/.test(term) ) {
+      const previous = skills.at(-1);
+      if ( !previous?.bare || positional ) return null;
+      previous.dc = Number(term);
+      positional = true;
+      continue;
+    }
+
+    // A skill, with or without its DC
+    const [, id, dc] = term.match(/^(\w+)(?:=(\d+))?$/) ?? [];
+    const skill = SYSTEM.SKILLS[DND5E_SKILL_MAPPING[id] ?? id];
+    if ( !skill || skills.some(s => s.skill === skill) ) return null;
+    skills.push({skill, dc: dc ? Number(dc) : SYSTEM.PASSIVE_BASE + 3, bare: !dc});
+  }
+  if ( !skills.length || (positional && (skills.length > 1)) ) return null;
+  return {skills: skills.map(({skill, dc}) => ({skill, dc})), passive: flags.has("passive"), group: flags.has("group")};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Create an enriched-content element representing a skill check with the given skills, DCs, and options.
+ * Unnamed, the first skill is named inline; every allowed skill is listed in the tooltip.
+ * @param {{skill: object, dc: number}[]} skills
+ * @param {object} options
+ * @param {boolean} [options.passive=false]
+ * @param {boolean} [options.group=false]
+ * @param {string} [options.name]                   A name which replaces the skill in the label
+ */
+function createSkillCheckElement(skills, {passive=false, group=false, name}={}) {
+  const [{skill, dc}] = skills;
   const tag = document.createElement("enriched-content");
   tag.classList.add("skill-check", skill.group);
   const dataset = {skillId: skill.id, dc};
+  if ( skills.length > 1 ) dataset.skills = skills.map(s => `${s.skill.id}=${s.dc}`).join(" ");
+  if ( name ) dataset.checkName = name;
   if ( group ) {
     tag.classList.add("group-check");
     dataset.group = "true";
   }
+
+  // A named check shows its lowest DC, marked when some skills are harder
   let dcLabel = _loc("DICE.DCSpecific", {dc});
+  if ( name ) {
+    const lowest = Math.min(...skills.map(s => s.dc));
+    const range = skills.some(s => s.dc > lowest) ? _loc("DICE.DCMinimum", {dc: lowest}) : lowest;
+    dcLabel = _loc("DICE.DCSpecific", {dc: range});
+  }
 
   // Passive checks only
   if ( passive ) {
@@ -720,9 +769,17 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   // Group checks only
   if ( group ) dcLabel = _loc("DICE.DCAdditionalGroup", {dcLabel});
 
+  // List every allowed skill in the tooltip when the label does not show them all
+  if ( !passive && (name || (skills.length > 1)) ) {
+    const listFormatter = game.i18n.getListFormatter({type: "disjunction"});
+    dataset.tooltipText = listFormatter.format(skills.map(s => {
+      return `${s.skill.label} (${_loc("DICE.DCSpecific", {dc: s.dc})})`;
+    }));
+  }
+
   // Create label
   Object.assign(tag.dataset, dataset);
-  tag.innerHTML = `${skill.label} (${dcLabel})`;
+  tag.innerHTML = `${name ?? skill.label} (${dcLabel})`;
   return tag;
 }
 
@@ -806,13 +863,13 @@ function renderSkillCheck(element) {
  */
 async function onClickSkillCheck(event) {
   event.preventDefault();
-  const {check, actor} = prepareSkillCheck(event);
+  const {check, actor, skills, checkName} = prepareSkillCheck(event);
   const request = game.user.isGM && !actor;
   const requestedActors = request ? inferEnricherActors() : [];
-  const response = await check.dialog({request, requestedActors});
-  if ( response === null ) return;
-  const flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[check.data.type].label});
-  return check.toMessage({flavor});
+  const roll = await check.dialog({request, requestedActors, skills, checkName});
+  if ( !roll ) return;
+  const flavor = checkName ?? _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[roll.data.type].label});
+  return roll.toMessage({flavor});
 }
 
 /* -------------------------------------------- */
@@ -830,27 +887,35 @@ function onClickGroupCheck(event) {
     if ( !party ) return;
     requestedActors = Array.from(party.actors);
   }
-  const {check} = prepareSkillCheck(event);
-  const dialogOptions = {request: true, requestedActors};
-  return check.dialog(dialogOptions);
+  const {check, skills, checkName} = prepareSkillCheck(event);
+  return check.dialog({request: true, requestedActors, skills, checkName});
 }
 
 /* -------------------------------------------- */
 
 /**
- * Prepare a skill check instance from an enriched element click event.
+ * Prepare a skill check instance from an enriched element click event, with any alternative skills it allows.
  * @param {Event} event
- * @returns {{actor: CrucibleActor|null, check: StandardCheck}}
+ * @returns {{actor: CrucibleActor|null, check: StandardCheck,
+ *   skills: Record<string, GroupCheckSkillConfig>|undefined, checkName: string|undefined}}
  */
 function prepareSkillCheck(event) {
-  const {skillId, dc: dcStr, group} = event.currentTarget.dataset;
+  const {skillId, dc: dcStr, group, skills: skillTerms, checkName} = event.currentTarget.dataset;
   const parsedDc = Number(dcStr);
-  const dc = Number.isNaN(parsedDc) ? 15 : parsedDc;
+  const dc = Number.isNaN(parsedDc) ? SYSTEM.PASSIVE_BASE + 3 : parsedDc;
   const checkData = {type: skillId, dc};
   const actor = inferEnricherActors(true);
   const rollCls = group ? crucible.api.dice.GroupCheck : crucible.api.dice.StandardCheck;
   const check = actor ? actor.getSkillCheck(skillId, checkData) : new rollCls(checkData);
-  return {actor, check};
+  let skills;
+  if ( skillTerms ) {
+    skills = {};
+    for ( const term of skillTerms.split(" ") ) {
+      const [id, skillDc] = term.split("=");
+      skills[id] = {dc: Number(skillDc)};
+    }
+  }
+  return {actor, check, skills, checkName};
 }
 
 /* -------------------------------------------- */

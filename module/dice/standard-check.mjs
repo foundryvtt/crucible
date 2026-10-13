@@ -417,11 +417,12 @@ export default class StandardCheck extends Roll {
    * @param {Record<string, GroupCheckSkillConfig>} [options.skills] Skill configurations with per-skill DCs
    * @param {string} [options.messageMode] The chat message visibility mode
    * @param {boolean} [options.aggregate] Whether to show an aggregate result
+   * @param {string} [options.name] A name for the check, shown as the chat card flavor
    * @returns {Promise<void>}
    */
-  async requestGroupCheck({requestedActors, skills, messageMode, aggregate}={}) {
+  async requestGroupCheck({requestedActors, skills, messageMode, aggregate, name}={}) {
     const groupCheckInstance = new crucible.api.dice.GroupCheck(foundry.utils.deepClone(this.data));
-    return groupCheckInstance.requestSubmit({requestedActors, skills, messageMode, aggregate});
+    return groupCheckInstance.requestSubmit({requestedActors, skills, messageMode, aggregate, name});
   }
 
   /* -------------------------------------------- */
