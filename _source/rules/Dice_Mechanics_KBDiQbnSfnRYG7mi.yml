@@ -42,11 +42,11 @@ pages:
         class="value">Standard Check</p><p class="equals">=</p><p
         class="equation">3d8[Boons,Banes] + Ability Bonus + Skill Bonus +
         Enchantment Bonus</p></section></div><h2 class="divider">Check
-        Results</h2><p>Every check is made against a <strong>Difficulty
+        Results</h2><div data-rule="dice.dc"><p>Every check is made against a <strong>Difficulty
         Class</strong> (<strong>DC</strong>). Once the dice are rolled, the
         check's total is compared against the DC to determine whether it
         succeeds or fails, and whether that result is
-        critical.</p><dl><dt><p>Success</p></dt><dd
+        critical.</p></div><dl><dt><p>Success</p></dt><dd
         data-rule="dice.success"><p>If the check's total is <strong>greater
         than</strong> the DC, the check is a
         <strong>Success</strong>.</p></dd><dt><p>Failure</p></dt><dd
