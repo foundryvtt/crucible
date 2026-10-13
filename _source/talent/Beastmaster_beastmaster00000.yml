@@ -4,9 +4,98 @@ img: icons/creatures/mammals/wolf-shadow-black.webp
 system:
   description: >-
     <p>You have trained your animal companion to aid you in combat. Your
-    companion may participate in encounters as an allied combatant.</p><h3
-    class="divider">Playtest Notes</h3><p>This talent is not yet automated.</p>
-  actions: []
+    companion may participate in encounters as an allied combatant, and you have
+    developed techniques for teaming up on enemies.</p><p>Your companion is a
+    <strong>Minion</strong>-threat Adversary, its level equal to half of yours,
+    rounding up. Your companion is marked <strong>Important</strong>, meaning
+    that they use the reserve resources of @Rule[resource.wounds] and
+    @Rule[resource.madness].</p>
+  actions:
+    - id: bondCompanion
+      img: icons/creatures/mammals/wolf-shadow-black.webp
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: none
+        number: 1
+        scope: 0
+        self: false
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects: []
+      tags:
+        - noncombat
+      name: Bond Companion
+      description: >-
+        <p>You form a bond with a beast, and it becomes your loyal
+        companion.</p>
+      condition: ''
+    - id: releaseCompanion
+      name: Release Companion
+      img: icons/creatures/mammals/wolf-shadow-black.webp
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: none
+        number: 1
+        scope: 0
+        self: false
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects: []
+      tags: []
+      description: >-
+        <p>It is time for you and your companion to part ways. You release it
+        back to the wilds.</p>
+      condition: ''
+    - id: exploitOpening
+      name: Exploit Opening
+      img: icons/creatures/mammals/wolf-shadow-black.webp
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects: []
+      tags:
+        - flanking
+        - melee
+        - accurate
+      description: >-
+        <p>You focus and make an @Rule[action.accurate] <strong>Strike</strong>
+        with your weapon against a @Condition[flanked] target.</p>
+      condition: ''
   nodes:
     - sig3.toughness
     - sig3.wisdom
@@ -16,10 +105,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.9.4
-  coreVersion: '14.363'
+  systemVersion: 0.11.1
+  coreVersion: '14.369'
   createdTime: 1772307160127
-  modifiedTime: 1780514125875
+  modifiedTime: 1791914923410
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: Compendium.crucible.talent.Item.beastmaster00000
   duplicateSource: null

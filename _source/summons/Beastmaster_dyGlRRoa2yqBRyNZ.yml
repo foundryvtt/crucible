@@ -1,0 +1,20 @@
+type: Actor
+folder: 2skc7mrBZTMxbMKl
+name: Beastmaster
+color: null
+sorting: a
+_id: dyGlRRoa2yqBRyNZ
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791826250148
+  modifiedTime: 1791826250148
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!dyGlRRoa2yqBRyNZ'

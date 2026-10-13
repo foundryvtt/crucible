@@ -304,6 +304,55 @@ HOOKS.bodyBlock = {
 
 /* -------------------------------------------- */
 
+HOOKS.bondCompanion = {
+  canUse() {
+    const existing = fromUuidSync(this.actor?.getFlag("crucible", "beastmasterCompanion"));
+    if ( !existing ) return true;
+    throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BEASTMASTER.AlreadyBonded"));
+  },
+  async preActivate() {
+    const companionIds = ["companionAir0000", "companionLand000", "companionSea0000"];
+    const companions = await Promise.all(companionIds.map(id => fromUuid(`Compendium.crucible.summons.Actor.${id}`)));
+    const content = `<p>${_loc("ACTIONS.Beastmaster.WhichBond")}</p>
+      <dl>
+        ${companions.map(c => `<dt>@UUID[${c.uuid}]</dt><dd>${c.system.details.taxonomy.description}</dd>`).join("")}
+      </dl>`;
+    const response = await foundry.applications.api.DialogV2.wait({
+      window: { title: this.name },
+      position: { width: 600 },
+      buttons: companions.map(c => ({action: c.uuid, label: c.name})),
+      content: await CONFIG.ux.TextEditor.enrichHTML(content)
+    });
+    if ( response ) this.metadata.companionChoice = response;
+    else throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BEASTMASTER.NoneChosen"));
+  },
+  async confirm(reverse) {
+    if ( reverse ) {
+      return this.actor.unsetFlag("crucible", "beastmasterCompanion");
+    }
+    const companion = await fromUuid(this.metadata.companionChoice);
+    // Not localizing this because I can't imagine how it would happen
+    if ( !companion ) throw new Error("Companion choice could not be found!");
+    const worldActor = await game.actors.importFromCompendium(companion.collection, companion.id, {
+      name: `${companion.name} (${this.actor.name})`,
+      ownership: this.actor.ownership,
+      system: {
+        advancement: {
+          level: Math.ceil(this.actor.system.advancement.level / 2)
+        }
+      },
+      flags: {
+        crucible: {
+          beastmasterSource: this.actor.uuid
+        }
+      }
+    }, {keepId: false, clearOwnership: false});
+    await this.actor.setFlag("crucible", "beastmasterCompanion", worldActor.uuid);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.bullrush = {
   // Move-through logic shared with Tumble Through, but defined here for reusability.
   _passThroughCreature(strides) {
@@ -940,6 +989,20 @@ HOOKS.fieldStudy = {
       {key: "system.details.background.knowledge", type: "add", value: k},
       {key: "system.details.knowledge", type: "add", value: k}
     ];
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.flankingManeuver = {
+  acquireTargets(targets) {
+    const master = fromUuidSync(this.actor.getFlag("crucible", "beastmasterSource"));
+    for ( const target of targets ) {
+      const engaged = target.token?.object?.engagement.enemies ?? new Set();
+      if ( !engaged.some(t => t.actor === master) ) {
+        target.error ??= _loc("ACTION.WARNINGS.SPECIFIC.FLANKING_MANEUVER.NotEngaged")
+      }
+    }
   }
 };
 
@@ -1625,6 +1688,19 @@ HOOKS.interpose = {
 
 /* -------------------------------------------- */
 
+HOOKS.loyalProtector = {
+  acquireTargets(targets) {
+    const master = fromUuidSync(this.actor.getFlag("crucible", "beastmasterSource"));
+    for ( const target of targets ) {
+      if ( target.actor !== master ) {
+        target.error ??= _loc("ACTION.WARNINGS.SPECIFIC.LOYAL_PROTECTOR.NotMaster");
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.medicinalCompound = {
   preActivate() {
     const target = this.targets.values().next().value.actor;
@@ -2091,6 +2167,25 @@ HOOKS.refocus = {
     if ( r?.isSuccess ) focus += talisman.config.category.hands;
     if ( r?.isCriticalSuccess ) focus += 1;
     if ( focus ) this.recordEvent({resources: [{resource: "focus", delta: focus}]});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.releaseCompanion = {
+  canUse() {
+    const existing = this.actor?.getFlag("crucible", "beastmasterCompanion");
+    if ( existing ) return true;
+    throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.BEASTMASTER.NoCompanion"));
+  },
+  preActivate() {
+    // Store so that we can reverse this easily
+    this.metadata.oldCompanion = this.actor.getFlag("crucible", "beastmasterCompanion");
+  },
+  async confirm(reverse) {
+    const companionUuid = reverse ? this.metadata.oldCompanion : this.actor.getFlag("crucible", "beastmasterCompanion");
+    await this.actor.setFlag("crucible", "beastmasterCompanion", reverse ? companionUuid : _del);
+    await fromUuidSync(companionUuid)?.setFlag("crucible", "beastmasterSource", reverse ? this.actor.uuid : _del);
   }
 };
 

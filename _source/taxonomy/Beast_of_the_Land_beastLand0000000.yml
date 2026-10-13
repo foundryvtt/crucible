@@ -1,0 +1,101 @@
+folder: EWlKgRmutkmESoEn
+name: Beast of the Land
+type: taxonomy
+_id: beastLand0000000
+img: icons/creatures/mammals/wolf-howl-moon-forest-blue.webp
+system:
+  description: >-
+    <p>Companion beasts who stride across land. Their strength and pack hunter
+    tactics serve their masters well, often acting as another frontline team
+    member.</p>
+  identifier: beastLand
+  category: beast
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 2
+    strength: 4
+    toughness: 3
+    dexterity: 1
+  movement:
+    size: 4
+    stride: 10
+  resistances:
+    acid:
+      value: 0
+      immune: false
+    bludgeoning:
+      value: 0
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.packhunter000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: 0
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.thickHide0000000
+      quantity: 1
+      equipped: true
+      autoScale: false
+    - item: Compendium.crucible.adversary-equipment.Item.bite000000000000
+      quantity: 1
+      equipped: true
+      autoScale: false
+    - item: Compendium.crucible.adversary-equipment.Item.claws00000000000
+      quantity: 1
+      equipped: true
+      autoScale: false
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: false
+    temperature: ''
+effects: []
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791821313797
+  modifiedTime: 1791822755812
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!beastLand0000000'
