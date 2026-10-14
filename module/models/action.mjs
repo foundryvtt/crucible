@@ -2117,12 +2117,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         };
         if ( showIcon !== undefined ) effect.showIcon = showIcon; // Honor a per-effect icon-visibility override
 
-        // Automatically configure damage-over-time statuses
+        // Automatically configure damage-over-time or other generator-having statuses
         for ( const status of origStatuses ) {
           const fn = SYSTEM.EFFECTS[status];
           if ( typeof fn !== "function" ) continue;
           const statusEffect = fn(this.actor, {ability: this.scaling});
           if ( statusEffect.system?.dot && !effect.system.dot?.length ) effect.system.dot = statusEffect.system.dot;
+          if ( statusEffect.system?.changes && !effect.system.changes?.length ) {
+            effect.system.changes = statusEffect.system.changes;
+          }
           if ( statusEffect.statuses ) {
             for ( const s of statusEffect.statuses ) statuses.add(s);
           }
