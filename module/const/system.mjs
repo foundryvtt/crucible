@@ -6,6 +6,7 @@ import * as PROFICIENCY from "./proficiencies.mjs";
 import * as DICE from "./dice.mjs";
 import * as ITEM from "./items.mjs";
 import * as EFFECTS from "./effects.mjs";
+import * as FOOTFALLS from "./footfalls.mjs";
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.mjs";
 import * as ACCESSORY from "./accessory.mjs";
@@ -302,6 +303,7 @@ export const SYSTEM = {
   DEFENSES: ATTRIBUTES.DEFENSES,
   DICE: {...DICE},
   EFFECTS: {...EFFECTS},
+  FOOTFALLS: {...FOOTFALLS},
   ITEM: {...ITEM},
   PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
   RESOURCES: ATTRIBUTES.RESOURCES,

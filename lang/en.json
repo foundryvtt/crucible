@@ -1774,6 +1774,26 @@
       "damage": "Damage"
     }
   },
+  "FOOTFALLS": {
+    "FIELDS": {
+      "material": {
+        "hint": "What this surface is made of, which determines how footfalls on it sound.",
+        "label": "Material"
+      },
+      "materialVolume": {
+        "hint": "The material fills the Region's whole elevation range, like a body of water, rather than lying only on its surfaces.",
+        "label": "Material Fills Volume"
+      }
+    },
+    "Legend": "Footfalls",
+    "MATERIALS": {
+      "Grass": "Grass",
+      "Metal": "Metal",
+      "Stone": "Stone",
+      "Water": "Water",
+      "Wood": "Wood"
+    }
+  },
   "HOOKS": {
     "NoModuleHooks": "No module hooks are registered for this identifier.",
     "ToggleSource": "Toggle Source"

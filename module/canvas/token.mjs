@@ -1,4 +1,7 @@
 import CrucibleHitBoxShader from "./grid/hit-box-shader.mjs";
+import {CrucibleFootfallPlayer, getMaterial} from "./footfalls.mjs";
+
+/** @import {CrucibleFootfalls} from "./footfalls.mjs"; */
 
 export default class CrucibleTokenObject extends foundry.canvas.placeables.Token {
 
@@ -78,6 +81,13 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     wasAnimating: false,
     animationTypes: new foundry.utils.BitMask(CrucibleHitBoxShader.STATES)
   };
+
+  /**
+   * Plays the footfalls this token makes while it moves.
+   * TODO: remove in V15 along with the interim playback in footfalls.mjs.
+   * @type {CrucibleFootfallPlayer}
+   */
+  #footfallPlayer = new CrucibleFootfallPlayer(this);
 
   /* -------------------------------------------- */
   /*  Detection                                   */
@@ -455,6 +465,65 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     offset.j += (size * Math.sign(dx));
     offset.k += (size * Math.sign(dz));
     return canvas.grid.getTopLeftPoint(offset);
+  }
+
+  /* -------------------------------------------- */
+  /*  Movement Animation                          */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareAnimation(from, changes, context, options) {
+    const isMovement = foundry.documents.TokenDocument._isMovementUpdate(changes, from);
+    const attributes = super._prepareAnimation(from, changes, context, options);
+    // TODO: remove in V15, when core requests footfalls per waypoint and plays them
+    if ( isMovement ) {
+      const footfalls = this._getFootfalls(from, changes, options);
+      if ( footfalls ) this.#footfallPlayer.play(footfalls, context.duration);
+    }
+    return attributes;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the footfalls this token makes while animating one movement waypoint, or null for silence.
+   * In V15, this method should (in theory) become an `@override` or more lightweight extension of core logic.
+   * @param {DeepReadonly<TokenAnimationData>} from     The animation data at the start of the waypoint
+   * @param {Partial<TokenAnimationData>} changes       The animation data changes of the waypoint
+   * @param {TokenAnimationOptions} options             The options of the waypoint animation
+   * @returns {CrucibleFootfalls|null}
+   * @protected
+   */
+  _getFootfalls(from, changes, options) {
+    if ( !SYSTEM.FOOTFALLS.MOVEMENT_ACTIONS.has(options.action) ) return null;
+    const mover = this.#getFootfallMover();
+    if ( !mover ) return null;
+    const material = getMaterial(this, {...this.document.getCenterPoint(from), level: from.level});
+    if ( !material ) return null;
+
+    // Pace footfalls at one body width each
+    const speed = this._modifyAnimationMovementSpeed(options.movementSpeed ?? this._getAnimationMovementSpeed(options),
+      options);
+    const interval = Math.clamp(1000 * this.document.width / speed, 150, 2000);
+
+    // Larger movers are heard farther away
+    const {radius, size} = SYSTEM.FOOTFALLS.HEARING;
+    const hearingRadius = radius * Math.sqrt(this.document.size / size);
+    return {material, mover, interval, radius: hearingRadius, volume: 1};
+  }
+
+
+  /* -------------------------------------------- */
+
+  /**
+   * The kind of mover this token's actor is, for the footfalls the system opts it in to.
+   * @returns {string|null}
+   */
+  #getFootfallMover() {
+    const actor = this.actor;
+    if ( actor?.type === "hero" ) return "footsteps";
+    if ( (actor?.type === "adversary") && (actor.system.details.taxonomy?.category === "humanoid") ) return "footsteps";
+    return null;
   }
 
   /* -------------------------------------------- */

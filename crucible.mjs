@@ -29,6 +29,8 @@ import CrucibleTalentNode from "./module/const/talent-node.mjs";
 import {statusEffects} from "./module/const/statuses.mjs";
 import * as methods from "./module/methods.mjs";
 
+/** @import {CrucibleFootfallSound} from "./module/const/footfalls.mjs"; */
+
 // Party
 let party = null;
 
@@ -130,7 +132,17 @@ Hooks.once("init", async function() {
      * Visually scale tokens smaller the farther they are away from the 'camera' (viewed level).
      * @type {boolean}
      */
-    elevationScaling: true
+    elevationScaling: true,
+
+    /**
+     * Footfall sounds made by moving tokens.
+     * Expected to move into core CONFIG in V15.
+     * @type {{materials: Record<string, {label: string}>, sounds: Record<string, CrucibleFootfallSound>}}
+     */
+    footfalls: {
+      materials: foundry.utils.deepClone(SYSTEM.FOOTFALLS.MATERIALS),
+      sounds: foundry.utils.deepClone(SYSTEM.FOOTFALLS.SOUNDS)
+    }
   };
   /** @deprecated */
   crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;
@@ -652,6 +664,7 @@ function preLocalizeConfig() {
 
   // CONFIG objects (not in SYSTEM)
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"]);
+  localizeConfigObject(crucible.CONFIG.footfalls.materials);
   localizeConfigObject(crucible.CONFIG.knowledge);
   localizeConfigObject(crucible.CONFIG.languageCategories);
   localizeConfigObject(crucible.CONFIG.languages);
@@ -813,6 +826,7 @@ Hooks.on("getSceneControlButtons", controls => {
   };
 });
 Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTracker);
+Hooks.on("renderRegionBehaviorConfig", canvas.footfalls.onRenderRegionBehaviorConfig);
 
 /* -------------------------------------------- */
 /*  Canvas Hooks                                */
