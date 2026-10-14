@@ -69,7 +69,8 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     const rows = [];
     const options = [];
     for ( const [id, config] of Object.entries(PROFICIENCIES) ) {
-      if ( id in weights ) rows.push({
+      // TODO: once https://github.com/foundryvtt/foundryvtt/issues/13564 addressed, can ignore null check
+      if ( (id in weights) && (weights[id] !== null) ) rows.push({
         field: element,
         id,
         label: config.label,
@@ -159,7 +160,10 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   static async #onTrainingRemove(event, target) {
     const {proficiency} = target.closest(".training-weight").dataset;
     const training = {...this.document._source.system.training};
-    delete training[proficiency];
+
+    // TODO: once https://github.com/foundryvtt/foundryvtt/issues/13564 addressed, simply delete
+    if ( this.document.parent?.isToken ) training[proficiency] = null;
+    else delete training[proficiency];
     return this._processSubmitData(event, this.form, {system: {training: _replace(training)}});
   }
 

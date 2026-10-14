@@ -141,7 +141,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
       await this.document.parent._applyDetailItem(item);
 
       // Update this document and re-render the sheet
-      this.document.updateSource(item.toObject());
+      this.document.updateSource(item.toObject(), {diff: false, recursive: false});
       await this.render();
       return;
     }
