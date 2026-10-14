@@ -24,7 +24,8 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
         item: new fields.DocumentUUIDField({type: "Item"}),
         level: new fields.NumberField({required: true, nullable: true, integer: true, initial: null})
       })),
-      training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false, integer: true,
+      // TODO: once https://github.com/foundryvtt/foundryvtt/issues/13564 addressed, make non-nullable again
+      training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: true, integer: true,
         min: 0, max: SYSTEM.PROFICIENCY.WEIGHT_MAX, initial: 1}),
       {validateKey: key => key in SYSTEM.PROFICIENCIES}),
       spells: new fields.ArrayField(new fields.SchemaField({
