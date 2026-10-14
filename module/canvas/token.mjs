@@ -1,5 +1,5 @@
 import CrucibleHitBoxShader from "./grid/hit-box-shader.mjs";
-import {CrucibleFootfallPlayer, getMaterial} from "./footfalls.mjs";
+import {CrucibleFootfallPlayer} from "./footfalls.mjs";
 
 /** @import {CrucibleFootfalls} from "./footfalls.mjs"; */
 
@@ -498,8 +498,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( !SYSTEM.FOOTFALLS.MOVEMENT_ACTIONS.has(options.action) ) return null;
     const mover = this.#getFootfallMover();
     if ( !mover ) return null;
-    const material = getMaterial(this, {...this.document.getCenterPoint(from), level: from.level});
-    if ( !material ) return null;
 
     // Pace footfalls at one body width each
     const speed = this._modifyAnimationMovementSpeed(options.movementSpeed ?? this._getAnimationMovementSpeed(options),
@@ -509,7 +507,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Larger movers are heard farther away
     const {radius, size} = SYSTEM.FOOTFALLS.HEARING;
     const hearingRadius = radius * Math.sqrt(this.document.size / size);
-    return {material, mover, interval, radius: hearingRadius, volume: 1};
+    return {mover, interval, radius: hearingRadius, volume: 1};
   }
 
 

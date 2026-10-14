@@ -3,6 +3,27 @@
  * The decision (CrucibleTokenObject#_getFootfalls) is system logic which survives V15 as an override of core.
  * Everything in this file is interim support which core is expected to provide in V15, so it can be deleted then:
  * finding the material underfoot, editing materials on core Surface behaviors, and playback.
+ *
+ * Intended core design for V15 (core#14852), which this implementation prototypes:
+ * - Materials: core Surface behaviors (defineSurface) gain `material` and `materialVolume` fields, migrated from the
+ *   `flags.core.material` and `flags.core.materialVolume` written here. One material applies to every plane the
+ *   behavior places; `materialVolume` means the material fills the Region's elevation range (water), not only its
+ *   planes. A registry of material ids and labels (here `crucible.CONFIG.footfalls.materials`) moves to core CONFIG.
+ * - Finding the material underfoot: a material volume containing the token's foot, else a plane at exactly the
+ *   foot's elevation, else nothing. Absent material is silence, so pits and open air make no footfalls.
+ * - Waypoint splitting: core splits movement animations at the boundaries of Regions whose Surface behaviors have a
+ *   material (by subscribing them to TOKEN_ANIMATE_IN/OUT when a material is set, or by including them directly when
+ *   building the animation path), treating a material plane at a Region's top as inside even when the top is
+ *   exclusive. The material is then found once per waypoint. Until then it is found per footfall here, which can lag a
+ *   boundary by up to one footfall.
+ * - Decision: a protected `Token#_getFootfalls(from, changes, options)`, called by core as each movement waypoint
+ *   starts (as `_prepareAnimation` does here), returns null by default (opt-in). Systems override it to choose the
+ *   mover, pacing, hearing radius, and volume, as CrucibleTokenObject does. Modules need a hook or registration point
+ *   to opt tokens in, since they cannot override a system's token class.
+ * - Sounds: a core registry of sound sets for a (material, mover) pair, with a null material matching any material,
+ *   and a playback strategy: individual footfalls (here) or a continuous loop (for example a galloping horse).
+ * - Playback: a core per-token player, as CrucibleFootfallPlayer does here: continuous across waypoints, positional
+ *   (walls, hearing radius), and silent for hidden tokens.
  */
 
 /**
@@ -13,7 +34,6 @@
 
 /**
  * @typedef CrucibleFootfalls
- * @property {string} material        The material underfoot
  * @property {string} mover           The kind of mover, such as "footsteps"
  * @property {number} interval        Milliseconds between footfalls
  * @property {number} radius          The radius in distance units within which footfalls can be heard
@@ -253,17 +273,21 @@ export class CrucibleFootfallPlayer {
   /* -------------------------------------------- */
 
   /**
-   * Play a random sound for the current mover and material at the token's position.
+   * Play a random sound for the mover and the material underfoot at the token's current position.
+   * The material is found per footfall because core only splits movement animations at some Region boundaries.
    */
   #playFootfall() {
     const document = this.#token.document;
     if ( document.hidden ) return;
-    const {material, mover, radius, volume} = this.#footfalls;
+    const point = document.getCenterPoint();
+    const material = getMaterial(this.#token, {...point, level: document.level});
+    if ( !material ) return;
+    const {mover, radius, volume} = this.#footfalls;
     const sound = getSound(material, mover);
     if ( sound?.playback !== "footfalls" ) return;
     const src = sound.src[Math.floor(Math.random() * sound.src.length)];
     // noinspection ES6MissingAwait
-    canvas.sounds.playAtPosition(src, document.getCenterPoint(), radius, {
+    canvas.sounds.playAtPosition(src, point, radius, {
       volume: volume * (0.5 + (Math.random() * 0.5)),
       easing: true,
       walls: true,
