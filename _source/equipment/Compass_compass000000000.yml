@@ -1,0 +1,45 @@
+_id: compass000000000
+name: Compass
+type: tool
+img: icons/tools/navigation/compass-plain-blue.webp
+system:
+  identifier: compass
+  category: implement
+  quantity: 1
+  weight: 0
+  price: 80
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A piece of ferrous metal suspended in a liquid dial, when held parallel
+      to the ground it provides a reasonable bearing for
+      navigation.</p><p></p><p>This Tool grants @Advantage[2] for navigation
+      tasks on land or at sea.</p>
+    private: ''
+  actions: []
+  skills: []
+effects: []
+folder: 7LUkTLEZvS60KVBp
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.368'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791425760586
+  modifiedTime: 1791425760586
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!compass000000000'

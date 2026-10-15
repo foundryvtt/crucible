@@ -1,0 +1,66 @@
+_id: elementalScamp00
+name: Elemental Scamp
+type: archetype
+img: icons/creatures/magical/spirit-fire-yellow.webp
+system:
+  description: >-
+    <p>Elemental trickster spirits which cause delight in mischief and
+    deception.</p>
+  identifier: elementalScamp
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 3
+    strength: 1
+    toughness: 1
+    dexterity: 3
+  talents:
+    - item: Compendium.crucible.talent.Item.inflectionpush00
+      level: 2
+    - item: Compendium.crucible.talent.Item.gesturearrow0000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gesturefan000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.inflectionelude0
+      level: 3
+    - item: Compendium.crucible.talent.Item.hide000000000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.subtleextricatio
+      level: 0
+    - item: Compendium.crucible.talent.Item.focusedanticipat
+      level: 5
+    - item: Compendium.crucible.talent.Item.anticipateharm00
+      level: 3
+    - item: Compendium.crucible.talent.Item.preternaturalins
+      level: 4
+    - item: Compendium.crucible.talent.Item.strikefirst00000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gestureinfluence
+      level: 2
+  training:
+    elemental: 3
+    natural: 3
+    deception: 3
+    wilderness: 1
+    awareness: 2
+    performance: 1
+  spells: []
+  equipment: []
+effects: []
+folder: aM53nJVqmTrIHXyE
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1792082517841
+  modifiedTime: 1792082517841
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 300000
+_key: '!items!elementalScamp00'

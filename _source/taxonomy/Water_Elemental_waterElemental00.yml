@@ -1,0 +1,103 @@
+folder: GwintA6OSvHfTTC5
+name: Water Elemental
+type: taxonomy
+img: icons/magic/water/elemental-water.webp
+system:
+  description: <p>Elemental creatures corresponding to the element of Frost.</p>
+  category: elementalFrost
+  abilities:
+    wisdom: 3
+    presence: 1
+    intellect: 1
+    strength: 2
+    toughness: 2
+    dexterity: 3
+  resistances:
+    bludgeoning:
+      value: 1
+      immune: false
+    corruption:
+      value: -1
+      immune: false
+    piercing:
+      value: 1
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    poison:
+      value: -1
+      immune: false
+    acid:
+      value: -1
+      immune: false
+    fire:
+      value: 2
+      immune: false
+    cold:
+      immune: false
+      value: 2
+    electricity:
+      value: -2
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    void:
+      value: -1
+      immune: false
+  characteristics:
+    spells: true
+    equipment: false
+    blooded: false
+    temperature: ''
+  movement:
+    size: 4
+    stride: 12
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.coldAbsorption00
+      level: 3
+    - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.runeFrost0000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.aqueousTransmiss
+      level: 1
+    - item: Compendium.crucible.talent.Item.eyeofthestorm000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.aqueousCamouflag
+      level: 0
+    - item: Compendium.crucible.talent.Item.gestureSurge0000
+      level: 4
+    - item: Compendium.crucible.talent.Item.gestureray000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.rimecaller000000
+      level: 3
+  identifier: waterElemental
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.frigidLimb000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  modifiedTime: 1792082804523
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  createdTime: 1792082609453
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: waterElemental00
+sort: 0
+_key: '!items!waterElemental00'

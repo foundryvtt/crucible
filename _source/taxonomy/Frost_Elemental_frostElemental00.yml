@@ -1,7 +1,7 @@
 folder: GwintA6OSvHfTTC5
 name: Frost Elemental
 type: taxonomy
-img: icons/magic/water/elemental-water.webp
+img: icons/creatures/magical/spirit-undead-horned-blue.webp
 system:
   description: <p>Elemental creatures corresponding to the element of Frost.</p>
   category: elementalFrost
@@ -57,14 +57,31 @@ system:
     stride: 10
   talents:
     - item: Compendium.crucible.adversary-talents.Item.coldAbsorption00
-      level: null
+      level: 3
     - item: Compendium.crucible.adversary-talents.Item.amorphous0000000
-      level: null
+      level: 0
     - item: Compendium.crucible.talent.Item.runeFrost0000000
-      level: null
+      level: 0
     - item: Compendium.crucible.adversary-talents.Item.aqueousTransmiss
-      level: null
+      level: 1
+    - item: Compendium.crucible.talent.Item.eyeofthestorm000
+      level: 3
+    - item: Compendium.crucible.talent.Item.gestureSurge0000
+      level: 4
+    - item: Compendium.crucible.talent.Item.gestureray000000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.aqueousCamouflag
+      level: 0
   identifier: frostElemental
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.elementalArmor00
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.frigidLimb000000
+      quantity: 1
+      equipped: true
+      autoScale: true
 effects: []
 ownership:
   default: 0
@@ -73,11 +90,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.369'
   systemId: crucible
-  systemVersion: 0.9.0
-  modifiedTime: 1773514792639
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  systemVersion: 0.11.1
+  modifiedTime: 1792082642206
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   exportSource: null
   createdTime: 1772307170600
 _id: frostElemental00
