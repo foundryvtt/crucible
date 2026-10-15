@@ -637,6 +637,99 @@ HOOKS.crushingLeap = {
 
 /* -------------------------------------------- */
 
+/**
+ * The AmbientLightData for the pillar of light created by Dawn Beacon: 30 feet of bright light surrounded by a
+ * further 30 feet of dim light.
+ */
+const DAWN_BEACON_LIGHT = Object.freeze({config: {bright: 30, dim: 60, color: "#fff2c2", alpha: 0.35,
+  animation: {type: "pulse", speed: 1, intensity: 2}}});
+
+/* -------------------------------------------- */
+
+/**
+ * Find the ActiveEffect (on any actor in the world, or in the current scene) which owns a given AmbientLight,
+ * tracked via system.lights. Deleting the owning effect, rather than the light document directly, lets the generic
+ * owned-reference cascade on CrucibleActiveEffect perform the cleanup identically to the effect having expired.
+ * @param {string} lightUuid    The UUID of the AmbientLight
+ * @returns {CrucibleActiveEffect|null}
+ */
+function _findOwningLightEffect(lightUuid) {
+  const actors = new Set([...game.actors, ...canvas.scene.tokens.map(t => t.actor).filter(Boolean)]);
+  for ( const actor of actors ) {
+    for ( const effect of actor.effects ) {
+      if ( effect.system.lights?.has(lightUuid) ) return effect;
+    }
+  }
+  return null;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Destroy every source of magical darkness (an AmbientLight with config.negative) whose origin lies within
+ * radiusFeet of a center point. Darkness owned by an ActiveEffect is destroyed by deleting that effect, so its
+ * owned-reference cascade removes the light; unowned lights are deleted directly.
+ * @param {{x: number, y: number}} center   The center point, in canvas pixel coordinates
+ * @param {number} radiusFeet               The radius, in feet
+ */
+async function _destroyMagicalDarknessNear(center, radiusFeet) {
+  const pixelsPerFoot = canvas.scene.grid.size / canvas.scene.grid.distance;
+  const radiusPx = radiusFeet * pixelsPerFoot;
+  const darkness = canvas.scene.lights.filter(l => l.config.negative
+    && (Math.hypot(l.x - center.x, l.y - center.y) <= radiusPx));
+  for ( const light of darkness ) {
+    const owningEffect = _findOwningLightEffect(light.uuid);
+    if ( owningEffect ) await owningEffect.delete();
+    else await light.delete();
+  }
+}
+
+/* -------------------------------------------- */
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the canvas-space center point of the acting token, which anchors the Dawn Beacon pillar. Emanation
+ * shapes (pulse) carry no top-level coordinates, instead mirroring the token's document geometry on their base.
+ * @param {CrucibleToken} token       The acting token document
+ * @param {RegionShape} [shape]       The placed region shape, when available
+ * @returns {{x: number, y: number}}
+ */
+function _tokenCenter(token, shape) {
+  if ( token.object?.center ) return token.object.center;
+  const base = (shape?.type === "emanation") ? shape.base : shape;
+  if ( base?.width ) return {x: base.x + (base.width * canvas.grid.size / 2), y: base.y + (base.height * canvas.grid.size / 2)};
+  return {x: token.x, y: token.y};
+}
+
+/* -------------------------------------------- */
+
+HOOKS.dawnBeacon = {
+  async confirm(reverse) {
+    if ( reverse ) return; // The pillar effect owns the light, so reversing it cascades the light's deletion
+    const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
+    if ( !effect || !this.region || !this.token ) return;
+    const {x, y} = _tokenCenter(this.token, this.region.shapes[0]);
+
+    // The light of dawn counteracts magical darkness, destroying any source whose origin is contained within the
+    // beacon's area before the pillar is placed
+    await _destroyMagicalDarknessNear({x, y}, DAWN_BEACON_LIGHT.config.dim);
+
+    // The pillar originates at the caster's position, taking its supported elevation levels from the placed region
+    const lightData = {x, y, elevation: this.token._source.elevation ?? 0, levels: Array.from(this.region.levels),
+      ...DAWN_BEACON_LIGHT};
+    const [light] = await this.region.parent.createEmbeddedDocuments("AmbientLight", [lightData]);
+    // The staged effect's lights may be an array (source data), a Set (prepared data model), or a plain object (a
+    // Set which previously round-tripped through message serialization); normalize to an array
+    const lights = effect.system.lights;
+    const owned = Array.isArray(lights) ? lights : (lights instanceof Set) ? [...lights] : [];
+    owned.push(light.uuid);
+    effect.system.lights = owned;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.decisiveAction = {
   postActivate() {
     const amount = Math.ceil(this.actor.abilities.intellect.value / 2);
