@@ -452,11 +452,22 @@
     },
     "WARNINGS": {
       "SPECIFIC": {
+        "BEASTMASTER": {
+          "AlreadyBonded": "You already have a bonded companion.",
+          "NoCompanion": "You do not have a companion to release.",
+          "NoneChosen": "No companion selected."
+        },
         "DELAY": {
           "AlreadyDelayed": "You may not delay your turn again this combat round."
         },
         "ESTOCADE": {
           "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
+        },
+        "FLANKING_MANEUVER": {
+          "NotEngaged": "The target must be engaged by the companion's master."
+        },
+        "LOYAL_PROTECTOR": {
+          "NotMaster": "You must target the companion's master."
         },
         "REVIVE": {
           "RequiresDead": "Revive requires a Dead target."
@@ -597,6 +608,9 @@
       "NoAffixes": "You have no equipped affixes that can be amplified.",
       "Required": "You must choose an affix to amplify.",
       "Title": "Amplify Affix"
+    },
+    "Beastmaster": {
+      "WhichBond": "Which type of beast will you bond?"
     },
     "Challenge": {
       "Dominance": "Dominance"

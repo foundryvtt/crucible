@@ -1,0 +1,752 @@
+folder: dyGlRRoa2yqBRyNZ
+name: Companion of the Sea
+type: adversary
+_id: companionSea0000
+img: icons/svg/mystery-man.svg
+system:
+  abilities:
+    wisdom:
+      bonus: 0
+    presence:
+      bonus: 0
+    intellect:
+      bonus: 0
+    strength:
+      bonus: 0
+    toughness:
+      bonus: 0
+    dexterity:
+      bonus: 0
+  training: {}
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  resistances:
+    acid:
+      bonus: 0
+      immune: false
+    bludgeoning:
+      bonus: 0
+      immune: false
+    cold:
+      bonus: 0
+      immune: false
+    corruption:
+      bonus: 0
+      immune: false
+    electricity:
+      bonus: 0
+      immune: false
+    fire:
+      bonus: 0
+      immune: false
+    piercing:
+      bonus: 0
+      immune: false
+    poison:
+      bonus: 0
+      immune: false
+    psychic:
+      bonus: 0
+      immune: false
+    radiant:
+      bonus: 0
+      immune: false
+    slashing:
+      bonus: 0
+      immune: false
+    void:
+      bonus: 0
+      immune: false
+  resources:
+    health:
+      value: 21
+    wounds:
+      value: 0
+    morale:
+      value: 8
+    madness:
+      value: 0
+    action:
+      value: 4
+    focus:
+      value: 2
+    heroism:
+      value: 0
+  movement:
+    sizeBonus: 0
+    strideBonus: 0
+    engagementBonus: 0
+  currency: 0
+  status: null
+  favorites:
+    - flankingManeuver
+    - loyalProtector
+    - ensnare
+  advancement:
+    level: 1
+    rank: minion
+    important: true
+  details:
+    archetype:
+      description: >-
+        <p>Beasts which, through magical means or training, have developed into
+        loyal companions.</p>
+      identifier: bestialCompanion
+      abilities:
+        wisdom: 1
+        presence: 1
+        intellect: 1
+        strength: 3
+        toughness: 3
+        dexterity: 3
+      talents:
+        - item: Compendium.crucible.talent.Item.battleWorn000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.loyalProtector00
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.flankingManeuver
+          level: 0
+      training:
+        awareness: 2
+        natural: 4
+        stealth: 2
+        wilderness: 1
+        athletics: 3
+        intimidation: 0
+      spells: []
+      equipment: []
+      name: Bestial Companion
+      img: icons/magic/nature/wolf-paw-glow-purple-teal.webp
+    taxonomy:
+      description: >-
+        <p>Companion beasts who dwell in the deep. Their blindsight can reveal
+        to their masters the location of would-be hidden enemies, and woe unto
+        any who find themselves ensnared by such beasts.</p>
+      identifier: BeastSea
+      category: beast
+      abilities:
+        wisdom: 2
+        presence: 1
+        intellect: 1
+        strength: 3
+        toughness: 4
+        dexterity: 1
+      movement:
+        size: 5
+        stride: 10
+      resistances:
+        acid:
+          value: 0
+          immune: false
+        bludgeoning:
+          value: 0
+          immune: false
+        cold:
+          value: 0
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        electricity:
+          value: 0
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        piercing:
+          value: 0
+          immune: false
+        poison:
+          value: 0
+          immune: false
+        psychic:
+          value: 0
+          immune: false
+        radiant:
+          value: 0
+          immune: false
+        slashing:
+          value: 0
+          immune: false
+        void:
+          value: 0
+          immune: false
+      talents:
+        - item: Compendium.crucible.adversary-talents.Item.ensnare000000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.blindsight000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.slipperyForm0000
+          level: 0
+      equipment:
+        - item: Compendium.crucible.adversary-equipment.Item.tentacles0000000
+          quantity: 1
+          equipped: true
+          autoScale: false
+      characteristics:
+        blooded: true
+        equipment: false
+        spells: false
+        temperature: ''
+      name: Beast of the Sea
+      img: icons/creatures/fish/squid-kraken-teal.webp
+    biography:
+      appearance: ''
+      public: ''
+      private: ''
+    knowledge: []
+    languages: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791826854956
+  modifiedTime: 1791921112892
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: Compendium.crucible.summons.Actor.beastSea00000000
+  duplicateSource: null
+  exportSource: null
+prototypeToken:
+  name: Beast of the Air
+  displayName: 0
+  actorLink: true
+  width: 5
+  height: 5
+  depth: 5
+  texture:
+    src: icons/svg/mystery-man.svg
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    scaleX: 1
+    scaleY: 1
+    tint: '#ffffff'
+    alphaThreshold: 0.75
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: 1
+  displayBars: 0
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    negative: false
+    priority: 0
+    alpha: 0.5
+    angle: 360
+    bright: 0
+    color: null
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0
+    contrast: 0
+    shadows: 0
+    animation:
+      type: null
+      speed: 5
+      intensity: 5
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+  sight:
+    enabled: true
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: {}
+  occludable:
+    radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 0
+    subject:
+      scale: 1
+      texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
+  movementAction: null
+  flags: {}
+  randomImg: false
+  appendNumber: false
+  prependAdjective: false
+items:
+  - name: Ensnare
+    type: talent
+    img: icons/magic/nature/root-vine-entangle-foot-green.webp
+    system:
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature} lashes out with a grasping tendril,
+        coil, or limb to seize prey at range and drag it into a crushing
+        hold.</p>
+      actions:
+        - id: ensnare
+          name: Ensnare
+          img: icons/creatures/tentacles/tentacle-earth-green.webp
+          condition: ''
+          description: >-
+            <p>The @ref[actor.name]{creature} reaches out to seize a single
+            target within range, attacking its @Rule[defense.reflex]. On a
+            success the target is dragged back into reach and becomes
+            @Condition[restrained]. This action may only be used on creatures
+            which are eligible targets for
+            @Action[Compendium.crucible.talent.Item.grapple000000000
+            grapple].</p><p>The hold is maintained until the
+            @ref[actor.name]{creature} releases it, the target escapes, or a
+            different creature is targeted with Ensnare.</p>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 0
+          range:
+            minimum: null
+            maximum: 15
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects:
+            - name: Ensnared
+              scope: 3
+              result:
+                type: success
+                all: false
+              statuses:
+                - restrained
+              duration:
+                value: null
+                units: ''
+                expiry: null
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                properties: []
+                dc: null
+                lights: []
+          tags:
+            - generic
+            - reflex
+            - bludgeoning
+            - health
+            - strength
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.ensnare000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826854956
+      modifiedTime: 1791826854956
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: ensnare000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionSea0000.ensnare000000000'
+  - name: Blindsight
+    type: talent
+    img: icons/magic/perception/eye-ringed-glow-angry-small-red.webp
+    system:
+      nodes: []
+      description: >-
+        <p>@ref[actor.name]{This creature} perceives its surroundings without
+        the use of sight, sensing the precise location of creatures and objects
+        within 60 feet. It is unaffected by @Condition[blinded], darkness, or
+        invisibility, and any creature it detects this way is treated as visible
+        to it.</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.blindsight000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826854956
+      modifiedTime: 1791826854956
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: blindsight000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionSea0000.blindsight000000'
+  - name: Slippery Form
+    type: talent
+    img: icons/environment/creatures/bug-worm-purple-blue.webp
+    system:
+      nodes: []
+      description: >-
+        <p>This creature is permanently slippery, giving it the ability to elude
+        capture by physical restraints.</p>
+      actions:
+        - id: slipperyEscape
+          name: Slippery Escape
+          img: icons/environment/creatures/bug-worm-purple-blue.webp
+          condition: ''
+          description: >-
+            <p>The creature uses it slippery form to escape restraints,
+            immediately ending the @Condition[restrained] condition.</p>
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 0
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - movement
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.slipperyForm0000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826854956
+      modifiedTime: 1791826854956
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: slipperyForm0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionSea0000.slipperyForm0000'
+  - name: Tentacles
+    type: weapon
+    img: icons/commodities/biological/tentacle-purple-white.webp
+    effects: []
+    flags: {}
+    system:
+      category: balanced2
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      description:
+        public: >-
+          <p>The @ref[actor.name]{creature} attacks with writhing, grasping
+          tentacles.</p>
+        private: ''
+      damageType: bludgeoning
+      broken: false
+      identifier: tentacles
+      invested: false
+      actions: []
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-equipment.Item.tentacles0000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826854956
+      modifiedTime: 1791826854956
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: tentacles0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionSea0000.tentacles0000000'
+  - name: Battle-Worn
+    type: talent
+    img: icons/skills/wounds/injury-stapled-flesh-tan.webp
+    system:
+      description: >-
+        <p>Your body has endured so many injuries that it has learned how to
+        mend itself with remarkable efficiency. When you perform the
+        @Action[default rest] action, you recover additional
+        @Rule[resource.wounds] equal to half your @Rule[ability.toughness] score
+        (rounded down).</p>
+      actions: []
+      nodes:
+        - tou1b
+      iconicSpells: 0
+      training: medicine
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921009365
+      modifiedTime: 1791921009365
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: battleWorn000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionSea0000.battleWorn000000'
+  - name: Loyal Protector
+    type: talent
+    _id: loyalProtector00
+    img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
+    system:
+      nodes: []
+      description: >-
+        <p>@ref[actor.name]{The companion} is fiercely loyal to its master, and
+        will move to their side and provide defensive assistance immediately
+        upon request.</p>
+      actions:
+        - id: loyalProtector
+          img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
+          cost:
+            action: -1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: movement
+            number: 1
+            scope: 2
+            self: false
+          persistRegion: false
+          regionBehavior: null
+          summon: null
+          effects:
+            - name: ''
+              scope: 2
+              result:
+                type: success
+                all: false
+              statuses:
+                - guarded
+              duration:
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dc: null
+                dot: []
+                lights: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - movement
+          name: Loyal Protector
+          description: >-
+            <p>@ref[actor.name]{The companion} moves adjacent to its master,
+            providing them with the @Condition[guarded] condition until the
+            start of their next turn.</p>
+          condition: ''
+      spellcraft: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921009365
+      modifiedTime: 1791921009365
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.loyalProtector00
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionSea0000.loyalProtector00'
+  - name: Flanking Maneuver
+    type: talent
+    _id: flankingManeuver
+    img: icons/creatures/abilities/wolf-heads-swirl-purple.webp
+    system:
+      nodes: []
+      description: >-
+        <p>Working in tandem with its master, @ref[actor.name]{the companion}
+        can create openings in the defenses of even the most attentive
+        opponents.</p>
+      actions:
+        - id: flankingManeuver
+          img: icons/creatures/abilities/wolf-heads-swirl-purple.webp
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          persistRegion: false
+          regionBehavior: null
+          summon: null
+          effects:
+            - name: ''
+              scope: 3
+              result:
+                type: success
+                all: false
+              statuses:
+                - overrun
+              duration:
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dc: null
+                dot: []
+                lights: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - natural
+          name: Flanking Maneuver
+          description: >-
+            <p>@ref[actor.name]{The companion} makes a deliberate strike at an
+            opponent who is currently being engaged by its master. On a hit, the
+            opponent becomes @Condition[overrun] until the start of its next
+            turn.</p>
+          condition: ''
+      spellcraft: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921009365
+      modifiedTime: 1791921009365
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.flankingManeuver
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionSea0000.flankingManeuver'
+_key: '!actors!companionSea0000'
