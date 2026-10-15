@@ -12,7 +12,9 @@
  */
 export const MATERIALS = Object.freeze({
   grass: {label: "FOOTFALLS.MATERIALS.Grass"},
+  ice: {label: "FOOTFALLS.MATERIALS.Ice"},
   metal: {label: "FOOTFALLS.MATERIALS.Metal"},
+  snow: {label: "FOOTFALLS.MATERIALS.Snow"},
   stone: {label: "FOOTFALLS.MATERIALS.Stone"},
   water: {label: "FOOTFALLS.MATERIALS.Water"},
   wood: {label: "FOOTFALLS.MATERIALS.Wood"}
@@ -35,8 +37,12 @@ function footstepFiles(folder, name) {
 export const SOUNDS = Object.freeze({
   grassFootsteps: {material: "grass", mover: "footsteps", playback: "footfalls",
     src: footstepFiles("grass", "footstep-grass")},
+  iceFootsteps: {material: "ice", mover: "footsteps", playback: "footfalls",
+    src: footstepFiles("ice", "footsteps-ice")},
   metalFootsteps: {material: "metal", mover: "footsteps", playback: "footfalls",
     src: footstepFiles("metal", "footstep-metal")},
+  snowFootsteps: {material: "snow", mover: "footsteps", playback: "footfalls",
+    src: footstepFiles("snow", "footsteps-snow")},
   stoneFootsteps: {material: "stone", mover: "footsteps", playback: "footfalls",
     src: footstepFiles("stone", "footstep-stone")},
   waterFootsteps: {material: "water", mover: "footsteps", playback: "footfalls",

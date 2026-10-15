@@ -293,11 +293,38 @@ pages:
         Movement unless they have the
         @UUID[Compendium.crucible.talent.Item.armoredefficienc]{Armored
         Efficiency} talent.</p></div><h2
-        class="divider">Terrain</h2><p>Difficult terrain increases the cost of
-        movement while traversing it. Difficult terrain can be defined using
-        Foundry VTT Scene Regions with the <strong>Modify Movement Cost</strong>
-        behavior, which is fully integrated with Crucible movement cost
-        computation.</p><h2 class="divider">Creature Collision</h2><p>While in
+        class="divider">Terrain</h2><p>The ground a creature crosses may
+        increase the cost of moving across it. Terrain multiplies the
+        <strong>Effective Distance</strong> of <strong>Walk</strong>,
+        <strong>Step</strong>, <strong>Climb</strong>, and
+        <strong>Jump</strong> movement. Terrain is classified as one of the
+        following:</p><dl><dt><p>Normal Terrain</p></dt><dd
+        data-rule="movement.normalTerrain"><p>Open ground which poses no
+        obstacle to movement, such as roads, floors, or short grass. Normal
+        Terrain does not modify the <strong>Effective Distance</strong> of
+        movement.</p></dd><dt><p>Difficult Terrain</p></dt><dd
+        data-rule="movement.difficultTerrain"><p>Ground which slows careful
+        footing, such as rubble, dense undergrowth, deep snow, or shallow
+        water. The <strong>Effective Distance</strong> of movement through
+        Difficult Terrain is doubled.</p></dd><dt><p>Extreme
+        Terrain</p></dt><dd data-rule="movement.extremeTerrain"><p>Ground which
+        can barely be crossed on foot, such as steep scree, thick mud, or
+        tangled thorns. The <strong>Effective Distance</strong> of movement
+        through Extreme Terrain is tripled.</p></dd></dl><p>A creature which
+        <strong>Crawls</strong> is not penalized twice: the doubled cost of
+        Crawl already accounts for Difficult Terrain, so Crawling costs double
+        on Normal or Difficult Terrain and triple on Extreme
+        Terrain.</p><section class="foundryvtt"><h4>Gamemaster
+        Guidance</h4><p>Always specify Difficult and Extreme Terrain by drawing
+        a Scene Region over the affected area and giving it the <strong>Modify
+        Movement Cost</strong> behavior, with its <strong>Walk</strong> cost set
+        to 2 (Difficult) or 3 (Extreme). Step, Crawl, Climb, and Jump movement
+        derive their cost from this Walk setting automatically. Crucible reads
+        terrain only from this behavior when it measures movement, so terrain
+        marked any other way, such as with a Drawing or a Note, is not reflected
+        in the Action cost shown by the movement ruler. Normal Terrain needs no
+        Region.</p></section><h2 class="divider">Creature
+        Collision</h2><p>While in
         Combat, creatures treat other creatures as obstacles which block
         movement. A creature may not move through the space occupied by another
         creature, whether that creature is an ally or an enemy. Dead creatures
