@@ -3,10 +3,25 @@ import { chooseActorsDialog } from "./interaction.mjs";
 /** @import {GroupCheckSkillConfig} from "./dice/group-check.mjs"; */
 
 /**
+ * An optional `{Display Name}` label following an enricher tag.
+ * @type {RegExp}
+ */
+const LABEL = /(?:\{([^}]+)\})?/;
+
+/**
+ * Compose a global enricher pattern from a tag pattern followed by an optional label.
+ * @param {RegExp} tag
+ * @returns {RegExp}
+ */
+function withLabel(tag) {
+  return new RegExp(tag.source + LABEL.source, "g");
+}
+
+/**
  * The pattern which matches `@ref` annotations, shared by the registered enricher and {@link resolveReferences}.
  * @type {RegExp}
  */
-const REFERENCE_PATTERN = /@ref\[([\w.]+)](?:{([^}]+)})?/g;
+const REFERENCE_PATTERN = withLabel(/@ref\[([\w.]+)]/);
 
 /**
  * Register custom text editor enrichers that are applied to Crucible content.
@@ -27,13 +42,13 @@ export function registerEnrichers() {
     },
     { // Crucible Hazards
       id: "crucibleHazard",
-      pattern: /\[\[\/hazard ([\w\s]+)]](?:{([^}]+)})?/g,
+      pattern: withLabel(/\[\[\/hazard ([\w\s]+)]]/),
       enricher: enrichHazard,
       onRender: renderHazard
     },
     { // Crucible Skill Checks
       id: "crucibleSkill",
-      pattern: /\[\[\/skillCheck ([\w\s=]+)]](?:{([^}]+)})?/g,
+      pattern: withLabel(/\[\[\/skillCheck ([\w\s=]+)]]/),
       enricher: enrichSkillCheck,
       onRender: renderSkillCheck
     },
@@ -55,7 +70,7 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleEncounterDifficulty",
-      pattern: /\[\[\/encounterDifficulty (\d+(?:\.\d+)?)]]/g,
+      pattern: /\[\[\/encounterDifficulty ([\d.]+)]]/g,
       enricher: enrichEncounterDifficulty
     },
     {
@@ -80,12 +95,12 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleRule",
-      pattern: /@Rule\[([\w.]+)](?:{([^}]+)})?/g,
+      pattern: withLabel(/@Rule\[([\w.]+)]/),
       enricher: enrichRule
     },
     {
       id: "milestone",
-      pattern: /\[\[\/milestone(?: (\d+))?(?: ([A-Za-z][\w-]*))?]](?:{([^}]+)})?/g,
+      pattern: withLabel(/\[\[\/milestone(?: (\d+))?(?: ([A-Za-z][\w-]*))?]]/),
       enricher: enrichMilestone,
       onRender: renderMilestone
     },
@@ -96,13 +111,13 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleLoot",
-      pattern: /@Loot\[([\w-.]+)((?:\s+(?:\w+="[^"]*"|\w+=?\w*))*)](?:\{([^}]+)\})?/g,
+      pattern: withLabel(/@Loot\[([^\]]+)]/),
       enricher: enrichLoot,
       onRender: renderLoot
     },
     {
       id: "crucibleScroll",
-      pattern: /@Scroll\[([\w\s]+)](?:\{([^}]+)\})?/g,
+      pattern: withLabel(/@Scroll\[([\w\s]+)]/),
       enricher: enrichScroll,
       onRender: renderScroll
     }
@@ -520,8 +535,9 @@ async function onClickMilestone(event) {
  * @param {RegExpMatchArray} terms
  * @returns {HTMLEnrichedContentElement}
  */
-function enrichEncounterDifficulty([_match, term]) {
+function enrichEncounterDifficulty([match, term]) {
   const threat = Number(term);
+  if ( Number.isNaN(threat) ) return new Text(match);
   const tag = document.createElement("enriched-content");
   tag.classList.add("encounter-difficulty");
   tag.dataset.threat = term;
@@ -1010,8 +1026,8 @@ export function resolveReferences(text, relativeTo) {
 
 /**
  * Enrich a loot item reference into a draggable link that materializes a composed item on drop.
- * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, broken, or
- * description="Public description text".
+ * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, broken,
+ * description="Public description text", or img=path/to/icon.webp.
  * @param {RegExpMatchArray} matchArray
  * @returns {Promise<HTMLAnchorElement|Text>}
  * @example Explicit name and quality
@@ -1034,8 +1050,13 @@ export function resolveReferences(text, relativeTo) {
  * ```html
  * @Loot[Compendium.crucible.equipment.Item.amulet0000000000 description="A gold pendant chain."]{Gold Pendant}
  * ```
+ * @example A custom icon
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.amulet0000000000 img=icons/equipment/neck/pendant-gold.webp]
+ * ```
  */
-async function enrichLoot([match, baseUuid, tokenString, displayName]) {
+async function enrichLoot([match, params, displayName]) {
+  const [baseUuid, tokenString=""] = params.trim().split(/\s+(.*)/s);
   const baseItem = fromUuidSync(baseUuid);
   if ( !baseItem ) return new Text(match);
 
@@ -1044,7 +1065,8 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   let quality = null;
   let broken = false;
   let description = null;
-  for ( const [, key, quotedValue, plainValue] of tokenString.matchAll(/(\w+)(?:="([^"]*)"|=(\w*))?/g) ) {
+  let img = null;
+  for ( const [, key, quotedValue, plainValue] of tokenString.matchAll(/(\w+)(?:="([^"]*)"|=([^\s"]*))?/g) ) {
     const value = quotedValue ?? plainValue;
     if ( key === "quality" ) {
       quality = value;
@@ -1052,13 +1074,15 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
       broken = (value === undefined) || (value === "true");
     } else if ( key === "description" ) {
       description = value || null;
+    } else if ( key === "img" ) {
+      img = value || null;
     } else {
       affixes.push({id: key, tier: value ? Number(value) : 1});
     }
   }
 
   // Build the loot configuration
-  const config = {baseUuid, affixes, quality, broken, description, name: displayName || null};
+  const config = {baseUuid, affixes, quality, broken, description, img, name: displayName || null};
 
   // Compose a display name by resolving affix documents from configured packs
   let label = displayName;
@@ -1090,7 +1114,7 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   a.dataset.link = "";
   a.dataset.uuid = baseUuid;
   a.dataset.loot = JSON.stringify(config);
-  a.dataset.tooltip = label;
+  a.dataset.crucibleTooltip = "loot";
   a.innerHTML = `<i class="fa-solid fa-wand-sparkles"></i> ${label}`;
   return a;
 }

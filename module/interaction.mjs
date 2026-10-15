@@ -41,6 +41,8 @@ export function onPointerEnter(event) {
       return displayFromUuid(event);
     case "knowledgeCheck":
       return displayKnowledgeCheck(event);
+    case "loot":
+      return displayLootTooltip(event);
     case "talentCheck":
       return displayTalentCheck(event);
     case "languageCheck":
@@ -266,6 +268,31 @@ async function displayFromUuid(event) {
   event.stopImmediatePropagation();
 
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+  element.dataset.tooltipHtml = await item.renderCard();
+  element.dataset.tooltipClass = "crucible crucible-tooltip";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Display a preview card of the item composed by a loot enrichment.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>}
+ */
+async function displayLootTooltip(event) {
+  const element = event.target;
+  event.stopImmediatePropagation();
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+  const loot = JSON.parse(element.dataset.loot);
+  let item;
+  try {
+    item = await Item.implementation.fromDropData({type: "Item", uuid: loot.baseUuid, loot});
+  } catch{
+    delete element.dataset.tooltipHtml;
+    return;
+  }
   element.dataset.tooltipHtml = await item.renderCard();
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
