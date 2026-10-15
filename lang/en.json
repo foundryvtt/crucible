@@ -1502,7 +1502,8 @@
       "TableTitleResources": "Resource Changes"
     },
     "WARNINGS": {
-      "CannotChangeRound": "Only a Gamemaster user may change the Combat round."
+      "CannotChangeRound": "Only a Gamemaster user may change the Combat round.",
+      "NoGamemasterPresent": "No Gamemaster user is available to change the Combat round."
     },
     "Escalation": "Escalation",
     "HeroismPct": "Heroism {pct}%",
