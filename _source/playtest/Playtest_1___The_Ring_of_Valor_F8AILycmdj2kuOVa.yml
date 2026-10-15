@@ -33517,9 +33517,10 @@ journal:
             <p>In the Day One challenge, 4 Level 1 heroes face off against a
             pack of frenzied beasts:</p><p>@Embed[Actor.tqLT327VnrBXrLtj
             count=4]</p><p>@Embed[Actor.owg68yqumk7KxV9B
-            count=4]</p><p><strong>Protagonist Threat</strong>: 1 × 4 =
+            count=4]</p><p><strong>Party Level</strong>: 1 × 4 =
             4</p><p><strong>Adversary Threat</strong>: (½ × ½) × 8 =
-            2</p><p><strong>Encounter Difficulty</strong>: Easy</p><h2
+            2</p><p><strong>Encounter Difficulty</strong>: [[/encounterDifficulty
+            2]]</p><h2
             class="divider">Introduction</h2><p>The party emerges onto the sand
             to find themselves in a large arena, surrounded by stands containing
             a cheering crowd. A commentator spectates from a booth overlooking
@@ -33597,10 +33598,10 @@ journal:
           content: >-
             <p>In the Day Two challenge, 4 Level 2 heroes face off against the
             gladiatorial duo of Hammer and
-            Anvil.</p><p>@Embed[Actor.XA9W38PGmAs3ZLDa]</p><p>@Embed[Actor.KSoJR8uwT5Qzka7p]</p><p><strong>Protagonist
-            Threat</strong>: 2 × 4 = 8</p><p><strong>Adversary Threat</strong>:
+            Anvil.</p><p>@Embed[Actor.XA9W38PGmAs3ZLDa]</p><p>@Embed[Actor.KSoJR8uwT5Qzka7p]</p><p><strong>Party
+            Level</strong>: 2 × 4 = 8</p><p><strong>Adversary Threat</strong>:
             4.5 × 2 = 9</p><p><strong>Encounter Difficulty</strong>:
-            Difficult</p><h2 class="divider">Introduction</h2><section
+            [[/encounterDifficulty 9]]</p><h2 class="divider">Introduction</h2><section
             data-speaker="Commentator" class="block
             readaloud"><blockquote><p>"It's a beautiful day in the Ring of
             Valor, and it's looking like we're in for a treat. Today's match
@@ -33669,9 +33670,10 @@ journal:
             necromancer Orivech and his skeleton
             army!</p><p>@Embed[Actor.JuobjWohGACVeoyn]</p><p>@Embed[Actor.aQkmEcwfImmdUINF
             count=6]</p><p>@Embed[Actor.7jL3UmgXbqxXKClM
-            count=6]</p><p><strong>Protagonist Threat</strong>: 3 × 4 =
+            count=6]</p><p><strong>Party Level</strong>: 3 × 4 =
             12</p><p><strong>Adversary Threat</strong>: 6 + (½ × 6) + (½ × 6) =
-            12</p><p><strong>Encounter Difficulty</strong>: Moderate</p><h2
+            12</p><p><strong>Encounter Difficulty</strong>: [[/encounterDifficulty
+            12]]</p><h2
             class="divider">Introduction</h2><p>For this challenge the party is
             instructed to assemble with their backs to the cliff on the North
             side of the arena.</p><section data-speaker="Commentator"
@@ -33743,9 +33745,10 @@ journal:
           content: >-
             <p>In this fourth challenge, 4 level 4 heroes square off against the
             lycanthropic menace Koy
-            Rent.</p><p>@Embed[Actor.3sGYsiKtgYLLkadw]</p><p><strong>Protagonist
-            Threat</strong>: 4 × 4 = 16</p><p><strong>Adversary Threat</strong>:
-            14</p><p><strong>Encounter Difficulty</strong>: Moderate</p><h2
+            Rent.</p><p>@Embed[Actor.3sGYsiKtgYLLkadw]</p><p><strong>Party
+            Level</strong>: 4 × 4 = 16</p><p><strong>Adversary Threat</strong>:
+            14</p><p><strong>Encounter Difficulty</strong>: [[/encounterDifficulty
+            14]]</p><h2
             class="divider">Introduction</h2><p>For this challenge, the party
             assembles on the east side of the Arena.</p><section
             data-speaker="Commentator" class="block
@@ -33811,10 +33814,10 @@ journal:
           content: >-
             <p>In this challenge, 4 Level 5 heroes face off against a trio of
             Void
-            Harbingers:</p><p>@Embed[Actor.YVvIKp7fUIduZchE]</p><p>@Embed[Actor.TZT7ybsmI8yV5hWg]</p><p>@Embed[Actor.CTpEm0WlmFAAosBD]</p><p><strong>Protagonist
-            Threat</strong>: 4 × 5 = 20</p><p><strong>Adversary Threat</strong>:
+            Harbingers:</p><p>@Embed[Actor.YVvIKp7fUIduZchE]</p><p>@Embed[Actor.TZT7ybsmI8yV5hWg]</p><p>@Embed[Actor.CTpEm0WlmFAAosBD]</p><p><strong>Party
+            Level</strong>: 4 × 5 = 20</p><p><strong>Adversary Threat</strong>:
             3 × 6 = 18</p><p><strong>Encounter Difficulty</strong>:
-            Moderate</p><h2 class="divider">Introduction</h2><section
+            [[/encounterDifficulty 18]]</p><h2 class="divider">Introduction</h2><section
             data-speaker="Commentator" class="block
             readaloud"><blockquote><p>"Tonight we're in for some true excitement
             as the summoners have conjured a new challenge from realms beyond
@@ -33879,10 +33882,10 @@ journal:
           content: >-
             <p>In this final challenge, 4 Level 6 heroes come head-to-head with
             a rival adventuring party comprised of 4 Level 6
-            heroes.</p><p>@Embed[Actor.iLUfMcYjAbZFY4CJ]</p><p>@Embed[Actor.0crVYYsPvV9KDEJ2]</p><p>@Embed[Actor.2lvTCCOj4dnBI774]</p><p>@Embed[Actor.Il4NDaNBdHNcjJ9d]</p><p><strong>Protagonist
-            Threat</strong>: 4 × 6 = 24</p><p><strong>Adversary Threat</strong>:
+            heroes.</p><p>@Embed[Actor.iLUfMcYjAbZFY4CJ]</p><p>@Embed[Actor.0crVYYsPvV9KDEJ2]</p><p>@Embed[Actor.2lvTCCOj4dnBI774]</p><p>@Embed[Actor.Il4NDaNBdHNcjJ9d]</p><p><strong>Party
+            Level</strong>: 4 × 6 = 24</p><p><strong>Adversary Threat</strong>:
             4 × 6 = 24</p><p><strong>Encounter Difficulty</strong>:
-            Moderate</p><h2 class="divider">Introduction</h2><section
+            [[/encounterDifficulty 24]]</p><h2 class="divider">Introduction</h2><section
             data-speaker="Commentator" class="block
             readaloud"><blockquote><p>"Well, well… your champions have proven
             themselves against all of the formidable adversaries which this

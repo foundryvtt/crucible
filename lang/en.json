@@ -1774,6 +1774,18 @@
       "damage": "Damage"
     }
   },
+  "ENCOUNTER": {
+    "DIFFICULTIES": {
+      "Challenging": "Challenging",
+      "Deadly": "Deadly",
+      "Easy": "Easy",
+      "Hopeless": "Hopeless",
+      "Moderate": "Moderate",
+      "Trivial": "Trivial"
+    },
+    "Threat": "Threat {threat}",
+    "ThreatDifficulty": "Threat {threat} ({difficulty})"
+  },
   "FOOTFALLS": {
     "FIELDS": {
       "material": {

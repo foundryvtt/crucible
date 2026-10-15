@@ -48,6 +48,22 @@ export const COMPENDIUM_PACKS = Object.freeze({
 /* -------------------------------------------- */
 
 /**
+ * Combat encounter difficulty tiers, by the ratio of total adversary threat to total party level.
+ * Each tier applies below its `maximumRatio`.
+ * @type {Readonly<Record<string, {id: string, label: string, maximumRatio: number}>>}
+ */
+export const ENCOUNTER_DIFFICULTIES = defineEnum({
+  trivial: {label: "ENCOUNTER.DIFFICULTIES.Trivial", maximumRatio: 0.5},
+  easy: {label: "ENCOUNTER.DIFFICULTIES.Easy", maximumRatio: 0.75},
+  moderate: {label: "ENCOUNTER.DIFFICULTIES.Moderate", maximumRatio: 1},
+  challenging: {label: "ENCOUNTER.DIFFICULTIES.Challenging", maximumRatio: 1.25},
+  deadly: {label: "ENCOUNTER.DIFFICULTIES.Deadly", maximumRatio: 1.75},
+  hopeless: {label: "ENCOUNTER.DIFFICULTIES.Hopeless", maximumRatio: Infinity}
+});
+
+/* -------------------------------------------- */
+
+/**
  * Temperature tiers used categorically to classify creature body temperatures, environmental hazards, and detection
  * rules. The persisted value of any field that references a temperature tier is the string key (e.g. `"warm"`).
  * Each tier additionally carries a signed `sort` weight centered on `neutral = 0` for ordering and comparison:
@@ -303,6 +319,7 @@ export const SYSTEM = {
   DEFENSES: ATTRIBUTES.DEFENSES,
   DICE: {...DICE},
   EFFECTS: {...EFFECTS},
+  ENCOUNTER_DIFFICULTIES,
   FOOTFALLS: {...FOOTFALLS},
   ITEM: {...ITEM},
   PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,

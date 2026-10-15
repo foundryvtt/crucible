@@ -54,6 +54,11 @@ export function registerEnrichers() {
       onRender: renderSkillCheck
     },
     {
+      id: "crucibleEncounterDifficulty",
+      pattern: /\[\[\/encounterDifficulty (\d+(?:\.\d+)?)]]/g,
+      enricher: enrichEncounterDifficulty
+    },
+    {
       id: "crucibleTalent",
       pattern: /\[\[\/talent ([\w-.]+)]]/g,
       enricher: enrichTalent
@@ -91,7 +96,7 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleLoot",
-      pattern: /@Loot\[([\w-.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
+      pattern: /@Loot\[([\w-.]+)((?:\s+(?:\w+="[^"]*"|\w+=?\w*))*)](?:\{([^}]+)\})?/g,
       enricher: enrichLoot,
       onRender: renderLoot
     },
@@ -504,6 +509,35 @@ async function onClickMilestone(event) {
     return ui.notifications.warn(_loc("AWARD.WARNINGS.DuplicateMilestone", {identifier, group: party.parent.name}));
   }
   await party.awardMilestoneDialog({number: Number(quantity), identifier, reason: name});
+}
+
+/* -------------------------------------------- */
+/*  Encounter Difficulty                        */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a combat encounter's difficulty with the format [[/encounterDifficulty {threat}]].
+ * @param {RegExpMatchArray} terms
+ * @returns {HTMLEnrichedContentElement}
+ */
+function enrichEncounterDifficulty([_match, term]) {
+  const threat = Number(term);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("encounter-difficulty");
+  tag.dataset.threat = term;
+  const partyThreat = crucible.party?.system.members.reduce((t, {actor, quantity}) => {
+    return t + ((actor?.threat ?? 0) * quantity);
+  }, 0);
+  if ( !partyThreat ) {
+    tag.textContent = _loc("ENCOUNTER.Threat", {threat});
+    return tag;
+  }
+  const ratio = threat / partyThreat;
+  const difficulty = Object.values(SYSTEM.ENCOUNTER_DIFFICULTIES).find(d => ratio < d.maximumRatio);
+  tag.classList.add(difficulty.id);
+  tag.dataset.difficulty = difficulty.id;
+  tag.textContent = _loc("ENCOUNTER.ThreatDifficulty", {threat, difficulty: _loc(difficulty.label)});
+  return tag;
 }
 
 /* -------------------------------------------- */
@@ -976,7 +1010,8 @@ export function resolveReferences(text, relativeTo) {
 
 /**
  * Enrich a loot item reference into a draggable link that materializes a composed item on drop.
- * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, or broken.
+ * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, broken, or
+ * description="Public description text".
  * @param {RegExpMatchArray} matchArray
  * @returns {Promise<HTMLAnchorElement|Text>}
  * @example Explicit name and quality
@@ -995,6 +1030,10 @@ export function resolveReferences(text, relativeTo) {
  * ```html
  * @Loot[Compendium.crucible.equipment.Item.longsword0000000 broken]{Rusted Longsword}
  * ```
+ * @example A custom public description
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.amulet0000000000 description="A gold pendant chain."]{Gold Pendant}
+ * ```
  */
 async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   const baseItem = fromUuidSync(baseUuid);
@@ -1004,19 +1043,22 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   const affixes = [];
   let quality = null;
   let broken = false;
-  for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
-    const [key, value] = token.split("=");
+  let description = null;
+  for ( const [, key, quotedValue, plainValue] of tokenString.matchAll(/(\w+)(?:="([^"]*)"|=(\w*))?/g) ) {
+    const value = quotedValue ?? plainValue;
     if ( key === "quality" ) {
       quality = value;
     } else if ( key === "broken" ) {
       broken = (value === undefined) || (value === "true");
+    } else if ( key === "description" ) {
+      description = value || null;
     } else {
       affixes.push({id: key, tier: value ? Number(value) : 1});
     }
   }
 
   // Build the loot configuration
-  const config = {baseUuid, affixes, quality, broken, name: displayName || null};
+  const config = {baseUuid, affixes, quality, broken, description, name: displayName || null};
 
   // Compose a display name by resolving affix documents from configured packs
   let label = displayName;
