@@ -826,7 +826,7 @@ Hooks.on("getSceneControlButtons", controls => {
   };
 });
 Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTracker);
-Hooks.on("renderRegionBehaviorConfig", canvas.footfalls.onRenderRegionBehaviorConfig);
+Hooks.on("renderRegionBehaviorConfig", canvas.movementAnimation.CrucibleTokenMovementAnimation.onRenderRegionBehaviorConfig);
 
 /* -------------------------------------------- */
 /*  Canvas Hooks                                */

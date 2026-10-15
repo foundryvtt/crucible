@@ -1,7 +1,7 @@
 import CrucibleHitBoxShader from "./grid/hit-box-shader.mjs";
-import {CrucibleFootfallPlayer} from "./footfalls.mjs";
+import {CrucibleTokenMovementAnimation} from "./movement-animation.mjs";
 
-/** @import {CrucibleFootfalls} from "./footfalls.mjs"; */
+/** @import {CrucibleFootfalls} from "./movement-animation.mjs"; */
 
 export default class CrucibleTokenObject extends foundry.canvas.placeables.Token {
 
@@ -83,11 +83,15 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   };
 
   /**
-   * Plays the footfalls this token makes while it moves.
-   * TODO: remove in V15 along with the interim playback in footfalls.mjs.
-   * @type {CrucibleFootfallPlayer}
+   * The progress of this token's movement animation, which paces its footfall sounds and walk animations.
+   * Anticipates a core `Token#movementAnimation` in V15; until then it is interim support from movement-animation.mjs.
+   * @type {CrucibleTokenMovementAnimation}
    */
-  #footfallPlayer = new CrucibleFootfallPlayer(this);
+  get movementAnimation() {
+    return this.#movementAnimation;
+  }
+
+  #movementAnimation = new CrucibleTokenMovementAnimation(this);
 
   /* -------------------------------------------- */
   /*  Detection                                   */
@@ -472,13 +476,24 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _onAnimationUpdate(changed, context) {
+    super._onAnimationUpdate(changed, context);
+    // TODO: remove in V15, when core advances the movement animation
+    if ( ("x" in changed) || ("y" in changed) ) this.#movementAnimation.updatePosition();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   _prepareAnimation(from, changes, context, options) {
     const isMovement = foundry.documents.TokenDocument._isMovementUpdate(changes, from);
     const attributes = super._prepareAnimation(from, changes, context, options);
-    // TODO: remove in V15, when core requests footfalls per waypoint and plays them
-    if ( isMovement ) {
-      const footfalls = this._getFootfalls(from, changes, options);
-      if ( footfalls ) this.#footfallPlayer.play(footfalls, context.duration);
+
+    // Follow each waypoint of a token movement, including its rotations, ending with the movement or its interruption
+    // TODO: remove in V15, when core requests footfalls per waypoint and tracks the movement animation
+    if ( context.name === this.movementAnimationName ) {
+      this.#movementAnimation.beginWaypoint(isMovement ? this._getFootfalls(from, changes, options) : null);
+      context.postAnimate.push(() => this.#movementAnimation.endMovement());
     }
     return attributes;
   }
@@ -499,15 +514,13 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const mover = this.#getFootfallMover();
     if ( !mover ) return null;
 
-    // Pace footfalls at one body width each
-    const speed = this._modifyAnimationMovementSpeed(options.movementSpeed ?? this._getAnimationMovementSpeed(options),
-      options);
-    const interval = Math.clamp(1000 * this.document.width / speed, 150, 2000);
+    // A footfall lands each body width walked
+    const stride = this.document.width * canvas.dimensions.distance;
 
     // Larger movers are heard farther away
     const {radius, size} = SYSTEM.FOOTFALLS.HEARING;
     const hearingRadius = radius * Math.sqrt(this.document.size / size);
-    return {mover, interval, radius: hearingRadius, volume: 1};
+    return {mover, stride, radius: hearingRadius, volume: 1};
   }
 
 
