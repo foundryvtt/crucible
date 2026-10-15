@@ -1,0 +1,69 @@
+name: Field Repairs
+type: talent
+_id: fieldRepairs0000
+img: icons/commodities/tech/wire-spliced.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{engineer} can quickly repair some damage on an
+    allied <strong>Construct</strong>.</p>
+  actions:
+    - id: fieldRepairs
+      condition: ''
+      description: >-
+        <p>You rapidly repair the damage of an allied construct within <strong>4
+        feet</strong>. Perform a @Rule[skill.science]{Science Check} against the
+        target's @Rule[defense.wounds]. Your ally's @Rule[resource.health] is
+        increased by overflow of the check.</p>
+      tags:
+        - healing
+        - health
+        - skill
+        - science
+      cost:
+        action: 3
+        focus: 0
+        weapon: false
+        heroism: 0
+        hands: 0
+      target:
+        type: single
+        number: 1
+        scope: 2
+        self: false
+      effects: []
+      name: Field Repairs
+      img: icons/commodities/tech/wire-spliced.webp
+      range:
+        maximum: 4
+        weapon: false
+        minimum: null
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  iconicSpells: 0
+  training: ''
+  spellcraft: ''
+  requirements:
+    training: {}
+effects: []
+flags:
+  core: {}
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791929521293
+  modifiedTime: 1791929521468
+  lastModifiedBy: QPs9IwGEu5DxD700
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+folder: By2dpEkYQSuee47b
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+sort: 300000
+_key: '!items!fieldRepairs0000'

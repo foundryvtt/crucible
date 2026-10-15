@@ -1,0 +1,94 @@
+name: Shredding Death Burst
+type: talent
+_id: shreddingDeathBu
+img: icons/magic/earth/projectiles-stone-salvo.webp
+system:
+  nodes: []
+  description: >-
+    <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst
+    of piercing fragments.</p>
+  actions:
+    - id: shreddingDeathBurst
+      name: Shredding Death Burst
+      img: icons/magic/earth/projectiles-stone-salvo.webp
+      condition: The creature becomes Dead.
+      description: >-
+        <p>When the @ref[actor.name]{creature} becomes @Condition[dead], it
+        explodes in a pulse of <strong>Piercing</strong> fragments which attacks
+        the @Rule[defense.reflex] defense of all nearby creatures that fail to
+        resist the effect and upon critical success afflicting them with the
+        @Condition[bleeding] condition for <strong>3 rounds</strong>.</p>
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 4
+        self: false
+        size: 8
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - bleeding
+          duration:
+            value: 3
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            dc: null
+            lights: []
+            properties: []
+      tags:
+        - generic
+        - reflex
+        - piercing
+        - intellect
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+effects: []
+folder: myBrb0NP4oQkwiz5
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1792085982784
+  modifiedTime: 1792085984078
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 400000
+_key: '!items!shreddingDeathBu'

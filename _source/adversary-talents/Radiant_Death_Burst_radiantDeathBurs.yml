@@ -74,12 +74,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.360'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1777227102876
-  modifiedTime: 1777227102916
+  modifiedTime: 1792085984078
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: radiantDeathBurs
-sort: 0
+sort: 500000
 _key: '!items!radiantDeathBurs'
