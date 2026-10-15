@@ -1,5 +1,7 @@
 import StandardCheckDialog from "./standard-check-dialog.mjs";
 
+const {DialogV2} = foundry.applications.api;
+
 /**
  * Prompt the user to activate an action which may involve the rolling of a standard dice pool.
  * @extends {StandardCheckDialog}
@@ -280,6 +282,22 @@ export default class ActionUseDialog extends StandardCheckDialog {
       event.stopImmediatePropagation();
       ui.notifications.warn(_loc("ACTION.WARNINGS.NoViewedScene"));
       return;
+    }
+    if ( this.action.tags.has("maintained") ) {
+
+      // Confirm replacement when using a maintained action while another effect is already maintained
+      const current = this.actor.maintainedEffect;
+      if ( current ) {
+        const replace = await DialogV2.confirm({
+          window: {title: _loc("ACTION.MaintainReplaceTitle")},
+          content: _loc("ACTION.MaintainReplaceContent", {effect: current.name, action: this.action.name})
+        });
+        if ( !replace ) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          return;
+        }
+      }
     }
     if ( this.action.requiresRegion || this.action.requiresMovement ) {
       event.preventDefault();

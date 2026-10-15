@@ -203,6 +203,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * The singleton effect which this Actor is maintaining, if any.
+   * @type {CrucibleActiveEffect|null}
+   */
+  get maintainedEffect() {
+    return this.system.maintainedEffect;
+  }
+
+  /**
    * The prepared object of actor status data
    * @returns {ActorRoundStatus}
    */
@@ -1429,7 +1437,7 @@ export default class CrucibleActor extends Actor {
    * @param {CombatTurnEventContext} context
    */
   async #prepareTurnStartConfig(turnStartConfig, context) {
-    const {effectChanges, resourceChanges, dot} = turnStartConfig;
+    const {effectChanges, dot} = turnStartConfig;
     for ( const effect of this.effects ) {
 
       // Gather damage-over-time effects
@@ -1462,10 +1470,13 @@ export default class CrucibleActor extends Actor {
           content: _loc("ACTION.MaintainContent", {cost: maintainedCost, effect: effect.name})
         });
         if ( confirm ) {
-          resourceChanges.focus.push({
-            label: _loc("COMBAT.SUMMARY.Maintaining", {effect: effect.name}),
-            amount: -maintainedCost
-          });
+
+          // Sustain the effect by firing the explicit Maintain action, then confirm it immediately - the prompt's
+          // consent covers the payment. The focus cost is applied through the action's own event stream, leaving a
+          // reversible record on the chat log.
+          const action = await this.useAction("maintain", {dialog: false});
+          const messageId = action && this.flags.crucible?.actionHistory?.[0]?.messageId;
+          if ( messageId ) await CrucibleAction.confirmMessage(game.messages.get(messageId));
         } else {
           effectChanges.toDelete.push(effect.id);
         }
