@@ -3,8 +3,10 @@ type: talent
 img: icons/magic/earth/projectile-boulder-dust.webp
 system:
   description: >-
-    You have pouches of sand and dust that you use to temporarily distract or
-    blind an enemy.
+    <p>You know how to turn the dirt beneath your feet into a weapon. Whether
+    flung from a pouch of sand, scooped up in a handful, or kicked up from the
+    earth, a well-placed spray of grit can temporarily distract or blind an
+    enemy.</p>
   actions:
     - id: dirtyTricks
       description: >-
@@ -21,7 +23,7 @@ system:
         focus: 1
         weapon: false
         heroism: 0
-        hands: 1
+        hands: 0
       target:
         type: single
         number: 1

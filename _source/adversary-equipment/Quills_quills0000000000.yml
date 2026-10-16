@@ -13,7 +13,9 @@ system:
   enchantment: mundane
   equipped: false
   properties:
+    - intuitive
     - natural
+    - ambush
   description:
     public: >-
       <p>The @ref[actor.name]{creature} can launch a spray of barbed quills from
@@ -30,12 +32,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.363'
+  coreVersion: '14.369'
   systemId: crucible
-  systemVersion: 0.9.4
+  systemVersion: 0.11.1
   createdTime: 1780529553862
-  modifiedTime: 1780532699830
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1792119296505
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

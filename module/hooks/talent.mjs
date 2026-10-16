@@ -184,8 +184,8 @@ HOOKS.armoredefficienc = {
 HOOKS.armoredShell0000 = {
   prepareDefenses(item, defenses) {
     if ( !this.statuses.has("guarded") ) return;
-    const offhand = this.equipment.weapons.offhand;
-    if ( offhand?.category !== "shieldHeavy" ) return;
+    const {offhand, natural} = this.equipment.weapons;
+    if ( ![offhand, ...natural].some(w => w?.category === "shieldHeavy") ) return;
     const halfArmor = Math.ceil(defenses.armor.base / 2);
     defenses.armor.base -= halfArmor;
     defenses.block.bonus += halfArmor;

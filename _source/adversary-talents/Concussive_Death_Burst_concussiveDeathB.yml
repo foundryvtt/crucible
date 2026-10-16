@@ -15,10 +15,10 @@ system:
       description: >-
         <p>When the @ref[actor.name]{creature} becomes @Condition[dead], it
         explodes in a concussive blast of <strong>Bludgeoning</strong> force
-        which attacks the
-        @Rule[defense.reflex] defense of all nearby creatures that fail to
-        resist the effect and upon critical success afflicts them with the
-        @Condition[staggered] condition for <strong>3 rounds</strong>.</p>
+        which attacks the @Rule[defense.reflex] defense of all nearby creatures
+        that fail to resist the effect and upon critical success afflicts them
+        with the @Condition[staggered] condition for <strong>3
+        rounds</strong>.</p>
       cost:
         action: 0
         focus: 1

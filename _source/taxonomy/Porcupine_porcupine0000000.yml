@@ -1,0 +1,122 @@
+name: Porcupine
+type: taxonomy
+_id: porcupine0000000
+img: icons/creatures/claws/claw-straight-orange.webp
+system:
+  description: >-
+    <p>A stout, waddling forager of the deep woods, the porcupine is armored in
+    a mantle of barbed quills that bristle at the first hint of danger. When
+    threatened, it turns its back, rattles its quills like a dry reed fence, and
+    waits for its foe to make the mistake.</p>
+  identifier: porcupine
+  category: beast
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 1
+    strength: 3
+    toughness: 4
+    dexterity: 1
+  movement:
+    size: 3
+    stride: 10
+  resistances:
+    acid:
+      value: -1
+      immune: false
+    bludgeoning:
+      value: 0
+      immune: false
+    cold:
+      value: 1
+      immune: false
+    corruption:
+      value: -1
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    piercing:
+      value: 2
+      immune: false
+    poison:
+      value: -1
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 1
+      immune: false
+    void:
+      value: -1
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.rake000000000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.bestialSenses000
+      level: 1
+    - item: Compendium.crucible.talent.Item.bulwark000000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.quickDraw0000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.armoredInstinct0
+      level: 2
+    - item: Compendium.crucible.talent.Item.testudo000000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.counterstrike000
+      level: 2
+    - item: Compendium.crucible.talent.Item.thickskin0000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.impenetrableGuar
+      level: 4
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.claws00000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.thickHide0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.spines0000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.quills0000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: false
+    temperature: ''
+effects: []
+folder: wTcQjW37uAKhpMQL
+sort: 300000
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1792118624138
+  modifiedTime: 1792119540011
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!porcupine0000000'
