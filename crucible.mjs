@@ -157,6 +157,18 @@ Hooks.once("init", async function() {
     }
   });
 
+  /**
+   * The primary party, for packages which look up a party through any game system.
+   * @returns {CrucibleActor|null}
+   */
+  crucible.getPrimaryParty = () => party;
+
+  /**
+   * The members of the primary party, for packages which look up a party through any game system.
+   * @returns {Iterable<CrucibleActor>}
+   */
+  crucible.getPrimaryPartyMembers = () => party?.system.actors ?? [];
+
   // Active Effect document configuration
   CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
   CONFIG.ActiveEffect.dataModels = {
