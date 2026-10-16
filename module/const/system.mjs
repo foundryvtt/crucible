@@ -237,6 +237,19 @@ function prepareRules(rulesEnum, page) {
 }
 
 /**
+ * Prepare a system const enum for use in RULES as aliases of the same entries under another rules category.
+ * @param {Record<string, object>} rulesEnum  The unprepared enum
+ * @param {string} category                   The RULES category whose entries are aliased
+ * @returns {RulesRecord}
+ */
+function prepareAliasRules(rulesEnum, category) {
+  return Object.values(rulesEnum).reduce((acc, {id, label}) => {
+    acc[id] = {id, label, alias: `${category}.${id}`};
+    return acc;
+  }, {});
+}
+
+/**
  * Prepare an item type's property enum for use in RULES, aliasing shared item properties to their `item` rule.
  * @param {Record<string, object>} properties   The item type's property enum
  * @param {string} page                         The UUID of the rules compendium journal page documenting the type
@@ -287,8 +300,12 @@ export const RULES = {
   damageType: prepareRules(ATTRIBUTES.DAMAGE_TYPES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000"),
   defense: ATTRIBUTES.DEFENSES,
   dice: DICE.RULES,
-  item: prepareRules(ITEM.PROPERTIES, `${EQUIPMENT_PAGE}.6QxbcLoOhUkXTbAj`),
+  item: {
+    ...prepareRules(ITEM.PROPERTIES, `${EQUIPMENT_PAGE}.6QxbcLoOhUkXTbAj`),
+    ...prepareAliasRules(ITEM.QUALITY_TIERS, "quality")
+  },
   movement: ACTOR.MOVEMENT_RULES,
+  quality: prepareRules(ITEM.QUALITY_TIERS, `${EQUIPMENT_PAGE}.6QxbcLoOhUkXTbAj`),
   resource: prepareRules(ATTRIBUTES.RESOURCES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000"),
   skill: prepareRules(PROFICIENCY.SKILLS, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000"),
   weapon: {
