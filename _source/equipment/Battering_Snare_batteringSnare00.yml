@@ -1,0 +1,139 @@
+name: Battering Snare
+type: consumable
+_id: batteringSnare00
+img: icons/commodities/metal/plating-metal-rod-steel.webp
+system:
+  identifier: batteringSnare
+  category: trap
+  quantity: 1
+  weight: 24
+  price: 360
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+  description:
+    public: >-
+      <p>This snare consists of a flat rock or metal plate held in place with a
+      spring or flexible branch.</p>
+    private: ''
+  actions:
+    - id: batteringSnareArm
+      img: icons/commodities/metal/plating-metal-rod-steel.webp
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        hands: 2
+        weapon: false
+      range:
+        minimum: null
+        maximum: 4
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 0
+        self: false
+        size: 2
+      persistRegion: true
+      regionBehavior:
+        name: Trigger Battering Snare
+        system:
+          action:
+            id: batteringSnareTrigger
+            name: Trigger Battering Snare
+            img: icons/commodities/metal/plating-metal-rod-steel.webp
+            description: >-
+              <p>The creature that set the trap makes a @Rule[skill.wilderness]
+              skill attack against the @Rule[defense.reflex] defense of the
+              creature which triggered it. If not resisted, the flat object
+              swings wide and smacks the creature, dealing
+              @Rule[damageType.bludgeoning] damage. If the attack is a
+              @Rule[dice.criticalSuccess], the creature is also
+              @Condition[stunned] until the end of its next turn.</p>
+            effects:
+              - name: Battering Snare
+                scope: 4
+                result:
+                  type: successCritical
+                  all: false
+                statuses:
+                  - stunned
+                duration:
+                  value: 1
+                  units: rounds
+                  expiry: turnEnd
+                  expired: false
+                system:
+                  changes: []
+                  dc: null
+                  dot: []
+                  lights: []
+                  maintenance:
+                    cost: null
+                    hands: 0
+                  properties: []
+                  regions: []
+                  summons: []
+            tags:
+              - reflex
+              - bludgeoning
+              - skill
+              - wilderness
+            target:
+              scope: 4
+            spellcraft: null
+          events:
+            - tokenMoveIn
+          frequency: once
+      summon: null
+      effects: []
+      tags:
+        - consume
+      name: Arm Battering Snare
+      description: >-
+        <p>Setting the trap places a hazard that causes its effect if triggered.
+        The area of the trap is a circle with a radius of 2 feet.</p><p>When
+        triggered, the creature that set the trap makes a
+        @Rule[skill.wilderness] skill attack against the @Rule[defense.reflex]
+        defense of the creature which triggered it. If not resisted, the flat
+        object swings wide and smacks the creature, dealing
+        @Rule[damageType.bludgeoning] damage. If the attack is a
+        @Rule[dice.criticalSuccess], the creature is also @Condition[stunned]
+        until the end of its next turn. The base damage dealt by the trap varies
+        according to the quality of the
+        trap.</p><ul><li><p><strong>Shoddy</strong> - 2
+        damage</p></li><li><p><strong>Standard</strong> - 4
+        damage</p></li><li><p><strong>Fine</strong> - 8
+        damage</p></li><li><p><strong>Superior</strong> - 12
+        damage</p></li><li><p><strong>Masterwork</strong> - 20
+        damage</p></li></ul>
+      condition: ''
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: gSADApbBEeo51EEP
+sort: 100000
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1792115350729
+  modifiedTime: 1792115378123
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!batteringSnare00'

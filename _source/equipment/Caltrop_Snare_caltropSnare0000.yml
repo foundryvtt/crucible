@@ -1,0 +1,140 @@
+name: Caltrop Snare
+type: consumable
+_id: caltropSnare0000
+img: icons/sundries/survival/leather-strap-brown.webp
+system:
+  identifier: caltropSnare
+  category: trap
+  quantity: 1
+  weight: 16
+  price: 280
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+  description:
+    public: >-
+      <p>This snare consists of a hidden canister of caltrops attached to a trip
+      wire. When the snare is triggered, it flings the caltrops into the nearby
+      area.</p>
+    private: ''
+  actions:
+    - id: caltropSnareArm
+      img: icons/sundries/survival/leather-strap-brown.webp
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        hands: 2
+        weapon: false
+      range:
+        minimum: null
+        maximum: 4
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 0
+        self: false
+        size: 2
+      persistRegion: true
+      regionBehavior:
+        name: Trigger Caltrop Snare
+        system:
+          action:
+            id: caltropSnareTrigger
+            name: Trigger Caltrop Snare
+            img: icons/sundries/survival/leather-strap-brown.webp
+            description: >-
+              <p>The creature that set the trap makes a @Rule[skill.wilderness]
+              skill attack against the @Rule[defense.reflex] defense of a
+              creature which enters or begins its turn within the area, at most
+              once per round. If not resisted, it deals
+              @Rule[damageType.piercing] damage and inflicts
+              @Condition[bleeding] and @Condition[slowed].</p>
+            effects:
+              - name: Caltrop Snare
+                scope: 4
+                result:
+                  type: success
+                  all: false
+                statuses:
+                  - slowed
+                  - bleeding
+                duration:
+                  value: 2
+                  units: rounds
+                  expiry: turnStart
+                  expired: false
+                system:
+                  changes: []
+                  dc: null
+                  dot: []
+                  lights: []
+                  maintenance:
+                    cost: null
+                    hands: 0
+                  properties: []
+                  regions: []
+                  summons: []
+            tags:
+              - reflex
+              - piercing
+              - skill
+              - wilderness
+            target:
+              scope: 4
+            spellcraft: null
+          events:
+            - tokenMoveIn
+            - tokenTurnStart
+          frequency: roundActor
+      summon: null
+      effects: []
+      tags:
+        - consume
+      name: Arm Caltrop Snare
+      description: >-
+        <p>Setting the trap places a hazard that causes its effect if triggered.
+        The area of the trap is a circle with a radius of 2 feet.</p><p>When
+        triggered, the snare flings its caltrops and the area remains hazardous.
+        The creature that set the trap makes a @Rule[skill.wilderness] skill
+        attack against the @Rule[defense.reflex] defense of a creature which
+        enters or begins its turn within the area, at most once per round. If
+        not resisted, it deals @Rule[damageType.piercing] damage and inflicts
+        @Condition[bleeding] and @Condition[slowed]. The bleeding damage and the
+        duration of both conditions vary according to the quality of the
+        trap.</p><ul><li><p><strong>Shoddy</strong> - 1 damage, 1
+        round</p></li><li><p><strong>Standard</strong> - 2 damage, 2
+        rounds</p></li><li><p><strong>Fine</strong> - 3 damage, 3
+        rounds</p></li><li><p><strong>Superior</strong> - 4 damage, 4
+        rounds</p></li><li><p><strong>Masterwork</strong> - 6 damage, 6
+        rounds</p></li></ul>
+      condition: ''
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: gSADApbBEeo51EEP
+sort: 200000
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1792115358546
+  modifiedTime: 1792115379151
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!caltropSnare0000'

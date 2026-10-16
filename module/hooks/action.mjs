@@ -222,6 +222,15 @@ HOOKS.assessResolve = {
 
 /* -------------------------------------------- */
 
+HOOKS.batteringSnareTrigger = {
+  prepare() {
+    const tiers = {shoddy: 2, standard: 4, fine: 8, superior: 12, masterwork: 20};
+    this.usage.bonuses.base = tiers[this.item.system.quality];
+  }
+};
+
+/* -------------------------------------------- */
+
 // TODO: Consider refactoring this talent to instead be a maintained action
 HOOKS.beastShapeRevert = {
   async confirm(reverse) {
@@ -357,6 +366,18 @@ function _canUsePostDefend(action, {requiredResult}) {
     throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: action.name, defense: resultLabel}));
   }
 }
+
+/* -------------------------------------------- */
+
+HOOKS.caltropSnareTrigger = {
+  preActivate() {
+    const tiers = {shoddy: 1, standard: 2, fine: 3, superior: 4, masterwork: 6};
+    const n = tiers[this.item.system.quality];
+    const caltrops = this.effects[0];
+    caltrops.duration = {value: n, units: "rounds", expiry: "turnStart"};
+    caltrops.system.dot = [{amount: n, damageType: "piercing", resource: "health"}];
+  }
+};
 
 /* -------------------------------------------- */
 
@@ -1789,6 +1810,17 @@ HOOKS.paralyticIngest = {
 
 /* -------------------------------------------- */
 
+HOOKS.poisonBarbSnareTrigger = {
+  preActivate() {
+    const tiers = {shoddy: 1, standard: 2, fine: 3, superior: 4, masterwork: 6};
+    const n = tiers[this.item.system.quality];
+    const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, {amount: n, turns: n});
+    foundry.utils.mergeObject(this.effects[0], poisoned);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.poisonIngest = {
   preActivate() {
     const tiers = {
@@ -2605,7 +2637,7 @@ HOOKS.threadTheNeedle = {
 HOOKS.steelJawTrigger = {
   prepare() {
     const tiers = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: 16};
-    this.usage.bonuses.damageBonus = tiers[this.item.system.quality];
+    this.usage.bonuses.base = tiers[this.item.system.quality];
   }
 };
 
