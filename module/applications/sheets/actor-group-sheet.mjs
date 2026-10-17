@@ -21,7 +21,8 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
       memberSheet: CrucibleGroupActorSheet.#onMemberSheet,
       cyclePace: CrucibleGroupActorSheet.#onCyclePace,
       recover: CrucibleGroupActorSheet.#onRecover,
-      rest: CrucibleGroupActorSheet.#onRest
+      rest: CrucibleGroupActorSheet.#onRest,
+      revokeMilestone: CrucibleGroupActorSheet.#onRevokeMilestone
     },
     form: {
       submitOnChange: true
@@ -30,10 +31,28 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
 
   /** @override */
   static PARTS = {
-    main: {
-      root: true,
-      template: "systems/crucible/templates/sheets/group/group.hbs",
+    main: {root: true, template: "systems/crucible/templates/sheets/group/main.hbs"},
+    header: {template: "systems/crucible/templates/sheets/group/header.hbs"},
+    tabs: {template: "templates/generic/tab-navigation.hbs"},
+    members: {
+      template: "systems/crucible/templates/sheets/group/members.hbs",
       scrollable: [".items-list.scrollable"]
+    },
+    milestones: {
+      template: "systems/crucible/templates/sheets/group/milestones.hbs",
+      scrollable: [".milestones-list"]
+    }
+  };
+
+  /** @override */
+  static TABS = {
+    sheet: {
+      tabs: [
+        {id: "members", icon: "fa-solid fa-users"},
+        {id: "milestones", icon: "fa-solid fa-trophy"}
+      ],
+      initial: "members",
+      labelPrefix: "ACTOR.GROUP.TABS"
     }
   };
 
@@ -48,6 +67,18 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
    * @type {Set<string>}
    */
   #memberAppIds = new Set();
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _configureRenderParts(options) {
+    const parts = super._configureRenderParts(options);
+    if ( !this.actor.system.tracksAdvancement ) {
+      delete parts.tabs;
+      delete parts.milestones;
+    }
+    return parts;
+  }
 
   /* -------------------------------------------- */
 
@@ -87,14 +118,21 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   async _prepareContext(_options) {
     const system = this.actor.system;
     const {expectedLevel} = system.advancement.milestones;
+    const tracksAdvancement = system.tracksAdvancement;
+    if ( !tracksAdvancement ) this.tabGroups.sheet = "members";
     return {
       actor: this.document,
       system,
       isEditable: this.isEditable,
+      isGM: game.user.isGM,
       fields: this.actor.schema.fields,
       members: this.#prepareMembers(),
+      milestones: this.#prepareMilestones(),
+      tabs: this._prepareTabs("sheet"),
+      quantityField: system.schema.fields.members.element.fields.quantity,
       systemFields: system.schema.fields,
       tags: this.actor.getTags(),
+      tracksAdvancement,
       pace: SYSTEM.ACTOR.TRAVEL_PACES[system.movement.pace],
       expectedLevel
     };
@@ -110,13 +148,15 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
     const members = [];
     for ( const member of this.actor.system.members ) {
       const a = member.actor;
+      const editQuantity = this.isEditable && (a?.type === "adversary") && !a.prototypeToken.actorLink;
       const m = {
         actorId: member.actorId,
         actor: member.actor,
         name: a?.name ?? "[MISSING]",
         img: a?.img ?? CONST.DEFAULT_TOKEN,
         quantity: member.quantity,
-        hasQuantity: member.quantity > 1,
+        editQuantity,
+        hasQuantity: !editQuantity && (member.quantity > 1),
         hasResources: false,
         tags: a?.getTags() || {}
       };
@@ -142,7 +182,62 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
       }
       members.push(m);
     }
-    return members;
+
+    return members.sort((a, b) => CrucibleGroupActorSheet.#compareMembers(a.actor, b.actor));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare each milestone awarded to the group, in award order, with the running total of milestones.
+   * @returns {object[]}
+   */
+  #prepareMilestones() {
+    const levels = Object.values(SYSTEM.ACTOR.LEVELS);
+    const levelAt = total => levels.find(l => l.milestones.next > total)?.level ?? 0;
+    let total = 0;
+    return Object.entries(this.actor.system.advancement.milestones).map(([identifier, {number, reason}]) => {
+      total += number;
+      const levelUp = levelAt(total) > levelAt(total - number);
+      return {identifier, number, reason: reason || identifier, total, levelUp};
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _processFormData(event, form, formData) {
+    const {members: quantities, ...submitData} = super._processFormData(event, form, formData);
+    if ( quantities ) {
+      const members = this.actor.system.toObject().members;
+      for ( const m of members ) m.quantity = quantities[m.actorId] ?? m.quantity;
+      foundry.utils.setProperty(submitData, "system.members", members);
+    }
+    return submitData;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Sort Actors in place into group member order: heroes before adversaries, then higher threat first.
+   * @param {CrucibleActor[]} actors
+   * @returns {CrucibleActor[]}     The same array, sorted
+   */
+  static sortMembers(actors) {
+    return actors.sort(CrucibleGroupActorSheet.#compareMembers);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compare two possibly missing Actors in group member order.
+   * @param {CrucibleActor|undefined} a
+   * @param {CrucibleActor|undefined} b
+   * @returns {number}
+   */
+  static #compareMembers(a, b) {
+    const isHero = actor => actor?.type === "hero";
+    return (isHero(b) - isHero(a)) || ((b?.threat ?? 0) - (a?.threat ?? 0));
   }
 
   /* -------------------------------------------- */
@@ -194,7 +289,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   static async #onMemberRemove(event, target) {
     const li = target.closest("li.member");
     const actorId = li.dataset.actorId;
-    await this.actor.system.removeMember(actorId);
+    await this.actor.system.removeMember(actorId, Infinity);
   }
 
   /* -------------------------------------------- */
@@ -245,5 +340,17 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
    */
   static async #onRest(_event, _target) {
     await this.document.system.rest();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Revoke a milestone from the group, preselecting it in the revocation dialog.
+   * @this {CrucibleGroupActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onRevokeMilestone(_event, target) {
+    const {identifier} = target.closest("[data-identifier]").dataset;
+    await this.actor.system.revokeMilestoneDialog({identifier});
   }
 }

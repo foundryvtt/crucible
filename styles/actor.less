@@ -45,7 +45,7 @@
     padding: 0;
   }
 
-  .tab {
+  .sheet-body > .tab {
     flex: 1;
     position: relative;
     gap: var(--sheet-body-gap);
@@ -255,7 +255,7 @@
   /*  Sheet Tabs                               */
   /* ----------------------------------------- */
 
-  .sheet-tabs {
+  .sheet-tabs.side-tabs {
     --tab-size: 32px;
     --icon-size: 28px;
 
@@ -1065,14 +1065,20 @@
 
   /** Movement Speeds */
   .sheet-section.movement {
-    flex: 2;
+    flex: 3;
     height: 100%;
     align-items: flex-start;
+    > button.icon {
+      align-self: center;
+    }
     .movement-speed {
       --hex-size: 64px;
       &.land {--hex-bg: url("../ui/elements/hex-willpower.webp");}
       &.water {--hex-bg: url("../ui/elements/hex-fortitude.webp");}
       &.air {--hex-bg: url("../ui/elements/hex-reflex.webp");}
+      .value {
+        font-size: var(--font-size-20);
+      }
     }
     button.value {
       --button-text-color: var(--color-text-emphatic);
@@ -1109,17 +1115,39 @@
     }
   }
 
-  /** Members List */
-  .members {
+  /** Tab Navigation */
+  .group-header,
+  nav.sheet-tabs {
+    flex: none;
+  }
+  .group-header {
+    gap: var(--sheet-body-gap); // Room for the section titles which overhang the top of each section
+  }
+
+  /** Body Tabs */
+  .tab {
     flex: 1;
     height: 0;
-    padding: 1.5rem 0.5rem 0.5rem;
+    padding: 0.5rem;
+  }
+
+  /** Members List */
+  .tab.members {
+    &:has(> h3) {
+      padding-top: 1.5rem; // When there is no tab navigation
+      margin-top: 0.5rem;
+    }
     .items-list {
       flex: 1;
       height: 0;
     }
     .line-item {
       --icon-size: 48px;
+    }
+    .member-quantity {
+      flex: 0 0 40px;
+      height: 24px;
+      text-align: center;
     }
     .resources {
       flex: 1;
@@ -1144,6 +1172,62 @@
           border-radius: 3px;
         }
       }
+    }
+  }
+
+  /** Milestones Table */
+  .tab.milestones {
+    padding: 0;
+    .milestones-list {
+      flex: 1;
+      height: 0;
+      width: 100%;
+      padding: 0;
+      overflow-y: auto; // Also clips the flush table to the section's rounded corners
+    }
+    table {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--color-frame-bg);
+    }
+    .number,
+    .total,
+    .controls {
+      white-space: nowrap;
+      text-align: center;
+    }
+    .number {
+      width: 100px;
+    }
+    .total {
+      width: 120px;
+    }
+    .controls {
+      width: 40px;
+    }
+    tbody tr {
+      height: 32px; // Uniform rows whether or not they hold a control button
+    }
+    .controls button.icon {
+      --button-size: 24px;
+    }
+    tr.level-up td {
+      border-bottom: 3px solid var(--color-accent);
+    }
+    .empty {
+      text-align: center;
+      color: var(--color-text-subtle);
+    }
+    .form-footer {
+      flex: none;
+      width: 100%;
+      margin-top: 1rem;
     }
   }
 }

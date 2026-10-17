@@ -916,6 +916,17 @@
         "recover": "Recover",
         "rest": "Rest"
       },
+      "MILESTONES": {
+        "Award": "Award Milestone",
+        "Cumulative": "Cumulative",
+        "None": "No milestones have been earned yet.",
+        "Number": "Number",
+        "Reason": "Reason"
+      },
+      "TABS": {
+        "members": "Members",
+        "milestones": "Milestones"
+      },
       "REST": {
         "FIELDS": {
           "allowInterruption": {

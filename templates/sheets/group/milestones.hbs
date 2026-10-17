@@ -1,0 +1,41 @@
+<section class="tab milestones flexcol {{tabs.milestones.cssClass}}" data-tab="milestones" data-group="sheet">
+    <div class="milestones-list sheet-section">
+        <table class="milestones-table">
+            <thead>
+                <tr>
+                    <th class="number">{{localize "ACTOR.GROUP.MILESTONES.Number"}}</th>
+                    <th class="reason">{{localize "ACTOR.GROUP.MILESTONES.Reason"}}</th>
+                    <th class="total">{{localize "ACTOR.GROUP.MILESTONES.Cumulative"}}</th>
+                    {{#if isGM}}<th class="controls"></th>{{/if}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each milestones as |milestone|}}
+                <tr data-identifier="{{milestone.identifier}}" {{#if milestone.levelUp}}class="level-up"{{/if}}>
+                    <td class="number">+{{milestone.number}}</td>
+                    <td class="reason">{{milestone.reason}}</td>
+                    <td class="total">{{milestone.total}}</td>
+                    {{#if @root.isGM}}
+                    <td class="controls">
+                        <button type="button" class="icon fa-solid fa-times" data-action="revokeMilestone"
+                                aria-label="{{localize "AWARD.MILESTONE.Revoke"}}" data-tooltip></button>
+                    </td>
+                    {{/if}}
+                </tr>
+                {{else}}
+                <tr>
+                    <td class="empty" colspan="{{#if isGM}}4{{else}}3{{/if}}">{{localize "ACTOR.GROUP.MILESTONES.None"}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{#if isGM}}
+    <footer class="form-footer">
+        <button type="button" data-action="awardMilestone">
+            <i class="fa-solid fa-star" inert></i>
+            <span>{{localize "ACTOR.GROUP.MILESTONES.Award"}}</span>
+        </button>
+    </footer>
+    {{/if}}
+</section>

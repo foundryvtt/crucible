@@ -78,6 +78,16 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    */
   actors = new Set();
 
+  /**
+   * Does this group track milestone advancement, as the primary party or a group containing any hero?
+   * @type {boolean}
+   */
+  get tracksAdvancement() {
+    if ( this.parent === crucible.party ) return true;
+    for ( const actor of this.actors ) if ( actor.type === "hero" ) return true;
+    return false;
+  }
+
   /* -------------------------------------------- */
   /*  Document Preparation                        */
   /* -------------------------------------------- */
@@ -233,6 +243,11 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Add new members
     for ( const m of toJoin.values() ) members.push(m);
+
+    // A linked Actor is a single creature, so it cannot be stacked
+    for ( const m of members ) {
+      if ( game.actors.get(m.actorId)?.prototypeToken.actorLink ) m.quantity = 1;
+    }
 
     // Commit the update
     await this.parent.update({"system.members": members});
@@ -462,9 +477,11 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Provide the Gamemaster with a Dialog to revoke milestone points from the group.
+   * @param {object} [options]
+   * @param {string} [options.identifier]           A default milestone identifier to revoke
    * @returns {Promise<void>}
    */
-  async revokeMilestoneDialog() {
+  async revokeMilestoneDialog({identifier: defaultIdentifier}={}) {
     if ( !game.user.isGM ) throw new Error(_loc("AWARD.WARNINGS.RequiresGM"));
 
     // Prepare form data
@@ -491,7 +508,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       hint: _loc("AWARD.MILESTONE.RecipientsHint")
     });
     content.append(
-      identifier.toFormGroup({}, {name: "identifier"}),
+      identifier.toFormGroup({}, {name: "identifier", value: defaultIdentifier}),
       recipients.toFormGroup({stacked: true}, {name: "recipients", type: "checkboxes", value: Object.keys(heroes),
         sort: true})
     );
