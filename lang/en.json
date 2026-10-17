@@ -753,8 +753,10 @@
     },
     "ADVERSARY": {
       "ACTIONS": {
+        "CycleRank": "Cycle Rank",
         "DecreaseLevel": "Decrease Level",
-        "IncreaseLevel": "Increase Level"
+        "IncreaseLevel": "Increase Level",
+        "ResetAdjustment": "Reset Level and Rank"
       },
       "THREAT_RANKS": {
         "Boss": "Boss",
@@ -1786,6 +1788,9 @@
       "Moderate": "Moderate",
       "Trivial": "Trivial"
     },
+    "AdversaryThreat": "Adversary Threat",
+    "OngoingCombat": "Ongoing Combat",
+    "PartyThreat": "Party Threat",
     "Threat": "Threat {threat}",
     "ThreatDifficulty": "Threat {threat} ({difficulty})"
   },

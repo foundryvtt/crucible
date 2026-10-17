@@ -18,6 +18,7 @@ import * as models from "./module/models/_module.mjs";
 import * as audio from "./module/audio.mjs";
 import * as hooks from "./module/hooks/_module.mjs";
 import {applyEmberPatches} from "./module/hooks/ember.mjs";
+import * as areaSchematic from "./module/area-schematic.mjs";
 import * as migrations from "./module/migrations.mjs";
 
 // Helpers
@@ -310,6 +311,9 @@ Hooks.once("init", async function() {
 
   // Rich Text Enrichers
   registerEnrichers();
+
+  // Encounter spawning from the area-schematic library, which a module defines as its scripts load
+  if ( CONFIG.AreaSchematic ) areaSchematic.registerHooks();
 
   // Register Handlebars helpers
   Handlebars.registerHelper({

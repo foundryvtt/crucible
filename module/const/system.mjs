@@ -49,16 +49,16 @@ export const COMPENDIUM_PACKS = Object.freeze({
 
 /**
  * Combat encounter difficulty tiers, by the ratio of total adversary threat to total party level.
- * Each tier applies below its `maximumRatio`.
- * @type {Readonly<Record<string, {id: string, label: string, maximumRatio: number}>>}
+ * Each tier applies below its `maximumRatio`, and its `color` accents the tier's name.
+ * @type {Readonly<Record<string, {id: string, label: string, maximumRatio: number, color: string}>>}
  */
 export const ENCOUNTER_DIFFICULTIES = defineEnum({
-  trivial: {label: "ENCOUNTER.DIFFICULTIES.Trivial", maximumRatio: 0.5},
-  easy: {label: "ENCOUNTER.DIFFICULTIES.Easy", maximumRatio: 0.75},
-  moderate: {label: "ENCOUNTER.DIFFICULTIES.Moderate", maximumRatio: 1},
-  challenging: {label: "ENCOUNTER.DIFFICULTIES.Challenging", maximumRatio: 1.25},
-  deadly: {label: "ENCOUNTER.DIFFICULTIES.Deadly", maximumRatio: 1.75},
-  hopeless: {label: "ENCOUNTER.DIFFICULTIES.Hopeless", maximumRatio: Infinity}
+  trivial: {label: "ENCOUNTER.DIFFICULTIES.Trivial", maximumRatio: 0.5, color: "#3cb043"},
+  easy: {label: "ENCOUNTER.DIFFICULTIES.Easy", maximumRatio: 0.75, color: "#3d8bff"},
+  moderate: {label: "ENCOUNTER.DIFFICULTIES.Moderate", maximumRatio: 1, color: "#f2c94c"},
+  challenging: {label: "ENCOUNTER.DIFFICULTIES.Challenging", maximumRatio: 1.25, color: "#f2994a"},
+  deadly: {label: "ENCOUNTER.DIFFICULTIES.Deadly", maximumRatio: 1.75, color: "#eb3b3b"},
+  hopeless: {label: "ENCOUNTER.DIFFICULTIES.Hopeless", maximumRatio: Infinity, color: "#a855f7"}
 });
 
 /* -------------------------------------------- */

@@ -137,6 +137,21 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
+   * Evaluate the difficulty of an encounter's threat against the threat of the party's side.
+   * @param {number} threat                     The total threat of the encounter's hostile combatants
+   * @param {number} partyThreat                The total threat of the party's side
+   * @returns {{threat: number, partyThreat: number, ratio: number|null, difficulty: object|null}}
+   */
+  static evaluateEncounter(threat, partyThreat) {
+    if ( !partyThreat ) return {threat, partyThreat, ratio: null, difficulty: null};
+    const ratio = threat / partyThreat;
+    const difficulty = Object.values(SYSTEM.ENCOUNTER_DIFFICULTIES).find(d => ratio < d.maximumRatio);
+    return {threat, partyThreat, ratio, difficulty};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * The configured primary party, or `null` after warning if none is set or it has no members.
    * @returns {CrucibleGroupActor|null}
    */

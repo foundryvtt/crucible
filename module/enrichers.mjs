@@ -544,12 +544,11 @@ function enrichEncounterDifficulty([match, term]) {
   const partyThreat = crucible.party?.system.members.reduce((t, {actor, quantity}) => {
     return t + ((actor?.threat ?? 0) * quantity);
   }, 0);
-  if ( !partyThreat ) {
+  const {difficulty} = crucible.api.models.CrucibleGroupActor.evaluateEncounter(threat, partyThreat);
+  if ( !difficulty ) {
     tag.textContent = _loc("ENCOUNTER.Threat", {threat});
     return tag;
   }
-  const ratio = threat / partyThreat;
-  const difficulty = Object.values(SYSTEM.ENCOUNTER_DIFFICULTIES).find(d => ratio < d.maximumRatio);
   tag.classList.add(difficulty.id);
   tag.dataset.difficulty = difficulty.id;
   tag.textContent = _loc("ENCOUNTER.ThreatDifficulty", {threat, difficulty: _loc(difficulty.label)});
