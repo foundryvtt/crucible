@@ -891,14 +891,15 @@ export default class CrucibleActor extends Actor {
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
 
     // Coalesce AttackRollData from spell usage and per-attack options
+    const {bonuses} = spell.usage;
     const defenseType = options.defenseType || spell.usage.defenseType;
     const rollData = {
       actorId: this.id,
       spellId: spell.id,
       target: target.uuid,
-      ability: this.getAbilityBonus(spell.scaling),
-      skill: 0,
-      enchantment: 0,
+      ability: bonuses.ability,
+      skill: bonuses.skill,
+      enchantment: bonuses.enchantment,
       boons: {...spell.usage.boons, ...options.boons},
       banes: {...spell.usage.banes, ...options.banes},
       defenseType,
@@ -906,7 +907,7 @@ export default class CrucibleActor extends Actor {
       resource: options.resource || spell.rune.resource,
       damageType: options.damageType || spell.damage.type,
       damageBonus: options.damageBonus || spell.damage.bonus || 0,
-      multiplier: options.multiplier || ((spell.damage.multiplier ?? 1) * (spell.usage.bonuses.multiplier ?? 1)),
+      multiplier: options.multiplier || ((spell.damage.multiplier ?? 1) * (bonuses.multiplier ?? 1)),
       restoration: options.restoration ?? spell.usage.restoration
     };
 
