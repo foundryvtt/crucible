@@ -53,6 +53,11 @@ system:
         actorUuid: null
         permanent: true
   spellcraft: soul
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.spiritual
+    - target.rallying
   nodes:
     - pre0b
   iconicSpells: 0

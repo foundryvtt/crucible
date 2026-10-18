@@ -51,6 +51,10 @@ system:
       tags:
         - subtle
       summon: null
+  keywords:
+    - playstyle.melee
+    - defense.dodge
+    - resource.heroism
   nodes:
     - sig3.intellect
     - sig3.strength

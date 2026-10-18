@@ -2,6 +2,10 @@ name: 'Gesture: Aura'
 type: talent
 img: icons/magic/light/explosion-beam-impact-silhouette.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
+    - action.maintained
   nodes:
     - pre4d
   description: >-

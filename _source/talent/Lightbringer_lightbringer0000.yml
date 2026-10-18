@@ -13,6 +13,11 @@ system:
     <strong>Radiant</strong> damage to both @Rule[resource.health] and
     @Rule[resource.morale].</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.spiritual
+    - damageType.radiant
+    - target.morale
   nodes:
     - pre3b
   iconicSpells: 0

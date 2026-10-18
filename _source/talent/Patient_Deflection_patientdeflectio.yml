@@ -12,6 +12,11 @@ system:
     @Rule[ability.wisdom] score contributes to your @Rule[defense.parry]
     defense.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - weapon.unarmed
+    - weapon.natural
+    - defense.parry
   nodes:
     - wis3a
   iconicSpells: 0

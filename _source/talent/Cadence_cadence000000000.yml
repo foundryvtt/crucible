@@ -8,6 +8,9 @@ system:
     a one-handed melee weapon you gain a stacking @Rule[dice.boon]{+1 Boon} for
     each successive attack.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - weapons.onehand
   nodes:
     - str2a
   iconicSpells: 0

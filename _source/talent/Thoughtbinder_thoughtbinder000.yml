@@ -2,6 +2,11 @@ name: Thoughtbinder
 type: talent
 img: icons/magic/control/hypnosis-mesmerism-watch.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
+    - damageType.psychic
+    - target.morale
   nodes:
     - wis3b
   description: >-

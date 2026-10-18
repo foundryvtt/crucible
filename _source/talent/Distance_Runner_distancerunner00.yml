@@ -6,6 +6,8 @@ system:
   description: >-
     You are adept at covering distance quickly. Your @Rule[movement.stride]
     increases by 1.
+  keywords:
+    - action.movement
   nodes:
     - dextou2
   actions: []

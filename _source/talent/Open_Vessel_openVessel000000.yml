@@ -12,6 +12,9 @@ system:
     crafting system is in early development. This talent describes how
     Enchanting will behave once glyph binding is implemented.</p>
   actions: []
+  keywords:
+    - action.noncombat
+    - skill.enchanting
   nodes:
     - int4b
   spellcraft: ''

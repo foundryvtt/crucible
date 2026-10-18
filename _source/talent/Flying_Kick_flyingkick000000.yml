@@ -43,6 +43,10 @@ system:
         weapon: false
         minimum: 3
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapon.unarmed
+    - action.movement
   nodes:
     - dextou1
   iconicSpells: 0

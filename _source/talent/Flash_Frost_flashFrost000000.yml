@@ -2,6 +2,10 @@ name: Flash Frost
 type: talent
 img: icons/magic/water/projectiles-ice-explosion.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.cold
   nodes:
     - int4a
   description: >-

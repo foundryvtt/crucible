@@ -12,6 +12,10 @@ system:
     whichever of your <strong>Natural</strong> or <strong>Unarmed</strong>
     proficiencies serves you better.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - weapon.unarmed
   nodes:
     - tou1a
   spellcraft: ''

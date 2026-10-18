@@ -11,6 +11,9 @@ system:
     example by the @Condition[broken] condition, although such a trade may incur
     @Rule[resource.madness].</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - resource.focus
   nodes:
     - int2b
   iconicSpells: 0

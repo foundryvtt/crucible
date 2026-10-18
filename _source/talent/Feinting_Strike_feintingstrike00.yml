@@ -45,6 +45,11 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapons.dualwield
+    - target.reflex
+    - skill.deception
   nodes:
     - intdex2
   iconicSpells: 0

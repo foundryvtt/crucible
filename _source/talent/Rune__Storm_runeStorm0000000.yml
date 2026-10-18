@@ -56,6 +56,12 @@ system:
         permanent: true
   spellcraft: storm
   training: elemental
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.elemental
+    - damageType.electricity
+    - target.reflex
   nodes:
     - int0a
   iconicSpells: 0

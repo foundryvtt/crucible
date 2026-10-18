@@ -7,6 +7,9 @@ system:
     of despair. At the start of your turn if you are not @Condition[broken] you
     gain @Rule[resource.morale]{1 Morale}.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - target.rallying
   nodes:
     - wis2b
   iconicSpells: 0

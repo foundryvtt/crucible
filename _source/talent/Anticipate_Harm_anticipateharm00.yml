@@ -39,6 +39,10 @@ system:
         weapon: false
         minimum: null
       summon: null
+  keywords:
+    - playstyle.defensive
+    - action.reaction
+    - action.movement
   nodes:
     - int3b
   iconicSpells: 0

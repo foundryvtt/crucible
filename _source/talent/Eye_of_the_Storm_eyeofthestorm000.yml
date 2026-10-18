@@ -8,6 +8,8 @@ system:
     Boons} on any <strong>Strike</strong> or <strong>Spell</strong> attack
     against an enemy that you allowed to act before you that round.</p>
   actions: []
+  keywords:
+    - initiative
   nodes:
     - wis1a
   iconicSpells: 0

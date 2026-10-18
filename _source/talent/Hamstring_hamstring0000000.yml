@@ -58,6 +58,8 @@ system:
         weapon: true
       summon: null
   iconicSpells: 0
+  keywords:
+    - playstyle.melee
   nodes:
     - dex0b
   training: light

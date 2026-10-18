@@ -7,6 +7,9 @@ system:
     <p>Your supernatural toughness makes you resistant to venoms and toxins. You
     gain <strong>+5 Resistance</strong> to <strong>Poison</strong> damage.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes:
     - tou3b
   iconicSpells: 0

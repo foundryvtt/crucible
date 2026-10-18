@@ -12,6 +12,11 @@ system:
     as <strong>Fire</strong> damage to both @Rule[resource.health] and
     @Rule[resource.morale].</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.fire
+    - target.morale
   nodes:
     - int3a
   iconicSpells: 0

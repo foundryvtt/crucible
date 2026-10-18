@@ -41,6 +41,9 @@ system:
       summon: null
   iconicSpells: 0
   training: light
+  keywords:
+    - playstyle.melee
+    - weapon.light
   nodes:
     - dex0b
 effects: []

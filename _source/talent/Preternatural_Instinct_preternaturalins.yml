@@ -7,6 +7,8 @@ system:
     <p>Your quickness of mind and body are equally impressive. You gain
     @Rule[dice.boon]{+2 Boons} to all <strong>Initiative</strong> checks.</p>
   actions: []
+  keywords:
+    - initiative
   nodes:
     - intdex4
   iconicSpells: 0

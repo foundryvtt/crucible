@@ -2,6 +2,17 @@ name: Bard
 type: talent
 img: icons/tools/instruments/harp-red.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - playstyle.utility
+    - spell.rune
+    - spell.spiritual
+    - damageType.psychic
+    - target.fortitude
+    - target.morale
+    - target.rallying
+    - action.reaction
+    - skill.performance
   nodes:
     - sig3.dexterity
     - sig3.presence

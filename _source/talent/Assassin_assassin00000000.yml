@@ -41,6 +41,9 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - initiative
+    - skill.stealth
   nodes:
     - sig3.intellect.dexterity
   iconicSpells: 0

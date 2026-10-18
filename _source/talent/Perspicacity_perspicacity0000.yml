@@ -9,6 +9,10 @@ system:
     to instead @Action[default search] without spending any
     @Rule[resource.action] points.</p>
   actions: []
+  keywords:
+    - playstyle.utility
+    - skill.awareness
+    - action.movement
   nodes:
     - wis0a
   iconicSpells: 0

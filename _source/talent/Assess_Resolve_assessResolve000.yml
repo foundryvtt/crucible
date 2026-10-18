@@ -41,6 +41,8 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.utility
   nodes:
     - wis1a
   iconicSpells: 0

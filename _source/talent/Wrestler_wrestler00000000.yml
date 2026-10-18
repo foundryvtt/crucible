@@ -9,6 +9,9 @@ system:
     @Action[Compendium.crucible.talent.Item.grapple000000000 grapple], and be
     <strong>Grappled</strong> by, increases by 1.</p>
   actions: []
+  keywords:
+    - playstyle.utility
+    - skill.athletics
   nodes:
     - str1b
   iconicSpells: 0

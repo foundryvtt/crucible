@@ -74,6 +74,11 @@ system:
         - vocal
         - harmless
       summon: null
+  keywords:
+    - playstyle.melee
+    - movement.engagement
+    - action.reaction
+    - resource.focus
   nodes:
     - sig3.presence
     - sig3.strength

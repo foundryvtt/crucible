@@ -48,6 +48,13 @@ system:
         - skill
         - science
       summon: null
+  keywords:
+    - target.fortitude
+    - damageType.acid
+    - damageType.cold
+    - damageType.electricity
+    - damageType.fire
+    - skill.science
   nodes:
     - int2c
   spellcraft: ''

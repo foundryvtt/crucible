@@ -53,6 +53,13 @@ system:
         actorUuid: null
         permanent: true
   spellcraft: oblivion
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.spiritual
+    - damageType.void
+    - target.willpower
+    - target.morale
   nodes:
     - int0a
   iconicSpells: 0

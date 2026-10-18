@@ -10,6 +10,9 @@ system:
     Reflex} defense when defending against damage from a fall of <strong>30
     feet</strong> or less.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - action.movement
   nodes:
     - dextou1
   spellcraft: ''

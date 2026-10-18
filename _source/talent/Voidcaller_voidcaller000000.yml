@@ -13,6 +13,10 @@ system:
     <strong>Void</strong> damage to @Rule[resource.health], and applies the
     @Condition[frightened] condition.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.spiritual
+    - damageType.void
   nodes:
     - int3a
   iconicSpells: 0

@@ -12,6 +12,9 @@ system:
   spellcraft: determine
   iconicSpells: 1
   training: enchanting
+  keywords:
+    - playstyle.spellcraft
+    - spell.inflection
   nodes:
     - preint2
 effects: []

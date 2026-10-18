@@ -314,6 +314,9 @@ system:
             dc: null
             properties: []
       summon: null
+  keywords:
+    - playstyle.melee
+    - playstyle.utility
   nodes:
     - sig3.presence
     - sig3.strength

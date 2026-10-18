@@ -39,6 +39,9 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapons.twohand
   nodes:
     - str1a
   iconicSpells: 0

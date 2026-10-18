@@ -12,6 +12,9 @@ system:
   spellcraft: push
   iconicSpells: 1
   training: enchanting
+  keywords:
+    - playstyle.spellcraft
+    - spell.inflection
   nodes:
     - wispre2
 effects: []

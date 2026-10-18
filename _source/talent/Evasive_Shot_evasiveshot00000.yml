@@ -6,6 +6,12 @@ system:
   description: >-
     <p>You are an expert at firing shots with ranged weaponry while evading
     enemy attacks.</p>
+  keywords:
+    - playstyle.ranged
+    - action.movement
+    - weapon.projectile
+    - weapon.mechanical
+    - weapon.talisman
   nodes:
     - dex2a
   actions:

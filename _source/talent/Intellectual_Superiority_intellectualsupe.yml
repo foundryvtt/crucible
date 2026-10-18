@@ -9,6 +9,8 @@ system:
     <strong>Spell</strong> attack against an enemy lower than you in
     <strong>Initiative</strong> order.</p>
   actions: []
+  keywords:
+    - initiative
   nodes:
     - int4d
   iconicSpells: 0

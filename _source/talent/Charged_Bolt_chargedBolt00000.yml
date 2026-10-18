@@ -34,6 +34,9 @@ system:
         - ranged
         - empowered
       summon: null
+  keywords:
+    - playstyle.ranged
+    - weapon.talisman
   nodes:
     - pre1a
   iconicSpells: 0

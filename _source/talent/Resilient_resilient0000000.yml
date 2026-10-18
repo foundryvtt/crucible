@@ -10,6 +10,9 @@ system:
     <p>Your @Rule[defense.wounds] is reduced by 1, making you easier to
     heal.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - defense.wounds
   nodes:
     - tou2c
   iconicSpells: 0

@@ -4,6 +4,10 @@ type: talent
 _id: visceralDeath000
 img: icons/magic/unholy/strike-hand-glow-pink.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
+    - damageType.corruption
   nodes:
     - str4c
   description: >-

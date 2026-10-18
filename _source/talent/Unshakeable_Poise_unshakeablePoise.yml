@@ -2,6 +2,9 @@ name: Unshakeable Poise
 type: talent
 img: icons/magic/symbols/ring-circle-smoke-blue.webp
 system:
+  keywords:
+    - resource.heroism
+    - resource.focus
   nodes:
     - wis2b
   description: >-

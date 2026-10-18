@@ -55,6 +55,9 @@ system:
         actorUuid: null
         permanent: true
       autoFavorite: false
+  keywords:
+    - playstyle.defensive
+    - target.rallying
   nodes:
     - wis2b
   iconicSpells: 0

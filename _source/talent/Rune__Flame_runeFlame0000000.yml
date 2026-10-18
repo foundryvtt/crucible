@@ -51,6 +51,12 @@ system:
         actorUuid: null
         permanent: true
   spellcraft: flame
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.elemental
+    - damageType.fire
+    - target.reflex
   nodes:
     - int0a
   iconicSpells: 0

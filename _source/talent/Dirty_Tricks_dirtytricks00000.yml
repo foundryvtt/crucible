@@ -59,6 +59,10 @@ system:
         actorUuid: null
         permanent: true
       autoFavorite: false
+  keywords:
+    - playstyle.utility
+    - target.reflex
+    - skill.deception
   nodes:
     - tou2a
   iconicSpells: 0

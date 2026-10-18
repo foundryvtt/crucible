@@ -8,6 +8,8 @@ system:
     foes. Your @Rule[movement.engagement] increases by +1, allowing you to
     simultaneously engage more adjacent foes.</p>
   actions: []
+  keywords:
+    - movement.engagement
   nodes:
     - toustr2
   iconicSpells: 0

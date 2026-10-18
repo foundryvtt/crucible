@@ -45,6 +45,9 @@ system:
       summon: null
   iconicSpells: 0
   training: talisman
+  keywords:
+    - weapon.talisman
+    - resource.focus
   nodes:
     - pre0a
 effects: []

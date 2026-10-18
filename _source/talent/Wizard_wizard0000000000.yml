@@ -10,6 +10,9 @@ system:
     reduce the @Rule[resource.focus] cost of an immediately subsequent
     <strong>Spell</strong> by 1.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - resource.focus
   nodes:
     - sig3.intellect
     - sig3.wisdom

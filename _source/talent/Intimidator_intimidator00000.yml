@@ -39,6 +39,10 @@ system:
         maximum: 30
         weapon: false
       summon: null
+  keywords:
+    - target.morale
+    - damageType.void
+    - skill.intimidation
   nodes:
     - pre0a
   iconicSpells: 0

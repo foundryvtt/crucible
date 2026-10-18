@@ -45,6 +45,13 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.melee
+    - playstyle.utility
+    - action.reaction
+    - resource.action
+    - resource.focus
+    - skill.arcana
   nodes:
     - sig3.presence
     - sig3.strength

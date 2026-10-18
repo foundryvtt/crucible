@@ -8,6 +8,9 @@ system:
     may still spend @Rule[resource.focus] and you deal 2 additional damage to
     all <strong>Spell</strong> attacks.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - resource.focus
   nodes:
     - pre2b
   iconicSpells: 0

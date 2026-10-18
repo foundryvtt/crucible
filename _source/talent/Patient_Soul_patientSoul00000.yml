@@ -4,6 +4,11 @@ type: talent
 _id: patientSoul00000
 img: icons/magic/holy/meditation-chi-focus-blue.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.spiritual
+    - damageType.psychic
+    - target.rallying
   nodes:
     - wis4d
   description: >-

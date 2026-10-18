@@ -43,6 +43,12 @@ system:
         - skill
         - performance
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapon.light
+    - target.reflex
+    - target.morale
+    - skill.performance
   nodes:
     - dex1b
   spellcraft: ''

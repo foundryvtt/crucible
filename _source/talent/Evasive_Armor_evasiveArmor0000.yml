@@ -8,6 +8,11 @@ system:
     strongest points. Any @Rule[defense.reflex] defense in excess of your
     @Rule[defense.physical] defense is added as bonus @Rule[defense.armor].</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - armor.light
+    - armor.medium
+    - defense.reflex
   nodes:
     - dextou4
   iconicSpells: 0

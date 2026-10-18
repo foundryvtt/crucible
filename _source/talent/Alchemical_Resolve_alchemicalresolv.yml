@@ -37,6 +37,10 @@ system:
         weapon: false
         minimum: null
       summon: null
+  keywords:
+    - playstyle.utility
+    - target.rallying
+    - skill.medicine
   nodes:
     - int2c
   iconicSpells: 0

@@ -133,6 +133,12 @@ system:
             expiry: null
             expired: false
       summon: null
+  keywords:
+    - playstyle.melee
+    - target.reflex
+    - damageType.bludgeoning
+    - action.movement
+    - skill.athletics
   nodes:
     - sig3.toughness.strength
   iconicSpells: 0

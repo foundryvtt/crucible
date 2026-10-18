@@ -2,6 +2,9 @@ name: Forensic Reconstruction
 type: talent
 img: icons/magic/perception/orb-eye-scrying.webp
 system:
+  keywords:
+    - action.noncombat
+    - skill.awareness
   nodes:
     - wis1a
   description: >-

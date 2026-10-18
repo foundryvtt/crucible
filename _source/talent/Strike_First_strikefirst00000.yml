@@ -8,6 +8,8 @@ system:
     any <strong>Strike</strong> or <strong>Spell</strong> attack against an
     enemy whose initiative score is lower than your own.</p>
   actions: []
+  keywords:
+    - initiative
   nodes:
     - intdex1
   iconicSpells: 0

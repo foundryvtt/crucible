@@ -107,6 +107,11 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.utility
+    - action.rest
+    - action.noncombat
+    - resource.heroism
   nodes:
     - sig3.intellect
     - sig3.wisdom

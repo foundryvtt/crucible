@@ -54,6 +54,12 @@ system:
         actorUuid: null
         permanent: true
   spellcraft: death
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.physical
+    - damageType.corruption
+    - target.fortitude
   nodes:
     - pre0b
   iconicSpells: 0

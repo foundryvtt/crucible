@@ -16,6 +16,9 @@ system:
     It is currently available "early" for testing.</p>
   actions: []
   spellcraft: pulse
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
   nodes:
     - pre4d
   iconicSpells: 0

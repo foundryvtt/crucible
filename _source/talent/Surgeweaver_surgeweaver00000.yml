@@ -12,6 +12,11 @@ system:
     <strong>Electricity</strong> damage to @Rule[resource.morale], and applies
     the @Condition[staggered] condition.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.electricity
+    - target.morale
   nodes:
     - int3a
   iconicSpells: 0

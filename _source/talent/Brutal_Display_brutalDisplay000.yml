@@ -8,6 +8,8 @@ system:
     their @Condition[dead] ally suffers damage to their @Rule[resource.morale]
     equal to your @Rule[ability.strength] score.</p>
   actions: []
+  keywords:
+    - target.morale
   nodes:
     - str3b
   iconicSpells: 0

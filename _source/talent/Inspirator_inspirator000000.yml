@@ -13,6 +13,10 @@ system:
     Soul</strong> scales with as additional <strong>Restoration</strong> to
     @Rule[resource.morale].</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.spiritual
+    - target.rallying
   nodes:
     - pre3b
   iconicSpells: 0

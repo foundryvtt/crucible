@@ -37,6 +37,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.ranged
+    - weapon.mechanical
   nodes:
     - dex1a
   iconicSpells: 0

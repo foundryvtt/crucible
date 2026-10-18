@@ -8,6 +8,9 @@ system:
     ignore <strong>2 points</strong> of the target's
     <strong>Resistance</strong>.</p>
   actions: []
+  keywords:
+    - playstyle.ranged
+    - weapon.talisman
   nodes:
     - pre1a
   iconicSpells: 0

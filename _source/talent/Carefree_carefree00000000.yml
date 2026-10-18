@@ -9,6 +9,9 @@ system:
     @Rule[resource.morale].</p><p>Your @Rule[defense.madness] is reduced by 1,
     making you easier to heal.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - defense.madness
   nodes:
     - pre3a
   iconicSpells: 0

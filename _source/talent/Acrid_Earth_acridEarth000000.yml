@@ -2,6 +2,10 @@ name: Acrid Earth
 type: talent
 img: icons/magic/earth/barrier-stone-brown-green.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.acid
   nodes:
     - int4a
   description: >-

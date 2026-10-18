@@ -8,6 +8,10 @@ system:
     <strong>Shield</strong> equipped, your @Rule[movement.engagement] increases
     by +1, allowing you to simultaneously engage more adjacent foes.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - weapon.shield
+    - movement.engagement
   nodes:
     - tou0a
   iconicSpells: 0

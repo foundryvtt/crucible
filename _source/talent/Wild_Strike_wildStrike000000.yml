@@ -40,6 +40,9 @@ system:
       summon: null
   iconicSpells: 0
   training: natural
+  keywords:
+    - playstyle.melee
+    - weapon.natural
   nodes:
     - tou0b
 effects: []

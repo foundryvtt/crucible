@@ -65,6 +65,10 @@ system:
         - fortitude
       condition: ''
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapon.unarmed
+    - target.fortitude
   nodes:
     - tou2a
   iconicSpells: 0

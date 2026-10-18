@@ -40,6 +40,10 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - defense.parry
+    - action.reaction
   nodes:
     - str2a
   iconicSpells: 0

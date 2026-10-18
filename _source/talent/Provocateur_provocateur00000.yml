@@ -64,6 +64,11 @@ system:
         maximum: 30
         weapon: false
       summon: null
+  keywords:
+    - target.willpower
+    - target.morale
+    - damageType.psychic
+    - skill.performance
   nodes:
     - pre0a
   iconicSpells: 0

@@ -78,6 +78,12 @@ system:
             summons: []
             dc: null
             properties: []
+  keywords:
+    - playstyle.melee
+    - action.summon
+    - defense.resistance
+    - target.healing
+    - damageType.poison
   nodes:
     - sig3.strength.wisdom
   iconicSpells: 0

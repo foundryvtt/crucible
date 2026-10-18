@@ -59,6 +59,10 @@ system:
         - talisman
         - ranged
       summon: null
+  keywords:
+    - playstyle.defensive
+    - weapon.talisman
+    - defense.block
   nodes:
     - pre3a
   iconicSpells: 0

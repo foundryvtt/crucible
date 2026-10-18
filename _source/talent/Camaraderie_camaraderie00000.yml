@@ -40,6 +40,11 @@ system:
         - skill
         - society
       summon: null
+  keywords:
+    - playstyle.utility
+    - action.rest
+    - action.noncombat
+    - skill.society
   nodes:
     - wis0a
   iconicSpells: 0

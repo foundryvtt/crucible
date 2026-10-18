@@ -59,6 +59,9 @@ system:
       effects: []
       tags: []
       summon: null
+  keywords:
+    - action.noncombat
+    - skill.tailoring
   nodes:
     - dex2a
   spellcraft: ''

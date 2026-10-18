@@ -8,6 +8,9 @@ system:
     Strike} attacks also deal the <strong>Overflow</strong> portion of damage to
     enemy @Rule[resource.morale].</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - target.morale
   nodes:
     - sig3.strength.wisdom
   iconicSpells: 0

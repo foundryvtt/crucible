@@ -8,6 +8,9 @@ system:
     opportunity. You may make a @Action[default reactiveStrike] using the
     <strong>Touch Gesture</strong> instead of a melee weapon attack.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - action.reaction
   nodes:
     - int2b
   iconicSpells: 0

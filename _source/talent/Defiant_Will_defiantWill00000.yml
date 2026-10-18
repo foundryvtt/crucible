@@ -8,6 +8,9 @@ system:
     @Rule[defense.willpower] defense equal to your @Rule[ability.toughness]
     score scaled by the proportion of @Rule[resource.health] you have lost.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - defense.willpower
   nodes:
     - tou4b
   iconicSpells: 0

@@ -39,6 +39,10 @@ system:
         - reaction
       condition: ''
       summon: null
+  keywords:
+    - playstyle.defensive
+    - action.reaction
+    - armor.heavy
   nodes:
     - dextou4
   iconicSpells: 0

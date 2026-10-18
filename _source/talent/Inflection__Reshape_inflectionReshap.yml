@@ -15,6 +15,9 @@ system:
   iconicSpells: 1
   training: enchanting
   spellcraft: reshape
+  keywords:
+    - playstyle.spellcraft
+    - spell.inflection
   nodes:
     - wispre4
 effects: []

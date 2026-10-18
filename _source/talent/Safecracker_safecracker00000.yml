@@ -8,6 +8,9 @@ system:
     gain @Rule[dice.boon]{+1 Boon} on @Rule[skill.stealth] checks to disable a
     device or open a lock.</p>
   actions: []
+  keywords:
+    - action.noncombat
+    - skill.stealth
   nodes:
     - dex4c
   iconicSpells: 0

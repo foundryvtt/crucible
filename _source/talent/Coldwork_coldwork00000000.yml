@@ -58,6 +58,9 @@ system:
       effects: []
       tags: []
       summon: null
+  keywords:
+    - action.noncombat
+    - skill.smithing
   nodes:
     - int2a
   spellcraft: ''

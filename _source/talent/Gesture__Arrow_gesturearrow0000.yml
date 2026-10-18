@@ -12,6 +12,9 @@ system:
     Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   spellcraft: arrow
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
   nodes:
     - int1a
   iconicSpells: 0

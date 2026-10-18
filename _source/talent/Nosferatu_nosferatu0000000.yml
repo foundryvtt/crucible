@@ -43,6 +43,10 @@ system:
         actorUuid: null
         permanent: true
       autoFavorite: false
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - target.healing
   nodes:
     - sig3.dexterity.toughness
   iconicSpells: 0

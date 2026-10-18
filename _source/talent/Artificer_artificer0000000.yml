@@ -75,6 +75,12 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - action.rest
+    - action.noncombat
+    - skill.enchanting
+    - skill.glyphweaving
+    - skill.arcana
   nodes:
     - sig3.presence.intellect
   iconicSpells: 0

@@ -2,6 +2,10 @@ name: Kineturge
 type: talent
 img: icons/skills/ranged/bullets-triple-ball-yellow.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
+    - damageType.piercing
   nodes:
     - pre3b
   description: >-

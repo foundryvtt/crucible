@@ -41,6 +41,11 @@ system:
         actorUuid: null
         permanent: true
       autoFavorite: false
+  keywords:
+    - playstyle.defensive
+    - defense.dodge
+    - action.movement
+    - action.reaction
   nodes:
     - dex2a
   iconicSpells: 0

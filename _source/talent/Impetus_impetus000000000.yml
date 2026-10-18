@@ -9,6 +9,9 @@ system:
     <strong>Combat</strong>, you gain +1 current and maximum
     @Rule[resource.action].</p>
   actions: []
+  keywords:
+    - initiative
+    - resource.action
   nodes:
     - intdex4
   iconicSpells: 0

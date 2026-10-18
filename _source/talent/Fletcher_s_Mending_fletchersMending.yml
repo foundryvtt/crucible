@@ -16,6 +16,9 @@ system:
     @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.repair0000000000]{Repair}
     journal.</p>
   actions: []
+  keywords:
+    - action.noncombat
+    - skill.fletching
   nodes:
     - wis4b
   spellcraft: ''

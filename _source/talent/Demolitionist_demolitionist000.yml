@@ -2,6 +2,9 @@ name: Demolitionist
 type: talent
 img: icons/skills/ranged/bomb-grenade-thrown-yellow.webp
 system:
+  keywords:
+    - consumable.bomb
+    - resource.action
   nodes:
     - sig3.dexterity.toughness
   description: >-

@@ -8,6 +8,10 @@ system:
     their back on you. You may make a @Action[default reactiveStrike] even if
     you are otherwise @Rule[movement.fullyEngaged].</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - movement.engagement
+    - action.reaction
   nodes:
     - intdex1
   iconicSpells: 0

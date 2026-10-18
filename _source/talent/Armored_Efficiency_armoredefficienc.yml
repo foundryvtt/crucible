@@ -7,6 +7,9 @@ system:
     retaining mobility. You are able to use a @Rule[movement.freeMovement]{Free
     Move} once per turn while wearing <strong>Heavy</strong> armor.</p>
   actions: []
+  keywords:
+    - armor.heavy
+    - action.movement
   nodes:
     - str0b
   iconicSpells: 0

@@ -2,6 +2,8 @@ name: Spellmute
 type: talent
 img: icons/magic/air/air-pressure-shield-blue.webp
 system:
+  keywords:
+    - playstyle.defensive
   nodes:
     - tou2b
   description: >-

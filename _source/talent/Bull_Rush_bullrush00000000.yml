@@ -65,6 +65,10 @@ system:
         weapon: false
         minimum: null
       summon: null
+  keywords:
+    - playstyle.utility
+    - action.movement
+    - skill.athletics
   nodes:
     - toustr1
   iconicSpells: 0

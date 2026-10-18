@@ -4,6 +4,10 @@ type: talent
 _id: willfulLife00000
 img: icons/magic/life/heart-hand-gold-green.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
+    - target.healing
   nodes:
     - pre4d
   description: >-

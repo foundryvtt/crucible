@@ -41,6 +41,10 @@ system:
         actorUuid: null
         permanent: true
       autoFavorite: false
+  keywords:
+    - playstyle.melee
+    - defense.dodge
+    - action.reaction
   nodes:
     - dex2c
   iconicSpells: 0

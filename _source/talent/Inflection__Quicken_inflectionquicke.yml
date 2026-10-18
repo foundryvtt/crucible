@@ -11,6 +11,10 @@ system:
   spellcraft: quicken
   iconicSpells: 1
   training: enchanting
+  keywords:
+    - playstyle.spellcraft
+    - spell.inflection
+    - resource.action
   nodes:
     - preint2
 effects: []

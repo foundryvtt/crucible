@@ -2,6 +2,9 @@ name: Versatile Translator
 type: talent
 img: icons/skills/trades/academics-book-study-runes.webp
 system:
+  keywords:
+    - action.noncombat
+    - skill.society
   nodes:
     - int1b
   description: >-

@@ -9,6 +9,11 @@ system:
     @Rule[resource.focus], your <strong>Talisman</strong> attacks deal +2
     damage.</p>
   actions: []
+  keywords:
+    - playstyle.ranged
+    - weapon.talisman
+    - weapons.twohand
+    - action.maintained
   nodes:
     - pre4b
   iconicSpells: 0

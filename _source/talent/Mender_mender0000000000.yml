@@ -13,6 +13,10 @@ system:
     Life</strong> scales with as additional <strong>Restoration</strong> to
     @Rule[resource.health].</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
+    - target.healing
   nodes:
     - wis3b
   iconicSpells: 0

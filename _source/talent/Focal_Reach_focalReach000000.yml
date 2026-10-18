@@ -7,6 +7,9 @@ system:
     maximum range of your <strong>Talisman</strong> attacks is increased by an
     amount equal to your current @Rule[resource.focus].</p>
   actions: []
+  keywords:
+    - playstyle.ranged
+    - weapon.talisman
   nodes:
     - pre4b
   iconicSpells: 0

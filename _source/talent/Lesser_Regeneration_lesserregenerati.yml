@@ -8,6 +8,9 @@ system:
     from wounds quickly. At the start of your turn if you are not
     @Condition[weakened] you gain @Rule[resource.health]{+1 Health}.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - target.healing
   nodes:
     - tou2c
   iconicSpells: 0

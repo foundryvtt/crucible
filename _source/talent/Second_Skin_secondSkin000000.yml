@@ -10,6 +10,10 @@ system:
     ago.</p><p>Your equipped <strong>Armor</strong> counts only half its weight
     towards the load you can carry.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - armor.medium
+    - armor.heavy
   nodes:
     - toustr2
   spellcraft: ''

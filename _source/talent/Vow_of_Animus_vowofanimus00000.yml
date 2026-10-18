@@ -55,6 +55,8 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.utility
   nodes:
     - strwis2
   iconicSpells: 0

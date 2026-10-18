@@ -37,6 +37,9 @@ system:
       summon: null
   iconicSpells: 0
   training: projectile
+  keywords:
+    - playstyle.ranged
+    - weapon.projectile
   nodes:
     - dex0a
 effects: []

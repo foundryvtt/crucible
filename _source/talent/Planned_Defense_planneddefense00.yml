@@ -9,6 +9,9 @@ system:
     <strong>Initiative</strong> order suffers @Rule[dice.bane]{+1 Bane} to their
     spell or weapon attacks against you.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - initiative
   nodes:
     - wis3a
   iconicSpells: 0

@@ -4,6 +4,9 @@ type: talent
 _id: adroitKinesis000
 img: icons/magic/movement/abstract-ribbons-red-orange.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
   nodes:
     - dex4a
   description: >-

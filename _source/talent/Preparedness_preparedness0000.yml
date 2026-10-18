@@ -7,6 +7,9 @@ system:
     your @Rule[movement.freeMovement] for the round to instead equip an
     <strong>Item</strong> from your inventory without spending any
     @Rule[resource.action] points.</p>
+  keywords:
+    - playstyle.utility
+    - action.movement
   nodes:
     - wis0a
   actions: []

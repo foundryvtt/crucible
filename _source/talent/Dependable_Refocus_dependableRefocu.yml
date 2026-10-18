@@ -7,6 +7,9 @@ system:
     steady and sure. Your @Action[default refocus] action gains the
     @Rule[action.accurate] and @Rule[action.keen] tags.</p>
   actions: []
+  keywords:
+    - weapon.talisman
+    - resource.focus
   nodes:
     - pre2b
   iconicSpells: 0

@@ -86,6 +86,12 @@ system:
           frequency: roundActor
   iconicSpells: 1
   spellcraft: life
+  keywords:
+    - playstyle.spellcraft
+    - playstyle.utility
+    - spell.rune
+    - spell.physical
+    - target.healing
   nodes:
     - sig3.wisdom.presence
 effects: []

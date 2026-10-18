@@ -10,6 +10,12 @@ system:
     are made with @Rule[dice.bane]{+2 Banes}.</p><p>Additionally, you may wield
     a one-handed <strong>Heavy</strong> weapon in your off-hand.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - playstyle.spellcraft
+    - weapons.twohand
+    - weapons.dualwield
+    - weapon.heavy
   nodes:
     - str1b
   iconicSpells: 0

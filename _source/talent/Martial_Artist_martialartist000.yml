@@ -8,6 +8,9 @@ system:
     treated as weapons of <strong>Fine</strong> quality, increasing their damage
     by +1.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - weapon.unarmed
   nodes:
     - strwis4
   iconicSpells: 0

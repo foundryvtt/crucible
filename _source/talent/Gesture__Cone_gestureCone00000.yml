@@ -2,6 +2,9 @@ name: 'Gesture: Cone'
 type: talent
 img: icons/magic/lightning/bolt-strike-sparks-teal.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
   nodes:
     - int4a
   description: >-

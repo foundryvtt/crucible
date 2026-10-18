@@ -60,6 +60,10 @@ system:
         - ranged
         - maintained
       summon: null
+  keywords:
+    - playstyle.ranged
+    - weapon.talisman
+    - action.maintained
   nodes:
     - pre4b
   iconicSpells: 0

@@ -10,6 +10,8 @@ system:
     @Rule[resource.focus]{+1 Focus}. This benefit may occur at most once per
     <strong>Round</strong>.</p>
   actions: []
+  keywords:
+    - resource.focus
   nodes:
     - strwis2
   iconicSpells: 0

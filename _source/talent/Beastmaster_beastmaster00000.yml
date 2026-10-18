@@ -7,6 +7,8 @@ system:
     companion may participate in encounters as an allied combatant.</p><h3
     class="divider">Playtest Notes</h3><p>This talent is not yet automated.</p>
   actions: []
+  keywords:
+    - action.summon
   nodes:
     - sig3.toughness
     - sig3.wisdom

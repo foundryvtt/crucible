@@ -3,6 +3,10 @@ type: talent
 _id: flamingArrow0000
 img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
 system:
+  keywords:
+    - playstyle.ranged
+    - weapon.projectile
+    - damageType.fire
   nodes:
     - dex3a
   description: >-

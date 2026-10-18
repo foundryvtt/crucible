@@ -8,6 +8,8 @@ system:
     increases by 1, but your bulk slows you: your @Rule[movement.stride] and
     @Rule[defense.dodge] defense each decrease by 2.</p>
   actions: []
+  keywords:
+    - movement.engagement
   nodes:
     - str4a
   iconicSpells: 0

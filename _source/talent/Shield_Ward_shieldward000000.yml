@@ -9,6 +9,10 @@ system:
     requirement for spells using the <strong>Ward</strong> gesture while you
     have a <strong>Shield</strong> equipped.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - playstyle.defensive
+    - weapon.shield
   nodes:
     - tou2b
   iconicSpells: 0

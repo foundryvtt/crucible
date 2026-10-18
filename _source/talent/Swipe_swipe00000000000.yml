@@ -36,6 +36,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.melee
+    - weapons.twohand
   nodes:
     - str0a
   iconicSpells: 0

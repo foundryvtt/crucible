@@ -39,6 +39,8 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.utility
   nodes:
     - int0b
   iconicSpells: 0
