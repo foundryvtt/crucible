@@ -1,5 +1,6 @@
 import CrucibleTalentNode from "../../const/talent-node.mjs";
 import CrucibleTalentTreeControls from "./talent-tree-controls.mjs";
+import CrucibleTalentTreeFilter from "./talent-tree-filter.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
 import CrucibleTalentHUD from "./talent-hud.mjs";
@@ -81,6 +82,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
   #parentApp = null;
 
   /**
+   * Was the Actor sheet open when the tree opened, and so should be reopened when the tree closes?
+   * @type {boolean}
+   */
+  #restoreSheet = false;
+
+  /**
    * The dimensions of the talent tree
    * @type {{width: number, height: number}}
    */
@@ -139,6 +146,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Create the controls app
     Object.defineProperty(this, "controls", {value: new CrucibleTalentTreeControls(), writable: false});
+    Object.defineProperty(this, "filter", {value: new CrucibleTalentTreeFilter(), writable: false});
 
     // Add this class to the canvas stage
     this.stage.addChild(this);
@@ -387,16 +395,14 @@ export default class CrucibleTalentTree extends PIXI.Container {
     for ( const layer of canvas.layers ) layer.hud?.close();
     this.darkenBackground(false);
 
-    // Show Actor sheet
-    await actor.sheet.render({force: false, left: 20, top: 20});
-    if ( actor.sheet.rendered ) {
-      actor.sheet.setPosition({left: 20, top: 20});
-      actor.sheet.minimize();
-    }
+    // Close an open Actor sheet
+    this.#restoreSheet = actor.sheet.rendered;
+    if ( this.#restoreSheet ) await actor.sheet.close();
 
     // Refresh tree state
     this.pan(resetView ? {x: 0, y: 0, scale: 1.0} : {});
     this.setHighlights(null);
+    if ( parentApp ) await this.filter.render({force: true}); // No controls bar to toggle it when embedded
     this.refresh();
 
     // Start rendering and enable the talent tree canvas
@@ -414,12 +420,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /** @override */
   async close() {
     this.#parentApp = null;
-
-    // Disassociate Actor
-    const actor = this.actor;
+    const sheet = this.actor?.sheet;
     this.actor = null;
-    await actor?.sheet.render(false);
-    actor.sheet.maximize();
+    if ( this.#restoreSheet && !sheet?.rendered ) sheet?.render({force: true});
+    this.#restoreSheet = false;
 
     // Deactivate UI, clearing any active node so the background blur filter is never left enabled
     this.active = null;
@@ -427,6 +431,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.darkenBackground(false);
     this.hud.close({animate: false});
     this.controls.close({animate: false});
+    this.filter.close({animate: false});
 
     // Stop rendering the talent tree canvas
     this.app.stop();
@@ -504,7 +509,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
       if ( node.icon?.highlight.visible ) node.icon.highlight.alpha = alpha;
     }
     for ( const talent of this.wheel.talents.children ) {
-      if ( talent.highlight.visible ) talent.highlight.alpha = alpha;
+      if ( talent.highlight?.visible ) talent.highlight.alpha = alpha;
     }
   }
 

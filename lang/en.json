@@ -2549,7 +2549,10 @@
       "PurchaseTitle": "Purchase Talent: {name}",
       "Remove": "<p>Remove talent <strong>{name}</strong>, reclaiming 1 Talent Point?</p>",
       "RemoveTitle": "Remove Talent: {name}",
-      "Reset": "Reset"
+      "Reset": "Reset",
+      "ShowTalents": "Show Compendium Talents",
+      "ShowSheet": "Show Character Sheet",
+      "ToggleSearch": "Toggle Talent Search"
     },
     "FIELDS": {
       "actions": {
@@ -2585,6 +2588,25 @@
         "hint": "Owning this talent contributes one training point to the area named here, whether the talent was purchased or granted. Leave blank if this talent advances no training.",
         "label": "Provided Training"
       }
+    },
+    "FILTER": {
+      "Clear": "Clear Filters",
+      "FIELDS": {
+        "ability": {
+          "label": "Ability"
+        },
+        "levels": {
+          "label": "Level"
+        },
+        "query": {
+          "label": "Search"
+        },
+        "training": {
+          "label": "Proficiency"
+        }
+      },
+      "Matches": "{talents} Talents in {nodes} Nodes",
+      "QueryPlaceholder": "Talent or action name"
     },
     "HOOKS": {
       "GroupAction": "Action Usage",

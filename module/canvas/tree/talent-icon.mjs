@@ -161,6 +161,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
    */
   refreshHighlight() {
     const c = this.config;
+    if ( !c ) return; // Not yet drawn
     const state = this._getHighlightState();
     const {dimColor, dimWeight} = this.constructor.HIGHLIGHT;
     const tint = color => {
@@ -239,7 +240,6 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.frame.scale.set(scale, scale);
     this.frame.texture = this.config.frameTexture;
     this.frame.tint = this.config.frameTint;
-
   }
 }
 CrucibleTalentIcon.greyscaleFilter.desaturate();
