@@ -2,6 +2,9 @@ name: Thermal Vision
 type: talent
 img: icons/magic/perception/eye-slit-orange.webp
 system:
+  keywords:
+    - playstyle.utility
+    - senses
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} perceives the world through differences in

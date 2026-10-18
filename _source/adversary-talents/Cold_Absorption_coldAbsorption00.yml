@@ -2,6 +2,9 @@ name: Cold Absorption
 type: talent
 img: icons/magic/water/snowflake-ice-blue-white.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has an exceptional ability to thrive

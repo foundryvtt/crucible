@@ -3,6 +3,9 @@ type: talent
 _id: burnout000000000
 img: icons/magic/air/fog-gas-smoke-swirling-orange.webp
 system:
+  keywords:
+    - damageType.fire
+    - target.reflex
   nodes: []
   description: >-
     <p>Steam-powered constructs store dangerous amounts of superheated steam

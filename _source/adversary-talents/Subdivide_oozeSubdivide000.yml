@@ -3,6 +3,8 @@ type: talent
 _id: oozeSubdivide000
 img: icons/creatures/slimes/slime-movement-pseudopods-blue.webp
 system:
+  keywords:
+    - action.summon
   nodes: []
   description: >-
     <p>The @ref[actor.name]{ooze} can divide itself into multiple parts, each an

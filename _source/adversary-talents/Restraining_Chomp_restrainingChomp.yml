@@ -2,6 +2,9 @@ name: Restraining Chomp
 type: talent
 img: icons/creatures/abilities/mouth-teeth-crooked-blue.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} uses its powerful jaws to bite and hold a

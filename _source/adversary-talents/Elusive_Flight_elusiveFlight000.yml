@@ -3,6 +3,9 @@ type: talent
 _id: elusiveFlight000
 img: icons/creatures/mammals/bats-movement-flying-purple.webp
 system:
+  keywords:
+    - action.movement
+    - movement.engagement
   nodes: []
   description: >-
     <p>This @ref[actor.name]{creature} is especially elusive while in flight,

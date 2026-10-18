@@ -3,6 +3,10 @@ type: talent
 _id: rake000000000000
 img: icons/skills/wounds/injury-triple-slash-bleed.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - damageType.slashing
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} attacks rapidly with its talons, dealing

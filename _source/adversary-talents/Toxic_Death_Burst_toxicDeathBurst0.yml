@@ -3,6 +3,9 @@ type: talent
 _id: toxicDeathBurst0
 img: icons/magic/death/skull-poison-green.webp
 system:
+  keywords:
+    - damageType.poison
+    - target.fortitude
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst

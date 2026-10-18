@@ -8,6 +8,8 @@ system:
     doubles number of @Rule[dice.boon]{Boons} awarded from attacking a
     @Condition[flanked] enemy.</p>
   actions: []
+  keywords:
+    - playstyle.melee
   nodes: []
   iconicSpells: 0
 effects: []

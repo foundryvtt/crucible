@@ -3,6 +3,9 @@ type: talent
 _id: disorientingDeat
 img: icons/magic/control/hypnosis-mesmerism-swirl.webp
 system:
+  keywords:
+    - damageType.psychic
+    - target.willpower
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst

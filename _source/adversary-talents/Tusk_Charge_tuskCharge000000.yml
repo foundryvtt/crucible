@@ -60,6 +60,10 @@ system:
         weapon: false
       summon: null
   iconicSpells: 0
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - action.movement
   nodes: []
 effects: []
 ownership:

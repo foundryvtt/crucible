@@ -2,6 +2,10 @@ name: Grave Mark
 type: talent
 img: icons/magic/death/undead-skeleton-worn-blue.webp
 system:
+  keywords:
+    - playstyle.melee
+    - target.willpower
+    - skill.intimidation
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} achieves a

@@ -3,6 +3,9 @@ type: talent
 _id: entropicDeathBur
 img: icons/magic/light/explosion-impact-purple.webp
 system:
+  keywords:
+    - damageType.void
+    - target.willpower
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst

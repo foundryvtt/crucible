@@ -3,6 +3,8 @@ type: talent
 _id: aquaticLungs0000
 img: icons/creatures/fish/fish-bioluminous-blue.webp
 system:
+  keywords:
+    - action.movement
   nodes: []
   description: <p>@ref[actor.name]{This creature} can only breathe underwater.</p>
   actions: []

@@ -2,6 +2,8 @@ name: Aqueous Transmission
 type: talent
 img: icons/magic/water/wave-water-teal.webp
 system:
+  keywords:
+    - action.movement
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is able to move instantaneously through

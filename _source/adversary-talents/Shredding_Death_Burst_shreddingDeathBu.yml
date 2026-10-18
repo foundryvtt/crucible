@@ -3,6 +3,9 @@ type: talent
 _id: shreddingDeathBu
 img: icons/magic/earth/projectiles-stone-salvo.webp
 system:
+  keywords:
+    - damageType.piercing
+    - target.reflex
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst

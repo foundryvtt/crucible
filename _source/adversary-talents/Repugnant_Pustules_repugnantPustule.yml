@@ -2,6 +2,10 @@ name: Repugnant Pustules
 type: talent
 img: icons/magic/acid/dissolve-vomit-green-brown.webp
 system:
+  keywords:
+    - action.reaction
+    - damageType.corruption
+    - target.reflex
   nodes: []
   description: >-
     <p>A malodorous cloud hangs about this creature like a pall, the rank

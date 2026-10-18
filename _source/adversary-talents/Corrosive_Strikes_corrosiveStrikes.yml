@@ -3,6 +3,9 @@ type: talent
 _id: corrosiveStrikes
 img: icons/magic/acid/dissolve-vomit-green-brown.webp
 system:
+  keywords:
+    - playstyle.melee
+    - damageType.acid
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature}'s caustic body sears whatever it strikes.

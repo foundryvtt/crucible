@@ -4,6 +4,9 @@ type: talent
 _id: corruptionAbsorp
 img: icons/magic/unholy/orb-hands-pink.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has an exceptional ability to shrug off

@@ -3,6 +3,9 @@ type: talent
 _id: selfrepair000000
 img: icons/tools/hand/wrench-iron-grey.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - target.healing
   nodes: []
   description: >-
     <p>The @ref[actor.name]{construct} activates internal repairing mechanisms

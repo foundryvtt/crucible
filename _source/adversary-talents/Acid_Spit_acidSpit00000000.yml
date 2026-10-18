@@ -2,6 +2,11 @@ name: Acid Spit
 type: talent
 img: icons/magic/acid/projectile-smoke-glowing.webp
 system:
+  keywords:
+    - playstyle.ranged
+    - weapon.natural
+    - damageType.acid
+    - target.reflex
   nodes: []
   description: <p>The creature has salivary glands which produce a caustic acid.</p>
   actions:

@@ -3,6 +3,9 @@ type: talent
 _id: freezingDeathBur
 img: icons/magic/water/projectiles-ice-explosion.webp
 system:
+  keywords:
+    - damageType.cold
+    - target.fortitude
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst

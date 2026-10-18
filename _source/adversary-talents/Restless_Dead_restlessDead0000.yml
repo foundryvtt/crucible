@@ -2,6 +2,8 @@ name: Restless Dead
 type: talent
 img: icons/magic/death/hand-undead-skeleton-fire-pink.webp
 system:
+  keywords:
+    - playstyle.defensive
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature}'s life is sustained by necromantic magic

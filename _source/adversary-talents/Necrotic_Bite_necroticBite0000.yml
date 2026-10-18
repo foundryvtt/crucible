@@ -2,6 +2,10 @@ name: Necrotic Bite
 type: talent
 img: icons/magic/unholy/strike-beam-blood-red-green.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - damageType.corruption
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} tears into flesh with a maw that is

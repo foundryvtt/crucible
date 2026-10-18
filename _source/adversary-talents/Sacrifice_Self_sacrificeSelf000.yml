@@ -2,6 +2,10 @@ name: Sacrifice Self
 type: talent
 img: icons/magic/death/skull-fire-white-yellow.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - action.reaction
+    - action.movement
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} may intervene to take a blow instead of an

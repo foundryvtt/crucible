@@ -2,6 +2,10 @@ name: Bestial Senses
 type: talent
 img: icons/magic/nature/stealth-hide-beast-eyes-green.webp
 system:
+  keywords:
+    - playstyle.utility
+    - skill.awareness
+    - senses
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has finely honed senses and is

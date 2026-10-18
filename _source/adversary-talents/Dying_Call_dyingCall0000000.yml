@@ -3,6 +3,8 @@ type: talent
 _id: dyingCall0000000
 img: icons/creatures/birds/corvid-call-sound-blue.webp
 system:
+  keywords:
+    - playstyle.utility
   nodes: []
   description: >-
     <p>When @ref[actor.name]{this creature} is in the throes of death, it emits

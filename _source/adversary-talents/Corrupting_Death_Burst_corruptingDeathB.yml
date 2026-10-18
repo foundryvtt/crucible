@@ -3,6 +3,9 @@ type: talent
 _id: corruptingDeathB
 img: icons/magic/light/explosion-glow-spiral-yellow.webp
 system:
+  keywords:
+    - damageType.corruption
+    - target.fortitude
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst

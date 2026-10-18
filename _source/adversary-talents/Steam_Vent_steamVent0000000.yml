@@ -3,6 +3,8 @@ type: talent
 _id: steamVent0000000
 img: icons/magic/air/fog-gas-smoke-swirling-blue.webp
 system:
+  keywords:
+    - damageType.fire
   nodes: []
   description: >-
     <p>Steam-powered constructs store dangerous amounts of superheated steam

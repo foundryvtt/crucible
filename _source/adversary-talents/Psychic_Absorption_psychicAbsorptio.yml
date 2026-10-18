@@ -4,6 +4,9 @@ type: talent
 _id: psychicAbsorptio
 img: icons/magic/control/hypnosis-mesmerism-swirl.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is exceptionally unyielding to attacks on

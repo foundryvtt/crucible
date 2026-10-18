@@ -3,6 +3,11 @@ type: talent
 _id: maddeningShriek0
 img: icons/magic/sonic/scream-wail-shout-teal.webp
 system:
+  keywords:
+    - damageType.psychic
+    - target.fortitude
+    - target.morale
+    - skill.intimidation
   nodes: []
   description: >-
     <p>This @ref[actor.name]{creature} is capable of emitting a piercing screech

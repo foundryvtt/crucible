@@ -3,6 +3,8 @@ type: talent
 _id: immuntableForm00
 img: icons/magic/unholy/orb-beam-pink.webp
 system:
+  keywords:
+    - playstyle.defensive
   nodes: []
   description: >-
     <p>The @ref[actor.name] is immune to any spell or effect which alters its

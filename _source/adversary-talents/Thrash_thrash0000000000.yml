@@ -2,6 +2,9 @@ name: Thrash
 type: talent
 img: icons/skills/wounds/bone-broken-marrow-red.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
   nodes: []
   description: >-
     <p>Once the @ref[actor.name]{creature} has an enemy restrained, it will

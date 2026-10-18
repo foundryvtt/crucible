@@ -2,6 +2,9 @@ name: Darkvision
 type: talent
 img: icons/magic/perception/shadow-stealth-eyes-purple.webp
 system:
+  keywords:
+    - playstyle.utility
+    - senses
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} can see in darkness as though it were dim

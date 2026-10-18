@@ -2,6 +2,10 @@ name: Pouncing Strike
 type: talent
 img: icons/creatures/claws/claw-talons-glowing-orange.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - action.movement
   nodes: []
   description: >-
     <p>This creature lunges forward, putting its whole weight behind a leaping

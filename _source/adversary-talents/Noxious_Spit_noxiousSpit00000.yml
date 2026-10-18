@@ -2,6 +2,11 @@ name: Noxious Spit
 type: talent
 img: icons/magic/acid/projectile-smoke-glowing.webp
 system:
+  keywords:
+    - playstyle.ranged
+    - weapon.natural
+    - damageType.poison
+    - target.reflex
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} produces a salivary toxin that it can

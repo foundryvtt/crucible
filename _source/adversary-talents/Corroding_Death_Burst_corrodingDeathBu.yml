@@ -3,6 +3,9 @@ type: talent
 _id: corrodingDeathBu
 img: icons/magic/acid/orb-bubble-smoke-drip.webp
 system:
+  keywords:
+    - damageType.acid
+    - target.fortitude
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst

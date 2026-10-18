@@ -2,6 +2,10 @@ name: Clinging Grip
 type: talent
 img: icons/commodities/biological/foot-amphibian-green.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - action.movement
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is able to cling to vertical or overhead

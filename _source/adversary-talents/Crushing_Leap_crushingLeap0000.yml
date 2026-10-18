@@ -2,6 +2,11 @@ name: Crushing Leap
 type: talent
 img: icons/skills/melee/strike-hammer-destructive-orange.webp
 system:
+  keywords:
+    - playstyle.melee
+    - action.movement
+    - damageType.bludgeoning
+    - target.reflex
   nodes: []
   description: >-
     <p>This creature hurls its bulk into the air and crashes down upon its foes

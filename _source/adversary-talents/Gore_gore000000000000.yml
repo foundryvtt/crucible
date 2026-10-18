@@ -3,6 +3,9 @@ type: talent
 _id: gore000000000000
 img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} slams its antlers, tusks, or horns into a

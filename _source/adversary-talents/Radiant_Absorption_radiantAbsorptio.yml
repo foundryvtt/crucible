@@ -4,6 +4,9 @@ type: talent
 _id: radiantAbsorptio
 img: icons/magic/light/hand-sparks-glow-yellow.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is no stranger to the chaotic force of

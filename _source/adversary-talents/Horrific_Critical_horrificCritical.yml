@@ -2,6 +2,9 @@ name: Horrific Critical
 type: talent
 img: icons/skills/wounds/injury-eyes-blood-red-pink.webp
 system:
+  keywords:
+    - playstyle.melee
+    - target.willpower
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} delivers savage and grotesque blows that

@@ -3,6 +3,10 @@ type: talent
 _id: unnaturalSight00
 img: icons/creatures/eyes/lizard-single-slit-pink.webp
 system:
+  keywords:
+    - playstyle.utility
+    - skill.awareness
+    - senses
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has otherworldly sight that makes it

@@ -3,6 +3,8 @@ type: talent
 _id: polybrachial0000
 img: icons/skills/melee/spear-tips-triple-orange.webp
 system:
+  keywords:
+    - playstyle.spellcraft
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has a multitude of arms that it can use to

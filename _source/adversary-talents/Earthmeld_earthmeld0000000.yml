@@ -4,6 +4,8 @@ type: talent
 _id: earthmeld0000000
 img: icons/environment/wilderness/terrain-rocky-ground.webp
 system:
+  keywords:
+    - action.movement
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is able to move instantaneously through

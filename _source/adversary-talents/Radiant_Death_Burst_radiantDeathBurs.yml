@@ -2,6 +2,9 @@ name: Radiant Death Burst
 type: talent
 img: icons/magic/fire/explosion-fireball-large-orange.webp
 system:
+  keywords:
+    - damageType.radiant
+    - target.fortitude
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst

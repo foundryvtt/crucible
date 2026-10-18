@@ -3,6 +3,10 @@ type: talent
 _id: fieldRepairs0000
 img: icons/commodities/tech/wire-spliced.webp
 system:
+  keywords:
+    - playstyle.utility
+    - target.healing
+    - skill.science
   nodes: []
   description: >-
     <p>The @ref[actor.name]{engineer} can quickly repair some damage on an

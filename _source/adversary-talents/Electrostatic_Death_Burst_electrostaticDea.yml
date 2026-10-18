@@ -3,6 +3,9 @@ type: talent
 _id: electrostaticDea
 img: icons/magic/lightning/bolt-strike-explosion-blue.webp
 system:
+  keywords:
+    - damageType.electricity
+    - target.reflex
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst
