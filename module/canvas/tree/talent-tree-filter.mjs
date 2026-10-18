@@ -43,20 +43,27 @@ export default class CrucibleTalentTreeFilter extends HandlebarsApplicationMixin
     const {SchemaField, SetField, StringField, NumberField} = foundry.data.fields;
     const maxLevel = Math.max(...Object.values(SYSTEM.TALENT.NODE_TIERS).map(t => t.level));
     const level = {required: true, nullable: true, integer: true, min: 0, max: maxLevel, initial: null};
+    const playstyles = {};
+    const keywords = {};
+    for ( const [id, keyword] of Object.entries(SYSTEM.TALENT.KEYWORDS) ) {
+      if ( id.startsWith("playstyle.") ) playstyles[id] = keyword;
+      else keywords[id] = keyword;
+    }
     this.#schema = new SchemaField({
       query: new StringField({required: true, blank: true}),
       levels: new SchemaField({
         min: new NumberField(level),
         max: new NumberField(level)
       }),
+      playstyle: new StringField({required: true, blank: true, choices: playstyles}),
+      keywords: new SetField(new StringField({required: true, blank: false, choices: keywords})),
       ability: new StringField({required: true, blank: true, choices: SYSTEM.ABILITIES}),
       training: new SetField(new StringField({required: true, blank: false, choices: () => {
         return Object.entries(SYSTEM.PROFICIENCIES).reduce((obj, [id, {label, group}]) => {
           obj[id] = {label, group: SYSTEM.PROFICIENCY.GROUPS[group]?.label};
           return obj;
         }, {});
-      }})),
-      keywords: new SetField(new StringField({required: true, blank: false, choices: SYSTEM.TALENT.KEYWORDS}))
+      }}))
     });
     foundry.helpers.Localization.localizeSchema(this.#schema, ["TALENT.FILTER"]);
     return this.#schema;
@@ -94,7 +101,8 @@ export default class CrucibleTalentTreeFilter extends HandlebarsApplicationMixin
   /** @override */
   async _prepareContext(_options) {
     const fields = this.constructor.schema.fields;
-    const keywordGroups = crucible.api.models.CrucibleTalentItem.keywordGroups;
+    const playstyle = SYSTEM.TALENT.KEYWORD_GROUPS.playstyle.label;
+    const keywordGroups = crucible.api.models.CrucibleTalentItem.keywordGroups.filter(g => g !== playstyle);
     return {fields, filters: this.#filters, keywordGroups, matches: this.#getMatchesLabel()};
   }
 
@@ -153,9 +161,9 @@ export default class CrucibleTalentTreeFilter extends HandlebarsApplicationMixin
    * @returns {Map<CrucibleTalentNode, Set<string>>|null}   Matching Talent ids by node, or null if no filter is active
    */
   #match() {
-    const {query, levels, ability, training, keywords} = this.#filters;
-    const isActive = query || (levels.min !== null) || (levels.max !== null) || ability || training.length
-      || keywords.length;
+    const {query, levels, playstyle, keywords, ability, training} = this.#filters;
+    const isActive = query || (levels.min !== null) || (levels.max !== null) || playstyle || keywords.length
+      || ability || training.length;
     if ( !isActive ) return null;
     const rgx = query ? new RegExp(RegExp.escape(query), "i") : null;
     const actor = crucible.tree.actor;
@@ -190,19 +198,20 @@ export default class CrucibleTalentTreeFilter extends HandlebarsApplicationMixin
   /* -------------------------------------------- */
 
   /**
-   * Test a Talent against the search, proficiency, and keyword filters.
+   * Test a Talent against the search, playstyle, keyword, and proficiency filters.
    * @param {CrucibleItem} talent
    * @param {RegExp|null} rgx       The search pattern, if any
    * @returns {boolean}
    */
   #testTalent(talent, rgx) {
-    const {training, keywords} = this.#filters;
+    const {playstyle, keywords, training} = this.#filters;
     if ( rgx ) {
       const test = name => SearchFilter.testQuery(rgx, name);
       if ( !test(talent.name) && !talent.actions.some(a => test(a.name)) ) return false;
     }
-    if ( training.length && !training.includes(talent.system.training) ) return false;
-    return keywords.every(k => talent.system.keywords.has(k));
+    if ( playstyle && !talent.system.keywords.has(playstyle) ) return false;
+    if ( !keywords.every(k => talent.system.keywords.has(k)) ) return false;
+    return !training.length || training.includes(talent.system.training);
   }
 
   /* -------------------------------------------- */

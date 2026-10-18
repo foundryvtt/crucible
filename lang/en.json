@@ -2608,6 +2608,9 @@
         "query": {
           "label": "Search"
         },
+        "playstyle": {
+          "label": "Playstyle"
+        },
         "training": {
           "label": "Proficiency"
         }
