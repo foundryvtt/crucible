@@ -4,9 +4,14 @@ img: icons/equipment/shield/buckler-wooden-boss-glowing-blue.webp
 system:
   description: >-
     <p>You have expertise in using a <strong>Shield</strong> to defend yourself
-    and others.</p><p>Once per turn while you have a <strong>Shield</strong>
-    equipped, the @Rule[resource.action] cost of using the @Action[default
-    defend] action is reduced by 1.</p>
+    and others.</p><p>While you have a <strong>Shield</strong> equipped, you may
+    sacrifice your @Rule[movement.freeMovement] for the Round to reduce the
+    @Rule[resource.action] cost of the @Action[default defend] action by 1.</p>
+  keywords:
+    - playstyle.defensive
+    - weapon.shield
+    - defense.block
+    - action.movement
   nodes:
     - tou0a
   actions: []

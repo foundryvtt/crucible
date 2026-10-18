@@ -413,11 +413,12 @@ HOOKS.brutalDisplay000 = {
 /* -------------------------------------------- */
 
 HOOKS.bulwark000000000 = {
-  prepareActions(item, actions) {
-    const defend = actions.defend;
-    if ( !defend || !this.equipment.weapons.shield || this.system.status.bulwark ) return;
-    defend.cost.action -= 1;
-    defend.usage.actorUpdates["system.status.bulwark"] = true;
+  prepareAction(_item, action) {
+    if ( (action.id !== "defend") || !this.equipment.weapons.shield ) return;
+    if ( action.cost.action && this.system.hasFreeMove ) {
+      action.cost.action -= 1;
+      action.usage.actorStatus.hasMoved = true;
+    }
   }
 };
 
@@ -1472,7 +1473,7 @@ HOOKS.powerfulThrow000 = {
 HOOKS.preparedness0000 = {
   prepareAction(item, action) {
     if ( action.id !== "equipItem" ) return;
-    if ( action.cost.action && !this.system.status.hasMoved ) {
+    if ( action.cost.action && this.system.hasFreeMove ) {
       action.cost.action = 0;
       action.usage.actorStatus.hasMoved = true;
     }

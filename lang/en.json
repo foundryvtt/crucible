@@ -2624,6 +2624,7 @@
       "Register": "Register Hook Function"
     },
     "KEYWORDS": {
+      "Defensive": "Defensive",
       "HeavyArmor": "Heavy Armor",
       "Initiative": "Initiative",
       "LightArmor": "Light Armor",
@@ -2631,6 +2632,7 @@
       "Melee": "Melee",
       "Ranged": "Ranged",
       "Rest": "Rest",
+      "Senses": "Senses",
       "Spellcraft": "Spellcraft",
       "Toolbelt": "Toolbelt",
       "Unarmored": "Unarmored",
@@ -2642,6 +2644,7 @@
       "Defense": "Defense",
       "FightingStyle": "Fighting Style",
       "Playstyle": "Playstyle",
+      "Resources": "Resources",
       "Restoration": "Restoration",
       "SpellComponents": "Spell Components",
       "Tactics": "Tactics",
