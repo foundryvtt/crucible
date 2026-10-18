@@ -665,6 +665,8 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective", "spellName"]);
 
   // Talent
+  localizeConfigObject(SYSTEM.TALENT.KEYWORD_GROUPS);
+  localizeConfigObject(SYSTEM.TALENT.KEYWORDS, ["label", "group"]);
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES);
 
   // Training

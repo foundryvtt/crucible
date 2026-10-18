@@ -4,6 +4,7 @@
     <fieldset>
         <legend>{{localize "ITEM.SHEET.TalentConfiguration"}}</legend>
         {{formGroup fields.nodes value=source.system.nodes options=nodes sort=true}}
+        {{formGroup fields.keywords value=source.system.keywords groups=keywordGroups sort=true}}
     </fieldset>
 
     <fieldset>

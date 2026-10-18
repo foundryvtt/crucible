@@ -28,6 +28,7 @@ export default class CrucibleTalentItemSheet extends CrucibleBaseItemSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.requirements = this.#prepareRequirements(context);
+    context.keywordGroups = this.document.system.constructor.keywordGroups;
     return context;
   }
 

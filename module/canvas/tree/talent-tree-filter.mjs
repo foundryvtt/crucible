@@ -55,7 +55,8 @@ export default class CrucibleTalentTreeFilter extends HandlebarsApplicationMixin
           obj[id] = {label, group: SYSTEM.PROFICIENCY.GROUPS[group]?.label};
           return obj;
         }, {});
-      }}))
+      }})),
+      keywords: new SetField(new StringField({required: true, blank: false, choices: SYSTEM.TALENT.KEYWORDS}))
     });
     foundry.helpers.Localization.localizeSchema(this.#schema, ["TALENT.FILTER"]);
     return this.#schema;
@@ -93,7 +94,8 @@ export default class CrucibleTalentTreeFilter extends HandlebarsApplicationMixin
   /** @override */
   async _prepareContext(_options) {
     const fields = this.constructor.schema.fields;
-    return {fields, filters: this.#filters, matches: this.#getMatchesLabel()};
+    const keywordGroups = crucible.api.models.CrucibleTalentItem.keywordGroups;
+    return {fields, filters: this.#filters, keywordGroups, matches: this.#getMatchesLabel()};
   }
 
   /* -------------------------------------------- */
@@ -151,8 +153,9 @@ export default class CrucibleTalentTreeFilter extends HandlebarsApplicationMixin
    * @returns {Map<CrucibleTalentNode, Set<string>>|null}   Matching Talent ids by node, or null if no filter is active
    */
   #match() {
-    const {query, levels, ability, training} = this.#filters;
-    const isActive = query || (levels.min !== null) || (levels.max !== null) || ability || training.length;
+    const {query, levels, ability, training, keywords} = this.#filters;
+    const isActive = query || (levels.min !== null) || (levels.max !== null) || ability || training.length
+      || keywords.length;
     if ( !isActive ) return null;
     const rgx = query ? new RegExp(RegExp.escape(query), "i") : null;
     const actor = crucible.tree.actor;
@@ -187,18 +190,19 @@ export default class CrucibleTalentTreeFilter extends HandlebarsApplicationMixin
   /* -------------------------------------------- */
 
   /**
-   * Test a Talent against the search and proficiency filters.
+   * Test a Talent against the search, proficiency, and keyword filters.
    * @param {CrucibleItem} talent
    * @param {RegExp|null} rgx       The search pattern, if any
    * @returns {boolean}
    */
   #testTalent(talent, rgx) {
-    const {training} = this.#filters;
+    const {training, keywords} = this.#filters;
     if ( rgx ) {
       const test = name => SearchFilter.testQuery(rgx, name);
       if ( !test(talent.name) && !talent.actions.some(a => test(a.name)) ) return false;
     }
-    return !training.length || training.includes(talent.system.training);
+    if ( training.length && !training.includes(talent.system.training) ) return false;
+    return keywords.every(k => talent.system.keywords.has(k));
   }
 
   /* -------------------------------------------- */

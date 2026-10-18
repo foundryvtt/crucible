@@ -1,4 +1,9 @@
 import {defineEnum} from "./enum.mjs";
+import {TAGS as ACTION_TAGS} from "./action.mjs";
+import {MOVEMENT_RULES} from "./actor.mjs";
+import {DAMAGE_TYPES, DEFENSES, RESOURCES} from "./attributes.mjs";
+import {CATEGORIES as CONSUMABLE_CATEGORIES} from "./consumable.mjs";
+import {GROUPS as PROFICIENCY_GROUPS, SKILLS, SPELLCRAFT, WEAPONS} from "./proficiencies.mjs";
 
 /**
  * The types of talent nodes which are supported.
@@ -57,6 +62,124 @@ export const SIGNATURE_MAX = 6;
  * @type {number}
  */
 export const SIGNATURE_LEVEL_INTERVAL = 3;
+
+/**
+ * Groups of Talent keywords, ordered for display by ascending sort priority.
+ * @type {Readonly<Record<string, {id: string, label: string, sort: number}>>}
+ */
+export const KEYWORD_GROUPS = defineEnum({
+  playstyle: {label: "TALENT.KEYWORD_GROUPS.Playstyle", sort: 1},
+  weapons: {label: "TALENT.KEYWORD_GROUPS.Weapons", sort: 2},
+  armor: {label: "TALENT.KEYWORD_GROUPS.Armor", sort: 3},
+  defense: {label: "TALENT.KEYWORD_GROUPS.Defense", sort: 4},
+  fightingStyle: {label: "TALENT.KEYWORD_GROUPS.FightingStyle", sort: 5},
+  toolbelt: {label: "TALENT.KEYWORD_GROUPS.Toolbelt", sort: 6},
+  spellComponents: {label: "TALENT.KEYWORD_GROUPS.SpellComponents", sort: 7},
+  damage: {label: "TALENT.KEYWORD_GROUPS.Damage", sort: 8},
+  targetDefense: {label: "TALENT.KEYWORD_GROUPS.TargetDefense", sort: 9},
+  targetResource: {label: "TALENT.KEYWORD_GROUPS.TargetResource", sort: 10},
+  restoration: {label: "TALENT.KEYWORD_GROUPS.Restoration", sort: 11},
+  tactics: {label: "TALENT.KEYWORD_GROUPS.Tactics", sort: 12},
+  time: {label: "TALENT.KEYWORD_GROUPS.Time", sort: 13},
+  exp: {label: PROFICIENCY_GROUPS.exp.label, sort: 14},
+  kno: {label: PROFICIENCY_GROUPS.kno.label, sort: 15},
+  soc: {label: PROFICIENCY_GROUPS.soc.label, sort: 16},
+  trade: {label: PROFICIENCY_GROUPS.trade.label, sort: 17}
+});
+
+/**
+ * Keywords describing the playstyles a Talent has particular affinity with, keyed by namespaced id.
+ * @type {Readonly<Record<string, {id: string, label: string, group: string, sort: number}>>}
+ */
+export const KEYWORDS = defineEnum({
+
+  // Playstyle
+  "playstyle.melee": {group: "playstyle", label: "TALENT.KEYWORDS.Melee"},
+  "playstyle.ranged": {group: "playstyle", label: "TALENT.KEYWORDS.Ranged"},
+  "playstyle.spellcraft": {group: "playstyle", label: "TALENT.KEYWORDS.Spellcraft"},
+  "playstyle.utility": {group: "playstyle", label: "TALENT.KEYWORDS.Utility"},
+
+  // Weapons
+  ...Object.values(WEAPONS).reduce((obj, {id, label}) => {
+    obj[`weapon.${id}`] = {group: "weapons", label};
+    return obj;
+  }, {}),
+
+  // Armor
+  "armor.heavy": {group: "armor", label: "TALENT.KEYWORDS.HeavyArmor"},
+  "armor.light": {group: "armor", label: "TALENT.KEYWORDS.LightArmor"},
+  "armor.medium": {group: "armor", label: "TALENT.KEYWORDS.MediumArmor"},
+  "armor.unarmored": {group: "armor", label: "TALENT.KEYWORDS.Unarmored"},
+
+  // Defense
+  "defense.block": {group: "defense", label: DEFENSES.block.label},
+  "defense.dodge": {group: "defense", label: DEFENSES.dodge.label},
+  "defense.parry": {group: "defense", label: DEFENSES.parry.label},
+
+  // Fighting Style
+  "weapons.dualwield": {group: "fightingStyle", label: ACTION_TAGS.dualwield.label},
+  "weapons.onehand": {group: "fightingStyle", label: ACTION_TAGS.onehand.label},
+  "weapons.thrown": {group: "fightingStyle", label: ACTION_TAGS.thrown.label},
+  "weapons.twohand": {group: "fightingStyle", label: ACTION_TAGS.twohand.label},
+
+  // Toolbelt
+  "consumable.bomb": {group: "toolbelt", label: CONSUMABLE_CATEGORIES.bomb.label},
+  "consumable.flask": {group: "toolbelt", label: CONSUMABLE_CATEGORIES.flask.label},
+  "consumable.trap": {group: "toolbelt", label: CONSUMABLE_CATEGORIES.trap.label},
+  "equipment.toolbelt": {group: "toolbelt", label: "TALENT.KEYWORDS.Toolbelt"},
+
+  // Spell Components
+  "spell.gesture": {group: "spellComponents", label: "SPELL.COMPONENTS.GesturePl"},
+  "spell.inflection": {group: "spellComponents", label: "SPELL.COMPONENTS.InflectionPl"},
+  "spell.rune": {group: "spellComponents", label: "SPELL.COMPONENTS.RunePl"},
+  ...Object.values(SPELLCRAFT).reduce((obj, {id, label}) => {
+    obj[`spell.${id}`] = {group: "spellComponents", label};
+    return obj;
+  }, {}),
+
+  // Damage
+  ...Object.values(DAMAGE_TYPES).reduce((obj, {id, label}) => {
+    obj[`damageType.${id}`] = {group: "damage", label};
+    return obj;
+  }, {}),
+
+  // Target Defense
+  "target.fortitude": {group: "targetDefense", label: DEFENSES.fortitude.label},
+  "target.reflex": {group: "targetDefense", label: DEFENSES.reflex.label},
+  "target.willpower": {group: "targetDefense", label: DEFENSES.willpower.label},
+
+  // Target Resource
+  "target.health": {group: "targetResource", label: RESOURCES.health.label},
+  "target.morale": {group: "targetResource", label: RESOURCES.morale.label},
+
+  // Restoration
+  "target.healing": {group: "restoration", label: ACTION_TAGS.healing.label},
+  "target.rallying": {group: "restoration", label: ACTION_TAGS.rallying.label},
+
+  // Tactics
+  "action.maintained": {group: "tactics", label: ACTION_TAGS.maintained.label},
+  "action.movement": {group: "tactics", label: ACTION_TAGS.movement.label},
+  "action.summon": {group: "tactics", label: ACTION_TAGS.summon.label},
+  "movement.engagement": {group: "tactics", label: MOVEMENT_RULES.engagement.label},
+
+  // Time
+  "action.noncombat": {group: "time", label: ACTION_TAGS.noncombat.label},
+  "action.reaction": {group: "time", label: ACTION_TAGS.reaction.label},
+  "action.rest": {group: "time", label: "TALENT.KEYWORDS.Rest"},
+  initiative: {group: "time", label: "TALENT.KEYWORDS.Initiative"},
+
+  // Skills
+  ...Object.values(SKILLS).reduce((obj, {id, group, label}) => {
+    obj[`skill.${id}`] = {group, label};
+    return obj;
+  }, {})
+});
+
+// Resolve each keyword's group id to the group label and sort priority used for optgroups and ordering
+for ( const keyword of Object.values(KEYWORDS) ) {
+  const {label, sort} = KEYWORD_GROUPS[keyword.group];
+  Object.assign(keyword, {group: label, sort});
+}
 
 /**
  * A mapping of talent IDs which changed, used by CrucibleActor#syncTalents during migrations.

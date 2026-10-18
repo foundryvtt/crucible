@@ -14,6 +14,7 @@
     </div>
     {{formGroup fields.ability value=filters.ability blank=""}}
     {{formGroup fields.training value=filters.training}}
+    {{formGroup fields.keywords value=filters.keywords groups=keywordGroups sort=true}}
     <footer class="filter-footer flexrow">
         <span class="matches">{{matches}}</span>
         <button type="button" data-action="clear">
