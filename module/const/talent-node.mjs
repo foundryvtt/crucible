@@ -343,6 +343,28 @@ export default class CrucibleTalentNode {
   /* -------------------------------------------- */
 
   /**
+   * Collect nodes breadth-first from the origin, passing only through nodes which satisfy a test.
+   * @param {(node: CrucibleTalentNode) => boolean} [test]    Which nodes beyond the origin to include
+   * @returns {Set<CrucibleTalentNode>}                        Nodes in the order they were reached
+   */
+  static traverse(test=() => true) {
+    const nodes = new Set();
+    let frontier = [CrucibleTalentNode.nodes.get("origin")];
+    while ( frontier.length ) {
+      const next = [];
+      for ( const node of frontier ) {
+        if ( nodes.has(node) ) continue;
+        nodes.add(node);
+        for ( const c of node.connected ) if ( test(c) ) next.push(c);
+      }
+      frontier = next;
+    }
+    return nodes;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare the data structure of talent prerequisites
    * @param {AdvancementPrerequisites} requirements
    * @returns {AdvancementPrerequisites}

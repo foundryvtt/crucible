@@ -7,6 +7,12 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     this.position.set(node.point.x, node.point.y);
   }
 
+  /**
+   * The range of underglow alpha through which purchased nodes breathe.
+   * @type {{min: number, max: number}}
+   */
+  static UNDERGLOW_ALPHA = {min: 0.5, max: 0.75};
+
   /* -------------------------------------------- */
 
   /**
