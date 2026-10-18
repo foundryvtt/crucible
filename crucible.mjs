@@ -312,8 +312,8 @@ Hooks.once("init", async function() {
   // Rich Text Enrichers
   registerEnrichers();
 
-  // Encounter spawning from the area-schematic library, which a module defines as its scripts load
-  if ( CONFIG.AreaSchematic ) areaSchematic.registerHooks();
+  // Encounters from the area-schematic library, which a module defines as its scripts load
+  if ( CONFIG.AreaSchematic ) areaSchematic.registerEncounterClass();
 
   // Register Handlebars helpers
   Handlebars.registerHelper({

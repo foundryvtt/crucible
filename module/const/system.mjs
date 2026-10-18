@@ -49,16 +49,24 @@ export const COMPENDIUM_PACKS = Object.freeze({
 
 /**
  * Combat encounter difficulty tiers, by the ratio of total adversary threat to total party level.
- * Each tier applies below its `maximumRatio`, and its `color` accents the tier's name.
- * @type {Readonly<Record<string, {id: string, label: string, maximumRatio: number, color: string}>>}
+ * Each tier applies below its `maximumRatio`, and its `icon` and `color` accent the tier's name, the color being
+ * `colorLight` in light mode.
+ * @type {Readonly<Record<string, {id: string, label: string, maximumRatio: number, icon: string, color: string,
+ *   colorLight: string}>>}
  */
 export const ENCOUNTER_DIFFICULTIES = defineEnum({
-  trivial: {label: "ENCOUNTER.DIFFICULTIES.Trivial", maximumRatio: 0.5, color: "#3cb043"},
-  easy: {label: "ENCOUNTER.DIFFICULTIES.Easy", maximumRatio: 0.75, color: "#3d8bff"},
-  moderate: {label: "ENCOUNTER.DIFFICULTIES.Moderate", maximumRatio: 1, color: "#f2c94c"},
-  challenging: {label: "ENCOUNTER.DIFFICULTIES.Challenging", maximumRatio: 1.25, color: "#f2994a"},
-  deadly: {label: "ENCOUNTER.DIFFICULTIES.Deadly", maximumRatio: 1.75, color: "#eb3b3b"},
-  hopeless: {label: "ENCOUNTER.DIFFICULTIES.Hopeless", maximumRatio: Infinity, color: "#a855f7"}
+  trivial: {label: "ENCOUNTER.DIFFICULTIES.Trivial", maximumRatio: 0.5,
+    icon: "fa-solid fa-angles-down", color: "#3cb043", colorLight: "#2e7d32"},
+  easy: {label: "ENCOUNTER.DIFFICULTIES.Easy", maximumRatio: 0.75,
+    icon: "fa-solid fa-angle-down", color: "#3d8bff", colorLight: "#1f5fbf"},
+  moderate: {label: "ENCOUNTER.DIFFICULTIES.Moderate", maximumRatio: 1,
+    icon: "fa-solid fa-equals", color: "#f2c94c", colorLight: "#d6a104"},
+  challenging: {label: "ENCOUNTER.DIFFICULTIES.Challenging", maximumRatio: 1.25,
+    icon: "fa-solid fa-angle-up", color: "#f2994a", colorLight: "#b85c14"},
+  deadly: {label: "ENCOUNTER.DIFFICULTIES.Deadly", maximumRatio: 1.75,
+    icon: "fa-solid fa-angles-up", color: "#eb3b3b", colorLight: "#b71c1c"},
+  hopeless: {label: "ENCOUNTER.DIFFICULTIES.Hopeless", maximumRatio: Infinity,
+    icon: "fa-solid fa-skull", color: "#a855f7", colorLight: "#7e22ce"}
 });
 
 /* -------------------------------------------- */
