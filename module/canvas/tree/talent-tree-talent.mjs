@@ -42,7 +42,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
     // Defaults
     config.texture = foundry.canvas.getTexture(this.talent.img);
-    config.alpha = active ? 1.0 : 0.6;
+    config.highlightColor = nodeColor;
     config.underglowColor = active ? nodeColor : null;
     config.frameTint = active ? 0xFFFFFF : 0x7f7f7f; // 50%
     config.iconTint = active ? 0xFFFFFF : Color.fromHSL([nodeColor.hsl[0], 0.05, 0.4]);
@@ -81,6 +81,15 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
         break;
     }
     return config;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getHighlightState() {
+    const matches = crucible.tree.highlights;
+    if ( !matches ) return null;
+    return !!matches.get(this.node.node)?.has(this.talent.id);
   }
 
   /* -------------------------------------------- */

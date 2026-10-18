@@ -3,6 +3,7 @@ import CrucibleTalentTreeControls from "./talent-tree-controls.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
 import CrucibleTalentHUD from "./talent-hud.mjs";
+import CrucibleTalentIcon from "./talent-icon.mjs";
 
 /**
  * The Crucible Talent Tree, constructed as a subclass of PIXI.Container.
@@ -60,6 +61,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @type {Map<CrucibleTalentNode,CrucibleTalentNodeState>}
    */
   state = new CrucibleTalentNodeStates();
+
+  /**
+   * Ids of Talents matching the active filter, grouped by node, or null when no filter is active.
+   * @type {Map<CrucibleTalentNode, Set<string>>|null}
+   */
+  highlights = null;
 
   /**
    * Spritesheet textures loaded for use in the tree.
@@ -389,6 +396,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Refresh tree state
     this.pan(resetView ? {x: 0, y: 0, scale: 1.0} : {});
+    this.setHighlights(null);
     this.refresh();
 
     // Start rendering and enable the talent tree canvas
@@ -467,6 +475,37 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Refresh parent app
     if ( this.#parentApp?._onRefreshTalentTree instanceof Function ) this.#parentApp._onRefreshTalentTree();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply filter matches, highlighting matched nodes and Talents and dimming the rest.
+   * @param {Map<CrucibleTalentNode, Set<string>>|null} matches   Matching Talent ids by node, or null to clear
+   */
+  setHighlights(matches) {
+    this.highlights = matches;
+    for ( const node of CrucibleTalentNode.nodes.values() ) node.icon?.refreshHighlight();
+    for ( const talent of this.wheel.talents.children ) talent.refreshHighlight();
+    this.app.ticker.remove(this.#pulseHighlights, this);
+    if ( matches ) this.app.ticker.add(this.#pulseHighlights, this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pulse the alpha of every visible filter halo in unison.
+   */
+  #pulseHighlights() {
+    const {pulseMin, pulsePeriod} = CrucibleTalentIcon.HIGHLIGHT;
+    const t = (Math.sin((2 * Math.PI * performance.now()) / pulsePeriod) + 1) / 2;
+    const alpha = pulseMin + ((1 - pulseMin) * t);
+    for ( const node of CrucibleTalentNode.nodes.values() ) {
+      if ( node.icon?.highlight.visible ) node.icon.highlight.alpha = alpha;
+    }
+    for ( const talent of this.wheel.talents.children ) {
+      if ( talent.highlight.visible ) talent.highlight.alpha = alpha;
+    }
   }
 
   /* -------------------------------------------- */
