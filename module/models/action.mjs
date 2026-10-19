@@ -706,7 +706,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }),
         statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
         duration: aeDuration,
-        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
+        system: new fields.SchemaField({
+          ...crucible.api.models.CrucibleBaseActiveEffect.defineSchema(),
+          // Derive effect removal DC from the action's roll in CrucibleAction##finalizeEvents
+          dc: new fields.NumberField({required: false, integer: true, nullable: true, initial: undefined})
+        })
       })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     };
