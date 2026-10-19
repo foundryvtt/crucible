@@ -2378,13 +2378,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           // Spell-applied effects gain the magical property
           if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) properties.add("magical");
 
-          // Populate effect removal difficulty
+          // Populate effect removal difficulty unless it is fixed or forbidden
           if ( effect.system.dc === undefined ) {
             effect.system.dc = d
               ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
               : SYSTEM.PASSIVE_BASE + (this.actor?.system.advancement?.level ?? 0);
-            properties.add("removable");
           }
+          if ( Number.isFinite(effect.system.dc) ) properties.add("removable");
           effect.system.properties = Array.from(properties);
         }
       }

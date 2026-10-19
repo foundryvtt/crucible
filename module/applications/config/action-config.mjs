@@ -46,6 +46,12 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
    */
   static ACTIVE_EFFECT_PARTIAL = "systems/crucible/templates/sheets/action/effect.hbs";
 
+  /**
+   * A form-only field which configures whether an Action effect template is removable.
+   * @type {BooleanField}
+   */
+  static REMOVABLE_FIELD = new foundry.data.fields.BooleanField({label: "BASE_EFFECT.PROPERTIES.Removable"});
+
   /** @override */
   static PARTS = {
     header: {
@@ -137,6 +143,8 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       hookPartial: HOOK_PARTIAL,
       moduleHooks: this.#formatModuleHooks(),
       editable: this.isEditable,
+      effectContext: CrucibleActionConfig.prepareEffectContext(this.action.constructor.schema.fields.effects,
+        action.name),
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
       fields: this.action.constructor.schema.fields,
@@ -154,12 +162,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
       tabs: this._prepareTabs("sheet"),
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
-      targetTypes: SYSTEM.ACTION.TARGET_TYPES,
-      effectDurations: CONST.ACTIVE_EFFECT_DURATION_UNITS.reduce((acc, v) => {
-        if ( ["months", "turns"].includes(v) ) return acc;
-        return [...acc, {value: v, label: _loc(`EFFECT.DURATION.UNITS.${v}`)}];
-      }, [{value: "", label: ""}]),
-      effectExpiryEvents: Object.entries(ActiveEffect.EXPIRY_EVENTS).map(([k, v]) => ({value: k, label: _loc(v)}))
+      targetTypes: SYSTEM.ACTION.TARGET_TYPES
     };
   }
 
@@ -174,6 +177,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     for ( const [i, effect] of effects.entries() ) {
       effect.index = i;
       effect.fieldPath = `effects.${i}`;
+      CrucibleActionConfig.prepareEffectRemoval(effect);
     }
     return effects;
   }
@@ -214,6 +218,37 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Prepare the rendering context shared by every effect template rendered with the Active Effect partial.
+   * @param {ArrayField} effectsField   The Action field which defines its effect templates
+   * @param {string} placeholder        The placeholder for an unnamed effect
+   * @returns {object}
+   */
+  static prepareEffectContext(effectsField, placeholder) {
+    return {
+      fields: effectsField.element.fields,
+      placeholder,
+      removableField: CrucibleActionConfig.REMOVABLE_FIELD,
+      effectDurations: CONST.ACTIVE_EFFECT_DURATION_UNITS.reduce((acc, v) => {
+        if ( ["months", "turns"].includes(v) ) return acc;
+        return [...acc, {value: v, label: _loc(`EFFECT.DURATION.UNITS.${v}`)}];
+      }, [{value: "", label: ""}]),
+      effectExpiryEvents: Object.entries(ActiveEffect.EXPIRY_EVENTS).map(([k, v]) => ({value: k, label: _loc(v)}))
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Annotate effect template data with whether the effect is removable, which a null removal DC forbids.
+   * @param {object} effect     Effect template data prepared for rendering
+   */
+  static prepareEffectRemoval(effect) {
+    effect.removable = effect.system?.dc !== null;
+  }
+
+  /* -------------------------------------------- */
   /*  Form Submission                             */
   /* -------------------------------------------- */
 
@@ -236,6 +271,7 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     // Duration units require a numeric duration value
     for ( const effect of submitData.effects ) {
       if ( effect.duration && !Number.isFinite(effect.duration?.value) ) effect.duration.units = "";
+      CrucibleActionConfig.submitEffectRemoval(effect);
     }
 
     // A forced persistence choice renders disabled and is therefore absent from form data, so record it explicitly
@@ -275,6 +311,22 @@ export default class CrucibleActionConfig extends HandlebarsApplicationMixin(Doc
     // For continuity of this sheet instance, update the reference so we can re-render accordingly.
     this.action = this.document.system.actions[idx];
     await this.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Convert the submitted Removable choice of an effect template into its removal DC.
+   * An unremovable effect stores a null DC, while a blank DC is omitted so that it is derived when the action is used.
+   * @param {object} effect     Submitted effect template data
+   */
+  static submitEffectRemoval(effect) {
+    if ( !("removable" in effect) ) return;
+    const removable = effect.removable;
+    delete effect.removable;
+    effect.system ??= {};
+    if ( !removable ) effect.system.dc = null;
+    else if ( effect.system.dc === null ) delete effect.system.dc;
   }
 
   /* -------------------------------------------- */

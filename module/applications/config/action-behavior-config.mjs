@@ -4,6 +4,7 @@
  */
 
 const {FormDataExtended} = foundry.applications.ux;
+import CrucibleActionConfig from "./action-config.mjs";
 
 /**
  * @typedef _ActionBehaviorRenderOptions
@@ -161,6 +162,8 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
     if ( this.isSynthetic ) delete context.fields.disabled;
     return {
       ...context,
+      effectContext: CrucibleActionConfig.prepareEffectContext(this.document.system.schema.fields.action.fields.effects,
+        context.source.system.action.name),
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
       effects: this.#prepareEffects(),
       headerTags: this.document.system.action.tags.reduce((acc, tagId) => {
@@ -172,12 +175,7 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
       tabs: this._prepareTabs("sheet"),
       tags: this.#prepareTags(),
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
-      systemFields: this.document.system.schema.fields,
-      effectDurations: CONST.ACTIVE_EFFECT_DURATION_UNITS.reduce((acc, v) => {
-        if ( ["months", "turns"].includes(v) ) return acc;
-        return [...acc, {value: v, label: _loc(`EFFECT.DURATION.UNITS.${v}`)}];
-      }, []),
-      effectExpiryEvents: Object.entries(ActiveEffect.EXPIRY_EVENTS).map(([k, v]) => ({value: k, label: _loc(v)}))
+      systemFields: this.document.system.schema.fields
     };
   }
 
@@ -192,6 +190,7 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
     for ( const [i, effect] of effects.entries() ) {
       effect.index = i;
       effect.fieldPath = `system.action.effects.${i}`;
+      CrucibleActionConfig.prepareEffectRemoval(effect);
     }
     return effects;
   }
@@ -287,6 +286,7 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
   _processFormData(event, form, formData) {
     const data = foundry.utils.expandObject(formData.object);
     data.system.action.effects = Object.values(data.system.action.effects || {});
+    for ( const effect of data.system.action.effects ) CrucibleActionConfig.submitEffectRemoval(effect);
     data.name = data.system.action.name;
     return data;
   }

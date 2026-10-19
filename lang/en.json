@@ -121,7 +121,8 @@
     },
     "EFFECTS": {
       "Add": "Add Effect",
-      "Delete": "Remove Effect"
+      "Delete": "Remove Effect",
+      "RemovableHint": "This effect may be removed by overcoming its removal difficulty. Leave the DC blank to derive it from the action's roll."
     },
     "FIELDS": {
       "actionHooks": {

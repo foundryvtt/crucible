@@ -19,9 +19,26 @@
         </div>
     </div>
     {{formGroup fields.statuses name=(concat effect.fieldPath ".statuses") value=effect.statuses valueAttr="id" labelAttr="name" localize=true}}
-    {{formGroup fields.duration.fields.value name=(concat effect.fieldPath ".duration.value") value=effect.duration.value}}
-    {{formGroup fields.duration.fields.units name=(concat effect.fieldPath ".duration.units")
-                value=effect.duration.units options=effectDurations}}
+    <div class="form-group slim">
+        <label>{{fields.duration.label}}</label>
+        <div class="form-fields">
+            {{formInput fields.duration.fields.value name=(concat effect.fieldPath ".duration.value")
+                        value=effect.duration.value}}
+            {{formInput fields.duration.fields.units name=(concat effect.fieldPath ".duration.units")
+                        value=effect.duration.units options=effectDurations}}
+        </div>
+    </div>
     {{formGroup fields.duration.fields.expiry name=(concat effect.fieldPath ".duration.expiry")
                 value=effect.duration.expiry options=effectExpiryEvents}}
+    <div class="form-group slim">
+        <label>{{localize removableField.label}}</label>
+        <div class="form-fields">
+            {{formInput removableField name=(concat effect.fieldPath ".removable") value=effect.removable}}
+            {{#if effect.removable}}
+            {{formInput fields.system.fields.dc name=(concat effect.fieldPath ".system.dc") value=effect.system.dc
+                        placeholder=(localize "DICE.DC")}}
+            {{/if}}
+        </div>
+        <p class="hint">{{localize "ACTION.EFFECTS.RemovableHint"}}</p>
+    </div>
 </fieldset>
