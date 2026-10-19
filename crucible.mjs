@@ -297,6 +297,7 @@ Hooks.once("init", async function() {
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
+  CONFIG.ux.TooltipManager = interaction.CrucibleTooltipManager;
 
   // Custom HTML Elements
   for ( const element of Object.values(applications.elements) ) {

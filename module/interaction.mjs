@@ -20,6 +20,20 @@ export async function getRuleTooltipContext(name, tooltip) {
 /* -------------------------------------------- */
 
 /**
+ * A TooltipManager whose buttons never inherit the styled tooltip class of the element they are placed within.
+ */
+export class CrucibleTooltipManager extends foundry.helpers.interaction.TooltipManager {
+
+  /** @inheritDoc */
+  activate(element, options={}) {
+    if ( element.matches("button, a.button") ) options.cssClass ??= element.dataset.tooltipClass ?? "";
+    return super.activate(element, options);
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
  * Handle pointer enter events to take control over crucible dynamic system tooltips.
  * @param {PointerEvent} event
  */
