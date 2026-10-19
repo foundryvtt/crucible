@@ -1,0 +1,800 @@
+folder: dyGlRRoa2yqBRyNZ
+name: Companion of the Air
+type: adversary
+_id: companionAir0000
+img: icons/svg/mystery-man.svg
+system:
+  abilities:
+    wisdom:
+      bonus: 0
+    presence:
+      bonus: 0
+    intellect:
+      bonus: 0
+    strength:
+      bonus: 0
+    toughness:
+      bonus: 0
+    dexterity:
+      bonus: 0
+  training: {}
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  resistances:
+    acid:
+      bonus: 0
+      immune: false
+    bludgeoning:
+      bonus: 0
+      immune: false
+    cold:
+      bonus: 0
+      immune: false
+    corruption:
+      bonus: 0
+      immune: false
+    electricity:
+      bonus: 0
+      immune: false
+    fire:
+      bonus: 0
+      immune: false
+    piercing:
+      bonus: 0
+      immune: false
+    poison:
+      bonus: 0
+      immune: false
+    psychic:
+      bonus: 0
+      immune: false
+    radiant:
+      bonus: 0
+      immune: false
+    slashing:
+      bonus: 0
+      immune: false
+    void:
+      bonus: 0
+      immune: false
+  resources:
+    health:
+      value: 16
+    wounds:
+      value: 0
+    morale:
+      value: 8
+    madness:
+      value: 0
+    action:
+      value: 4
+    focus:
+      value: 2
+    heroism:
+      value: 0
+  movement:
+    sizeBonus: 0
+    strideBonus: 0
+    engagementBonus: 0
+  currency: 0
+  status: null
+  favorites:
+    - flankingManeuver
+    - rake
+    - loyalProtector
+  advancement:
+    level: 1
+    rank: minion
+    important: true
+  details:
+    archetype:
+      description: >-
+        <p>Beasts which, through magical means or training, have developed into
+        loyal companions.</p>
+      identifier: bestialCompanion
+      abilities:
+        wisdom: 1
+        presence: 1
+        intellect: 1
+        strength: 3
+        toughness: 3
+        dexterity: 3
+      talents:
+        - item: Compendium.crucible.talent.Item.battleWorn000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.loyalProtector00
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.flankingManeuver
+          level: 0
+      training:
+        awareness: 2
+        natural: 4
+        stealth: 2
+        wilderness: 1
+        athletics: 3
+        intimidation: 0
+      spells: []
+      equipment: []
+      name: Bestial Companion
+      img: icons/magic/nature/wolf-paw-glow-purple-teal.webp
+    taxonomy:
+      description: >-
+        <p>Companion beasts who take to the skies. Their view from above can
+        provide their masters a strong tactical advantage, and they remain
+        dexterous enough to aid in combat when necessary.</p>
+      identifier: beastAir
+      category: beast
+      abilities:
+        wisdom: 1
+        presence: 2
+        intellect: 1
+        strength: 1
+        toughness: 3
+        dexterity: 4
+      movement:
+        size: 3
+        stride: 10
+      resistances:
+        acid:
+          value: 0
+          immune: false
+        bludgeoning:
+          value: 0
+          immune: false
+        cold:
+          value: 0
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        electricity:
+          value: 0
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        piercing:
+          value: 0
+          immune: false
+        poison:
+          value: 0
+          immune: false
+        psychic:
+          value: 0
+          immune: false
+        radiant:
+          value: 0
+          immune: false
+        slashing:
+          value: 0
+          immune: false
+        void:
+          value: 0
+          immune: false
+      talents:
+        - item: Compendium.crucible.adversary-talents.Item.glider0000000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.rake000000000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.echolocation0000
+          level: 0
+      equipment:
+        - item: Compendium.crucible.adversary-equipment.Item.beak000000000000
+          quantity: 1
+          equipped: true
+          autoScale: false
+        - item: Compendium.crucible.adversary-equipment.Item.talons0000000000
+          quantity: 1
+          equipped: true
+          autoScale: false
+      characteristics:
+        blooded: true
+        equipment: false
+        spells: false
+        temperature: ''
+      name: Beast of the Air
+      img: icons/creatures/birds/corvid-flying-wings-purple.webp
+    biography:
+      appearance: ''
+      public: ''
+      private: ''
+    knowledge: []
+    languages: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791826811191
+  modifiedTime: 1791921078577
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+prototypeToken:
+  name: Beast of the Air
+  displayName: 0
+  actorLink: true
+  width: 3
+  height: 3
+  depth: 3
+  texture:
+    src: icons/svg/mystery-man.svg
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    scaleX: 1
+    scaleY: 1
+    tint: '#ffffff'
+    alphaThreshold: 0.75
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: 1
+  displayBars: 0
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    negative: false
+    priority: 0
+    alpha: 0.5
+    angle: 360
+    bright: 0
+    color: null
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0
+    contrast: 0
+    shadows: 0
+    animation:
+      type: null
+      speed: 5
+      intensity: 5
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+  sight:
+    enabled: true
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: {}
+  occludable:
+    radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 0
+    subject:
+      scale: 1
+      texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
+  movementAction: null
+  flags: {}
+  randomImg: false
+  appendNumber: false
+  prependAdjective: false
+items:
+  - name: Glider
+    type: talent
+    img: icons/creatures/birds/raptor-hawk-flying.webp
+    system:
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature} controls its descent while falling.
+        Unless it is @Condition[incapacitated] or @Condition[restrained], a fall
+        becomes a <strong>Glide</strong>: a downward <strong>Fly</strong>
+        movement instead of an impact, suffering no falling damage.</p><p>While
+        gliding the creature's @Rule[movement.stride] is doubled and it is
+        granted a @Rule[movement.freeMovement]{free move}, so it can always
+        glide at least a short distance. Its glide must descend, and wherever
+        the movement ends is where it comes to rest; if it ends the glide still
+        aloft it gains the @Condition[flying] condition.</p>
+      actions:
+        - id: fallGlide
+          name: Glide
+          img: icons/svg/wing.svg
+          condition: ''
+          description: >-
+            <p>The @ref[actor.name]{creature} glides rather than falls, flying
+            downward under control. The movement must descend and suffers no
+            falling damage. If the creature ends its glide while still aloft it
+            gains the @Condition[flying] condition.</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            weapon: false
+            hands: 0
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 0
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - fly
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.glider0000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826811191
+      modifiedTime: 1791826811191
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: glider0000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionAir0000.glider0000000000'
+  - name: Rake
+    type: talent
+    _id: rake000000000000
+    img: icons/skills/wounds/injury-triple-slash-bleed.webp
+    system:
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature} attacks rapidly with its talons,
+        dealing multiple raking blows against a single target.</p>
+      actions:
+        - id: rake
+          name: Rake
+          img: icons/skills/wounds/injury-triple-slash-bleed.webp
+          condition: ''
+          description: >-
+            <p>The @ref[actor.name]{creature} attacks swiftly with claws or
+            talons.</p><p>If at least one attack results in a
+            @Rule[dice.criticalSuccess], it inflicts the @Condition[bleeding]
+            condition for <strong>2 Rounds</strong>.</p>
+          cost:
+            action: 1
+            focus: 0
+            heroism: 0
+            weapon: true
+            hands: 0
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+            multiple: 2
+          effects:
+            - name: Rake
+              scope: 3
+              result:
+                type: successCritical
+                all: false
+              statuses:
+                - bleeding
+              duration:
+                value: 2
+                units: rounds
+                expiry: turnEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                lights: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - melee
+            - natural
+            - slashing
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.rake000000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826811191
+      modifiedTime: 1791826811191
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionAir0000.rake000000000000'
+  - name: Echolocation
+    type: talent
+    _id: echolocation0000
+    img: icons/magic/symbols/ring-circle-smoke-blue.webp
+    system:
+      nodes: []
+      description: >-
+        <p>@ref[actor.name]{This creature} perceives the world through the
+        emission of sonic pulses that detect shapes with precision, allowing it
+        to locate creatures that are moving or otherwise emitting sound, up to
+        60 feet away as long as they are not behind total cover. If the creature
+        is @Condition[deafened], this sense may not be used.</p><p>A creature
+        detected using @ref[name] is treated as visible for the purposes of
+        actions which require you to see your target.</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags:
+      ember:
+        crucibleOverride: true
+    _stats:
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826811191
+      modifiedTime: 1791826811191
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      exportSource: null
+      compendiumSource: Compendium.crucible.adversary-talents.Item.echolocation0000
+      duplicateSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionAir0000.echolocation0000'
+  - name: Beak
+    type: weapon
+    img: icons/commodities/bones/skull-bird-white.webp
+    effects: []
+    flags: {}
+    system:
+      category: light1
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      description:
+        public: <p>The @ref[actor.name]{creature} has a sharp, tearing beak.</p>
+        private: ''
+      damageType: piercing
+      broken: false
+      identifier: beak
+      invested: false
+      actions: []
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-equipment.Item.beak000000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826811191
+      modifiedTime: 1791826811191
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: beak000000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionAir0000.beak000000000000'
+  - name: Talons
+    type: weapon
+    img: icons/creatures/claws/claw-scaled-red.webp
+    effects: []
+    flags: {}
+    system:
+      category: light1
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      description:
+        public: >-
+          <p>The @ref[actor.name]{creature} has curved talons for gripping and
+          rending prey.</p>
+        private: ''
+      damageType: slashing
+      broken: false
+      identifier: talons
+      invested: false
+      actions: []
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-equipment.Item.talons0000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826811191
+      modifiedTime: 1791826811191
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: talons0000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionAir0000.talons0000000000'
+  - name: Battle-Worn
+    type: talent
+    img: icons/skills/wounds/injury-stapled-flesh-tan.webp
+    system:
+      description: >-
+        <p>Your body has endured so many injuries that it has learned how to
+        mend itself with remarkable efficiency. When you perform the
+        @Action[default rest] action, you recover additional
+        @Rule[resource.wounds] equal to half your @Rule[ability.toughness] score
+        (rounded down).</p>
+      actions: []
+      nodes:
+        - tou1b
+      iconicSpells: 0
+      training: medicine
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921013115
+      modifiedTime: 1791921013115
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: battleWorn000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionAir0000.battleWorn000000'
+  - name: Loyal Protector
+    type: talent
+    _id: loyalProtector00
+    img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
+    system:
+      nodes: []
+      description: >-
+        <p>@ref[actor.name]{The companion} is fiercely loyal to its master, and
+        will move to their side and provide defensive assistance immediately
+        upon request.</p>
+      actions:
+        - id: loyalProtector
+          img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
+          cost:
+            action: -1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: movement
+            number: 1
+            scope: 2
+            self: false
+          persistRegion: false
+          regionBehavior: null
+          summon: null
+          effects:
+            - name: ''
+              scope: 2
+              result:
+                type: success
+                all: false
+              statuses:
+                - guarded
+              duration:
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                lights: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - movement
+          name: Loyal Protector
+          description: >-
+            <p>@ref[actor.name]{The companion} moves adjacent to its master,
+            providing them with the @Condition[guarded] condition until the
+            start of their next turn.</p>
+          condition: ''
+      spellcraft: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921013115
+      modifiedTime: 1791921013115
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.loyalProtector00
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionAir0000.loyalProtector00'
+  - name: Flanking Maneuver
+    type: talent
+    _id: flankingManeuver
+    img: icons/creatures/abilities/wolf-heads-swirl-purple.webp
+    system:
+      nodes: []
+      description: >-
+        <p>Working in tandem with its master, @ref[actor.name]{the companion}
+        can create openings in the defenses of even the most attentive
+        opponents.</p>
+      actions:
+        - id: flankingManeuver
+          img: icons/creatures/abilities/wolf-heads-swirl-purple.webp
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          persistRegion: false
+          regionBehavior: null
+          summon: null
+          effects:
+            - name: ''
+              scope: 3
+              result:
+                type: success
+                all: false
+              statuses:
+                - overrun
+              duration:
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                lights: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - natural
+          name: Flanking Maneuver
+          description: >-
+            <p>@ref[actor.name]{The companion} makes a deliberate strike at an
+            opponent who is currently being engaged by its master. On a hit, the
+            opponent becomes @Condition[overrun] until the start of its next
+            turn.</p>
+          condition: ''
+      spellcraft: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921013115
+      modifiedTime: 1791921013115
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.flankingManeuver
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionAir0000.flankingManeuver'
+_key: '!actors!companionAir0000'

@@ -1,0 +1,810 @@
+folder: dyGlRRoa2yqBRyNZ
+name: Companion of the Land
+type: adversary
+_id: companionLand000
+img: icons/svg/mystery-man.svg
+system:
+  abilities:
+    wisdom:
+      bonus: 0
+    presence:
+      bonus: 0
+    intellect:
+      bonus: 0
+    strength:
+      bonus: 0
+    toughness:
+      bonus: 0
+    dexterity:
+      bonus: 0
+  training: {}
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  resistances:
+    acid:
+      bonus: 0
+      immune: false
+    bludgeoning:
+      bonus: 0
+      immune: false
+    cold:
+      bonus: 0
+      immune: false
+    corruption:
+      bonus: 0
+      immune: false
+    electricity:
+      bonus: 0
+      immune: false
+    fire:
+      bonus: 0
+      immune: false
+    piercing:
+      bonus: 0
+      immune: false
+    poison:
+      bonus: 0
+      immune: false
+    psychic:
+      bonus: 0
+      immune: false
+    radiant:
+      bonus: 0
+      immune: false
+    slashing:
+      bonus: 0
+      immune: false
+    void:
+      bonus: 0
+      immune: false
+  resources:
+    health:
+      value: 19
+    wounds:
+      value: 0
+    morale:
+      value: 6
+    madness:
+      value: 0
+    action:
+      value: 4
+    focus:
+      value: 2
+    heroism:
+      value: 0
+  movement:
+    sizeBonus: 0
+    strideBonus: 0
+    engagementBonus: 0
+  currency: 0
+  status: null
+  favorites:
+    - flankingManeuver
+    - pouncingStrike
+    - loyalProtector
+  advancement:
+    level: 1
+    rank: minion
+    important: true
+  details:
+    archetype:
+      description: >-
+        <p>Beasts which, through magical means or training, have developed into
+        loyal companions.</p>
+      identifier: bestialCompanion
+      abilities:
+        wisdom: 1
+        presence: 1
+        intellect: 1
+        strength: 3
+        toughness: 3
+        dexterity: 3
+      talents:
+        - item: Compendium.crucible.talent.Item.battleWorn000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.loyalProtector00
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.flankingManeuver
+          level: 0
+      training:
+        awareness: 2
+        natural: 4
+        stealth: 2
+        wilderness: 1
+        athletics: 3
+        intimidation: 0
+      spells: []
+      equipment: []
+      name: Bestial Companion
+      img: icons/magic/nature/wolf-paw-glow-purple-teal.webp
+    taxonomy:
+      description: >-
+        <p>Companion beasts who stride across land. Their strength and pack
+        hunter tactics serve their masters well, often acting as another
+        frontline team member.</p>
+      identifier: beastLand
+      category: beast
+      abilities:
+        wisdom: 1
+        presence: 1
+        intellect: 2
+        strength: 4
+        toughness: 3
+        dexterity: 1
+      movement:
+        size: 4
+        stride: 10
+      resistances:
+        acid:
+          value: 0
+          immune: false
+        bludgeoning:
+          value: 0
+          immune: false
+        cold:
+          value: 0
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        electricity:
+          value: 0
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        piercing:
+          value: 0
+          immune: false
+        poison:
+          value: 0
+          immune: false
+        psychic:
+          value: 0
+          immune: false
+        radiant:
+          value: 0
+          immune: false
+        slashing:
+          value: 0
+          immune: false
+        void:
+          value: 0
+          immune: false
+      talents:
+        - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.packhunter000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+          level: 0
+      equipment:
+        - item: Compendium.crucible.adversary-equipment.Item.thickHide0000000
+          quantity: 1
+          equipped: true
+          autoScale: false
+        - item: Compendium.crucible.adversary-equipment.Item.bite000000000000
+          quantity: 1
+          equipped: true
+          autoScale: false
+        - item: Compendium.crucible.adversary-equipment.Item.claws00000000000
+          quantity: 1
+          equipped: true
+          autoScale: false
+      characteristics:
+        blooded: true
+        equipment: false
+        spells: false
+        temperature: ''
+      name: Beast of the Land
+      img: icons/creatures/mammals/wolf-howl-moon-forest-blue.webp
+    biography:
+      appearance: ''
+      public: ''
+      private: ''
+    knowledge: []
+    languages: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791826834805
+  modifiedTime: 1791921046822
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+prototypeToken:
+  name: Beast of the Air
+  displayName: 0
+  actorLink: true
+  width: 4
+  height: 4
+  depth: 4
+  texture:
+    src: icons/svg/mystery-man.svg
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    scaleX: 1
+    scaleY: 1
+    tint: '#ffffff'
+    alphaThreshold: 0.75
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: 1
+  displayBars: 0
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    negative: false
+    priority: 0
+    alpha: 0.5
+    angle: 360
+    bright: 0
+    color: null
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0
+    contrast: 0
+    shadows: 0
+    animation:
+      type: null
+      speed: 5
+      intensity: 5
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+  sight:
+    enabled: true
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: {}
+  occludable:
+    radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 0
+    subject:
+      scale: 1
+      texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
+  movementAction: null
+  flags: {}
+  randomImg: false
+  appendNumber: false
+  prependAdjective: false
+items:
+  - name: Pouncing Strike
+    type: talent
+    img: icons/creatures/claws/claw-talons-glowing-orange.webp
+    system:
+      nodes: []
+      description: >-
+        <p>This creature lunges forward, putting its whole weight behind a
+        leaping strike.</p>
+      actions:
+        - id: pouncingStrike
+          name: Pouncing Strike
+          img: icons/creatures/claws/claw-talons-glowing-orange.webp
+          condition: ''
+          description: >-
+            <p>This attack may be used after a <strong>Move</strong> that brings
+            the @ref[actor.name]{creature} at least 10 feet closer to its
+            target. If the creature was above the target, this attack gains
+            @Rule[dice.boon]{+1 Boon} per 10 feet of elevation decrease in that
+            movement.</p><p>If this attack is a
+            @Rule[dice.criticalSuccess]{Critical Hit}, the target of the attack
+            is immediately knocked @Condition[prone].</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            weapon: true
+            hands: 0
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects:
+            - name: Pouncing Strike
+              scope: 3
+              result:
+                type: successCritical
+                all: false
+              statuses:
+                - prone
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                lights: []
+                properties: []
+              duration:
+                value: null
+                units: ''
+                expiry: null
+                expired: false
+          tags:
+            - melee
+            - natural
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.pouncingStrike00
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826834805
+      modifiedTime: 1791826834805
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: pouncingStrike00
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.pouncingStrike00'
+  - name: Pack Hunter
+    type: talent
+    img: icons/creatures/abilities/paw-print-orange.webp
+    system:
+      description: >-
+        <p>This creature is a pack hunter, relying on its allies to flank and
+        harrass a target to render it exposed to further harm.</p><p>This
+        creature doubles number of @Rule[dice.boon]{Boons} awarded from
+        attacking a @Condition[flanked] enemy.</p>
+      actions: []
+      nodes: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.1
+      coreVersion: '14.369'
+      createdTime: 1791826834805
+      modifiedTime: 1791826834805
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.packhunter000000
+      duplicateSource: null
+      exportSource: null
+    _id: packhunter000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.packhunter000000'
+  - name: Darkvision
+    type: talent
+    img: icons/magic/perception/shadow-stealth-eyes-purple.webp
+    system:
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature} can see in darkness as though it were
+        dim light up to 60 feet away, perceiving its surroundings in shades of
+        grey. Darkvision does not function while the @ref[actor.name]{creature}
+        is @Condition[blinded].</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _id: darkvision000000
+    _stats:
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826834805
+      modifiedTime: 1791826834805
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.darkvision000000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.darkvision000000'
+  - name: Thick Hide
+    type: armor
+    img: icons/commodities/leather/fur-white.webp
+    effects: []
+    flags: {}
+    system:
+      category: natural
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      description:
+        public: >-
+          <p>The @ref[actor.name]{creature} has a thick, leathery hide that is
+          resilient against attack.</p>
+        private: ''
+      armor:
+        base: 6
+      broken: false
+      identifier: thickHide
+      invested: false
+      actions: []
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-equipment.Item.thickHide0000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826834805
+      modifiedTime: 1791826834805
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: thickHide0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.thickHide0000000'
+  - name: Bite
+    type: weapon
+    img: icons/creatures/abilities/mouth-teeth-rows-red.webp
+    effects: []
+    flags: {}
+    system:
+      category: balanced1
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      description:
+        public: >-
+          <p>The @ref[actor.name]{creature} possesses a formidable bite of sharp
+          teeth.</p>
+        private: ''
+      damageType: piercing
+      broken: false
+      identifier: bite
+      invested: false
+      actions: []
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-equipment.Item.bite000000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826834805
+      modifiedTime: 1791826834805
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: bite000000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.bite000000000000'
+  - name: Claws
+    type: weapon
+    img: icons/creatures/claws/claw-bear-paw-swipe-red.webp
+    effects: []
+    flags: {}
+    system:
+      category: light1
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - natural
+      description:
+        public: >-
+          <p>The @ref[actor.name]{creature} has elongated and sharpened
+          claws.</p>
+        private: ''
+      damageType: slashing
+      broken: false
+      identifier: claws
+      invested: false
+      actions: []
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-equipment.Item.claws00000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791826834805
+      modifiedTime: 1791826834805
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: claws00000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.claws00000000000'
+  - name: Battle-Worn
+    type: talent
+    img: icons/skills/wounds/injury-stapled-flesh-tan.webp
+    system:
+      description: >-
+        <p>Your body has endured so many injuries that it has learned how to
+        mend itself with remarkable efficiency. When you perform the
+        @Action[default rest] action, you recover additional
+        @Rule[resource.wounds] equal to half your @Rule[ability.toughness] score
+        (rounded down).</p>
+      actions: []
+      nodes:
+        - tou1b
+      iconicSpells: 0
+      training: medicine
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921004068
+      modifiedTime: 1791921004068
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: battleWorn000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.battleWorn000000'
+  - name: Loyal Protector
+    type: talent
+    _id: loyalProtector00
+    img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
+    system:
+      nodes: []
+      description: >-
+        <p>@ref[actor.name]{The companion} is fiercely loyal to its master, and
+        will move to their side and provide defensive assistance immediately
+        upon request.</p>
+      actions:
+        - id: loyalProtector
+          img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
+          cost:
+            action: -1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: movement
+            number: 1
+            scope: 2
+            self: false
+          persistRegion: false
+          regionBehavior: null
+          summon: null
+          effects:
+            - name: ''
+              scope: 2
+              result:
+                type: success
+                all: false
+              statuses:
+                - guarded
+              duration:
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                lights: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - movement
+          name: Loyal Protector
+          description: >-
+            <p>@ref[actor.name]{The companion} moves adjacent to its master,
+            providing them with the @Condition[guarded] condition until the
+            start of their next turn.</p>
+          condition: ''
+      spellcraft: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921004068
+      modifiedTime: 1791921004068
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.loyalProtector00
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.loyalProtector00'
+  - name: Flanking Maneuver
+    type: talent
+    _id: flankingManeuver
+    img: icons/creatures/abilities/wolf-heads-swirl-purple.webp
+    system:
+      nodes: []
+      description: >-
+        <p>Working in tandem with its master, @ref[actor.name]{the companion}
+        can create openings in the defenses of even the most attentive
+        opponents.</p>
+      actions:
+        - id: flankingManeuver
+          img: icons/creatures/abilities/wolf-heads-swirl-purple.webp
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          persistRegion: false
+          regionBehavior: null
+          summon: null
+          effects:
+            - name: ''
+              scope: 3
+              result:
+                type: success
+                all: false
+              statuses:
+                - overrun
+              duration:
+                value: 1
+                units: rounds
+                expiry: turnStart
+                expired: false
+              system:
+                changes: []
+                dot: []
+                lights: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                properties: []
+                regions: []
+                summons: []
+          tags:
+            - natural
+          name: Flanking Maneuver
+          description: >-
+            <p>@ref[actor.name]{The companion} makes a deliberate strike at an
+            opponent who is currently being engaged by its master. On a hit, the
+            opponent becomes @Condition[overrun] until the start of its next
+            turn.</p>
+          condition: ''
+      spellcraft: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.369'
+      systemId: crucible
+      systemVersion: 0.11.1
+      createdTime: 1791921004068
+      modifiedTime: 1791921004068
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.flankingManeuver
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!companionLand000.flankingManeuver'
+_key: '!actors!companionLand000'

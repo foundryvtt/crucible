@@ -597,6 +597,13 @@
       "Required": "You must choose an affix to amplify.",
       "Title": "Amplify Affix"
     },
+    "Beastmaster": {
+      "AlreadyBonded": "You already have a bonded companion.",
+      "NoCompanion": "You do not have a companion to release.",
+      "NoneChosen": "No companion selected.",
+      "NotEngagedByCompanion": "The target must be engaged by your companion.",
+      "WhichBond": "Which type of beast will you bond?"
+    },
     "Challenge": {
       "Dominance": "Dominance"
     },
@@ -608,6 +615,9 @@
       "Label": "Topic of Study",
       "Required": "You must choose a field of Knowledge to study.",
       "Title": "Field Study"
+    },
+    "FlankingManeuver": {
+      "NotEngaged": "The target must be engaged by the companion's master."
     },
     "Gambit": {
       "AnteWon": "Gambit (+{count})",
@@ -636,6 +646,9 @@
       "Required": "You must choose both an item and an affix.",
       "TierTooHigh": "That affix cannot be imbued at Tier 1.",
       "Title": "Imbue Affix"
+    },
+    "LoyalProtector": {
+      "NotMaster": "You must target the companion's master."
     },
     "Swallow": {
       "AlreadySwallowing": "You are already Swallowing another creature."

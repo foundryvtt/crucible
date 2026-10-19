@@ -1,0 +1,97 @@
+folder: EWlKgRmutkmESoEn
+name: Beast of the Air
+type: taxonomy
+_id: beastAir00000000
+img: icons/creatures/birds/corvid-flying-wings-purple.webp
+system:
+  description: >-
+    <p>Companion beasts who take to the skies. Their view from above can provide
+    their masters a strong tactical advantage, and they remain dexterous enough
+    to aid in combat when necessary.</p>
+  identifier: beastAir
+  category: beast
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 1
+    strength: 1
+    toughness: 3
+    dexterity: 4
+  movement:
+    size: 3
+    stride: 10
+  resistances:
+    acid:
+      value: 0
+      immune: false
+    bludgeoning:
+      value: 0
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.glider0000000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.rake000000000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.echolocation0000
+      level: 0
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.beak000000000000
+      quantity: 1
+      equipped: true
+      autoScale: false
+    - item: Compendium.crucible.adversary-equipment.Item.talons0000000000
+      quantity: 1
+      equipped: true
+      autoScale: false
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: false
+    temperature: ''
+effects: []
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791821281230
+  modifiedTime: 1791822746257
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!beastAir00000000'

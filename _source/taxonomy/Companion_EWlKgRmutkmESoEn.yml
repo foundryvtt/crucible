@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Companion
+color: null
+sorting: a
+_id: EWlKgRmutkmESoEn
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791821191739
+  modifiedTime: 1791821196307
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!EWlKgRmutkmESoEn'

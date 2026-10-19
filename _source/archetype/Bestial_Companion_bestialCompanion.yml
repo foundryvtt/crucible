@@ -1,0 +1,50 @@
+folder: nvrka9qX6aA8TPVj
+name: Bestial Companion
+type: archetype
+_id: bestialCompanion
+img: icons/magic/nature/wolf-paw-glow-purple-teal.webp
+system:
+  description: >-
+    <p>Beasts which, through magical means or training, have developed into
+    loyal companions.</p>
+  identifier: bestialCompanion
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 3
+    toughness: 3
+    dexterity: 3
+  talents:
+    - item: Compendium.crucible.talent.Item.battleWorn000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.loyalProtector00
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.flankingManeuver
+      level: 0
+  training:
+    awareness: 2
+    natural: 4
+    stealth: 2
+    wilderness: 1
+    athletics: 3
+    intimidation: 0
+  spells: []
+  equipment: []
+effects: []
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: 1791821405062
+  modifiedTime: 1791913934905
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!bestialCompanion'
