@@ -2,7 +2,7 @@ import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
 import CrucibleTalentNode from "../../const/talent-node.mjs";
 import CrucibleTalentItem from "../../models/item-talent.mjs";
-import {getRuleTooltipContext, RULE_TOOLTIP_TEMPLATE} from "../../interaction.mjs";
+import CrucibleTooltipManager from "../../tooltip-manager.mjs";
 
 const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 
@@ -31,7 +31,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
       templates: ["systems/crucible/templates/sheets/item/talent-summary.hbs"]
     },
     ability: {
-      template: RULE_TOOLTIP_TEMPLATE
+      template: CrucibleTooltipManager.RULE_TOOLTIP_TEMPLATE
     }
   };
 
@@ -123,7 +123,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
    */
   async #getAbilityContext() {
     const cfg = SYSTEM.RULES.ability[this.target.abilityId];
-    return getRuleTooltipContext(cfg.label, cfg.tooltip);
+    return CrucibleTooltipManager.getRuleTooltipContext(cfg.label, cfg.tooltip);
   }
 
   /* -------------------------------------------- */

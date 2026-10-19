@@ -25,7 +25,7 @@ import * as migrations from "./module/migrations.mjs";
 import {handleSocketEvent} from "./module/socket.mjs";
 import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
-import * as interaction from "./module/interaction.mjs";
+import CrucibleTooltipManager from "./module/tooltip-manager.mjs";
 import CrucibleTalentNode from "./module/const/talent-node.mjs";
 import {statusEffects} from "./module/const/statuses.mjs";
 import * as methods from "./module/methods.mjs";
@@ -66,7 +66,6 @@ Hooks.once("init", async function() {
     canvas,
     chat,
     dice,
-    interaction,
     models,
     documents,
     methods: {
@@ -297,7 +296,7 @@ Hooks.once("init", async function() {
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
-  CONFIG.ux.TooltipManager = interaction.CrucibleTooltipManager;
+  CONFIG.ux.TooltipManager = CrucibleTooltipManager;
 
   // Custom HTML Elements
   for ( const element of Object.values(applications.elements) ) {
@@ -748,8 +747,8 @@ Hooks.once("setup", function() {
 Hooks.once("ready", async function() {
 
   // System-specific interaction
-  document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
-  document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+  document.body.addEventListener("pointerenter", CrucibleTooltipManager.onPointerEnter, true);
+  document.body.addEventListener("pointerleave", CrucibleTooltipManager.onPointerLeave, true);
   document.body.addEventListener("click", chat.onClickChatReadaloud);
 
   // Resolve performance-mode-derived values onto `canvas.performance` (particle density, etc.)
@@ -778,8 +777,8 @@ Hooks.once("ready", async function() {
  * On open detached windows, apply crucible interaction listeners
  */
 Hooks.on("openDetachedWindow", (_id, window) => {
-  window.document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
-  window.document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+  window.document.body.addEventListener("pointerenter", CrucibleTooltipManager.onPointerEnter, true);
+  window.document.body.addEventListener("pointerleave", CrucibleTooltipManager.onPointerLeave, true);
   window.document.body.addEventListener("click", chat.onClickChatReadaloud);
 });
 
