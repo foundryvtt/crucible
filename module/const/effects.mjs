@@ -9,6 +9,16 @@ export const PROPERTIES = defineEnum({
 });
 
 /**
+ * Labeled reasons an effect may be suppressed through its `system.suppression` record.
+ * This is not a restrictive list, arbitrary suppression reasons can be declared.
+ * This record provides localization labels or additional metadata for expected reasons.
+ * @type {Record<string, {id: string, label: string}>}
+ */
+export const SUPPRESSION_REASONS = defineEnum({
+  maintenance: {label: "BASE_EFFECT.SUPPRESSION.Maintenance"}
+});
+
+/**
  * @typedef CrucibleDoTConfig
  * @property {string} [ability]
  * @property {number} [amount]

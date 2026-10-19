@@ -1315,7 +1315,10 @@ export default class CrucibleActor extends Actor {
 
     // Simulate application without persistence
     if ( !commit ) {
-      for ( const data of toCreate ) this.effects.set(data._id, this.effects.createDocument(data));
+      for ( const data of toCreate ) {
+        const effectData = this.effects.createDocument(foundry.utils.deepClone(data)); // Clean copy
+        this.effects.set(data._id, effectData);
+      }
       for ( const data of toUpdate ) this.effects.get(data._id)?.updateSource(data);
       for ( const id of toDelete ) this.effects.delete(id);
       this.reset();

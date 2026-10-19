@@ -2099,7 +2099,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const event = this.#getQualifyingEvent(target, events, eventsByActor, effectData);
         if ( !event ) continue;
         if ( regionEffectRequired && (target === this.actor) ) regionEffectRequired = false;
-        const {_id, name, duration, statuses: origStatuses, system={}, showIcon} = effectData;
+        // Ensure each target has an independent copy of effect data
+        const {_id, name, duration, statuses: origStatuses, system={}, showIcon} = foundry.utils.deepClone(effectData);
         const statuses = new Set(origStatuses);
 
         // Keep countdown (units-based) and event-expiry durations; drop empty durations, invalid for the core AE schema

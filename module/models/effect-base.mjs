@@ -27,12 +27,24 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
       }),
       properties: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.EFFECTS.PROPERTIES})),
       regions: new fields.SetField(new fields.DocumentUUIDField({type: "Region", nullable: false})),
-      summons: new fields.SetField(new fields.DocumentUUIDField({type: "Token", nullable: false}))
+      summons: new fields.SetField(new fields.DocumentUUIDField({type: "Token", nullable: false})),
+      suppression: new fields.TypedObjectField(new fields.BooleanField())
     });
   }
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTIVE_EFFECT", "BASE_EFFECT"];
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this effect suppressed for any recorded reason? Read by {@link foundry.documents.ActiveEffect#isSuppressed}.
+   * Returns undefined rather than false so that core falls back to duration expiry.
+   * @type {true|undefined}
+   */
+  get isSuppressed() {
+    return Object.values(this.suppression).some(Boolean) || undefined;
+  }
 
   /* -------------------------------------------- */
 
@@ -63,6 +75,9 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
       tags[`dot${i}`] = `${d.restoration ? "+" : ""}${d.amount} ${label}`;
     });
     for ( const p of this.properties ) tags[p] = SYSTEM.EFFECTS.PROPERTIES[p]?.label ?? p;
+    for ( const [reason, suppressed] of Object.entries(this.suppression) ) {
+      if ( suppressed ) tags[`suppression.${reason}`] = SYSTEM.EFFECTS.SUPPRESSION_REASONS[reason]?.label ?? reason;
+    }
     if ( Number.isFinite(this.dc) ) tags.difficulty = _loc("BASE_EFFECT.Difficulty", {dc: this.dc});
     return tags;
   }

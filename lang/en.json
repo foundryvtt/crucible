@@ -1446,6 +1446,9 @@
       "General": "General",
       "Removal": "Removal"
     },
+    "SUPPRESSION": {
+      "Maintenance": "Requires Maintenance"
+    },
     "FIELDS": {
       "dc": {
         "hint": "The difficulty of removing this effect, e.g. by dispelling magic. Leave blank for an effect that cannot be removed.",
@@ -1495,6 +1498,10 @@
       "summons": {
         "hint": "The summoned Tokens dependent on this effect.",
         "label": "Summons"
+      },
+      "suppression": {
+        "hint": "Reasons this effect is currently suppressed.",
+        "label": "Suppression"
       }
     }
   },
