@@ -734,7 +734,7 @@ HOOKS.delay = {
       throw new Error(_loc("ACTION.WARNINGS.NotYourTurn", {action: this.name}));
     }
     if ( this.actor.flags.crucible?.delay ) {
-      throw new Error(_loc("ACTION.WARNINGS.SPECIFIC.DELAY.AlreadyDelayed"));
+      throw new Error(_loc("ACTIONS.Delay.AlreadyDelayed"));
     }
   },
   async preActivate() {
@@ -816,7 +816,7 @@ HOOKS.estocade = {
       if ( !a ) continue;
       const opened = ["exposed", "prone", "slowed", "staggered", "paralyzed"].some(s => a.statuses.has(s))
         || !!a.equipment.weapons.dropped?.mainhand;
-      if ( !opened ) t.error ??= _loc("ACTION.WARNINGS.SPECIFIC.ESTOCADE.RequiresOpening");
+      if ( !opened ) t.error ??= _loc("ACTIONS.Estocade.RequiresOpening");
     }
   }
 };
@@ -2492,7 +2492,7 @@ HOOKS.regurgitate = {
 HOOKS.revive = {
   acquireTargets(targets) {
     for ( const target of targets ) {
-      if ( !target.actor.system.isDead ) target.error ??= _loc("ACTION.WARNINGS.SPECIFIC.REVIVE.RequiresDead");
+      if ( !target.actor.system.isDead ) target.error ??= _loc("ACTIONS.Revive.RequiresDead");
     }
   },
   postActivate() {

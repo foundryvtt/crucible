@@ -452,17 +452,6 @@
       "Wall": "Wall"
     },
     "WARNINGS": {
-      "SPECIFIC": {
-        "DELAY": {
-          "AlreadyDelayed": "You may not delay your turn again this combat round."
-        },
-        "ESTOCADE": {
-          "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
-        },
-        "REVIVE": {
-          "RequiresDead": "Revive requires a Dead target."
-        }
-      },
       "AlreadyConfirmed": "The action against you has already been confirmed and can no longer be reacted to.",
       "AuraNoToken": "You cannot use a self-emanating action without having a token on the scene!",
       "BadStatus": "You may not perform {action} while {status}.",
@@ -610,6 +599,12 @@
     "DeathlessFury": {
       "CannotUse": "{name} can only enter a Deathless Fury while their Health does not exceed their Wounds."
     },
+    "Delay": {
+      "AlreadyDelayed": "You may not delay your turn again this combat round."
+    },
+    "Estocade": {
+      "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
+    },
     "FieldStudy": {
       "Effect": "Field Study: {knowledge}",
       "Label": "Topic of Study",
@@ -649,6 +644,9 @@
     },
     "LoyalProtector": {
       "NotMaster": "You must target the companion's master."
+    },
+    "Revive": {
+      "RequiresDead": "Revive requires a Dead target."
     },
     "Swallow": {
       "AlreadySwallowing": "You are already Swallowing another creature."
