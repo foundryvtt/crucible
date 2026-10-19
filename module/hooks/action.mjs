@@ -954,8 +954,17 @@ HOOKS.fieldStudy = {
     const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
     if ( !effect ) return;
 
+    const id = SYSTEM.EFFECTS.getEffectId("Field Study");
+
+    // Update an existing study in place so it can be reversed via snapshotting
+    // Reset start time to now; updates don't receive a new start time automatically
+    if ( this.actor.effects.has(id) ) {
+      effect._action = "update";
+      effect.start = CONFIG.ActiveEffect.documentClass.getEffectStart();
+    }
+
     // Encode the chosen Knowledge as add-changes; a single fixed id means a new study replaces the previous one
-    effect._id = SYSTEM.EFFECTS.getEffectId("Field Study");
+    effect._id = id;
     effect.name = _loc("ACTIONS.FieldStudy.Effect", {knowledge: _loc(crucible.CONFIG.knowledge[k].label)});
     effect.system.changes = [
       {key: "system.details.background.knowledge", type: "add", value: k},
