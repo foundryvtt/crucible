@@ -1506,7 +1506,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Finalize action events
     this.#finalizeSelfEvents();
     this.#recordEffectEvents();
-    await this._post();
+    try {
+      await this._post();
+    } catch(err) {
+      ui.notifications.warn(err);
+      return null;
+    }
     const dealsDamage = this.#settleRollOutcomes();
     if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
     await this._resolveEventStream();
@@ -2141,8 +2146,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // If no self effect to track non-ephemeral region on, create one
       if ( regionEffectRequired && (target === this.actor) ) {
+        const trackingId = this.gesture ? `${this.gesture.id} ${this.rune?.id ?? ""}` : this.id; // One per rune
         this.recordEvent({type: "effect", target, effects: [{
-          _id: SYSTEM.EFFECTS.getEffectId(this.gesture?.id ?? this.id),
+          _id: SYSTEM.EFFECTS.getEffectId(trackingId),
           name: this.name,
           description,
           img: this.img,

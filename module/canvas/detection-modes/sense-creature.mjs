@@ -72,8 +72,8 @@ export default class DetectionModeSenseCreature extends foundry.canvas.perceptio
 
     // Check which rune is in use
     const source = visionSource.object.document;
-    const senseEffect = source.actor?.effects.get(SYSTEM.EFFECTS.getEffectId("sense"));
-    const runeIds = senseEffect?.flags.crucible?.runes ?? source.actor?.flags.crucible?.senseRunes;
+    const effectRunes = source.actor?.effects.filter(e => e.active).flatMap(e => e.flags.crucible?.runes ?? []);
+    const runeIds = effectRunes?.length ? effectRunes : source.actor?.flags.crucible?.senseRunes;
     if ( !runeIds?.length ) return false;
     const runeId = DetectionModeSenseCreature.#getTargetRune(target.actor);
     if ( !runeIds.includes(runeId) ) return false;

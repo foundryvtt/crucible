@@ -1671,9 +1671,25 @@ HOOKS.maintain = {
       throw new Error(_loc("BASE_EFFECT.WARNINGS.MaintainOwnTurn", {name: this.actor.name}));
     }
   },
-  postActivate() {
-    this.recordEvent({type: "effect", target: this.actor, effects: [{_id: this.usage.maintainedEffectId,
-      _action: "update", system: {suppression: {maintenance: false}}}]});
+  async postActivate() {
+    const effect = this.actor.effects.get(this.usage.maintainedEffectId);
+    const changes = [{_id: effect.id, _action: "update", system: {suppression: {maintenance: false}}}];
+
+    // Once paid effects reach the limit, maintained effects still due are ended
+    const others = this.actor.maintainedEffects.filter(e => e !== effect);
+    const paid = others.filter(e => !e.system.suppression.maintenance).length + 1;
+    const ended = (paid >= this.actor.resources.focus.maintained)
+      ? others.filter(e => e.system.suppression.maintenance) : [];
+    if ( ended.length ) {
+      const confirm = await foundry.applications.api.DialogV2.confirm({
+        window: {title: this.name},
+        content: `<p>${_loc("BASE_EFFECT.MAINTENANCE.EndConfirm", {effect: effect.name,
+          effects: game.i18n.getListFormatter().format(ended.map(e => e.name))})}</p>`
+      });
+      if ( !confirm ) throw new Error(_loc("BASE_EFFECT.WARNINGS.MaintainedCancelled", {action: this.name}));
+      for ( const e of ended ) changes.push({_id: e.id, _action: "delete"});
+    }
+    this.recordEvent({type: "effect", target: this.actor, effects: changes});
   }
 };
 

@@ -1008,6 +1008,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       broken: this.parent.statuses.has("broken") ? "ACTIVE_EFFECT.STATUSES.Broken" : "",
       enraged: this.parent.statuses.has("enraged") ? "ACTIVE_EFFECT.STATUSES.Enraged" : ""
     };
+
+    // How many effects the actor may maintain with Focus at once; talents raise it in the prepareResources hook
+    rs.focus.maintained = 1;
   }
 
   /* -------------------------------------------- */

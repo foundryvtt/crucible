@@ -1455,7 +1455,14 @@
     "SUPPRESSION": {
       "Maintenance": "Requires Maintenance"
     },
+    "MAINTENANCE": {
+      "EndConfirm": "Maintaining {effect} will end {effects}, which you can no longer maintain.",
+      "EndHint": "You cannot maintain more effects. Choose {count} to end so that you can maintain {effect}.",
+      "EndLabel": "Effects to End",
+      "EndTitle": "End Maintained Effects"
+    },
     "WARNINGS": {
+      "MaintainedCancelled": "{action} was cancelled; no maintained effects were ended.",
       "MaintainOwnTurn": "{name} can only maintain effects during their own turn.",
       "MaintenanceNotDue": "{effect} does not require maintenance right now."
     },

@@ -1202,12 +1202,31 @@ export const TAGS = {
     label: "ACTION.TAG.Maintained",
     tooltip: "ACTION.TAG.MaintainedTooltip",
     category: "resources",
-    postActivate() {
+    async postActivate() {
       const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
       if ( !effect ) return;
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
       effect.system.maintenance = {cost: maintainedCost};
       effect.system.properties = Array.from(new Set(effect.system.properties).add("maintained"));
+
+      // End maintained effects of the player's choosing beyond the actor's limit
+      const others = this.actor.maintainedEffects.filter(e => e.id !== effect._id);
+      const excess = others.length + 1 - this.actor.resources.focus.maintained;
+      if ( excess <= 0 ) return;
+      const {SetField, StringField} = foundry.data.fields;
+      const choices = Object.fromEntries(others.map(e => [e.id, e.name]));
+      const fieldOptions = {label: _loc("BASE_EFFECT.MAINTENANCE.EndLabel"),
+        hint: _loc("BASE_EFFECT.MAINTENANCE.EndHint", {count: excess, effect: effect.name})};
+      const field = (excess === 1) ? new StringField({required: true, blank: false, choices, ...fieldOptions})
+        : new SetField(new StringField({choices}), fieldOptions);
+      const inputOptions = (excess === 1) ? {name: "ended"} : {name: "ended", type: "checkboxes"};
+      const result = await foundry.applications.api.DialogV2.input({
+        window: {title: _loc("BASE_EFFECT.MAINTENANCE.EndTitle")},
+        content: field.toFormGroup({stacked: true}, inputOptions).outerHTML
+      });
+      const ended = [result?.ended ?? []].flat();
+      if ( ended.length < excess ) throw new Error(_loc("BASE_EFFECT.WARNINGS.MaintainedCancelled", {action: this.name}));
+      this.recordEvent({type: "effect", target: this.actor, effects: ended.map(_id => ({_id, _action: "delete"}))});
     }
   },
 
