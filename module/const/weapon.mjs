@@ -247,7 +247,7 @@ export const CATEGORIES = defineEnum({
     damage: 3,
     range: 1,
     defense: {
-      block: 4
+      block: 3
     },
     training: ["shield"]
   }
