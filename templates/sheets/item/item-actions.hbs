@@ -5,9 +5,8 @@
         <legend>
             <span>{{#if this.legend}}{{this.legend}}{{else}}{{localize "ITEM.TABS.actions"}}{{/if}}</span>
             {{#if this.canAdd}}
-            <a class="button icon" data-action="actionAdd" aria-label="{{localize "TALENT.ACTIONS.ActionAdd"}}" data-tooltip>
-                <i class="fa-solid fa-plus"></i>
-            </a>
+            <button type="button" class="icon fa-solid fa-plus" data-action="actionAdd"
+                    aria-label="{{localize "TALENT.ACTIONS.ActionAdd"}}" data-tooltip></button>
             {{/if}}
         </legend>
         {{#each this.actions as |action|}}

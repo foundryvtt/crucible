@@ -56,12 +56,6 @@
     }
   }
 
-  // Icon buttons
-  a.button.icon {
-    flex: none;
-    font-size: var(--font-size-12);
-  }
-
   /* ----------------------------------------- */
   /*  General Styles                           */
   /* ----------------------------------------- */
@@ -545,10 +539,9 @@
       }
 
       // Control Buttons
-      a.button {
+      button {
+        --button-size: 20px;
         position: absolute;
-        height: 20px;
-        width: 20px;
         top: -10px;
         opacity: 1.0;
         &.decrease { left: -10px; }
@@ -809,10 +802,9 @@
   .tab.secondary {
     .header-section {
       justify-content: space-between;
-      a.button {
+      button {
+        --button-size: 24px;
         flex: none;
-      }
-      a.framed {
         font-size: var(--font-size-12);
       }
     }
@@ -934,6 +926,16 @@
   /* ----------------------------------------- */
 
   .proficiencies-footer {
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      button {
+        --button-size: 24px;
+        flex: none;
+        font-size: var(--font-size-12);
+      }
+    }
     .tags.knowledge-areas,
     .tags.languages {
       justify-content: flex-start;

@@ -16,11 +16,11 @@
                     </div>
                     <div class="controls">
                         {{#if effect.maintain}}
-                        <a class="button icon fa-solid fa-repeat" data-action="effectMaintain" aria-label="{{effect.maintain}}" data-tooltip></a>
+                        <button type="button" class="icon fa-solid fa-repeat" data-action="effectMaintain" aria-label="{{effect.maintain}}" data-tooltip></button>
                         {{/if}}
-                        <a class="button icon {{effect.disabled.icon}}" data-action="effectToggle" aria-label="{{localize effect.disabled.tooltip}}" data-tooltip></a>
-                        <a class="button icon fa-solid fa-edit" data-action="effectEdit" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Edit"}}" data-tooltip></a>
-                        <a class="button icon fa-solid fa-trash" data-action="effectDelete" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Delete"}}" data-tooltip></a>
+                        <button type="button" class="icon {{effect.disabled.icon}}" data-action="effectToggle" aria-label="{{localize effect.disabled.tooltip}}" data-tooltip></button>
+                        <button type="button" class="icon fa-solid fa-edit" data-action="effectEdit" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Edit"}}" data-tooltip></button>
+                        <button type="button" class="icon fa-solid fa-trash" data-action="effectDelete" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Delete"}}" data-tooltip></button>
                     </div>
                 </li>
                 {{/each}}

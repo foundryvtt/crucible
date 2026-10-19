@@ -5,10 +5,10 @@
         <div class="header-content flexrow">
             <h1 class="title">{{config.name}}</h1>
             <div class="purchase">
-                <a class="button icon fa-solid fa-book-open" data-action="rules"></a>
-                <a class="button icon fa-solid fa-minus" data-action="decrease"></a>
+                <button type="button" class="icon fa-solid fa-book-open" data-action="rules"></button>
+                <button type="button" class="icon fa-solid fa-minus" data-action="decrease"></button>
                 <span class="rank">{{skill.rank}}</span>
-                <a class="button icon fa-solid fa-plus" data-action="increase"></a>
+                <button type="button" class="icon fa-solid fa-plus" data-action="increase"></button>
             </div>
         </div>
     </header>
@@ -31,8 +31,8 @@
         <div class="skill-ranks current-ranks">
             {{#each config.paths as |path|}}
             <h3>
-                <a class="button icon choose-path {{path.actionIcon}}" data-action="choosePath" data-path="{{path.id}}"
-                   aria-label="{{localize path.actionTooltip}}" data-tooltip></a>
+                <button type="button" class="icon choose-path {{path.actionIcon}}" data-action="choosePath" data-path="{{path.id}}"
+                   aria-label="{{localize path.actionTooltip}}" data-tooltip></button>
                 {{path.name}}
             </h3>
             {{{path.overview}}}

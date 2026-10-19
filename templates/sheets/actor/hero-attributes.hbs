@@ -88,12 +88,12 @@
             <h4 class="label" data-crucible-tooltip="tag" data-rule-id="ability.{{ability.id}}">{{ability.label}}</h4>
             <span class="input score" data-crucible-tooltip="tag" data-rule-id="ability.{{ability.id}}">{{ability.value}}</span>
             {{#if ability.canDecrease}}
-            <a class="button icon fa-solid fa-caret-down decrease" data-action="abilityDecrease"
-               aria-label="{{localize "ACTOR.ACTIONS.DecreaseAbilitySpecific" ability=ability.label}}" data-tooltip data-tooltip-direction="LEFT"></a>
+            <button type="button" class="icon fa-solid fa-caret-down decrease" data-action="abilityDecrease"
+               aria-label="{{localize "ACTOR.ACTIONS.DecreaseAbilitySpecific" ability=ability.label}}" data-tooltip data-tooltip-direction="LEFT"></button>
             {{/if}}
             {{#if ability.canIncrease}}
-            <a class="button icon fa-solid fa-caret-up increase" data-action="abilityIncrease"
-               aria-label="{{localize "ACTOR.ACTIONS.IncreaseAbilitySpecific" ability=ability.label}}" data-tooltip data-tooltip-direction="RIGHT"></a>
+            <button type="button" class="icon fa-solid fa-caret-up increase" data-action="abilityIncrease"
+               aria-label="{{localize "ACTOR.ACTIONS.IncreaseAbilitySpecific" ability=ability.label}}" data-tooltip data-tooltip-direction="RIGHT"></button>
             {{/if}}
         </div>
         {{/each}}
