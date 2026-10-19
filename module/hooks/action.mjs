@@ -2369,14 +2369,6 @@ function _restRecoverPostActivate(action, {reduceWoundMadness}) {
     if ( madnessDelta < 0 ) activationEvent.resources.push({resource: "madness", delta: madnessDelta});
   }
 
-  // Clear Weakened and Broken; timed effects are expired by the core ActiveEffectRegistry as time advances
-  const effects = [];
-  for ( const id of ["weakened", "broken"] ) {
-    const effect = actor.effects.get(CONFIG.statusEffects[id]._id);
-    if ( effect ) effects.push({_id: effect.id, _action: "delete"});
-  }
-  if ( effects.length ) action.recordEvent({type: "effect", effects});
-
   // Divest unequipped invested items via the self actorUpdate event with snapshots for reversal
   const updateEvent = action.selfUpdateEvent;
   for ( const item of actor.items ) {
