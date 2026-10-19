@@ -49,7 +49,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       img: icons/skills/melee/strike-dagger-poison-green.webp
       condition: ''

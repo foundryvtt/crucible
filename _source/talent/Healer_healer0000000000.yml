@@ -40,7 +40,6 @@ system:
             expired: false
           system:
             changes: []
-            dc: null
             dot: []
             maintenance:
               cost: null

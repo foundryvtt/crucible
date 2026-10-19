@@ -62,7 +62,6 @@ system:
             regions: []
             summons: []
             changes: []
-            dc: null
             lights: []
             properties: []
       tags:

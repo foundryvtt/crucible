@@ -72,7 +72,6 @@ system:
             expired: false
           system:
             changes: []
-            dc: null
             dot: []
             maintenance: null
             properties: []

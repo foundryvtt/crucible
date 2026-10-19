@@ -48,7 +48,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       img: icons/magic/light/explosion-star-glow-silhouette.webp
       range:
@@ -99,7 +98,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       img: icons/sundries/documents/document-letter-blue.webp
       range:

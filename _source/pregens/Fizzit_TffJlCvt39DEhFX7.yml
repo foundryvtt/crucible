@@ -772,7 +772,6 @@ items:
                 expired: false
               system:
                 changes: []
-                dc: null
                 dot: []
                 maintenance:
                   cost: null
@@ -871,7 +870,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags: []

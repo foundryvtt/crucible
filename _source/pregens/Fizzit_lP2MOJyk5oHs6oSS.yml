@@ -663,7 +663,6 @@ items:
                 expired: false
               system:
                 changes: []
-                dc: null
                 dot: []
                 maintenance:
                   cost: null
@@ -832,7 +831,6 @@ items:
                 expired: false
               system:
                 changes: []
-                dc: null
                 dot: []
                 maintenance:
                   cost: null
@@ -1079,7 +1077,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           summon: null
@@ -1292,7 +1289,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
               duration:
@@ -1880,7 +1876,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 lights: []
                 properties: []
           tags:
@@ -1990,7 +1985,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags:
@@ -2234,7 +2228,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags: []

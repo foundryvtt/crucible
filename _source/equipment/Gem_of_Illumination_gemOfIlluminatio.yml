@@ -91,7 +91,6 @@ effects:
                 maintenance: null
                 regions: []
                 summons: []
-                dc: null
                 properties: []
               duration:
                 value: null

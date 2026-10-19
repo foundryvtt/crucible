@@ -501,7 +501,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags:
@@ -758,7 +757,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           range:
@@ -1011,7 +1009,6 @@ items:
                 expired: false
               system:
                 changes: []
-                dc: null
                 dot: []
                 maintenance:
                   cost: null
@@ -1150,7 +1147,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           img: icons/magic/death/skull-horned-worn-fire-blue.webp
@@ -1579,7 +1575,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           img: icons/skills/melee/shield-block-fire-orange.webp
@@ -1874,7 +1869,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags:
@@ -2013,7 +2007,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags:

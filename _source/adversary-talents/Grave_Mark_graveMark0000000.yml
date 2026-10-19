@@ -58,7 +58,6 @@ system:
             regions: []
             summons: []
             changes: []
-            dc: null
             properties: []
           duration:
             value: null

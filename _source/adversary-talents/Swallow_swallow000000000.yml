@@ -55,7 +55,6 @@ system:
             expired: false
           system:
             changes: []
-            dc: null
             dot: []
             maintenance: null
             properties: []
@@ -74,7 +73,6 @@ system:
             expired: false
           system:
             changes: []
-            dc: null
             dot: []
             maintenance: null
             properties: []

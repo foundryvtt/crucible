@@ -59,7 +59,6 @@ system:
             maintenance: null
             regions: []
             summons: []
-            dc: null
             properties: []
       summon:
         actorUuid: null

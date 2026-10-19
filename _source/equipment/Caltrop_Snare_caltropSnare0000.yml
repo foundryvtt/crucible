@@ -70,7 +70,6 @@ system:
                   expired: false
                 system:
                   changes: []
-                  dc: null
                   dot: []
                   lights: []
                   maintenance:

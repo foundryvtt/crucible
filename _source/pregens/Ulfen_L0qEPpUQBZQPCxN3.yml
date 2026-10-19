@@ -423,7 +423,6 @@ items:
                 regions: []
                 summons: []
                 changes: []
-                dc: null
                 properties: []
                 lights: []
             - name: Grappling
@@ -446,7 +445,6 @@ items:
                 regions: []
                 summons: []
                 changes: []
-                dc: null
                 properties: []
                 lights: []
           tags:
@@ -605,7 +603,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           name: Hamstring
@@ -823,7 +820,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
               duration:
@@ -1098,7 +1094,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags:
@@ -1218,7 +1213,6 @@ items:
                 expired: false
               system:
                 changes: []
-                dc: null
                 dot: []
                 maintenance:
                   cost: null
@@ -1320,7 +1314,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           range:
@@ -1443,7 +1436,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           name: Executioner's Strike
@@ -1574,7 +1566,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags:
@@ -1789,7 +1780,6 @@ items:
                 expired: false
               system:
                 changes: []
-                dc: null
                 dot: []
                 maintenance:
                   cost: null
@@ -2255,7 +2245,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags: []

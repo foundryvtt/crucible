@@ -1364,7 +1364,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           range:
@@ -2107,7 +2106,6 @@ items:
                   hands: 0
                 regions: []
                 summons: []
-                dc: null
                 properties: []
                 lights: []
           tags: []

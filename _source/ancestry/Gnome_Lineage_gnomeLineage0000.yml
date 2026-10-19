@@ -53,7 +53,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
             lights: []
       tags: []

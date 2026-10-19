@@ -62,7 +62,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       summon: null
     - id: songOfAlacrity
@@ -112,7 +111,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       summon: null
     - id: songOfEndurance
@@ -162,7 +160,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       summon: null
     - id: dirgeOfFeebleness
@@ -212,7 +209,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       summon: null
     - id: dirgeOfLethargy
@@ -262,7 +258,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       summon: null
     - id: dirgeOfFragility
@@ -311,7 +306,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       summon: null
   keywords:

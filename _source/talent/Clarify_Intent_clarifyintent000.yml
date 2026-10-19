@@ -48,7 +48,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       name: Clarify Intent
       img: icons/skills/targeting/crosshair-arrowhead-blue.webp

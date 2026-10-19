@@ -65,7 +65,6 @@ system:
             regions: []
             summons: []
             changes: []
-            dc: null
             properties: []
       tags:
         - healing

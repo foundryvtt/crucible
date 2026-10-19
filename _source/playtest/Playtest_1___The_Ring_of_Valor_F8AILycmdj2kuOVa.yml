@@ -419,7 +419,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
                   duration:
@@ -1474,7 +1473,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
                 - name: Grappling
@@ -1497,7 +1495,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -2209,7 +2206,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               name: Hamstring
@@ -2713,7 +2709,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -3879,7 +3874,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -4050,7 +4044,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -5209,7 +5202,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
                   duration:
@@ -5912,7 +5904,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -6237,7 +6228,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -6434,7 +6424,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     lights: []
                     properties: []
                   duration:
@@ -7033,7 +7022,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
               name: Pestilent Lash
@@ -7773,7 +7761,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -8297,7 +8284,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
               name: Devour Thoughts
@@ -8382,7 +8368,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
               name: Mind Flay
@@ -9260,7 +9245,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -10663,7 +10647,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               range:
@@ -11401,7 +11384,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -12172,7 +12154,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -13656,7 +13637,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -14220,7 +14200,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -14473,7 +14452,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               range:
@@ -14726,7 +14704,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -14863,7 +14840,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               img: icons/magic/death/skull-horned-worn-fire-blue.webp
@@ -15288,7 +15264,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               img: icons/skills/melee/shield-block-fire-orange.webp
@@ -15579,7 +15554,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -15716,7 +15690,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -16425,7 +16398,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               name: Mark Prey
@@ -17838,7 +17810,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -18578,7 +18549,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -18745,7 +18715,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -18988,7 +18957,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               summon: null
@@ -19202,7 +19170,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
                   duration:
@@ -19785,7 +19752,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     lights: []
                     properties: []
               tags:
@@ -19894,7 +19860,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -20139,7 +20104,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -21234,7 +21198,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -21370,7 +21333,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     lights: []
                     properties: []
               img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
@@ -22292,7 +22254,6 @@ actors:
                           expired: false
                         system:
                           changes: []
-                          dc: null
                           dot: []
                           maintenance:
                             cost: null
@@ -22489,7 +22450,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -23046,7 +23006,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
                 - name: Grappling
@@ -23069,7 +23028,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -23228,7 +23186,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               name: Hamstring
@@ -23443,7 +23400,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
                   duration:
@@ -23714,7 +23670,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -23833,7 +23788,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -23935,7 +23889,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               range:
@@ -24057,7 +24010,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               name: Executioner's Strike
@@ -24186,7 +24138,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -24398,7 +24349,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -24857,7 +24807,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -26501,7 +26450,6 @@ actors:
                           hands: 0
                         regions: []
                         summons: []
-                        dc: null
                         properties: []
                         lights: []
                       duration:
@@ -26764,7 +26712,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -26884,7 +26831,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -27072,7 +27018,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -27893,7 +27838,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -28618,7 +28562,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -28812,7 +28755,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -29345,7 +29287,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -29598,7 +29539,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               range:
@@ -29690,7 +29630,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -30365,7 +30304,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               name: Mark Prey
@@ -30567,7 +30505,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -31387,7 +31324,6 @@ actors:
                     expired: false
                   system:
                     changes: []
-                    dc: null
                     dot: []
                     maintenance:
                       cost: null
@@ -31487,7 +31423,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -32307,7 +32242,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []
@@ -32757,7 +32691,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
                 - name: Grappling
@@ -32780,7 +32713,6 @@ actors:
                     regions: []
                     summons: []
                     changes: []
-                    dc: null
                     properties: []
                     lights: []
               tags:
@@ -32939,7 +32871,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               name: Hamstring
@@ -33154,7 +33085,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
                   duration:
@@ -33253,7 +33183,6 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
-                    dc: null
                     properties: []
                     lights: []
               tags: []

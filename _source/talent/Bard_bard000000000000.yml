@@ -75,7 +75,6 @@ system:
               hands: 0
             regions: []
             summons: []
-            dc: null
             properties: []
       tags:
         - reaction
