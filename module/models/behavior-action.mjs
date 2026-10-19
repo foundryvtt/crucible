@@ -163,8 +163,9 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     const {token} = event.data;
     const actor = token.actor;
 
-    // Targets are unaffected on the initially establishing turn
-    if ( await this.#isEstablishingTurn() ) return;
+    // Targets are unaffected while the tracking effect is inactive, or on the turn it established this Region
+    const origin = this.origin ? await fromUuid(this.origin) : null;
+    if ( (origin && !origin.active) || this.#isEstablishingTurn(origin) ) return;
 
     // Determine target eligibility using the region's action target configuration
     const sourceItem = await fromUuid(this.item);
@@ -209,11 +210,12 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
 
   /**
    * Is the current Combat turn the one on which the tracking ActiveEffect established this Region?
-   * @returns {Promise<boolean>}
+   * @param {ActiveEffect|null} origin    The tracking ActiveEffect, if any
+   * @returns {boolean}
    */
-  async #isEstablishingTurn() {
-    if ( !this.origin || !game.combat?.started ) return false;
-    const start = (await fromUuid(this.origin))?.start;
+  #isEstablishingTurn(origin) {
+    if ( !game.combat?.started ) return false;
+    const start = origin?.start;
     if ( !start ) return false;
     return (start.combat?.id === game.combat.id) && (start.round === game.combat.round)
       && (start.turn === game.combat.turn);
