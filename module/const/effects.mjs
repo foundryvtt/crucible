@@ -5,7 +5,9 @@ import {defineEnum} from "./enum.mjs";
  * @type {Readonly<Record<string, {id: string, label: string, tooltip: string}>>}
  */
 export const PROPERTIES = defineEnum({
-  magical: {label: "BASE_EFFECT.PROPERTIES.Magical", tooltip: "BASE_EFFECT.PROPERTIES.MagicalTooltip"}
+  magical: {label: "BASE_EFFECT.PROPERTIES.Magical", tooltip: "BASE_EFFECT.PROPERTIES.MagicalTooltip"},
+  maintained: {label: "BASE_EFFECT.PROPERTIES.Maintained", tooltip: "BASE_EFFECT.PROPERTIES.MaintainedTooltip"},
+  removable: {label: "BASE_EFFECT.PROPERTIES.Removable", tooltip: "BASE_EFFECT.PROPERTIES.RemovableTooltip"}
 });
 
 /**

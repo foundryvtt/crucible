@@ -80,9 +80,9 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   isStatusOnly(...statusIds) {
     if ( !this.statuses.size || !this.statuses.every(s => statusIds.includes(s)) ) return false;
     if ( this.type !== "base" ) return false; // Only base-type effects can be status-only
-    const {changes, dot, summons, regions, maintenance} = this.system;
+    const {changes, dot, summons, regions, maintenance, properties} = this.system;
     return !(changes.length || dot.length || summons.size || regions.size
-      || maintenance.cost || maintenance.hands);
+      || properties.has("maintained") || maintenance.hands);
   }
 
   /* -------------------------------------------- */
@@ -432,6 +432,17 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     if ( source.type === "flanked" ) {
       source.type = "base";
       source.disabled = true;
+    }
+
+    /** @deprecated since 0.11.2 */
+    const version = source._stats?.systemVersion;
+    const system = source.system;
+    if ( version && foundry.utils.isNewerVersion("0.11.2", version) && Array.isArray(system?.properties) ) {
+      const properties = new Set(system.properties);
+      if ( system.maintenance?.cost > 0 ) properties.add("maintained");
+      else if ( system.maintenance?.cost === 0 ) system.maintenance.cost = null;
+      if ( Number.isFinite(system.dc) ) properties.add("removable");
+      system.properties = Array.from(properties);
     }
     return source;
   }

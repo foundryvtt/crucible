@@ -640,6 +640,7 @@ function preLocalizeConfig() {
 
   // Effects
   localizeConfigObject(SYSTEM.EFFECTS.PROPERTIES, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.EFFECTS.SUPPRESSION_REASONS);
 
   // Item
   localizeConfigObject(SYSTEM.ITEM.AFFIX_PROPERTIES);

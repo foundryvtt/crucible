@@ -60,6 +60,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {CrucibleItem} [weapon]        A specific weapon item being used, or which must be used, by this action
  * @property {CrucibleItem} [consumable]    A specific consumable item being used
  * @property {number} [consumeUses=1]       Uses of the consumable item expended by this action
+ * @property {string} [maintainedEffectId]  The ActiveEffect maintained by this action, otherwise the first one due
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
  * @property {Record<string, -1|0|1>} [resourceConstraints]  Directional limits on the acting actor's own resources,
  *   honored during event-stream resolution (a delta opposing the sign is dropped)
@@ -2362,20 +2363,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         else {
           const d = event.roll?.data;
           effect.system ??= {};
+          const properties = new Set(effect.system.properties);
 
           // Spell-applied effects gain the magical property
-          if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) {
-            const properties = new Set(effect.system.properties);
-            properties.add("magical");
-            effect.system.properties = Array.from(properties);
-          }
+          if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) properties.add("magical");
 
           // Populate effect removal difficulty
           if ( effect.system.dc === undefined ) {
             effect.system.dc = d
               ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
               : SYSTEM.PASSIVE_BASE + (this.actor?.system.advancement?.level ?? 0);
+            properties.add("removable");
           }
+          effect.system.properties = Array.from(properties);
         }
       }
     }

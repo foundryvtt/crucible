@@ -564,8 +564,6 @@
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Until Ended",
     "EffectSpecific": "Effect: {effect}",
-    "MaintainContent": "<p>Spend {cost} Focus to maintain {effect}?</p>",
-    "MaintainTitle": "Maintain Focus: {effect}",
     "NoTargets": "No Targets",
     "Overview": "Action Overview",
     "PlanMovement": "Plan Movement",
@@ -1435,11 +1433,19 @@
     "Suspended": "Suspended",
     "ACTIONS": {
       "AddDoT": "Add Damage Over Time",
-      "DeleteDoT": "Remove Damage Over Time"
+      "DeleteDoT": "Remove Damage Over Time",
+      "Maintain": "Maintain",
+      "MaintainCost": "Maintain ({cost} Focus)",
+      "MaintainDetail": "Expend Focus to maintain {effect}.",
+      "MaintainName": "Maintain {effect}"
     },
     "PROPERTIES": {
       "Magical": "Magical",
-      "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities."
+      "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities.",
+      "Maintained": "Maintained",
+      "MaintainedTooltip": "This effect lapses at the end of your turn unless you spend Focus to maintain it.",
+      "Removable": "Removable",
+      "RemovableTooltip": "This effect may be removed by overcoming its removal difficulty."
     },
     "SECTIONS": {
       "DoT": "Damage Over Time",
@@ -1448,6 +1454,10 @@
     },
     "SUPPRESSION": {
       "Maintenance": "Requires Maintenance"
+    },
+    "WARNINGS": {
+      "MaintainOwnTurn": "{name} can only maintain effects during their own turn.",
+      "MaintenanceNotDue": "{effect} does not require maintenance right now."
     },
     "FIELDS": {
       "dc": {
@@ -1479,6 +1489,7 @@
       },
       "maintenance": {
         "cost": {
+          "hint": "The Focus spent each turn to keep this effect from lapsing.",
           "label": "Maintenance Cost"
         },
         "hands": {
@@ -1517,7 +1528,6 @@
       "EffectGainedDuration": "Gained ({duration})",
       "HeaderEnd": "{actor} - Turn End",
       "HeaderStart": "{actor} - Turn Start",
-      "Maintaining": "{effect} (Maintaining)",
       "TableTitleEffects": "Effect Changes",
       "TableTitleResources": "Resource Changes"
     },

@@ -11,6 +11,7 @@
         {{formGroup fields.statuses value=source.statuses options=statuses sort=true rootId=rootId classes="statuses"}}
         {{formGroup fields.tint value=source.tint rootId=rootId placeholder="#ffffff"}}
         {{formGroup fields.showIcon value=source.showIcon options=showIconOptions rootId=rootId}}
+        {{formGroup systemFields.maintenance.fields.hands value=source.system.maintenance.hands rootId=rootId}}
     </fieldset>
 
     <fieldset class="item-properties" {{fieldDisabled}}>
@@ -18,8 +19,17 @@
         {{formInput systemFields.properties value=source.system.properties type="checkboxes"}}
     </fieldset>
 
+    {{#if isMaintained}}
+    <fieldset>
+        <legend>{{systemFields.maintenance.label}}</legend>
+        {{formGroup systemFields.maintenance.fields.cost value=source.system.maintenance.cost rootId=rootId classes="slim"}}
+    </fieldset>
+    {{/if}}
+
+    {{#if isRemovable}}
     <fieldset>
         <legend>{{localize "BASE_EFFECT.SECTIONS.Removal"}}</legend>
         {{formGroup systemFields.dc value=source.system.dc rootId=rootId classes="slim" placeholder="∞"}}
     </fieldset>
+    {{/if}}
 </section>

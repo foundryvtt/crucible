@@ -1204,7 +1204,6 @@
       "EffectGainedDuration": "Erhalten ({duration})",
       "HeaderEnd": "{actor} - Zugende",
       "HeaderStart": "{actor} - Zugbeginn",
-      "Maintaining": "{effect} (Aufrechterhaltung)",
       "TableTitleEffects": "Effektänderungen",
       "TableTitleResources": "Ressourcenänderungen"
     },

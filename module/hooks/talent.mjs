@@ -587,7 +587,7 @@ HOOKS.channeledResonan = {
   prepareAttack(_item, action, _target, rollData) {
     if ( this.equipment.weapons.mainhand?.category !== "talisman2" ) return;
     if ( !action.target.isAttack ) return;
-    const sustaining = this.parent.effects.some(e => e.active && (e.system.maintenance?.cost > 0));
+    const sustaining = this.parent.effects.some(e => e.active && e.system.properties?.has("maintained"));
     if ( sustaining ) rollData.damageBonus += 2;
   }
 };

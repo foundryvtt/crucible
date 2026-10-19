@@ -1207,6 +1207,7 @@ export const TAGS = {
       if ( !effect ) return;
       const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
       effect.system.maintenance = {cost: maintainedCost};
+      effect.system.properties = Array.from(new Set(effect.system.properties).add("maintained"));
     }
   },
 

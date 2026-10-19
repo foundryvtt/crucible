@@ -1473,6 +1473,7 @@ function _recordConcealmentDC(action) {
     for ( const effect of event.effects ?? [] ) {
       effect.system ??= {};
       effect.system.dc = dc;
+      effect.system.properties = Array.from(new Set(effect.system.properties).add("removable"));
       effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
     }
   }
@@ -1650,6 +1651,29 @@ HOOKS.interpose = {
     const originalAction = CrucibleAction.fromChatMessage(targetMessage);
     originalAction.clearNegation();
     await originalAction.updateMessage();
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.maintain = {
+  initialize() {
+    this.usage.maintainedEffectId ??= this.actor.maintainedEffects.find(e => e.system.suppression.maintenance)?.id;
+    const effect = this.actor.effects.get(this.usage.maintainedEffectId);
+    this.cost.focus = effect?.system.maintenance.cost ?? 0;
+  },
+  canUse() {
+    const effect = this.actor.effects.get(this.usage.maintainedEffectId);
+    if ( !effect?.system.suppression?.maintenance ) {
+      throw new Error(_loc("BASE_EFFECT.WARNINGS.MaintenanceNotDue", {effect: effect?.name ?? this.name}));
+    }
+    if ( game.combat?.combatant?.actor !== this.actor ) {
+      throw new Error(_loc("BASE_EFFECT.WARNINGS.MaintainOwnTurn", {name: this.actor.name}));
+    }
+  },
+  postActivate() {
+    this.recordEvent({type: "effect", target: this.actor, effects: [{_id: this.usage.maintainedEffectId,
+      _action: "update", system: {suppression: {maintenance: false}}}]});
   }
 };
 
