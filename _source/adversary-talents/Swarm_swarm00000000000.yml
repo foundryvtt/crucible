@@ -2,6 +2,9 @@ name: Swarm
 type: talent
 img: icons/creatures/invertebrates/wasp-swarm-tan.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes: []
   description: >-
     <p>This adversary is a group of many identical creatures that operate as a

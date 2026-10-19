@@ -3,6 +3,10 @@ type: talent
 _id: livingBoulder000
 img: icons/magic/earth/barrier-stone-brown-green.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.acid
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} channels earth through its own physical

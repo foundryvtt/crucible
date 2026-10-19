@@ -32,6 +32,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectCreate: CrucibleBaseActorSheet.#onEffectCreate,
       effectEdit: CrucibleBaseActorSheet.#onEffectEdit,
       effectDelete: CrucibleBaseActorSheet.#onEffectDelete,
+      effectMaintain: CrucibleBaseActorSheet.#onEffectMaintain,
       effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
       expandSection: CrucibleBaseActorSheet.#onExpandSection,
       proficiencyFilter: CrucibleBaseActorSheet.#onProficiencyFilter,
@@ -610,7 +611,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         seconds: context.t,
         uuid: effect.uuid,
         disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "ACTIVE_EFFECT.ACTIONS.Enable"}
-          : {icon: "fa-solid fa-toggle-on", tooltip: "ACTIVE_EFFECT.ACTIONS.Disable"}
+          : {icon: "fa-solid fa-toggle-on", tooltip: "ACTIVE_EFFECT.ACTIONS.Disable"},
+        maintain: this.#prepareEffectMaintenance(effect)
       };
       sections[context.section].effects.push(e);
     }
@@ -621,6 +623,20 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       else section.effects.sort((a, b) => (a.seconds - b.seconds) || (a.name.localeCompare(b.name)));
     }
     return sections;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the tooltip of the Maintain control, shown only while an effect's maintenance can be paid.
+   * @param {CrucibleActiveEffect} effect
+   * @returns {string|null}
+   */
+  #prepareEffectMaintenance(effect) {
+    if ( !this.actor.maintainedEffects.includes(effect) || !effect.system.suppression.maintenance ) return null;
+    if ( game.combat?.combatant?.actor !== this.actor ) return null;
+    const {cost} = effect.system.getMaintainAction();
+    return _loc("BASE_EFFECT.ACTIONS.MaintainCost", {cost: cost.focus});
   }
 
   /* -------------------------------------------- */
@@ -1096,6 +1112,18 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   static async #onEffectEdit(event, target) {
     const effect = this.#getEventEffect(event, target);
     await effect.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pay the maintenance cost of a maintained ActiveEffect on the actor.
+   * @this {CrucibleBaseActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onEffectMaintain(event, target) {
+    const effect = this.#getEventEffect(event, target);
+    await effect.system.getMaintainAction()?.use();
   }
 
   /* -------------------------------------------- */

@@ -8,6 +8,9 @@ system:
     yourself to the worst attacks in return. Any @Action[default reactiveStrike]
     against you is performed with @Rule[dice.bane]{+1 Bane}.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - movement.engagement
   nodes:
     - intdex1
   iconicSpells: 0

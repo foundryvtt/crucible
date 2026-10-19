@@ -2,6 +2,11 @@ name: Lightning Spray
 type: talent
 img: icons/magic/lightning/bolt-strike-beam-pink.webp
 system:
+  keywords:
+    - playstyle.ranged
+    - weapon.natural
+    - damageType.electricity
+    - target.reflex
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is able to produce and expel powerful

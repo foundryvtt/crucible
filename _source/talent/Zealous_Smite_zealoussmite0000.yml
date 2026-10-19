@@ -37,6 +37,10 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapon.heavy
+    - damageType.radiant
   nodes:
     - strwis1
   iconicSpells: 0

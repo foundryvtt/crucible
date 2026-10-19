@@ -13,6 +13,9 @@ system:
   spellcraft: eluding
   iconicSpells: 1
   training: enchanting
+  keywords:
+    - playstyle.spellcraft
+    - spell.inflection
   nodes:
     - dex2b
 effects: []

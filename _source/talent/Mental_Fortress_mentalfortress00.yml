@@ -8,6 +8,10 @@ system:
     +1 to your @Rule[defense.willpower] defense and <strong>+5
     Resistance</strong> to <strong>Psychic</strong> damage.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - defense.willpower
+    - defense.resistance
   nodes:
     - pre3a
   iconicSpells: 0

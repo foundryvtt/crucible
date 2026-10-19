@@ -2,6 +2,9 @@ name: Wildspeaker
 type: talent
 img: icons/skills/social/diplomacy-peace-alliance.webp
 system:
+  keywords:
+    - action.noncombat
+    - skill.wilderness
   nodes:
     - wis1a
   description: >-

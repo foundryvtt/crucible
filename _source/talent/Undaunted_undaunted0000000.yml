@@ -7,6 +7,9 @@ system:
     arcane. You may continue to spend @Rule[resource.focus] even while you are
     @Condition[broken].</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - resource.focus
   nodes:
     - wis2b
   iconicSpells: 0

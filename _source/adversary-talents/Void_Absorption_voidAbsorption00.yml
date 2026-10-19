@@ -4,6 +4,9 @@ type: talent
 _id: voidAbsorption00
 img: icons/magic/unholy/orb-glowing-purple.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is no stranger to the orderly force of

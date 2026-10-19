@@ -4,6 +4,10 @@ type: talent
 _id: gestureConjure00
 img: icons/magic/nature/plant-sprout-hands-vines.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
+    - action.summon
   nodes:
     - wis4d
   description: >-

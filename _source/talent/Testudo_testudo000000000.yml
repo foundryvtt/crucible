@@ -8,6 +8,9 @@ system:
     gain double the benefit of the @Condition[guarded] condition against
     <strong>Weapon Attacks</strong> while wielding a shield.
   actions: []
+  keywords:
+    - playstyle.defensive
+    - weapon.shield
   nodes:
     - tou1a
   iconicSpells: 0

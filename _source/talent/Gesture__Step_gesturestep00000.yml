@@ -13,6 +13,10 @@ system:
     Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   spellcraft: step
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
+    - action.movement
   nodes:
     - dex2b
   iconicSpells: 0

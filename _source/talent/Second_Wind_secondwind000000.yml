@@ -39,6 +39,9 @@ system:
         actorUuid: null
         permanent: true
       autoFavorite: false
+  keywords:
+    - playstyle.defensive
+    - target.healing
   nodes:
     - tou1b
   iconicSpells: 0

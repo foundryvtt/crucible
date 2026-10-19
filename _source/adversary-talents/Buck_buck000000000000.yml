@@ -3,6 +3,10 @@ type: talent
 _id: buck000000000000
 img: icons/commodities/bones/hooves-cloven-brown.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - damageType.bludgeoning
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} lowers its head towards the ground and

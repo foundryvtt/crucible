@@ -12,6 +12,8 @@ system:
   actions: []
   iconicSpells: 0
   training: arcana
+  keywords:
+    - playstyle.spellcraft
   nodes:
     - preint4
 effects: []

@@ -16,11 +16,10 @@ system:
       description: >-
         <p>When you defend against a melee attack with a @Rule[defense.block]
         you may expend @Rule[resource.focus] to retaliate with a reduced-cost
-        <strong>Strike</strong> using your mainhand weapon.</p>
+        <strong>Strike</strong> using a melee weapon.</p>
       tags:
         - reaction
         - melee
-        - mainhand
       cost:
         action: -1
         focus: 1
@@ -40,6 +39,12 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.melee
+    - playstyle.defensive
+    - weapon.shield
+    - defense.block
+    - action.reaction
   nodes:
     - tou2a
   iconicSpells: 0

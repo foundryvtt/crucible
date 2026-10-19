@@ -4,6 +4,10 @@ type: talent
 _id: deftgrip00000000
 img: icons/skills/melee/stabbing-knife.webp
 system:
+  keywords:
+    - playstyle.melee
+    - playstyle.spellcraft
+    - weapons.twohand
   nodes:
     - dex2c
   description: >-

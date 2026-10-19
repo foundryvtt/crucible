@@ -2,6 +2,9 @@ name: Blindsight
 type: talent
 img: icons/magic/perception/eye-ringed-glow-angry-small-red.webp
 system:
+  keywords:
+    - playstyle.utility
+    - senses
   nodes: []
   description: >-
     <p>@ref[actor.name]{This creature} perceives its surroundings without the

@@ -8,6 +8,10 @@ system:
     enemy with a @Action[default reactiveStrike], that creature becomes
     @Condition[slowed] until the end of its next turn.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - movement.engagement
+    - action.reaction
   nodes:
     - toustr4
   iconicSpells: 0

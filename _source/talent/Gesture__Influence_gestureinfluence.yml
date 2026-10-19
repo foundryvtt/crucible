@@ -13,6 +13,9 @@ system:
     <strong>1 Focus</strong>.</p>
   actions: []
   spellcraft: influence
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
   nodes:
     - pre1b
   iconicSpells: 0

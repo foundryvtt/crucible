@@ -180,7 +180,10 @@ export default class CrucibleChatMessage extends ChatMessage {
    */
   static onRenderHTML(message, html, _messageData) {
     const flags = message.flags.crucible || {};
-    if ( !foundry.utils.isEmpty(flags) || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) {
+
+    // Apply a chat message theme based on the value of flags.crucible.theme, otherwise assign the `.crucible` theme
+    if ( flags.theme && (flags.theme !== "crucible") ) html.classList.add(flags.theme);
+    else if ( !foundry.utils.isEmpty(flags) || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) {
       html.classList.add("crucible");
       html.querySelector(".message-content").classList.add("themed", "theme-dark");
     }
@@ -209,6 +212,16 @@ export default class CrucibleChatMessage extends ChatMessage {
 
       // Hide summoned creature names for non-GMs
       if ( (flags.action.target.type === "summon") && !game.user.isGM ) html.querySelector(".target-region.full-tags")?.remove();
+    }
+
+    // Turn Change Summary with usable maintenance buttons for owners
+    if ( flags.isTurnChangeSummary ) {
+      for ( const button of html.querySelectorAll("button.maintain-effect") ) {
+        const effect = fromUuidSync(button.dataset.uuid);
+        if ( effect?.isOwner ) button.addEventListener("click", () => effect.system.getMaintainAction()?.use());
+        else button.replaceWith(foundry.utils.parseHTML(`<span><i class="fa-solid fa-pause"></i> ${
+          _loc("BASE_EFFECT.FIELDS.maintenance.label")}</span>`));
+      }
     }
 
     // Initiative Report

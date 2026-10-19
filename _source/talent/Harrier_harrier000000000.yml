@@ -8,6 +8,10 @@ system:
     @Action[default reactiveStrike] against an enemy engaged with you whenever
     they make an attack that is not tagged as <strong>Melee</strong>.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - movement.engagement
+    - action.reaction
   nodes:
     - dex4d
   iconicSpells: 0

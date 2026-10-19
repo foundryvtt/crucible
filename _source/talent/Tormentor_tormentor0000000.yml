@@ -2,6 +2,12 @@ name: Tormentor
 type: talent
 img: icons/magic/perception/eye-ringed-glow-angry-teal.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.spiritual
+    - damageType.psychic
+    - target.willpower
+    - target.morale
   nodes:
     - pre4d
   description: >-

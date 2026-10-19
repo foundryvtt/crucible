@@ -13,6 +13,9 @@ system:
     crafting system is in early development and schematic knowledge is not yet
     tracked. This talent describes how Glyphweaving will behave once it is.</p>
   actions: []
+  keywords:
+    - action.noncombat
+    - skill.glyphweaving
   nodes:
     - pre4c
   spellcraft: ''

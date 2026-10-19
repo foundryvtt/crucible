@@ -10,6 +10,11 @@ system:
     @Rule[dice.bane]{+1 Bane} on their next <strong>Strike</strong> against
     you.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - defense.block
+    - armor.medium
+    - armor.heavy
   nodes:
     - tou4b
   iconicSpells: 0

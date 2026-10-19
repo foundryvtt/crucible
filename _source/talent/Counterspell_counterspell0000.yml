@@ -47,6 +47,9 @@ system:
       composition: 1
       summon: null
       inflection: ''
+  keywords:
+    - playstyle.spellcraft
+    - action.reaction
   nodes:
     - preint1
   iconicSpells: 0

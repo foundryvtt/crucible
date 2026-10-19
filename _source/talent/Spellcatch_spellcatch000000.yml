@@ -41,6 +41,11 @@ system:
         - reaction
         - ranged
       summon: null
+  keywords:
+    - playstyle.defensive
+    - weapon.talisman
+    - action.reaction
+    - resource.focus
   nodes:
     - pre4b
   iconicSpells: 0

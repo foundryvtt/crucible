@@ -36,6 +36,9 @@ system:
       effects: []
       tags: []
       summon: null
+  keywords:
+    - playstyle.utility
+    - skill.science
   nodes:
     - int1b
   spellcraft: ''

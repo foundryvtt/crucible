@@ -64,6 +64,10 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapon.unarmed
+    - target.fortitude
   nodes:
     - strwis1
   iconicSpells: 0

@@ -63,6 +63,11 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - target.willpower
+    - target.morale
+    - damageType.void
+    - skill.intimidation
   nodes:
     - sig3.presence
     - sig3.toughness

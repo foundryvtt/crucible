@@ -51,9 +51,7 @@
   }
 
   // Buttons
-  button,
-  .button,
-  .control {
+  button {
     --button-text-color: var(--color-tertiary);
     --button-background-color: transparent;
     --button-border-color: transparent;
@@ -96,6 +94,128 @@
     }
     code-mirror {
       height: calc(100% - 70px); // FIXME fight core style
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Encounter Spawn Dialog                   */
+/* ----------------------------------------- */
+
+// The area-schematic library's spawn confirmation, styled as a sheet by module/area-schematic.mjs
+.crucible.sheet.encounter-spawn {
+  .window-content {
+    padding: var(--margin-size);
+    padding-top: 0;
+  }
+  section.encounter {
+    gap: 0.5rem;
+  }
+  fieldset {
+    padding: 0 var(--spacer-8) var(--spacer-4);
+  }
+  fieldset[data-side] {
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .form-footer button {
+    --button-size: 28px;
+    font-size: var(--font-size-13);
+    --button-text-color: var(--color-secondary);
+    --button-background-color: var(--color-frame-bg-75);
+    --button-border-color: var(--color-frame);
+    opacity: 1.0;
+  }
+
+  // Options, compacted to leave room for the encounter
+  fieldset.options {
+    padding: 0 var(--spacer-12);
+    gap: 0.25rem;
+    .form-group {
+      font-size: var(--font-size-12);
+      label {
+        font-size: inherit;
+      }
+      select {
+        height: 24px;
+        font-size: inherit;
+      }
+      input[type="checkbox"] {
+        --checkbox-size: 16px;
+      }
+    }
+  }
+
+  // Token rows, as compact line items whose controls precede a threat value
+  .line-item {
+    --title-font-size: var(--font-size-13);
+    button.icon {
+      --button-size: 20px;
+      color: var(--color-text-subtle);
+      &:disabled {
+        opacity: 0.25;
+      }
+    }
+    button.cycle-rank {
+      color: var(--color-secondary);
+    }
+
+    // Level carets, as on the adversary sheet header
+    .advancement {
+      display: flex;
+      align-items: center;
+      .controls {
+        gap: 0;
+        button.icon {
+          --button-size: 10px;
+          width: 16px;
+          padding: 0;
+        }
+      }
+      .level {
+        min-width: 1.25rem;
+        text-align: center;
+        font-size: var(--font-size-12);
+        color: var(--color-secondary);
+      }
+    }
+  }
+
+  // Values in a final column, so that each row's threat sums to the subtotal beneath it
+  .value {
+    flex: none;
+    min-width: 32px;
+    text-align: center;
+    font-size: var(--font-size-12);
+  }
+
+  // Each fieldset's balance beneath its rows, totalled in a flat-topped hex as on check results
+  .encounter-balance {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-frame);
+    .counter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--font-size-12);
+      .label {
+        flex: 1;
+        color: var(--color-secondary);
+      }
+      // Difficulty in its tier's color from SYSTEM.ENCOUNTER_DIFFICULTIES
+      .difficulty {
+        font-weight: bold;
+        color: var(--tier-color, var(--color-primary));
+      }
+      .value.hex {
+        --hex-bg: url("../ui/elements/hex-plain-flat.webp");
+        --hex-size: 32px;
+        height: var(--hex-size);
+        font-weight: bold;
+      }
     }
   }
 }
@@ -438,12 +558,6 @@
     i.fa-solid {
       color: var(--color-text-subtle);
     }
-  }
-  .button.icon {
-    width: 24px;
-    height: 24px;
-    font-size: var(--font-size-12);
-    padding: 0.25rem;
   }
   button.icon {
     --button-size: 24px;

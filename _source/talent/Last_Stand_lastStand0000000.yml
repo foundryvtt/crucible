@@ -2,6 +2,11 @@ name: Last Stand
 type: talent
 img: icons/skills/wounds/injury-face-impact-orange.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - target.healing
+    - resource.heroism
+    - defense.wounds
   nodes:
     - tou2c
   description: >-

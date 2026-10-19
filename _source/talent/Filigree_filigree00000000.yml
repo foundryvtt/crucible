@@ -55,6 +55,9 @@ system:
       effects: []
       tags: []
       summon: null
+  keywords:
+    - action.noncombat
+    - skill.jewelcraft
   nodes:
     - str2c
   spellcraft: ''

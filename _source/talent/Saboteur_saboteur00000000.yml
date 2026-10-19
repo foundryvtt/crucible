@@ -2,6 +2,8 @@ name: Saboteur
 type: talent
 img: icons/skills/ranged/bomb-grenade-thrown-gray.webp
 system:
+  keywords:
+    - consumable.bomb
   nodes:
     - dextou2
   description: >-

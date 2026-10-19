@@ -41,6 +41,12 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.defensive
+    - defense.block
+    - action.reaction
+    - armor.medium
+    - armor.heavy
   nodes:
     - toustr2
   iconicSpells: 0

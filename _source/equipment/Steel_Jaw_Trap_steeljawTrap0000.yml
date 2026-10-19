@@ -17,7 +17,7 @@ system:
     public: >-
       <p>A particularly cruel and sharp mechanical trap designed to immobilize
       and kill the unwary. A saw-toothed steel ring that snaps shut when a
-      creature steps on a pressure plate in the center</p>
+      creature steps on a pressure plate in the center.</p>
     private: ''
   actions:
     - id: steelJawArm
@@ -25,16 +25,14 @@ system:
       img: icons/environment/traps/trap-jaw-steel.webp
       condition: ''
       description: >-
-        <p>Setting the trap places a dangerous hazard that deals significant
-        damage if triggered. It must be affixed by heavy chain to an immobile
-        object, such as a tree or spike driven into the ground. The area of the
-        trap is a circle with a radius of 2 feet.</p><p>When triggered, the
-        creature that set the trap makes a @Rule[skill.wilderness] skill attack
-        against the @Rule[defense.reflex] defense of a single target which
-        triggered the trap. If not resisted, it deals <strong>Piercing</strong>
-        damage and applies the @Condition[restrained] condition. The base damage
-        dealt by the trap varies according to the quality of the
-        trap.</p><ul><li><p><strong>Shoddy</strong> - 1
+        <p>Setting the trap places a hazard that causes its effect if triggered.
+        The area of the trap is a circle with a radius of 2 feet.</p><p>When
+        triggered, the creature that set the trap makes a
+        @Rule[skill.wilderness] skill attack against the @Rule[defense.reflex]
+        defense of the creature which triggered it. If not resisted, it deals
+        @Rule[damageType.piercing] damage and applies the @Condition[restrained]
+        condition. The base damage dealt by the trap varies according to the
+        quality of the trap.</p><ul><li><p><strong>Shoddy</strong> - 1
         damage</p></li><li><p><strong>Standard</strong> - 2
         damage</p></li><li><p><strong>Fine</strong> - 4
         damage</p></li><li><p><strong>Superior</strong> - 8
@@ -71,12 +69,12 @@ system:
             description: >-
               <p>The creature that set the trap makes a @Rule[skill.wilderness]
               skill attack against the @Rule[defense.reflex] defense of the
-              single target which triggered the trap. If not resisted, it deals
-              <strong>Piercing</strong> damage and applies the
+              creature which triggered it. If not resisted, it deals
+              @Rule[damageType.piercing] damage and applies the
               @Condition[restrained] condition.</p>
             effects:
               - name: Steel-Jaw Trap
-                scope: 3
+                scope: 4
                 result:
                   type: success
                   all: false
@@ -97,6 +95,7 @@ system:
                   properties: []
                   regions: []
                   summons: []
+                  lights: []
             tags:
               - reflex
               - piercing
@@ -120,23 +119,17 @@ folder: gSADApbBEeo51EEP
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-flags:
-  dnd5e:
-    riders:
-      activity: []
-      effect: []
-  ember:
-    crucibleOverride: true
+flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.368'
+  coreVersion: '14.369'
   systemId: crucible
-  systemVersion: 0.11.0
+  systemVersion: 0.11.1
   createdTime: 1772307157780
-  modifiedTime: 1790199279196
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1792115378123
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: steeljawTrap0000
-sort: 0
+sort: 500000
 _key: '!items!steeljawTrap0000'

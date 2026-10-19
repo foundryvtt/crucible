@@ -8,6 +8,10 @@ system:
     which incorporates a <strong>Strike</strong> attack without spending any
     @Rule[resource.focus].</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - action.reaction
+    - resource.focus
   nodes:
     - sig3.dexterity.toughness
   iconicSpells: 0

@@ -1,0 +1,51 @@
+<section class="tab sheet-section members flexcol {{tabs.members.cssClass}}" data-tab="members" data-group="sheet">
+    {{#unless tracksAdvancement}}<h3>{{systemFields.members.label}}</h3>{{/unless}}
+    <ol class="items-list scrollable">
+        {{#each members as |member|}}
+        <li class="line-item member draggable" data-actor-id="{{member.actorId}}">
+            <img class="icon" src="{{member.img}}">
+            <div class="title">
+                <h4>
+                    <a data-action="memberSheet">{{member.name}}</a>
+                    {{#if hasQuantity}}<span class="quantity">({{member.quantity}})</span>{{/if}}
+                </h4>
+                <div class="tags">
+                    {{#each member.tags as |label tag|}}
+                    <span class="tag">{{label}}</span>
+                    {{/each}}
+                </div>
+            </div>
+            {{#if member.editQuantity}}
+            {{formInput @root.quantityField name=(concat "members." member.actorId) value=member.quantity
+                        classes="member-quantity" aria=(object label=(localize "ACTOR.GROUP.FIELDS.members.quantity.label"))}}
+            {{else}}
+            <span class="member-quantity"></span>
+            {{/if}}
+            <div class="resources flexcol">
+                {{#if member.hasResources}}
+                <div class="resource health flexrow">
+                    <span class="label">{{member.health.value}}</span>
+                    <div class="bar">
+                        <span class="bar-fill" style="width: {{member.health.cssPct}}; background: {{member.health.color}}"></span>
+                    </div>
+                    <span class="label">{{member.health.max}}</span>
+                </div>
+                <div class="resource morale flexrow">
+                    <span class="label">{{member.morale.value}}</span>
+                    <div class="bar">
+                        <span class="bar-fill" style="width: {{member.morale.cssPct}}; background: {{member.morale.color}}"></span>
+                    </div>
+                    <span class="label">{{member.morale.max}}</span>
+                </div>
+                {{/if}}
+            </div>
+            <div class="controls">
+                {{#if @root.isEditable}}
+                <button type="button" class="icon fa-solid fa-times" data-action="memberRemove"
+                        aria-label="{{localize "ACTOR.GROUP.ACTIONS.RemoveMember"}}" data-tooltip></button>
+                {{/if}}
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+</section>

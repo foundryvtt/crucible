@@ -4,6 +4,10 @@ type: talent
 _id: compellingIllusi
 img: icons/magic/perception/orb-crystal-ball-scrying.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.spiritual
+    - damageType.psychic
   nodes:
     - pre4d
   description: >-

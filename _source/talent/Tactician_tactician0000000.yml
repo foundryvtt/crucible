@@ -36,6 +36,9 @@ system:
         weapon: false
       summon: null
       condition: ''
+  keywords:
+    - playstyle.utility
+    - initiative
   nodes:
     - sig3.presence.intellect
   iconicSpells: 0

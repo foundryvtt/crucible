@@ -222,6 +222,15 @@ HOOKS.assessResolve = {
 
 /* -------------------------------------------- */
 
+HOOKS.batteringSnareTrigger = {
+  prepare() {
+    const tiers = {shoddy: 2, standard: 4, fine: 8, superior: 12, masterwork: 20};
+    this.usage.bonuses.base = tiers[this.item.system.quality];
+  }
+};
+
+/* -------------------------------------------- */
+
 // TODO: Consider refactoring this talent to instead be a maintained action
 HOOKS.beastShapeRevert = {
   async confirm(reverse) {
@@ -406,6 +415,18 @@ function _canUsePostDefend(action, {requiredResult}) {
     throw new Error(_loc("ACTION.WARNINGS.MustFollowMeleeDefense", {action: action.name, defense: resultLabel}));
   }
 }
+
+/* -------------------------------------------- */
+
+HOOKS.caltropSnareTrigger = {
+  preActivate() {
+    const tiers = {shoddy: 1, standard: 2, fine: 3, superior: 4, masterwork: 6};
+    const n = tiers[this.item.system.quality];
+    const caltrops = this.effects[0];
+    caltrops.duration = {value: n, units: "rounds", expiry: "turnStart"};
+    caltrops.system.dot = [{amount: n, damageType: "piercing", resource: "health"}];
+  }
+};
 
 /* -------------------------------------------- */
 
@@ -982,8 +1003,17 @@ HOOKS.fieldStudy = {
     const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
     if ( !effect ) return;
 
+    const id = SYSTEM.EFFECTS.getEffectId("Field Study");
+
+    // Update an existing study in place so it can be reversed via snapshotting
+    // Reset start time to now; updates don't receive a new start time automatically
+    if ( this.actor.effects.has(id) ) {
+      effect._action = "update";
+      effect.start = CONFIG.ActiveEffect.documentClass.getEffectStart();
+    }
+
     // Encode the chosen Knowledge as add-changes; a single fixed id means a new study replaces the previous one
-    effect._id = SYSTEM.EFFECTS.getEffectId("Field Study");
+    effect._id = id;
     effect.name = _loc("ACTIONS.FieldStudy.Effect", {knowledge: _loc(crucible.CONFIG.knowledge[k].label)});
     effect.system.changes = [
       {key: "system.details.background.knowledge", type: "add", value: k},
@@ -1506,6 +1536,7 @@ function _recordConcealmentDC(action) {
     for ( const effect of event.effects ?? [] ) {
       effect.system ??= {};
       effect.system.dc = dc;
+      effect.system.properties = Array.from(new Set(effect.system.properties).add("removable"));
       effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS;
     }
   }
@@ -1698,6 +1729,45 @@ HOOKS.loyalProtector = {
     }
   }
 };
+  
+/* -------------------------------------------- */
+
+HOOKS.maintain = {
+  initialize() {
+    this.usage.maintainedEffectId ??= this.actor.maintainedEffects.find(e => e.system.suppression.maintenance)?.id;
+    const effect = this.actor.effects.get(this.usage.maintainedEffectId);
+    this.cost.focus = effect?.system.maintenance.cost ?? 0;
+  },
+  canUse() {
+    const effect = this.actor.effects.get(this.usage.maintainedEffectId);
+    if ( !effect?.system.suppression?.maintenance ) {
+      throw new Error(_loc("BASE_EFFECT.WARNINGS.MaintenanceNotDue", {effect: effect?.name ?? this.name}));
+    }
+    if ( game.combat?.combatant?.actor !== this.actor ) {
+      throw new Error(_loc("BASE_EFFECT.WARNINGS.MaintainOwnTurn", {name: this.actor.name}));
+    }
+  },
+  async postActivate() {
+    const effect = this.actor.effects.get(this.usage.maintainedEffectId);
+    const changes = [{_id: effect.id, _action: "update", system: {suppression: {maintenance: false}}}];
+
+    // Once paid effects reach the limit, maintained effects still due are ended
+    const others = this.actor.maintainedEffects.filter(e => e !== effect);
+    const paid = others.filter(e => !e.system.suppression.maintenance).length + 1;
+    const ended = (paid >= this.actor.resources.focus.maintained)
+      ? others.filter(e => e.system.suppression.maintenance) : [];
+    if ( ended.length ) {
+      const confirm = await foundry.applications.api.DialogV2.confirm({
+        window: {title: this.name},
+        content: `<p>${_loc("BASE_EFFECT.MAINTENANCE.EndConfirm", {effect: effect.name,
+          effects: game.i18n.getListFormatter().format(ended.map(e => e.name))})}</p>`
+      });
+      if ( !confirm ) throw new Error(_loc("BASE_EFFECT.WARNINGS.MaintainedCancelled", {action: this.name}));
+      for ( const e of ended ) changes.push({_id: e.id, _action: "delete"});
+    }
+    this.recordEvent({type: "effect", target: this.actor, effects: changes});
+  }
+};
 
 /* -------------------------------------------- */
 
@@ -1860,6 +1930,17 @@ HOOKS.paralyticIngest = {
       ? {value: turnCount, units: "rounds", expiry: "turnEnd"}
       : {value: null, units: "seconds", expiry: null};
     poison.system.dot.length = 0;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.poisonBarbSnareTrigger = {
+  preActivate() {
+    const tiers = {shoddy: 1, standard: 2, fine: 3, superior: 4, masterwork: 6};
+    const n = tiers[this.item.system.quality];
+    const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, {amount: n, turns: n});
+    foundry.utils.mergeObject(this.effects[0], poisoned);
   }
 };
 
@@ -2700,7 +2781,7 @@ HOOKS.threadTheNeedle = {
 HOOKS.steelJawTrigger = {
   prepare() {
     const tiers = {shoddy: 1, standard: 2, fine: 4, superior: 8, masterwork: 16};
-    this.usage.bonuses.damageBonus = tiers[this.item.system.quality];
+    this.usage.bonuses.base = tiers[this.item.system.quality];
   }
 };
 

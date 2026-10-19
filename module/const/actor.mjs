@@ -295,7 +295,7 @@ export const MOVEMENT_ACTIONS = Object.freeze({
     img: "icons/svg/leg.svg",
     costMultiplier: 2,
     speedMultiplier: 0.25,
-    terrainAction: "walk"
+    deriveTerrainDifficulty: ({walk}) => Math.max(1, walk / 2) // Crawling absorbs terrain up to its own cost
   },
   jump: {
     order: 3,
@@ -620,9 +620,17 @@ export const HOOKS = Object.freeze({
  * @type {Readonly<Record<string, {label: string, page: string}>>}
  */
 export const MOVEMENT_RULES = Object.freeze({
+  difficultTerrain: {
+    label: "ACTOR.DifficultTerrain",
+    page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.KGXiKFUWrPgb7wsx"
+  },
   engagement: {
     label: "ACTOR.FIELDS.movement.engagement.label",
     page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.akwDfoFV3AWbOSI6"
+  },
+  extremeTerrain: {
+    label: "ACTOR.ExtremeTerrain",
+    page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.KGXiKFUWrPgb7wsx"
   },
   freeMovement: {
     label: "ACTOR.FreeMovement",
@@ -631,6 +639,10 @@ export const MOVEMENT_RULES = Object.freeze({
   fullyEngaged: {
     label: "ACTOR.FullyEngaged",
     page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.akwDfoFV3AWbOSI6"
+  },
+  normalTerrain: {
+    label: "ACTOR.NormalTerrain",
+    page: "Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.KGXiKFUWrPgb7wsx"
   },
   size: {
     label: "ACTOR.FIELDS.movement.size.label",

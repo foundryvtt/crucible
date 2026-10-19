@@ -47,6 +47,10 @@ system:
         actorUuid: null
         permanent: true
       autoFavorite: false
+  keywords:
+    - playstyle.melee
+    - weapon.shield
+    - action.movement
   nodes:
     - toustr1
   iconicSpells: 0

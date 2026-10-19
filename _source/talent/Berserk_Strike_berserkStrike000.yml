@@ -3,6 +3,9 @@ type: talent
 _id: berserkStrike000
 img: icons/skills/melee/strike-weapons-orange.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapons.twohand
   nodes:
     - str3a
   description: >-

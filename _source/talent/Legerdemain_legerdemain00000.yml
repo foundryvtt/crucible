@@ -9,6 +9,8 @@ system:
     this way is @Rule[action.subtle] and may be cast even while you are
     @Condition[silenced].</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
   nodes:
     - dex2b
   iconicSpells: 0

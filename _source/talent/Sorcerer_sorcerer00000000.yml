@@ -2,6 +2,8 @@ name: Sorcerer
 type: talent
 img: icons/magic/lightning/projectile-tendrils-red.webp
 system:
+  keywords:
+    - playstyle.spellcraft
   nodes:
     - sig3.presence.intellect
   description: >-

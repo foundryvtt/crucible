@@ -15,24 +15,29 @@ export default class StandardCheckDialog extends DialogV2 {
    * @param {string} [options.messageMode]                 The message mode to use
    * @param {Record<string, GroupCheckSkillConfig>} [options.skills]  Multi-skill choices (player mode)
    * @param {boolean} [options.configurable=true]  Whether the dialog allows GM configuration (skills, DC, request)
+   * @param {string} [options.checkName]          A name for the check, used as the title and chat flavor
    */
-  constructor({request=false, requestedActors=[], roll, messageMode, skills, configurable=true, ...options}={}) {
+  constructor({request=false, requestedActors=[], roll, messageMode, skills, configurable=true, checkName,
+    ...options}={}) {
     super(options);
     this.request = request && game.user.isGM;
     this.configurable = configurable && game.user.isGM;
     this.isGroupCheck = roll instanceof crucible.api.dice.GroupCheck;
     this.roll = roll;
     this.messageMode = messageMode;
+    this.checkName = checkName;
     if ( this.roll.actor ) this.#requestActors.add(this.roll.actor);
     for ( const actor of requestedActors ) this.#requestActors.add(actor);
 
-    // Multi-skill: player receives allowed skills from GM with explicit DCs
+    // Multi-skill: allowed skills with explicit DCs, from the GM or a preconfigured enricher
     if ( skills ) {
       for ( const [id, config] of Object.entries(skills) ) this.#selectedSkills.set(id, config.dc);
     }
 
-    // Default the skills panel to open for configurable group checks with no skill pre-configured
-    this.customizeSkills = this.configurable && this.isGroupCheck && !SYSTEM.SKILLS[this.roll.data.type];
+    // Open the skills panel for configurable group checks with no skill or several skills pre-configured
+    const multiSkill = (this.isGroupCheck || this.request) && (this.#selectedSkills.size > 1);
+    this.customizeSkills = this.configurable
+      && ((this.isGroupCheck && !SYSTEM.SKILLS[this.roll.data.type]) || multiSkill);
   }
 
   /** @inheritDoc */
@@ -71,6 +76,12 @@ export default class StandardCheckDialog extends DialogV2 {
    * @type {boolean}
    */
   configurable;
+
+  /**
+   * A name for the check, used as the title and chat flavor.
+   * @type {string|undefined}
+   */
+  checkName;
 
   /**
    * Display the dialog in request mode.
@@ -125,7 +136,8 @@ export default class StandardCheckDialog extends DialogV2 {
   get title() {
     if ( this.options.window.title ) return this.options.window.title;
     let label;
-    if ( this.#selectedSkills.size > 1 ) label = _loc("ACTION.SkillCheckGeneric");
+    if ( this.checkName ) label = this.checkName;
+    else if ( this.#selectedSkills.size > 1 ) label = _loc("ACTION.SkillCheckGeneric");
     else {
       const type = this.roll.data.type;
       const skill = SYSTEM.SKILLS[type];
@@ -395,7 +407,8 @@ export default class StandardCheckDialog extends DialogV2 {
     const skills = {};
     for ( const [id, customDc] of this.#selectedSkills ) skills[id] = {dc: customDc ?? defaultDc};
     const aggregate = this.isGroupCheck && this.#requestActors.size > 1;
-    const options = {requestedActors: this.#requestActors, local: true, messageMode: this.messageMode, aggregate};
+    const options = {requestedActors: this.#requestActors, local: true, messageMode: this.messageMode, aggregate,
+      name: this.checkName};
     if ( Object.keys(skills).length ) options.skills = skills;
     const groupCheckInstance = new crucible.api.dice.GroupCheck(foundry.utils.deepClone(this.roll.data));
     await groupCheckInstance.requestSubmit(options);
@@ -606,7 +619,8 @@ export default class StandardCheckDialog extends DialogV2 {
     const skills = {};
     for ( const [id, customDc] of this.#selectedSkills ) skills[id] = {dc: customDc ?? defaultDc};
     const aggregate = this.isGroupCheck && this.#requestActors.size > 1;
-    const options = {requestedActors: this.#requestActors, messageMode: this.messageMode, aggregate};
+    const options = {requestedActors: this.#requestActors, messageMode: this.messageMode, aggregate,
+      name: this.checkName};
     if ( Object.keys(skills).length ) options.skills = skills;
     await this.roll.requestGroupCheck(options);
     await this.close();

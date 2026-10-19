@@ -958,7 +958,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( tree.actor === this._clone ) return;
     await tree.open(this._clone, {parentApp: this});
     const tab = this.element.querySelector(".tab[data-tab=talents]");
-    tab.replaceChildren(tree.canvas);
+    tab.replaceChildren(tree.canvas, tree.filter.element);
   }
 
   /* -------------------------------------------- */

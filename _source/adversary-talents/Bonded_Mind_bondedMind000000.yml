@@ -2,6 +2,8 @@ name: Bonded Mind
 type: talent
 img: icons/creatures/webs/web-sparse-pink.webp
 system:
+  keywords:
+    - playstyle.utility
   nodes: []
   description: >-
     <p>The mind of a @ref[actor.name]{creature} with this talent is inextricably

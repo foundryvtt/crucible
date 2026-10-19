@@ -4,6 +4,9 @@ type: talent
 _id: fireAbsorption00
 img: icons/magic/fire/flame-burning-campfire-red.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has an exceptional ability to thrive

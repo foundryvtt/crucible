@@ -40,6 +40,10 @@ system:
         weapon: false
         minimum: null
       summon: null
+  keywords:
+    - playstyle.utility
+    - target.healing
+    - skill.medicine
   nodes:
     - wis2c
   iconicSpells: 0

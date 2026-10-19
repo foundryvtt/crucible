@@ -10,6 +10,11 @@ system:
     <strong>3 Rounds</strong> and deals your @Rule[ability.dexterity] score as
     additional damage to @Rule[resource.health].</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - playstyle.ranged
+    - damageType.slashing
+    - damageType.piercing
   nodes:
     - dex4d
   iconicSpells: 0

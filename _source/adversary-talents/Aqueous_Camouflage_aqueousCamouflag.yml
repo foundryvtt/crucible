@@ -3,6 +3,9 @@ type: talent
 _id: aqueousCamouflag
 img: icons/magic/water/orb-water-bubbles-blue.webp
 system:
+  keywords:
+    - playstyle.utility
+    - skill.stealth
   nodes: []
   description: >-
     <p>While fully submerged in water or liquids, @ref[actor.name]{this

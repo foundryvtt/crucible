@@ -11,6 +11,9 @@ system:
     @Rule[resource.health] instead. <strong>Spells</strong> you cast cannot
     restore your own @Rule[resource.health].</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - resource.focus
   nodes:
     - str2b
   iconicSpells: 0

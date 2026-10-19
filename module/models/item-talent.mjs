@@ -58,7 +58,9 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
         training: new fields.TypedObjectField(new fields.NumberField({required: true, nullable: false,
           integer: true, min: 1, max: SYSTEM.PROFICIENCY.RANK_MAX}), {validateKey: key => key in SYSTEM.PROFICIENCIES})
       }),
-      training: new fields.StringField({...blankString, choices: SYSTEM.PROFICIENCIES})
+      training: new fields.StringField({...blankString, choices: SYSTEM.PROFICIENCIES}),
+      keywords: new fields.SetField(new fields.StringField({required: true, blank: false,
+        choices: SYSTEM.TALENT.KEYWORDS}))
     };
   }
 
@@ -76,6 +78,14 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    * @type {string}
    */
   static CARD_TEMPLATE_PATH = "systems/crucible/templates/sheets/item/talent-card.hbs";
+
+  /**
+   * Keyword group labels in ascending sort priority, used to order keyword optgroups.
+   * @type {string[]}
+   */
+  static get keywordGroups() {
+    return Object.values(SYSTEM.TALENT.KEYWORD_GROUPS).sort((a, b) => a.sort - b.sort).map(g => g.label);
+  }
 
   /**
    * Is this talent provided by the origin node?
@@ -154,9 +164,10 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /**
    * Return an object of string formatted tag data which describes this item type.
-   * @returns {Record<string, string>}    The tags which describe this Talent
+   * @param {"full"|"short"} [scope="full"]   The scope of tags being retrieved
+   * @returns {Record<string, string>}        The tags which describe this Talent
    */
-  getTags() {
+  getTags(scope="full") {
     const tags = {};
     if ( this.isOrigin ) tags.origin = _loc("TALENT.NODES.Origin");
     for ( const [k, v] of Object.entries(this.prerequisites || {}) ) {
@@ -165,6 +176,11 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     if ( this.iconicSpells ) {
       tags.iconicSpells = this.iconicSpells === 1 ? _loc("SPELL.Iconic")
         : `${this.iconicSpells} ${_loc("SPELL.IconicPl")}`;
+    }
+    if ( scope === "full" ) {
+      const keywords = Array.from(this.keywords, k => SYSTEM.TALENT.KEYWORDS[k]);
+      keywords.sort((a, b) => (a.sort - b.sort) || a.label.localeCompare(b.label, game.i18n.lang));
+      for ( const k of keywords ) tags[k.id] = k.label;
     }
     return tags;
   }
@@ -275,7 +291,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       uuid: uuid ?? this.parent.uuid,
       name: this.parent.name,
       img: this.parent.img,
-      tags: this.getTags(),
+      tags: this.getTags("short"),
       showRemove,
       showLevel,
       talentIndex,
@@ -325,7 +341,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       name: talent.name,
       img: talent.img,
       actions: await talent.prepareActionsContext(),
-      tags: this.getTags(),
+      tags: this.getTags("short"),
       prerequisites: reqs,
       origin: this.isOrigin ? _loc("TALENT.NODES.Origin") : null,
       training: this.training

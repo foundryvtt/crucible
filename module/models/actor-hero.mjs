@@ -344,6 +344,15 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _prepareEmbedContext(config) {
+    const context = await super._prepareEmbedContext(config);
+    context.subtitle = [this.details.ancestry?.name, this.details.background?.name].filterJoin(" ");
+    return context;
+  }
+
+  /* -------------------------------------------- */
   /*  Deprecations and Compatibility              */
   /* -------------------------------------------- */
 

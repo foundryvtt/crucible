@@ -9,6 +9,8 @@ system:
     suffers damage to their @Rule[resource.morale] equal to your
     @Rule[ability.presence].</p>
   actions: []
+  keywords:
+    - target.morale
   nodes:
     - pre4a
   iconicSpells: 0

@@ -1,9 +1,12 @@
 folder: xhBPnxcjrC9F4AVL
-name: Adroit Kineses
+name: Adroit Kinesis
 type: talent
 _id: adroitKinesis000
 img: icons/magic/movement/abstract-ribbons-red-orange.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
   nodes:
     - dex4a
   description: >-
@@ -27,8 +30,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.1
   createdTime: 1791391562931
-  modifiedTime: 1791391562931
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1791425610232
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -60,6 +60,9 @@ system:
       summon: null
   iconicSpells: 0
   training: shield
+  keywords:
+    - playstyle.melee
+    - weapon.shield
   nodes:
     - tou0b
 effects: []

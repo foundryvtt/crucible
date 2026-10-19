@@ -39,6 +39,12 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.melee
+    - playstyle.defensive
+    - defense.dodge
+    - defense.parry
+    - action.reaction
   nodes:
     - dex3b
   iconicSpells: 0

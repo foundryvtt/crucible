@@ -3,6 +3,9 @@ type: talent
 _id: selfrepair000000
 img: icons/tools/hand/wrench-iron-grey.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - target.healing
   nodes: []
   description: >-
     <p>The @ref[actor.name]{construct} activates internal repairing mechanisms
@@ -47,11 +50,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.356'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.9.0
   createdTime: 1772307157337
-  modifiedTime: 1773514792188
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
-sort: 0
+  modifiedTime: 1791929521467
+  lastModifiedBy: QPs9IwGEu5DxD700
+sort: 200000
 _key: '!items!selfrepair000000'

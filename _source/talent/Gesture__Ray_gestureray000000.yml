@@ -13,6 +13,9 @@ system:
     Focus</strong>.</p>
   actions: []
   spellcraft: ray
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
   nodes:
     - wis1b
   iconicSpells: 0

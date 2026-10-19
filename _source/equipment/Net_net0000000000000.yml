@@ -5,11 +5,10 @@ system:
   identifier: net
   category: trap
   quantity: 1
-  weight: 0
-  price: 0
+  weight: 3
+  price: 100
   quality: standard
   broken: false
-  enchantment: mundane
   equipped: false
   invested: false
   properties:
@@ -18,7 +17,7 @@ system:
   description:
     public: >-
       <p>These thickly woven fibers are reinforced for use in combat to entrap
-      and entangle even the most dangerous foes, rendering them vulnerable.</p>
+      and entangle even the most dangerous foes, rendering them helpless.</p>
     private: ''
   actions:
     - id: net
@@ -43,12 +42,10 @@ system:
         number: 1
         scope: 4
         self: false
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
       effects:
         - name: Netted
-          scope: 3
+          scope: 4
           result:
             type: success
             all: false
@@ -82,12 +79,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.351'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.8.8
   createdTime: 1773525617759
-  modifiedTime: 1773525617759
-  lastModifiedBy: QPs9IwGEu5DxD700
+  modifiedTime: 1792115378122
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: net0000000000000
-sort: 0
+sort: 300000
 _key: '!items!net0000000000000'

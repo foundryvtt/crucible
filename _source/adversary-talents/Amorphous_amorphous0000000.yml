@@ -3,6 +3,10 @@ type: talent
 _id: amorphous0000000
 img: icons/creatures/slimes/slime-movement-dripping-purple.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - defense.dodge
+    - action.movement
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} may move through a space as narrow as 1

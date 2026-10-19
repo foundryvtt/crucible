@@ -8,6 +8,9 @@ system:
     you may cast spells which require two hands, no matter what occupies your
     other hand.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - weapon.talisman
   nodes:
     - pre2b
   iconicSpells: 0

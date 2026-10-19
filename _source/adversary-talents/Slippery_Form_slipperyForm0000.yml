@@ -2,6 +2,9 @@ name: Slippery Form
 type: talent
 img: icons/environment/creatures/bug-worm-purple-blue.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - action.movement
   nodes: []
   description: >-
     <p>This creature is permanently slippery, giving it the ability to elude

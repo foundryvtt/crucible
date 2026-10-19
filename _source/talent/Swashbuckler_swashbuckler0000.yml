@@ -10,6 +10,12 @@ system:
     allies within <strong>30 feet</strong> who can see you gain
     @Rule[resource.morale] equal to your @Rule[ability.presence] attribute.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - defense.dodge
+    - defense.parry
+    - target.morale
+    - target.rallying
   nodes:
     - sig3.dexterity
     - sig3.presence

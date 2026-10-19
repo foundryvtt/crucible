@@ -3,6 +3,9 @@ type: talent
 _id: flashOfSteel0000
 img: icons/skills/melee/spear-tips-double-purple.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapons.thrown
   nodes:
     - dex2c
   description: >-

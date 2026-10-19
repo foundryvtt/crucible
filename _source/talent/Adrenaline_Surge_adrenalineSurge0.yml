@@ -2,6 +2,10 @@ name: Adrenaline Surge
 type: talent
 img: icons/magic/movement/abstract-ribbons-red-orange.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.heavy
+    - resource.heroism
   nodes:
     - str2c
   description: >-

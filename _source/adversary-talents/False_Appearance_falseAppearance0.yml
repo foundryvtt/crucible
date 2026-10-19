@@ -3,6 +3,10 @@ type: talent
 _id: falseAppearance0
 img: icons/magic/perception/silhouette-stealth-shadow.webp
 system:
+  keywords:
+    - playstyle.utility
+    - skill.stealth
+    - senses
   nodes: []
   description: >-
     <p>While it remains motionless, the @ref[actor.name]{creature} is

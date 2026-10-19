@@ -9,6 +9,11 @@ system:
     <strong>Natural</strong> weapons, half your @Rule[ability.toughness] score
     contributes to your @Rule[defense.block] defense.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - weapon.unarmed
+    - weapon.natural
+    - defense.block
   nodes:
     - tou0a
   iconicSpells: 0

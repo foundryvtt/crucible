@@ -2,6 +2,11 @@ name: Chirurgeon
 type: talent
 img: icons/equipment/head/mask-plague-grey.webp
 system:
+  keywords:
+    - playstyle.utility
+    - target.healing
+    - target.rallying
+    - skill.medicine
   nodes:
     - sig3.dexterity
     - sig3.wisdom

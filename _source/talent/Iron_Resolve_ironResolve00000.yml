@@ -9,6 +9,8 @@ system:
     <strong>Strikes</strong> against you is increased by +1, making you harder
     to critically hit.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
   nodes:
     - tou3a
   iconicSpells: 0

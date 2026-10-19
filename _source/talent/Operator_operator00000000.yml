@@ -41,6 +41,9 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - resource.heroism
+    - resource.focus
   nodes:
     - sig3.presence
     - sig3.toughness

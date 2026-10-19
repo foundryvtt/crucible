@@ -18,16 +18,19 @@ import * as models from "./module/models/_module.mjs";
 import * as audio from "./module/audio.mjs";
 import * as hooks from "./module/hooks/_module.mjs";
 import {applyEmberPatches} from "./module/hooks/ember.mjs";
+import * as areaSchematic from "./module/area-schematic.mjs";
 import * as migrations from "./module/migrations.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
 import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
-import * as interaction from "./module/interaction.mjs";
+import CrucibleTooltipManager from "./module/tooltip-manager.mjs";
 import CrucibleTalentNode from "./module/const/talent-node.mjs";
 import {statusEffects} from "./module/const/statuses.mjs";
 import * as methods from "./module/methods.mjs";
+
+/** @import {CrucibleFootfallSound} from "./module/const/footfalls.mjs"; */
 
 // Party
 let party = null;
@@ -61,8 +64,8 @@ Hooks.once("init", async function() {
     applications,
     audio,
     canvas,
+    chat,
     dice,
-    interaction,
     models,
     documents,
     methods: {
@@ -129,7 +132,17 @@ Hooks.once("init", async function() {
      * Visually scale tokens smaller the farther they are away from the 'camera' (viewed level).
      * @type {boolean}
      */
-    elevationScaling: true
+    elevationScaling: true,
+
+    /**
+     * Footfall sounds made by moving tokens.
+     * Expected to move into core CONFIG in V15.
+     * @type {{materials: Record<string, {label: string}>, sounds: Record<string, CrucibleFootfallSound>}}
+     */
+    footfalls: {
+      materials: foundry.utils.deepClone(SYSTEM.FOOTFALLS.MATERIALS),
+      sounds: foundry.utils.deepClone(SYSTEM.FOOTFALLS.SOUNDS)
+    }
   };
   /** @deprecated */
   crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;
@@ -143,6 +156,18 @@ Hooks.once("init", async function() {
       return party;
     }
   });
+
+  /**
+   * The primary party, for packages which look up a party through any game system.
+   * @returns {CrucibleActor|null}
+   */
+  crucible.getPrimaryParty = () => party;
+
+  /**
+   * The members of the primary party, for packages which look up a party through any game system.
+   * @returns {Iterable<CrucibleActor>}
+   */
+  crucible.getPrimaryPartyMembers = () => party?.system.actors ?? [];
 
   // Active Effect document configuration
   CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
@@ -271,6 +296,7 @@ Hooks.once("init", async function() {
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
+  CONFIG.ux.TooltipManager = CrucibleTooltipManager;
 
   // Custom HTML Elements
   for ( const element of Object.values(applications.elements) ) {
@@ -285,6 +311,9 @@ Hooks.once("init", async function() {
 
   // Rich Text Enrichers
   registerEnrichers();
+
+  // Encounters from the area-schematic library, which a module defines as its scripts load
+  if ( CONFIG.AreaSchematic ) areaSchematic.registerEncounterClass();
 
   // Register Handlebars helpers
   Handlebars.registerHelper({
@@ -611,6 +640,7 @@ function preLocalizeConfig() {
 
   // Effects
   localizeConfigObject(SYSTEM.EFFECTS.PROPERTIES, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.EFFECTS.SUPPRESSION_REASONS);
 
   // Item
   localizeConfigObject(SYSTEM.ITEM.AFFIX_PROPERTIES);
@@ -636,6 +666,8 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.SPELL.RUNES, ["name", "adjective", "spellName"]);
 
   // Talent
+  localizeConfigObject(SYSTEM.TALENT.KEYWORD_GROUPS);
+  localizeConfigObject(SYSTEM.TALENT.KEYWORDS, ["label", "group"]);
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES);
 
   // Training
@@ -651,6 +683,7 @@ function preLocalizeConfig() {
 
   // CONFIG objects (not in SYSTEM)
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"]);
+  localizeConfigObject(crucible.CONFIG.footfalls.materials);
   localizeConfigObject(crucible.CONFIG.knowledge);
   localizeConfigObject(crucible.CONFIG.languageCategories);
   localizeConfigObject(crucible.CONFIG.languages);
@@ -714,8 +747,9 @@ Hooks.once("setup", function() {
 Hooks.once("ready", async function() {
 
   // System-specific interaction
-  document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
-  document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+  document.body.addEventListener("pointerenter", CrucibleTooltipManager.onPointerEnter, true);
+  document.body.addEventListener("pointerleave", CrucibleTooltipManager.onPointerLeave, true);
+  document.body.addEventListener("click", chat.onClickChatReadaloud);
 
   // Resolve performance-mode-derived values onto `canvas.performance` (particle density, etc.)
   canvas.vfx.blocks.configurePerformanceMode();
@@ -743,8 +777,9 @@ Hooks.once("ready", async function() {
  * On open detached windows, apply crucible interaction listeners
  */
 Hooks.on("openDetachedWindow", (_id, window) => {
-  window.document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
-  window.document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
+  window.document.body.addEventListener("pointerenter", CrucibleTooltipManager.onPointerEnter, true);
+  window.document.body.addEventListener("pointerleave", CrucibleTooltipManager.onPointerLeave, true);
+  window.document.body.addEventListener("click", chat.onClickChatReadaloud);
 });
 
 /* -------------------------------------------- */
@@ -810,6 +845,7 @@ Hooks.on("getSceneControlButtons", controls => {
   };
 });
 Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTracker);
+Hooks.on("renderRegionBehaviorConfig", canvas.movementAnimation.CrucibleTokenMovementAnimation.onRenderRegionBehaviorConfig);
 
 /* -------------------------------------------- */
 /*  Canvas Hooks                                */

@@ -35,6 +35,11 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.ranged
+    - weapon.projectile
+    - weapon.mechanical
+    - weapon.talisman
   nodes:
     - intdex2
   iconicSpells: 0

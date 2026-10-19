@@ -8,6 +8,9 @@ system:
     @Rule[dice.criticalFailure] rolled by yourself.</p><h3
     class="divider">Playtest Notes</h3><p>This talent is not yet automated.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - action.movement
   nodes:
     - tou3b
   iconicSpells: 0

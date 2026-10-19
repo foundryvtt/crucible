@@ -6,6 +6,7 @@ import * as PROFICIENCY from "./proficiencies.mjs";
 import * as DICE from "./dice.mjs";
 import * as ITEM from "./items.mjs";
 import * as EFFECTS from "./effects.mjs";
+import * as FOOTFALLS from "./footfalls.mjs";
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.mjs";
 import * as ACCESSORY from "./accessory.mjs";
@@ -42,6 +43,30 @@ export const COMPENDIUM_PACKS = Object.freeze({
   spell: "crucible.spell",
   talent: "crucible.talent",
   taxonomy: "crucible.taxonomy"
+});
+
+/* -------------------------------------------- */
+
+/**
+ * Combat encounter difficulty tiers, by the ratio of total adversary threat to total party level.
+ * Each tier applies below its `maximumRatio`, and its `icon` and `color` accent the tier's name, the color being
+ * `colorLight` in light mode.
+ * @type {Readonly<Record<string, {id: string, label: string, maximumRatio: number, icon: string, color: string,
+ *   colorLight: string}>>}
+ */
+export const ENCOUNTER_DIFFICULTIES = defineEnum({
+  trivial: {label: "ENCOUNTER.DIFFICULTIES.Trivial", maximumRatio: 0.5,
+    icon: "fa-solid fa-angles-down", color: "#3cb043", colorLight: "#2e7d32"},
+  easy: {label: "ENCOUNTER.DIFFICULTIES.Easy", maximumRatio: 0.75,
+    icon: "fa-solid fa-angle-down", color: "#3d8bff", colorLight: "#1f5fbf"},
+  moderate: {label: "ENCOUNTER.DIFFICULTIES.Moderate", maximumRatio: 1,
+    icon: "fa-solid fa-equals", color: "#f2c94c", colorLight: "#d6a104"},
+  challenging: {label: "ENCOUNTER.DIFFICULTIES.Challenging", maximumRatio: 1.25,
+    icon: "fa-solid fa-angle-up", color: "#f2994a", colorLight: "#b85c14"},
+  deadly: {label: "ENCOUNTER.DIFFICULTIES.Deadly", maximumRatio: 1.75,
+    icon: "fa-solid fa-angles-up", color: "#eb3b3b", colorLight: "#b71c1c"},
+  hopeless: {label: "ENCOUNTER.DIFFICULTIES.Hopeless", maximumRatio: Infinity,
+    icon: "fa-solid fa-skull", color: "#a855f7", colorLight: "#7e22ce"}
 });
 
 /* -------------------------------------------- */
@@ -220,6 +245,19 @@ function prepareRules(rulesEnum, page) {
 }
 
 /**
+ * Prepare a system const enum for use in RULES as aliases of the same entries under another rules category.
+ * @param {Record<string, object>} rulesEnum  The unprepared enum
+ * @param {string} category                   The RULES category whose entries are aliased
+ * @returns {RulesRecord}
+ */
+function prepareAliasRules(rulesEnum, category) {
+  return Object.values(rulesEnum).reduce((acc, {id, label}) => {
+    acc[id] = {id, label, alias: `${category}.${id}`};
+    return acc;
+  }, {});
+}
+
+/**
  * Prepare an item type's property enum for use in RULES, aliasing shared item properties to their `item` rule.
  * @param {Record<string, object>} properties   The item type's property enum
  * @param {string} page                         The UUID of the rules compendium journal page documenting the type
@@ -270,8 +308,12 @@ export const RULES = {
   damageType: prepareRules(ATTRIBUTES.DAMAGE_TYPES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000"),
   defense: ATTRIBUTES.DEFENSES,
   dice: DICE.RULES,
-  item: prepareRules(ITEM.PROPERTIES, `${EQUIPMENT_PAGE}.6QxbcLoOhUkXTbAj`),
+  item: {
+    ...prepareRules(ITEM.PROPERTIES, `${EQUIPMENT_PAGE}.6QxbcLoOhUkXTbAj`),
+    ...prepareAliasRules(ITEM.QUALITY_TIERS, "quality")
+  },
   movement: ACTOR.MOVEMENT_RULES,
+  quality: prepareRules(ITEM.QUALITY_TIERS, `${EQUIPMENT_PAGE}.6QxbcLoOhUkXTbAj`),
   resource: prepareRules(ATTRIBUTES.RESOURCES, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resources0000000"),
   skill: prepareRules(PROFICIENCY.SKILLS, "Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.skills0000000000"),
   weapon: {
@@ -302,6 +344,8 @@ export const SYSTEM = {
   DEFENSES: ATTRIBUTES.DEFENSES,
   DICE: {...DICE},
   EFFECTS: {...EFFECTS},
+  ENCOUNTER_DIFFICULTIES,
+  FOOTFALLS: {...FOOTFALLS},
   ITEM: {...ITEM},
   PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
   RESOURCES: ATTRIBUTES.RESOURCES,

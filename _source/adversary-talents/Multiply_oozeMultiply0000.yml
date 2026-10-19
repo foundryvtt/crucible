@@ -3,6 +3,9 @@ type: talent
 _id: oozeMultiply0000
 img: icons/creatures/slimes/slime-blob-pseudopods-green.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - target.healing
   nodes: []
   description: >-
     <p>The @ref[actor.name]{ooze} grows rapidly, increasing in health and

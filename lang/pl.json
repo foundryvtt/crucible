@@ -523,8 +523,6 @@
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Do zakończenia",
     "EffectSpecific": "Efekt: {effect}",
-    "MaintainContent": "<p>Wydać {cost} punktów Skupienia, aby utrzymać {effect}?</p>",
-    "MaintainTitle": "Podtrzymanie skupienia: {effect}",
     "NoTargets": "Brak celów",
     "Overview": "Przegląd akcji",
     "PlanMovement": "Plan ruchu",
@@ -1386,7 +1384,6 @@
       "EffectGainedDuration": "Uzyskano ({duration})",
       "HeaderEnd": "{actor} - koniec tury",
       "HeaderStart": "{actor} - początek tury",
-      "Maintaining": "{effect} (Utrzymanie)",
       "TableTitleEffects": "Zmiany w efektach",
       "TableTitleResources": "Zmiany w zasobach"
     },

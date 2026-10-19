@@ -15,15 +15,15 @@
             {{/if}}
             {{/with}}
             {{#if proficiency.showAll}}
-            <a class="button icon fa-solid fa-filter" data-action="proficiencyFilter" data-tooltip
-               aria-label="{{localize "ACTOR.ACTIONS.ProficiencyFilterTrained"}}"></a>
+            <button type="button" class="icon fa-solid fa-filter" data-action="proficiencyFilter" data-tooltip
+               aria-label="{{localize "ACTOR.ACTIONS.ProficiencyFilterTrained"}}"></button>
             {{else}}
-            <a class="button icon fa-solid fa-filter-circle-xmark" data-action="proficiencyFilter" data-tooltip
-               aria-label="{{localize "ACTOR.ACTIONS.ProficiencyFilterAll"}}"></a>
+            <button type="button" class="icon fa-solid fa-filter-circle-xmark" data-action="proficiencyFilter" data-tooltip
+               aria-label="{{localize "ACTOR.ACTIONS.ProficiencyFilterAll"}}"></button>
             {{/if}}
             {{#if proficiency.pools.canAllocate}}
-            <a class="button icon fa-solid fa-undo" data-action="proficiencyReset"
-               aria-label="{{localize "ACTOR.ACTIONS.ResetProficiency"}}" data-tooltip></a>
+            <button type="button" class="icon fa-solid fa-undo" data-action="proficiencyReset"
+               aria-label="{{localize "ACTOR.ACTIONS.ResetProficiency"}}" data-tooltip></button>
             {{/if}}
         </div>
     </div>
@@ -90,7 +90,7 @@
         <div class="sheet-section flexcol">
             <h3>
                 {{localize "ACTOR.LABELS.Knowledge"}}
-                <a class="control icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="knowledge"></a>
+                <button type="button" class="icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="knowledge"></button>
             </h3>
             <div class="tags knowledge-areas">
                 {{#each knowledge.known}}
@@ -108,7 +108,7 @@
         <div class="sheet-section flexcol">
             <h3>
                 {{localize "ACTOR.LABELS.Languages"}}
-                <a class="control icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="languages"></a>
+                <button type="button" class="icon fa-solid fa-gear" data-action="editDetailsProperty" data-property="languages"></button>
             </h3>
             <div class="tags languages">
                 {{#each languages.known}}

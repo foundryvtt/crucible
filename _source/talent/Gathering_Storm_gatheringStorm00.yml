@@ -2,6 +2,10 @@ name: Gathering Storm
 type: talent
 img: icons/magic/lightning/bolts-salvo-clouds-sky.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.electricity
   nodes:
     - wis4d
   description: >-

@@ -38,6 +38,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.melee
+    - weapon.unarmed
   nodes:
     - toustr4
   iconicSpells: 0

@@ -5,7 +5,19 @@ import {defineEnum} from "./enum.mjs";
  * @type {Readonly<Record<string, {id: string, label: string, tooltip: string}>>}
  */
 export const PROPERTIES = defineEnum({
-  magical: {label: "BASE_EFFECT.PROPERTIES.Magical", tooltip: "BASE_EFFECT.PROPERTIES.MagicalTooltip"}
+  magical: {label: "BASE_EFFECT.PROPERTIES.Magical", tooltip: "BASE_EFFECT.PROPERTIES.MagicalTooltip"},
+  maintained: {label: "BASE_EFFECT.PROPERTIES.Maintained", tooltip: "BASE_EFFECT.PROPERTIES.MaintainedTooltip"},
+  removable: {label: "BASE_EFFECT.PROPERTIES.Removable", tooltip: "BASE_EFFECT.PROPERTIES.RemovableTooltip"}
+});
+
+/**
+ * Labeled reasons an effect may be suppressed through its `system.suppression` record.
+ * This is not a restrictive list, arbitrary suppression reasons can be declared.
+ * This record provides localization labels or additional metadata for expected reasons.
+ * @type {Record<string, {id: string, label: string}>}
+ */
+export const SUPPRESSION_REASONS = defineEnum({
+  maintenance: {label: "BASE_EFFECT.SUPPRESSION.Maintenance"}
 });
 
 /**

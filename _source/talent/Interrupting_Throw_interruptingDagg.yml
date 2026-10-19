@@ -3,6 +3,10 @@ type: talent
 _id: interruptingDagg
 img: icons/skills/melee/strike-dagger-arcane-pink.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapons.thrown
+    - action.reaction
   nodes:
     - dex4a
   description: >-

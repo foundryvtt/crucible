@@ -62,6 +62,9 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.melee
+    - resource.focus
   nodes:
     - sig3.toughness.strength
   iconicSpells: 0

@@ -2,6 +2,10 @@ name: Swooping Strike
 type: talent
 img: icons/creatures/abilities/dragon-breath-purple.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - action.movement
   nodes: []
   description: >-
     <p>This @ref[actor.name]{creature} swoops from high above into a diving

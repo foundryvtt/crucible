@@ -2,6 +2,9 @@ name: 'Gesture: Surge'
 type: talent
 img: icons/magic/water/wave-water-blue.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
   nodes:
     - wis4d
   description: >-

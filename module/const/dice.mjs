@@ -52,6 +52,10 @@ export const RULES = Object.freeze({
     label: "DICE.CriticalSuccessThreshold",
     page: "Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt"
   },
+  dc: {
+    label: "DICE.DC",
+    page: "Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt"
+  },
   failure: {
     label: "ACTION.EFFECT_RESULT_TYPES.Failure",
     page: "Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt"

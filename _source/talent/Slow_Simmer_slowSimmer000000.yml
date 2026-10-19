@@ -15,6 +15,10 @@ system:
     talent describes how the @Rule[skill.cooking] trade will behave once meal
     preparation is a <strong>Rest</strong> activity.</p>
   actions: []
+  keywords:
+    - action.rest
+    - action.noncombat
+    - skill.cooking
   nodes:
     - tou4d
   spellcraft: ''

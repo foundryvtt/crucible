@@ -575,8 +575,6 @@
     "DurationSeconds": "{value}S",
     "DurationUntilEnded": "Until Ended",
     "EffectSpecific": "Effect: {effect}",
-    "MaintainContent": "<p>Spend {cost} Focus to maintain {effect}?</p>",
-    "MaintainTitle": "Maintain Focus: {effect}",
     "NoTargets": "No Targets",
     "Overview": "Action Overview",
     "PlanMovement": "Plan Movement",
@@ -767,8 +765,10 @@
     },
     "ADVERSARY": {
       "ACTIONS": {
+        "CycleRank": "Cycle Rank",
         "DecreaseLevel": "Decrease Level",
-        "IncreaseLevel": "Increase Level"
+        "IncreaseLevel": "Increase Level",
+        "ResetAdjustment": "Reset Level and Rank"
       },
       "THREAT_RANKS": {
         "Boss": "Boss",
@@ -928,6 +928,17 @@
         "recover": "Recover",
         "rest": "Rest"
       },
+      "MILESTONES": {
+        "Award": "Award Milestone",
+        "Cumulative": "Cumulative",
+        "None": "No milestones have been earned yet.",
+        "Number": "Number",
+        "Reason": "Reason"
+      },
+      "TABS": {
+        "members": "Members",
+        "milestones": "Milestones"
+      },
       "REST": {
         "FIELDS": {
           "allowInterruption": {
@@ -1061,12 +1072,15 @@
       "UnderspentTalent": "Spend Talent Points"
     },
     "Details": "Details",
+    "DifficultTerrain": "Difficult Terrain",
     "DisarmedStatus": "Disarmed!",
+    "ExtremeTerrain": "Extreme Terrain",
     "FreeMovement": "Free Movement",
     "FullyEngaged": "Fully Engaged",
     "KnowledgeSpecific": "Knowledge: {knowledge}",
     "LanguageSpecific": "Language: {language}",
     "LevelSpecific": "Level {level}",
+    "NormalTerrain": "Normal Terrain",
     "ProgressionRequirements": "Progression Requirements",
     "TrainingSpecific": "{training} {points}",
     "ResistanceSpecific": "Resistance: {resistance}",
@@ -1433,16 +1447,38 @@
     "Suspended": "Suspended",
     "ACTIONS": {
       "AddDoT": "Add Damage Over Time",
-      "DeleteDoT": "Remove Damage Over Time"
+      "DeleteDoT": "Remove Damage Over Time",
+      "Maintain": "Maintain",
+      "MaintainCost": "Maintain ({cost} Focus)",
+      "MaintainDetail": "Expend Focus to maintain {effect}.",
+      "MaintainName": "Maintain {effect}"
     },
     "PROPERTIES": {
       "Magical": "Magical",
-      "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities."
+      "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities.",
+      "Maintained": "Maintained",
+      "MaintainedTooltip": "This effect lapses at the end of your turn unless you spend Focus to maintain it.",
+      "Removable": "Removable",
+      "RemovableTooltip": "This effect may be removed by overcoming its removal difficulty."
     },
     "SECTIONS": {
       "DoT": "Damage Over Time",
       "General": "General",
       "Removal": "Removal"
+    },
+    "SUPPRESSION": {
+      "Maintenance": "Requires Maintenance"
+    },
+    "MAINTENANCE": {
+      "EndConfirm": "Maintaining {effect} will end {effects}, which you can no longer maintain.",
+      "EndHint": "You cannot maintain more effects. Choose {count} to end so that you can maintain {effect}.",
+      "EndLabel": "Effects to End",
+      "EndTitle": "End Maintained Effects"
+    },
+    "WARNINGS": {
+      "MaintainedCancelled": "{action} was cancelled; no maintained effects were ended.",
+      "MaintainOwnTurn": "{name} can only maintain effects during their own turn.",
+      "MaintenanceNotDue": "{effect} does not require maintenance right now."
     },
     "FIELDS": {
       "dc": {
@@ -1474,6 +1510,7 @@
       },
       "maintenance": {
         "cost": {
+          "hint": "The Focus spent each turn to keep this effect from lapsing.",
           "label": "Maintenance Cost"
         },
         "hands": {
@@ -1493,6 +1530,10 @@
       "summons": {
         "hint": "The summoned Tokens dependent on this effect.",
         "label": "Summons"
+      },
+      "suppression": {
+        "hint": "Reasons this effect is currently suppressed.",
+        "label": "Suppression"
       }
     }
   },
@@ -1508,7 +1549,6 @@
       "EffectGainedDuration": "Gained ({duration})",
       "HeaderEnd": "{actor} - Turn End",
       "HeaderStart": "{actor} - Turn Start",
-      "Maintaining": "{effect} (Maintaining)",
       "TableTitleEffects": "Effect Changes",
       "TableTitleResources": "Resource Changes"
     },
@@ -1606,6 +1646,7 @@
     "Rules": "Crucible Rules",
     "Scaled": "Scaled",
     "Scaling": "Scaling",
+    "SendChatReadaloud": "Send to Chat",
     "Syncing": "Synchronizing Talents & Spells"
   },
   "CURRENCY_DENOMINATIONS": {
@@ -1766,6 +1807,7 @@
     "DC": "DC",
     "DCAdditionalPassive": "{dcLabel}, Passive",
     "DCAdditionalGroup": "{dcLabel}, Group",
+    "DCMinimum": "{dc}+",
     "DCSpecific": "DC {dc}",
     "DCTargetSpecific": "{skill} DC Target",
     "DiceTotal": "Dice Total",
@@ -1784,6 +1826,43 @@
   "EFFECT": {
     "TABS": {
       "damage": "Damage"
+    }
+  },
+  "ENCOUNTER": {
+    "DIFFICULTIES": {
+      "Challenging": "Challenging",
+      "Deadly": "Deadly",
+      "Easy": "Easy",
+      "Hopeless": "Hopeless",
+      "Moderate": "Moderate",
+      "Trivial": "Trivial"
+    },
+    "AdversaryThreat": "Adversary Threat",
+    "OngoingCombat": "Ongoing Combat",
+    "PartyThreat": "Party Threat",
+    "Threat": "Threat {threat}",
+    "ThreatDifficulty": "Threat {threat} ({difficulty})"
+  },
+  "FOOTFALLS": {
+    "FIELDS": {
+      "material": {
+        "hint": "What this surface is made of, which determines how footfalls on it sound.",
+        "label": "Material"
+      },
+      "materialVolume": {
+        "hint": "The material fills the Region's whole elevation range, like a body of water, rather than lying only on its surfaces.",
+        "label": "Material Fills Volume"
+      }
+    },
+    "Legend": "Footfalls",
+    "MATERIALS": {
+      "Grass": "Grass",
+      "Ice": "Ice",
+      "Metal": "Metal",
+      "Snow": "Snow",
+      "Stone": "Stone",
+      "Water": "Water",
+      "Wood": "Wood"
     }
   },
   "HOOKS": {
@@ -2508,7 +2587,10 @@
       "PurchaseTitle": "Purchase Talent: {name}",
       "Remove": "<p>Remove talent <strong>{name}</strong>, reclaiming 1 Talent Point?</p>",
       "RemoveTitle": "Remove Talent: {name}",
-      "Reset": "Reset"
+      "Reset": "Reset",
+      "ShowTalents": "Show Compendium Talents",
+      "ShowSheet": "Show Character Sheet",
+      "ToggleSearch": "Toggle Talent Search"
     },
     "FIELDS": {
       "actions": {
@@ -2525,6 +2607,10 @@
       "iconicSpells": {
         "hint": "A number of Iconic Spell slots that are granted by this Talent.",
         "label": "Iconic Spells"
+      },
+      "keywords": {
+        "hint": "Playstyles this Talent is especially valuable for, used to find Talents in the Talent Tree. Assign a keyword only when the Talent is clearly more valuable to a character built around it than to a typical character.",
+        "label": "Keywords"
       },
       "nodes": {
         "hint": "Assign this Talent to be purchased from one or more particular nodes in the Talent Tree.",
@@ -2545,6 +2631,31 @@
         "label": "Provided Training"
       }
     },
+    "FILTER": {
+      "Clear": "Clear Filters",
+      "FIELDS": {
+        "ability": {
+          "label": "Ability"
+        },
+        "keywords": {
+          "label": "Keywords"
+        },
+        "levels": {
+          "label": "Level"
+        },
+        "query": {
+          "label": "Search"
+        },
+        "playstyle": {
+          "label": "Playstyle"
+        },
+        "training": {
+          "label": "Proficiency"
+        }
+      },
+      "Matches": "{talents} Talents in {nodes} Nodes",
+      "QueryPlaceholder": "Talent or action name"
+    },
     "HOOKS": {
       "GroupAction": "Action Usage",
       "GroupCombat": "Combat Turns",
@@ -2552,6 +2663,37 @@
       "GroupPreparation": "Actor Data Preparation",
       "GroupSpellcraft": "Spellcraft Preparation",
       "Register": "Register Hook Function"
+    },
+    "KEYWORDS": {
+      "Defensive": "Defensive",
+      "HeavyArmor": "Heavy Armor",
+      "Initiative": "Initiative",
+      "LightArmor": "Light Armor",
+      "MediumArmor": "Medium Armor",
+      "Melee": "Melee",
+      "Ranged": "Ranged",
+      "Rest": "Rest",
+      "Senses": "Senses",
+      "Spellcraft": "Spellcraft",
+      "Toolbelt": "Toolbelt",
+      "Unarmored": "Unarmored",
+      "Utility": "Utility"
+    },
+    "KEYWORD_GROUPS": {
+      "Armor": "Armor",
+      "Damage": "Damage",
+      "Defense": "Defense",
+      "FightingStyle": "Fighting Style",
+      "Playstyle": "Playstyle",
+      "Resources": "Resources",
+      "Restoration": "Restoration",
+      "SpellComponents": "Spell Components",
+      "Tactics": "Tactics",
+      "TargetDefense": "Target Defense",
+      "TargetResource": "Target Resource",
+      "Time": "Time",
+      "Toolbelt": "Toolbelt",
+      "Weapons": "Weapons"
     },
     "LABELS": {
       "Points": {

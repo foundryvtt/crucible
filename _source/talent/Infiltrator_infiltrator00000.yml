@@ -16,6 +16,9 @@ system:
     record detection for each creature and treat this talent as raising how many
     you may evade at once.</p>
   actions: []
+  keywords:
+    - playstyle.utility
+    - skill.stealth
   nodes:
     - dex4c
   iconicSpells: 0

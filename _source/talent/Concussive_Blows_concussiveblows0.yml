@@ -11,6 +11,9 @@ system:
     <strong>1 Round</strong> and reduces your target's maximum
     @Rule[resource.action] by 2.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - damageType.bludgeoning
   nodes:
     - str4a
   iconicSpells: 0

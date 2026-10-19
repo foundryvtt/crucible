@@ -30,7 +30,7 @@ system:
   equipment: []
   spells: []
 effects: []
-sort: 0
+sort: 100000
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -39,10 +39,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.367'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307157483
-  modifiedTime: 1788482551737
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1792082172900
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _key: '!items!elementalMote000'

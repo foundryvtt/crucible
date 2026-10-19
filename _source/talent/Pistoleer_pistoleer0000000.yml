@@ -37,6 +37,11 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.ranged
+    - weapon.mechanical
+    - weapons.onehand
+    - resource.action
   nodes:
     - sig3.intellect.dexterity
   iconicSpells: 0

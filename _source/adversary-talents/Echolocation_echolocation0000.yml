@@ -3,6 +3,9 @@ type: talent
 _id: echolocation0000
 img: icons/magic/symbols/ring-circle-smoke-blue.webp
 system:
+  keywords:
+    - playstyle.utility
+    - senses
   nodes: []
   description: >-
     <p>@ref[actor.name]{This creature} perceives the world through the emission

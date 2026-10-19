@@ -12,6 +12,9 @@ system:
     <strong>3 Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   spellcraft: fan
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
   nodes:
     - int1a
   iconicSpells: 0

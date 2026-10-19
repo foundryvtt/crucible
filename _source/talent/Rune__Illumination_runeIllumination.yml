@@ -57,6 +57,12 @@ system:
         actorUuid: null
         permanent: true
   spellcraft: illumination
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.spiritual
+    - damageType.radiant
+    - target.reflex
   nodes:
     - pre0b
   iconicSpells: 0

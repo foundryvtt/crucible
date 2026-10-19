@@ -63,6 +63,9 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapon.heavy
   nodes:
     - str3a
   iconicSpells: 0

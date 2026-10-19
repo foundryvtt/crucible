@@ -13,6 +13,12 @@ system:
     @Rule[ability.wisdom].</p>
   actions: []
   iconicSpells: 1
+  keywords:
+    - playstyle.spellcraft
+    - playstyle.defensive
+    - spell.elemental
+    - spell.spiritual
+    - defense.resistance
   nodes:
     - sig3.toughness
     - sig3.wisdom

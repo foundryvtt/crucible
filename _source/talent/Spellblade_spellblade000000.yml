@@ -15,6 +15,10 @@ system:
     reduced by 1.</p>
   actions: []
   iconicSpells: 1
+  keywords:
+    - playstyle.melee
+    - playstyle.spellcraft
+    - resource.action
   nodes:
     - sig3.intellect
     - sig3.strength

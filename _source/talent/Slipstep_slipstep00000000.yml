@@ -2,6 +2,11 @@ name: Slipstep
 type: talent
 img: icons/skills/movement/feet-winged-sandals-tan.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - action.movement
+    - action.reaction
+    - resource.heroism
   nodes:
     - dex2a
   description: >-

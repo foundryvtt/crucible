@@ -3,6 +3,9 @@ type: talent
 _id: corruptingDeathB
 img: icons/magic/light/explosion-glow-spiral-yellow.webp
 system:
+  keywords:
+    - damageType.corruption
+    - target.fortitude
   nodes: []
   description: >-
     <p>When the @ref[actor.name]{creature} dies, it explodes in a volatile burst
@@ -73,14 +76,14 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1777226969987
-  modifiedTime: 1777227052204
+  modifiedTime: 1792085984079
   lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
   compendiumSource: null
   duplicateSource: null
-sort: 100000
+sort: 1100000
 _key: '!items!corruptingDeathB'

@@ -11,6 +11,10 @@ system:
     deals half the ability score your <strong>Rune of Earth</strong> scales with
     as <strong>Acid</strong> damage to @Rule[resource.health] each Round.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.acid
   nodes:
     - wis3b
   iconicSpells: 0

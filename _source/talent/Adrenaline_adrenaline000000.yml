@@ -8,6 +8,8 @@ system:
     @Rule[resource.health] damage from an attack, you gain
     @Rule[resource.focus]{+1 Focus}.</p>
   actions: []
+  keywords:
+    - resource.focus
   nodes:
     - tou4a
   iconicSpells: 0

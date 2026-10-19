@@ -1,4 +1,7 @@
 import CrucibleHitBoxShader from "./grid/hit-box-shader.mjs";
+import {CrucibleTokenMovementAnimation} from "./movement-animation.mjs";
+
+/** @import {CrucibleFootfalls} from "./movement-animation.mjs"; */
 
 export default class CrucibleTokenObject extends foundry.canvas.placeables.Token {
 
@@ -78,6 +81,17 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     wasAnimating: false,
     animationTypes: new foundry.utils.BitMask(CrucibleHitBoxShader.STATES)
   };
+
+  /**
+   * The progress of this token's movement animation, which paces its footfall sounds and walk animations.
+   * Anticipates a core `Token#movementAnimation` in V15; until then it is interim support from movement-animation.mjs.
+   * @type {CrucibleTokenMovementAnimation}
+   */
+  get movementAnimation() {
+    return this.#movementAnimation;
+  }
+
+  #movementAnimation = new CrucibleTokenMovementAnimation(this);
 
   /* -------------------------------------------- */
   /*  Detection                                   */
@@ -455,6 +469,72 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     offset.j += (size * Math.sign(dx));
     offset.k += (size * Math.sign(dz));
     return canvas.grid.getTopLeftPoint(offset);
+  }
+
+  /* -------------------------------------------- */
+  /*  Movement Animation                          */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onAnimationUpdate(changed, context) {
+    super._onAnimationUpdate(changed, context);
+    // TODO: remove in V15, when core advances the movement animation
+    if ( ("x" in changed) || ("y" in changed) ) this.#movementAnimation.updatePosition();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareAnimation(from, changes, context, options) {
+    const isMovement = foundry.documents.TokenDocument._isMovementUpdate(changes, from);
+    const attributes = super._prepareAnimation(from, changes, context, options);
+
+    // Follow each waypoint of a token movement, including its rotations, ending with the movement or its interruption
+    // TODO: remove in V15, when core requests footfalls per waypoint and tracks the movement animation
+    if ( context.name === this.movementAnimationName ) {
+      this.#movementAnimation.beginWaypoint(isMovement ? this._getFootfalls(from, changes, options) : null);
+      context.postAnimate.push(() => this.#movementAnimation.endMovement());
+    }
+    return attributes;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the footfalls this token makes while animating one movement waypoint, or null for silence.
+   * In V15, this method should (in theory) become an `@override` or more lightweight extension of core logic.
+   * @param {DeepReadonly<TokenAnimationData>} from     The animation data at the start of the waypoint
+   * @param {Partial<TokenAnimationData>} changes       The animation data changes of the waypoint
+   * @param {TokenAnimationOptions} options             The options of the waypoint animation
+   * @returns {CrucibleFootfalls|null}
+   * @protected
+   */
+  _getFootfalls(from, changes, options) {
+    if ( !SYSTEM.FOOTFALLS.MOVEMENT_ACTIONS.has(options.action) ) return null;
+    const mover = this.#getFootfallMover();
+    if ( !mover ) return null;
+
+    // A footfall lands each body width walked
+    const stride = this.document.width * canvas.dimensions.distance;
+
+    // Larger movers are heard farther away
+    const {radius, size} = SYSTEM.FOOTFALLS.HEARING;
+    const hearingRadius = radius * Math.sqrt(this.document.size / size);
+    return {mover, stride, radius: hearingRadius, volume: 1};
+  }
+
+
+  /* -------------------------------------------- */
+
+  /**
+   * The kind of mover this token's actor is, for the footfalls the system opts it in to.
+   * @returns {string|null}
+   */
+  #getFootfallMover() {
+    const actor = this.actor;
+    if ( actor?.type === "hero" ) return "footsteps";
+    if ( (actor?.type === "adversary") && (actor.system.details.taxonomy?.category === "humanoid") ) return "footsteps";
+    return null;
   }
 
   /* -------------------------------------------- */

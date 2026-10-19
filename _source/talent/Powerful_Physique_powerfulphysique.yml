@@ -7,6 +7,10 @@ system:
     @Rule[defense.armor] with the <strong>Bulky</strong> trait without suffering
     @Rule[dice.bane]{Banes} to your <strong>Initiative</strong> rolls.</p>
   actions: []
+  keywords:
+    - initiative
+    - armor.heavy
+    - weapon.heavy
   nodes:
     - str1b
   iconicSpells: 0

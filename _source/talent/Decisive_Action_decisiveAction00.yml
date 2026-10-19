@@ -2,6 +2,9 @@ name: Decisive Action
 type: talent
 img: icons/magic/symbols/symbol-lightning-bolt.webp
 system:
+  keywords:
+    - resource.heroism
+    - resource.action
   nodes:
     - int2c
   description: >-

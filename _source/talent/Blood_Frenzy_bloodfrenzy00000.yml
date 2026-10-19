@@ -9,6 +9,8 @@ system:
     @Rule[resource.health] you immediately gain @Rule[resource.action]{+1
     Action}. This benefit may only happen once per <strong>Round</strong>.</p>
   actions: []
+  keywords:
+    - resource.action
   nodes:
     - str4a
   iconicSpells: 0

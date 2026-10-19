@@ -11,6 +11,10 @@ system:
   spellcraft: compose
   iconicSpells: 1
   training: enchanting
+  keywords:
+    - playstyle.spellcraft
+    - spell.inflection
+    - resource.focus
   nodes:
     - wispre2
 effects: []

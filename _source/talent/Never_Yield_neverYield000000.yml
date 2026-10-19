@@ -8,6 +8,9 @@ system:
     @Condition[weakened], your maximum @Rule[resource.action] point penalty is
     reduced from <strong>-2</strong> to <strong>-1</strong>.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - resource.action
   nodes:
     - tou4c
   iconicSpells: 0

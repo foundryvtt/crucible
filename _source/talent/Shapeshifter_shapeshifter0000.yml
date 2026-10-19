@@ -95,6 +95,9 @@ system:
       summon:
         actorUuid: null
         permanent: true
+  keywords:
+    - playstyle.melee
+    - weapon.natural
   nodes:
     - sig3.toughness
     - sig3.wisdom

@@ -16,12 +16,16 @@ system:
   talents:
     - item: Compendium.crucible.adversary-talents.Item.burrower00000000
       level: 0
+    - item: Compendium.crucible.talent.Item.dirtytricks00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.unshakeablestanc
+      level: 3
   training:
     athletics: 1
     awareness: 1
     stealth: 3
     wilderness: 2
-    deception: 0
+    deception: 1
     natural: 4
   spells: []
   equipment: []
@@ -35,12 +39,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.367'
+  coreVersion: '14.369'
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.1
   createdTime: 1772307157482
-  modifiedTime: 1788480347509
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1792118863406
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: burrower00000000
 sort: 100000
 _key: '!items!burrower00000000'

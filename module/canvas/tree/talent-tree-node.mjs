@@ -7,6 +7,12 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     this.position.set(node.point.x, node.point.y);
   }
 
+  /**
+   * The range of underglow alpha through which purchased nodes breathe.
+   * @type {{min: number, max: number}}
+   */
+  static UNDERGLOW_ALPHA = {min: 0.5, max: 0.75};
+
   /* -------------------------------------------- */
 
   /**
@@ -28,6 +34,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     // Defaults
     config.texture = spritesheet[`${this.node.iconPrefix}`];
     config.splooshColor = this.node.color;
+    config.highlightColor = this.node.color;
     config.underglowColor = null;
 
     // Purchased Nodes
@@ -83,6 +90,16 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
         break;
     }
     return config;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getHighlightState() {
+    const matches = crucible.tree.highlights;
+    if ( !matches ) return null;
+    if ( matches.has(this.node) ) return true;
+    return (this.node.id === "origin") ? null : false;
   }
 
   /* -------------------------------------------- */

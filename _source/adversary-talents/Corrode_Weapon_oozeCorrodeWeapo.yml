@@ -3,6 +3,9 @@ type: talent
 _id: oozeCorrodeWeapo
 img: icons/skills/wounds/blood-cells-disease-green.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - action.reaction
   nodes: []
   description: >-
     <p>The internal corrosive metabolism of the @ref[actor.name]{ooze} threatens

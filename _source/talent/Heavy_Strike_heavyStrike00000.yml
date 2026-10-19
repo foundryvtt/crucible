@@ -38,6 +38,8 @@ system:
       summon: null
   iconicSpells: 0
   training: heavy
+  keywords:
+    - playstyle.melee
   nodes:
     - str0a
 effects: []

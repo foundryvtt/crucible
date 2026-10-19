@@ -2,6 +2,10 @@ name: 'Inflection: React'
 type: talent
 img: icons/magic/fire/projectile-feathers-embers-gold.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.inflection
+    - action.reaction
   nodes:
     - preint4
   description: >-

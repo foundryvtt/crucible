@@ -11,17 +11,17 @@
     {{#if showControls}}
     <div class="controls">
         {{#if showEquipped}}
-        <a class="button icon toggle fa-solid fa-shield {{#if equipped}}active{{/if}}" data-action="toggleEquipment"
-           data-toggle="equipped" aria-label="{{localize 'ITEM.FIELDS.equipped.label'}}" data-tooltip></a>
+        <button type="button" class="icon toggle fa-solid fa-shield {{#if equipped}}active{{/if}}" data-action="toggleEquipment"
+           data-toggle="equipped" aria-label="{{localize 'ITEM.FIELDS.equipped.label'}}" data-tooltip></button>
         {{/if}}
         {{#if showScaled}}
-        <a class="button icon toggle fa-solid fa-arrow-up-right-dots {{#if scaled}}active{{/if}}"
+        <button type="button" class="icon toggle fa-solid fa-arrow-up-right-dots {{#if scaled}}active{{/if}}"
            data-action="toggleEquipment" data-toggle="autoScale"
-           aria-label="{{localize 'ITEM.SHEET.EquipmentScale'}}" data-tooltip></a>
+           aria-label="{{localize 'ITEM.SHEET.EquipmentScale'}}" data-tooltip></button>
         {{/if}}
         {{#if showRemove}}
-        <a class="button icon fa-solid fa-times remove-equipment" data-action="removeEquipment"
-           aria-label="{{localize 'ITEM.SHEET.EquipmentRemove'}}" data-tooltip></a>
+        <button type="button" class="icon fa-solid fa-times remove-equipment" data-action="removeEquipment"
+           aria-label="{{localize 'ITEM.SHEET.EquipmentRemove'}}" data-tooltip></button>
         {{/if}}
     </div>
     {{/if}}

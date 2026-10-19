@@ -15,6 +15,10 @@ system:
     into the open reveals you remains the Gamemaster's call. A forthcoming
     stealth effect will record detection for each creature individually.</p>
   actions: []
+  keywords:
+    - playstyle.utility
+    - action.movement
+    - skill.stealth
   nodes:
     - intdex4
   iconicSpells: 0

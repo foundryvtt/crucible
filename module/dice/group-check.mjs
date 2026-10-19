@@ -140,9 +140,10 @@ export default class GroupCheck extends StandardCheck {
    * @param {boolean} [options.local=false]  If true, the GM rolls for all actors locally without dispatching queries.
    * @param {string} [options.messageMode]   The chat message visibility mode chosen by the GM.
    * @param {boolean} [options.aggregate]    Whether to show an aggregate result
+   * @param {string} [options.name]          A name for the check, shown as the chat card flavor
    * @returns {Promise<void>}
    */
-  async requestSubmit({requestedActors, skills, local=false, messageMode, aggregate=true}={}) {
+  async requestSubmit({requestedActors, skills, local=false, messageMode, aggregate=true, name}={}) {
     if ( !requestedActors?.size && !requestedActors?.length ) return;
 
     // Default to single skill from the roll data
@@ -178,11 +179,11 @@ export default class GroupCheck extends StandardCheck {
 
     const content = await GroupCheck.renderGroupCheckCard(groupCheckFlags);
     const skillIds = Object.keys(skills);
-    const flavor = (skillIds.length === 1)
+    const flavor = name || ((skillIds.length === 1)
       ? aggregate
         ? _loc("DICE.GROUP_CHECK.TitleSpecific", {skill: SYSTEM.SKILLS[skillIds[0]].label})
         : _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[skillIds[0]].label})
-      : _loc("DICE.GROUP_CHECK.Title");
+      : _loc("DICE.GROUP_CHECK.Title"));
     const messageData = {
       content,
       flavor,

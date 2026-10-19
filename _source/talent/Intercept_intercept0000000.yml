@@ -42,6 +42,12 @@ system:
         weapon: false
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - playstyle.defensive
+    - movement.engagement
+    - action.movement
+    - action.reaction
   nodes:
     - tou3a
   iconicSpells: 0

@@ -7,6 +7,9 @@ system:
     <p>Anticipation leads to decisive action. When you have the highest
     <strong>Initiative</strong> score for a round of combat, you gain
     @Rule[resource.focus]{+1 Focus}.</p><p></p>
+  keywords:
+    - initiative
+    - resource.focus
   nodes:
     - int4d
   actions: []

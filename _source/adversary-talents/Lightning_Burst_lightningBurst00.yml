@@ -3,6 +3,11 @@ type: talent
 _id: lightningBurst00
 img: icons/magic/lightning/barrier-shield-crackling-orb-pink.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - damageType.electricity
+    - target.reflex
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is able to produce and expel powerful

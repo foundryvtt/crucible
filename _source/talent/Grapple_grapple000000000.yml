@@ -83,6 +83,9 @@ system:
       summon: null
   iconicSpells: 0
   training: unarmed
+  keywords:
+    - playstyle.utility
+    - skill.athletics
   nodes:
     - str0b
 effects: []

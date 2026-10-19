@@ -3,6 +3,9 @@ type: talent
 _id: webSpinner000000
 img: icons/creatures/webs/web-spider-glowing-purple.webp
 system:
+  keywords:
+    - playstyle.utility
+    - action.noncombat
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} can create powerfully adhesive webbing. It

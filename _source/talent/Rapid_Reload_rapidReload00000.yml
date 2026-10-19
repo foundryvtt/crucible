@@ -36,6 +36,9 @@ system:
       summon: null
   iconicSpells: 0
   training: mechanical
+  keywords:
+    - playstyle.ranged
+    - weapon.mechanical
   nodes:
     - dex0a
 effects: []

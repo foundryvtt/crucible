@@ -92,14 +92,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   }
 
   /* -------------------------------------------- */
-
-  /** @override */
-  async close(options) {
-    await super.close(options);
-    await this.actor.toggleTalentTree(false);
-  }
-
-  /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 

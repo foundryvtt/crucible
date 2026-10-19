@@ -7,6 +7,7 @@
  * @property {PIXI.Texture} [texture]
  * @property {PIXI.Texture} [frameTexture]
  * @property {PIXI.ColorSource} frameTint
+ * @property {PIXI.ColorSource|null} highlightColor
  * @property {PIXI.ColorSource} iconTint
  * @property {PIXI.ColorSource|null} splooshColor
  * @property {PIXI.ColorSource|null} underglowColor
@@ -35,10 +36,25 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     texture: undefined,
     frameTexture: undefined,
     frameTint: 0xFFFFFF,
+    highlightColor: null,
     iconTint: 0xFFFFFF,
     splooshColor: null,
     underglowColor: null,
     underglowSize: 128
+  };
+
+  /**
+   * Appearance of filter highlighting: fallback halo color and size, dimming tint and strength, and pulse range.
+   * @type {{color: PIXI.ColorSource, scale: number, dimColor: PIXI.ColorSource, dimWeight: number,
+   *   pulseMin: number, pulsePeriod: number}}
+   */
+  static HIGHLIGHT = {
+    color: 0xFFFFFF,
+    scale: 2.5,
+    dimColor: 0x1A1512,
+    dimWeight: 0.75,
+    pulseMin: 0.5,
+    pulsePeriod: 2000
   };
 
   /**
@@ -55,7 +71,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
    * @protected
    */
   _configure(config) {
-    return this.config = {...this.constructor.DEFAULT_CONFIG, config};
+    return this.config = {...this.constructor.DEFAULT_CONFIG, ...config};
   }
 
   /* -------------------------------------------- */
@@ -74,6 +90,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.shape = this._getShape();
 
     // Background
+    this.highlight = this.addChild(new PIXI.Sprite(spritesheet.BackgroundGradient));
     this.underglow = this.addChild(new PIXI.Sprite());
     this.bg = this.addChild(new PIXI.Graphics());
     this.sploosh = this.addChild(new PIXI.Sprite());
@@ -91,6 +108,13 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.number = this.addChild(new foundry.canvas.containers.PreciseText("", textStyle));
     this.number.anchor.set(0.5, 0.5);
     this.number.position.set(this.config.size / 3, -this.config.size / 3);
+
+    // Filter highlight
+    const {color, scale} = this.constructor.HIGHLIGHT;
+    this.highlight.anchor.set(0.5, 0.5);
+    this.highlight.width = this.highlight.height = c.size * scale;
+    this.highlight.tint = c.highlightColor ?? color;
+    this.highlight.blendMode = PIXI.BLEND_MODES.ADD;
 
     // Under glow
     this.underglow.texture = spritesheet.BackgroundGradient;
@@ -127,6 +151,41 @@ export default class CrucibleTalentIcon extends PIXI.Container {
 
     // Interactive hit area
     this.hitArea = new PIXI.Rectangle(-c.size/2, -c.size/2, c.size, c.size);
+    this.refreshHighlight();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply configured alpha and tints, showing the filter halo or dimming the icon per the tree's filter matches.
+   */
+  refreshHighlight() {
+    const c = this.config;
+    if ( !c ) return; // Not yet drawn
+    const state = this._getHighlightState();
+    const {dimColor, dimWeight} = this.constructor.HIGHLIGHT;
+    const tint = color => {
+      color = Color.from(color ?? 0xFFFFFF);
+      return (state === false) ? color.mix(Color.from(dimColor), dimWeight) : color;
+    };
+    this.highlight.visible = (state === true);
+    this.alpha = c.alpha;
+    this.icon.tint = tint(c.iconTint);
+    this.frame.tint = tint(c.frameTint);
+    this.sploosh.tint = tint(c.splooshColor);
+    this.underglow.tint = tint(c.underglowColor);
+    this.number.tint = tint(0xFFFFFF);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Classify this icon against the tree's current filter matches.
+   * @returns {boolean|null}  Highlighted (true), dimmed (false), or unaffected (null)
+   * @protected
+   */
+  _getHighlightState() {
+    return null;
   }
 
   /* -------------------------------------------- */
@@ -181,7 +240,6 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.frame.scale.set(scale, scale);
     this.frame.texture = this.config.frameTexture;
     this.frame.tint = this.config.frameTint;
-
   }
 }
 CrucibleTalentIcon.greyscaleFilter.desaturate();

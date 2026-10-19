@@ -3,6 +3,8 @@ type: talent
 _id: bloodless0000000
 img: icons/magic/earth/construct-stone.webp
 system:
+  keywords:
+    - playstyle.defensive
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} has no blood, vital organs, or exploitable

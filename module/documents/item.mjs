@@ -178,10 +178,12 @@ export default class CrucibleItem extends foundry.documents.Item {
    * @param {string} [options.quality]              Explicit quality tier, or auto-selected if omitted
    * @param {string} [options.name]                 Display name override, or auto-composed from affixes
    * @param {boolean} [options.broken]              Whether the item should be broken, if relevant
+   * @param {string} [options.description]          Plain text public description override
+   * @param {string} [options.img]                  Item image override
    * @returns {Promise<CrucibleItem>}               The generated item with enchantments applied
    * @throws {Error}                                An error if the requested affixes are incompatible with the item
    */
-  static async #fromLootDropData(baseUuid, affixes, {quality, name, broken}={}) {
+  static async #fromLootDropData(baseUuid, affixes, {quality, name, broken, description, img}={}) {
 
     // Resolve the base item
     const baseItem = await fromUuid(baseUuid);
@@ -242,6 +244,8 @@ export default class CrucibleItem extends foundry.documents.Item {
     const itemData = baseItem.toObject();
     if ( selectedQuality ) itemData.system.quality = selectedQuality;
     if ( broken ) itemData.system.broken = true;
+    if ( img ) itemData.img = img;
+    if ( description ) itemData.system.description.public = `<p>${foundry.utils.escapeHTML(description)}</p>`;
     itemData.effects = [...(itemData.effects || []), ...affixEffects];
 
     // Compose the item name

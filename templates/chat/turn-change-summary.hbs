@@ -36,7 +36,13 @@
             {{#each effects}}
             <tr>
                 <td class="report-label">{{name}}</td>
-                <td class="report-value">{{changeLabel}}</td>
+                <td class="report-value">
+                    {{#if maintain}}
+                    <button type="button" class="maintain-effect frame-brown"data-uuid="{{maintain.uuid}}" data-tooltip="{{maintain.tooltip}}">
+                        <i class="fa-solid fa-pause"></i>{{changeLabel}}
+                    </button>
+                    {{else}}{{changeLabel}}{{/if}}
+                </td>
             </tr>
             {{/each}}
         </tbody>

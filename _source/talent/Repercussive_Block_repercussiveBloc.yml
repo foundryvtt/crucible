@@ -3,6 +3,12 @@ type: talent
 _id: repercussiveBloc
 img: icons/magic/defensive/shield-barrier-deflect-teal.webp
 system:
+  keywords:
+    - playstyle.melee
+    - playstyle.defensive
+    - weapon.shield
+    - defense.block
+    - action.reaction
   nodes:
     - tou4c
   description: >-

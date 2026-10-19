@@ -14,6 +14,11 @@ system:
     Action</strong> and <strong>1 Focus</strong>.</p>
   actions: []
   spellcraft: ward
+  keywords:
+    - playstyle.spellcraft
+    - playstyle.defensive
+    - spell.gesture
+    - defense.resistance
   nodes:
     - tou2b
   iconicSpells: 0

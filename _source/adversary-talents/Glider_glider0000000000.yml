@@ -2,6 +2,8 @@ name: Glider
 type: talent
 img: icons/creatures/birds/raptor-hawk-flying.webp
 system:
+  keywords:
+    - action.movement
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} controls its descent while falling. Unless

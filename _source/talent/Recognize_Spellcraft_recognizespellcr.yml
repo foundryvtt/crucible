@@ -8,6 +8,8 @@ system:
     can see and hear begins casting a spell, you can identify its
     <strong>Rune</strong> if you also know that <strong>Rune</strong>.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
   nodes:
     - int0b
   iconicSpells: 0

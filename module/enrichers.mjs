@@ -1,10 +1,25 @@
-import { chooseActorsDialog } from "./interaction.mjs";
+/** @import {GroupCheckSkillConfig} from "./dice/group-check.mjs"; */
+
+/**
+ * An optional `{Display Name}` label following an enricher tag.
+ * @type {RegExp}
+ */
+const LABEL = /(?:\{([^}]+)\})?/;
+
+/**
+ * Compose a global enricher pattern from a tag pattern followed by an optional label.
+ * @param {RegExp} tag
+ * @returns {RegExp}
+ */
+function withLabel(tag) {
+  return new RegExp(tag.source + LABEL.source, "g");
+}
 
 /**
  * The pattern which matches `@ref` annotations, shared by the registered enricher and {@link resolveReferences}.
  * @type {RegExp}
  */
-const REFERENCE_PATTERN = /@ref\[([\w.]+)](?:{([^}]+)})?/g;
+const REFERENCE_PATTERN = withLabel(/@ref\[([\w.]+)]/);
 
 /**
  * Register custom text editor enrichers that are applied to Crucible content.
@@ -25,13 +40,13 @@ export function registerEnrichers() {
     },
     { // Crucible Hazards
       id: "crucibleHazard",
-      pattern: /\[\[\/hazard ([\w\s]+)]](?:{([^}]+)})?/g,
+      pattern: withLabel(/\[\[\/hazard ([\w\s]+)]]/),
       enricher: enrichHazard,
       onRender: renderHazard
     },
     { // Crucible Skill Checks
       id: "crucibleSkill",
-      pattern: /\[\[\/skillCheck ([\w\s]+)]]/g,
+      pattern: withLabel(/\[\[\/skillCheck ([\w\s=]+)]]/),
       enricher: enrichSkillCheck,
       onRender: renderSkillCheck
     },
@@ -50,6 +65,11 @@ export function registerEnrichers() {
       pattern: /\[\[\/skill ([\w\s]+)]]/g,
       enricher: enrichDND5ESkill,
       onRender: renderSkillCheck
+    },
+    {
+      id: "crucibleEncounterDifficulty",
+      pattern: /\[\[\/encounterDifficulty ([\d.]+)]]/g,
+      enricher: enrichEncounterDifficulty
     },
     {
       id: "crucibleTalent",
@@ -73,12 +93,12 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleRule",
-      pattern: /@Rule\[([\w.]+)](?:{([^}]+)})?/g,
+      pattern: withLabel(/@Rule\[([\w.]+)]/),
       enricher: enrichRule
     },
     {
       id: "milestone",
-      pattern: /\[\[\/milestone(?: (\d+))?(?: ([A-Za-z][\w-]*))?]](?:{([^}]+)})?/g,
+      pattern: withLabel(/\[\[\/milestone(?: (\d+))?(?: ([A-Za-z][\w-]*))?]]/),
       enricher: enrichMilestone,
       onRender: renderMilestone
     },
@@ -89,13 +109,13 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleLoot",
-      pattern: /@Loot\[([\w-.]+)((?:\s+[\w]+=?[\w]*)*)](?:\{([^}]+)\})?/g,
+      pattern: withLabel(/@Loot\[([^\]]+)]/),
       enricher: enrichLoot,
       onRender: renderLoot
     },
     {
       id: "crucibleScroll",
-      pattern: /@Scroll\[([\w\s]+)](?:\{([^}]+)\})?/g,
+      pattern: withLabel(/@Scroll\[([\w\s]+)]/),
       enricher: enrichScroll,
       onRender: renderScroll
     }
@@ -152,7 +172,7 @@ function enrichDND5ESkill([match, terms]) {
   if ( !(skillId in DND5E_SKILL_MAPPING) ) return new Text(match);
   const skill = SYSTEM.SKILLS[DND5E_SKILL_MAPPING[skillId]];
   const passive = rest.includes("passive");
-  const tag = createSkillCheckElement(skill, dc, {passive, group: false});
+  const tag = createSkillCheckElement([{skill, dc}], {passive, group: false});
   tag.classList.add("dnd5e-skill-check");
   return tag;
 }
@@ -505,6 +525,35 @@ async function onClickMilestone(event) {
 }
 
 /* -------------------------------------------- */
+/*  Encounter Difficulty                        */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a combat encounter's difficulty with the format [[/encounterDifficulty {threat}]].
+ * @param {RegExpMatchArray} terms
+ * @returns {HTMLEnrichedContentElement}
+ */
+function enrichEncounterDifficulty([match, term]) {
+  const threat = Number(term);
+  if ( Number.isNaN(threat) ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("encounter-difficulty");
+  tag.dataset.threat = term;
+  const partyThreat = crucible.party?.system.members.reduce((t, {actor, quantity}) => {
+    return t + ((actor?.threat ?? 0) * quantity);
+  }, 0);
+  const {difficulty} = crucible.api.models.CrucibleGroupActor.evaluateEncounter(threat, partyThreat);
+  if ( !difficulty ) {
+    tag.textContent = _loc("ENCOUNTER.Threat", {threat});
+    return tag;
+  }
+  tag.classList.add(difficulty.id);
+  tag.dataset.difficulty = difficulty.id;
+  tag.textContent = _loc("ENCOUNTER.ThreatDifficulty", {threat, difficulty: _loc(difficulty.label)});
+  return tag;
+}
+
+/* -------------------------------------------- */
 /*  Hazard Tests                                */
 /* -------------------------------------------- */
 
@@ -677,38 +726,85 @@ async function enrichRule([match, ruleId, label]) {
 /* -------------------------------------------- */
 
 /**
- * Enrich a skill check notation into an interactive element that triggers a skill roll.
+ * Enrich a skill check with format [[/skillCheck {skill}={dc} {...skill}={dc} {...flags}]]{name}.
+ * A single skill may also be written positionally as [[/skillCheck {skill} {dc} {...flags}]].
  * @param {RegExpMatchArray} matchArray
  */
-function enrichSkillCheck([match, terms]) {
-  let [skillId, dc, ...rest] = terms.split(" ");
-  skillId = DND5E_SKILL_MAPPING[skillId] ?? skillId;
-  const skill = SYSTEM.SKILLS[skillId];
-  if ( !skill ) return new Text(match);
-  const passive = rest.includes("passive");
-  const group = rest.includes("group");
-  return createSkillCheckElement(skill, dc, {passive, group});
+function enrichSkillCheck([match, terms, name]) {
+  const parsed = parseSkillCheckTerms(terms);
+  if ( !parsed ) return new Text(match);
+  const {skills, passive, group} = parsed;
+  if ( passive && (skills.length > 1) ) return new Text(match);
+  return createSkillCheckElement(skills, {passive, group, name});
 }
 
 /* -------------------------------------------- */
 
 /**
- * Create an enriched-content element representing a skill check with the given skill, DC, and options.
- * @param {object} skill
- * @param {number} dc
- * @param {object} options
- * @param {boolean} options.passive
- * @param {boolean} options.group
+ * Parse the terms of a skill check into its allowed skills and flags.
+ * Returns null for invalid syntax: an unknown skill or term, a repeated skill, or a positional DC among several skills.
+ * @param {string} terms
+ * @returns {{skills: {skill: object, dc: number}[], passive: boolean, group: boolean}|null}
  */
-function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
+function parseSkillCheckTerms(terms) {
+  const skills = [];
+  const flags = new Set();
+  let positional = false;
+  for ( const term of terms.trim().split(/\s+/) ) {
+    if ( (term === "passive") || (term === "group") ) {
+      flags.add(term);
+      continue;
+    }
+
+    // A bare number is the DC of the bare skill before it
+    if ( /^\d+$/.test(term) ) {
+      const previous = skills.at(-1);
+      if ( !previous?.bare || positional ) return null;
+      previous.dc = Number(term);
+      positional = true;
+      continue;
+    }
+
+    // A skill, with or without its DC
+    const [, id, dc] = term.match(/^(\w+)(?:=(\d+))?$/) ?? [];
+    const skill = SYSTEM.SKILLS[DND5E_SKILL_MAPPING[id] ?? id];
+    if ( !skill || skills.some(s => s.skill === skill) ) return null;
+    skills.push({skill, dc: dc ? Number(dc) : SYSTEM.PASSIVE_BASE + 3, bare: !dc});
+  }
+  if ( !skills.length || (positional && (skills.length > 1)) ) return null;
+  return {skills: skills.map(({skill, dc}) => ({skill, dc})), passive: flags.has("passive"), group: flags.has("group")};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Create an enriched-content element representing a skill check with the given skills, DCs, and options.
+ * Unnamed, the first skill is named inline; every allowed skill is listed in the tooltip.
+ * @param {{skill: object, dc: number}[]} skills
+ * @param {object} options
+ * @param {boolean} [options.passive=false]
+ * @param {boolean} [options.group=false]
+ * @param {string} [options.name]                   A name which replaces the skill in the label
+ */
+function createSkillCheckElement(skills, {passive=false, group=false, name}={}) {
+  const [{skill, dc}] = skills;
   const tag = document.createElement("enriched-content");
   tag.classList.add("skill-check", skill.group);
   const dataset = {skillId: skill.id, dc};
+  if ( skills.length > 1 ) dataset.skills = skills.map(s => `${s.skill.id}=${s.dc}`).join(" ");
+  if ( name ) dataset.checkName = name;
   if ( group ) {
     tag.classList.add("group-check");
     dataset.group = "true";
   }
+
+  // A named check shows its lowest DC, marked when some skills are harder
   let dcLabel = _loc("DICE.DCSpecific", {dc});
+  if ( name ) {
+    const lowest = Math.min(...skills.map(s => s.dc));
+    const range = skills.some(s => s.dc > lowest) ? _loc("DICE.DCMinimum", {dc: lowest}) : lowest;
+    dcLabel = _loc("DICE.DCSpecific", {dc: range});
+  }
 
   // Passive checks only
   if ( passive ) {
@@ -720,9 +816,17 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   // Group checks only
   if ( group ) dcLabel = _loc("DICE.DCAdditionalGroup", {dcLabel});
 
+  // List every allowed skill in the tooltip when the label does not show them all
+  if ( !passive && (name || (skills.length > 1)) ) {
+    const listFormatter = game.i18n.getListFormatter({type: "disjunction"});
+    dataset.tooltipText = listFormatter.format(skills.map(s => {
+      return `${s.skill.label} (${_loc("DICE.DCSpecific", {dc: s.dc})})`;
+    }));
+  }
+
   // Create label
   Object.assign(tag.dataset, dataset);
-  tag.innerHTML = `${skill.label} (${dcLabel})`;
+  tag.innerHTML = `${name ?? skill.label} (${dcLabel})`;
   return tag;
 }
 
@@ -806,13 +910,13 @@ function renderSkillCheck(element) {
  */
 async function onClickSkillCheck(event) {
   event.preventDefault();
-  const {check, actor} = prepareSkillCheck(event);
+  const {check, actor, skills, checkName} = prepareSkillCheck(event);
   const request = game.user.isGM && !actor;
   const requestedActors = request ? inferEnricherActors() : [];
-  const response = await check.dialog({request, requestedActors});
-  if ( response === null ) return;
-  const flavor = _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[check.data.type].label});
-  return check.toMessage({flavor});
+  const roll = await check.dialog({request, requestedActors, skills, checkName});
+  if ( !roll ) return;
+  const flavor = checkName ?? _loc("ACTION.SkillCheck", {skill: SYSTEM.SKILLS[roll.data.type].label});
+  return roll.toMessage({flavor});
 }
 
 /* -------------------------------------------- */
@@ -830,27 +934,35 @@ function onClickGroupCheck(event) {
     if ( !party ) return;
     requestedActors = Array.from(party.actors);
   }
-  const {check} = prepareSkillCheck(event);
-  const dialogOptions = {request: true, requestedActors};
-  return check.dialog(dialogOptions);
+  const {check, skills, checkName} = prepareSkillCheck(event);
+  return check.dialog({request: true, requestedActors, skills, checkName});
 }
 
 /* -------------------------------------------- */
 
 /**
- * Prepare a skill check instance from an enriched element click event.
+ * Prepare a skill check instance from an enriched element click event, with any alternative skills it allows.
  * @param {Event} event
- * @returns {{actor: CrucibleActor|null, check: StandardCheck}}
+ * @returns {{actor: CrucibleActor|null, check: StandardCheck,
+ *   skills: Record<string, GroupCheckSkillConfig>|undefined, checkName: string|undefined}}
  */
 function prepareSkillCheck(event) {
-  const {skillId, dc: dcStr, group} = event.currentTarget.dataset;
+  const {skillId, dc: dcStr, group, skills: skillTerms, checkName} = event.currentTarget.dataset;
   const parsedDc = Number(dcStr);
-  const dc = Number.isNaN(parsedDc) ? 15 : parsedDc;
+  const dc = Number.isNaN(parsedDc) ? SYSTEM.PASSIVE_BASE + 3 : parsedDc;
   const checkData = {type: skillId, dc};
   const actor = inferEnricherActors(true);
   const rollCls = group ? crucible.api.dice.GroupCheck : crucible.api.dice.StandardCheck;
   const check = actor ? actor.getSkillCheck(skillId, checkData) : new rollCls(checkData);
-  return {actor, check};
+  let skills;
+  if ( skillTerms ) {
+    skills = {};
+    for ( const term of skillTerms.split(" ") ) {
+      const [id, skillDc] = term.split("=");
+      skills[id] = {dc: Number(skillDc)};
+    }
+  }
+  return {actor, check, skills, checkName};
 }
 
 /* -------------------------------------------- */
@@ -872,6 +984,66 @@ function inferEnricherActors(singular=false) {
   else actors = [];
   if ( singular ) return actors.length === 1 ? actors[0] : null;
   return actors;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Creates a dialog for selecting from a specific group of world actors, and/or from arbitrary world actors
+ * @param {object} [options]
+ * @param {string} [options.dialogTitle]    The title of the dialog
+ * @param {string} [options.dialogIcon]     The FontAwesome classes used for the dialog's Icon
+ * @param {Actor[]} [options.actors]        Which specific actors to show checkboxes for
+ * @param {boolean} [options.showSpecific]  Whether to show checkboxes for specific actors
+ * @param {boolean} [options.showAny]       Whether to show the inputs for "any actor"
+ * @returns {Promise<Set<CrucibleActor>>} A set of selected actor UUIDs
+ */
+async function chooseActorsDialog({dialogTitle="DICE.REQUESTS.ChooseTarget", dialogIcon="fa-solid fa-bullseye", actors, showSpecific=true, showAny=true}={}) {
+  let content = "";
+  if ( showSpecific ) {
+    actors ??= crucible.party?.system.members.map(a => a.actor) || [];
+    const specificActorInput = foundry.applications.fields.createMultiSelectInput({
+      name: "specificActor",
+      type: "checkboxes",
+      options: actors.reduce((arr, actor) => {
+        if ( actor ) arr.push({value: actor.uuid, label: actor.name, selected: true});
+        return arr;
+      }, [])
+    });
+    const specificActor = foundry.applications.fields.createFormGroup({
+      label: "DICE.REQUESTS.SpecificActors",
+      hint: "DICE.REQUESTS.SpecificActorsHint",
+      stacked: true,
+      localize: true,
+      input: specificActorInput
+    });
+    content += specificActor.outerHTML;
+  }
+
+  // Don't respect showAny if showSpecific is false or there are no specific actors to show
+  if ( showAny || !showSpecific || !actors?.length ) {
+    const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
+      type: "Actor",
+      name: "anyActor"
+    });
+    const anyActor = foundry.applications.fields.createFormGroup({
+      label: "DICE.REQUESTS.AnyActor",
+      hint: "DICE.REQUESTS.AnyActorHint",
+      localize: true,
+      input: anyActorInput
+    });
+    content += anyActor.outerHTML;
+  }
+  const result = await foundry.applications.api.DialogV2.input({
+    window: {title: dialogTitle, icon: dialogIcon},
+    content
+  });
+  if ( !result ) return new Set();
+  const selectedActors = [...(result.specificActor ?? []), ...(result.anyActor ?? [])].reduce((acc, uuid) => {
+    if ( !uuid.startsWith("Compendium") ) acc.push(fromUuidSync(uuid));
+    return acc;
+  }, []);
+  return new Set(selectedActors);
 }
 
 /* -------------------------------------------- */
@@ -911,7 +1083,8 @@ export function resolveReferences(text, relativeTo) {
 
 /**
  * Enrich a loot item reference into a draggable link that materializes a composed item on drop.
- * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, or broken.
+ * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, broken,
+ * description="Public description text", or img=path/to/icon.webp.
  * @param {RegExpMatchArray} matchArray
  * @returns {Promise<HTMLAnchorElement|Text>}
  * @example Explicit name and quality
@@ -930,8 +1103,17 @@ export function resolveReferences(text, relativeTo) {
  * ```html
  * @Loot[Compendium.crucible.equipment.Item.longsword0000000 broken]{Rusted Longsword}
  * ```
+ * @example A custom public description
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.amulet0000000000 description="A gold pendant chain."]{Gold Pendant}
+ * ```
+ * @example A custom icon
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.amulet0000000000 img=icons/equipment/neck/pendant-gold.webp]
+ * ```
  */
-async function enrichLoot([match, baseUuid, tokenString, displayName]) {
+async function enrichLoot([match, params, displayName]) {
+  const [baseUuid, tokenString=""] = params.trim().split(/\s+(.*)/s);
   const baseItem = fromUuidSync(baseUuid);
   if ( !baseItem ) return new Text(match);
 
@@ -939,19 +1121,25 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   const affixes = [];
   let quality = null;
   let broken = false;
-  for ( const token of tokenString.trim().split(/\s+/).filter(Boolean) ) {
-    const [key, value] = token.split("=");
+  let description = null;
+  let img = null;
+  for ( const [, key, quotedValue, plainValue] of tokenString.matchAll(/(\w+)(?:="([^"]*)"|=([^\s"]*))?/g) ) {
+    const value = quotedValue ?? plainValue;
     if ( key === "quality" ) {
       quality = value;
     } else if ( key === "broken" ) {
       broken = (value === undefined) || (value === "true");
+    } else if ( key === "description" ) {
+      description = value || null;
+    } else if ( key === "img" ) {
+      img = value || null;
     } else {
       affixes.push({id: key, tier: value ? Number(value) : 1});
     }
   }
 
   // Build the loot configuration
-  const config = {baseUuid, affixes, quality, broken, name: displayName || null};
+  const config = {baseUuid, affixes, quality, broken, description, img, name: displayName || null};
 
   // Compose a display name by resolving affix documents from configured packs
   let label = displayName;
@@ -983,7 +1171,7 @@ async function enrichLoot([match, baseUuid, tokenString, displayName]) {
   a.dataset.link = "";
   a.dataset.uuid = baseUuid;
   a.dataset.loot = JSON.stringify(config);
-  a.dataset.tooltip = label;
+  a.dataset.crucibleTooltip = "loot";
   a.innerHTML = `<i class="fa-solid fa-wand-sparkles"></i> ${label}`;
   return a;
 }

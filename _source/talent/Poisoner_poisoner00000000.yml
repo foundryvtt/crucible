@@ -58,6 +58,9 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.melee
+    - damageType.poison
   nodes:
     - sig3.intellect
     - sig3.toughness

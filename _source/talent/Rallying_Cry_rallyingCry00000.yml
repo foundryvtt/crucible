@@ -65,6 +65,10 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.utility
+    - target.rallying
+    - skill.intimidation
   nodes:
     - pre2a
   iconicSpells: 0

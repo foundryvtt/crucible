@@ -58,6 +58,8 @@ system:
         weapon: false
         minimum: null
       summon: null
+  keywords:
+    - playstyle.utility
   nodes:
     - pre0a
   iconicSpells: 0

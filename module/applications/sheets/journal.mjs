@@ -17,4 +17,27 @@ export default class CrucibleJournalEntrySheet extends foundry.applications.shee
     if ( this.document.pack === "crucible.rules" ) title = `${_loc("CRUCIBLE.Rules")}: ${title}`;
     return title;
   }
+
+  /* -------------------------------------------- */
+  /*  Rendering                                   */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    this.#addChatReadaloudButtons();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add a GM-only send-to-chat button to each read-aloud block.
+   */
+  #addChatReadaloudButtons() {
+    if ( !game.user.isGM ) return;
+    for ( const block of this.element.querySelectorAll(".readaloud") ) {
+      if ( block.querySelector(":scope > button[data-chat-readaloud]") ) continue;
+      block.prepend(crucible.api.chat.createChatReadaloudButton());
+    }
+  }
 }

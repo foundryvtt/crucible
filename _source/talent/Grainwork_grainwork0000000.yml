@@ -62,6 +62,9 @@ system:
       effects: []
       tags: []
       summon: null
+  keywords:
+    - action.noncombat
+    - skill.fletching
   nodes:
     - str2a
   spellcraft: ''

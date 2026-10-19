@@ -9,6 +9,8 @@ system:
     rest] action, you recover additional @Rule[resource.wounds] equal to half
     your @Rule[ability.toughness] score (rounded down).</p>
   actions: []
+  keywords:
+    - action.rest
   nodes:
     - tou1b
   iconicSpells: 0

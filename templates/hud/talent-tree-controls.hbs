@@ -2,21 +2,24 @@
     <nav class="flexrow hud">
         <div class="points flexrow">
             <span class="input">{{actor.points.talent.available}}</span>
-            <span>{{localize "TALENT.PointsAvailable"}}</span>
+            <span class="label">{{localize "TALENT.PointsAvailable"}}</span>
         </div>
         <header class="name flexrow">
             <h2 class="charname">{{actor.name}}</h2>
             <span class="level">({{localize "ACTOR.LevelSpecific" level=actor.level}})</span>
         </header>
-        <div class="controls flexrow">
-            <button type="button" class="reset frame-brown" data-action="reset">
-                <i class="fa-solid fa-undo"></i>
-                <label>{{localize "TALENT.ACTIONS.Reset"}}</label>
-            </button>
-            <button type="button" class="close frame-brown" data-action="closeTree">
-                <i class="fa-solid fa-times"></i>
-                <label>{{localize "APPLICATION.ACTIONS.Close"}}</label>
-            </button>
+        <div class="controls flexrow" data-tooltip-direction="UP">
+            <button type="button" class="icon fa-solid fa-magnifying-glass frame-brown {{#if searchActive}}active{{/if}}"
+                    data-action="toggleSearch" data-tooltip aria-label="{{localize "TALENT.ACTIONS.ToggleSearch"}}"
+                    aria-pressed="{{searchActive}}"></button>
+            <button type="button" class="icon fa-solid fa-id-card frame-brown" data-action="showSheet"
+                    data-tooltip aria-label="{{localize "TALENT.ACTIONS.ShowSheet"}}"></button>
+            <button type="button" class="icon fa-solid fa-book-open frame-brown" data-action="showTalents"
+                    data-tooltip aria-label="{{localize "TALENT.ACTIONS.ShowTalents"}}"></button>
+            <button type="button" class="icon fa-solid fa-undo frame-brown reset" data-action="reset"
+                    data-tooltip aria-label="{{localize "TALENT.ACTIONS.Reset"}}"></button>
+            <button type="button" class="icon fa-solid fa-times frame-brown close" data-action="closeTree"
+                    data-tooltip aria-label="{{localize "APPLICATION.ACTIONS.Close"}}"></button>
         </div>
     </nav>
 </div>

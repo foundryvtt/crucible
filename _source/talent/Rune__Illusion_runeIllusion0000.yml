@@ -59,6 +59,13 @@ system:
         actorUuid: null
         permanent: true
   spellcraft: illusion
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.spiritual
+    - damageType.psychic
+    - target.willpower
+    - target.morale
   nodes:
     - int0a
   iconicSpells: 0

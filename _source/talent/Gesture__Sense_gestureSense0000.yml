@@ -2,6 +2,12 @@ name: 'Gesture: Sense'
 type: talent
 img: icons/magic/perception/eye-ringed-glow-angry-teal.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - playstyle.utility
+    - spell.gesture
+    - action.maintained
+    - senses
   nodes:
     - pre1b
   description: >-

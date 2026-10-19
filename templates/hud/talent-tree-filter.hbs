@@ -1,0 +1,26 @@
+<div class="talent-filter">
+    <div class="filter-search">
+        <i class="fa-solid fa-magnifying-glass" inert></i>
+        <input type="search" name="query" value="{{filters.query}}" autocomplete="off"
+               placeholder="{{localize "TALENT.FILTER.QueryPlaceholder"}}" aria-label="{{fields.query.label}}">
+    </div>
+    <div class="form-group levels">
+        <label>{{fields.levels.label}}</label>
+        <div class="form-fields">
+            {{formInput fields.levels.fields.min type="number" value=filters.levels.min placeholder=fields.levels.fields.min.min}}
+            <span class="separator">-</span>
+            {{formInput fields.levels.fields.max type="number" value=filters.levels.max placeholder=fields.levels.fields.max.max}}
+        </div>
+    </div>
+    {{formGroup fields.playstyle value=filters.playstyle blank=""}}
+    {{formGroup fields.keywords value=filters.keywords groups=keywordGroups sort=true}}
+    {{formGroup fields.ability value=filters.ability blank=""}}
+    {{formGroup fields.training value=filters.training}}
+    <footer class="filter-footer flexrow">
+        <span class="matches">{{matches}}</span>
+        <button type="button" data-action="clear">
+            <i class="fa-solid fa-filter-circle-xmark" inert></i>
+            <span>{{localize "TALENT.FILTER.Clear"}}</span>
+        </button>
+    </footer>
+</div>

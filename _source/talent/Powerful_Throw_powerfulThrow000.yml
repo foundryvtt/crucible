@@ -2,6 +2,9 @@ name: Powerful Throw
 type: talent
 img: icons/skills/movement/arrow-upward-blue.webp
 system:
+  keywords:
+    - weapons.thrown
+    - consumable.bomb
   nodes:
     - str3b
   description: >-

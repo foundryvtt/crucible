@@ -4,6 +4,10 @@ type: talent
 _id: expeditiousIllum
 img: icons/magic/light/beam-deflect-path-yellow.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.spiritual
+    - damageType.radiant
   nodes:
     - int4a
   description: >-

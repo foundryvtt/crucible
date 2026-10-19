@@ -4,6 +4,10 @@ type: talent
 _id: tenaciousControl
 img: icons/magic/control/debuff-chains-orb-movement-blue.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
+    - damageType.psychic
   nodes:
     - tou4a
   description: >-

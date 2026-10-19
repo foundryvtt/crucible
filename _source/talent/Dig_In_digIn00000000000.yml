@@ -9,6 +9,8 @@ system:
     @Condition[broken], you are only reduced to @Rule[resource.morale]{1 Morale}
     instead.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
   nodes:
     - wis3a
   iconicSpells: 0

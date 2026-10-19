@@ -9,6 +9,9 @@ system:
     simultaneously rather than only one.</p>
   actions: []
   iconicSpells: 2
+  keywords:
+    - playstyle.spellcraft
+    - action.summon
   nodes:
     - sig3.wisdom.presence
 effects: []

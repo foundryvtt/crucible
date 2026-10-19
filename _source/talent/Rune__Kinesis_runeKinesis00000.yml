@@ -58,6 +58,10 @@ system:
         actorUuid: null
         permanent: true
   spellcraft: kinesis
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.physical
   nodes:
     - pre0b
   iconicSpells: 0

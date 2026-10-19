@@ -5,8 +5,8 @@
     </div>
     {{#if isEditable}}
     <div class="controls">
-        <a class="button icon fa-solid fa-edit" data-action="affixEdit" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Edit"}}" data-tooltip></a>
-        <a class="button icon fa-solid fa-trash" data-action="affixDelete" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Delete"}}" data-tooltip></a>
+        <button type="button" class="icon fa-solid fa-edit" data-action="affixEdit" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Edit"}}" data-tooltip></button>
+        <button type="button" class="icon fa-solid fa-trash" data-action="affixDelete" aria-label="{{localize "ACTIVE_EFFECT.ACTIONS.Delete"}}" data-tooltip></button>
     </div>
     {{/if}}
     {{#if affix.description}}

@@ -1,4 +1,9 @@
 import {defineEnum} from "./enum.mjs";
+import {TAGS as ACTION_TAGS} from "./action.mjs";
+import {MOVEMENT_RULES} from "./actor.mjs";
+import {DAMAGE_TYPES, DEFENSES, RESOURCES} from "./attributes.mjs";
+import {CATEGORIES as CONSUMABLE_CATEGORIES} from "./consumable.mjs";
+import {GROUPS as PROFICIENCY_GROUPS, SKILLS, SPELLCRAFT, WEAPONS} from "./proficiencies.mjs";
 
 /**
  * The types of talent nodes which are supported.
@@ -57,6 +62,148 @@ export const SIGNATURE_MAX = 6;
  * @type {number}
  */
 export const SIGNATURE_LEVEL_INTERVAL = 3;
+
+/**
+ * Groups of Talent keywords, ordered for display by ascending sort priority.
+ * @type {Readonly<Record<string, {id: string, label: string, sort: number}>>}
+ */
+export const KEYWORD_GROUPS = defineEnum({
+  playstyle: {label: "TALENT.KEYWORD_GROUPS.Playstyle", sort: 1},
+  weapons: {label: "TALENT.KEYWORD_GROUPS.Weapons", sort: 2},
+  armor: {label: "TALENT.KEYWORD_GROUPS.Armor", sort: 3},
+  defense: {label: "TALENT.KEYWORD_GROUPS.Defense", sort: 4},
+  fightingStyle: {label: "TALENT.KEYWORD_GROUPS.FightingStyle", sort: 5},
+  toolbelt: {label: "TALENT.KEYWORD_GROUPS.Toolbelt", sort: 6},
+  spellComponents: {label: "TALENT.KEYWORD_GROUPS.SpellComponents", sort: 7},
+  damage: {label: "TALENT.KEYWORD_GROUPS.Damage", sort: 8},
+  targetDefense: {label: "TALENT.KEYWORD_GROUPS.TargetDefense", sort: 9},
+  targetResource: {label: "TALENT.KEYWORD_GROUPS.TargetResource", sort: 10},
+  restoration: {label: "TALENT.KEYWORD_GROUPS.Restoration", sort: 11},
+  resources: {label: "TALENT.KEYWORD_GROUPS.Resources", sort: 12},
+  tactics: {label: "TALENT.KEYWORD_GROUPS.Tactics", sort: 13},
+  time: {label: "TALENT.KEYWORD_GROUPS.Time", sort: 14},
+  exp: {label: PROFICIENCY_GROUPS.exp.label, sort: 15},
+  kno: {label: PROFICIENCY_GROUPS.kno.label, sort: 16},
+  soc: {label: PROFICIENCY_GROUPS.soc.label, sort: 17},
+  trade: {label: PROFICIENCY_GROUPS.trade.label, sort: 18}
+});
+
+/**
+ * Keywords describing the playstyles a Talent has particular affinity with, keyed by namespaced id.
+ * It is intended to assign a keyword to a Talent when it is clearly more valuable to a character building for that
+ * premise than to other characters.
+ * @type {Readonly<Record<string, {id: string, label: string, group: string, sort: number}>>}
+ */
+export const KEYWORDS = defineEnum({
+  // Surviving harm or absorbing it for allies
+  "playstyle.defensive": {group: "playstyle", label: "TALENT.KEYWORDS.Defensive"},
+  // Melee attacks or benefits to them, including thrown melee weapons
+  "playstyle.melee": {group: "playstyle", label: "TALENT.KEYWORDS.Melee"},
+  // Ranged weapon attacks or benefits to them
+  "playstyle.ranged": {group: "playstyle", label: "TALENT.KEYWORDS.Ranged"},
+  // Casting spells or improving spellcraft
+  "playstyle.spellcraft": {group: "playstyle", label: "TALENT.KEYWORDS.Spellcraft"},
+  // A non-damage role which is not defensive: stealth, mobility, control, restoration, skill support
+  "playstyle.utility": {group: "playstyle", label: "TALENT.KEYWORDS.Utility"},
+
+  // Weapons: a weapon category the Talent requires or favors; an unrestricted ranged Strike earns every ranged one
+  ...Object.values(WEAPONS).reduce((obj, {id, label}) => {
+    obj[`weapon.${id}`] = {group: "weapons", label};
+    return obj;
+  }, {}),
+
+  // Armor: an armor weight the Talent requires or rewards
+  "armor.heavy": {group: "armor", label: "TALENT.KEYWORDS.HeavyArmor"},
+  "armor.light": {group: "armor", label: "TALENT.KEYWORDS.LightArmor"},
+  "armor.medium": {group: "armor", label: "TALENT.KEYWORDS.MediumArmor"},
+  "armor.unarmored": {group: "armor", label: "TALENT.KEYWORDS.Unarmored"},
+
+  // Defense: improves or triggers from one of your own defenses or your Resistances
+  "defense.block": {group: "defense", label: DEFENSES.block.label},
+  "defense.dodge": {group: "defense", label: DEFENSES.dodge.label},
+  "defense.fortitude": {group: "defense", label: DEFENSES.fortitude.label},
+  "defense.madness": {group: "defense", label: DEFENSES.madness.label},
+  "defense.parry": {group: "defense", label: DEFENSES.parry.label},
+  "defense.reflex": {group: "defense", label: DEFENSES.reflex.label},
+  "defense.resistance": {group: "defense", label: "ATTRIBUTES.Resistances"},
+  "defense.willpower": {group: "defense", label: DEFENSES.willpower.label},
+  "defense.wounds": {group: "defense", label: DEFENSES.wounds.label},
+
+  // Fighting Style: requires or favors a way of wielding your set of weapons
+  "weapons.dualwield": {group: "fightingStyle", label: ACTION_TAGS.dualwield.label},
+  "weapons.onehand": {group: "fightingStyle", label: ACTION_TAGS.onehand.label},
+  "weapons.thrown": {group: "fightingStyle", label: ACTION_TAGS.thrown.label},
+  "weapons.twohand": {group: "fightingStyle", label: ACTION_TAGS.twohand.label},
+
+  // Toolbelt: improves a consumable category, or toolbelt items generally
+  "consumable.bomb": {group: "toolbelt", label: CONSUMABLE_CATEGORIES.bomb.label},
+  "consumable.flask": {group: "toolbelt", label: CONSUMABLE_CATEGORIES.flask.label},
+  "consumable.trap": {group: "toolbelt", label: CONSUMABLE_CATEGORIES.trap.label},
+  "equipment.toolbelt": {group: "toolbelt", label: "TALENT.KEYWORDS.Toolbelt"},
+
+  // Spell component types: only a Talent which grants that component, never one which merely modifies it
+  "spell.gesture": {group: "spellComponents", label: "SPELL.COMPONENTS.GesturePl"},
+  "spell.inflection": {group: "spellComponents", label: "SPELL.COMPONENTS.InflectionPl"},
+  "spell.rune": {group: "spellComponents", label: "SPELL.COMPONENTS.RunePl"},
+
+  // Spellcraft families: grants, modifies, or specializes a Rune belonging to that family
+  ...Object.values(SPELLCRAFT).reduce((obj, {id, label}) => {
+    obj[`spell.${id}`] = {group: "spellComponents", label};
+    return obj;
+  }, {}),
+
+  // Damage: the Talent fixes or favors a damage type; never for Strikes whose type depends on the weapon used
+  ...Object.values(DAMAGE_TYPES).reduce((obj, {id, label}) => {
+    obj[`damageType.${id}`] = {group: "damage", label};
+    return obj;
+  }, {}),
+
+  // Target Defense: attacks the target's Fortitude, Reflex, or Willpower rather than their Physical defense
+  "target.fortitude": {group: "targetDefense", label: DEFENSES.fortitude.label},
+  "target.reflex": {group: "targetDefense", label: DEFENSES.reflex.label},
+  "target.willpower": {group: "targetDefense", label: DEFENSES.willpower.label},
+
+  // Target Resource: deals damage to a resource; Health only when damaging it is unusually central to the Talent
+  "target.health": {group: "targetResource", label: RESOURCES.health.label},
+  "target.morale": {group: "targetResource", label: RESOURCES.morale.label},
+
+  // Restoration: restores Health or Morale, to yourself or allies
+  "target.healing": {group: "restoration", label: ACTION_TAGS.healing.label},
+  "target.rallying": {group: "restoration", label: ACTION_TAGS.rallying.label},
+
+  // Resources: changes Action or Focus economy in the player's favor; reduced-cost follow-up attacks do not count
+  "resource.action": {group: "resources", label: RESOURCES.action.label},
+  "resource.focus": {group: "resources", label: RESOURCES.focus.label},
+  // Spends Heroism, or changes how Heroism works in the player's favor
+  "resource.heroism": {group: "resources", label: RESOURCES.heroism.label},
+
+  // Tactics: maintains an ongoing effect, moves you or traverses an environment, summons an ally, or manipulates
+  // engagement
+  "action.maintained": {group: "tactics", label: ACTION_TAGS.maintained.label},
+  "action.movement": {group: "tactics", label: ACTION_TAGS.movement.label},
+  "action.summon": {group: "tactics", label: ACTION_TAGS.summon.label},
+  "movement.engagement": {group: "tactics", label: MOVEMENT_RULES.engagement.label},
+  // Grants or extends a way of perceiving, or innately defeats the perception and detection of others
+  senses: {group: "tactics", label: "TALENT.KEYWORDS.Senses"},
+
+  // Time: when the Talent is used; outside combat, as a reaction, during Rest, or around Initiative
+  "action.noncombat": {group: "time", label: ACTION_TAGS.noncombat.label},
+  "action.reaction": {group: "time", label: ACTION_TAGS.reaction.label},
+  "action.rest": {group: "time", label: "TALENT.KEYWORDS.Rest"},
+  initiative: {group: "time", label: "TALENT.KEYWORDS.Initiative"},
+
+  // Skills: makes a character better at using that skill, not merely advancing its training
+  ...Object.values(SKILLS).reduce((obj, {id, group, label}) => {
+    obj[`skill.${id}`] = {group, label};
+    return obj;
+  }, {})
+});
+
+// Resolve each keyword's group id to the group label and sort priority used for optgroups and ordering
+for ( const keyword of Object.values(KEYWORDS) ) {
+  const {label, sort} = KEYWORD_GROUPS[keyword.group];
+  Object.assign(keyword, {group: label, sort});
+}
 
 /**
  * A mapping of talent IDs which changed, used by CrucibleActor#syncTalents during migrations.

@@ -56,6 +56,9 @@ system:
       effects: []
       tags: []
       summon: null
+  keywords:
+    - action.noncombat
+    - skill.cooking
   nodes:
     - wis2c
   spellcraft: ''

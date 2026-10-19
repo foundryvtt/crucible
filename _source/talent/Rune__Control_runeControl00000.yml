@@ -53,6 +53,13 @@ system:
         actorUuid: null
         permanent: true
   spellcraft: control
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.physical
+    - damageType.psychic
+    - target.willpower
+    - target.morale
   nodes:
     - wis0b
   iconicSpells: 0

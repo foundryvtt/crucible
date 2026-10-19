@@ -42,6 +42,12 @@ system:
         maximum: null
         weapon: true
       summon: null
+  keywords:
+    - playstyle.ranged
+    - action.reaction
+    - weapon.projectile
+    - weapon.mechanical
+    - weapon.talisman
   nodes:
     - sig3.intellect.dexterity
   iconicSpells: 0

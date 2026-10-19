@@ -8,6 +8,10 @@ system:
     When an attack against you results in a <strong>Glancing Blow</strong>, you
     gain <strong>+1 Resistance</strong> against the damage dealt.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - armor.medium
+    - armor.heavy
   nodes:
     - dextou2
   iconicSpells: 0

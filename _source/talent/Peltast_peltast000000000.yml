@@ -48,6 +48,9 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapons.thrown
   nodes:
     - sig3.intellect
     - sig3.strength

@@ -2,6 +2,11 @@ name: Noxious Spray
 type: talent
 img: icons/magic/light/beam-rays-green.webp
 system:
+  keywords:
+    - playstyle.ranged
+    - weapon.natural
+    - damageType.poison
+    - target.reflex
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} is able to produce and expel toxic

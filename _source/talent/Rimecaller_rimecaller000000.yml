@@ -12,6 +12,10 @@ system:
     <strong>Frost</strong> damage to @Rule[resource.health], and applies the
     @Condition[slowed] condition.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.cold
   nodes:
     - wis3b
   iconicSpells: 0

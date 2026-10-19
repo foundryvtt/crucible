@@ -58,6 +58,10 @@ system:
         maximum: 12
         weapon: false
       summon: null
+  keywords:
+    - playstyle.utility
+    - resource.focus
+    - skill.diplomacy
   nodes:
     - wispre1
   iconicSpells: 0

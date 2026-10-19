@@ -2,6 +2,8 @@ name: Servitor
 type: talent
 img: icons/commodities/tech/sensor-yellow.webp
 system:
+  keywords:
+    - playstyle.utility
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} serves the will of another and maintains a

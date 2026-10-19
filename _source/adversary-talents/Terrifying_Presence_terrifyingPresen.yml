@@ -3,6 +3,9 @@ type: talent
 _id: terrifyingPresen
 img: icons/magic/control/fear-fright-monster-purple-blue.webp
 system:
+  keywords:
+    - action.reaction
+    - target.willpower
   nodes: []
   description: >-
     <p>Something about the presence of this creature motivates a pure and

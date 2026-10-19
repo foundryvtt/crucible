@@ -7,7 +7,7 @@ system:
   description: >-
     <p>Visitors are embodiments of raw elemental energy that assume forms that
     are vaguely humanoid in shape. Unlike their lesser kin, Elemental Visitors
-    are are capable of communication and understanding, although their
+    are capable of communication and understanding, although their
     motivations are seldom aligned with those of mortals.</p>
   identifier: elementalVisitor
   abilities:
@@ -35,7 +35,7 @@ system:
   equipment: []
   spells: []
 effects: []
-sort: 0
+sort: 200000
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -44,10 +44,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.367'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.10.2
   createdTime: 1772307157483
-  modifiedTime: 1788482669650
-  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  modifiedTime: 1792082172900
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _key: '!items!elementalVisitor'

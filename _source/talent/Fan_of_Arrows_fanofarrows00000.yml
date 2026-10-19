@@ -37,6 +37,11 @@ system:
         - ranged
         - difficult
       summon: null
+  keywords:
+    - playstyle.ranged
+    - weapon.projectile
+    - weapon.mechanical
+    - weapon.talisman
   nodes:
     - dex3a
   iconicSpells: 0

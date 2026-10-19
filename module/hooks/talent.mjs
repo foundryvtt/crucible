@@ -184,8 +184,8 @@ HOOKS.armoredefficienc = {
 HOOKS.armoredShell0000 = {
   prepareDefenses(item, defenses) {
     if ( !this.statuses.has("guarded") ) return;
-    const offhand = this.equipment.weapons.offhand;
-    if ( offhand?.category !== "shieldHeavy" ) return;
+    const {offhand, natural} = this.equipment.weapons;
+    if ( ![offhand, ...natural].some(w => w?.category === "shieldHeavy") ) return;
     const halfArmor = Math.ceil(defenses.armor.base / 2);
     defenses.armor.base -= halfArmor;
     defenses.block.bonus += halfArmor;
@@ -413,11 +413,12 @@ HOOKS.brutalDisplay000 = {
 /* -------------------------------------------- */
 
 HOOKS.bulwark000000000 = {
-  prepareActions(item, actions) {
-    const defend = actions.defend;
-    if ( !defend || !this.equipment.weapons.shield || this.system.status.bulwark ) return;
-    defend.cost.action -= 1;
-    defend.usage.actorUpdates["system.status.bulwark"] = true;
+  prepareAction(_item, action) {
+    if ( (action.id !== "defend") || !this.equipment.weapons.shield ) return;
+    if ( action.cost.action && this.system.hasFreeMove ) {
+      action.cost.action -= 1;
+      action.usage.actorStatus.hasMoved = true;
+    }
   }
 };
 
@@ -586,7 +587,7 @@ HOOKS.channeledResonan = {
   prepareAttack(_item, action, _target, rollData) {
     if ( this.equipment.weapons.mainhand?.category !== "talisman2" ) return;
     if ( !action.target.isAttack ) return;
-    const sustaining = this.parent.effects.some(e => e.active && (e.system.maintenance?.cost > 0));
+    const sustaining = this.parent.effects.some(e => e.active && e.system.properties?.has("maintained"));
     if ( sustaining ) rollData.damageBonus += 2;
   }
 };
@@ -1472,7 +1473,7 @@ HOOKS.powerfulThrow000 = {
 HOOKS.preparedness0000 = {
   prepareAction(item, action) {
     if ( action.id !== "equipItem" ) return;
-    if ( action.cost.action && !this.system.status.hasMoved ) {
+    if ( action.cost.action && this.system.hasFreeMove ) {
       action.cost.action = 0;
       action.usage.actorStatus.hasMoved = true;
     }

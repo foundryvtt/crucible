@@ -20,6 +20,10 @@ system:
     a@UUID[Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI].</p>
   actions: []
   spellcraft: create
+  keywords:
+    - playstyle.spellcraft
+    - spell.gesture
+    - action.summon
   nodes:
     - wis1b
   iconicSpells: 0

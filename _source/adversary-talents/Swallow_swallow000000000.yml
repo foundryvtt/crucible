@@ -3,6 +3,9 @@ type: talent
 _id: swallow000000000
 img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} can swallow whole a creature whose

@@ -3,6 +3,7 @@ import CruciblePhysicalItem from "./item-physical.mjs";
 
 /**
  * @import {PROFICIENCIES} from "../const/proficiencies.mjs";
+ * @import {DocumentHTMLEmbedConfig} from "@client/applications/ux/text-editor.mjs";
  */
 
 /**
@@ -30,6 +31,7 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @typedef CrucibleActorEquippedWeapons
  * @property {CrucibleItem} mainhand
  * @property {CrucibleItem} offhand
+ * @property {CrucibleItem[]} natural  Equipped natural weapons, which occupy no slot
  * @property {{mainhand: CrucibleItem|null, offhand: CrucibleItem|null}} dropped  Dropped weapons by prior slot
  * @property {boolean} heavyOffhand   Whether a one-handed heavy weapon may be wielded in the off-hand
  * @property {number} freeHands
@@ -151,6 +153,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTOR"];
+
+  /**
+   * The Handlebars template path used to render an @Embed block for this Actor.
+   */
+  static EMBED_TEMPLATE = "systems/crucible/templates/embeds/actor.hbs";
 
   /* -------------------------------------------- */
   /*  Derived Data Attributes                     */
@@ -730,7 +737,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const ohCategory = oh?.config.category || {};
 
     // Weapon Set Metadata
-    weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
+    const isShield = c => (c?.id === "shieldLight") || (c?.id === "shieldHeavy");
+    const ohShield = isShield(ohCategory);
+    weapons.shield = ohShield || weapons.natural.some(w => isShield(w.config.category));
     weapons.twoHanded = weapons.mainhand?.system.slot === slots.TWOHAND;
     weapons.melee = !(mhCategory.ranged && ohCategory.ranged) || weapons.natural.some(w => !w.config.category.ranged);
     weapons.ranged = mhCategory.ranged || ohCategory.ranged || weapons.natural.some(w => w.config.category.ranged);
@@ -766,7 +775,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     }
 
     // Multi weapon properties
-    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
+    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !ohShield);
     weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
     weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
     weapons.hasChoice = (weapons.natural.length > 0) || !weapons.twoHanded;
@@ -999,6 +1008,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       broken: this.parent.statuses.has("broken") ? "ACTIVE_EFFECT.STATUSES.Broken" : "",
       enraged: this.parent.statuses.has("enraged") ? "ACTIVE_EFFECT.STATUSES.Enraged" : ""
     };
+
+    // How many effects the actor may maintain with Focus at once; talents raise it in the prepareResources hook
+    rs.focus.maintained = 1;
   }
 
   /* -------------------------------------------- */
@@ -1082,12 +1094,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     defenses.dodge.bonus += Math.max(dex - dodgeScaling, 0);
     defenses.dodge.max = defenses.dodge.base + (12 - dodgeScaling);
 
-    // Block and Parry from equipped Weapons
-    const weaponData = [];
-    if ( equipment.weapons.mainhand ) weaponData.push(equipment.weapons.mainhand.system);
-    if ( equipment.weapons.offhand ) weaponData.push(equipment.weapons.offhand.system);
-    for ( const wd of weaponData ) {
-      for ( const d of ["block", "parry"] ) defenses[d].base += wd.defense[d];
+    // Block and Parry from wielded Weapons
+    const {mainhand, offhand, natural} = equipment.weapons;
+    for ( const d of ["block", "parry"] ) {
+      for ( const w of [mainhand, offhand] ) defenses[d].base += (w?.system.defense[d] ?? 0);
+      defenses[d].base += Math.max(0, ...natural.map(w => w.system.defense[d])); // Best natural bonus only
     }
   }
 
@@ -1277,6 +1288,46 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       const actionId = item.type === "consumable" ? `${action.id}.${item.id}` : action.id;
       this.actions[actionId] = action.bind(this.parent);
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Embedding                                   */
+  /* -------------------------------------------- */
+
+  /** @override */
+  async toEmbed(config, _options) {
+    const block = new foundry.applications.elements.HTMLDocumentEmbedElement();
+    block.className = "block actor";
+    config.inline ??= false; // Never use figures
+    const context = await this._prepareEmbedContext(config);
+    block.innerHTML = await foundry.applications.handlebars.renderTemplate(this.constructor.EMBED_TEMPLATE, context);
+    const readaloud = block.querySelector(".readaloud");
+    if ( readaloud && game.user.isGM ) readaloud.prepend(crucible.api.chat.createChatReadaloudButton());
+    return block;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the rendering context for {@link CrucibleBaseActor.EMBED_TEMPLATE}.
+   * @param {DocumentHTMLEmbedConfig} config
+   * @returns {Promise<object>}
+   * @protected
+   */
+  async _prepareEmbedContext(config) {
+    const actor = this.parent;
+    return {
+      name: actor.name,
+      img: config.image === "token" ? actor.prototypeToken.texture.src : actor.img,
+      link: actor.toAnchor().outerHTML,
+      count: config.count,
+      level: this.advancement.threatLevel,
+      subtitle: "",
+      readaloud: await CONFIG.ux.TextEditor.enrichHTML(this.details.biography.appearance, {
+        relativeTo: actor,
+        secrets: actor.isOwner
+      })
+    };
   }
 
   /* -------------------------------------------- */

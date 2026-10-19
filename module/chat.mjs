@@ -1,4 +1,5 @@
 import CrucibleAction from "./models/action.mjs";
+import {playClick} from "./audio.mjs";
 
 /**
  * Handlebars template paths used for chat message rendering
@@ -110,6 +111,53 @@ export function addChatMessageContextOptions(_app, options) {
 /* -------------------------------------------- */
 
 /**
+ * Create the conventional button which sends its enclosing read-aloud block to chat.
+ * @returns {HTMLButtonElement}
+ */
+export function createChatReadaloudButton() {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "icon fa-solid fa-message-quote";
+  button.dataset.chatReadaloud = "";
+  button.dataset.tooltip = "";
+  button.ariaLabel = _loc("CRUCIBLE.SendChatReadaloud");
+  return button;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Handle clicks on a read-aloud send-to-chat button anywhere in the document.
+ * @param {PointerEvent} event
+ */
+export async function onClickChatReadaloud(event) {
+  const button = event.target.closest("button[data-chat-readaloud]");
+  if ( !button || !game.user.isGM ) return;
+  const block = button.closest(".readaloud");
+  if ( !block ) return;
+  playClick();
+
+  // Content without controls or secrets
+  const copy = block.cloneNode(true);
+  for ( const el of copy.querySelectorAll("button[data-chat-readaloud], secret-block, section.secret") ) el.remove();
+  const content = `<section class="block readaloud">${copy.innerHTML}</section>`;
+
+  // Speaker: a world Actor id, otherwise a plain alias, otherwise the posting User
+  const cls = foundry.documents.ChatMessage.implementation;
+  const value = block.closest("[data-speaker]")?.dataset.speaker;
+  const actor = value ? game.actors.get(value) : null;
+  const speaker = actor ? cls.getSpeaker({actor}) : {alias: value || game.user.name};
+
+  // Prepare and create the message
+  const source = _getReadaloudSource(block);
+  const messageData = {content, speaker, flags: {crucible: {chatReadaloud: {source}}}};
+  Hooks.callAll("crucible.prepareChatReadaloud", messageData, {block, source});
+  await cls.create(messageData);
+}
+
+/* -------------------------------------------- */
+
+/**
  * Handle keybinding actions to confirm the most recent action in the chat log.
  * @param {KeyboardEventContext} context    The context data of the event
  */
@@ -125,6 +173,21 @@ export async function onKeyboardConfirmAction(context) {
     if ( action && !confirmed ) toConfirm.unshift(message);
   }
   if ( toConfirm.length ) return CrucibleAction.confirmMessage(toConfirm[0]);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Identify the document a read-aloud block was rendered from: an embedded document, else a journal page.
+ * @param {HTMLElement} block
+ * @returns {string|null}     The source document UUID
+ */
+function _getReadaloudSource(block) {
+  const embed = block.closest("[data-content-embed]");
+  if ( embed ) return embed.dataset.uuid;
+  const doc = foundry.applications.instances.get(block.closest(".application")?.id)?.document;
+  const pageId = block.closest("[data-page-id]")?.dataset.pageId;
+  return (doc?.pages?.get(pageId) ?? doc)?.uuid ?? null;
 }
 
 /* -------------------------------------------- */

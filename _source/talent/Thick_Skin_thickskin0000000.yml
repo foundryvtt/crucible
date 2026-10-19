@@ -7,6 +7,9 @@ system:
     <strong>+2 Resistance</strong> to <strong>Bludgeoning</strong>,
     <strong>Slashing</strong>, and <strong>Piercing</strong> damage.</p>
   actions: []
+  keywords:
+    - playstyle.defensive
+    - defense.resistance
   nodes:
     - tou3b
   iconicSpells: 0

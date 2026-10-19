@@ -13,6 +13,10 @@ system:
     <strong>Strike</strong>.</p>
   actions: []
   spellcraft: strike
+  keywords:
+    - playstyle.melee
+    - playstyle.spellcraft
+    - spell.gesture
   nodes:
     - str2b
   iconicSpells: 0

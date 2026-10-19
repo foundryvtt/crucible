@@ -2,6 +2,8 @@ name: Extended Breath
 type: talent
 img: icons/magic/water/pseudopod-swirl-blue.webp
 system:
+  keywords:
+    - action.movement
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} can hold its breath for <strong>15

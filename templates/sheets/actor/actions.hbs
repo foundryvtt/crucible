@@ -14,10 +14,10 @@
                 </div>
                 <div class="controls">
                     {{#if action.canEdit}}
-                        <a class="button icon fa-solid fa-edit" data-action="actionEdit" aria-label="{{localize "TALENT.ACTIONS.ActionEdit"}}" data-tooltip></a>
+                        <button type="button" class="icon fa-solid fa-edit" data-action="actionEdit" aria-label="{{localize "TALENT.ACTIONS.ActionEdit"}}" data-tooltip></button>
                     {{/if}}
-                    <a class="button icon favorite {{favorite.icon}}" data-action="actionFavorite"
-                       aria-label="{{localize favorite.tooltip}}" data-tooltip></a>
+                    <button type="button" class="icon favorite {{favorite.icon}}" data-action="actionFavorite"
+                       aria-label="{{localize favorite.tooltip}}" data-tooltip></button>
                 </div>
             </li>
             {{/each}}

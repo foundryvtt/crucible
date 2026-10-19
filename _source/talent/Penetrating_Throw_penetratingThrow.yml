@@ -2,6 +2,10 @@ name: Penetrating Throw
 type: talent
 img: icons/skills/ranged/shuriken-thrown-yellow.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.heavy
+    - weapons.thrown
   nodes:
     - str3b
   description: >-

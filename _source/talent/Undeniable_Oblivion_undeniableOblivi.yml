@@ -4,6 +4,10 @@ type: talent
 _id: undeniableOblivi
 img: icons/magic/unholy/orb-beam-pink.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.spiritual
+    - damageType.void
   nodes:
     - pre4d
   description: >-

@@ -7,6 +7,10 @@ system:
     retaining mobility. You are able to use a @Rule[movement.freeMovement]{Free
     Move} once per turn while wearing <strong>Heavy</strong> armor.</p>
   actions: []
+  keywords:
+    - armor.heavy
+    - action.movement
+    - playstyle.defensive
   nodes:
     - str0b
   iconicSpells: 0
@@ -19,11 +23,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.2
-  coreVersion: '14.367'
+  systemVersion: 0.11.1
+  coreVersion: '14.369'
   createdTime: 1772307160126
-  modifiedTime: 1789487003215
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1792363342747
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: Item.armoredefficienc
   duplicateSource: null
   exportSource: null

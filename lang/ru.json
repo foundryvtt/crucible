@@ -1253,7 +1253,6 @@
       "EffectGainedDuration": "Получен ({duration})",
       "HeaderEnd": "{actor} - Конец хода",
       "HeaderStart": "{actor} - Начало хода",
-      "Maintaining": "{effect} (Поддержание)",
       "TableTitleEffects": "Изменения эффектов",
       "TableTitleResources": "Изменения ресурсов"
     },

@@ -65,6 +65,12 @@ system:
         actorUuid: null
         permanent: true
   iconicSpells: 2
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
+    - action.movement
+    - action.maintained
+    - resource.focus
   nodes:
     - sig3.wisdom.presence
 effects: []

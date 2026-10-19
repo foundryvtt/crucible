@@ -41,6 +41,10 @@ system:
         - skill
         - deception
       summon: null
+  keywords:
+    - playstyle.utility
+    - target.rallying
+    - skill.deception
   nodes:
     - int2c
   iconicSpells: 0

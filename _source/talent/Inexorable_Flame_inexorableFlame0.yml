@@ -2,6 +2,10 @@ name: Inexorable Flame
 type: talent
 img: icons/magic/fire/flame-burning-campfire-rocks.webp
 system:
+  keywords:
+    - playstyle.spellcraft
+    - spell.elemental
+    - damageType.fire
   nodes:
     - wis4d
   description: >-

@@ -8,6 +8,9 @@ system:
     @Rule[movement.engagement] radius of an enemy, that enemy has
     @Rule[dice.bane]{+2 Banes} to any @Action[default reactiveStrike] against
     you.</p>
+  keywords:
+    - movement.engagement
+    - action.movement
   nodes:
     - dex3b
   actions: []

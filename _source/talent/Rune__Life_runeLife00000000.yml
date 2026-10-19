@@ -52,6 +52,11 @@ system:
         permanent: true
   spellcraft: life
   training: physical
+  keywords:
+    - playstyle.spellcraft
+    - spell.rune
+    - spell.physical
+    - target.healing
   nodes:
     - wis0b
   iconicSpells: 0

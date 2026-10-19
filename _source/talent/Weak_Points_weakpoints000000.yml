@@ -10,6 +10,12 @@ system:
     @Rule[ability.dexterity], you gain +2 damage to any
     <strong>Strike</strong>.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - playstyle.ranged
+    - weapon.light
+    - weapon.projectile
+    - weapon.mechanical
   nodes:
     - dex1b
   iconicSpells: 0

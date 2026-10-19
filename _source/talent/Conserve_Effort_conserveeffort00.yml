@@ -7,6 +7,8 @@ system:
     end your turn with un-spent @Rule[resource.action] you gain
     @Rule[resource.focus]{+1 Focus}.</p>
   actions: []
+  keywords:
+    - resource.focus
   nodes:
     - wis2a
   iconicSpells: 0

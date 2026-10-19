@@ -39,6 +39,10 @@ system:
         weapon: false
         minimum: null
       summon: null
+  keywords:
+    - playstyle.utility
+    - target.rallying
+    - skill.performance
   nodes:
     - pre2c
   iconicSpells: 0

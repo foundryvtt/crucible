@@ -39,6 +39,9 @@ system:
         weapon: true
         minimum: 4
       summon: null
+  keywords:
+    - playstyle.melee
+    - action.movement
   nodes:
     - str2c
   iconicSpells: 0

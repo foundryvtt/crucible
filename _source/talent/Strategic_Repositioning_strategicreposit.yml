@@ -11,6 +11,9 @@ system:
     occurs in reverse order of <strong>Initiative</strong>.</p><h3
     class="divider">Playtest Notes</h3><p>This talent is not yet automated.</p>
   actions: []
+  keywords:
+    - initiative
+    - action.movement
   nodes:
     - int3b
   iconicSpells: 0

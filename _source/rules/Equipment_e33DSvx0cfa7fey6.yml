@@ -262,10 +262,27 @@ pages:
         the same, but some items can have a true value many times greater than
         the item's base cost.</p><h4>Physical Quality</h4><p>Many items may be
         assigned a quality tier which reflects the manufacturing quality or
-        natural rarity of a certain commodity.</p><h4>Enchantment
-        Tier</h4><p>Weapons, armor, and accessories can be augmented with magic
-        through @UUID[.Affixes000000000]{Affixes}. The enchantment tier of an
-        item reflects the potency of its magical imbuement and is derived
+        natural rarity of a certain commodity. The benefit of quality to each
+        type of item is described in the rules for that
+        type.</p><dl><dt><p>Shoddy</p></dt><dd
+        data-rule="quality.shoddy"><p>Crude, damaged, or poorly made. Shoddy
+        items perform below the expectation of their kind and have a rarity
+        modifier of -1.</p></dd><dt><p>Standard</p></dt><dd
+        data-rule="quality.standard"><p>Ordinary, serviceable craftsmanship.
+        Standard quality is the baseline against which other tiers are measured
+        and has no rarity modifier.</p></dd><dt><p>Fine</p></dt><dd
+        data-rule="quality.fine"><p>Well made by a skilled artisan. Fine items
+        perform above the expectation of their kind and have a rarity modifier
+        of +1.</p></dd><dt><p>Superior</p></dt><dd
+        data-rule="quality.superior"><p>Exceptional craftsmanship from superb
+        materials. Superior items have a rarity modifier of
+        +2.</p></dd><dt><p>Masterwork</p></dt><dd
+        data-rule="quality.masterwork"><p>The pinnacle of a craft, produced only
+        by a master artisan. Masterwork items have a rarity modifier of
+        +4.</p></dd></dl><h4>Enchantment Tier</h4><p>Weapons, armor, and
+        accessories can be augmented with magic through
+        @UUID[.Affixes000000000]{Affixes}. The enchantment tier of an item
+        reflects the potency of its magical imbuement and is derived
         automatically from the affixes applied to it. Consumable items do not
         have an enchantment tier and scale based on quality
         alone.</p><h4>Rarity</h4><p>Item rarity quantifies the uniqueness of the

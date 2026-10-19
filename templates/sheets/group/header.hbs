@@ -1,0 +1,53 @@
+<header class="group-header flexcol">
+    <section class="sheet-header flexrow">
+        <img class="profile" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
+        <div class="name flexcol">
+            <h1 class="title">
+                {{formInput fields.name value=actor.name placeholder="Group Name"}}
+            </h1>
+            {{crucibleTags tags additionalClasses="header-tags"}}
+        </div>
+    </section>
+    <div class="sheet-details flexrow">
+        <div class="sheet-section movement flexrow">
+            <h3>{{systemFields.movement.label}}</h3>
+            <button type="button" class="icon fa-solid fa-bolt" data-action="recover"
+                    aria-label="{{localize 'ACTOR.GROUP.LABELS.recover'}}"
+                    data-crucible-tooltip="tag" data-rule-id="actions.recover"></button>
+            <div class="movement-speed water labeled-hex">
+                <h4 class="label">{{systemFields.movement.fields.water.label}}</h4>
+                <span class="value">{{system.movement.water}}</span>
+            </div>
+            <div class="movement-speed land labeled-hex">
+                <h4 class="label">{{systemFields.movement.fields.land.label}}</h4>
+                <span class="value">{{system.movement.land}}</span>
+            </div>
+            <div class="movement-speed air labeled-hex">
+                <h4 class="label">{{systemFields.movement.fields.air.label}}</h4>
+                <span class="value">{{system.movement.air}}</span>
+            </div>
+            <div class="travel-pace labeled-hex">
+                <h4 class="label">{{systemFields.movement.fields.pace.label}}</h4>
+                <button type="button" class="value icon {{pace.icon}}" data-action="cyclePace"
+                        aria-label="{{localize "ACTOR.GROUP.LABELS.cyclePace"}}" data-tooltip data-tooltip-direction="RIGHT"></button>
+                <span class="label footer">{{localize pace.label}}</span>
+            </div>
+            <button type="button" class="icon fa-solid fa-campground" data-action="rest"
+                    aria-label="{{localize 'ACTOR.GROUP.LABELS.rest'}}"
+                    data-crucible-tooltip="tag" data-rule-id="actions.rest"></button>
+        </div>
+        {{#if tracksAdvancement}}
+        <div class="sheet-section advancement flexrow">
+            <h3>{{systemFields.advancement.label}}</h3>
+            <div class="milestones labeled-hex">
+                <h4 class="label">{{systemFields.advancement.fields.milestones.label}}</h4>
+                <button type="button" class="value" data-action="awardMilestone"
+                        aria-label="{{localize "ADVANCEMENT.MilestoneAward"}}" data-tooltip data-tooltip-direction="RIGHT">
+                    {{system.advancement.totalMilestones}}
+                </button>
+                <span class="label footer">{{localize "ADVANCEMENT.ExpectedLevel"}} {{system.advancement.expectedLevel}}</span>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</header>

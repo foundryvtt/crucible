@@ -42,6 +42,9 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - target.reflex
   nodes:
     - str1a
   iconicSpells: 0

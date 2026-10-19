@@ -35,6 +35,9 @@ system:
         - melee
         - morale
       summon: null
+  keywords:
+    - playstyle.melee
+    - target.morale
   nodes:
     - strwis1
   iconicSpells: 0

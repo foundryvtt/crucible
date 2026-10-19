@@ -3,6 +3,10 @@ type: talent
 _id: armoredShell0000
 img: icons/equipment/shield/Scutum-steel-worn.webp
 system:
+  keywords:
+    - playstyle.defensive
+    - weapon.shield
+    - defense.block
   nodes:
     - tou3a
   description: >-

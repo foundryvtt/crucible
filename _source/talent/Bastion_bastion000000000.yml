@@ -66,6 +66,13 @@ system:
         maximum: 1
         weapon: false
       summon: null
+  keywords:
+    - playstyle.defensive
+    - defense.block
+    - defense.reflex
+    - movement.engagement
+    - weapon.shield
+    - armor.heavy
   nodes:
     - sig3.toughness.strength
   iconicSpells: 0

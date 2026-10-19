@@ -41,6 +41,9 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.melee
+    - weapons.dualwield
   nodes:
     - dex0b
   iconicSpells: 0

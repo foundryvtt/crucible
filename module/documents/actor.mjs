@@ -166,6 +166,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * The effects this Actor maintains with Focus, independent of whether maintenance is currently due.
+   * @type {CrucibleActiveEffect[]}
+   */
+  get maintainedEffects() {
+    return this.effects.filter(e => e.system.properties?.has("maintained"));
+  }
+
+  /**
    * Adjusted threat level of this Actor.
    * @type {number}
    */
@@ -891,14 +899,15 @@ export default class CrucibleActor extends Actor {
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
 
     // Coalesce AttackRollData from spell usage and per-attack options
+    const {bonuses} = spell.usage;
     const defenseType = options.defenseType || spell.usage.defenseType;
     const rollData = {
       actorId: this.id,
       spellId: spell.id,
       target: target.uuid,
-      ability: this.getAbilityBonus(spell.scaling),
-      skill: 0,
-      enchantment: 0,
+      ability: bonuses.ability,
+      skill: bonuses.skill,
+      enchantment: bonuses.enchantment,
       boons: {...spell.usage.boons, ...options.boons},
       banes: {...spell.usage.banes, ...options.banes},
       defenseType,
@@ -906,7 +915,7 @@ export default class CrucibleActor extends Actor {
       resource: options.resource || spell.rune.resource,
       damageType: options.damageType || spell.damage.type,
       damageBonus: options.damageBonus || spell.damage.bonus || 0,
-      multiplier: options.multiplier || ((spell.damage.multiplier ?? 1) * (spell.usage.bonuses.multiplier ?? 1)),
+      multiplier: options.multiplier || ((spell.damage.multiplier ?? 1) * (bonuses.multiplier ?? 1)),
       restoration: options.restoration ?? spell.usage.restoration
     };
 
@@ -1297,7 +1306,9 @@ export default class CrucibleActor extends Actor {
       // Reverse: restore the pre-action snapshot of a delete/update, or undo a creation by deleting it
       if ( reverse ) {
         if ( forceUpdate ) {
-          if ( effectData._snapshot ) (existing ? toUpdate : toCreate).push(effectData._snapshot);
+          if ( !existing ) continue; // Deleted since by something other than this action
+          if ( effectData._snapshot ) toUpdate.push(effectData._snapshot);
+          else toDelete.push(effectData._id);
         }
         else if ( forceDelete ) {
           if ( effectData._snapshot && !existing ) toCreate.push(effectData._snapshot);
@@ -1314,7 +1325,10 @@ export default class CrucibleActor extends Actor {
 
     // Simulate application without persistence
     if ( !commit ) {
-      for ( const data of toCreate ) this.effects.set(data._id, this.effects.createDocument(data));
+      for ( const data of toCreate ) {
+        const effectData = this.effects.createDocument(foundry.utils.deepClone(data)); // Clean copy
+        this.effects.set(data._id, effectData);
+      }
       for ( const data of toUpdate ) this.effects.get(data._id)?.updateSource(data);
       for ( const id of toDelete ) this.effects.delete(id);
       this.reset();
@@ -1371,7 +1385,7 @@ export default class CrucibleActor extends Actor {
       actorUpdates, effectChanges, statusText, dot: []};
 
     // Actor turn start configuration hook
-    await this.#prepareTurnStartConfig(turnStartConfig, context);
+    this.#prepareTurnStartConfig(turnStartConfig, context);
     this.callActorHooks("startTurn", turnStartConfig, context);
 
     // Remove any no-longer-expiring effects from `effectChanges.toExpire`
@@ -1424,12 +1438,12 @@ export default class CrucibleActor extends Actor {
    * Damage-over-time effects are identified.
    * Effects which core will expire are identified.
    * Unaware effect is primed for deletion.
-   * Effects with a maintenance cost are checked here; effects without sufficient focus are primed for deletion.
+   * Effects with a maintenance cost are suppressed until their maintenance is paid.
    * @param {CrucibleTurnChangeConfig & {dot: CrucibleActiveEffect[]}} turnStartConfig
    * @param {CombatTurnEventContext} context
    */
-  async #prepareTurnStartConfig(turnStartConfig, context) {
-    const {effectChanges, resourceChanges, dot} = turnStartConfig;
+  #prepareTurnStartConfig(turnStartConfig, context) {
+    const {effectChanges, dot} = turnStartConfig;
     for ( const effect of this.effects ) {
 
       // Gather damage-over-time effects
@@ -1447,28 +1461,9 @@ export default class CrucibleActor extends Actor {
         continue;
       }
 
-      // Identify maintained effects (only base-type effects carry maintenance data)
-      if ( effect.type !== "base" ) continue;
-      const maintainedCost = effect.system.maintenance.cost;
-      if ( maintainedCost ) {
-        if ( maintainedCost > this.resources.focus.value ) {
-          effectChanges.toDelete.push(effect.id);
-          continue;
-        }
-        const confirm = await DialogV2.query(this.getDesignatedUser(), "confirm", {
-          window: {
-            title: _loc("ACTION.MaintainTitle", {effect: effect.name})
-          },
-          content: _loc("ACTION.MaintainContent", {cost: maintainedCost, effect: effect.name})
-        });
-        if ( confirm ) {
-          resourceChanges.focus.push({
-            label: _loc("COMBAT.SUMMARY.Maintaining", {effect: effect.name}),
-            amount: -maintainedCost
-          });
-        } else {
-          effectChanges.toDelete.push(effect.id);
-        }
+      // Suppress maintained effects until their maintenance is paid
+      if ( effect.system.properties?.has("maintained") ) {
+        effectChanges.toUpdate.push({_id: effect.id, system: {suppression: {maintenance: true}}});
       }
     }
   }
@@ -1542,6 +1537,7 @@ export default class CrucibleActor extends Actor {
    * Identify changes that should occur as part of a turn end workflow.
    * Delay flag is reset.
    * Effects which core will expire are identified.
+   * Maintained effects whose maintenance went unpaid are primed for deletion.
    * @param {CrucibleTurnChangeConfig} turnEndConfig
    * @param {CombatTurnEventContext} context
    */
@@ -1555,6 +1551,9 @@ export default class CrucibleActor extends Actor {
         effectChanges.toExpire.push(effect.id);
         continue; // No need to manually delete an effect which is about to expire naturally
       }
+
+      // Delete maintained effects whose maintenance went unpaid
+      if ( effect.system.suppression?.maintenance ) effectChanges.toDelete.push(effect.id);
     }
   }
 
@@ -1595,6 +1594,23 @@ export default class CrucibleActor extends Actor {
     for ( const deletedId of [...effectChanges.toDelete, ...effectChanges.toExpire] ) {
       effects.push({name: this.effects.get(deletedId)?.name ?? deletedId,
         changeLabel: _loc("COMBAT.SUMMARY.EffectExpired")});
+    }
+    for ( const updated of effectChanges.toUpdate ) {
+      const effect = this.effects.get(updated._id);
+      for ( const [reason, suppressed] of Object.entries(updated.system?.suppression ?? {}) ) {
+        if ( !suppressed ) continue;
+        const entry = {name: effect?.name ?? updated._id};
+
+        // Maintenance due renders as a button which pays it
+        const action = (reason === "maintenance") ? effect?.system.getMaintainAction() : null;
+        if ( action ) {
+          entry.changeLabel = _loc("BASE_EFFECT.ACTIONS.Maintain");
+          entry.maintain = {uuid: effect.uuid,
+            tooltip: _loc("BASE_EFFECT.ACTIONS.MaintainCost", {cost: action.cost.focus})};
+        }
+        else entry.changeLabel = SYSTEM.EFFECTS.SUPPRESSION_REASONS[reason]?.label ?? reason;
+        effects.push(entry);
+      }
     }
     for ( const created of effectChanges.toCreate ) {
       const showDuration = created.duration.units === "rounds";

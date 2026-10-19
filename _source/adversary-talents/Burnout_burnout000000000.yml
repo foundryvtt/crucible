@@ -3,6 +3,9 @@ type: talent
 _id: burnout000000000
 img: icons/magic/air/fog-gas-smoke-swirling-orange.webp
 system:
+  keywords:
+    - damageType.fire
+    - target.reflex
   nodes: []
   description: >-
     <p>Steam-powered constructs store dangerous amounts of superheated steam
@@ -70,14 +73,14 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.360'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.9.1
   createdTime: 1776978969586
-  modifiedTime: 1776978969587
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1791929521467
+  lastModifiedBy: QPs9IwGEu5DxD700
   exportSource: null
   compendiumSource: null
   duplicateSource: null
-sort: 0
+sort: 100000
 _key: '!items!burnout000000000'

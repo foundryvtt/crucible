@@ -2,6 +2,10 @@ name: Ensnare
 type: talent
 img: icons/magic/nature/root-vine-entangle-foot-green.webp
 system:
+  keywords:
+    - playstyle.melee
+    - target.reflex
+    - damageType.bludgeoning
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} lashes out with a grasping tendril, coil,

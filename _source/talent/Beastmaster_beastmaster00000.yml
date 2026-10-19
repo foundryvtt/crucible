@@ -96,6 +96,8 @@ system:
         <p>You focus and make an @Rule[action.accurate] <strong>Strike</strong>
         with your weapon against a @Condition[flanked] target.</p>
       condition: ''
+  keywords:
+    - action.summon
   nodes:
     - sig3.toughness
     - sig3.wisdom

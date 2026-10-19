@@ -13,6 +13,10 @@ system:
     as <strong>Corruption</strong> damage to @Rule[resource.health] each
     Round.</p>
   actions: []
+  keywords:
+    - playstyle.spellcraft
+    - spell.physical
+    - damageType.corruption
   nodes:
     - pre3b
   iconicSpells: 0

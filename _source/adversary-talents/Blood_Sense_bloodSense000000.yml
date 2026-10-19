@@ -2,6 +2,9 @@ name: Blood Sense
 type: talent
 img: icons/skills/wounds/injury-hand-blood-red.webp
 system:
+  keywords:
+    - playstyle.utility
+    - senses
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} can precisely sense any blooded creature

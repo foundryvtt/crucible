@@ -66,8 +66,12 @@
 
   // Turn start/end summary cards
   .turn-change-summary {
-    .change-table {
-
+    button.maintain-effect {
+      --button-size: 24px;
+      display: inline-flex;
+      height: auto;
+      padding: 0 8px;
+      font-size: inherit;
     }
   }
 
@@ -167,6 +171,12 @@
     text-wrap: wrap;
     word-break: unset;
     text-indent: 1.45em hanging;
+  }
+
+  // Read-aloud text sent from a journal fills the message
+  section.block.readaloud {
+    margin: 0;
+    padding: 0 0.5rem;
   }
 }
 

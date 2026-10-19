@@ -60,6 +60,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {CrucibleItem} [weapon]        A specific weapon item being used, or which must be used, by this action
  * @property {CrucibleItem} [consumable]    A specific consumable item being used
  * @property {number} [consumeUses=1]       Uses of the consumable item expended by this action
+ * @property {string} [maintainedEffectId]  The ActiveEffect maintained by this action, otherwise the first one due
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
  * @property {Record<string, -1|0|1>} [resourceConstraints]  Directional limits on the acting actor's own resources,
  *   honored during event-stream resolution (a delta opposing the sign is dropped)
@@ -705,7 +706,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }),
         statuses: new fields.SetField(new fields.StringField({choices: CONFIG.statusEffects})),
         duration: aeDuration,
-        system: new fields.SchemaField(crucible.api.models.CrucibleBaseActiveEffect.defineSchema())
+        system: new fields.SchemaField({
+          ...crucible.api.models.CrucibleBaseActiveEffect.defineSchema(),
+          // Derive effect removal DC from the action's roll in CrucibleAction##finalizeEvents
+          dc: new fields.NumberField({required: false, integer: true, nullable: true, initial: undefined})
+        })
       })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     };
@@ -1505,7 +1510,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Finalize action events
     this.#finalizeSelfEvents();
     this.#recordEffectEvents();
-    await this._post();
+    try {
+      await this._post();
+    } catch(err) {
+      ui.notifications.warn(err);
+      return null;
+    }
     const dealsDamage = this.#settleRollOutcomes();
     if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
     await this._resolveEventStream();
@@ -2099,7 +2109,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const event = this.#getQualifyingEvent(target, events, eventsByActor, effectData);
         if ( !event ) continue;
         if ( regionEffectRequired && (target === this.actor) ) regionEffectRequired = false;
-        const {_id, name, duration, statuses: origStatuses, system={}, showIcon} = effectData;
+        // Ensure each target has an independent copy of effect data
+        const {_id, name, duration, statuses: origStatuses, system={}, showIcon} = foundry.utils.deepClone(effectData);
         const statuses = new Set(origStatuses);
 
         // Keep countdown (units-based) and event-expiry durations; drop empty durations, invalid for the core AE schema
@@ -2117,12 +2128,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         };
         if ( showIcon !== undefined ) effect.showIcon = showIcon; // Honor a per-effect icon-visibility override
 
-        // Automatically configure damage-over-time statuses
+        // Automatically configure damage-over-time or other generator-having statuses
         for ( const status of origStatuses ) {
           const fn = SYSTEM.EFFECTS[status];
           if ( typeof fn !== "function" ) continue;
           const statusEffect = fn(this.actor, {ability: this.scaling});
           if ( statusEffect.system?.dot && !effect.system.dot?.length ) effect.system.dot = statusEffect.system.dot;
+          if ( statusEffect.system?.changes && !effect.system.changes?.length ) {
+            effect.system.changes = statusEffect.system.changes;
+          }
           if ( statusEffect.statuses ) {
             for ( const s of statusEffect.statuses ) statuses.add(s);
           }
@@ -2136,8 +2150,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // If no self effect to track non-ephemeral region on, create one
       if ( regionEffectRequired && (target === this.actor) ) {
+        const trackingId = this.gesture ? `${this.gesture.id} ${this.rune?.id ?? ""}` : this.id; // One per rune
         this.recordEvent({type: "effect", target, effects: [{
-          _id: SYSTEM.EFFECTS.getEffectId(this.gesture?.id ?? this.id),
+          _id: SYSTEM.EFFECTS.getEffectId(trackingId),
           name: this.name,
           description,
           img: this.img,
@@ -2358,20 +2373,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         else {
           const d = event.roll?.data;
           effect.system ??= {};
+          const properties = new Set(effect.system.properties);
 
           // Spell-applied effects gain the magical property
-          if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) {
-            const properties = new Set(effect.system.properties);
-            properties.add("magical");
-            effect.system.properties = Array.from(properties);
-          }
+          if ( this.tags.has("spell") || this.tags.has("iconicSpell") ) properties.add("magical");
 
           // Populate effect removal difficulty
           if ( effect.system.dc === undefined ) {
             effect.system.dc = d
               ? SYSTEM.PASSIVE_BASE + (d.ability ?? 0) + (d.skill ?? 0) + (d.enchantment ?? 0)
               : SYSTEM.PASSIVE_BASE + (this.actor?.system.advancement?.level ?? 0);
+            properties.add("removable");
           }
+          effect.system.properties = Array.from(properties);
         }
       }
     }

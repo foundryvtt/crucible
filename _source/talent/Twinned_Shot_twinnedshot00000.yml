@@ -34,6 +34,9 @@ system:
         weapon: true
         minimum: null
       summon: null
+  keywords:
+    - playstyle.ranged
+    - weapon.projectile
   nodes:
     - dex1a
   iconicSpells: 0

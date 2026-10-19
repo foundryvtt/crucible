@@ -2,6 +2,10 @@ name: Tail Sweep
 type: talent
 img: icons/skills/melee/strike-scythe-fire-green.webp
 system:
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - damageType.bludgeoning
   nodes: []
   description: >-
     <p>The @ref[actor.name]{creature} can whip its heavy tail across the

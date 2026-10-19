@@ -63,6 +63,74 @@
 }
 
 /* -------------------------------------------- */
+/*  Talent Tree Filter                          */
+/* -------------------------------------------- */
+
+#crucible-talent-filter {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 280px;
+  padding: 0.75rem;
+  background: var(--color-cool-5-75);
+  border: 1px solid var(--color-cool-4);
+  border-radius: 8px;
+  box-shadow: 0 0 8px #000;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-size: var(--font-size-12);
+  --input-height: 1.5rem;
+  pointer-events: all;
+  z-index: calc(var(--z-index-window) - 1); // Below windows so compendiums and the sheet open over it
+
+  input, select, button {
+    font-size: var(--font-size-12);
+  }
+
+  .talent-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filter-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    i {
+      flex: none;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .form-group > label {
+    flex: 0 0 72px;
+  }
+
+  .levels {
+    input {
+      flex: 0 0 3rem;
+      text-align: center;
+    }
+    .separator {
+      flex: none;
+    }
+  }
+
+  .filter-footer {
+    align-items: center;
+    gap: 0.5rem;
+    .matches {
+      color: var(--color-text-secondary);
+    }
+    button {
+      flex: none;
+      height: var(--input-height);
+    }
+  }
+}
+
+/* -------------------------------------------- */
 /*  Talent Tree Controls                        */
 /* -------------------------------------------- */
 
@@ -93,7 +161,7 @@
 
   .points {
     gap: 0.5rem;
-    flex: 0 0 240px;
+    flex: 1;
     align-items: center;
     span.input {
       flex: none;
@@ -101,6 +169,10 @@
       font-family: var(--font-h1);
       font-size: var(--font-size-32);
       color: var(--color-text);
+    }
+    span.label {
+      position: relative;
+      top: 0.15em; // Vertical alignment with header font
     }
   }
 
@@ -117,11 +189,25 @@
     }
     span.level {
       flex: none;
+      position: relative;
+      top: 0.15em; // Vertical alignment with header font
     }
   }
 
   div.controls {
-    flex: 0 0 240px;
-    gap: 0.5rem;
+    flex: 1;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    button {
+      flex: 0 0 2rem;
+      &:focus:not(:focus-visible) {
+        outline: none;
+        box-shadow: none;
+      }
+      &.active, &.active:focus {
+        color: var(--color-text);
+        box-shadow: 0 0 6px var(--color-border-highlight);
+      }
+    }
   }
 }

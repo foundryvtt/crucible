@@ -39,6 +39,13 @@ system:
         maximum: null
         weapon: false
       summon: null
+  keywords:
+    - playstyle.melee
+    - playstyle.defensive
+    - weapon.unarmed
+    - armor.unarmored
+    - defense.reflex
+    - defense.willpower
   nodes:
     - sig3.dexterity
     - sig3.wisdom

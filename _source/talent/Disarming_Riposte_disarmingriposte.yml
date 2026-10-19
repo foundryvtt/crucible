@@ -8,6 +8,10 @@ system:
     Riposte} achieves a @Rule[dice.criticalSuccess]{Critical Hit}, the target is
     disarmed, dropping their main-hand weapon.</p>
   actions: []
+  keywords:
+    - playstyle.melee
+    - defense.parry
+    - action.reaction
   nodes:
     - str4b
   iconicSpells: 0
