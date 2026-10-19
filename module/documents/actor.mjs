@@ -1306,7 +1306,9 @@ export default class CrucibleActor extends Actor {
       // Reverse: restore the pre-action snapshot of a delete/update, or undo a creation by deleting it
       if ( reverse ) {
         if ( forceUpdate ) {
-          if ( effectData._snapshot ) (existing ? toUpdate : toCreate).push(effectData._snapshot);
+          if ( !existing ) continue; // Deleted since by something other than this action
+          if ( effectData._snapshot ) toUpdate.push(effectData._snapshot);
+          else toDelete.push(effectData._id);
         }
         else if ( forceDelete ) {
           if ( effectData._snapshot && !existing ) toCreate.push(effectData._snapshot);
