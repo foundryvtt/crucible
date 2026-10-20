@@ -94,6 +94,22 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   #movementAnimation = new CrucibleTokenMovementAnimation(this);
 
   /* -------------------------------------------- */
+
+  /**
+   * The surface this token stands on or would fall onto at its rendered position, which follows movement animation.
+   * @type {{elevation: number, region: RegionDocument|null, level: Level}|null}
+   */
+  get supportingSurface() {
+    if ( this.#supportingSurface === undefined ) {
+      this.#supportingSurface = this.document._findSupportingSurface(this.document);
+    }
+    return this.#supportingSurface;
+  }
+
+  /** @type {{elevation: number, region: RegionDocument|null, level: Level}|null|undefined} */
+  #supportingSurface;
+
+  /* -------------------------------------------- */
   /*  Detection                                   */
   /* -------------------------------------------- */
 
@@ -192,6 +208,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @inheritDoc */
   _applyRenderFlags(flags) {
     super._applyRenderFlags(flags);
+    if ( flags.refreshPosition || flags.refreshElevation ) this.#supportingSurface = undefined;
     if ( flags.refreshFlanking ) this.#updateFlanking();
   }
 
@@ -217,14 +234,15 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /**
    * Get the desired adjusted scale of this token when applied to the Crucible microgrid.
    * Shrink or enlarge tokens with hyperbolic falloff factor, clamped to an allowed range of [0.5, 1.5]
+   * @param {number} [elevation]    The elevation to evaluate, defaulting to the token's own
    * @returns {number}
    */
-  getMicrogridScaleFactor() {
+  getMicrogridScaleFactor(elevation=this.document.elevation) {
     if ( !crucible.CONFIG.elevationScaling || !canvas.level || !this.document.parent.useMicrogrid ) return 1;
-    const de = this.document.elevation - canvas.level.elevation.base;
+    const de = elevation - canvas.level.elevation.base;
     if ( de === 0 ) return 1;
     if ( de < 0 ) return Math.max(0.5, 1 / (1 - (de / 90)));  // Reaches 0.5 at -90ft
-    if ( de > 0 ) return Math.min(1.5, 1 / (1 - (de / 270))); // Reaches 1.5 at +90ft
+    return Math.min(1.5, 1 / (1 - (de / 270))); // Reaches 1.5 at +90ft
   }
 
   /* -------------------------------------------- */
