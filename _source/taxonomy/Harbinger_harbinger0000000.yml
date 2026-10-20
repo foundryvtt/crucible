@@ -54,6 +54,7 @@ system:
     spells: true
   movement:
     size: 5
+    heightRatio: 1.5
     stride: 10
   identifier: harbinger
 effects: []

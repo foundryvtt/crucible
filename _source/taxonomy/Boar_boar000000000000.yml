@@ -53,6 +53,7 @@ system:
       immune: false
   movement:
     size: 4
+    heightRatio: 0.75
     stride: 10
   talents: []
   characteristics:

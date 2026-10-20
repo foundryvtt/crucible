@@ -19,6 +19,7 @@ system:
     dexterity: 1
   movement:
     size: 3
+    heightRatio: 0.4
     stride: 10
   resistances:
     acid:

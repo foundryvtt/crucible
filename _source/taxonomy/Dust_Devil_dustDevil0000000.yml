@@ -58,6 +58,7 @@ system:
     temperature: ''
   movement:
     size: 2
+    heightRatio: 2
     stride: 12
   talents:
     - item: Compendium.crucible.adversary-talents.Item.amorphous0000000

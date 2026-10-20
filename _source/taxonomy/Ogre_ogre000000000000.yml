@@ -56,6 +56,7 @@ system:
     equipment: true
   movement:
     size: 6
+    heightRatio: 1.6
     stride: 10
   talents: []
   identifier: ogre

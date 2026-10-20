@@ -107,6 +107,7 @@ system:
         equipment: false
       movement:
         size: 6
+        heightRatio: 1.5
         stride: 0
       talents: []
       identifier: ancestralSpirit

@@ -17,6 +17,7 @@ system:
     dexterity: 3
   movement:
     size: 4
+    heightRatio: 1.5
     stride: 10
   resistances:
     bludgeoning:

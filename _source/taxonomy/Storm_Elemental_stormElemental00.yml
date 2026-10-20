@@ -54,6 +54,7 @@ system:
     equipment: false
   movement:
     size: 4
+    heightRatio: 1.5
     stride: 10
   talents:
     - item: Compendium.crucible.talent.Item.runeStorm0000000

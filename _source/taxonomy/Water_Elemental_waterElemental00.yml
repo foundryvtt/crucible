@@ -56,6 +56,7 @@ system:
     temperature: ''
   movement:
     size: 4
+    heightRatio: 1.5
     stride: 12
   talents:
     - item: Compendium.crucible.adversary-talents.Item.coldAbsorption00

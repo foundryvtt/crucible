@@ -51,6 +51,7 @@ system:
       immune: false
   movement:
     size: 6
+    heightRatio: 1.35
     stride: 12
   talents:
     - item: Compendium.crucible.adversary-talents.Item.pouncingStrike00
