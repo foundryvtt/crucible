@@ -60,6 +60,9 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     return schema;
   }
 
+  /** @override */
+  static biologyName = "taxonomy";
+
   /**
    * The order in which abilities claim a point when automatic allocation would otherwise be tied.
    * @type {string[]}
@@ -185,16 +188,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       const base = this.advancement.threat * perLevel;
       res.base = base < 0 ? Math.floor(base) : Math.ceil(base);
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _prepareBaseMovement() {
-    super._prepareBaseMovement();
-    const {size=4, stride=10} = this.details.taxonomy?.movement || {};
-    this.movement.baseSize = size;
-    this.movement.baseStride = stride;
   }
 
   /* -------------------------------------------- */

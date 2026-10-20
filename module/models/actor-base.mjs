@@ -159,6 +159,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   static EMBED_TEMPLATE = "systems/crucible/templates/embeds/actor.hbs";
 
+  /**
+   * The details field holding the Item which defines this creature's biology, such as its size and stride.
+   * @type {"ancestry"|"taxonomy"|undefined}
+   */
+  static biologyName;
+
   /* -------------------------------------------- */
   /*  Derived Data Attributes                     */
   /* -------------------------------------------- */
@@ -943,6 +949,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   _prepareBaseMovement() {
     const m = this.movement;
+    const {size=4, stride=10, heightRatio=1.5} = this.details[this.constructor.biologyName]?.movement ?? {};
+    m.baseSize = size;
+    m.baseStride = stride;
+    m.heightRatio = heightRatio;
     m.baseEngagement = 1;
     m.costMultipliers = {};
   }
@@ -955,8 +965,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareFinalMovement() {
     const m = this.movement;
 
-    // Size and Stride
+    // Size, Height, and Stride
     m.size = m.baseSize + m.sizeBonus;
+    m.height = Math.round(m.size * m.heightRatio);
     m.stride = m.free = m.baseStride + m.strideBonus;
 
     // Engagement: the number of enemies which may engage this creature before it counts as flanked, not a distance

@@ -217,6 +217,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       proficiency: this.#prepareProficiencies(),
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
+      sizeTooltip: this.#prepareSizeBreakdown(),
       source: this.document.toObject(),
       spells: this.#prepareSpells(iconicSpells),
       tabs: this._prepareTabs("sheet"),
@@ -798,6 +799,25 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       resources.heroism.pips.push({full, double: false, cssClass});
     }
     return resources;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Account for an Actor's size and the height derived from it.
+   * @returns {string}  An HTML breakdown for use as tooltip content
+   */
+  #prepareSizeBreakdown() {
+    const {baseSize, sizeBonus, size, height} = this.document.system.movement;
+    const row = (label, value, cssClass="") => `<div class="counter ${cssClass}"><label>${label}</label>`
+      + `<span class="value">${value}</span></div>`;
+    const rows = [
+      row(_loc("ACTOR.FIELDS.movement.size.base"), baseSize),
+      row(_loc("ACTOR.FIELDS.movement.sizeBonus.label"), sizeBonus.signedString()),
+      row(_loc("ACTOR.FIELDS.movement.size.label"), size, "total"),
+      row(`${_loc("Height")} (${game.system.grid.units})`, height)
+    ];
+    return `<div class="size-breakdown flexcol">${rows.join("")}</div>`;
   }
 
   /* -------------------------------------------- */

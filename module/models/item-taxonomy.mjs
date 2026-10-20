@@ -24,6 +24,8 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
       }, {}), {validate: CrucibleTaxonomyItem.#validateAbilities}),
       movement: new fields.SchemaField({
         size: new fields.NumberField({...requiredInteger, min: 1, initial: 4}),
+        heightRatio: new fields.NumberField({...requiredInteger, integer: false, positive: true, initial: 1.5,
+          step: 0.05}),
         stride: new fields.NumberField({...requiredInteger, min: 1, initial: 10})
       }),
       resistances: new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {

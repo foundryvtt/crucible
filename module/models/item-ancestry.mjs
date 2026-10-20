@@ -32,6 +32,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
       identifier: new ItemIdentifierField(),
       movement: new fields.SchemaField({
         size: new fields.NumberField({...reqInt, min: 1, initial: 4}),
+        heightRatio: new fields.NumberField({...reqInt, integer: false, positive: true, initial: 1.5, step: 0.05}),
         stride: new fields.NumberField({...reqInt, min: 1, initial: 10})
       }),
       resistances: new fields.SchemaField({
@@ -111,8 +112,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     const system = {
       description,
       identifier,
-      size: movement.size,
-      stride: movement.stride,
+      movement,
       category: "humanoid",
       abilities: Object.values(SYSTEM.ABILITIES).reduce((obj, {id}) => {
         if ( id === primary ) obj[id] = 4;

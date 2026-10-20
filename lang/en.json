@@ -1182,6 +1182,10 @@
         "temperature.label": "Body Temperature"
       },
       "movement": {
+        "heightRatio": {
+          "hint": "The standing height of this Ancestry as a multiple of its Size. Height is Size times this ratio, rounded to the nearest foot.",
+          "label": "Height Ratio"
+        },
         "label": "Movement",
         "size": {
           "hint": "The size of this ancestry in grid spaces.",
@@ -2804,6 +2808,10 @@
         "label": "Identifier"
       },
       "movement": {
+        "heightRatio": {
+          "hint": "The standing height of this creature as a multiple of its Size. Height is Size times this ratio, rounded to the nearest foot.",
+          "label": "Height Ratio"
+        },
         "label": "Movement",
         "size": {
           "hint": "The size of this adversary in grid spaces.",

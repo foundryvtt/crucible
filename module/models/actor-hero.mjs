@@ -56,6 +56,9 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     return schema;
   }
 
+  /** @override */
+  static biologyName = "ancestry";
+
   /* -------------------------------------------- */
 
   /**
@@ -105,16 +108,6 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     const level = Math.max(this.advancement.level, 1); // Level zero is mid-creation, not beneath level one
     config.trainingCap = Math.min(perLevel * level, SYSTEM.PROFICIENCY.POINTS_MAX);
     return config;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _prepareBaseMovement() {
-    super._prepareBaseMovement();
-    const {size=4, stride=10} = this.details.ancestry.movement;
-    this.movement.baseSize = size;
-    this.movement.baseStride = stride;
   }
 
   /* -------------------------------------------- */
