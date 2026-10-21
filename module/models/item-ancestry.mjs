@@ -101,11 +101,25 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
 
     // Determine ability allocation
     const {primary, secondary} = abilities;
-    let tertiary;
-    if ( ![primary, secondary].includes("toughness") ) tertiary = "toughness";
+    const allocation = {};
+    if ( SYSTEM.ABILITIES[primary].groupInternal === SYSTEM.ABILITIES[secondary].groupInternal ) {
+      for ( const {id, type} of Object.values(SYSTEM.ABILITIES) ) {
+        if ( [primary, secondary].includes(id) ) allocation[id] = 3;
+        else allocation[id] = (type === "physical") ? 2 : 1;
+      }
+    }
     else {
-      const opposites = {strength: "intellect", wisdom: "dexterity", intellect: "strength", dexterity: "wisdom"};
-      tertiary = opposites[primary === "toughness" ? secondary : primary];
+      let tertiary = "toughness";
+      if ( [primary, secondary].includes("toughness") ) {
+        const opposites = {strength: "intellect", wisdom: "dexterity", intellect: "strength", dexterity: "wisdom"};
+        tertiary = opposites[primary === "toughness" ? secondary : primary];
+      }
+      for ( const {id} of Object.values(SYSTEM.ABILITIES) ) {
+        if ( id === primary ) allocation[id] = 4;
+        else if ( id === secondary ) allocation[id] = 3;
+        else if ( id === tertiary ) allocation[id] = 2;
+        else allocation[id] = 1;
+      }
     }
 
     // Prepare system data
@@ -114,13 +128,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
       identifier,
       movement,
       category: "humanoid",
-      abilities: Object.values(SYSTEM.ABILITIES).reduce((obj, {id}) => {
-        if ( id === primary ) obj[id] = 4;
-        else if ( id === secondary ) obj[id] = tertiary ? 3: 4;
-        else if ( id === tertiary ) obj[id] = 2;
-        else obj[id] = 1;
-        return obj;
-      }, {}),
+      abilities: allocation,
       resistances: Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, {id}) => {
         if ( id === resistances.resistance ) obj[id] = {value: 1};
         else if ( id === resistances.vulnerability ) obj[id] = {value: -1};
