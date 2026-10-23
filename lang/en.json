@@ -2064,6 +2064,7 @@
     "QualityShoddy": "Shoddy",
     "QualityStandard": "Standard",
     "QualitySuperior": "Superior",
+    "QuantityMultiple": "(&times;{quantity})",
     "QuantityNone": "None"
   },
   "KEYBINDINGS": {

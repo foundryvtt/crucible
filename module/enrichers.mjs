@@ -1084,9 +1084,10 @@ export function resolveReferences(text, relativeTo) {
 /**
  * Enrich a loot item reference into a draggable link that materializes a composed item on drop.
  * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, broken,
- * description="Public description text", or img=path/to/icon.webp.
+ * description="Public description text", img=path/to/icon.webp, or quantity=number.
+ * A quantity which is not stackable is displayed, but each drop composes a single copy.
  * @param {RegExpMatchArray} matchArray
- * @returns {Promise<HTMLAnchorElement|Text>}
+ * @returns {Promise<HTMLAnchorElement|DocumentFragment|Text>}
  * @example Explicit name and quality
  * ```html
  * @Loot[Compendium.crucible.equipment.Item.longsword0000000 keen weaponPotency quality=fine]{Keen Longsword of Potency}
@@ -1111,6 +1112,10 @@ export function resolveReferences(text, relativeTo) {
  * ```html
  * @Loot[Compendium.crucible.equipment.Item.amulet0000000000 img=icons/equipment/neck/pendant-gold.webp]
  * ```
+ * @example A stack of several
+ * ```html
+ * @Loot[Compendium.crucible.equipment.Item.antitoxin0000000 quality=fine quantity=3]
+ * ```
  */
 async function enrichLoot([match, params, displayName]) {
   const [baseUuid, tokenString=""] = params.trim().split(/\s+(.*)/s);
@@ -1123,23 +1128,19 @@ async function enrichLoot([match, params, displayName]) {
   let broken = false;
   let description = null;
   let img = null;
+  let quantity = null;
   for ( const [, key, quotedValue, plainValue] of tokenString.matchAll(/(\w+)(?:="([^"]*)"|=([^\s"]*))?/g) ) {
     const value = quotedValue ?? plainValue;
-    if ( key === "quality" ) {
-      quality = value;
-    } else if ( key === "broken" ) {
-      broken = (value === undefined) || (value === "true");
-    } else if ( key === "description" ) {
-      description = value || null;
-    } else if ( key === "img" ) {
-      img = value || null;
-    } else {
-      affixes.push({id: key, tier: value ? Number(value) : 1});
-    }
+    if ( key === "quality" ) quality = value;
+    else if ( key === "quantity" ) quantity = Number(value) || null;
+    else if ( key === "broken" ) broken = (value === undefined) || (value === "true");
+    else if ( key === "description" ) description = value || null;
+    else if ( key === "img" ) img = value || null;
+    else affixes.push({id: key, tier: value ? Number(value) : 1});
   }
 
   // Build the loot configuration
-  const config = {baseUuid, affixes, quality, broken, description, img, name: displayName || null};
+  const config = {baseUuid, affixes, quality, broken, description, img, quantity, name: displayName || null};
 
   // Compose a display name by resolving affix documents from configured packs
   let label = displayName;
@@ -1173,7 +1174,15 @@ async function enrichLoot([match, params, displayName]) {
   a.dataset.loot = JSON.stringify(config);
   a.dataset.crucibleTooltip = "loot";
   a.innerHTML = `<i class="fa-solid fa-wand-sparkles"></i> ${label}`;
-  return a;
+  if ( !(quantity > 1) ) return a;
+
+  // Suffix the link with a stacked quantity
+  const span = document.createElement("span");
+  span.classList.add("quantity");
+  span.innerHTML = _loc("ITEM.QuantityMultiple", {quantity});
+  const fragment = document.createDocumentFragment();
+  fragment.append(a, " ", span);
+  return fragment;
 }
 
 /* -------------------------------------------- */
