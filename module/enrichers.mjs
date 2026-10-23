@@ -1160,8 +1160,11 @@ async function enrichLoot([match, params, displayName]) {
       }
       if ( !found ) return new Text(match);
     }
-    label = crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixDocs,
-      baseItem.system.properties?.has("natural") ? "" : quality);
+
+    // Determine whether the item should be marked with a quality prefix
+    const base = await fromUuid(baseUuid);
+    const unmarked = base.system.properties?.has("natural") || (quality === base.system.quality);
+    label = crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixDocs, unmarked ? "" : quality);
   }
   if ( !label ) label = baseItem.name;
 

@@ -250,9 +250,11 @@ export default class CrucibleItem extends foundry.documents.Item {
     if ( description ) itemData.system.description.public = `<p>${foundry.utils.escapeHTML(description)}</p>`;
     itemData.effects = [...(itemData.effects || []), ...affixEffects];
 
-    // Compose the item name
+    // Compose the item name, including a possible prefix to denote its quality
+    const {quality: baseQuality, properties} = baseItem.system;
+    const unmarked = properties.has("natural") || (itemData.system.quality === baseQuality);
     itemData.name = name || crucible.api.models.CruciblePhysicalItem.composeItemName(baseItem.name, affixEffects,
-      baseItem.system.properties.has("natural") ? "" : itemData.system.quality) || baseItem.name;
+      unmarked ? "" : itemData.system.quality) || baseItem.name;
 
     // Flag compendium source
     itemData._stats ??= {};
