@@ -1164,8 +1164,9 @@ export default class CrucibleActor extends Actor {
    * Build a resource update payload that fills every non-reserve resource pool to its current maximum.
    * Used during initial actor creation and as part of level/ability change simulation.
    * @returns {object}
+   * @internal
    */
-  #getRecoveryData() {
+  _getRecoveryData() {
     const updates = {system: {resources: {}}};
     for ( const [id, resource] of Object.entries(this.system.resources) ) {
       const cfg = SYSTEM.RESOURCES[id];
@@ -2344,6 +2345,37 @@ export default class CrucibleActor extends Actor {
    * @internal
    */
   async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true, substitutions}={}) {
+    const {updateData, deleteItemIds, message} = await this._prepareDetailItem(item, {type, canApply, canClear,
+      substitutions});
+
+    // Update locally (for example during character creation)
+    if ( local ) {
+      for ( const itemId of deleteItemIds ) this.items.delete(itemId);
+      this.updateSource(updateData);
+      return;
+    }
+
+    // Commit the update. Deletion first, intentionally.
+    if ( deleteItemIds.size ) await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
+    await this.update(updateData, {keepEmbeddedIds: true});
+    if ( message && notify ) ui.notifications.info(message);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the changes which apply or clear actor detail data, without applying them.
+   * This is an internal helper method not intended for external use.
+   * @param {CrucibleItem|null} item          An Item document, object of Item data, or null to clear data
+   * @param {object} [options]                Options which affect how details are prepared
+   * @param {string} [options.type]             Assert a particular type of detail item. Required when clearing
+   * @param {boolean} [options.canApply]        Allow new detail data to be applied?
+   * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
+   * @param {CrucibleTalentSubstitution[]} [options.substitutions]  Background talent substitutions
+   * @returns {Promise<{updateData: object, deleteItemIds: Set<string>, message: string}>}
+   * @internal
+   */
+  async _prepareDetailItem(item, {type, canApply=true, canClear=false, substitutions}={}) {
     type ??= item?.type;
     if ( item ) {
       if ( !canApply ) throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
@@ -2416,18 +2448,7 @@ export default class CrucibleActor extends Actor {
       if ( updateItems.length ) updateData.items = updateItems;
       message = _loc("ACTOR.ACTIONS.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
-
-    // Update locally (for example during character creation)
-    if ( local ) {
-      for ( const itemId of deleteItemIds ) this.items.delete(itemId);
-      this.updateSource(updateData);
-      return;
-    }
-
-    // Commit the update. Deletion first, intentionally.
-    if ( deleteItemIds.size ) await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
-    await this.update(updateData, {keepEmbeddedIds: true});
-    if ( message && notify ) ui.notifications.info(message);
+    return {updateData, deleteItemIds, message};
   }
 
   /* -------------------------------------------- */
@@ -2990,7 +3011,7 @@ export default class CrucibleActor extends Actor {
     const updates = {};
 
     // Populate initial resource data
-    if ( this.system.schema.has("resources") ) this.updateSource(this.#getRecoveryData());
+    if ( this.system.schema.has("resources") ) this.updateSource(this._getRecoveryData());
 
     // Begin Character Creation
     if ( !this.pack && (this.type === "hero") && (this.level === 0) ) {
@@ -3064,7 +3085,7 @@ export default class CrucibleActor extends Actor {
       }
 
       // Replenish resources
-      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone.#getRecoveryData());
+      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone._getRecoveryData());
 
       // Constrain milestones
       if ( levelChange && (this.type === "hero") ) {
