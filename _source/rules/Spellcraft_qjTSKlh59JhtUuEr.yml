@@ -136,11 +136,11 @@ pages:
         Type</p></th><th><p>Target
         Defense</p></th><th><p>Opposition</p></th><th><p>Proficiency</p></th></tr><tr><td><p>Control</p></td><td><p>Orderly</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Kinesis</p></td><td><p>Kinematic</p></td></tr><tr><td><p>Earth</p></td><td><p>Orderly</p></td><td><p>Acid</p></td><td><p>Reflex</p></td><td><p>Storm</p></td><td><p>Elemental</p></td></tr><tr><td><p>Frost</p></td><td><p>Orderly</p></td><td><p>Cold</p></td><td><p>Fortitude</p></td><td><p>Flame</p></td><td><p>Elemental</p></td></tr><tr><td><p>Life</p></td><td><p>Chaotic</p></td><td><p>Poison*</p></td><td><p>Fortitude</p></td><td><p>Death</p></td><td><p>Kinematic</p></td></tr></tbody><tfoot><tr><td
         colspan="6"><p>* - Rune is used primarily for Restoration rather than
-        for Damage.</p></td></tr></tfoot></table><p>The choice
-        of Rune used in the casting of a spell affects or determines a variety
-        of aspects of the resulting spellcraft.</p><ul><li><p>The conceptual
-        essence of the magic.</p></li><li><p>Which other Rune is in opposition
-        to this Spell.</p></li><li><p>One
+        for Damage.</p></td></tr></tfoot></table><p>The choice of Rune used in
+        the casting of a spell affects or determines a variety of aspects of the
+        resulting spellcraft.</p><ul><li><p>The conceptual essence of the
+        magic.</p></li><li><p>Which other Rune is in opposition to this
+        Spell.</p></li><li><p>One
         @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.abilityScores000]{Ability
         Score} which defines half of the Spell Attack scaling
         formula.</p></li><li><p>Which <strong>Spellcraft</strong>

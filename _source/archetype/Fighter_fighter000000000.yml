@@ -6,34 +6,80 @@ system:
     Hardened melee combatants expert at wielding one-handed weaponry, shield,
     and heavy armor.
   abilities:
-    wisdom: 1
-    presence: 1
+    wisdom: 0
+    presence: 2
     intellect: 1
-    strength: 3
+    strength: 4
     toughness: 3
-    dexterity: 3
+    dexterity: 2
   talents:
     - item: Compendium.crucible.talent.Item.armoredefficienc
-      level: null
+      level: 0
+    - item: Compendium.crucible.talent.Item.bulwark000000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.heavyStrike00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.holdfast00000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.intimidator00000
+      level: 1
     - item: Compendium.crucible.talent.Item.legsweep00000000
       level: 1
-    - item: Compendium.crucible.talent.Item.heavyStrike00000
-      level: null
-    - item: Compendium.crucible.talent.Item.bulwark000000000
-      level: null
+    - item: Compendium.crucible.talent.Item.shieldBash000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.powerfulphysique
+      level: 2
+    - item: Compendium.crucible.talent.Item.shieldcharge0000
+      level: 2
+    - item: Compendium.crucible.talent.Item.testudo000000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.cadence000000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.counterstrike000
+      level: 3
+    - item: Compendium.crucible.talent.Item.headbutt00000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.armoredShell0000
+      level: 3
+    - item: Compendium.crucible.talent.Item.berserkStrike000
+      level: 5
+    - item: Compendium.crucible.talent.Item.ironResolve00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.sunderingstrike0
+      level: 6
+    - item: Compendium.crucible.talent.Item.adrenaline000000
+      level: 6
+    - item: Compendium.crucible.talent.Item.bloodfrenzy00000
+      level: 5
   identifier: fighter
   training:
     athletics: 1
     awareness: 1
-    intimidation: 1
+    medicine: 1
+    intimidation: 2
+    smithing: 0
     heavy: 3
     mechanical: 0
     shield: 3
-    armor: 3
-    smithing: 0
-    medicine: 1
+    armor: 2
   spells: []
-  equipment: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.towerShield00000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.battleAxe0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.spear00000000000
+      quantity: 1
+      equipped: false
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.splintMail000000
+      quantity: 1
+      equipped: true
+      autoScale: true
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -43,10 +89,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.2
-  coreVersion: '14.368'
+  systemVersion: 0.11.2
+  coreVersion: '14.369'
   createdTime: 1772307157483
-  modifiedTime: 1791130481801
+  modifiedTime: 1792809284968
   lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null

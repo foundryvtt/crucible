@@ -15,13 +15,13 @@ system:
     dexterity: 4
   talents:
     - item: Compendium.crucible.talent.Item.flurry0000000000
-      level: null
+      level: 1
     - item: Compendium.crucible.talent.Item.skirmisher000000
       level: 3
     - item: Compendium.crucible.talent.Item.lunge00000000000
-      level: null
+      level: 0
     - item: Compendium.crucible.talent.Item.dualWield0000000
-      level: null
+      level: 0
     - item: Compendium.crucible.talent.Item.defensiveroll000
       level: 2
     - item: Compendium.crucible.talent.Item.subtleextricatio
@@ -29,11 +29,17 @@ system:
     - item: Compendium.crucible.talent.Item.feintingstrike00
       level: 2
     - item: Compendium.crucible.talent.Item.weakpoints000000
-      level: 1
+      level: 0
     - item: Compendium.crucible.talent.Item.strikefirst00000
       level: 1
     - item: Compendium.crucible.talent.Item.deftgrip00000000
       level: 3
+    - item: Compendium.crucible.talent.Item.counterevade0000
+      level: 3
+    - item: Compendium.crucible.talent.Item.bloodletter00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.harrier000000000
+      level: 4
   identifier: skirmisher
   training:
     athletics: 2
@@ -46,7 +52,19 @@ system:
     projectile: 2
     armor: 1
   spells: []
-  equipment: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.handAxe000000000
+      quantity: 2
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.studdedLeatherAr
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.shortbow00000000
+      quantity: 1
+      equipped: false
+      autoScale: true
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 2400000
@@ -56,10 +74,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.10.2
-  coreVersion: '14.368'
+  systemVersion: 0.11.2
+  coreVersion: '14.369'
   createdTime: 1772307157486
-  modifiedTime: 1791130481801
+  modifiedTime: 1792545761733
   lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null

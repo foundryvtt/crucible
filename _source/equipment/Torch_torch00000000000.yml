@@ -5,7 +5,7 @@ system:
   identifier: torch
   category: other
   quality: standard
-  price: 1
+  price: 3
   quantity: 1
   weight: 1
   description:
@@ -84,12 +84,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.364'
+  coreVersion: '14.369'
   systemId: crucible
-  systemVersion: 0.10.0
+  systemVersion: 0.11.2
   createdTime: 1772307157781
-  modifiedTime: 1782225004959
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1792528495890
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: torch00000000000
 sort: 0
 _key: '!items!torch00000000000'

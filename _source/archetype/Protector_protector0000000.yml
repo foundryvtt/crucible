@@ -46,7 +46,19 @@ system:
     shield: 3
     armor: 3
     smithing: 0
-  equipment: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.towerShield00000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.warHammer0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.splintMail000000
+      quantity: 1
+      equipped: true
+      autoScale: true
   spells: []
 effects: []
 folder: 6Up7ddrphLept3RW
@@ -58,11 +70,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.368'
+  coreVersion: '14.369'
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.2
   createdTime: 1772307157486
-  modifiedTime: 1791130481800
+  modifiedTime: 1792532354026
   lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: protector0000000
 sort: 1200000

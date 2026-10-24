@@ -94,8 +94,8 @@ system:
         - accurate
       description: >-
         <p>You focus and make an @Rule[action.accurate] <strong>Strike</strong>
-        with your weapon against a target that is @Condition[flanked] and engaged
-        by your Companion.</p>
+        with your weapon against a target that is @Condition[flanked] and
+        engaged by your Companion.</p>
       condition: ''
   keywords:
     - action.summon

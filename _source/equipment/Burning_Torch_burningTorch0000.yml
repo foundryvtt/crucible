@@ -1,0 +1,76 @@
+_id: burningTorch0000
+name: Burning Torch
+type: weapon
+img: icons/sundries/lights/torch-brown-lit.webp
+system:
+  identifier: burningTorch
+  category: simple1
+  quantity: 1
+  weight: 1
+  price: 3
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - engaging
+    - intuitive
+  description:
+    public: >-
+      <p>Layered oil-soaked affixed around the end of a rod made of bone or
+      another non-flammable material, an inexpensive, if inefficient, temporary
+      lightsource. Each torch can burned for one hour before it can no longer be
+      used.</p>
+    private: ''
+  actions:
+    - id: throwTorch
+      img: icons/sundries/lights/torch-brown-lit.webp
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        self: false
+        size: 2
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects: []
+      tags: []
+      name: Throw Torch
+      description: >-
+        <p>You fling the @ref[item.name] not at a specific creature, but instead
+        towards an area, creating a temporary light source at that location or
+        possibly spreading the flames to other flammable objects.</p>
+      condition: ''
+  damageType: fire
+  dropped: false
+  slot: 0
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1792528676907
+  modifiedTime: 1792528676907
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!burningTorch0000'
