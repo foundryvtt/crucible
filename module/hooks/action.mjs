@@ -2729,13 +2729,33 @@ HOOKS.lightLantern = {
 /* -------------------------------------------- */
 
 HOOKS.lightTorch = {
+  _WEAPON_UUID: "Compendium.crucible.equipment.Item.burningTorch0000",
   preActivate() {
-    if ( this.effects[0] ) {
-      Object.assign(this.effects[0], {
-        _id: "torchBurning0000",
-        showIcon: 0 // Never
-      });
+    this.metadata.torchId = `torch${foundry.utils.randomID(11)}`;
+  },
+  async confirm(reverse) {
+    const weaponId = this.metadata.torchId;
+    if ( !weaponId ) return;
+    if ( reverse ) {
+      await this.actor.items.get(weaponId)?.delete();
+      return;
     }
+
+    // Equip the lit torch in a free hand
+    const source = await fromUuid(HOOKS.lightTorch._WEAPON_UUID);
+    const weaponData = game.items.fromCompendium(source, {keepId: false});
+    weaponData._id = weaponId;
+    const {slot} = this.actor.canEquipItem(new CONFIG.Item.documentClass(weaponData, {parent: this.actor}));
+    Object.assign(weaponData.system, {equipped: true, slot});
+    await this.actor.createEmbeddedDocuments("Item", [weaponData], {keepId: true});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.throwTorch = {
+  acquireTargets(targets) {
+    targets.length = 0; // The blast only marks where the torch lands; it never targets creatures
   }
 };
 

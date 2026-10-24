@@ -44,25 +44,7 @@ system:
         number: 1
         scope: 1
         self: false
-      effects:
-        - name: Torch
-          scope: 1
-          result:
-            type: any
-            all: false
-          statuses: []
-          duration:
-            value: 1
-            units: hours
-            expiry: null
-            expired: false
-          system:
-            changes: []
-            dot: []
-            maintenance: null
-            regions: []
-            summons: []
-            properties: []
+      effects: []
       tags:
         - consume
       summon: null

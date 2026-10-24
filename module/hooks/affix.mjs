@@ -2,6 +2,7 @@ import {CREATURE_CATEGORIES} from "../const/actor.mjs";
 import {DAMAGE_TYPES} from "../const/attributes.mjs";
 import {SKILLS} from "../const/proficiencies.mjs";
 import {GESTURES, INFLECTIONS, RUNES} from "../const/spellcraft.mjs";
+import {isDeployingItem} from "./helpers.mjs";
 
 const HOOKS = {};
 
@@ -195,7 +196,7 @@ HOOKS.reliable = {
 HOOKS.returning = {
   preActivateAction(item, action) {
     if ( item.system.affixes.returning?.system.isCursed ) return; // Caution: weapon.chainHook delegates to this hook
-    if ( !action.tags.has("strike") ) return;
+    if ( !action.tags.has("strike") || isDeployingItem(action, item) ) return;
     const updates = action.selfUpdateEvent.actorUpdates.items;
     if ( !updates ) return;
     const update = updates.find(u => (u._id === item.id) && (u.system?.dropped === true));

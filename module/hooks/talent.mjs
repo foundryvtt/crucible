@@ -1,4 +1,4 @@
-import {interruptAction} from "./helpers.mjs";
+import {interruptAction, isDeployingItem} from "./helpers.mjs";
 
 const HOOKS = {};
 
@@ -1361,14 +1361,20 @@ HOOKS.peltast000000000 = {
     const weapon = action.usage.weapon ?? action.usage.strikes?.[0];
     if ( weapon?.system.properties.has("thrown") ) action.range.maximum = (action.range.maximum ?? 10) + 10;
   },
+  finalizeAction(item, action) {
+    if ( !action.tags.has("thrown") ) return;
+    // Returning: the weapon is recalled rather than dropped, unless the throw deliberately leaves it deployed
+    for ( const update of action.selfUpdateEvent.actorUpdates.items ?? [] ) {
+      if ( !update.system?.dropped ) continue;
+      const weapon = this.items.get(update._id);
+      if ( weapon && isDeployingItem(action, weapon) ) continue;
+      Object.assign(update.system, {dropped: false, equipped: true});
+    }
+  },
   preActivateAction(item, action) {
     if ( !action.tags.has("thrown") ) return;
     // Throw anything: arcane guidance steadies even weapons not built for throwing, removing the improvised penalty
     delete action.usage.banes[action.id];
-    // Returning: the weapon is recalled rather than dropped, so it stays in the Peltast's grasp
-    for ( const update of action.selfUpdateEvent.actorUpdates.items ?? [] ) {
-      if ( update.system?.dropped ) Object.assign(update.system, {dropped: false, equipped: true});
-    }
   }
 };
 

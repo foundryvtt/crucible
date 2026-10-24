@@ -1,6 +1,20 @@
 /**
  * @import CrucibleAction from "../models/action.mjs";
+ * @import CrucibleItem from "../documents/item.mjs";
  */
+
+/**
+ * Test whether an action deploys an item by recording a deployed effect which originates from it.
+ * @param {CrucibleAction} action   The action being used
+ * @param {CrucibleItem} item       The item which may be deployed
+ * @returns {boolean}
+ */
+export function isDeployingItem(action, item) {
+  return action.selfEvents?.all.some(event => event.effects.some(effect => (effect.origin === item.uuid)
+    && new Set(effect.system?.properties).has("deployed"))) ?? false;
+}
+
+/* -------------------------------------------- */
 
 /**
  * Interrupt an unconfirmed action after its activation cost, or undo a prior interruption.

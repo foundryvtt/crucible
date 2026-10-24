@@ -39,14 +39,15 @@ system:
       target:
         type: blast
         number: 1
-        scope: 4
+        scope: 0
         self: false
         size: 2
       persistRegion: false
       regionBehavior: null
       summon: null
       effects: []
-      tags: []
+      tags:
+        - thrown
       name: Throw Torch
       description: >-
         <p>You fling the @ref[item.name] not at a specific creature, but instead

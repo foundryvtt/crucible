@@ -86,6 +86,9 @@ export default class CrucibleActiveEffectSheet extends sheets.ActiveEffectConfig
         partContext.isItemEffect = effect.parent?.documentName === "Item";
         partContext.isMaintained = effect.system.properties?.has("maintained");
         partContext.isRemovable = effect.system.properties?.has("removable");
+        partContext.propertyOptions = Object.values(SYSTEM.EFFECTS.PROPERTIES).map(p => ({
+          value: p.id, label: _loc(p.label), disabled: p.id === "deployed"
+        }));
         partContext.statuses = Object.values(CONFIG.statusEffects).map(s => ({value: s.id, label: _loc(s.name)}));
         partContext.showIconOptions = Object.entries(CONST.ACTIVE_EFFECT_SHOW_ICON).map(([k, value]) => ({
           value, label: _loc(`EFFECT.SHOW_ICON.${k.toLowerCase()}`)
