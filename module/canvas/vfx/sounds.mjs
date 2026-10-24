@@ -46,6 +46,7 @@ export const VFX_SOUNDS = {
  * @property {string} src         Filename within the rune's prefix directory.
  * @property {boolean} [loop]     Whether the sample is a looping segment (S2 passive, S3 damage).
  * @property {number} [duration]  Measured playback duration in seconds (S1 charge, S4 impact).
+ * @property {string} [prefix]    A directory overriding the rune's own, for a sound borrowed from another rune.
  */
 
 /**
@@ -126,6 +127,21 @@ export const RUNE_SOUNDS = {
       {src: "LifeMiss2.ogg", duration: 1.215}
     ]
   },
+  poison: {
+    prefix: "systems/crucible/assets/sfx/poison",
+    passive: [{src: "PoisonLoopPassive.ogg", loop: true}],
+    damage: [{src: "PoisonLoopDamage.ogg", loop: true}],
+    impact: [
+      {src: "PoisonHit1.ogg", duration: 1.891},
+      {src: "PoisonHit2.ogg", duration: 1.554},
+      {src: "PoisonHit3.ogg", duration: 1.428}
+    ],
+    miss: [
+      {src: "PoisonMiss1.ogg", duration: 1.207},
+      {src: "PoisonMiss2.ogg", duration: 1.189},
+      {src: "PoisonMiss3.ogg", duration: 1.304}
+    ]
+  },
   death: {
     prefix: "systems/crucible/assets/sfx/death",
     charge: [{src: "DeathChargeUp.ogg", duration: 1.915}],
@@ -171,8 +187,8 @@ export const RUNE_SOUNDS = {
   }
 };
 
-// TODO Poison borrows the Life sounds for now
-RUNE_SOUNDS.poison = RUNE_SOUNDS.life;
+// TODO Poison has no charge sound of its own yet and borrows the Life charge
+RUNE_SOUNDS.poison.charge = RUNE_SOUNDS.life.charge.map(e => ({...e, prefix: RUNE_SOUNDS.life.prefix}));
 
 /* -------------------------------------------- */
 
@@ -189,7 +205,8 @@ export function getVFXSound(rune, type) {
   const entries = lib?.[type];
   if ( !entries?.length ) return null;
   const entry = entries[Math.floor(Math.random() * entries.length)];
-  return {src: `${lib.prefix}/${entry.src}`, loop: entry.loop ?? false, duration: entry.duration ?? null};
+  return {src: `${entry.prefix ?? lib.prefix}/${entry.src}`, loop: entry.loop ?? false,
+    duration: entry.duration ?? null};
 }
 
 /* -------------------------------------------- */
@@ -205,5 +222,5 @@ export function getVFXSoundSet(rune, type) {
   const lib = RUNE_SOUNDS[rune];
   const entries = lib?.[type];
   if ( !entries?.length ) return [];
-  return entries.map(e => `${lib.prefix}/${e.src}`);
+  return entries.map(e => `${e.prefix ?? lib.prefix}/${e.src}`);
 }
