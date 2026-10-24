@@ -4,10 +4,11 @@ import CrucibleFanComponent from "./vfx-fan-component.mjs";
 import CrucibleBlastComponent from "./vfx-blast-component.mjs";
 import CrucibleTouchComponent from "./vfx-touch-component.mjs";
 import CrucibleForcedMovementComponent from "./vfx-forced-movement-component.mjs";
+import CrucibleLightAnimationComponent from "./vfx-light-animation-component.mjs";
 
 export {default as CrucibleVFXComponent} from "./vfx-component.mjs";
 export {CrucibleProjectileComponent, CrucibleRayComponent, CrucibleFanComponent, CrucibleBlastComponent,
-  CrucibleTouchComponent, CrucibleForcedMovementComponent};
+  CrucibleTouchComponent, CrucibleForcedMovementComponent, CrucibleLightAnimationComponent};
 
 /**
  * Concrete Crucible VFX component classes to register into CONFIG.Canvas.vfx.components, keyed by
@@ -15,7 +16,8 @@ export {CrucibleProjectileComponent, CrucibleRayComponent, CrucibleFanComponent,
  * @type {(typeof CrucibleVFXComponent)[]}
  */
 export const CRUCIBLE_VFX_COMPONENTS = [CrucibleProjectileComponent, CrucibleRayComponent,
-  CrucibleFanComponent, CrucibleBlastComponent, CrucibleTouchComponent, CrucibleForcedMovementComponent];
+  CrucibleFanComponent, CrucibleBlastComponent, CrucibleTouchComponent, CrucibleForcedMovementComponent,
+  CrucibleLightAnimationComponent];
 
 /**
  * Register Crucible VFX component subclasses into the shared component registry. Coexists with the

@@ -10,10 +10,10 @@ system:
   weight: 1
   description:
     public: >-
-      <p>Layered oil-soaked affixed around the end of a rod made of bone or
-      another non-flammable material, an inexpensive, if inefficient, temporary
-      lightsource. Each torch can burned for one hour before it can no longer be
-      used.</p>
+      <p>Oil-soaked rags wrapped around the end of a rod made of bone or another
+      non-flammable material, an inexpensive, if inefficient, source of light.
+      Once lit, a torch can be wielded as a weapon or thrown to light a distant
+      area.</p>
     private: ''
   broken: false
   equipped: false
@@ -25,9 +25,9 @@ system:
       name: Light Torch
       img: icons/sundries/lights/torch-brown-lit.webp
       description: >-
-        <p>You ignite the @ref[item.name], producing flickering illumination in
-        a wide radius for one hour. The torch is consumed by this action and
-        cannot be used again, but its light remains until it burns out.</p>
+        <p>You ignite the @ref[item.name] and take it in a free hand as a
+        Burning Torch, which sheds flickering illumination in a wide radius for
+        as long as you hold it.</p>
       condition: ''
       cost:
         action: 1

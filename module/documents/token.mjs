@@ -12,6 +12,14 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   _confirmedMovements;
 
   /**
+   * Whether the Actor contributed prepareToken hooks when this Token's sources were last initialized.
+   * Self-assigned so the field preserves the value recorded by data preparation during construction.
+   * @type {boolean|undefined}
+   * @internal
+   */
+  _renderedTokenHooks = this._renderedTokenHooks;
+
+  /**
    * Token size in grid squares.
    * @type {number}
    */
@@ -59,7 +67,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     super.prepareDerivedData();
     if ( this.actor ) {
       this.actor.callActorHooks("prepareToken", this);
-      this.actor._hadTokenHooks = !!this.actor.hasTokenHooks;
+      this._renderedTokenHooks ??= !!this.actor.hasTokenHooks;
     }
   }
 
@@ -128,8 +136,12 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   _onRelatedUpdate(update, operation) {
     super._onRelatedUpdate(update, operation);
 
-    // Re-prepare token data if the actor has (or previously had) token hooks
-    if ( this.actor && (this.actor.hasTokenHooks || this.actor._hadTokenHooks) ) {
+    // Re-prepare if the actor has token hooks or had them at this token's last refresh.
+    // Tracked per token because of unlinked preparation timing and a linked actor may have several tokens.
+    const hasTokenHooks = !!this.actor?.hasTokenHooks;
+    const hadTokenHooks = this._renderedTokenHooks;
+    this._renderedTokenHooks = hasTokenHooks;
+    if ( this.actor && (hasTokenHooks || hadTokenHooks) ) {
       this.reset();
       if ( this.rendered ) {
         this.object.initializeSources();

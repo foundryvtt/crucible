@@ -125,7 +125,6 @@ TALENT.gnomeLineage0000 = {
       action.cost.action = 0;
       action.usage.consumeUses = 0;
     }
-    else delete action.usage.consumeUses;
   },
   finalizeAction(item, action) {
     const id = lineageEffectId(item);

@@ -37,11 +37,7 @@ export async function syncOwnedItems({force=false, reload=true, talents=true, sp
   console.groupCollapsed("Crucible | Owned Item Synchronization");
 
   // Prepare equipment compendium index
-  let equipmentIndex;
-  if ( equipment ) {
-    const pack = game.packs.get("crucible.equipment");
-    equipmentIndex = _indexEquipment(await pack.getDocuments());
-  }
+  const equipmentIndex = equipment ? await getEquipmentIndex() : undefined;
 
   // Sync actor-owned items
   const bar = {n: 0, total: game.actors.size, pct: 0};
@@ -69,13 +65,8 @@ export async function syncOwnedItems({force=false, reload=true, talents=true, sp
           batchDelete.push(...toDelete);
         }
         if ( equipment ) {
-          for ( const item of actor.items ) {
-            const update = _migrateEquipmentItem(item, equipmentIndex);
-            if ( update ) {
-              batchUpdate.push(update);
-              console.debug(`Syncing equipment: ${item.name} in Actor ${actor.name} [${item.uuid}]`);
-            }
-          }
+          const {toUpdate} = await actor.syncInventoryItems({performUpdates: false, index: equipmentIndex});
+          batchUpdate.push(...toUpdate);
         }
         const batchOperations = actor.defineBatchOperations(actorUpdate, {
           createItems: {changes: batchCreate, options: {keepId: true}},
@@ -106,14 +97,13 @@ export async function syncOwnedItems({force=false, reload=true, talents=true, sp
 export async function syncWorldItems({equipment=true}={}) {
   console.groupCollapsed("Crucible | World Item Synchronization");
   if ( equipment ) {
-    const source = game.packs.get("crucible.equipment");
-    const equipmentIndex = _indexEquipment(await source.getDocuments());
+    const equipmentIndex = await getEquipmentIndex();
 
     // Plan and commit one update operation per collection
     for await ( const {documents, pack} of _worldCollections("Item") ) {
       const updates = [];
       for ( const item of documents ) {
-        const update = _migrateEquipmentItem(item, equipmentIndex);
+        const update = migrateEquipmentItem(item, equipmentIndex);
         if ( update ) {
           updates.push(update);
           console.debug(`Syncing equipment: ${item.name} [${item.uuid}]`);
@@ -123,6 +113,21 @@ export async function syncWorldItems({equipment=true}={}) {
     }
   }
   console.groupEnd();
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Index the equipment items of every configured equipment compendium pack by identifier.
+ * @returns {Promise<Record<string, CrucibleItem>>}
+ */
+export async function getEquipmentIndex() {
+  const items = [];
+  for ( const packId of crucible.CONFIG.packs.equipment ) {
+    const pack = game.packs.get(packId);
+    if ( pack ) items.push(...await pack.getDocuments());
+  }
+  return _indexEquipment(items);
 }
 
 /* -------------------------------------------- */
@@ -149,7 +154,7 @@ function _indexEquipment(items) {
  * @param {Record<string, CrucibleItem>} index        The equipment compendium index keyed by identifier
  * @returns {object|null}
  */
-function _migrateEquipmentItem(item, index) {
+export function migrateEquipmentItem(item, index) {
   if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
   const currentSource = item.toObject();
   const upstream = index[item.system.identifier];

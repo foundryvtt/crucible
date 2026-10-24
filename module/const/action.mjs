@@ -208,7 +208,7 @@ export const TAG_CATEGORIES = defineEnum({
  * @property {(this: CrucibleAction, target: CrucibleActor, token: CrucibleTokenObject) => void} [roll]
  * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [confirm]
  * @property {(this: CrucibleAction, reverse: boolean) => Promise<void>} [postConfirm]
- * @property {(this: CrucibleAction, vfxConfig: object|null) => object|null} [configureVFX]
+ * @property {(this: CrucibleAction, vfxConfig: object|null) => object|null|false} [configureVFX]  False suppresses VFX
  * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [resolveVFX]
  * @property {(this: CrucibleAction, vfxEffect: VFXEffect, references: Record<string, any>) => void} [finalizeVFX]
  */

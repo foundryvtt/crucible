@@ -21,7 +21,8 @@ HOOKS.burningTorch = {
   async _placeLight(action, weapon, {scene, x, y, elevation, levels}) {
     const effect = action.selfEvents?.all.flatMap(e => e.effects).find(f => f._id === weapon.id);
     if ( !effect ) return;
-    const lightData = {_id: weapon.id, x, y, elevation, levels, config: foundry.utils.deepClone(THROWN_TORCH_LIGHT)};
+    const lightData = {_id: weapon.id, name: _loc("ACTIONS.ThrowTorch.LightName", {actor: action.actor.name}), x, y,
+      elevation, levels, config: foundry.utils.deepClone(THROWN_TORCH_LIGHT)};
     const [light] = await scene.createEmbeddedDocuments("AmbientLight", [lightData], {keepId: true});
     effect.system.lights.push(light.uuid);
   },
@@ -42,9 +43,8 @@ HOOKS.burningTorch = {
     const region = action.region;
     if ( region ) {
       const {x, y} = region.shapes[0];
-      const {bottom, top} = region.elevation;
-      await HOOKS.burningTorch._placeLight(action, item, {scene: region.parent, x, y, elevation: (bottom + top) / 2,
-        levels: Array.from(region.levels)});
+      await HOOKS.burningTorch._placeLight(action, item, {scene: region.parent, x, y,
+        elevation: region.elevation.bottom, levels: Array.from(region.levels)});
       return;
     }
     const token = action.targets.values().next().value?.token;

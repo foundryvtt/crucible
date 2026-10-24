@@ -2655,6 +2655,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Reset flags that are determined during action preparation
     this.usage.hasDice = false;
     this.usage.restoration = false;
+    delete this.usage.consumeUses;
 
     // Reset cost fields to their source values so that repeated prepare() calls do not accumulate costs
     const sc = this._source.cost;
@@ -2683,6 +2684,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Call configuration hooks
     this._callActionHooks("initialize");
+
+    // An action provided by a weapon strikes with that weapon, unless a hook designated another
+    if ( (this.item?.type === "weapon") && this.tags.has("strike") ) this.usage.weapon ??= this.item;
 
     // Build the weapon choice set now so requirement tags can filter it during the later prepare pass
     this.usage.weaponChoices = this._prepareWeaponChoices();
@@ -3357,7 +3361,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     let vfxConfig = null;
     for ( const test of this._tests() ) {
       if ( !(test.configureVFX instanceof Function) ) continue;
-      vfxConfig = test.configureVFX.call(this, vfxConfig) ?? vfxConfig;
+      const result = test.configureVFX.call(this, vfxConfig);
+      if ( result === false ) return null; // A handler may suppress the action's VFX outright
+      vfxConfig = result ?? vfxConfig;
     }
     return vfxConfig;
   }

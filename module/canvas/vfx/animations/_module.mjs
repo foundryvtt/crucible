@@ -1,3 +1,4 @@
+import {LIGHT_ANIMATIONS} from "./light.mjs";
 import {SPRITE_ANIMATIONS} from "./sprite.mjs";
 import {PARTICLE_ANIMATIONS} from "./particle.mjs";
 
@@ -12,12 +13,14 @@ import {PARTICLE_ANIMATIONS} from "./particle.mjs";
  *   - `projectile`: tracks the projectile container's live position via `state.delivery.container`.
  *   - `ray`: uses the ray geometry (`state.origin`, `state.rotation`, `state.length`).
  *   - (sprite-only) `target`: operates on a struck-target mesh.
- * - kind: the primitive type - `Particle` (configures a ParticleGenerator, in `particle.mjs`) or
- *   `Sprite` (drives a display object, in `sprite.mjs`). `Sound` (orchestrators, reserved for `sound.mjs`).
+ *   - (light-only) `path`: follows the light component's `state.path`.
+ * - kind: the primitive type - `Particle` (configures a ParticleGenerator, in `particle.mjs`),
+ *   `Sprite` (drives a display object, in `sprite.mjs`), or `Light` (drives a light source through the light
+ *   component's `state.light`, in `light.mjs`). `Sound` (orchestrators, reserved for `sound.mjs`).
  * - descriptor: the specific effect, e.g. `Gather`, `Beam`, `Combustion`, `Residue`.
  */
 
-export {SPRITE_ANIMATIONS, PARTICLE_ANIMATIONS};
+export {LIGHT_ANIMATIONS, SPRITE_ANIMATIONS, PARTICLE_ANIMATIONS};
 
 /* -------------------------------------------- */
 
@@ -25,5 +28,5 @@ export {SPRITE_ANIMATIONS, PARTICLE_ANIMATIONS};
  * Register all Crucible VFX animations into the global `CONFIG.Canvas.vfx.animations` registry.
  */
 export function registerVFXAnimations() {
-  Object.assign(CONFIG.Canvas.vfx.animations, SPRITE_ANIMATIONS, PARTICLE_ANIMATIONS);
+  Object.assign(CONFIG.Canvas.vfx.animations, LIGHT_ANIMATIONS, SPRITE_ANIMATIONS, PARTICLE_ANIMATIONS);
 }

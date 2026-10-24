@@ -18,10 +18,10 @@ system:
     - intuitive
   description:
     public: >-
-      <p>Layered oil-soaked affixed around the end of a rod made of bone or
-      another non-flammable material, an inexpensive, if inefficient, temporary
-      lightsource. Each torch can burned for one hour before it can no longer be
-      used.</p>
+      <p>A lit torch of oil-soaked rags wrapped around a rod of bone or another
+      non-flammable material, shedding flickering illumination in a wide radius
+      while held. It can be wielded as a weapon, or thrown to a distant area
+      where it keeps burning until it is recovered.</p>
     private: ''
   actions:
     - id: throwTorch

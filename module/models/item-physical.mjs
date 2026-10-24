@@ -346,6 +346,19 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
 
   /**
+   * Iterate the owning Actor's effects which exist because this item was deployed and end when it is recovered.
+   * @yields {CrucibleActiveEffect}
+   */
+  *deployedEffects() {
+    const item = this.parent;
+    for ( const effect of item.actor?.effects ?? [] ) {
+      if ( (effect.origin === item.uuid) && effect.system.properties?.has("deployed") ) yield effect;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Return an object of string formatted tag data which describes this item type.
    * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
    * @returns {Record<string, string>}    The tags which describe this item

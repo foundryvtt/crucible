@@ -3,6 +3,7 @@ import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
 import {SYSTEM} from "../const/system.mjs";
 import {TEMPLATES} from "../chat.mjs";
+import {getEquipmentIndex, migrateEquipmentItem} from "../migrations.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
@@ -281,14 +282,6 @@ export default class CrucibleActor extends Actor {
    * @internal
    */
   _cachedResources = {};
-
-  /**
-   * Snapshot taken after the most recent `TokenDocument#prepareDerivedData` pass, recording whether token-affecting
-   * hooks are present.
-   * @type {boolean}
-   * @internal
-   */
-  _hadTokenHooks = false;
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -1669,6 +1662,7 @@ export default class CrucibleActor extends Actor {
     // Prompt designated user to pick up dropped items
     // TODO: Consider whether to extend this dialog to an Owner who does not have this actor as their character
     const itemUpdates = [];
+    const deployedIds = [];
     const designatedUser = game.users.getDesignatedUser(user => {
       return user.active && (user.character === this);
     });
@@ -1678,10 +1672,12 @@ export default class CrucibleActor extends Actor {
         window: { title: "ITEM.ACTIONS.RecoverAllTitle" },
         content: _loc("ITEM.ACTIONS.RecoverAllContent", {actor: this.name})
       });
-      if ( pickUp ) itemUpdates.push(...droppedItems.map(i => ({
-        _id: i.id,
-        "system.dropped": false
-      })));
+      if ( pickUp ) {
+        for ( const item of droppedItems ) {
+          itemUpdates.push({_id: item.id, "system.dropped": false});
+          for ( const effect of item.system.deployedEffects() ) deployedIds.push(effect.id);
+        }
+      }
     }
 
     // Reload any equipped weapons
@@ -1694,7 +1690,12 @@ export default class CrucibleActor extends Actor {
         });
       }
     }
-    if ( !this.isIncapacitated && itemUpdates.length ) await this.updateEmbeddedDocuments("Item", itemUpdates);
+    if ( !this.isIncapacitated && itemUpdates.length ) {
+      await foundry.documents.modifyBatch(this.defineBatchOperations({}, {
+        updateItems: itemUpdates,
+        deleteEffects: deployedIds
+      }));
+    }
   }
 
   /* -------------------------------------------- */
@@ -2075,6 +2076,30 @@ export default class CrucibleActor extends Actor {
       if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);
     }
     return {toCreate, toUpdate, toDelete};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Re-sync physical inventory Items on this actor with updated equipment compendium data.
+   * @param {object} [options]
+   * @param {boolean} [options.performUpdates]                  Whether to actually perform the updates
+   * @param {Record<string, CrucibleItem>} [options.index]      A prepared equipment index, built if not provided
+   * @returns {Promise<{toUpdate: object[]}>}
+   */
+  async syncInventoryItems({performUpdates=true, index}={}) {
+    index ??= await getEquipmentIndex();
+    const toUpdate = [];
+    for ( const item of this.items ) {
+      const update = migrateEquipmentItem(item, index);
+      if ( !update ) continue;
+      toUpdate.push(update);
+      console.debug(`Syncing equipment: ${item.name} in Actor ${this.name} [${item.uuid}]`);
+    }
+    if ( performUpdates && toUpdate.length ) {
+      await this.updateEmbeddedDocuments("Item", toUpdate, {diff: false, recursive: false, noHook: true});
+    }
+    return {toUpdate};
   }
 
   /* -------------------------------------------- */
@@ -2720,7 +2745,11 @@ export default class CrucibleActor extends Actor {
 
     // Outside of combat, make item updates directly and support automatic stack combination
     else if ( action?.usage.actorUpdates.items.length ) {
-      await this.updateEmbeddedDocuments("Item", action.usage.actorUpdates.items);
+      const deployedIds = item.system.dropped ? Array.from(item.system.deployedEffects(), e => e.id) : [];
+      await foundry.documents.modifyBatch(this.defineBatchOperations({}, {
+        updateItems: action.usage.actorUpdates.items,
+        deleteEffects: deployedIds
+      }));
       if ( !equipped && !dropped ) await item.combineStack();
     }
   }

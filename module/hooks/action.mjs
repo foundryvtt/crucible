@@ -2728,34 +2728,62 @@ HOOKS.lightLantern = {
 
 /* -------------------------------------------- */
 
+HOOKS.equipItem = {
+  preActivate() {
+    // Recovering a dropped item ends the effects which existed because it was deployed
+    for ( const update of this.selfUpdateEvent.actorUpdates.items ?? [] ) {
+      const item = this.actor.items.get(update._id);
+      if ( !item?.system.dropped || (update.system?.dropped !== false) ) continue;
+      const effects = Array.from(item.system.deployedEffects(), e => ({_id: e.id, _action: "delete"}));
+      if ( effects.length ) this.recordEvent({type: "effect", target: this.actor, effects});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.lightTorch = {
   _WEAPON_UUID: "Compendium.crucible.equipment.Item.burningTorch0000",
-  preActivate() {
-    this.metadata.torchId = `torch${foundry.utils.randomID(11)}`;
+  initialize() {
+    this.usage.consumeUses = 0; // The torch is transformed into a Burning Torch rather than depleted
+  },
+  async preActivate() {
+    const source = await fromUuid(HOOKS.lightTorch._WEAPON_UUID);
+    this.actor.canEquipItem(new CONFIG.Item.documentClass(source.toObject(), {parent: this.actor})); // Needs open slot
+    this.metadata.unlitTorch = this.item.toObject();
   },
   async confirm(reverse) {
-    const weaponId = this.metadata.torchId;
-    if ( !weaponId ) return;
+    const torch = this.item;
+    const unlit = this.metadata.unlitTorch;
+    if ( !torch || !unlit ) return;
     if ( reverse ) {
-      await this.actor.items.get(weaponId)?.delete();
+      await torch.update({type: unlit.type, name: unlit.name, img: unlit.img, system: _replace(unlit.system),
+        "_stats.compendiumSource": unlit._stats.compendiumSource});
       return;
     }
 
-    // Equip the lit torch in a free hand
+    // Light the torch in place, equipping it in a free hand
     const source = await fromUuid(HOOKS.lightTorch._WEAPON_UUID);
-    const weaponData = game.items.fromCompendium(source, {keepId: false});
-    weaponData._id = weaponId;
-    const {slot} = this.actor.canEquipItem(new CONFIG.Item.documentClass(weaponData, {parent: this.actor}));
-    Object.assign(weaponData.system, {equipped: true, slot});
-    await this.actor.createEmbeddedDocuments("Item", [weaponData], {keepId: true});
+    const lit = source.toObject();
+    const {slot} = this.actor.canEquipItem(new CONFIG.Item.documentClass(lit, {parent: this.actor}));
+    await torch.update({type: lit.type, name: lit.name, img: lit.img,
+      system: _replace({...lit.system, equipped: true, slot}), "_stats.compendiumSource": source.uuid});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.throwWeapon = {
+  configureVFX() {
+    return false; // A thrown weapon is a physical object, not an elemental projectile
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.throwTorch = {
-  acquireTargets(targets) {
-    targets.length = 0; // The blast only marks where the torch lands; it never targets creatures
+  configureVFX(vfxConfig) {
+    return crucible.api.canvas.vfx.equipment.configureThrowTorchVFXEffect(this) ?? vfxConfig;
   }
 };
 
