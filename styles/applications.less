@@ -84,6 +84,19 @@
     opacity: 1.0;
   }
 
+  // Dialog content is spaced by the standard form's gap, so its children need no margins of their own
+  .dialog-content.standard-form > * {
+    margin: 0;
+  }
+
+  // Footer buttons stay fully opaque, so that only disabled ones are faded
+  .form-footer > button {
+    opacity: 1.0;
+    &:disabled {
+      opacity: 0.25;
+    }
+  }
+
   // Text Editors
   prose-mirror {
     height: 100%; // FIXME this feels like it shouldn't be necessary
@@ -106,7 +119,6 @@
 .crucible.dialog.interactable-loot .window-content {
   padding: var(--spacer-8) var(--spacer-16)
 }
-
 /* ----------------------------------------- */
 /*  Encounter Spawn Dialog                   */
 /* ----------------------------------------- */

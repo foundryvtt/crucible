@@ -1327,10 +1327,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   async _prepareEmbedContext(config) {
     const actor = this.parent;
+    const name = config.name || actor.name;
     return {
-      name: actor.name,
+      name,
       img: config.image === "token" ? actor.prototypeToken.texture.src : actor.img,
-      link: actor.toAnchor().outerHTML,
+      link: actor.toAnchor({name}).outerHTML,
       count: config.count,
       level: this.advancement.threatLevel,
       subtitle: "",

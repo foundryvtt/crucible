@@ -302,7 +302,7 @@ function defineSpawnDialogClass(base) {
       }
 
       // Each combat's adversaries, where the first combat joins the ongoing Combat when adding
-      const spawning = new Set([...context.party, ...context.rows.filter(r => r.linked).map(r => r.actor)]
+      const spawning = new Set([...context.party, ...context.rows.filter(r => r.linked && !r.removed).map(r => r.actor)]
         .map(a => a.id));
       for ( const fieldset of this.element.querySelectorAll("fieldset[data-combat]") ) {
         const combat = Number(fieldset.dataset.combat);

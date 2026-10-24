@@ -665,7 +665,14 @@ function enrichAction([match, ownerUUID, actionId]) {
   else {
     const owner = fromUuidSync(ownerUUID);
     if ( !owner ) return match;
-    if ( owner instanceof Actor ) action = owner.actions[actionId];
+    if ( owner instanceof Actor ) {
+
+      // Consumable actions are keyed by an item-aware id, which a bare action id resolves to
+      if ( !(actionId in owner.actions) ) {
+        actionId = Object.keys(owner.actions).find(k => owner.actions[k].id === actionId) ?? actionId;
+      }
+      action = owner.actions[actionId];
+    }
     else if ( owner instanceof Item ) action = owner.actions?.find(a => a.id === actionId);
   }
   if ( !action ) return match;
