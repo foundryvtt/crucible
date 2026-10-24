@@ -1456,6 +1456,8 @@
       "MaintainName": "Maintain {effect}"
     },
     "PROPERTIES": {
+      "Deployed": "Deployed",
+      "DeployedTooltip": "This effect exists because its origin item was dropped, placed, or thrown. Recovering that item ends the effect.",
       "Magical": "Magical",
       "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities.",
       "Maintained": "Maintained",
@@ -1645,6 +1647,7 @@
     },
     "Base": "Base",
     "Bonus": "Bonus",
+    "Parenthetical": "{label} ({detail})",
     "Rules": "Crucible Rules",
     "Scaled": "Scaled",
     "Scaling": "Scaling",

@@ -93,7 +93,7 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleRule",
-      pattern: withLabel(/@Rule\[([\w.]+)]/),
+      pattern: withLabel(/@Rule\[([^\]]+)]/),
       enricher: enrichRule
     },
     {
@@ -713,14 +713,18 @@ function enrichSpell([match, spellId]) {
 /* -------------------------------------------- */
 
 /**
- * Enrich a rule reference into an interactive element displaying the rule name and tooltip.
+ * Enrich a rule reference with format @Rule[{ruleId} {detail?}]{label?}, where an optional detail (quoted if it
+ * contains spaces) is appended to the rule name or label as a parenthetical.
  * @param {RegExpMatchArray} matchArray
  */
-async function enrichRule([match, ruleId, label]) {
+async function enrichRule([match, terms, label]) {
+  const [ruleId, detail] = terms.trim().split(/\s+(.*)/s);
   const cfg = foundry.utils.getProperty(SYSTEM.RULES, ruleId);
   if ( !cfg ) return new Text(match);
   const tag = document.createElement("enriched-content");
-  tag.innerHTML = label ?? _loc(cfg.label) ?? _loc(cfg.name);
+  const title = label ?? _loc(cfg.label) ?? _loc(cfg.name);
+  tag.innerHTML = detail ? _loc("CRUCIBLE.Parenthetical", {label: title, detail: detail.replace(/^"(.*)"$/s, "$1")})
+    : title;
   tag.dataset.crucibleTooltip = "tag";
   tag.dataset.ruleId = ruleId;
   tag.classList.add("rule", "basic-rule", ruleId.split(".")[0]);
