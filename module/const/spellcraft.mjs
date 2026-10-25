@@ -274,8 +274,8 @@ export const GESTURES = Object.seal({
     id: "conjure",
     name: "SPELL.GESTURES.Conjure",
     cost: {
-      action: 5,
-      focus: 2
+      action: 4,
+      focus: 1
     },
     hands: 2,
     range: {

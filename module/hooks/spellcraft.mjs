@@ -97,18 +97,14 @@ HOOKS.aura = {
 /* -------------------------------------------- */
 
 HOOKS.conjure = {
-  prepare() {
-    _prepareSummon.call(this, this.actor.system.advancement.threatLevel);
+  initialize() {
+    this.tags.add("maintained");
   },
-  postActivate() {
-    const summonEvent = this.events.find(e => e.type === "summon");
-    if ( summonEvent ) summonEvent.effects.push({
-      _id: summonEvent.summon.effectId,
-      img: this.img,
-      name: this.name,
-      duration: {rounds: 12},
-      system: {}
-    });
+  prepare() {
+    _prepareSummon.call(this, this.actor.system.advancement.level);
+  },
+  preActivate() {
+    _recordSummonEffect.call(this, 12);
   }
 };
 
@@ -116,17 +112,11 @@ HOOKS.conjure = {
 
 HOOKS.create = {
   prepare() {
-    _prepareSummon.call(this, Math.ceil(this.actor.system.advancement.threatLevel / 2));
+    const {level} = this.actor.system.advancement;
+    _prepareSummon.call(this, Math.min(level, Math.ceil(level / 2)));
   },
-  postActivate() {
-    const summonEvent = this.events.find(e => e.type === "summon");
-    if ( summonEvent ) summonEvent.effects.push({
-      _id: summonEvent.summon.effectId,
-      img: this.img,
-      name: this.name,
-      duration: {rounds: 6},
-      system: {}
-    });
+  preActivate() {
+    _recordSummonEffect.call(this, 6);
   }
 };
 
@@ -257,7 +247,7 @@ function _prepareSummon(level) {
   const tokenData = {
     delta: {
       system: {
-        details: {
+        advancement: {
           level,
           rank: "minion"
         }
@@ -266,6 +256,24 @@ function _prepareSummon(level) {
   };
   const effectId = SYSTEM.EFFECTS.getEffectId(this.gesture.id);
   this.usage.summons = [{actorUuid, tokenData, effectId}];
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Record the self effect which owns a summon spell's summoned creature for a duration in rounds.
+ * Recorded before postActivate so that tags such as maintained can configure it as the primary effect.
+ * @param {number} rounds
+ */
+function _recordSummonEffect(rounds) {
+  const [{effectId}] = this.usage.summons;
+  this.recordEvent({type: "effect", target: this.actor, effects: [{
+    _id: effectId,
+    img: this.img,
+    name: this.name,
+    duration: {rounds},
+    system: {}
+  }]});
 }
 
 /* -------------------------------------------- */
