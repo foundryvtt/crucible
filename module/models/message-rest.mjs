@@ -28,7 +28,8 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
     return {
       group: new fields.DocumentUUIDField({type: "Actor", nullable: false}),
       participants: new fields.ArrayField(new fields.SchemaField({
-        actor: new fields.DocumentUUIDField({type: "Actor", nullable: false})
+        actor: new fields.DocumentUUIDField({type: "Actor", nullable: false}),
+        actions: new fields.ArrayField(new fields.ObjectField())
       })),
       duration: new fields.NumberField({required: true, nullable: false, positive: true}),
       allowInterruption: new fields.BooleanField({initial: true}),
@@ -80,15 +81,32 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
       }
     }
 
-    // Successful completion - clear continuation state and execute the rest
+    // Successful completion - clear continuation state, then participants rest while time advances
     if ( prior ) await group.unsetFlag("crucible", "rest");
-    const promises = participants.map(actor => actor.useAction("rest", {dialog: false}));
-    promises.push(game.time.advance(restConfig.duration));
-    await Promise.allSettled(promises);
-    await this.#setStatus("complete");
+    const [results] = await Promise.all([
+      Promise.allSettled(participants.map(actor => this.#restParticipant(actor))),
+      game.time.advance(restConfig.duration)
+    ]);
+    for ( const {status, reason} of results ) {
+      if ( status === "rejected" ) console.error(reason);
+    }
+    const participantData = participants.map((actor, i) => ({actor: actor.uuid, actions: results[i].value ?? []}));
+    await this.parent.update({system: {status: "complete", participants: participantData}});
 
     // Announce completion only once time has advanced, so listeners which timestamp the rest record its end
     Hooks.callAll("crucible.groupRest", group.system, restConfig, participants);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Reconstitute the last action a participant performed during this completed rest.
+   * @param {CrucibleActor} actor
+   * @returns {CrucibleAction|null}
+   */
+  getAction(actor) {
+    const data = this.participants.find(p => p.actor === actor.uuid)?.actions.at(-1);
+    return data ? crucible.api.models.CrucibleAction.fromData(data, this.parent) : null;
   }
 
   /* -------------------------------------------- */
@@ -111,6 +129,21 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
     await group.setFlag("crucible", "rest", _replace(flag));
     await game.time.advance(hoursElapsed * 3600);
     ui.notifications.warn(_loc("ACTOR.GROUP.REST.Interrupted", {hours: hoursElapsed}));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Perform and confirm a participant's Rest action, recorded within this message.
+   * @param {CrucibleActor} actor
+   * @returns {Promise<object[]>}   Serialized usage data of the performed actions
+   */
+  async #restParticipant(actor) {
+    const action = await actor.useAction("rest", {dialog: false, message: this.parent});
+    if ( !action ) return [];
+    const {data} = action.serializeUsage();
+    await action.confirm();
+    return [data];
   }
 
   /* -------------------------------------------- */
@@ -157,17 +190,49 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
   async renderCard() {
     const status = this.constructor.STATUSES[this.status];
     const participants = [];
-    for ( const {actor: uuid} of this.participants ) {
+    for ( const {actor: uuid, actions} of this.participants ) {
       const actor = fromUuidSync(uuid);
-      if ( actor ) participants.push({name: actor.name, img: actor.img});
+      if ( actor ) participants.push({name: actor.name, img: actor.img, ...this.#prepareSummary(uuid, actions)});
     }
     return foundry.applications.handlebars.renderTemplate(this.constructor.TEMPLATE, {
+      complete: this.status === "complete",
+      noChanges: _loc("ACTOR.GROUP.REST.NoChanges"),
       status: this.status,
       statusLabel: _loc(status.label),
       statusIcon: status.icon,
       title: _loc("ACTOR.GROUP.REST.CardTitle", {name: fromUuidSync(this.group)?.name, hours: this.duration / 3600}),
       participants
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Summarize the net reserve resource changes a participant received from their recorded actions.
+   * @param {string} uuid           The participant actor UUID
+   * @param {object[]} actions      Serialized usage data of the participant's actions
+   * @returns {{resources: object[], pipColors: Set<string>}}
+   */
+  #prepareSummary(uuid, actions) {
+    const deltas = {};
+    for ( const event of actions.flatMap(a => a.events) ) {
+      if ( (event.target !== uuid) || event.negated ) continue;
+      for ( const {resource, delta} of event.resources ) deltas[resource] = (deltas[resource] ?? 0) + delta;
+    }
+    const resources = [];
+    const pipColors = new Set();
+    for ( const [resource, delta] of Object.entries(deltas) ) {
+      const cfg = SYSTEM.RESOURCES[resource];
+      if ( (cfg?.type !== "reserve") || !delta ) continue; // Pools which always refill to maximum are not reported
+      let color = cfg.color;
+      if ( foundry.utils.isPlainObject(color) ) {
+        pipColors.add(color.high.css);
+        color = ((delta > 0) === (cfg.type === "active")) ? color.heal : color.high;
+      }
+      else pipColors.add(color.css);
+      resources.push({label: cfg.label, amount: delta.signedString(), colorStyle: color.toRGBA(0.25)});
+    }
+    return {resources, pipColors};
   }
 
   /* -------------------------------------------- */

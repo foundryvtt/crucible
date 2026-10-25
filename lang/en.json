@@ -971,6 +971,7 @@
         "ConfirmRest": "Confirm Rest",
         "ContinuationHint": "This rest is being continued from a previous rest that was interrupted. {hoursCompleted} of {hoursRequired} hours have been completed.",
         "Interrupted": "Your rest has been interrupted after {hours} hours!",
+        "NoChanges": "No recovery needed",
         "Title": "Confirm Group Rest"
       },
       "WARNINGS": {

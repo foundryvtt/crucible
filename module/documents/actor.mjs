@@ -253,14 +253,15 @@ export default class CrucibleActor extends Actor {
     for ( const record of history ) {
       const message = game.messages.get(record.messageId);
       if ( !message ) continue;
-      const {action, confirmed} = message.flags.crucible;
-      if ( action && confirmed ) {
-        if ( this.#lastConfirmedAction.messageId !== message.id ) {
-          this.#lastConfirmedAction.messageId = message.id;
-          this.#lastConfirmedAction = {messageId: message.id, action: CrucibleAction.fromChatMessage(message)};
-        }
-        return this.#lastConfirmedAction.action;
+      const isRest = message.type === "rest";
+      const {action: actionData, confirmed} = message.flags.crucible ?? {};
+      if ( isRest ? (message.system.status !== "complete") : !(actionData && confirmed) ) continue;
+      if ( this.#lastConfirmedAction.messageId !== message.id ) {
+        const action = isRest ? message.system.getAction(this) : CrucibleAction.fromChatMessage(message);
+        if ( !action ) continue;
+        this.#lastConfirmedAction = {messageId: message.id, action};
       }
+      return this.#lastConfirmedAction.action;
     }
     return null;
   }

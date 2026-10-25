@@ -393,6 +393,7 @@ class CrucibleActionEvent {
  * @property {CrucibleToken} [token]  A specific Token which is performing the action
  * @property {boolean} [dialog]             Present the user with an action configuration dialog?
  * @property {string} [messageMode]         Which message visibility mode to apply to the resulting message?
+ * @property {ChatMessage} [message]        An existing ChatMessage which records the action instead
  */
 
 
@@ -1455,9 +1456,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {object} [options]                      Options which modify action usage
    * @param {boolean} [options.dialog]              Present the user with an action configuration dialog?
    * @param {object} [options.chatMessageOptions]   Options which are passed to Action#toMessage
+   * @param {ChatMessage} [options.message]         An existing ChatMessage which records the action instead
    * @returns {Promise<CrucibleAction|null>}
    */
-  async #use({chatMessageOptions={}, dialog=true}={}) {
+  async #use({chatMessageOptions={}, dialog=true, message}={}) {
 
     // Assert that the action could possibly be used based on its tags
     try {
@@ -1549,7 +1551,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Record action history and create a ChatMessage to confirm the action
-    const message = await this.toMessage({
+    message ??= await this.toMessage({
       ...chatMessageOptions,
       confirmed: false,
       messageMode: this.usage.messageMode || game.settings.get("core", "messageMode")
@@ -3683,31 +3685,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Create the ChatMessageData object to be used for an action's chat message creation
-   * @param {ActionUseTarget[]} targets   Targets affected by this action usage
-   * @param {object} options              Context options for ChatMessage creation
-   * @param {boolean} options.confirmed   Was the action auto-confirmed?
-   * @returns {Promise<ChatMessageData>}
-   * @protected
+   * Serialize this used action into data from which {@link CrucibleAction.fromData} can reconstruct it.
+   * @returns {{data: object, rolls: Roll[]}}   The serialized usage and the rolls its events index into
    */
-  async _prepareMessage({confirmed}={}) {
-
-    // Prepare action data
-    const actionData = {
+  serializeUsage() {
+    const data = {
       actor: this.actor.uuid,
-      action: this.toObject(false), // Finalized action data rather than source
-      confirmed
+      action: this.toObject(false) // Finalized action data rather than source
     };
-    if ( this.item ) actionData.item = this.item.uuid;
-    if ( this.movement ) actionData.movement = this.movement.id;
-    if ( this.region?.persisted ) actionData.region = this.region.uuid;
-    if ( this.token ) actionData.token = this.token.uuid;
-    if ( this.targets ) actionData.targets = Array.from(this.targets).map(([actor, t]) => {
+    if ( this.item ) data.item = this.item.uuid;
+    if ( this.movement ) data.movement = this.movement.id;
+    if ( this.region?.persisted ) data.region = this.region.uuid;
+    if ( this.token ) data.token = this.token.uuid;
+    if ( this.targets ) data.targets = Array.from(this.targets).map(([actor, t]) => {
       return {actor: actor.uuid, token: t.token?.uuid ?? null};
     });
-    actionData.vfxConfig = this.configureVFXEffect();
-    if ( CONFIG.debug.vfx ) console.debug(`${this.id} | configureVFXEffect`, actionData.vfxConfig);
-    if ( !foundry.utils.isEmpty(this.metadata) ) actionData.metadata = this.metadata;
+    if ( !foundry.utils.isEmpty(this.metadata) ) data.metadata = this.metadata;
 
     // Collect rolls from the event stream and assign indices for serialization
     const rolls = [];
@@ -3722,7 +3715,27 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Serialize the canonical event stream (roll.data.index was assigned above)
-    actionData.events = this.#serializeEvents();
+    data.events = this.#serializeEvents();
+    return {data, rolls};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create the ChatMessageData object to be used for an action's chat message creation
+   * @param {ActionUseTarget[]} targets   Targets affected by this action usage
+   * @param {object} options              Context options for ChatMessage creation
+   * @param {boolean} options.confirmed   Was the action auto-confirmed?
+   * @returns {Promise<ChatMessageData>}
+   * @protected
+   */
+  async _prepareMessage({confirmed}={}) {
+
+    // Prepare action data
+    const {data: actionData, rolls} = this.serializeUsage();
+    actionData.confirmed = confirmed;
+    actionData.vfxConfig = this.configureVFXEffect();
+    if ( CONFIG.debug.vfx ) console.debug(`${this.id} | configureVFXEffect`, actionData.vfxConfig);
 
     // Group per-target rolls + non-cost resource/effect changes into sections for the chat card
     const sections = this.#prepareCardSections();
@@ -3935,6 +3948,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleAction|null}   The reconstituted Action instance
    */
   static fromChatMessage(message) {
+    const data = message.flags.crucible || {};
+    if ( !data.action ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
+    return this.fromData(data, message);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Reconstitute an Action from usage data produced by {@link CrucibleAction#serializeUsage}.
+   * The reconstituted Action is constructed lazily and has not been prepared for a particular Actor.
+   * @param {object} data             The serialized usage data
+   * @param {ChatMessage} message     The ChatMessage which records the usage and contains its rolls
+   * @returns {CrucibleAction}        The reconstituted Action instance
+   */
+  static fromData(data, message) {
     const {
       actor: actorUuid,
       item: itemUuid,
@@ -3945,8 +3973,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       region: regionUuid,
       events: serializedEvents,
       targets: serializedTargets
-    } = message.flags.crucible || {};
-    if ( !actionData ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
+    } = data;
 
     // Reference linked documents - hazards use a transient Environment actor that cannot resolve from UUID,
     // so fabricate a fresh placeholder when reconstituting one from chat
