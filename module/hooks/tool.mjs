@@ -6,9 +6,9 @@ const HOOKS = {};
  * Default Token light configuration applied by an equipped Lantern when the token has no custom light source.
  * @param {Readonly<LightData>}
  */
-const LANTERN_LIGHT = Object.freeze({alpha: 0.8, angle: 360, bright: 20, color: "#ffb24e", coloration: 100, dim: 40,
-  attenuation: 0.6, luminosity: 0.5, saturation: 0, contrast: 0, shadows: 0, negative: false, priority: 0,
-  animation: {type: "flame", speed: 2, intensity: 1, reverse: false}, darkness: {min: 0, max: 1}});
+const LANTERN_LIGHT = Object.freeze({alpha: 0.75, angle: 360, bright: 20, color: "#ffaa33", coloration: 100, dim: 40,
+  attenuation: 0.75, luminosity: 0.5, saturation: 0, contrast: 0, shadows: 0, negative: false, priority: 0,
+  animation: {type: "torch", speed: 4, intensity: 3, reverse: false}, darkness: {min: 0, max: 1}});
 
 /* -------------------------------------------- */
 
