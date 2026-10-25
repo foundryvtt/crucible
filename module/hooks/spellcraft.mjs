@@ -244,12 +244,21 @@ function _prepareSummon(level) {
   // Configure summon data
   const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
   const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
+  const family = this.rune.training;
   const tokenData = {
     delta: {
       system: {
         advancement: {
           level,
           rank: "minion"
+        }
+      },
+      flags: {
+        crucible: {
+          summoner: {
+            actor: this.actor.uuid,
+            training: {[family]: this.actor.system.training[family].points}
+          }
         }
       }
     }

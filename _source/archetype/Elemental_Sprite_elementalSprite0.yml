@@ -15,6 +15,8 @@ system:
     toughness: 3
     dexterity: 3
   talents:
+    - item: Compendium.crucible.adversary-talents.Item.summoned00000000
+      level: null
     - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
       level: null
     - item: Compendium.crucible.talent.Item.gesturefan000000

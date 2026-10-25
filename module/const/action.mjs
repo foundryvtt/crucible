@@ -637,20 +637,15 @@ export const TAGS = {
         const tokenData = foundry.utils.mergeObject({
           name: tokenName,
           disposition: this.actor.prototypeToken.disposition,
-          delta: {
-            name: tokenName,
-            system: {
-              resources: {
-                "health.value": worldActor.resources.health.max,
-                "morale.value": worldActor.resources.morale.max,
-                "action.value": worldActor.resources.action.max,
-                "focus.value": worldActor.resources.focus.max
-              }
-            }
-          }
+          delta: {name: tokenName}
         }, summon.tokenData || {});
         Object.assign(tokenData, {actorId: worldActor.id, actorLink: false});
         const preparedToken = await worldActor.getTokenDocument(tokenData, {parent: this.token.parent});
+
+        // Recover resource pools as prepared with the summon's token data, retaining any explicitly configured values
+        const recovery = preparedToken.actor._getRecoveryData();
+        foundry.utils.mergeObject(recovery.system.resources, tokenData.delta.system?.resources ?? {});
+        preparedToken.updateSource({delta: recovery});
         const token = await TokenDocument.implementation.create(preparedToken, {parent: this.token.parent});
         if ( !event.summon.permanent ) summonedTokens.push(token.uuid);
 

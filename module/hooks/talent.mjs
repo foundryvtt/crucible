@@ -1988,6 +1988,20 @@ HOOKS.subtleextricatio = {
 
 /* -------------------------------------------- */
 
+HOOKS.summoned00000000 = {
+  prepareTraining(_item, training) {
+    const caps = this.flags.crucible?.summoner?.training ?? {};
+    for ( const [id, cap] of Object.entries(caps) ) {
+      const t = training[id];
+      if ( !t ) continue;
+      const excess = t.initial + t.talents + t.increases + t.bonus - cap;
+      if ( excess > 0 ) t.bonus -= excess;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.surgeweaver00000 = {
   applyCriticalEffects(_item, action) {
     applyRuneCritEffect(this, action, "storm", ability => SYSTEM.EFFECTS.shocked(this, {ability}));

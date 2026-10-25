@@ -49,6 +49,8 @@ system:
         toughness: 3
         dexterity: 3
       talents:
+        - item: Compendium.crucible.adversary-talents.Item.summoned00000000
+          level: null
         - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
           level: null
         - item: Compendium.crucible.talent.Item.gesturefan000000
@@ -691,6 +693,37 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!me5glbOshiijlVUH.runeFrost0000000'
+  - name: Summoned
+    type: talent
+    _id: summoned00000000
+    img: icons/magic/symbols/runes-star-pentagon-blue.webp
+    system:
+      keywords:
+        - action.summon
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature} was summoned into being by a spellcaster.
+        Its training in the spellcraft used to summon it cannot exceed the training
+        of its summoner.</p>
+      actions: []
+      iconicSpells: 0
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.summoned00000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.368'
+      systemId: crucible
+      systemVersion: 0.10.2
+      lastModifiedBy: null
+      createdTime: 1793404800000
+      modifiedTime: 1793404800000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!me5glbOshiijlVUH.summoned00000000'
 effects: []
 flags: {}
 _stats:

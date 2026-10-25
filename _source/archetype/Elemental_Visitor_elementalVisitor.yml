@@ -18,6 +18,8 @@ system:
     toughness: 3
     dexterity: 1
   talents:
+    - item: Compendium.crucible.adversary-talents.Item.summoned00000000
+      level: null
     - item: Compendium.crucible.talent.Item.gesturefan000000
       level: null
     - item: Compendium.crucible.talent.Item.gestureaspect000
