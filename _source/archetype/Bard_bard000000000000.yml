@@ -2,41 +2,83 @@ name: Bard
 type: archetype
 img: icons/tools/instruments/harp-red.webp
 system:
+  identifier: bard
+  abilities:
+    wisdom: 2
+    presence: 4
+    intellect: 0
+    strength: 0
+    toughness: 2
+    dexterity: 4
+  training:
+    society: 1
+    deception: 2
+    diplomacy: 2
+    performance: 3
+    enchanting: 0
+    glyphweaving: 0
+    talisman: 2
+    light: 2
+    spiritual: 3
+  talents:
+    - item: Compendium.crucible.talent.Item.inspireheroism00
+      level: 0
+    - item: Compendium.crucible.talent.Item.refocus000000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.runeIllusion0000
+      level: 1
+    - item: Compendium.crucible.talent.Item.runeSoul00000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.arcingBolt000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gestureinfluence
+      level: 1
+    - item: Compendium.crucible.talent.Item.dependableRefocu
+      level: 5
+    - item: Compendium.crucible.talent.Item.exploitDespair00
+      level: 3
+    - item: Compendium.crucible.talent.Item.extolldeeds00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.gallowsHumor0000
+      level: 2
+    - item: Compendium.crucible.talent.Item.inflectionquicke
+      level: 2
+    - item: Compendium.crucible.talent.Item.bard000000000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.carefree00000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.inspirator000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.compellingIllusi
+      level: 4
+    - item: Compendium.crucible.talent.Item.gesturepulse0000
+      level: 4
+    - item: Compendium.crucible.talent.Item.rout000000000000
+      level: 5
+    - item: Compendium.crucible.talent.Item.spellcatch000000
+      level: 5
+  spells: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.lyre000000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.shortsword000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.dagger0000000000
+      quantity: 1
+      equipped: false
+      autoScale: false
+    - item: Compendium.crucible.equipment.Item.leatherArmor0000
+      quantity: 1
+      equipped: true
+      autoScale: true
   description: >-
     <p>You practice the oral and musical traditions of heroic storytelling to
     inspire courage in your allies, demoralize your foes, and be quick with
     unconventional solutions to problems.</p>
-  abilities:
-    wisdom: 1
-    presence: 4
-    intellect: 3
-    strength: 1
-    toughness: 1
-    dexterity: 2
-  talents:
-    - item: Compendium.crucible.talent.Item.bard000000000000
-      level: null
-    - item: Compendium.crucible.talent.Item.inspireheroism00
-      level: null
-    - item: Compendium.crucible.talent.Item.extolldeeds00000
-      level: null
-    - item: Compendium.crucible.talent.Item.runeSoul00000000
-      level: null
-    - item: Compendium.crucible.talent.Item.inspirator000000
-      level: null
-  training:
-    awareness: 1
-    society: 1
-    deception: 1
-    diplomacy: 2
-    performance: 3
-    talisman: 2
-    light: 0
-    spiritual: 3
-    enchanting: 0
-  identifier: bard
-  spells: []
-  equipment: []
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -47,12 +89,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.368'
+  coreVersion: '14.369'
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.2
   createdTime: 1772307157482
-  modifiedTime: 1791130481800
-  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  modifiedTime: 1792970708624
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: bard000000000000
 sort: 1900000
 _key: '!items!bard000000000000'
