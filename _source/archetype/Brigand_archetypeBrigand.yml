@@ -16,29 +16,63 @@ system:
     dexterity: 3
   talents:
     - item: Compendium.crucible.talent.Item.dualWield0000000
-      level: null
+      level: 1
     - item: Compendium.crucible.talent.Item.backstab00000000
       level: 1
-    - item: Compendium.crucible.talent.Item.pinningshot00000
-      level: 3
     - item: Compendium.crucible.talent.Item.opportunist00000
-      level: 2
+      level: 3
     - item: Compendium.crucible.talent.Item.weakpoints000000
-      level: 2
+      level: 1
     - item: Compendium.crucible.talent.Item.lunge00000000000
-      level: null
+      level: 0
+    - item: Compendium.crucible.talent.Item.hamstring0000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.counterevade0000
+      level: 2
+    - item: Compendium.crucible.talent.Item.skirmisher000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.bloodletter00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.sneak00000000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.quickDraw0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.flamingArrow0000
+      level: 3
+    - item: Compendium.crucible.talent.Item.infiltrator00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.interruptingDagg
+      level: 4
+    - item: Compendium.crucible.talent.Item.intimidator00000
+      level: 2
   training:
     athletics: 1
     awareness: 0
     stealth: 3
-    society: 0
     deception: 1
     intimidation: 1
-    light: 4
-    mechanical: 2
-    armor: 2
+    light: 3
+    mechanical: 1
+    projectile: 3
+    armor: 1
   spells: []
-  equipment: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.shortbow00000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.dagger0000000000
+      quantity: 1
+      equipped: false
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.shortsword000000
+      quantity: 1
+      equipped: false
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.studdedLeatherAr
+      quantity: 1
+      equipped: true
+      autoScale: true
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -49,11 +83,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.368'
+  coreVersion: '14.369'
   systemId: crucible
-  systemVersion: 0.10.2
+  systemVersion: 0.11.2
   createdTime: 1772307157481
-  modifiedTime: 1791130481800
-  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  modifiedTime: 1792961409500
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 1400000
 _key: '!items!archetypeBrigand'
