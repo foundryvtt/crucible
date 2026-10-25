@@ -1102,7 +1102,8 @@ HOOKS.inquisitor000000 = {
       (e.target !== this) && (e.roll?.data?.result >= HIT) && e.roll?.isCriticalSuccess);
     if ( !critHit ) return;
     const messageId = action.metadata.inquisitorTargetMessageId;
-    if ( game.messages.get(messageId)?.getFlag("crucible", "confirmed") !== reverse ) return;
+    const flags = game.messages.get(messageId)?.flags.crucible;
+    if ( (flags?.confirmed !== reverse) || (!reverse && flags?.reversed) ) return;
     await interruptAction(action, messageId, {reverse});
   }
 };

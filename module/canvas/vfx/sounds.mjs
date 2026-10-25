@@ -46,7 +46,6 @@ export const VFX_SOUNDS = {
  * @property {string} src         Filename within the rune's prefix directory.
  * @property {boolean} [loop]     Whether the sample is a looping segment (S2 passive, S3 damage).
  * @property {number} [duration]  Measured playback duration in seconds (S1 charge, S4 impact).
- * @property {string} [prefix]    A directory overriding the rune's own, for a sound borrowed from another rune.
  */
 
 /**
@@ -129,6 +128,7 @@ export const RUNE_SOUNDS = {
   },
   poison: {
     prefix: "systems/crucible/assets/sfx/poison",
+    charge: [{src: "PoisonChargeUp.ogg", duration: 1.658}],
     passive: [{src: "PoisonLoopPassive.ogg", loop: true}],
     damage: [{src: "PoisonLoopDamage.ogg", loop: true}],
     impact: [
@@ -187,9 +187,6 @@ export const RUNE_SOUNDS = {
   }
 };
 
-// TODO Poison has no charge sound of its own yet and borrows the Life charge
-RUNE_SOUNDS.poison.charge = RUNE_SOUNDS.life.charge.map(e => ({...e, prefix: RUNE_SOUNDS.life.prefix}));
-
 /* -------------------------------------------- */
 
 /**
@@ -205,7 +202,7 @@ export function getVFXSound(rune, type) {
   const entries = lib?.[type];
   if ( !entries?.length ) return null;
   const entry = entries[Math.floor(Math.random() * entries.length)];
-  return {src: `${entry.prefix ?? lib.prefix}/${entry.src}`, loop: entry.loop ?? false,
+  return {src: `${lib.prefix}/${entry.src}`, loop: entry.loop ?? false,
     duration: entry.duration ?? null};
 }
 
@@ -222,5 +219,5 @@ export function getVFXSoundSet(rune, type) {
   const lib = RUNE_SOUNDS[rune];
   const entries = lib?.[type];
   if ( !entries?.length ) return [];
-  return entries.map(e => `${e.prefix ?? lib.prefix}/${e.src}`);
+  return entries.map(e => `${lib.prefix}/${e.src}`);
 }

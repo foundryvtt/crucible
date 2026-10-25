@@ -566,6 +566,7 @@
     "RequestRollsSuffix": "{label}: Request Rolls",
     "RequiresMovement": "You must plan a movement path before this action can be used.",
     "RequiresRegion": "You must place a Region before this action can be used.",
+    "Reversed": "Reversed",
     "SkillCheck": "{skill} Skill Check",
     "SkillCheckGeneric": "Skill Check",
     "StandardCheck": "Standard Check",

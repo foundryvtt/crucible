@@ -82,7 +82,7 @@ export function addChatMessageContextOptions(_app, options) {
     visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
-      return flags.action && !flags.confirmed;
+      return flags.action && !flags.confirmed && !flags.reversed;
     },
     onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);
@@ -169,8 +169,8 @@ export async function onKeyboardConfirmAction(context) {
     const message = game.messages.get(id);
     const seconds = (now - message.timestamp) / 1000;
     if ( seconds > 60 ) break;
-    const {action, confirmed} = message.flags.crucible || {};
-    if ( action && !confirmed ) toConfirm.unshift(message);
+    const {action, confirmed, reversed} = message.flags.crucible || {};
+    if ( action && !confirmed && !reversed ) toConfirm.unshift(message);
   }
   if ( toConfirm.length ) return CrucibleAction.confirmMessage(toConfirm[0]);
 }

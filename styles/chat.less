@@ -23,7 +23,27 @@
       color: var(--color-result-verygood);
     }
     .unconfirmed {
+      color: var(--color-result-warn);
+    }
+    .reversed {
       color: var(--color-result-verybad);
+    }
+  }
+
+  // Reversed action cards collapse to their header
+  &.action-reversed .message-content {
+    .crucible.action-roll {
+      margin-bottom: 0;
+    }
+    .action-roll > :not(.action),
+    .action > :not(.action-header) {
+      display: none;
+    }
+    .action-header {
+      opacity: 0.6;
+      .icon {
+        filter: grayscale(1);
+      }
     }
   }
 

@@ -17,7 +17,7 @@ export function isDeployingItem(action, item) {
 /* -------------------------------------------- */
 
 /**
- * Interrupt an unconfirmed action after its activation cost, or undo a prior interruption.
+ * Interrupt an unconfirmed action after its activation cost, or refund that cost when the interruption is reversed.
  * @param {CrucibleAction} action             The action performing the interruption
  * @param {string} messageId                  The chat message ID of the action being interrupted
  * @param {object} [options]
@@ -28,11 +28,13 @@ export function isDeployingItem(action, item) {
 export async function interruptAction(action, messageId, {reverse=false}={}) {
   const message = game.messages.get(messageId);
   if ( !message ) return;
-  if ( message.getFlag("crucible", "confirmed") !== reverse ) {
+  const isReversed = !reverse && message.getFlag("crucible", "reversed");
+  if ( (message.getFlag("crucible", "confirmed") !== reverse) || isReversed ) {
+    const state = isReversed ? "Reversed" : (reverse ? "Unconfirmed" : "Confirmed");
     const errorText = _loc("ACTION.WARNINGS.CannotConfirmTarget", {
       action: action.name,
       change: _loc(`DICE.${reverse ? "Reverse" : "Confirm"}`),
-      state: _loc(`ACTION.${reverse ? "Unconfirmed" : "Confirmed"}`)
+      state: _loc(`ACTION.${state}`)
     });
     ui.notifications.warn(errorText);
     throw new Error(errorText);
@@ -44,9 +46,4 @@ export async function interruptAction(action, messageId, {reverse=false}={}) {
     await target.updateMessage();
   }
   await CrucibleAction.confirmMessage(message, {reverse});
-  if ( reverse ) {
-    const target = CrucibleAction.fromChatMessage(message);
-    target.clearNegation();
-    await target.updateMessage();
-  }
 }

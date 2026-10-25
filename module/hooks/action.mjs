@@ -1630,15 +1630,13 @@ HOOKS.interpose = {
     this.metadata.targetMessageId = this.usage.priorAction.message.id;
   },
   async confirm(reverse) {
-    const targetMessageId = this.metadata.targetMessageId;
-    const targetMessage = game.messages.get(targetMessageId);
-    if ( !targetMessage ) return;
-    if ( reverse ) await HOOKS.interpose._reverse.call(this, targetMessage);
-    else await HOOKS.interpose._rewrite.call(this, targetMessage);
+    if ( reverse ) return HOOKS.interpose._reverse.call(this);
+    const targetMessage = game.messages.get(this.metadata.targetMessageId);
+    if ( targetMessage ) await HOOKS.interpose._rewrite.call(this, targetMessage);
   },
   /**
    * Rewrite the original action to target the interposing actor instead of the original ally.
-   * Negates the original action, re-evaluates each strike against the interposer's defenses,
+   * Reverses and negates the original action, re-evaluates each strike against the interposer's defenses,
    * and posts a new confirmed chat message with the rewritten results.
    * @param {ChatMessage} targetMessage    The chat message of the original action being interposed
    * @this {CrucibleAction}
@@ -1647,9 +1645,10 @@ HOOKS.interpose = {
   async _rewrite(targetMessage) {
     const CrucibleAction = this.constructor;
 
-    // Fully reverse the original action if it was applied, then mark it negated (superseded by the rewrite)
+    // Reverse the original action, unapplying it if it was confirmed, then mark it negated (superseded by the rewrite)
     const wasConfirmed = !!targetMessage.getFlag("crucible", "confirmed");
     if ( wasConfirmed ) await CrucibleAction.confirmMessage(targetMessage, {reverse: true});
+    else await targetMessage.setFlag("crucible", "reversed", true);
     const originalAction = CrucibleAction.fromChatMessage(targetMessage);
     originalAction.negate();
     await originalAction.updateMessage();
@@ -1712,22 +1711,17 @@ HOOKS.interpose = {
     action.recordEvent({type: "strike", target: interposer, roll, weapon});
   },
   /**
-   * Reverse a previously confirmed Interpose. Reverses the rewritten action and removes
-   * the negation from the original action. The GM must manually re-confirm the original.
-   * @param {ChatMessage} targetMessage    The chat message of the original action
+   * Reverse a previously confirmed Interpose by reversing its rewritten action. The original action stays reversed.
    * @this {CrucibleAction}
    * @internal
    */
-  async _reverse(targetMessage) {
+  async _reverse() {
     const CrucibleAction = this.constructor;
     const rewrittenMessageId = this.message?.getFlag("crucible", "rewrittenMessageId");
     const rewrittenMessage = game.messages.get(rewrittenMessageId);
     if ( rewrittenMessage?.getFlag("crucible", "confirmed") ) {
       await CrucibleAction.confirmMessage(rewrittenMessage, {reverse: true});
     }
-    const originalAction = CrucibleAction.fromChatMessage(targetMessage);
-    originalAction.clearNegation();
-    await originalAction.updateMessage();
   }
 };
 

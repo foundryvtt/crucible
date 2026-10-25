@@ -1,6 +1,7 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
+import CrucibleChatMessage from "../documents/chat-message.mjs";
 import {resolveReferences} from "../enrichers.mjs";
 
 /**
@@ -3023,8 +3024,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       console.error(new Error(`Failed to record Heroism from Action "${this.id}"`, {cause: err}));
     }
 
-    // Mark the message as confirmed (or unconfirmed)
-    await this.message?.update({flags: {crucible: {confirmed: !reverse}}});
+    // Mark the message as confirmed or reversed
+    const confirmFlags = reverse ? {confirmed: false, reversed: true} : {confirmed: true};
+    await this.message?.update({flags: {crucible: confirmFlags}});
 
     // Defer postConfirm hooks until VFX playback concludes, capped at 4 seconds
     if ( !reverse && this.message?._vfxPlayback ) {
@@ -3911,17 +3913,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {boolean} [options.reverse=false]
    */
   static async confirmMessage(message, {action, reverse=false}={}) {
-    // Confirming twice would apply the events twice, which auto-confirmation can otherwise race a caller into doing
-    if ( !reverse && message?.getFlag("crucible", "confirmed") ) return;
-
-    // Bail if a reverse-confirm is already in flight for this message.
-    if ( reverse && message?._reversing ) return;
-    if ( reverse && message ) message._reversing = true;
+    if ( !(message instanceof CrucibleChatMessage) ) throw new Error("Can only confirm a CrucibleChatMessage");
+    if ( message._confirming ) return;                      // Confirmation or reversal already in progress
+    if ( message.getFlag("crucible", "reversed") ) return;  // A reversed action cannot be confirmed
+    if ( message.getFlag("crucible", "confirmed") !== reverse ) return; // Already handled
+    message._confirming = true;
     try {
       action ||= this.fromChatMessage(message);
       await action.confirm({reverse});
     } finally {
-      if ( reverse && message ) message._reversing = false;
+      message._confirming = false;
     }
   }
 
