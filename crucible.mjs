@@ -242,8 +242,11 @@ Hooks.once("init", async function() {
   Object.freeze(SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES);
   Object.freeze(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES);
 
-  // Other Document Configuration
+  // ChatMessage document configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
+  CONFIG.ChatMessage.dataModels.rest = models.CrucibleRestMessage;
+
+  // Other Document Configuration
   CONFIG.Combatant.documentClass = documents.CrucibleCombatant;
   CONFIG.Scene.documentClass = documents.CrucibleScene;
   CONFIG.Token.documentClass = documents.CrucibleToken;

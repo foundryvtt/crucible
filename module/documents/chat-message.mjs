@@ -139,6 +139,12 @@ export default class CrucibleChatMessage extends ChatMessage {
     if ( ["isInitiativeReport", "isTurnChangeSummary"].some(f => f in (this.flags.crucible ?? {})) ) return html;
     if ( this.flags.crucible?.reversed ) return html;
     const content = html.querySelector(".message-content");
+
+    // Group rest cards render their content from system data
+    if ( this.type === "rest" ) {
+      content?.insertAdjacentHTML("beforeend", await this.system.renderCard());
+      return html;
+    }
     const sections = this.flags.crucible?.sections;
 
     // Render data into per-target sections with a target header, rolls, and a table of secondary changes
@@ -184,13 +190,17 @@ export default class CrucibleChatMessage extends ChatMessage {
 
     // Apply a chat message theme based on the value of flags.crucible.theme, otherwise assign the `.crucible` theme
     if ( flags.theme && (flags.theme !== "crucible") ) html.classList.add(flags.theme);
-    else if ( !foundry.utils.isEmpty(flags) || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) {
+    else if ( !foundry.utils.isEmpty(flags) || (message.type === "rest")
+      || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) {
       html.classList.add("crucible");
       html.querySelector(".message-content").classList.add("themed", "theme-dark");
     }
 
     // Action Cards
     if ( flags.action ) CrucibleChatMessage.#onRenderAction(message, html);
+
+    // Group Rest Cards
+    if ( message.type === "rest" ) message.system.activateListeners(html);
 
     // Turn Change Summary with usable maintenance buttons for owners
     if ( flags.isTurnChangeSummary ) {

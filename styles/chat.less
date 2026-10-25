@@ -263,3 +263,41 @@
     }
   }
 }
+
+/* -------------------------------------------- */
+/*  Group Rest Chat Card                        */
+/* -------------------------------------------- */
+
+.crucible.rest-card {
+  .rest-summary {
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: var(--font-size-12);
+    color: var(--color-secondary);
+  }
+  .rest-status {
+    flex: none;
+  }
+  &.pending .rest-status {
+    color: var(--color-result-warn);
+  }
+  &.interrupted .rest-status,
+  &.cancelled .rest-status {
+    color: var(--color-result-verybad);
+  }
+  &.complete .rest-status {
+    color: var(--color-result-verygood);
+  }
+
+  // Interrupted or cancelled rests collapse to their summary
+  &.interrupted,
+  &.cancelled {
+    .rest-summary {
+      margin-bottom: 0;
+      opacity: 0.6;
+    }
+    .rest-participants {
+      display: none;
+    }
+  }
+}

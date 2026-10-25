@@ -1,0 +1,16 @@
+<section class="crucible rest-card {{status}}">
+    <div class="rest-summary flexrow">
+        <span class="rest-title"><i class="fa-solid fa-campground"></i> {{title}}</span>
+        <span class="rest-status"><i class="{{statusIcon}}"></i> {{statusLabel}}</span>
+    </div>
+    <div class="rest-participants flexcol">
+        {{#each participants as |participant|}}
+        <div class="rest-participant line-item">
+            <img class="icon" src="{{participant.img}}" alt="{{participant.name}}">
+            <div class="title">
+                <h4 class="ellipsis">{{participant.name}}</h4>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</section>

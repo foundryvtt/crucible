@@ -565,90 +565,25 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Perform a group rest where every member of the group uses the Rest action and time advances.
-   * Fires a `crucible.preGroupRest` hook which may return `false` to cancel synchronously, or push a Promise
-   * into `restConfig.promises` for async workflows which may throw an Error to prevent rest progress.
-   * Fires a `crucible.groupRest` hook once an uninterrupted rest has finished and time has advanced.
-   * @fires {preGroupRest}
-   * @fires {groupRest}
+   * Begin a group rest by staging a pending rest ChatMessage which a Gamemaster confirms.
    * @param {object} [options]
    * @param {boolean} [options.allowInterruption=true]    Allow the possibility of rest interruption.
    * @param {boolean} [options.dialog=true]               Prompt the Gamemaster to confirm participants and duration.
-   * @returns {Promise<void>}
+   * @returns {Promise<CrucibleChatMessage|null>}         The pending rest message, or null if not begun
    */
   async rest({allowInterruption=true, dialog=true}={}) {
     const baseHours = SYSTEM.TIME.restSeconds / 3600;
     const prior = this.parent.getFlag("crucible", "rest") ?? null;
     const hoursRemaining = prior ? Math.max(prior.hoursRequired - prior.hoursCompleted, 1) : baseHours;
-    const restConfig = {
-      duration: hoursRemaining * 3600,
-      allowInterruption,
-      promises: [],
-      prior,
-      interrupted: null
-    };
+    let config = {participants: this.actors, duration: hoursRemaining * 3600, allowInterruption,
+      allowRestActions: true};
 
     // Confirm participants and rest configuration with the Gamemaster
-    let participants = this.actors;
     if ( dialog ) {
-      const response = await this.#confirmRestDialog(restConfig.duration / 3600, prior);
-      if ( !response ) return;
-      participants = response.participants;
-      restConfig.duration = response.duration;
-      restConfig.allowInterruption = response.allowInterruption;
+      config = await this.#confirmRestDialog(hoursRemaining, prior);
+      if ( !config ) return null;
     }
-
-    // Allow modules to modify or prevent the rest
-    const cancelled = Hooks.call("crucible.preGroupRest", this, restConfig) === false;
-    if ( cancelled && restConfig.allowInterruption ) return;
-    try {
-      await Promise.all(restConfig.promises);
-    } catch(err) {
-      if ( !restConfig.allowInterruption ) {
-        console.warn(`Group rest hook throw an Error, but this Rest cannot be interrupted: ${err.message}`);
-      }
-      else if ( restConfig.interrupted ) {
-        await this.#recordRestInterruption(prior, restConfig.interrupted);
-        return;
-      }
-      else {
-        console.warn(`Group rest cancelled: ${err.message}`);
-        return;
-      }
-    }
-
-    // Successful completion - clear continuation state and execute the rest
-    if ( prior ) await this.parent.unsetFlag("crucible", "rest");
-    const promises = [];
-    for ( const actor of participants ) {
-      promises.push(actor.useAction("rest", {dialog: false}));
-    }
-    promises.push(game.time.advance(restConfig.duration));
-    await Promise.allSettled(promises);
-
-    // Announce completion only once time has advanced, so listeners which timestamp the rest record its end
-    Hooks.callAll("crucible.groupRest", this, restConfig, participants);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Persist continuation state after a rest is interrupted, folding listener-supplied extras into the flag.
-   * @param {{hoursCompleted: number, hoursRequired: number}|null} prior   Prior continuation state.
-   * @param {{hoursElapsed: number}} interrupted                           Listener-supplied interruption descriptor.
-   * @returns {Promise<void>}
-   */
-  async #recordRestInterruption(prior, interrupted) {
-    const baseHours = SYSTEM.TIME.restSeconds / 3600;
-    const {hoursElapsed, ...extras} = interrupted;
-    const flag = {
-      hoursCompleted: (prior?.hoursCompleted ?? 0) + hoursElapsed,
-      hoursRequired: prior?.hoursRequired ?? baseHours,
-      ...extras
-    };
-    await this.parent.setFlag("crucible", "rest", _replace(flag));
-    await game.time.advance(hoursElapsed * 3600);
-    ui.notifications.warn(_loc("ACTOR.GROUP.REST.Interrupted", {hours: hoursElapsed}));
+    return crucible.api.models.CrucibleRestMessage.createMessage(this.parent, config);
   }
 
   /* -------------------------------------------- */
@@ -657,7 +592,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    * Prompt the Gamemaster to confirm group rest participants and duration.
    * @param {number} defaultHours       Pre-populated rest duration in hours
    * @param {{hoursCompleted: number, hoursRequired: number}|null} [prior=null]   Prior continuation state.
-   * @returns {Promise<{participants: CrucibleActor[], duration: number, allowInterruption: boolean}|null>}
+   * @returns {Promise<{participants: CrucibleActor[], duration: number, allowInterruption: boolean,
+   *   allowRestActions: boolean}|null>}
    */
   async #confirmRestDialog(defaultHours, prior=null) {
 
@@ -669,7 +605,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
         {initial: Object.keys(choices)}),
       hours: new NumberField({required: true, nullable: false, positive: true, min: 1, step: 0.5,
         initial: defaultHours}),
-      allowInterruption: new BooleanField({initial: true})
+      allowInterruption: new BooleanField({initial: true}),
+      allowRestActions: new BooleanField({initial: true})
     });
     foundry.helpers.Localization.localizeSchema(formSchema, ["ACTOR.GROUP.REST"]);
     const content = document.createElement("div");
@@ -698,7 +635,8 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     return {
       participants: [...this.actors].filter(a => response.participants.includes(a.id)),
       duration: (response.hours ?? defaultHours) * 3600,
-      allowInterruption: response.allowInterruption ?? true
+      allowInterruption: response.allowInterruption ?? true,
+      allowRestActions: response.allowRestActions ?? true
     };
   }
 

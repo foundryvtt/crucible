@@ -37,6 +37,9 @@ export {default as CrucibleToolItem} from "./item-tool.mjs";
 export {default as CrucibleTaxonomyItem} from "./item-taxonomy.mjs";
 export {default as CrucibleWeaponItem} from "./item-weapon.mjs";
 
+// ChatMessage
+export {default as CrucibleRestMessage} from "./message-rest.mjs";
+
 // Region Behavior
 export {default as CrucibleActionRegionBehavior} from "./behavior-action.mjs";
 export {default as CrucibleHazardRegionBehavior} from "./behavior-hazard.mjs";
