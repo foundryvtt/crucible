@@ -841,6 +841,7 @@ Hooks.on("getSceneControlButtons", controls => {
     icon: "fa-solid fa-circles-overlap",
     toggle: true,
     active: false,
+    visible: !!game.canvas.scene?.useMicrogrid,
     onChange: (_event, active) => {
       CONFIG.debug.flanking = active;
       canvas.CrucibleTokenObject.refreshFlankingVisualization();

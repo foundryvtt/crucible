@@ -1,4 +1,5 @@
 import CrucibleBaseActorSheet from "./base-actor-sheet.mjs";
+import {awardCurrency} from "../../enrichers.mjs";
 
 /**
  * A CrucibleBaseActorSheet subclass used to configure Actors of the "adversary" type.
@@ -15,6 +16,7 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       editTaxonomy: AdversarySheet.#onEditTaxonomy,
       levelDecrease: AdversarySheet.#onLevelDecrease,
       levelIncrease: AdversarySheet.#onLevelIncrease,
+      splitCurrency: AdversarySheet.#onSplitCurrency,
       toggleImportant: AdversarySheet.#onToggleImportant
     }
   };
@@ -36,6 +38,7 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       archetypeName: a.system.details.archetype?.name || _loc("ARCHETYPE.SHEET.Choose"),
       taxonomyName: a.system.details.taxonomy?.name || _loc("TAXONOMY.SHEET.Choose"),
       canPurchaseTalents: false,
+      splitCurrency: game.user.isGM ? {disabled: a.system.currency <= 0} : null,
       threats: SYSTEM.THREAT_RANKS,
       threat: SYSTEM.THREAT_RANKS[rank],
       levelDisplay: this.#getLevelDisplay(level),
@@ -123,6 +126,24 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
     else if ( l === -1 ) next = 1;
     else next = Math.min(l + 1, 24);
     return this.actor.update({"system.advancement.level": next});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Split this Adversary's currency among chosen party members as loot, leaving it with none.
+   * @this {AdversarySheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onSplitCurrency(event) {
+    const CrucibleActor = crucible.api.documents.CrucibleActor;
+    const currency = CrucibleActor.allocateCurrency(this.actor.system.currency);
+    for ( const [k, v] of Object.entries(currency) ) {
+      if ( !v ) delete currency[k];
+    }
+    const recipients = await awardCurrency(currency);
+    if ( recipients.size ) await this.actor.update({"system.currency": 0});
   }
 
   /* -------------------------------------------- */

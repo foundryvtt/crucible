@@ -292,44 +292,76 @@ async function onClickAward(event) {
     currency[key] = roll.total;
     if ( !roll.isDeterministic ) rolls.push(roll);
   }
+  await awardCurrency(currency, {each, rolls});
+}
 
-  let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
+/* -------------------------------------------- */
 
+/**
+ * Prompt the GM to choose recipients, then grant (or charge) an amount of currency to each or split among them.
+ * A split remainder is dealt one unit at a time to recipients in a shuffled order.
+ * @param {Record<keyof crucible.CONFIG.currency, number>} currency   The amount in configured denominations
+ * @param {object} [options]
+ * @param {boolean} [options.each=false]    Apply the full amount to each recipient rather than splitting it
+ * @param {Roll[]} [options.rolls]          Rolls which determined the amount, displayed in the summary
+ * @returns {Promise<Set<CrucibleActor>>}   The recipients, empty if the award was not made
+ */
+export async function awardCurrency(currency, {each=false, rolls=[]}={}) {
+  const total = crucible.api.documents.CrucibleActor.convertCurrency(currency);
+  const isCost = total < 0;
   const targets = await chooseActorsDialog({
-    dialogTitle: _loc(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`),
+    dialogTitle: _loc(`AWARD.Title${isCost ? "Cost" : "Reward"}`),
     dialogIcon: "fa-solid fa-trophy"
   });
-  if (!targets.size) return;
+  if ( !targets.size ) return targets;
 
-  // Iterate over actor targets
-  if ( !each ) currencyEach = Math.floor(currencyEach / targets.size);
-  if ( currencyEach < 0 ) {
-    const cannotAfford = targets.filter(a => a.system.currency < -currencyEach).map(a => a.name);
-    if ( cannotAfford.size ) return ui.notifications.warn(_loc("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
-  }
-  for ( const actor of targets ) {
-    const startingCurrency = actor.system.currency;
-    const newCurrency = Math.max(startingCurrency + currencyEach, 0);
-    actor.update({
-      "system.currency": newCurrency
+  // Determine the amount applied to each recipient
+  const recipients = Array.from(targets);
+  const amounts = new Map();
+  if ( each ) for ( const actor of recipients ) amounts.set(actor, total);
+  else {
+    const magnitude = Math.abs(total);
+    const share = Math.floor(magnitude / recipients.length);
+    const remainder = magnitude % recipients.length;
+    const shuffled = recipients.map(actor => ({actor, key: Math.random()})).sort((a, b) => a.key - b.key);
+    shuffled.forEach(({actor}, i) => {
+      const amount = share + ((i < remainder) ? 1 : 0);
+      amounts.set(actor, isCost ? -amount : amount);
     });
   }
 
-  const currencyEntries = formatAwardEntries(currency, true);
+  // Confirm that every recipient can afford a cost
+  if ( isCost ) {
+    const cannotAfford = recipients.filter(a => a.system.currency < -amounts.get(a)).map(a => a.name);
+    if ( cannotAfford.length ) {
+      ui.notifications.warn(_loc("AWARD.WARNINGS.CannotAfford", {actors: cannotAfford.join(", ")}));
+      return new Set();
+    }
+  }
+  await Promise.all(recipients.map(a => a.update({"system.currency": Math.max(a.system.currency + amounts.get(a), 0)})));
+
+  // Summarize the award in chat, reporting the amount each recipient received
+  const formatAmount = amount => {
+    const allocated = crucible.api.documents.CrucibleActor.allocateCurrency(Math.abs(amount));
+    for ( const [k, v] of Object.entries(allocated) ) {
+      if ( !v ) delete allocated[k];
+    }
+    return formatAwardEntries(allocated).join(" ");
+  };
+  const template = "systems/crucible/templates/chat/award-summary.hbs";
+  const summaryHTML = await foundry.applications.handlebars.renderTemplate(template, {
+    title: _loc(`AWARD.SUMMARIES.${isCost ? "Cost" : "Reward"}${each ? "" : "Split"}`),
+    award: formatAwardEntries(currency, true).join(" "),
+    recipients: recipients.map(a => ({name: a.name, amount: formatAmount(amounts.get(a))}))
+  });
   const rollsHTML = await Promise.all(rolls.map(r => r.render()));
   await ChatMessage.implementation.create({
-    content: `
-    <section class="crucible">
-      <div class="currencies-inline">
-        ${_loc(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
-      </div>
-      <ul class="plain">${Array.from(targets.map(a => `<li>${a.name}</li>`)).join("")}</ul>
-    </section>
-    `.concat(rollsHTML.join("")),
+    content: summaryHTML.concat(rollsHTML.join("")),
     rolls,
     speaker: {user: game.user},
     flags: {crucible: {isAwardSummary: true}}
   });
+  return targets;
 }
 
 /* -------------------------------------------- */

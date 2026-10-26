@@ -33,7 +33,14 @@
     <footer class="tab-footer inventory-footer flexrow">
         <div class="sheet-section currency-section flexcol">
             <h3>{{localize "ACTOR.LABELS.Currency"}}</h3>
-            <crucible-currency name="system.currency" value="{{source.system.currency}}"></crucible-currency>
+            <div class="flexrow">
+                <crucible-currency name="system.currency" value="{{source.system.currency}}"></crucible-currency>
+                {{#if splitCurrency}}
+                <button type="button" class="icon frame-brown fa-solid fa-coins split-currency" data-action="splitCurrency"
+                        aria-label="{{localize "ACTOR.ACTIONS.SplitCurrency"}}" data-tooltip
+                        {{disabled splitCurrency.disabled}}></button>
+                {{/if}}
+            </div>
         </div>
         {{#if capacity}}
         <div class="carrying-capacity labeled-hex" style="--capacity-pct: {{capacity.pct}}">

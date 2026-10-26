@@ -756,6 +756,7 @@
       "ResetTalentsTitle": "Reset Talents: {actor}",
       "ResolveProgress": "Go to the next progression step",
       "RollCheck": "Roll Check",
+      "SplitCurrency": "Split Currency Among Party",
       "SyncActor": "Sync from Compendium",
       "SyncActorContent": "<p>Re-apply this Actor's Talents, Ancestry, Background, Taxonomy, and Archetype from their current compendium versions.</p><p><strong>Any customizations made to those items on this Actor will be overwritten with the compendium defaults.</strong> Granted Talents, equipment, and spells which the sources no longer provide will be removed.</p>",
       "SyncActorResult": "Synced {actor}: refreshed {synced} Talents, removed {deleted}, re-applied {details} detail items.",
@@ -1387,10 +1388,10 @@
         "Label": "Currency",
         "Total": "Total"
       },
-      "Cost": "{award} cost paid by:",
-      "CostSplit": "{award} cost split between:",
-      "Reward": "{award} granted to:",
-      "RewardSplit": "{award} split between:"
+      "Cost": "Cost Paid",
+      "CostSplit": "Cost Split",
+      "Reward": "Reward Granted",
+      "RewardSplit": "Reward Split"
     },
     "TOOLTIPS": {
       "Currency": "Award Currency",

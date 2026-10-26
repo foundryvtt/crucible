@@ -866,6 +866,16 @@
     .inventory-footer {
       flex: 0 0 80px;
       padding-right: var(--sheet-body-gap);
+      .currency-section .flexrow {
+        align-items: center;
+        gap: 0.5rem;
+        button.icon {
+          flex: none;
+        }
+        button.split-currency:disabled {
+          visibility: hidden; // Reserve the space to avoid a layout shift when currency is gained or spent
+        }
+      }
       .carrying-capacity {
         --capacity-pct: 0;
         flex: 0 0 130px;

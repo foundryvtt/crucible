@@ -1,0 +1,18 @@
+<section class="crucible award-summary">
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th class="report-label">{{title}}</th>
+                <th class="report-value"><span class="currencies-inline">{{{award}}}</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each recipients}}
+            <tr>
+                <td class="report-label">{{name}}</td>
+                <td class="report-value"><span class="currencies-inline">{{{amount}}}</span></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
