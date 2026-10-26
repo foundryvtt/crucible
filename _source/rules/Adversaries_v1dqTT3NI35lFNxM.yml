@@ -39,20 +39,20 @@ pages:
         Category</p></th><th><p>Threat Multiplier</p></th><th><p>Action
         Points</p></th><th><p>Bonus Focus</p></th><th
         style="width:50%"><p>Description</p></th></tr></thead><tbody><tr><td><p>Minion</p></td><td><p>×
-        0.5</p></td><td><p>2</p></td><td><p>-</p></td><td><p>Weaker than average
+        0.5</p></td><td><p>4</p></td><td><p>-</p></td><td><p>Weaker than average
         foes at a given level, minions are less dangerous and more easily
         dispatched - but may be numerous in
         quantity.</p></td></tr><tr><td><p>Normal</p></td><td><p>×
-        1</p></td><td><p>3</p></td><td><p>-</p></td><td><p>The standard level of
+        1</p></td><td><p>6</p></td><td><p>-</p></td><td><p>The standard level of
         difficulty and challenge for a certain
         level.</p></td></tr><tr><td><p>Elite</p></td><td><p>×
-        1.5</p></td><td><p>4</p></td><td><p>+1</p></td><td><p>Stronger than
+        1.5</p></td><td><p>8</p></td><td><p>+1</p></td><td><p>Stronger than
         average foes at a given level, elites are more dangerous and more
         difficult to dispatch. Elites are more rarely
         encountered.</p></td></tr><tr><td><p>Boss</p></td><td><p>×
-        2</p></td><td><p>5</p></td><td><p>+2</p></td><td><p>Especially dangerous
-        enemies which represent the ultimate degree of challenge at a certain
-        level. Most encounters do not contain a
+        2</p></td><td><p>10</p></td><td><p>+2</p></td><td><p>Especially
+        dangerous enemies which represent the ultimate degree of challenge at a
+        certain level. Most encounters do not contain a
         boss.</p></td></tr></tbody></table><h2 class="divider">Defeating
         Adversaries</h2><p>Most Adversaries do not have <strong>Wounds</strong>
         or <strong>Madness</strong> pools like Protagonist characters; their
@@ -152,10 +152,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.368'
+      coreVersion: '14.369'
       createdTime: 1684375058270
-      modifiedTime: 1789669208957
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1793036742879
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null

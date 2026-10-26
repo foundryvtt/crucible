@@ -338,10 +338,10 @@ pages:
         Base Cost</p></section><section class="gameplay"><p>Suppose a
         <strong>Standard</strong> quality and unenchanted
         <strong>Mundane</strong> Longsword has a base cost of 50. The same type
-        of weapon crafted at <strong>Masterwork</strong> quality would cost
-        3200. If a <strong>Legendary</strong> enchantment were added to the
-        weapon through affixes, it would then cost 25,650. A true
-        fortune!</p></section>
+        of weapon crafted at <strong>Masterwork</strong> quality (+4 Rarity)
+        would cost 6,250. If the weapon were then enchanted to its fullest
+        extent, with a cumulative 6 tiers of <strong>Affixes</strong>, it would
+        then cost 66,550. A true fortune!</p></section>
     video:
       controls: true
       volume: 0.5
@@ -354,10 +354,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.360'
+      coreVersion: '14.369'
       createdTime: 1684891238587
-      modifiedTime: 1777755201653
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1793036310375
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null

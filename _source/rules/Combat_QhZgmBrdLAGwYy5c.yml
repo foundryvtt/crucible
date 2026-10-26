@@ -162,8 +162,8 @@ pages:
         Misses</h2><p>If the Attack Roll exceeds the Defense Score by an amount
         greater than the attacker's Critical Success Threshold (6 in most cases)
         it becomes a <strong>Critical Hit</strong>. Similarly if the Attack Roll
-        is lower than the Defense Score by an amount greater than the attacker's
-        Critical Failure Threshold (6 in most cases) it becomes a
+        is lower than the Defense Score by an amount greater than or equal to
+        the attacker's Critical Failure Threshold (6 in most cases) it becomes a
         <strong>Critical Miss</strong>.</p><p>A Critical Hit does not directly
         increase the damage of an attack - although because of the way that
         Overflow contributes to total damage, Critical Hits always deal more
@@ -195,10 +195,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.363'
+      coreVersion: '14.369'
       createdTime: 1780584488328
-      modifiedTime: 1780584488328
-      lastModifiedBy: fzBjA63BB4hW4rQb
+      modifiedTime: 1793035896588
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: JournalEntry.rQ8H74v0bMnhu4xA.JournalEntryPage.lZfPVvBSsCEqlte4
       duplicateSource: null
       exportSource: null
@@ -495,7 +495,7 @@ pages:
         <strong>Intimidate</strong> Action targeting a nearby Goblin and rolls
         the Skill Attack, producing a total result of <strong>27</strong>
         compared to the Goblin's passive Intimidation score of
-        <strong>14</strong>. This success results in <strong>17 Void
+        <strong>14</strong>. This success results in <strong>13 Void
         Damage</strong> dealt to the Goblin's Morale, causing it to become
         @Condition[broken] and attempt to flee.</p></section>
     video:
@@ -510,10 +510,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.9.0
-      coreVersion: '14.363'
+      coreVersion: '14.369'
       createdTime: 1684374509565
-      modifiedTime: 1780583262801
-      lastModifiedBy: fzBjA63BB4hW4rQb
+      modifiedTime: 1793036798897
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -848,13 +848,14 @@ pages:
         disengage from you in melee combat it becomes temporarily vulnerable,
         allowing you to perform a @Action[default reactiveStrike], a weapon
         attack as a Reaction. You may not make a Reactive Strike if you are
-        @Condition[unaware], @Condition[overrun], or @Condition[flanked] by
-        other remaining opponents whom you perceive.</p><section
-        class="gameplay"><p>The Goblins in our previous example have decided
-        that Krag is too tough and it is advisable to disengage in search of
-        more vulnerable prey. Two of the four goblins may move away from Krag
-        without reciprocity, because Krag is otherwise <strong>Fully
-        Engaged</strong> and therefore cannot retaliate. When the third goblin
+        @Condition[unaware], @Condition[overrun], @Rule[movement.fullyEngaged],
+        or @Condition[flanked] by other remaining opponents whom you
+        perceive.</p><section class="gameplay"><p>The Goblins in our original
+        example (without Jinora providing any aid) have decided that Krag is too
+        tough and it is advisable to disengage in search of more vulnerable
+        prey. Two of the five goblins may move away from Krag without
+        reciprocity, because Krag is still <strong>Fully Engaged</strong> by the
+        remaining goblins, and therefore cannot retaliate. When the third goblin
         moves away, however, Krag performs a @Action[default reactiveStrike],
         burying his battle axe in the back of the retreating
         evildoer!</p></section>
@@ -869,11 +870,11 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '14.368'
+      coreVersion: '14.369'
       systemId: crucible
       systemVersion: 0.8.6
       createdTime: 1726930849493
-      modifiedTime: 1790607728533
+      modifiedTime: 1793037014760
       lastModifiedBy: ZXJsFnFZuf21WDAk
       exportSource: null
     category: null
