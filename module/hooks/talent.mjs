@@ -1814,6 +1814,17 @@ HOOKS.bloodless0000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.colossalForm0000 = {
+  defendAttack(_item, action, _origin, rollData) {
+    if ( action.tags.has("strike") ) rollData.criticalSuccessThreshold += 2;
+  },
+  prepareMovement(_item, movement) {
+    movement.blockerStrength = SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.corrosiveStrikes = {
   applyCriticalEffects(_item, action) {
     for ( const [, events] of action.eventsByTarget ) {

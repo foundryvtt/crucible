@@ -1,0 +1,47 @@
+folder: giantParts000000
+name: Giant Tusks
+type: weapon
+_id: giantTusks000000
+img: icons/magic/death/undead-skeleton-tusk-purple.webp
+system:
+  identifier: giantTusks
+  category: heavy2
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - intuitive
+    - natural
+    - oversized
+    - reach
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} has substantial tusks which it uses to
+      bludgeon its foes.</p>
+    private: ''
+  actions: []
+  damageType: bludgeoning
+  dropped: false
+  slot: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793021998838
+  modifiedTime: 1793023874050
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!giantTusks000000'
