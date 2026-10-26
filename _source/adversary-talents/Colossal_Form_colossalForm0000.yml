@@ -1,0 +1,39 @@
+folder: 9Ej4QwUt1yVpv4Wn
+name: Colossal Form
+type: talent
+_id: colossalForm0000
+img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is gargantuan — its weak points are far
+    apart and well protected, and it is considerably sturdier than most. The
+    @Rule[dice.criticalSuccessThreshold] for <strong>Strikes</strong> against it
+    is increased by 2, and it cannot be moved against its will by any but the
+    most powerful forces.</p>
+  actions: []
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords:
+    - playstyle.defensive
+    - action.movement
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793046560280
+  modifiedTime: 1793048127664
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!colossalForm0000'
