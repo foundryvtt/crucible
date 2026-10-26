@@ -425,7 +425,7 @@ pages:
         using the physical ability scores of Strength, Toughness, and
         Dexterity.</p><h2 class="divider">Toughness</h2><p>Toughness is a
         physical resilience attribute describing physical hardiness and
-        tenacity. Toughness affects the <strong>Fortitude</strong> defense. Each
+        tenacity. Toughness affects the <strong>Willpower</strong> defense. Each
         point of Toughness increases base <strong>Health</strong> by
         4.</p><section class="gameplay"><p>Characters with high Toughness can
         typically withstand considerable physical strain, demonstrating both
@@ -452,7 +452,7 @@ pages:
         actions with the <strong>Reaction</strong> tag.</p><h2
         class="divider">Wisdom</h2><p>Wisdom is a mental power attribute
         describing a creature's force of conviction, depth of knowledge, and
-        patience. Wisdom affects <strong>Willpower</strong> defense and size of
+        patience. Wisdom affects <strong>Fortitude</strong> defense and size of
         <strong>Focus</strong> pool. Each point of Wisdom increases base
         <strong>Morale</strong> by 2.</p><section class="gameplay"><p>Characters
         with high Wisdom typically act deliberately, demonstrating patience and
@@ -506,12 +506,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '14.356'
+      coreVersion: '14.369'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1761771265716
-      modifiedTime: 1773776410891
-      lastModifiedBy: 4uFKaoDjEQwkkXjq
+      modifiedTime: 1793037217779
+      lastModifiedBy: ZXJsFnFZuf21WDAk
     _key: '!journal.pages!characterMechani.abilityScores000'
   - _id: talents000000000
     name: Talents
