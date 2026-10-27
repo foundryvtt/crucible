@@ -1,0 +1,99 @@
+folder: hLW9grST8mutR0JI
+name: Noxious Burst
+type: talent
+_id: noxiousBurst0000
+img: icons/magic/unholy/orb-smoking-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to produce and expel a cloud of
+    poisonous gas.</p>
+  actions:
+    - id: noxiousBurst
+      img: icons/magic/unholy/orb-smoking-green.webp
+      cost:
+        action: 4
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 4
+        self: false
+        size: 15
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - poisoned
+          duration:
+            value: 3
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dot: []
+            lights: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            suppression: {}
+      tags:
+        - melee
+        - natural
+        - willpower
+        - poison
+        - morale
+      name: Noxious Burst
+      description: >-
+        <p>The @ref[actor.name]{creature} expels a burst of poisonous gas in a
+        15 foot blast, attacking the @Rule[defense.fortitude] of each target
+        within that range and dealing @Rule[damageType.poison] damage to
+        @Rule[resource.morale].</p><p>On a @Rule[dice.criticalSuccess]{Critical
+        Hit} the attack causes the @Condition[poisoned] condition for <strong>3
+        Turns</strong>.</p>
+      condition: ''
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords:
+    - playstyle.melee
+    - weapon.natural
+    - damageType.poison
+    - target.fortitude
+    - target.morale
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793124969976
+  modifiedTime: 1793126603624
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!noxiousBurst0000'

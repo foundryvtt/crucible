@@ -1830,6 +1830,22 @@ HOOKS.corrosiveStrikes = {
 
 /* -------------------------------------------- */
 
+HOOKS.noxiousStrikes = {
+  applyCriticalEffects(_item, action) {
+    for ( const [, events] of action.eventsByTarget ) {
+      for ( const event of events.roll ) {
+        if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
+        const weapon = event.weaponItem;
+        if ( !weapon || weapon.config.category.ranged ) continue;
+        event.effects.push(SYSTEM.EFFECTS.poisoned(this, {ability: "toughness"}));
+        break;
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.secondSkin000000 = {
   prepareMovement() {
     const armor = this.equipment.armor;
