@@ -1,0 +1,45 @@
+folder: giantParts000000
+name: Giant Feet
+type: weapon
+_id: giantFeet0000000
+img: icons/creatures/abilities/paw-print-orange.webp
+system:
+  identifier: giantFeet
+  category: heavy2
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - intuitive
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} has feet of such magnitude that they can
+      be used as powerful weapons, bludgeoning those caught underfoot.</p>
+    private: ''
+  actions: []
+  damageType: bludgeoning
+  dropped: false
+  slot: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793112632782
+  modifiedTime: 1793114225465
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!giantFeet0000000'
