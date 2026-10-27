@@ -1,0 +1,45 @@
+folder: creatureParts000
+name: Feet
+type: weapon
+_id: feet000000000000
+img: icons/creatures/abilities/paw-print-pair-purple.webp
+system:
+  identifier: feet
+  category: light1
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - intuitive
+    - natural
+  description:
+    public: >-
+      <p>The @ref[actor.name]{creature} can attack using feet with no claws or
+      hooves.</p>
+    private: ''
+  actions: []
+  damageType: bludgeoning
+  dropped: false
+  slot: 0
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793114255734
+  modifiedTime: 1793114365359
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!feet000000000000'

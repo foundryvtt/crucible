@@ -1,0 +1,105 @@
+folder: wTcQjW37uAKhpMQL
+name: Hadrosaur
+type: taxonomy
+_id: hadrosaur0000000
+img: icons/creatures/eyes/lizard-single-slit-green.webp
+system:
+  description: >-
+    <p>Herbivorous dinosaurs easily picked out by their duck-bill-like snouts
+    and the large crests on their heads.</p>
+  identifier: hadrosaur
+  category: beast
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 4
+    toughness: 3
+    dexterity: 2
+  movement:
+    size: 18
+    heightRatio: 0.9
+    stride: 14
+  resistances:
+    acid:
+      value: 0
+      immune: false
+    bludgeoning:
+      value: 2
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    piercing:
+      value: -2
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.tailSweep0000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.tramplingCharge0
+      level: 1
+    - item: Compendium.crucible.adversary-talents.Item.bestialSenses000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.colossalForm0000
+      level: 0
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.giantTail0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.lightHide0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.giantFeet0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: false
+    temperature: ''
+effects: []
+sort: 400000
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793114517499
+  modifiedTime: 1793114519941
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!hadrosaur0000000'
