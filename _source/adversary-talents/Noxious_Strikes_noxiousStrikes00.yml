@@ -1,0 +1,38 @@
+folder: XbUSvcKVfxu5qw7T
+name: Noxious Strikes
+type: talent
+_id: noxiousStrikes00
+img: icons/magic/unholy/projectile-smoke-tendril-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature}'s body inflicts poison upon whatever it
+    strikes. When it scores a @Rule[dice.criticalSuccess]{Critical Hit} with a
+    melee attack that deals damage to @Rule[resource.health], the target becomes
+    @Condition[poisoned] for <strong>3 Rounds</strong>.</p>
+  actions: []
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords:
+    - playstyle.melee
+    - damageType.poison
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793124647424
+  modifiedTime: 1793124846392
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!noxiousStrikes00'
