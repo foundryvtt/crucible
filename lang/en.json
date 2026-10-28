@@ -68,10 +68,12 @@
         "NameDistance": "Fall ({distance} feet)"
       },
       "Interact": {
+        "BashDoor": "Bash Door",
         "CloseDoor": "Close Door",
         "Description": "Interact with an object in your environment, such as opening a door, pulling a lever, or picking up an object. If your @Rule[movement.freeMovement] for the round is still available, it is spent in place of the @Rule[resource.action] cost.",
         "Name": "Interact",
-        "OpenDoor": "Open Door"
+        "OpenDoor": "Open Door",
+        "PickLock": "Pick Lock"
       },
       "Investiture": {
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
@@ -3012,6 +3014,24 @@
     "NextLevel": "Advancement progress towards next level",
     "SkillPoints": "Spend available Skill Points by increasing your Skill ranks.",
     "TalentPoints": "Spend available Talent Points by opening the Talent Tree."
+  },
+  "WALL": {
+    "BYPASS_DIALOG": {
+      "Content": "<p>This door is locked. You can attempt to bash it open through force using <strong>Athletics</strong>, or attempt to pick the lock with a lockpick using <strong>Stealth</strong>.",
+      "MissingLockpicks": "You cannot pick this lock, as you do not have lockpicks equipped.",
+      "Title": "Locked Door"
+    },
+    "FIELDS": {
+      "bash": {
+        "hint": "The DC for an Athletics skill check to break down this door, if locked.",
+        "label": "Door Bash DC"
+      },
+      "pick": {
+        "hint": "The DC for a Stealth skill check to pick this door's lock, if locked.",
+        "label": "Door Pick DC"
+      }
+    },
+    "BashPickLegend": "Locked Door Bypass"
   },
   "WARNING": {
     "AbilityCannotDecrease": "You cannot decrease this Ability further.",

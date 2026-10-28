@@ -1350,6 +1350,9 @@ HOOKS.interact = {
     const doc = uuid ? await fromUuid(uuid) : null;
     if ( !doc ) return;
 
+    // If a roll was involved and failed, make no changes
+    if ( this.selfEvents?.hasRoll && !this.selfEvents.isSuccess ) return;
+
     // Apply the change only while the document remains in the state this interaction expects to transition from
     const [from, to] = reverse ? [changes, prior] : [prior, changes];
     if ( Object.entries(from).every(([k, v]) => foundry.utils.getProperty(doc, k) === v) ) await doc.update(to);
