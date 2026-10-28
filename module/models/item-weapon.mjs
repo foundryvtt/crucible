@@ -321,7 +321,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const tags = super.getTags(scope);
 
     // Equipment Slot and Type
-    if ( this.properties.has("natural") ) tags.equipped = SYSTEM.WEAPON.PROPERTIES.natural.label;
+    if ( this.properties.has("natural") ) delete tags.equipped;
     else if ( this.equipped ) {
       const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([_k, v]) => v === this.slot)[0];
       tags.equipped = SYSTEM.WEAPON.SLOTS.labels[slotKey];
