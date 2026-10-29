@@ -533,14 +533,19 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       reaction: {label: _loc("ACTOR.SHEET.HEADERS.ActionsReaction"), actions: []},
       movement: {label: _loc("ACTOR.SHEET.HEADERS.ActionsMovement"), actions: []},
       consumable: {label: _loc("ACTOR.SHEET.HEADERS.ActionsConsumable"), actions: []},
-      general: {label: _loc("ACTOR.SHEET.HEADERS.ActionsGeneral"), actions: []}
+      general: {label: _loc("ACTOR.SHEET.HEADERS.ActionsGeneral"), actions: []},
+      rest: {label: _loc("ACTOR.SHEET.HEADERS.ActionsRest"), actions: [],
+        sort: (a, b) => a.action.tags.has("rest") - b.action.tags.has("rest")}
     };
+    const defaultIds = new Set(SYSTEM.ACTION.DEFAULT_ACTIONS.map(a => a.id));
     const favorites = [];
 
     // Iterate over all Actions
     for ( const [actionId, action] of Object.entries(this.actor.actions) ) {
       const a = {
         id: actionId,
+        action,
+        isDefault: defaultIds.has(actionId),
         name: action.name,
         img: action.img,
         tags: action.getTags().activation,
@@ -556,8 +561,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       if ( action.suppressFromSheet ) continue;
 
       // Classify actions
-      let section = "general";
+      let section = ["rest", "recover"].includes(actionId) ? "rest" : "general";
       const tagMapping = {
+        rest: "rest",
         reaction: "reaction",
         strike: "attack",
         spell: "spell",
@@ -575,10 +581,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       sections[section].actions.push(a);
     }
 
-    // Sort each section
+    // Sort each section by its own ordering first, then default actions before others, then by name
     for ( const [k, section] of Object.entries(sections) ) {
-      if ( !section.actions.length ) delete sections[k];
-      else section.actions.sort((a, b) => a.name.localeCompare(b.name));
+      if ( !section.actions.length ) {
+        delete sections[k];
+        continue;
+      }
+      section.actions.sort((a, b) => section.sort?.(a, b) || (b.isDefault - a.isDefault)
+        || a.name.localeCompare(b.name));
     }
     favorites.sort((a, b) => a.name.localeCompare(b.name));
     return {sections, favorites};

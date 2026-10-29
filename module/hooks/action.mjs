@@ -559,6 +559,15 @@ HOOKS.conjureArmament = {
 
 /* -------------------------------------------- */
 
+HOOKS.convalesce = {
+  postActivate() {
+    const delta = -Math.min(1, this.actor.system.resources.wounds.value);
+    if ( delta ) this.selfEvents.activation.resources.push({resource: "wounds", delta});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.counterEvade = {
   canUse() {
     _canUsePostDefend(this, {requiredResult: crucible.api.dice.AttackRoll.RESULT_TYPES.DODGE});
@@ -1802,6 +1811,15 @@ HOOKS.medicinalCompound = {
 
 /* -------------------------------------------- */
 
+HOOKS.meditate = {
+  postActivate() {
+    const delta = -Math.min(1, this.actor.system.resources.madness.value);
+    if ( delta ) this.selfEvents.activation.resources.push({resource: "madness", delta});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.net = {
   initialize() {
     const cls = getDocumentClass("Item");
@@ -2354,11 +2372,12 @@ function _restRecoverPostActivate(action, {reduceWoundMadness}) {
     if ( delta > 0 ) activationEvent.resources.push({resource: id, delta});
   }
 
-  // Hero-only wounds and madness reduction (rest only); clamped to current value so reversal restores exactly
-  if ( reduceWoundMadness && (actor.type === "hero") ) {
+  // Wounds and madness reduction (rest only); clamped to current value so reversal restores exactly
+  if ( reduceWoundMadness && actor.system.usesReserveResources ) {
     const {wounds, madness} = actor.system.resources;
-    const woundsDelta = -Math.min(actor.level, wounds.value);
-    const madnessDelta = -Math.min(actor.level, madness.value);
+    const reduction = Math.max(actor.level, 1);
+    const woundsDelta = -Math.min(reduction, wounds.value);
+    const madnessDelta = -Math.min(reduction, madness.value);
     if ( woundsDelta < 0 ) activationEvent.resources.push({resource: "wounds", delta: woundsDelta});
     if ( madnessDelta < 0 ) activationEvent.resources.push({resource: "madness", delta: madnessDelta});
   }

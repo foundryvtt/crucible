@@ -1,3 +1,11 @@
+{{#*inline "restRolls"}}
+{{#each rolls}}
+<div class="rest-roll {{cssClass}}" data-action="expandRoll">
+    <span class="rest-roll-target ellipsis">{{name}}</span>
+    {{> "systems/crucible/templates/dice/partials/standard-check-dice-result.hbs"}}
+</div>
+{{/each}}
+{{/inline}}
 <section class="crucible rest-card {{status}}">
     <div class="rest-summary flexrow">
         <span class="rest-title"><i class="fa-solid fa-campground"></i> {{title}}</span>
@@ -6,7 +14,7 @@
     {{#if complete}}
     <table class="report-table turn-report-table">
         {{#each participants as |participant|}}
-        <tbody>
+        <tbody class="rest-participant" data-actor-uuid="{{participant.uuid}}">
             <tr>
                 <th class="report-label">{{participant.name}}</th>
                 <th class="report-value">
@@ -15,6 +23,26 @@
                     </div>
                 </th>
             </tr>
+            {{#if participant.performed}}
+            <tr>
+                <td class="report-label">{{localize "ACTOR.GROUP.REST.FIELDS.designation.label"}}</td>
+                <td class="report-value">
+                    <div class="rest-action-value">
+                        {{#if participant.rolls.length}}
+                        <button type="button" class="icon plain fa-solid fa-dice-d8" data-rest-results data-tooltip></button>
+                        {{/if}}
+                        <span class="ellipsis">{{participant.performed}}</span>
+                    </div>
+                </td>
+            </tr>
+            {{#if participant.rolls.length}}
+            <tr class="rest-rolls-row">
+                <td colspan="2">
+                    <div class="rest-rolls">{{> restRolls rolls=participant.rolls}}</div>
+                </td>
+            </tr>
+            {{/if}}
+            {{/if}}
             {{#each participant.resources}}
             <tr>
                 <td class="report-label">{{label}}</td>
@@ -33,11 +61,35 @@
     {{else}}
     <div class="rest-participants flexcol">
         {{#each participants as |participant|}}
-        <div class="rest-participant line-item">
-            <img class="icon" src="{{participant.img}}" alt="{{participant.name}}">
+        <div class="rest-participant line-item" data-actor-uuid="{{participant.uuid}}">
+            <img class="icon" src="{{participant.img}}" alt="{{participant.name}}"
+                 {{#if participant.actionId}}data-crucible-tooltip="action" data-uuid="{{participant.uuid}}"
+                 data-action-id="{{participant.actionId}}" data-tooltip-direction="LEFT"{{/if}}>
             <div class="title">
                 <h4 class="ellipsis">{{participant.name}}</h4>
+                {{#if participant.designation}}<span class="designation ellipsis">{{participant.designation}}</span>{{/if}}
             </div>
+            <div class="controls">
+                {{#if participant.canDesignate}}
+                <button type="button" class="icon frame-brown fa-solid fa-bolt" data-rest-control="designate"
+                        aria-label="{{localize "ACTOR.GROUP.REST.Designate"}}" data-tooltip></button>
+                {{/if}}
+                {{#if participant.canPerform}}
+                <button type="button" class="icon frame-brown fa-solid fa-dice" data-rest-control="perform"
+                        aria-label="{{localize "ACTOR.GROUP.REST.Perform"}}" data-tooltip></button>
+                {{/if}}
+                {{#if participant.rolls.length}}
+                <button type="button" class="icon frame-brown fa-solid fa-dice-d8" data-rest-results data-tooltip></button>
+                {{/if}}
+                {{#if participant.resolved}}
+                <i class="fa-solid fa-hexagon-check resolved" data-tooltip="{{localize "ACTOR.GROUP.REST.Resolved"}}"></i>
+                {{/if}}
+            </div>
+            {{#if participant.rolls.length}}
+            <div class="rest-rolls">
+                {{> restRolls rolls=participant.rolls}}
+            </div>
+            {{/if}}
         </div>
         {{/each}}
     </div>

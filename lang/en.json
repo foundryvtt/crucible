@@ -50,6 +50,10 @@
         "Description": "Weave arcana to create a work of spellcraft.",
         "Name": "Cast Spell"
       },
+      "Convalesce": {
+        "Description": "You devote your rest to tending your injuries. Remove 1 additional <strong>Wound</strong> when you <strong>Rest</strong>.",
+        "Name": "Convalesce"
+      },
       "Defend": {
         "Description": "You concentrate effort on avoiding harm, heightening your physical defense. You gain the <strong>Guarded</strong> condition until the start of your next Turn.",
         "Name": "Defend"
@@ -77,6 +81,10 @@
         "Description": "Spend time outside of Combat attuning to your equipped magic items, causing them to enter the Invested state.",
         "Name": "Investiture"
       },
+      "Meditate": {
+        "Description": "You devote your rest to quieting your mind. Remove 1 additional <strong>Madness</strong> when you <strong>Rest</strong>.",
+        "Name": "Meditate"
+      },
       "Move": {
         "Description": "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
         "Name": "Move"
@@ -94,7 +102,7 @@
         "Name": "Reload Weapon"
       },
       "Rest": {
-        "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources. Delivers all <strong>Recover</strong> benefits, and heroes reduce accumulated <strong>Wounds</strong> and <strong>Madness</strong> by their character <strong>Level</strong>. Temporary effects with a longer duration also end.",
+        "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources. Delivers all <strong>Recover</strong> benefits, and characters who suffer <strong>Wounds</strong> and <strong>Madness</strong> reduce each by their <strong>Level</strong>. Temporary effects with a longer duration also end.",
         "Name": "Rest"
       },
       "Search": {
@@ -377,8 +385,8 @@
       "ReactionTooltip": "This action can only be performed during some other creature's turn when its activation condition is met.",
       "Reload": "Reload",
       "ReloadTooltip": "This action reloads a ranged weapon which requires reloading.",
-      "Rest": "After Rest",
-      "RestTooltip": "This action may only be performed immediately after you confirm a Rest action, and only one such action may follow each Rest.",
+      "Rest": "During Rest",
+      "RestTooltip": "This action is performed as part of a Rest. Each character may perform one such action during a group Rest, or immediately after confirming a Rest of their own.",
       "Severe": "Severe",
       "SevereTooltip": "If the target of this action has Wounds and Madness resources, this action damages those resources directly regardless of their Health or Morale.",
       "Shield": "Shield",
@@ -952,6 +960,10 @@
             "label": "Allow Rest Actions",
             "hint": "If checked, each resting character may perform one rest action as part of the rest."
           },
+          "designation": {
+            "label": "Rest Action",
+            "hint": "The rest action this character will attempt during the rest."
+          },
           "hours": {
             "label": "Hours of Rest",
             "hint": "Hours which will elapse if the rest is not interrupted."
@@ -965,15 +977,29 @@
           "Cancelled": "Cancelled",
           "Complete": "Complete",
           "Interrupted": "Interrupted",
-          "Pending": "Pending"
+          "Planning": "Planning",
+          "Ready": "Ready",
+          "Rolling": "Rolling"
         },
+        "WARNINGS": {
+          "NoGM": "A Gamemaster must be connected to designate a rest action."
+        },
+        "Abstain": "No Rest Action",
         "CardTitle": "{name} Rest ({hours} Hours)",
         "Confirm": "Begin Rest",
         "ConfirmRest": "Confirm Rest",
         "ContinuationHint": "This rest is being continued from a previous rest that was interrupted. {hoursCompleted} of {hoursRequired} hours have been completed.",
+        "Designate": "Choose Rest Action",
+        "DesignateTitle": "{name}: Rest Action",
+        "HideResult": "Hide Result",
         "Interrupted": "Your rest has been interrupted after {hours} hours!",
         "NoChanges": "No recovery needed",
-        "Title": "Confirm Group Rest"
+        "Perform": "Perform Rest Action",
+        "Resolved": "Rest action resolved",
+        "ReturnToPlanning": "Return to Planning",
+        "ShowResult": "Show Result",
+        "Title": "Confirm Group Rest",
+        "Undecided": "Undecided"
       },
       "WARNINGS": {
         "NoAddSelf": "You cannot add your own group!",
@@ -1042,6 +1068,7 @@
         "ActionsGeneral": "General Actions",
         "ActionsMovement": "Movement Actions",
         "ActionsReaction": "Reactions",
+        "ActionsRest": "Rest Actions",
         "ActionsSpell": "Spellcraft Actions",
         "ActionsSummon": "Summon Actions",
         "EffectsDisabled": "Disabled Effects",

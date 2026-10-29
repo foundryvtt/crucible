@@ -1259,6 +1259,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
         case "cast":
           if ( !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
           break;
+        case "convalesce":
+        case "meditate":
+          if ( !this.usesReserveResources ) continue;
+          break;
         case "reload":
           if ( !w.reload ) continue;
           break;

@@ -39,6 +39,7 @@ system:
         - noncombat
         - skill
         - society
+        - harmless
       summon: null
   keywords:
     - playstyle.utility

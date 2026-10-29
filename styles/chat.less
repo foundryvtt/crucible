@@ -70,8 +70,17 @@
   }
 
   // Confirm button
-  button.confirm {
+  button.confirm,
+  .rest-controls {
     margin-top: 0.5rem;
+  }
+  .rest-controls {
+    gap: 0.5rem;
+    button.icon {
+      flex: none;
+      width: auto;
+      aspect-ratio: 1;
+    }
   }
 
   .milestone-award {
@@ -284,8 +293,64 @@
   .rest-status {
     flex: none;
   }
-  &.pending .rest-status {
+  &.planning .rest-status,
+  &.rolling .rest-status {
     color: var(--color-result-warn);
+  }
+  &.ready .rest-status {
+    color: var(--color-result-good);
+  }
+  .rest-participant {
+    .designation {
+      font-size: var(--font-size-12);
+      color: var(--color-secondary);
+    }
+    button.icon {
+      flex: none;
+      width: var(--button-size);
+      height: var(--button-size);
+      &[aria-pressed="true"] {
+        box-shadow: 0 0 6px var(--color-border-highlight);
+      }
+    }
+    i.resolved {
+      color: var(--color-result-good);
+    }
+    &:not(.results-shown) :is(.rest-rolls, .rest-rolls-row) {
+      display: none;
+    }
+    .rest-action-value {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      gap: 0.5rem;
+      button.icon {
+        --button-size: 18px;
+        padding: 0;
+        font-size: var(--font-size-12);
+        &[aria-pressed="true"] {
+          --button-text-color: var(--button-hover-text-color);
+          opacity: 1;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  // Compact results of performed rest actions, one per target
+  .rest-rolls {
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .rest-roll {
+    margin: 0;
+    .rest-roll-target {
+      display: block;
+      font-size: var(--font-size-11);
+      color: var(--color-secondary);
+    }
   }
   &.interrupted .rest-status,
   &.cancelled .rest-status {

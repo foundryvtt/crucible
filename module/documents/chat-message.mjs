@@ -142,7 +142,8 @@ export default class CrucibleChatMessage extends ChatMessage {
 
     // Group rest cards render their content from system data
     if ( this.type === "rest" ) {
-      content?.insertAdjacentHTML("beforeend", await this.system.renderCard());
+      if ( content ) content.innerHTML = await this.system.renderCard(); // Replace the core rendering of rolls
+      this.system.activateListeners(html); // The renderChatMessageHTML hook fires before the card content exists
       return html;
     }
     const sections = this.flags.crucible?.sections;
@@ -198,9 +199,6 @@ export default class CrucibleChatMessage extends ChatMessage {
 
     // Action Cards
     if ( flags.action ) CrucibleChatMessage.#onRenderAction(message, html);
-
-    // Group Rest Cards
-    if ( message.type === "rest" ) message.system.activateListeners(html);
 
     // Turn Change Summary with usable maintenance buttons for owners
     if ( flags.isTurnChangeSummary ) {

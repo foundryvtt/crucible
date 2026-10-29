@@ -396,7 +396,7 @@ export const TAGS = {
     }
   },
 
-  // Immediately follows a Rest
+  // Performed during a Rest
   rest: {
     tag: "rest",
     label: "ACTION.TAG.Rest",
@@ -404,9 +404,10 @@ export const TAGS = {
     category: "requirements",
     propagate: ["noncombat"],
     canUse() {
-      if ( this.actor.lastConfirmedAction?.id !== "rest" ) {
-        throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
-      }
+      if ( this.actor.lastConfirmedAction?.id === "rest" ) return;
+      const participant = crucible.api.models.CrucibleRestMessage.getRollingParticipant(this.actor);
+      if ( participant?.designation === this.id ) return;
+      throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
     }
   },
 
@@ -1599,6 +1600,40 @@ export const DEFAULT_ACTIONS = Object.freeze([
       action: 0
     },
     tags: ["noncombat"]
+  },
+
+  // Convalesce
+  {
+    id: "convalesce",
+    name: "ACTION.DEFAULT_ACTIONS.Convalesce.Name",
+    img: "icons/consumables/food/soup-broth-bowl-wooden-yellow.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Convalesce.Description",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    cost: {
+      action: 0
+    },
+    tags: ["rest", "noncombat"]
+  },
+
+  // Meditate
+  {
+    id: "meditate",
+    name: "ACTION.DEFAULT_ACTIONS.Meditate.Name",
+    img: "icons/magic/holy/meditation-chi-focus-blue.webp",
+    description: "ACTION.DEFAULT_ACTIONS.Meditate.Description",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    cost: {
+      action: 0
+    },
+    tags: ["rest", "noncombat"]
   },
 
   // Search
