@@ -1178,6 +1178,15 @@ HOOKS.getBehindMe = {
 
 /* -------------------------------------------- */
 
+HOOKS.geyserStone = {
+  prepare() {
+    const tiers = {shoddy: 2, standard: 3, fine: 4, superior: 6, masterwork: 8};
+    this.usage.bonuses.base = tiers[this.item.system.quality];
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.grapple = {
   _GRAPPLED_EFFECT_ID: "grappled00000000",
   _GRAPPLING_EFFECT_ID: "grappling0000000",
