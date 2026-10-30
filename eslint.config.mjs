@@ -52,7 +52,8 @@ export default [
           "Roll",
           "Scene",
           "TokenDocument",
-          "ui"
+          "ui",
+          "WallDocument"
         ].reduce((obj, key) => {
           obj[key] = "readonly";
           return obj;
