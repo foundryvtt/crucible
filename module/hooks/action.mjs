@@ -2477,19 +2477,35 @@ HOOKS.swallow = {
 /* -------------------------------------------- */
 
 HOOKS.regurgitate = {
+  _heldPrey(action) {
+    const holdingActions = new Set((action.item?.actions ?? []).map(a => a.id));
+    holdingActions.delete(action.id);
+    const held = [];
+    for ( const token of ((action.token?.parent ?? canvas.scene)?.tokens ?? []) ) {
+      const prey = token.actor;
+      if ( !prey || (prey === action.actor) ) continue;
+      const effects = prey.effects.filter(e => (e.origin === action.actor.uuid) && e.statuses.has("restrained")
+        && holdingActions.has(e.getFlag("crucible", "originAction")));
+      if ( effects.length ) held.push({token, prey, effects});
+    }
+    return held;
+  },
   canUse() {
-    if ( !HOOKS.swallow._swallowedMarkers(this.actor).length ) return false;
+    if ( !HOOKS.regurgitate._heldPrey(this).length ) return false;
   },
   postActivate() {
     const released = [];
-    for ( const marker of HOOKS.swallow._swallowedMarkers(this.actor) ) {
-      const prey = marker.origin ? fromUuidSync(marker.origin)?.actor : null;
-      if ( prey?.effects.has(HOOKS.swallow._SWALLOWED_EFFECT_ID) ) {
-        this.recordEvent({type: "effect", target: prey,
-          effects: [{_id: HOOKS.swallow._SWALLOWED_EFFECT_ID, _action: "delete"}]});
-      }
-      this.recordEvent({type: "effect", target: this.actor, effects: [{_id: marker.id, _action: "delete"}]});
-      if ( marker.origin ) released.push(marker.origin);
+    const holdingActions = new Set();
+    // Release every creature in the scene restrained by an effect from this talent
+    for ( const {token, prey, effects} of HOOKS.regurgitate._heldPrey(this) ) {
+      this.recordEvent({type: "effect", target: prey, effects: effects.map(e => ({_id: e.id, _action: "delete"}))});
+      for ( const e of effects ) holdingActions.add(e.getFlag("crucible", "originAction"));
+      if ( token.hidden ) released.push(token.uuid);
+    }
+    // End the creature's own effects from the actions which held that prey
+    const own = this.actor.effects.filter(e => holdingActions.has(e.getFlag("crucible", "originAction")));
+    if ( own.length ) {
+      this.recordEvent({type: "effect", target: this.actor, effects: own.map(e => ({_id: e.id, _action: "delete"}))});
     }
     this.metadata.released = released;
   },
