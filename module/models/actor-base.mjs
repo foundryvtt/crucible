@@ -1332,6 +1332,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   async _prepareEmbedContext(config) {
     const actor = this.parent;
     const name = config.name || actor.name;
+    const appearance = config.readaloud
+      ? config.readaloud.split("\\n").map(p => `<p>${p}</p>`).join("")
+      : this.details.biography.appearance;
     return {
       name,
       img: config.image === "token" ? actor.prototypeToken.texture.src : actor.img,
@@ -1339,7 +1342,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       count: config.count,
       level: this.advancement.threatLevel,
       subtitle: "",
-      readaloud: await CONFIG.ux.TextEditor.enrichHTML(this.details.biography.appearance, {
+      readaloud: await CONFIG.ux.TextEditor.enrichHTML(appearance, {
         relativeTo: actor,
         secrets: actor.isOwner
       })
