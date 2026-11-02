@@ -493,11 +493,6 @@ HOOKS.comfortingLie = {
 /* -------------------------------------------- */
 
 HOOKS.camaraderie = {
-  canUse() {
-    if ( !crucible.party?.system.actors.has(this.actor) ) {
-      throw new Error(_loc("ACTION.WARNINGS.MustJoinParty", {action: this.name}));
-    }
-  },
   prepare() {
     this.usage.defenseType = "madness";
     const members = crucible.party?.system.actors;

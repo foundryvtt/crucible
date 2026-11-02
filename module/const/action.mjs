@@ -396,6 +396,19 @@ export const TAGS = {
     }
   },
 
+  // Requires membership in the primary party
+  party: {
+    tag: "party",
+    label: "ACTION.TAG.Party",
+    tooltip: "ACTION.TAG.PartyTooltip",
+    category: "requirements",
+    canUse() {
+      if ( !crucible.party?.system.actors.has(this.actor) ) {
+        throw new Error(_loc("ACTION.WARNINGS.MustJoinParty", {action: this.name}));
+      }
+    }
+  },
+
   // Performed during a Rest
   rest: {
     tag: "rest",
