@@ -1,0 +1,153 @@
+name: Digestive Sacs
+type: talent
+_id: digestiveSac0000
+img: icons/magic/nature/plant-maneater-purple.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} can draw a creature whose
+    @Rule[movement.size] is at least 2 less than its own into its digestive sacs
+    to be consumed by corrosive acids. Up to three creatures may be engulfed at
+    a time.</p><p>If the @ref[actor.name]{creature} gains @Condition[burning], 
+    @Condition[stunned], @Condition[incapacitated], or @Condition[weakened], it
+    regurgitates every engulfed creature.</p>
+  actions:
+    - id: digestiveSacs
+      name: Digestive Sacs
+      img: icons/magic/nature/plant-maneater-purple.webp
+      description: >-
+        <p>You draw a target enemy into one of your digestive sacs. The engulfed
+        target is @Condition[restrained] and @Condition[corroding] until
+        released, as digestive acids attempt to consume them.</p><p>If you gain
+        the condition @Condition[burning], @Condition[stunned],
+        @Condition[incapacitated], or @Condition[weakened], you regurgitate
+        every engulfed creature.</p>
+      condition: ''
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      summon: null
+      effects:
+        - name: ''
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - restrained
+            - corroding
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            lights: []
+            suppression: {}
+        - name: Digesting
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: null
+            units: ''
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            lights: []
+            suppression: {}
+      tags:
+        - melee
+        - natural
+        - difficult
+        - strength
+      persistRegion: false
+      regionBehavior: null
+    - id: regurgitate
+      name: Regurgitate
+      img: icons/magic/nature/plant-maneater-purple.webp
+      description: >-
+        <p>You expel every creature held within your digestive sacs, returning
+        them to the space around you and ending the @Condition[restrained] and
+        @Condition[corroding] conditions imposed by your sacs.</p>
+      condition: ''
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 0
+        scope: 1
+        self: true
+      summon: null
+      effects: []
+      tags:
+        - harmless
+      persistRegion: false
+      regionBehavior: null
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords: []
+effects: []
+folder: AfkhP7IZ2CIrRhnB
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793636057825
+  modifiedTime: 1793636057826
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!digestiveSac0000'

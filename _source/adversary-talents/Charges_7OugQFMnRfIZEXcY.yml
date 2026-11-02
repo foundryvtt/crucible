@@ -1,6 +1,6 @@
 type: Item
 folder: azO1TzmTVoNehily
-name: Charge
+name: Charges
 color: null
 sorting: a
 _id: 7OugQFMnRfIZEXcY
@@ -11,8 +11,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.8.6
-  lastModifiedBy: null
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  createdTime: 1793636014984
+  modifiedTime: 1793636014984
 _key: '!folders!7OugQFMnRfIZEXcY'

@@ -34,8 +34,9 @@ system:
         <strong>Bludgeoning</strong> damage and are pushed 15 feet away from the
         eruption. On a @Rule[dice.criticalSuccess], the target is also knocked
         @Condition[prone].</p><p>The base damage of the blast is dependent on
-        the quality of the @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong>
-        - 2 damage</p></li><li><p><strong>Standard</strong> - 3
+        the quality of the
+        @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2
+        damage</p></li><li><p><strong>Standard</strong> - 3
         damage</p></li><li><p><strong>Fine</strong> - 4
         damage</p></li><li><p><strong>Superior</strong> - 6
         damage</p></li><li><p><strong>Masterwork</strong> - 8

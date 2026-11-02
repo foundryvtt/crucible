@@ -668,9 +668,9 @@ items:
         - action.summon
       nodes: []
       description: >-
-        <p>The @ref[actor.name]{creature} was summoned into being by a spellcaster.
-        Its training in the spellcraft used to summon it cannot exceed the training
-        of its summoner.</p>
+        <p>The @ref[actor.name]{creature} was summoned into being by a
+        spellcaster. Its training in the spellcraft used to summon it cannot
+        exceed the training of its summoner.</p>
       actions: []
       iconicSpells: 0
     effects: []

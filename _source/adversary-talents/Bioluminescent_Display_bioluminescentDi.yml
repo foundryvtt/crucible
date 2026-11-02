@@ -1,0 +1,135 @@
+name: Bioluminescent Display
+type: talent
+_id: bioluminescentDi
+img: icons/magic/light/orbs-smoke-pink.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature}'s body swirls with bioluminescence,
+    changing color patterns that attack the senses, causing confusion or
+    worse.</p>
+  actions:
+    - id: confusingPatterns
+      name: Confusing Patterns
+      img: icons/magic/light/orbs-smoke-pink.webp
+      condition: ''
+      description: >-
+        <p>The creature begins to pulse and flash in wild patterns of color and
+        light. Enemies within 20 feet must defend against an attack on their
+        @Rule[defense.willpower] or be overcome with a bewildering languor
+        dealing @Rule[damageType.radiant] damage to @Rule[resource.morale] and
+        inflicting the @Condition[disoriented] condition.</p>
+      cost:
+        action: 3
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 3
+        self: false
+        size: 20
+      effects:
+        - name: Confusing Patterns
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses:
+            - disoriented
+          duration:
+            value: 3
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            changes: []
+            dc: null
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            lights: []
+            suppression: {}
+      tags:
+        - generic
+        - willpower
+        - radiant
+        - morale
+        - presence
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+    - id: scintillatingAgony
+      name: Scintillating Agony
+      img: icons/magic/unholy/beams-impact-pink.webp
+      condition: ''
+      description: >-
+        <p>The creature turns blood red and pulses with waves of darker and
+        lighter crimson, inflicting psychic harm on everything around it.
+        Enemies within 15 feet must defend against an @Rule[action.empowered]
+        attack on their @Rule[defense.willpower] or suffer
+        @Rule[damageType.psychic] damage to @Rule[resource.morale].</p>
+      tags:
+        - generic
+        - empowered
+        - willpower
+        - psychic
+        - morale
+        - presence
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      target:
+        type: pulse
+        number: 1
+        scope: 3
+        self: false
+        size: 15
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      effects: []
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords: []
+effects: []
+folder: AfkhP7IZ2CIrRhnB
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793635960851
+  modifiedTime: 1793635960852
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!bioluminescentDi'

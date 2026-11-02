@@ -81,14 +81,14 @@ ownership:
   LN1mJpYcJI40HRfK: 3
 flags: {}
 _stats:
-  coreVersion: '14.368'
+  coreVersion: '14.369'
   systemId: crucible
   systemVersion: 0.11.0
   createdTime: 1790271174939
-  modifiedTime: 1790271174939
-  lastModifiedBy: LN1mJpYcJI40HRfK
+  modifiedTime: 1793636033699
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: -125000
 _key: '!items!buck000000000000'

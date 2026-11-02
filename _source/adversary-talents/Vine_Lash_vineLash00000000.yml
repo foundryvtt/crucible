@@ -1,0 +1,94 @@
+name: Vine Lash
+type: talent
+_id: vineLash00000000
+img: icons/magic/nature/root-vine-thorns-poison-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} can whip its vines across the battlefield
+    with terrible force.</p>
+  actions:
+    - id: vineLash
+      name: Vine Lash
+      img: icons/magic/nature/root-vine-thorns-poison-green.webp
+      condition: ''
+      description: >-
+        <p>The @ref[actor.name]{creature} lashes out with its thorned vines in a
+        sweeping 20 foot <strong>Fan</strong>, striking all creatures within
+        range. On a @Rule[dice.criticalSuccess], affected targets become
+        @Condition[staggered] until the end of their next turn.</p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: fan
+        number: 1
+        scope: 4
+        self: false
+        size: 20
+      effects:
+        - name: ''
+          scope: 4
+          result:
+            type: successCritical
+            all: false
+          statuses:
+            - staggered
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            changes: []
+            dc: null
+            lights: []
+            properties: []
+            suppression: {}
+      tags:
+        - melee
+        - natural
+        - bludgeoning
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords: []
+effects: []
+folder: AfkhP7IZ2CIrRhnB
+ownership:
+  default: 0
+  QPs9IwGEu5DxD700: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  ember:
+    crucibleOverride: true
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.2
+  createdTime: 1793636115439
+  modifiedTime: 1793636115439
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 0
+_key: '!items!vineLash00000000'
