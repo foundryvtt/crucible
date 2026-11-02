@@ -363,28 +363,29 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
   /* -------------------------------------------- */
 
   /**
+   * Find the most recent group rest in planning or rolling which an actor participates in.
+   * @param {CrucibleActor} actor
+   * @returns {CrucibleChatMessage|null}
+   */
+  static getActiveRest(actor) {
+    const messages = game.messages.contents;
+    for ( let i = messages.length - 1; i >= 0; i-- ) {
+      const message = messages[i];
+      if ( (message.type !== "rest") || !["planning", "rolling"].includes(message.system.status) ) continue;
+      if ( message.system.participants.some(p => p.actor === actor.uuid) ) return message;
+    }
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * List the rest actions an actor may designate.
    * @param {CrucibleActor} actor
    * @returns {CrucibleAction[]}
    */
   static getRestActions(actor) {
     return Object.values(actor.actions).filter(a => a.tags.has("rest"));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Find an actor's participant entry within the most recent group rest which is rolling.
-   * @param {CrucibleActor} actor
-   * @returns {object|null}
-   */
-  static getRollingParticipant(actor) {
-    for ( const message of game.messages.contents.toReversed() ) {
-      if ( (message.type !== "rest") || (message.system.status !== "rolling") ) continue;
-      const participant = message.system.participants.find(p => p.actor === actor.uuid);
-      if ( participant ) return participant;
-    }
-    return null;
   }
 
   /* -------------------------------------------- */

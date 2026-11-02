@@ -404,10 +404,14 @@ export const TAGS = {
     category: "requirements",
     propagate: ["noncombat"],
     canUse() {
-      if ( this.actor.lastConfirmedAction?.id === "rest" ) return;
-      const participant = crucible.api.models.CrucibleRestMessage.getRollingParticipant(this.actor);
-      if ( participant?.designation === this.id ) return;
-      throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
+      const activeRest = crucible.api.models.CrucibleRestMessage.getActiveRest(this.actor);
+      if ( activeRest ) {
+        if ( this.message === activeRest ) return;
+        throw new Error(_loc("ACTION.WARNINGS.MustUseRestCard", {action: this.name}));
+      }
+      if ( this.actor.lastConfirmedAction?.id !== "rest" ) {
+        throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
+      }
     }
   },
 

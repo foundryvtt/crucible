@@ -1445,7 +1445,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Use a clone of the Action
-    const action = this.clone({}, {parent: this.parent, actor: this.actor, token});
+    const action = this.clone({}, {parent: this.parent, actor: this.actor, token, message: options.message});
     return action.#use(options);
   }
 
