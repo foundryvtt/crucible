@@ -43,6 +43,18 @@
             </tr>
             {{/if}}
             {{/if}}
+            {{#each participant.report}}
+            <tr {{#if tooltip}}data-tooltip="{{tooltip}}"{{/if}}>
+                <td class="report-label"><span class="ellipsis">{{label}}</span></td>
+                <td class="report-value">
+                    {{#if isCurrency}}
+                    <crucible-currency class="align-right" value="{{currency}}" readonly></crucible-currency>
+                    {{else}}
+                    {{value}}
+                    {{/if}}
+                </td>
+            </tr>
+            {{/each}}
             {{#each participant.resources}}
             <tr>
                 <td class="report-label">{{label}}</td>
@@ -50,11 +62,12 @@
                     <span class="resource">{{amount}}</span>
                 </td>
             </tr>
-            {{else}}
+            {{/each}}
+            {{#if participant.unchanged}}
             <tr>
                 <td class="report-label" colspan="2">{{@root.noChanges}}</td>
             </tr>
-            {{/each}}
+            {{/if}}
         </tbody>
         {{/each}}
     </table>

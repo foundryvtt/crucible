@@ -1,4 +1,13 @@
 /**
+ * A line a rest action reports on the completed rest card, declared in its `metadata.report` array.
+ * @typedef RestReportLine
+ * @property {string} label           The line label
+ * @property {string} [value]         A text value, ignored if currency is provided
+ * @property {number} [currency]      A currency amount in base units, displayed in denominations
+ * @property {string} [tooltip]       Detail displayed when hovering the line
+ */
+
+/**
  * The system data of a group rest ChatMessage, which stages a pending rest until a Gamemaster confirms it.
  */
 export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel {
@@ -480,14 +489,18 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
       if ( !actor ) continue;
       const action = actor.actions[(this.allowRestActions && designation) || "rest"];
       const performed = designation ? actions.find(a => a.action.id === designation) : null;
+      const report = (performed?.metadata?.report ?? []).map(r => ({...r, isCurrency: Number.isFinite(r.currency)}));
+      const summary = this.#prepareSummary(uuid, allActions);
       participants.push({uuid, name: actor.name, img: action?.img ?? actor.img, actionId: action?.id,
         designation: this.#getDesignationLabel(actor, designation),
         performed: performed?.action.name,
         rolls: performed ? this.#prepareRolls(performed) : [],
+        report,
+        unchanged: !summary.resources.length && !report.length,
         resolved: rolling && designation && !!performed,
         canDesignate: this.allowRestActions && (this.status === "planning") && actor.isOwner,
         canPerform: rolling && designation && !performed && actor.isOwner,
-        ...this.#prepareSummary(uuid, allActions)});
+        ...summary});
     }
     return foundry.applications.handlebars.renderTemplate(this.constructor.TEMPLATE, {
       complete: this.status === "complete",
