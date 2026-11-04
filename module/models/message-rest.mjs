@@ -78,6 +78,20 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
     return this.participants.every(p => !p.designation || p.actions.some(a => a.action.id === p.designation));
   }
 
+  /**
+   * The rest duration in seconds, extended by the longest time cost among designated rest actions.
+   * @type {number}
+   */
+  get totalDuration() {
+    let hours = 0;
+    if ( this.allowRestActions ) {
+      for ( const {actor, designation} of this.participants ) {
+        if ( designation ) hours = Math.max(hours, fromUuidSync(actor)?.actions[designation]?.usage.rest.hours ?? 0);
+      }
+    }
+    return this.duration + (hours * 3600);
+  }
+
   /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */
@@ -113,7 +127,7 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
     const participants = entries.map(([, actor]) => actor);
     const prior = group.getFlag("crucible", "rest") ?? null;
     const restConfig = {
-      duration: this.duration,
+      duration: this.totalDuration,
       allowInterruption: this.allowInterruption,
       promises: [],
       prior,
@@ -508,7 +522,7 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
       status: this.ready ? "ready" : this.status,
       statusLabel: _loc(status.label),
       statusIcon: status.icon,
-      title: _loc("ACTOR.GROUP.REST.CardTitle", {name: fromUuidSync(this.group)?.name, hours: this.duration / 3600}),
+      title: _loc("ACTOR.GROUP.REST.CardTitle", {name: fromUuidSync(this.group)?.name, hours: this.totalDuration / 3600}),
       participants
     });
   }

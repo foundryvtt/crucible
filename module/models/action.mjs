@@ -53,6 +53,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
  * @property {ActionMovementUsage} movement  Movement planning constraints configured by this action
  * @property {ActionRegionUsage} region     Overrides applied to a RegionDocument placed by this action
+ * @property {ActionRestUsage} rest         Configuration for an action used as part of a Rest
  * @property {boolean} restoration          Default {@link AttackRollData#restoration} seeding this action's rolls
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
@@ -74,6 +75,11 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {ColorSource} [color]          Region color, defaulting to the color of the User who placed it
  * @property {{bottom: number, top: number}} [elevation]  Vertical span, defaulting to that of the acting Token
  * @property {boolean} [wallRestriction=true]  Should the region's area be constrained by walls?
+ */
+
+/**
+ * @typedef ActionRestUsage
+ * @property {number} [hours]               Additional hours of world time the rest action takes
  */
 
 /**
@@ -1135,6 +1141,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       hasDice: false,
       movement: {},
       region: {},
+      rest: {},
       restoration: false
     }, {inplace: true, overwrite: false})});
   }

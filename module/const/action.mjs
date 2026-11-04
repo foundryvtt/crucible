@@ -425,6 +425,13 @@ export const TAGS = {
       if ( this.actor.lastConfirmedAction?.id !== "rest" ) {
         throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
       }
+    },
+    async confirm(reverse) {
+      // A group rest card extends its own duration by the time cost instead
+      const {hours} = this.usage.rest;
+      if ( reverse || !hours || (this.message?.type === "rest") ) return;
+      // Only for rest actions performed outside a party rest
+      await game.time.advance(hours * 3600);
     }
   },
 
