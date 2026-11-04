@@ -29,9 +29,9 @@ system:
         maximum: null
         weapon: false
       target:
-        type: self
+        type: party
         number: 1
-        scope: 1
+        scope: 2
         self: false
       effects: []
       tags:

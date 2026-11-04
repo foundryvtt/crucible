@@ -73,7 +73,8 @@ import {resolveReferences} from "../enrichers.mjs";
 /**
  * @typedef ActionRegionUsage
  * @property {ColorSource} [color]          Region color, defaulting to the color of the User who placed it
- * @property {{bottom: number, top: number}} [elevation]  Vertical span, defaulting to that of the acting Token
+ * @property {{bottom?: number, top?: number}} [elevation]  Vertical span, defaulting to that of the acting Token.
+ *                                          When set, a placed region does not rest upon the surface beneath it.
  * @property {boolean} [wallRestriction=true]  Should the region's area be constrained by walls?
  */
 
@@ -112,17 +113,6 @@ import {resolveReferences} from "../enrichers.mjs";
  *                                          via ActionUseDialog.
  * @property {TokenMovementOperation} [operation]  The TokenMovementOperation provided to Actor#useMove, present when
  *                                                 movement was actualized via a drag event
- */
-
-/**
- * @typedef ActionRegionUsage
- * @property {Color|string} [color]         Override the region visualization color. (default game.user.color))
- * @property {boolean} [ephemeral]          Override whether the region is ephemeral (true) or persisted (false).
- *                                          Default behavior depends on the target type configuration.
- * @property {{bottom: number, top: number}} [elevation]  Override the region elevation range. If defined, must specify
- *                                          both bottom and top. Default behavior depends on the target type
- *                                          configuration.
- * @property {boolean} [wallRestriction]    Whether the region restricts token movement. (default true)
  */
 
 /**
@@ -1643,6 +1633,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         case "movement":
           targets = canvas.ready ? this.#acquireTargetsFromMovement() : [];
           break;
+        case "party":
+          targets = this.#acquirePartyTargets();
+          break;
         case "single":
           targets = canvas.ready ? this.#acquireSingleTargets(strict) : [];
           break;
@@ -1790,6 +1783,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {x: x0, y: y0} = canvas.grid.getTopLeftPoint({i: minI, j: minJ});
     const {x: x1, y: y1} = canvas.grid.getTopLeftPoint({i: maxI + 1, j: maxJ + 1});
     return new PIXI.Rectangle(x0 - pad, y0 - pad, (x1 - x0) + (2 * pad), (y1 - y0) + (2 * pad));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Acquire the members of the party, including the Actor performing this Action only if it may target itself.
+   * @returns {ActionUseTarget[]}
+   */
+  #acquirePartyTargets() {
+    const members = crucible.party?.system.actors;
+    if ( !members?.has(this.actor) ) return [];
+    const targets = [];
+    for ( const actor of members ) {
+      if ( (actor === this.actor) && !this.target.self ) continue;
+      const token = actor.getActiveTokens(true, true)[0] ?? null;
+      targets.push({actor, uuid: actor.uuid, name: actor.name, token});
+    }
+    return targets;
   }
 
   /* -------------------------------------------- */
@@ -2036,6 +2047,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const {type, scope, size, emanates} = action.target;
     const {SELF, ALL} = SYSTEM.ACTION.TARGET_SCOPES;
     if ( (SYSTEM.ACTION.TARGET_TYPES[type].scope <= SELF) || ((scope ?? ALL) <= SELF) ) return "none";
+    if ( type === "party" ) return "none";
     if ( type === "movement" ) return "melee";
     const weapons = action.usage.strikes ?? [];
     if ( action.range.weapon ) {
@@ -2686,6 +2698,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Configure tags
     if ( this.target.type === "movement" ) this.tags.add("movement");
+    if ( this.target.type === "party" ) this.tags.add("party");
     if ( this.target.type === "summon" ) this.tags.add("summon");
 
     // Configure bonuses

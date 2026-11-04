@@ -495,8 +495,6 @@ HOOKS.comfortingLie = {
 HOOKS.camaraderie = {
   prepare() {
     this.usage.defenseType = "madness";
-    const members = crucible.party?.system.actors;
-    if ( members?.has(this.actor) ) this.usage.forcedTargets = Array.from(members).filter(a => a !== this.actor);
   },
   postActivate() {
     const wisdom = this.actor.system.abilities.wisdom.value;

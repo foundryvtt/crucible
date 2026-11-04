@@ -77,6 +77,11 @@ export const TARGET_TYPES = defineEnum({
     region: null,
     scope: TARGET_SCOPES.SELF
   },
+  party: {
+    label: "ACTION.TARGET_TYPES.Party",
+    region: null,
+    scope: TARGET_SCOPES.ALLIES
+  },
   single: {
     label: "ACTION.TARGET_TYPES.Single",
     region: null,
