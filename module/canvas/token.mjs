@@ -12,10 +12,22 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   });
 
   /**
+   * The precision to which elevations are displayed, in the tooltip and the ruler.
+   * @type {number}
+   */
+  static ELEVATION_PRECISION = 0.1;
+
+  /**
    * Container to "store" some unused graphics in Crucible.
    * @type {PIXI.Container}
    */
   static #voidContainer = new PIXI.Container();
+
+  /**
+   * Formats an elevation with one decimal place, created on first use.
+   * @type {Intl.NumberFormat}
+   */
+  static #fixedElevation;
 
   /**
    * @typedef CrucibleTokenEngagement
@@ -280,6 +292,21 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _getTooltipText() {
+    const {elevation, _source} = this.document;
+    const value = (elevation - canvas.level.elevation.base).toNearest(CrucibleTokenObject.ELEVATION_PRECISION);
+    if ( !Number.isFinite(value) ) return "";
+    const animating = !this.isPreview && (elevation !== _source.elevation); // Fixed decimal precision while animating
+    if ( !animating && (value === 0) ) return "";
+    CrucibleTokenObject.#fixedElevation ??= new Intl.NumberFormat(game.i18n.lang, {signDisplay: "exceptZero",
+      useGrouping: false, minimumFractionDigits: 1, maximumFractionDigits: 1});
+    const text = animating ? CrucibleTokenObject.#fixedElevation.format(value) : value.signedString();
+    return `${text} ${canvas.grid.units}`.trim();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   drawBars() {
     super.drawBars();
     if ( !this.actor || (this.document.displayBars === CONST.TOKEN_DISPLAY_MODES.NONE) ) return;
@@ -497,7 +524,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _onAnimationUpdate(changed, context) {
     super._onAnimationUpdate(changed, context);
     // TODO: remove in V15, when core advances the movement animation
-    if ( ("x" in changed) || ("y" in changed) ) this.#movementAnimation.updatePosition();
+    if ( ("x" in changed) || ("y" in changed) || ("elevation" in changed) ) this.#movementAnimation.updatePosition();
   }
 
   /* -------------------------------------------- */
@@ -538,7 +565,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Larger movers are heard farther away
     const {radius, size} = SYSTEM.FOOTFALLS.HEARING;
     const hearingRadius = radius * Math.sqrt(this.document.size / size);
-    return {mover, stride, radius: hearingRadius, volume: 1};
+    return {mover, stride, radius: hearingRadius, volume: 1, climbing: options.action === "climb"};
   }
 
 

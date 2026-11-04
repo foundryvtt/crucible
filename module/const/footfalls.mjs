@@ -55,7 +55,7 @@ export const SOUNDS = Object.freeze({
  * The movement actions which produce footfalls.
  * @type {Set<string>}
  */
-export const MOVEMENT_ACTIONS = new Set(["walk", "step"]);
+export const MOVEMENT_ACTIONS = new Set(["walk", "step", "climb"]);
 
 /**
  * How far away footfalls are heard: the radius in feet for a mover of the reference size in feet.

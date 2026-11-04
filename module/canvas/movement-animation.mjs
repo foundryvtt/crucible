@@ -45,6 +45,7 @@
  * @property {number} stride          The distance in distance units walked per footfall
  * @property {number} radius          The radius in distance units within which footfalls can be heard
  * @property {number} volume          A multiplier applied to the volume of each footfall
+ * @property {boolean} climbing       Does the mover climb, hearing the surface it climbs when nothing is underfoot?
  */
 
 /* -------------------------------------------- */
@@ -75,9 +76,9 @@ export class CrucibleTokenMovementAnimation {
 
   /**
    * The token's position when the movement animation last followed it.
-   * @type {{x: number, y: number}}
+   * @type {{x: number, y: number, elevation: number}}
    */
-  #position = {x: 0, y: 0};
+  #position = {x: 0, y: 0, elevation: 0};
 
   /**
    * Is the token currently walking with footfalls?
@@ -119,8 +120,8 @@ export class CrucibleTokenMovementAnimation {
   beginWaypoint(footfalls) {
     const starting = footfalls && !this.#footfalls;
     this.#footfalls = footfalls;
-    const {x, y} = this.#token.document;
-    this.#position = {x, y};
+    const {x, y, elevation} = this.#token.document;
+    this.#position = {x, y, elevation};
     if ( !starting ) return;
     this.#phase = Math.ceil(this.#phase);
     this.#playFootfall();
@@ -139,12 +140,15 @@ export class CrucibleTokenMovementAnimation {
 
   /**
    * Follow the token's animated position, advancing the phase by the distance moved and playing each footfall passed.
+   * Distance counts elevation too, so a climb strides at the pace of the ground it covers.
    */
   updatePosition() {
     if ( !this.#footfalls ) return;
-    const {x, y} = this.#token.document;
-    const moved = Math.hypot(x - this.#position.x, y - this.#position.y) / canvas.dimensions.distancePixels;
-    this.#position = {x, y};
+    const {x, y, elevation} = this.#token.document;
+    const pixels = canvas.dimensions.distancePixels;
+    const moved = Math.hypot((x - this.#position.x) / pixels, (y - this.#position.y) / pixels,
+      elevation - this.#position.elevation);
+    this.#position = {x, y, elevation};
     const prior = this.#phase;
     this.#phase += moved / this.#footfalls.stride;
     if ( Math.floor(this.#phase) > Math.floor(prior) ) this.#playFootfall();
@@ -159,8 +163,15 @@ export class CrucibleTokenMovementAnimation {
   #playFootfall() {
     const document = this.#token.document;
     if ( game.audio.locked || document.hidden ) return;
-    const point = document.getCenterPoint();
-    const material = CrucibleTokenMovementAnimation.getMaterial(document.parent, {...point, level: document.level});
+    const point = {...document.getCenterPoint(), level: document.level};
+    let material = CrucibleTokenMovementAnimation.getMaterial(document.parent, point);
+
+    // A climber between surfaces hears the one it clings to, else the one supporting it, rather than silence
+    if ( !material && this.#footfalls.climbing ) {
+      const position = {...document._source, x: document.x, y: document.y, elevation: document.elevation};
+      const surface = document._findClimbableSurface(position) ?? this.#token.supportingSurface;
+      if ( surface?.region ) material = CrucibleTokenMovementAnimation.#getSurfaceMaterial(surface);
+    }
     if ( !material ) return;
     const {mover, radius, volume} = this.#footfalls;
     const sound = CrucibleTokenMovementAnimation.getSound(material, mover);

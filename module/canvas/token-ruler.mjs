@@ -8,7 +8,9 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
 
   /** @override */
   _getWaypointLabelContext(waypoint, state) {
+    const prior = state.initialized ? state.previousElevation : undefined;
     const context = super._getWaypointLabelContext(waypoint, state);
+    if ( context ) this.#roundElevation(context, waypoint, prior);
     const actor = this.token.actor;
     if ( !context || !actor ) return context;
     const grid = canvas.scene?.grid;
@@ -54,6 +56,28 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
       && (!sameElevation || context.elevation.total);
     return context;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Display a waypoint's elevation and its change since the prior label at the Token's elevation precision.
+   * @param {object} context                    The waypoint label context prepared by core
+   * @param {object} waypoint                   The ruler waypoint
+   * @param {number|undefined} prior            The elevation of the prior label, unless this is the first
+   */
+  #roundElevation(context, waypoint, prior) {
+    if ( !context.elevation ) return;
+    const precision = this.token.constructor.ELEVATION_PRECISION;
+    const base = canvas.level.elevation.base;
+    const elevation = (waypoint.elevation - base).toNearest(precision);
+    prior ??= (waypoint.previous ? waypoint.previous.elevation - base : elevation);
+    const delta = (elevation - prior.toNearest(precision)).toNearest(precision);
+    context.elevation.total = elevation.signedString();
+    if ( delta !== 0 ) context.elevation.delta = delta.signedString();
+    else delete context.elevation.delta;
+  }
+
+  /* -------------------------------------------- */
 
   /** @override */
   _getWaypointStyle(waypoint) {
