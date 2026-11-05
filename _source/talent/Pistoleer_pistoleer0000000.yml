@@ -28,14 +28,14 @@ system:
       target:
         type: single
         multiple: 3
-        scope: 0
+        scope: 3
         number: 1
         self: false
       effects: []
       range:
         minimum: null
         maximum: null
-        weapon: false
+        weapon: true
       summon: null
   keywords:
     - playstyle.ranged

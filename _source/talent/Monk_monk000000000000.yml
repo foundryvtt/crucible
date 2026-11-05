@@ -29,7 +29,7 @@ system:
       target:
         type: single
         number: 1
-        scope: 0
+        scope: 3
         self: false
       effects: []
       img: icons/magic/earth/strike-fist-stone-gray.webp
@@ -37,7 +37,7 @@ system:
       range:
         minimum: null
         maximum: null
-        weapon: false
+        weapon: true
       summon: null
   keywords:
     - playstyle.melee

@@ -730,9 +730,11 @@ export const TAGS = {
       // Record usage properties
       this.usage.hasDice = true;
 
-      // Melee and ranged tags require a certain category of weapon
-      if ( this.tags.has("ranged") && !strikes.every(w => w.config.category.ranged) ) this.tags.delete("ranged");
-      if ( this.tags.has("melee") && !strikes.every(w => !w.config.category.ranged) ) this.tags.delete("melee");
+      // An action capable of melee or ranged keeps only the tag which its strike weapons satisfy
+      if ( this.tags.has("melee") && this.tags.has("ranged") ) {
+        if ( strikes.every(w => w.config.category.ranged) ) this.tags.delete("melee");
+        else if ( strikes.every(w => !w.config.category.ranged) ) this.tags.delete("ranged");
+      }
       this.usage.defenseType ??= "physical";
 
       // Prepare cost and range for the base strike sequence
@@ -828,9 +830,11 @@ export const TAGS = {
       }
     },
     canUse() {
-      if ( !this.actor.equipment.weapons.melee ) {
-        throw new Error(_loc("ACTION.WARNINGS.RequiresMelee"));
-      }
+      if ( this.tags.has("ranged") ) return;
+      const strikes = this.usage.strikes ?? [];
+      const isMelee = strikes.length ? strikes.every(w => !w.config.category.ranged)
+        : this.actor.equipment.weapons.melee;
+      if ( !isMelee ) throw new Error(_loc("ACTION.WARNINGS.RequiresMelee"));
     }
   },
 
@@ -843,9 +847,11 @@ export const TAGS = {
     propagate: ["strike"],
     priority: 1,
     canUse() {
-      if ( !this.actor.equipment.weapons.ranged ) {
-        throw new Error(_loc("ACTION.WARNINGS.RequiresRanged"));
-      }
+      if ( this.tags.has("melee") ) return;
+      const strikes = this.usage.strikes ?? [];
+      const isRanged = strikes.length ? strikes.every(w => w.config.category.ranged)
+        : this.actor.equipment.weapons.ranged;
+      if ( !isRanged ) throw new Error(_loc("ACTION.WARNINGS.RequiresRanged"));
     },
     prepare() {
       // A ranged action cannot use a melee weapon unless the action is also melee-capable

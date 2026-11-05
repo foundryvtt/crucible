@@ -44,7 +44,7 @@ system:
           duration:
             value: null
             units: ''
-            expiry: null
+            expiry: combatEnd
             expired: false
           system:
             changes: []

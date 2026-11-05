@@ -407,47 +407,6 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     _key: '!actors.items!ugQYiiEmj9idwvqW.70JmOia6MhgONfpq'
-  - name: Elemental Armor
-    type: armor
-    img: icons/magic/defensive/shield-barrier-glowing-triangle-purple-orange.webp
-    system:
-      category: natural
-      quantity: 1
-      weight: 0
-      price: 0
-      quality: standard
-      broken: false
-      enchantment: mundane
-      equipped: true
-      properties: []
-      armor:
-        base: 4
-      identifier: elementalArmor
-      invested: false
-      description:
-        public: ''
-        private: ''
-      actions: []
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '14.355'
-      systemId: crucible
-      systemVersion: 0.9.0
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1772307159600
-      modifiedTime: 1772307159600
-    _id: 47fiS0EI8OD46Uj2
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-      AnoypGxxNIMOS0XY: 3
-    _key: '!actors.items!ugQYiiEmj9idwvqW.47fiS0EI8OD46Uj2'
   - name: 'Gesture: Aspect'
     type: talent
     img: icons/magic/control/silhouette-hold-change-green.webp

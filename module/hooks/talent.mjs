@@ -446,7 +446,7 @@ for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
       if ( (dmg.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
       const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
       dmg.restoration = true;
-      dmg.total = dmg.resistance - unmitigatedTotal;
+      dmg.total = Number.isFinite(dmg.resistance) ? (dmg.resistance - unmitigatedTotal) : unmitigatedTotal;
     }
   };
 }
@@ -585,7 +585,7 @@ HOOKS.champion00000000 = {
 
 HOOKS.channeledResonan = {
   prepareAttack(_item, action, _target, rollData) {
-    if ( this.equipment.weapons.mainhand?.category !== "talisman2" ) return;
+    if ( this.equipment.weapons.mainhand?.system.activeCategory.id !== "talisman2" ) return;
     if ( !action.target.isAttack ) return;
     const sustaining = this.parent.effects.some(e => e.active && e.system.properties?.has("maintained"));
     if ( sustaining ) rollData.damageBonus += 2;
@@ -1602,11 +1602,13 @@ HOOKS.rout000000000000 = {
 
 HOOKS.runewarden000000 = {
   prepareResistances(_item, resistances) {
+    const damageTypes = new Set();
     for ( const rune of this.grimoire.runes.values() ) {
       const dt = rune.damageType;
       if ( (dt === "physical") || (SYSTEM.DAMAGE_TYPES[dt].type === "physical") ) continue;
-      resistances[dt].base += Math.ceil(this.abilities.wisdom.value / 2);
+      damageTypes.add(dt);
     }
+    for ( const dt of damageTypes ) resistances[dt].base += Math.ceil(this.abilities.wisdom.value / 2);
   }
 };
 
@@ -1898,7 +1900,7 @@ HOOKS.sorcerer00000000 = {
     }
   },
   preActivateAction(item, action) {
-    if ( action.tags.has("spell") ) {
+    if ( action.tags.has("spell") && action.inflection ) {
       action.damage.bonus ??= 0;
       action.damage.bonus += this.grimoire.iconicSlots;
     }
@@ -1979,7 +1981,7 @@ HOOKS.stilllake0000000 = {
 
 HOOKS.strikefirst00000 = {
   prepareAttack(item, action, target, rollData) {
-    if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
+    if ( !action.target.isAttack || !["strike", "spell"].some(t => action.tags.has(t)) ) return;
     const ac = this.combatant;
     const tc = target.combatant;
     if ( ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label: item.name, number: 1};

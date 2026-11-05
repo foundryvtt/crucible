@@ -288,49 +288,6 @@ prototypeToken:
   movementAction: null
   depth: 3
 items:
-  - folder: 3KAfetslMjSVGaqx
-    name: Elemental Armor
-    type: armor
-    _id: kxuUSxeLhkQ5J1Nn
-    img: icons/magic/defensive/shield-barrier-glowing-triangle-purple-orange.webp
-    system:
-      category: natural
-      quantity: 1
-      weight: 0
-      price: 0
-      quality: standard
-      broken: false
-      enchantment: mundane
-      equipped: true
-      properties: []
-      armor:
-        base: 3
-      dodge:
-        base: 10
-      identifier: 5sz7tu75Gt
-      invested: false
-      description:
-        public: ''
-        private: ''
-      actions: []
-    effects: []
-    sort: 0
-    ownership:
-      default: 0
-      AnoypGxxNIMOS0XY: 3
-    flags:
-      core: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.9.0
-      coreVersion: '14.355'
-      createdTime: 1772307159605
-      modifiedTime: 1772307159605
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Item.livingflame00000
-      duplicateSource: null
-      exportSource: null
-    _key: '!actors.items!xTFgTg5Rh2s0s5gZ.kxuUSxeLhkQ5J1Nn'
   - folder: MXhSyruFpcxbRhgJ
     name: Earthen Claw
     type: weapon

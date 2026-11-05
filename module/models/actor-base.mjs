@@ -596,10 +596,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @private
    */
   _prepareArmor(armorItems) {
-    let armors = armorItems.filter(i => i.system.equipped);
+    const armors = armorItems.filter(i => i.system.equipped);
     if ( armors.length > 1 ) {
       console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than one equipped armor.`);
-      armors = armors[0];
     }
     return armors[0] || crucible.api.models.CrucibleArmorItem.getUnarmoredArmor(this.parent);
   }
@@ -756,12 +755,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     weapons.freeHands = weapons.spellHands = mhOpen + ohOpen;
 
     // Talismans contribute additional spellcasting hands
-    const mhTalisman = ["talisman1", "talisman2"].includes(mhCategory.id);
+    const mhGrip = mh?.system.activeCategory || {};
+    const mhTalisman = ["talisman1", "talisman2"].includes(mhGrip.id);
     if ( mhTalisman ) {
-      weapons.spellHands += mhCategory.hands;
+      weapons.spellHands += mhGrip.hands;
       weapons.talisman = true;
     }
-    if ( "talisman1" === ohCategory.id ) {
+    if ( "talisman1" === oh?.system.activeCategory.id ) {
       weapons.spellHands += 1;
       weapons.talisman = true;
     }

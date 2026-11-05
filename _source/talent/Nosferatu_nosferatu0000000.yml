@@ -31,14 +31,14 @@ system:
       target:
         type: single
         number: 1
-        scope: 0
+        scope: 3
         self: false
       effects: []
       img: icons/magic/death/mouth-bite-fangs-vampire.webp
       range:
         minimum: null
         maximum: null
-        weapon: false
+        weapon: true
       summon:
         actorUuid: null
         permanent: true

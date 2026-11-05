@@ -43,7 +43,7 @@ HOOKS.aspect = {
 
     // Standard Aspect: buff the caster
     this.recordEvent({type: "effect", effects: [{
-      _id: SYSTEM.EFFECTS.getEffectId(`aspect${this.damage.type}`),
+      _id: SYSTEM.EFFECTS.getEffectId("aspect"),
       name: this.name,
       img: this.gesture.img,
       duration: {value: 6, units: "rounds", expiry: "turnEnd"},

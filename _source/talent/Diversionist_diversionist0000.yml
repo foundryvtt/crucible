@@ -19,6 +19,7 @@ system:
         - void
         - skill
         - deception
+        - willpower
       cost:
         action: 1
         focus: 1
