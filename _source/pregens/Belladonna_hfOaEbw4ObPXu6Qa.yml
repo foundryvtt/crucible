@@ -71,6 +71,7 @@ system:
       movement:
         size: 4
         stride: 10
+        heightRatio: 1.5
       resistances:
         resistance: ''
         vulnerability: ''
@@ -302,10 +303,10 @@ items:
       slot: 2
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452308
-      modifiedTime: 1791162452308
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
       duplicateSource: null
@@ -348,10 +349,10 @@ items:
       slot: 1
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452308
-      modifiedTime: 1791162452308
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
       duplicateSource: null
@@ -390,10 +391,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452308
-      modifiedTime: 1791162452308
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
       duplicateSource: null
@@ -423,6 +424,7 @@ items:
             - void
             - skill
             - deception
+            - willpower
           cost:
             action: 1
             focus: 1
@@ -443,6 +445,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - target.willpower
+        - skill.deception
       nodes:
         - int0b
       iconicSpells: 0
@@ -455,12 +461,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162452308
+      systemVersion: 0.11.2
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162452308
+      createdTime: 1793845344230
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
       exportSource: null
@@ -512,6 +518,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: light
+      keywords:
+        - playstyle.melee
+        - weapon.light
       nodes:
         - dex0b
       spellcraft: ''
@@ -520,11 +529,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452309
-      modifiedTime: 1791162452309
+      systemVersion: 0.11.2
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.lunge00000000000
       duplicateSource: null
@@ -534,7 +543,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.lunge00000000000'
   - name: Preparedness
     type: talent
@@ -545,6 +553,9 @@ items:
         sacrifice your @Rule[movement.freeMovement] for the round to instead
         equip an <strong>Item</strong> from your inventory without spending any
         @Rule[resource.action] points.</p>
+      keywords:
+        - playstyle.utility
+        - action.movement
       nodes:
         - wis0a
       actions: []
@@ -558,10 +569,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452309
-      modifiedTime: 1791162452309
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.preparedness0000
       duplicateSource: null
@@ -637,6 +648,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags:
             - harmless
             - subtle
@@ -645,6 +657,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - skill.stealth
       nodes:
         - dex0a
       iconicSpells: 0
@@ -656,10 +671,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452309
-      modifiedTime: 1791162452309
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sneak00000000000
       duplicateSource: null
@@ -668,7 +683,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.sneak00000000000'
   - name: Backstab
     type: talent
@@ -713,6 +727,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapon.light
       nodes:
         - dex1b
       iconicSpells: 0
@@ -722,10 +739,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452310
-      modifiedTime: 1791162452310
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.backstab00000000
       duplicateSource: null
@@ -735,7 +752,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.backstab00000000'
   - name: Perspicacity
     type: talent
@@ -748,6 +764,10 @@ items:
         <strong>Round</strong> to instead @Action[default search] without
         spending any @Rule[resource.action] points.</p>
       actions: []
+      keywords:
+        - playstyle.utility
+        - skill.awareness
+        - action.movement
       nodes:
         - wis0a
       iconicSpells: 0
@@ -759,10 +779,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452310
-      modifiedTime: 1791162452310
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.perspicacity0000
       duplicateSource: null
@@ -771,7 +791,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.perspicacity0000'
   - name: Human Lineage
     type: talent
@@ -832,6 +851,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -841,15 +861,16 @@ items:
       spellcraft: ''
       requirements:
         training: {}
+      keywords: []
     effects: []
     flags: {}
     _id: humanLineage0000
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452310
-      modifiedTime: 1791162452310
+      systemVersion: 0.11.2
+      createdTime: 1793845344230
+      modifiedTime: 1793845344230
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -865,10 +886,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.11.1
-  coreVersion: '14.368'
-  createdTime: 1791162452307
-  modifiedTime: 1791162452307
+  systemVersion: 0.11.2
+  coreVersion: '14.370'
+  createdTime: 1793845344230
+  modifiedTime: 1793845344230
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

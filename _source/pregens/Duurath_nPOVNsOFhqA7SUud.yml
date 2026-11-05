@@ -74,6 +74,7 @@ system:
       movement:
         size: 4
         stride: 8
+        heightRatio: 1.5
       characteristics:
         blooded: true
         temperature: ''
@@ -295,10 +296,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452312
-      modifiedTime: 1791162452312
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344233
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.warHammer0000000
       duplicateSource: null
@@ -339,10 +340,10 @@ items:
       slot: 2
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452312
-      modifiedTime: 1791162452312
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344233
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.heaterShield0000
       duplicateSource: null
@@ -382,10 +383,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452313
-      modifiedTime: 1791162452313
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344233
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -405,6 +406,10 @@ items:
         @Rule[movement.freeMovement]{Free Move} once per turn while wearing
         <strong>Heavy</strong> armor.</p>
       actions: []
+      keywords:
+        - armor.heavy
+        - action.movement
+        - playstyle.defensive
       nodes:
         - str0b
       iconicSpells: 0
@@ -417,10 +422,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452313
-      modifiedTime: 1791162452313
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344233
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
       duplicateSource: null
@@ -485,6 +490,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags:
             - shield
             - afterStrike
@@ -494,6 +500,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: shield
+      keywords:
+        - playstyle.melee
+        - weapon.shield
       nodes:
         - tou0b
       spellcraft: ''
@@ -502,11 +511,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452313
-      modifiedTime: 1791162452313
+      systemVersion: 0.11.2
+      createdTime: 1793845344233
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.shieldBash000000
       duplicateSource: null
@@ -560,6 +569,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - target.morale
+        - damageType.void
+        - skill.intimidation
       nodes:
         - pre0a
       iconicSpells: 0
@@ -572,12 +585,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162452314
+      systemVersion: 0.11.2
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162452314
+      createdTime: 1793845344233
       compendiumSource: Compendium.crucible.talent.Item.intimidator00000
       duplicateSource: null
       exportSource: null
@@ -625,6 +638,8 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: heavy
+      keywords:
+        - playstyle.melee
       nodes:
         - str0a
       spellcraft: ''
@@ -633,11 +648,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452314
-      modifiedTime: 1791162452314
+      systemVersion: 0.11.2
+      createdTime: 1793845344233
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
       duplicateSource: null
@@ -647,7 +662,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!nPOVNsOFhqA7SUud.heavyStrike00000'
   - name: Bulwark
     type: talent
@@ -655,9 +669,15 @@ items:
     system:
       description: >-
         <p>You have expertise in using a <strong>Shield</strong> to defend
-        yourself and others.</p><p>Once per turn while you have a
-        <strong>Shield</strong> equipped, the @Rule[resource.action] cost of
-        using the @Action[default defend] action is reduced by 1.</p>
+        yourself and others.</p><p>While you have a <strong>Shield</strong>
+        equipped, you may sacrifice your @Rule[movement.freeMovement] for the
+        Round to reduce the @Rule[resource.action] cost of the @Action[default
+        defend] action by 1.</p>
+      keywords:
+        - playstyle.defensive
+        - weapon.shield
+        - defense.block
+        - action.movement
       nodes:
         - tou0a
       actions: []
@@ -670,12 +690,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162452314
+      systemVersion: 0.11.2
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162452314
+      createdTime: 1793845344233
       compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
       duplicateSource: null
       exportSource: null
@@ -684,7 +704,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!nPOVNsOFhqA7SUud.bulwark000000000'
   - _id: inspireheroism00
     name: Inspire Heroism
@@ -741,6 +760,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           range:
             maximum: null
             weapon: false
@@ -748,6 +768,8 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
       nodes:
         - pre0a
       iconicSpells: 0
@@ -757,10 +779,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452314
-      modifiedTime: 1791162452314
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344233
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
       duplicateSource: null
@@ -769,7 +791,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!nPOVNsOFhqA7SUud.inspireheroism00'
   - name: Dwarf Lineage
     type: talent
@@ -833,6 +854,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags:
             - harmless
           summon: null
@@ -843,15 +865,16 @@ items:
         training: {}
       training: intimidation
       spellcraft: ''
+      keywords: []
     effects: []
     flags: {}
     _id: dwarfLineage0000
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452315
-      modifiedTime: 1791162452315
+      systemVersion: 0.11.2
+      createdTime: 1793845344233
+      modifiedTime: 1793845344233
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.dwarfLineage0000
       duplicateSource: null
@@ -867,10 +890,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.11.1
-  coreVersion: '14.368'
-  createdTime: 1791162452311
-  modifiedTime: 1791162452311
+  systemVersion: 0.11.2
+  coreVersion: '14.370'
+  createdTime: 1793845344233
+  modifiedTime: 1793845344233
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

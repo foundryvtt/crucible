@@ -75,6 +75,7 @@ system:
       movement:
         size: 4
         stride: 10
+        heightRatio: 1.5
       characteristics:
         blooded: true
         temperature: ''
@@ -299,10 +300,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452300
-      modifiedTime: 1791162452300
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344224
+      modifiedTime: 1793845344224
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.flameStaff000000
       duplicateSource: null
@@ -342,10 +343,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452300
-      modifiedTime: 1791162452300
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344224
+      modifiedTime: 1793845344224
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
       duplicateSource: null
@@ -371,10 +372,10 @@ items:
           description: >-
             <p>Following a @Action[default rest], you find the common ground you
             share with each of your companions. You make a @Rule[skill.society]
-            check against the @Rule[defense.madness] of each member of your
-            party. Upon a success they shed <strong>Madness</strong> equal to
-            half your @Rule[ability.wisdom], or your full @Rule[ability.wisdom]
-            upon a @Rule[dice.criticalSuccess].</p>
+            check against the @Rule[defense.madness] of each of them. Upon a
+            success they shed <strong>Madness</strong> equal to half your
+            @Rule[ability.wisdom], or your full @Rule[ability.wisdom] upon a
+            @Rule[dice.criticalSuccess].</p>
           cost:
             action: 0
             focus: 0
@@ -386,9 +387,9 @@ items:
             maximum: null
             weapon: false
           target:
-            type: self
+            type: party
             number: 1
-            scope: 1
+            scope: 2
             self: false
           effects: []
           tags:
@@ -396,9 +397,16 @@ items:
             - noncombat
             - skill
             - society
+            - harmless
+            - party
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - action.rest
+        - action.noncombat
+        - skill.society
       nodes:
         - wis0a
       iconicSpells: 0
@@ -410,10 +418,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452300
-      modifiedTime: 1791162452300
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344224
+      modifiedTime: 1793845344224
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.camaraderie00000
       duplicateSource: null
@@ -486,6 +494,10 @@ items:
           persistRegion: false
           regionBehavior: null
       spellcraft: kinesis
+      keywords:
+        - playstyle.spellcraft
+        - spell.rune
+        - spell.physical
       nodes:
         - pre0b
       iconicSpells: 0
@@ -496,11 +508,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452300
-      modifiedTime: 1791162452300
+      systemVersion: 0.11.2
+      createdTime: 1793845344224
+      modifiedTime: 1793845344224
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
       duplicateSource: null
@@ -532,6 +544,7 @@ items:
             - void
             - skill
             - deception
+            - willpower
           cost:
             action: 1
             focus: 1
@@ -552,6 +565,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - target.willpower
+        - skill.deception
       nodes:
         - int0b
       iconicSpells: 0
@@ -563,10 +580,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452301
-      modifiedTime: 1791162452301
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344224
+      modifiedTime: 1793845344224
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
@@ -624,6 +641,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: talisman
+      keywords:
+        - weapon.talisman
+        - resource.focus
       nodes:
         - pre0a
       spellcraft: ''
@@ -632,11 +652,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452301
-      modifiedTime: 1791162452301
+      systemVersion: 0.11.2
+      createdTime: 1793845344224
+      modifiedTime: 1793845344224
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -646,7 +666,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!sqTUaPrXpwCzk3xs.refocus000000000'
   - name: 'Rune: Flame'
     type: talent
@@ -701,6 +720,12 @@ items:
           persistRegion: false
           regionBehavior: null
       spellcraft: flame
+      keywords:
+        - playstyle.spellcraft
+        - spell.rune
+        - spell.elemental
+        - damageType.fire
+        - target.reflex
       nodes:
         - int0a
       iconicSpells: 0
@@ -711,12 +736,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
+      systemVersion: 0.11.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1791162452301
-      createdTime: 1791162452301
+      modifiedTime: 1793845344224
+      createdTime: 1793845344224
       compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
       duplicateSource: null
       exportSource: null
@@ -725,7 +750,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!sqTUaPrXpwCzk3xs.runeFlame0000000'
   - name: 'Gesture: Arrow'
     type: talent
@@ -742,6 +766,9 @@ items:
         Focus</strong>.</p>
       actions: []
       spellcraft: arrow
+      keywords:
+        - playstyle.spellcraft
+        - spell.gesture
       nodes:
         - int1a
       iconicSpells: 0
@@ -752,11 +779,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452302
-      modifiedTime: 1791162452302
+      systemVersion: 0.11.2
+      createdTime: 1793845344224
+      modifiedTime: 1793845344224
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
       duplicateSource: null
@@ -766,7 +793,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!sqTUaPrXpwCzk3xs.gesturearrow0000'
   - name: Devilkin Lineage
     type: talent
@@ -829,6 +855,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -838,15 +865,16 @@ items:
         training: {}
       training: arcana
       spellcraft: ''
+      keywords: []
     effects: []
     flags: {}
     _id: devilkinLineage0
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452302
-      modifiedTime: 1791162452302
+      systemVersion: 0.11.2
+      createdTime: 1793845344224
+      modifiedTime: 1793845344224
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.devilkinLineage0
       duplicateSource: null
@@ -863,10 +891,10 @@ flags:
     lastSpell: spell.flame.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.11.1
-  coreVersion: '14.368'
-  createdTime: 1791162452299
-  modifiedTime: 1791162452299
+  systemVersion: 0.11.2
+  coreVersion: '14.370'
+  createdTime: 1793845344224
+  modifiedTime: 1793845344224
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

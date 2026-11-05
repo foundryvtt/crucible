@@ -71,6 +71,7 @@ system:
       movement:
         size: 4
         stride: 10
+        heightRatio: 1.5
       resistances:
         resistance: ''
         vulnerability: ''
@@ -298,10 +299,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452296
-      modifiedTime: 1791162452296
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344220
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -342,10 +343,10 @@ items:
       slot: 3
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452296
-      modifiedTime: 1791162452296
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344220
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.greataxe00000000
       duplicateSource: null
@@ -403,6 +404,7 @@ items:
                 changes: []
                 properties: []
                 lights: []
+                suppression: {}
             - name: Grappling
               scope: 1
               result:
@@ -425,6 +427,7 @@ items:
                 changes: []
                 properties: []
                 lights: []
+                suppression: {}
           tags:
             - difficult
             - harmless
@@ -443,6 +446,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: unarmed
+      keywords:
+        - playstyle.utility
+        - skill.athletics
       nodes:
         - str0b
       spellcraft: ''
@@ -451,11 +457,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452296
-      modifiedTime: 1791162452296
+      systemVersion: 0.11.2
+      createdTime: 1793845344220
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.grapple000000000
       duplicateSource: null
@@ -465,7 +471,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!vT1UpPCVxKRg2A1J.grapple000000000'
   - name: Mnemonic Realization
     type: talent
@@ -508,6 +513,8 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
       nodes:
         - int0b
       iconicSpells: 0
@@ -519,10 +526,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452297
-      modifiedTime: 1791162452297
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344220
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
@@ -583,6 +590,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           name: Hamstring
           img: icons/skills/melee/strike-axe-blood-red.webp
           range:
@@ -593,6 +601,8 @@ items:
           persistRegion: false
           regionBehavior: null
       iconicSpells: 0
+      keywords:
+        - playstyle.melee
       nodes:
         - dex0b
       training: light
@@ -602,11 +612,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452297
-      modifiedTime: 1791162452297
+      systemVersion: 0.11.2
+      createdTime: 1793845344220
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
       duplicateSource: null
@@ -656,6 +666,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.twohand
       nodes:
         - str0a
       iconicSpells: 0
@@ -667,10 +680,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452297
-      modifiedTime: 1791162452297
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344220
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.swipe00000000000
       duplicateSource: null
@@ -679,7 +692,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!vT1UpPCVxKRg2A1J.swipe00000000000'
   - _id: cleave0000000000
     name: Cleave
@@ -723,6 +735,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.twohand
       nodes:
         - str1a
       iconicSpells: 0
@@ -731,12 +746,12 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162452298
+      systemVersion: 0.11.2
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162452298
+      createdTime: 1793845344220
       compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
       duplicateSource: null
       exportSource: null
@@ -744,7 +759,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!vT1UpPCVxKRg2A1J.cleave0000000000'
   - name: Bull Rush
     type: talent
@@ -800,6 +814,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
               duration:
                 value: null
                 units: ''
@@ -815,6 +830,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - action.movement
+        - skill.athletics
       nodes:
         - toustr1
       iconicSpells: 0
@@ -826,10 +845,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452298
-      modifiedTime: 1791162452298
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344220
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.bullrush00000000
       duplicateSource: null
@@ -838,7 +857,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!vT1UpPCVxKRg2A1J.bullrush00000000'
   - name: Human Lineage
     type: talent
@@ -899,6 +917,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -908,15 +927,16 @@ items:
       spellcraft: ''
       requirements:
         training: {}
+      keywords: []
     effects: []
     flags: {}
     _id: humanLineage0000
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452298
-      modifiedTime: 1791162452298
+      systemVersion: 0.11.2
+      createdTime: 1793845344220
+      modifiedTime: 1793845344220
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -932,10 +952,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.11.1
-  coreVersion: '14.368'
-  createdTime: 1791162452295
-  modifiedTime: 1791162452295
+  systemVersion: 0.11.2
+  coreVersion: '14.370'
+  createdTime: 1793845344220
+  modifiedTime: 1793845344220
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

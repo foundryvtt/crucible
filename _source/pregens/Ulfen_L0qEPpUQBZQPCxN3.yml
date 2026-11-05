@@ -71,6 +71,7 @@ system:
       movement:
         size: 4
         stride: 10
+        heightRatio: 1.5
       resistances:
         resistance: ''
         vulnerability: ''
@@ -319,11 +320,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453117
-      modifiedTime: 1791162453117
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -363,11 +364,11 @@ items:
       dropped: false
       slot: 3
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453117
-      modifiedTime: 1791162453117
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.greataxe00000000
       duplicateSource: null
@@ -425,6 +426,7 @@ items:
                 changes: []
                 properties: []
                 lights: []
+                suppression: {}
             - name: Grappling
               scope: 1
               result:
@@ -447,6 +449,7 @@ items:
                 changes: []
                 properties: []
                 lights: []
+                suppression: {}
           tags:
             - difficult
             - harmless
@@ -465,6 +468,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: unarmed
+      keywords:
+        - playstyle.utility
+        - skill.athletics
       nodes:
         - str0b
       spellcraft: ''
@@ -473,11 +479,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453117
-      modifiedTime: 1791162453117
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.grapple000000000
       duplicateSource: null
@@ -487,7 +493,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.grapple000000000'
   - name: Mnemonic Realization
     type: talent
@@ -530,6 +535,8 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
       nodes:
         - int0b
       iconicSpells: 0
@@ -541,10 +548,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453118
-      modifiedTime: 1791162453118
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
@@ -605,6 +612,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           name: Hamstring
           img: icons/skills/melee/strike-axe-blood-red.webp
           range:
@@ -615,6 +623,8 @@ items:
           persistRegion: false
           regionBehavior: null
       iconicSpells: 0
+      keywords:
+        - playstyle.melee
       nodes:
         - dex0b
       training: light
@@ -624,11 +634,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453118
-      modifiedTime: 1791162453118
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
       duplicateSource: null
@@ -678,6 +688,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.twohand
       nodes:
         - str0a
       iconicSpells: 0
@@ -689,10 +702,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453118
-      modifiedTime: 1791162453118
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.swipe00000000000
       duplicateSource: null
@@ -701,7 +714,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.swipe00000000000'
   - _id: cleave0000000000
     name: Cleave
@@ -745,6 +757,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.twohand
       nodes:
         - str1a
       iconicSpells: 0
@@ -753,12 +768,12 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453118
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453118
+      createdTime: 1793845838202
       compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
       duplicateSource: null
       exportSource: null
@@ -766,7 +781,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.cleave0000000000'
   - name: Bull Rush
     type: talent
@@ -822,6 +836,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
               duration:
                 value: null
                 units: ''
@@ -837,6 +852,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - action.movement
+        - skill.athletics
       nodes:
         - toustr1
       iconicSpells: 0
@@ -848,10 +867,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453119
-      modifiedTime: 1791162453119
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.bullrush00000000
       duplicateSource: null
@@ -860,7 +879,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.bullrush00000000'
   - name: Powerful Physique
     type: talent
@@ -872,6 +890,10 @@ items:
         suffering @Rule[dice.bane]{Banes} to your <strong>Initiative</strong>
         rolls.</p>
       actions: []
+      keywords:
+        - initiative
+        - armor.heavy
+        - weapon.heavy
       nodes:
         - str1b
       iconicSpells: 0
@@ -883,12 +905,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453119
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453119
+      createdTime: 1793845838202
       compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
       duplicateSource: null
       exportSource: null
@@ -897,7 +919,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.powerfulphysique'
   - name: Ferocious Leap
     type: talent
@@ -942,6 +963,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - action.movement
       nodes:
         - str2c
       iconicSpells: 0
@@ -953,10 +977,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453119
-      modifiedTime: 1791162453119
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.ferociousleap000
       duplicateSource: null
@@ -965,7 +989,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.ferociousleap000'
   - name: Brutal Display
     type: talent
@@ -977,6 +1000,8 @@ items:
         who can see their @Condition[dead] ally suffers damage to their
         @Rule[resource.morale] equal to your @Rule[ability.strength] score.</p>
       actions: []
+      keywords:
+        - target.morale
       nodes:
         - str3b
       iconicSpells: 0
@@ -988,10 +1013,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453120
-      modifiedTime: 1791162453120
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.brutalDisplay000
       duplicateSource: null
@@ -1001,7 +1026,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.brutalDisplay000'
   - name: Battle-Worn
     type: talent
@@ -1014,6 +1038,8 @@ items:
         @Rule[resource.wounds] equal to half your @Rule[ability.toughness] score
         (rounded down).</p>
       actions: []
+      keywords:
+        - action.rest
       nodes:
         - tou1b
       iconicSpells: 0
@@ -1024,11 +1050,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453120
-      modifiedTime: 1791162453120
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
       duplicateSource: null
@@ -1038,12 +1064,16 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.battleWorn000000'
   - name: Last Stand
     type: talent
     img: icons/skills/wounds/injury-face-impact-orange.webp
     system:
+      keywords:
+        - playstyle.defensive
+        - target.healing
+        - resource.heroism
+        - defense.wounds
       nodes:
         - tou2c
       description: >-
@@ -1096,6 +1126,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags:
             - subtle
             - healing
@@ -1110,11 +1141,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453120
-      modifiedTime: 1791162453120
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.lastStand0000000
       duplicateSource: null
@@ -1124,7 +1155,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.lastStand0000000'
   - name: Thick Skin
     type: talent
@@ -1135,6 +1165,9 @@ items:
         <strong>+2 Resistance</strong> to <strong>Bludgeoning</strong>,
         <strong>Slashing</strong>, and <strong>Piercing</strong> damage.</p>
       actions: []
+      keywords:
+        - playstyle.defensive
+        - defense.resistance
       nodes:
         - tou3b
       iconicSpells: 0
@@ -1146,11 +1179,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453120
-      modifiedTime: 1791162453120
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
       duplicateSource: null
@@ -1160,7 +1193,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.thickskin0000000'
   - name: Berserker
     type: talent
@@ -1209,7 +1241,7 @@ items:
               duration:
                 value: null
                 units: ''
-                expiry: null
+                expiry: combatEnd
                 expired: false
               system:
                 changes: []
@@ -1221,6 +1253,7 @@ items:
                 regions: []
                 summons: []
                 lights: []
+                suppression: {}
           img: icons/magic/unholy/silhouette-evil-horned-giant.webp
           range:
             minimum: null
@@ -1229,6 +1262,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - resource.focus
       nodes:
         - sig3.toughness.strength
       iconicSpells: 0
@@ -1240,12 +1276,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453121
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453121
+      createdTime: 1793845838202
       compendiumSource: Compendium.crucible.talent.Item.berserker0000000
       duplicateSource: null
       exportSource: null
@@ -1254,7 +1290,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.berserker0000000'
   - name: Sundering Strike
     type: talent
@@ -1291,7 +1326,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 0
+            scope: 3
             self: false
           effects:
             - name: Sundered Armor
@@ -1316,6 +1351,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           range:
             maximum: null
             weapon: true
@@ -1323,6 +1359,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapon.heavy
       nodes:
         - str3a
       iconicSpells: 0
@@ -1331,11 +1370,11 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453121
-      modifiedTime: 1791162453121
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sunderingstrike0
       duplicateSource: null
@@ -1345,7 +1384,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.sunderingstrike0'
   - name: Blood Frenzy
     type: talent
@@ -1358,6 +1396,8 @@ items:
         Action}. This benefit may only happen once per
         <strong>Round</strong>.</p>
       actions: []
+      keywords:
+        - resource.action
       nodes:
         - str4a
       iconicSpells: 0
@@ -1370,10 +1410,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453122
-      modifiedTime: 1791162453122
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.bloodfrenzy00000
       duplicateSource: null
@@ -1383,7 +1423,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.bloodfrenzy00000'
   - name: Executioner's Strike
     type: talent
@@ -1438,6 +1477,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           name: Executioner's Strike
           img: icons/skills/melee/strike-axe-blood-red.webp
           range:
@@ -1447,6 +1487,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.twohand
       nodes:
         - str4b
       iconicSpells: 0
@@ -1457,12 +1500,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453122
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453122
+      createdTime: 1793845838202
       compendiumSource: Compendium.crucible.talent.Item.executionersstri
       duplicateSource: null
       exportSource: null
@@ -1470,12 +1513,13 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.executionersstri'
   - name: Spellmute
     type: talent
     img: icons/magic/air/air-pressure-shield-blue.webp
     system:
+      keywords:
+        - playstyle.defensive
       nodes:
         - tou2b
       description: >-
@@ -1493,11 +1537,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453122
-      modifiedTime: 1791162453122
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.spellmute0000000
       duplicateSource: null
@@ -1507,7 +1551,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.spellmute0000000'
   - name: Headbutt
     type: talent
@@ -1568,6 +1611,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags:
             - melee
             - difficult
@@ -1577,6 +1621,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapon.unarmed
+        - target.fortitude
       nodes:
         - tou2a
       iconicSpells: 0
@@ -1587,11 +1635,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453123
-      modifiedTime: 1791162453123
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.headbutt00000000
       duplicateSource: null
@@ -1601,7 +1649,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.headbutt00000000'
   - name: Iron Resolve
     type: talent
@@ -1613,6 +1660,8 @@ items:
         <strong>Strikes</strong> against you is increased by +1, making you
         harder to critically hit.</p>
       actions: []
+      keywords:
+        - playstyle.defensive
       nodes:
         - tou3a
       iconicSpells: 0
@@ -1623,11 +1672,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453123
-      modifiedTime: 1791162453123
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.ironResolve00000
       duplicateSource: null
@@ -1637,7 +1686,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.ironResolve00000'
   - name: Adrenaline
     type: talent
@@ -1648,6 +1696,8 @@ items:
         @Rule[resource.health] damage from an attack, you gain
         @Rule[resource.focus]{+1 Focus}.</p>
       actions: []
+      keywords:
+        - resource.focus
       nodes:
         - tou4a
       iconicSpells: 0
@@ -1658,11 +1708,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453123
-      modifiedTime: 1791162453123
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.adrenaline000000
       duplicateSource: null
@@ -1672,7 +1722,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.adrenaline000000'
   - name: Sentinel
     type: talent
@@ -1684,6 +1733,10 @@ items:
         enemy with a @Action[default reactiveStrike], that creature becomes
         @Condition[slowed] until the end of its next turn.</p>
       actions: []
+      keywords:
+        - playstyle.melee
+        - movement.engagement
+        - action.reaction
       nodes:
         - toustr4
       iconicSpells: 0
@@ -1695,10 +1748,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453123
-      modifiedTime: 1791162453123
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sentinel00000000
       duplicateSource: null
@@ -1707,7 +1760,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.sentinel00000000'
   - name: Caustic Phial
     type: consumable
@@ -1788,6 +1840,7 @@ items:
                 regions: []
                 summons: []
                 lights: []
+                suppression: {}
           tags:
             - consume
             - weakened
@@ -1808,11 +1861,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453124
-      modifiedTime: 1791162453124
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.causticPhial0000
       duplicateSource: null
@@ -1822,7 +1875,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.sYO0w4y2ndLXr3MT'
   - name: Healing Elixir
     type: consumable
@@ -1893,11 +1945,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453124
-      modifiedTime: 1791162453124
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
       duplicateSource: null
@@ -1907,7 +1959,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.YArVffkLiY7iwiLz'
   - name: Antitoxin
     type: consumable
@@ -1980,11 +2031,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453124
-      modifiedTime: 1791162453124
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.antitoxin0000000
       duplicateSource: null
@@ -1994,7 +2045,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.AIVigh29bfyXxrzx'
   - name: Ring of Reinforcement
     type: accessory
@@ -2062,11 +2112,11 @@ items:
         sort: 0
         flags: {}
         _stats:
-          coreVersion: '14.368'
+          coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.1
-          createdTime: 1791162453125
-          modifiedTime: 1791162453125
+          systemVersion: 0.11.2
+          createdTime: 1793845838202
+          modifiedTime: 1793845838202
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.reinforcement000
           duplicateSource: null
@@ -2075,11 +2125,11 @@ items:
           !actors.items.effects!L0qEPpUQBZQPCxN3.qHDWmYq1YgsHsOIH.reinforcement000
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453125
-      modifiedTime: 1791162453125
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringOfReinforcem
       duplicateSource: null
@@ -2089,7 +2139,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.qHDWmYq1YgsHsOIH'
   - name: Ring of Evasion
     type: accessory
@@ -2159,11 +2208,11 @@ items:
         sort: -200000
         flags: {}
         _stats:
-          coreVersion: '14.368'
+          coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.1
-          createdTime: 1791162453126
-          modifiedTime: 1791162453126
+          systemVersion: 0.11.2
+          createdTime: 1793845838202
+          modifiedTime: 1793845838202
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.evasion000000000
           duplicateSource: null
@@ -2172,11 +2221,11 @@ items:
           !actors.items.effects!L0qEPpUQBZQPCxN3.bpj662CgfHnluuFD.evasion000000000
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453126
-      modifiedTime: 1791162453126
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringOfEvasion000
       duplicateSource: null
@@ -2186,7 +2235,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!L0qEPpUQBZQPCxN3.bpj662CgfHnluuFD'
   - name: Human Lineage
     type: talent
@@ -2247,6 +2295,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -2256,15 +2305,16 @@ items:
       spellcraft: ''
       requirements:
         training: {}
+      keywords: []
     effects: []
     flags: {}
     _id: humanLineage0000
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453126
-      modifiedTime: 1791162453126
+      systemVersion: 0.11.2
+      createdTime: 1793845838202
+      modifiedTime: 1793845838202
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -2300,11 +2350,11 @@ flags:
           combatantId: 9OhW0GfLeDPN6scA
           tokenId: ml1efMTNhGS9kbqS
 _stats:
-  coreVersion: '14.368'
+  coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.11.1
-  createdTime: 1791162453116
-  modifiedTime: 1791162453116
+  systemVersion: 0.11.2
+  createdTime: 1793845838202
+  modifiedTime: 1793845838202
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

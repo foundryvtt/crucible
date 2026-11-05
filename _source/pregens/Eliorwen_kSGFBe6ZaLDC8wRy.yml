@@ -74,6 +74,7 @@ system:
       movement:
         size: 4
         stride: 10
+        heightRatio: 1.5
       characteristics:
         blooded: true
         temperature: ''
@@ -300,10 +301,10 @@ items:
       slot: 0
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452318
-      modifiedTime: 1791162452318
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scimitar00000000
       duplicateSource: null
@@ -342,10 +343,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452318
-      modifiedTime: 1791162452318
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
       duplicateSource: null
@@ -382,11 +383,11 @@ items:
       dropped: false
       slot: 3
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452318
-      modifiedTime: 1791162452318
+      systemVersion: 0.11.2
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.shortbow00000000
       duplicateSource: null
@@ -396,7 +397,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.GO04lQS1VSYuK8fx'
   - name: Quick Draw
     type: talent
@@ -440,6 +440,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: projectile
+      keywords:
+        - playstyle.ranged
+        - weapon.projectile
       nodes:
         - dex0a
       spellcraft: ''
@@ -448,11 +451,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452319
-      modifiedTime: 1791162452319
+      systemVersion: 0.11.2
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.quickDraw0000000
       duplicateSource: null
@@ -462,7 +465,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.quickDraw0000000'
   - name: 'Rune: Earth'
     type: talent
@@ -518,6 +520,12 @@ items:
           persistRegion: false
           regionBehavior: null
       spellcraft: earth
+      keywords:
+        - playstyle.spellcraft
+        - spell.rune
+        - spell.elemental
+        - damageType.acid
+        - target.reflex
       nodes:
         - wis0b
       iconicSpells: 0
@@ -528,11 +536,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452319
-      modifiedTime: 1791162452319
+      systemVersion: 0.11.2
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeEarth0000000
       duplicateSource: null
@@ -552,6 +560,9 @@ items:
         sacrifice your @Rule[movement.freeMovement] for the round to instead
         equip an <strong>Item</strong> from your inventory without spending any
         @Rule[resource.action] points.</p>
+      keywords:
+        - playstyle.utility
+        - action.movement
       nodes:
         - wis0a
       actions: []
@@ -565,10 +576,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452320
-      modifiedTime: 1791162452320
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.preparedness0000
       duplicateSource: null
@@ -630,6 +641,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           name: Mark Prey
           img: icons/skills/targeting/crosshair-mark-rough-pink.webp
           condition: ''
@@ -640,6 +652,11 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.ranged
+        - weapon.projectile
+        - weapon.mechanical
+        - weapon.talisman
       nodes:
         - dex1a
       iconicSpells: 0
@@ -652,10 +669,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452320
-      modifiedTime: 1791162452320
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.markprey00000000
       duplicateSource: null
@@ -665,7 +682,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.markprey00000000'
   - name: Weak Points
     type: talent
@@ -679,6 +695,12 @@ items:
         with @Rule[ability.dexterity], you gain +2 damage to any
         <strong>Strike</strong>.</p>
       actions: []
+      keywords:
+        - playstyle.melee
+        - playstyle.ranged
+        - weapon.light
+        - weapon.projectile
+        - weapon.mechanical
       nodes:
         - dex1b
       iconicSpells: 0
@@ -690,10 +712,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452320
-      modifiedTime: 1791162452320
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.weakpoints000000
       duplicateSource: null
@@ -702,7 +724,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.weakpoints000000'
   - name: Tumble Through
     type: talent
@@ -748,6 +769,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - action.movement
+        - skill.athletics
       nodes:
         - dextou1
       iconicSpells: 0
@@ -760,10 +785,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452321
-      modifiedTime: 1791162452321
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.tumblethrough000
       duplicateSource: null
@@ -773,7 +798,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.tumblethrough000'
   - name: Elf Lineage
     type: talent
@@ -833,6 +857,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -842,15 +867,16 @@ items:
       spellcraft: ''
       requirements:
         training: {}
+      keywords: []
     effects: []
     flags: {}
     _id: elfLineage000000
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452321
-      modifiedTime: 1791162452321
+      systemVersion: 0.11.2
+      createdTime: 1793845344237
+      modifiedTime: 1793845344237
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.elfLineage000000
       duplicateSource: null
@@ -866,10 +892,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.11.1
-  coreVersion: '14.368'
-  createdTime: 1791162452316
-  modifiedTime: 1791162452316
+  systemVersion: 0.11.2
+  coreVersion: '14.370'
+  createdTime: 1793845344237
+  modifiedTime: 1793845344237
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -75,6 +75,7 @@ system:
       movement:
         size: 4
         stride: 10
+        heightRatio: 1.5
       characteristics:
         blooded: true
         temperature: ''
@@ -321,11 +322,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453129
-      modifiedTime: 1791162453129
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.flameStaff000000
       duplicateSource: null
@@ -364,11 +365,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453130
-      modifiedTime: 1791162453130
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
       duplicateSource: null
@@ -394,10 +395,10 @@ items:
           description: >-
             <p>Following a @Action[default rest], you find the common ground you
             share with each of your companions. You make a @Rule[skill.society]
-            check against the @Rule[defense.madness] of each member of your
-            party. Upon a success they shed <strong>Madness</strong> equal to
-            half your @Rule[ability.wisdom], or your full @Rule[ability.wisdom]
-            upon a @Rule[dice.criticalSuccess].</p>
+            check against the @Rule[defense.madness] of each of them. Upon a
+            success they shed <strong>Madness</strong> equal to half your
+            @Rule[ability.wisdom], or your full @Rule[ability.wisdom] upon a
+            @Rule[dice.criticalSuccess].</p>
           cost:
             action: 0
             focus: 0
@@ -409,9 +410,9 @@ items:
             maximum: null
             weapon: false
           target:
-            type: self
+            type: party
             number: 1
-            scope: 1
+            scope: 2
             self: false
           effects: []
           tags:
@@ -419,9 +420,16 @@ items:
             - noncombat
             - skill
             - society
+            - harmless
+            - party
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - action.rest
+        - action.noncombat
+        - skill.society
       nodes:
         - wis0a
       iconicSpells: 0
@@ -433,10 +441,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453130
-      modifiedTime: 1791162453130
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.camaraderie00000
       duplicateSource: null
@@ -509,6 +517,10 @@ items:
           persistRegion: false
           regionBehavior: null
       spellcraft: kinesis
+      keywords:
+        - playstyle.spellcraft
+        - spell.rune
+        - spell.physical
       nodes:
         - pre0b
       iconicSpells: 0
@@ -519,11 +531,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453130
-      modifiedTime: 1791162453130
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
       duplicateSource: null
@@ -555,6 +567,7 @@ items:
             - void
             - skill
             - deception
+            - willpower
           cost:
             action: 1
             focus: 1
@@ -575,6 +588,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - target.willpower
+        - skill.deception
       nodes:
         - int0b
       iconicSpells: 0
@@ -586,10 +603,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453131
-      modifiedTime: 1791162453131
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
@@ -647,6 +664,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: talisman
+      keywords:
+        - weapon.talisman
+        - resource.focus
       nodes:
         - pre0a
       spellcraft: ''
@@ -655,11 +675,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453131
-      modifiedTime: 1791162453131
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -669,7 +689,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.refocus000000000'
   - name: 'Rune: Flame'
     type: talent
@@ -724,6 +743,12 @@ items:
           persistRegion: false
           regionBehavior: null
       spellcraft: flame
+      keywords:
+        - playstyle.spellcraft
+        - spell.rune
+        - spell.elemental
+        - damageType.fire
+        - target.reflex
       nodes:
         - int0a
       iconicSpells: 0
@@ -734,12 +759,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
+      systemVersion: 0.11.2
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1791162453131
-      createdTime: 1791162453131
+      modifiedTime: 1793845838208
+      createdTime: 1793845838208
       compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
       duplicateSource: null
       exportSource: null
@@ -748,7 +773,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.runeFlame0000000'
   - name: 'Gesture: Arrow'
     type: talent
@@ -765,6 +789,9 @@ items:
         Focus</strong>.</p>
       actions: []
       spellcraft: arrow
+      keywords:
+        - playstyle.spellcraft
+        - spell.gesture
       nodes:
         - int1a
       iconicSpells: 0
@@ -775,12 +802,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453132
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453132
+      createdTime: 1793845838208
       compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
       duplicateSource: null
       exportSource: null
@@ -789,7 +816,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gesturearrow0000'
   - name: Opportunistic Spellcraft
     type: talent
@@ -801,6 +827,9 @@ items:
         opportunity. You may make a @Action[default reactiveStrike] using the
         <strong>Touch Gesture</strong> instead of a melee weapon attack.</p>
       actions: []
+      keywords:
+        - playstyle.spellcraft
+        - action.reaction
       nodes:
         - int2b
       iconicSpells: 0
@@ -813,18 +842,17 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453132
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453132
+      createdTime: 1793845838208
       compendiumSource: Compendium.crucible.talent.Item.opportunisticspe
       duplicateSource: null
       exportSource: null
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.opportunisticspe'
   - name: Opportunist
     type: talent
@@ -836,6 +864,10 @@ items:
         their back on you. You may make a @Action[default reactiveStrike] even
         if you are otherwise @Rule[movement.fullyEngaged].</p>
       actions: []
+      keywords:
+        - playstyle.melee
+        - movement.engagement
+        - action.reaction
       nodes:
         - intdex1
       iconicSpells: 0
@@ -847,10 +879,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453132
-      modifiedTime: 1791162453132
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.opportunist00000
       duplicateSource: null
@@ -859,7 +891,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.opportunist00000'
   - name: Intuit Weakness
     type: talent
@@ -904,6 +935,8 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
       nodes:
         - int1b
       iconicSpells: 0
@@ -915,10 +948,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453133
-      modifiedTime: 1791162453133
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.intuitweakness00
       duplicateSource: null
@@ -927,7 +960,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.intuitweakness00'
   - name: Counterspell
     type: talent
@@ -983,6 +1015,9 @@ items:
           inflection: ''
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.spellcraft
+        - action.reaction
       nodes:
         - preint1
       iconicSpells: 0
@@ -994,11 +1029,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453133
-      modifiedTime: 1791162453133
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.counterspell0000
       duplicateSource: null
@@ -1008,7 +1043,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.counterspell0000'
   - name: 'Inflection: Quicken'
     type: talent
@@ -1024,6 +1058,10 @@ items:
       spellcraft: quicken
       iconicSpells: 1
       training: enchanting
+      keywords:
+        - playstyle.spellcraft
+        - spell.inflection
+        - resource.action
       nodes:
         - preint2
       requirements:
@@ -1033,10 +1071,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453133
-      modifiedTime: 1791162453133
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inflectionquicke
       duplicateSource: null
@@ -1046,7 +1084,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectionquicke'
   - name: Pyromancer
     type: talent
@@ -1062,6 +1099,11 @@ items:
         Flame</strong> scales with as <strong>Fire</strong> damage to both
         @Rule[resource.health] and @Rule[resource.morale].</p>
       actions: []
+      keywords:
+        - playstyle.spellcraft
+        - spell.elemental
+        - damageType.fire
+        - target.morale
       nodes:
         - int3a
       iconicSpells: 0
@@ -1073,12 +1115,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453134
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453134
+      createdTime: 1793845838208
       compendiumSource: Compendium.crucible.talent.Item.pyromancer000000
       duplicateSource: null
       exportSource: null
@@ -1087,12 +1129,13 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.pyromancer000000'
   - name: Sorcerer
     type: talent
     img: icons/magic/lightning/projectile-tendrils-red.webp
     system:
+      keywords:
+        - playstyle.spellcraft
       nodes:
         - sig3.presence.intellect
       description: >-
@@ -1111,11 +1154,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453134
-      modifiedTime: 1791162453134
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sorcerer00000000
       duplicateSource: null
@@ -1125,7 +1168,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.sorcerer00000000'
   - name: Piercing Bolts
     type: talent
@@ -1137,6 +1179,9 @@ items:
         ignore <strong>2 points</strong> of the target's
         <strong>Resistance</strong>.</p>
       actions: []
+      keywords:
+        - playstyle.ranged
+        - weapon.talisman
       nodes:
         - pre1a
       iconicSpells: 0
@@ -1148,10 +1193,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453134
-      modifiedTime: 1791162453134
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.piercingBolts000
       duplicateSource: null
@@ -1161,7 +1206,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.piercingBolts000'
   - name: Quickening
     type: talent
@@ -1218,6 +1262,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - action.noncombat
+        - skill.enchanting
       nodes:
         - pre2a
       spellcraft: ''
@@ -1228,11 +1275,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453135
-      modifiedTime: 1791162453135
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.quickening000000
       duplicateSource: null
@@ -1242,7 +1289,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.quickening000000'
   - name: 'Inflection: Compose'
     type: talent
@@ -1257,6 +1303,10 @@ items:
       spellcraft: compose
       iconicSpells: 1
       training: enchanting
+      keywords:
+        - playstyle.spellcraft
+        - spell.inflection
+        - resource.focus
       nodes:
         - wispre2
       requirements:
@@ -1266,10 +1316,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453135
-      modifiedTime: 1791162453135
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
       duplicateSource: null
@@ -1279,7 +1329,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectioncompos'
   - name: 'Inflection: Push'
     type: talent
@@ -1296,6 +1345,9 @@ items:
       spellcraft: push
       iconicSpells: 1
       training: enchanting
+      keywords:
+        - playstyle.spellcraft
+        - spell.inflection
       nodes:
         - wispre2
       requirements:
@@ -1305,10 +1357,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453136
-      modifiedTime: 1791162453136
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inflectionpush00
       duplicateSource: null
@@ -1318,7 +1370,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectionpush00'
   - name: Certain Focus
     type: talent
@@ -1337,14 +1388,15 @@ items:
       spellcraft: ''
       requirements:
         training: {}
+      keywords: []
     effects: []
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453136
-      modifiedTime: 1791162453136
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.certainFocus0000
       duplicateSource: null
@@ -1354,12 +1406,15 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.certainFocus0000'
   - name: Kineturge
     type: talent
     img: icons/skills/ranged/bullets-triple-ball-yellow.webp
     system:
+      keywords:
+        - playstyle.spellcraft
+        - spell.physical
+        - damageType.piercing
       nodes:
         - pre3b
       description: >-
@@ -1380,11 +1435,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453136
-      modifiedTime: 1791162453136
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.kineturge0000000
       duplicateSource: null
@@ -1394,7 +1449,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.kineturge0000000'
   - name: 'Gesture: Pulse'
     type: talent
@@ -1415,6 +1469,9 @@ items:
         "early" for testing.</p>
       actions: []
       spellcraft: pulse
+      keywords:
+        - playstyle.spellcraft
+        - spell.gesture
       nodes:
         - pre4d
       iconicSpells: 0
@@ -1426,23 +1483,25 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453137
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453137
+      createdTime: 1793845838208
       compendiumSource: Compendium.crucible.talent.Item.gesturepulse0000
       duplicateSource: null
       exportSource: null
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gesturepulse0000'
   - name: 'Gesture: Blast'
     type: talent
     img: icons/magic/fire/barrier-wall-explosion-orange.webp
     system:
+      keywords:
+        - playstyle.spellcraft
+        - spell.gesture
       nodes:
         - int4a
       description: >-
@@ -1467,11 +1526,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453137
-      modifiedTime: 1791162453137
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gestureBlast0000
       duplicateSource: null
@@ -1481,7 +1540,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gestureBlast0000'
   - name: Gem of Illumination
     type: accessory
@@ -1579,8 +1637,10 @@ items:
                       hands: 0
                     regions: []
                     summons: []
+                    dc: null
                     properties: []
                     lights: []
+                    suppression: {}
                   duration:
                     value: null
                     units: ''
@@ -1608,11 +1668,11 @@ items:
         sort: 100000
         flags: {}
         _stats:
-          coreVersion: '14.368'
+          coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.1
-          createdTime: 1791162453138
-          modifiedTime: 1791162453138
+          systemVersion: 0.11.2
+          createdTime: 1793845838208
+          modifiedTime: 1793845838208
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.luminous00000000
           duplicateSource: null
@@ -1623,11 +1683,11 @@ items:
       ember:
         crucibleOverride: true
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453138
-      modifiedTime: 1791162453138
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.gemOfIlluminatio
       duplicateSource: null
@@ -1637,7 +1697,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.oP0XGz1QD2ZKZDfQ'
   - name: Spellband
     type: accessory
@@ -1741,11 +1800,11 @@ items:
         sort: 200000
         flags: {}
         _stats:
-          coreVersion: '14.368'
+          coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.1
-          createdTime: 1791162453139
-          modifiedTime: 1791162453139
+          systemVersion: 0.11.2
+          createdTime: 1793845838208
+          modifiedTime: 1793845838208
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.focusing00000000
           duplicateSource: null
@@ -1754,11 +1813,11 @@ items:
           !actors.items.effects!tCBBi3Kyc3M4KHGZ.GVmmPchPHHyBvEFf.focusing00000000
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453139
-      modifiedTime: 1791162453139
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.spellband0000000
       duplicateSource: null
@@ -1768,7 +1827,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.GVmmPchPHHyBvEFf'
   - name: Frostdrop Phial
     type: consumable
@@ -1851,6 +1909,7 @@ items:
                 regions: []
                 summons: []
                 lights: []
+                suppression: {}
           tags:
             - consume
             - weakened
@@ -1877,11 +1936,11 @@ items:
       ember:
         crucibleOverride: true
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453140
-      modifiedTime: 1791162453140
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.frostdropFlask00
       duplicateSource: null
@@ -1891,7 +1950,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.KAFgBhsOG630iidJ'
   - name: Alchemist's Fire
     type: consumable
@@ -1971,6 +2029,7 @@ items:
                 regions: []
                 summons: []
                 lights: []
+                suppression: {}
           tags:
             - consume
             - weakened
@@ -1991,11 +2050,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453140
-      modifiedTime: 1791162453140
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.alchemistsFire00
       duplicateSource: null
@@ -2005,7 +2064,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.xGL2Udr15JpyhbZC'
   - name: Healing Elixir
     type: consumable
@@ -2076,11 +2134,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453140
-      modifiedTime: 1791162453140
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
       duplicateSource: null
@@ -2090,7 +2148,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.VuFOOr2Ee3N0e70z'
   - name: Devilkin Lineage
     type: talent
@@ -2153,6 +2210,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -2162,15 +2220,16 @@ items:
         training: {}
       training: arcana
       spellcraft: ''
+      keywords: []
     effects: []
     flags: {}
     _id: devilkinLineage0
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453141
-      modifiedTime: 1791162453141
+      systemVersion: 0.11.2
+      createdTime: 1793845838208
+      modifiedTime: 1793845838208
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.devilkinLineage0
       duplicateSource: null
@@ -2219,11 +2278,11 @@ flags:
           combatantId: IVxZ7pdZO88zAAQ7
           tokenId: L62zbZZ3PjGIAKO5
 _stats:
-  coreVersion: '14.368'
+  coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.11.1
-  createdTime: 1791162453128
-  modifiedTime: 1791162453128
+  systemVersion: 0.11.2
+  createdTime: 1793845838208
+  modifiedTime: 1793845838208
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

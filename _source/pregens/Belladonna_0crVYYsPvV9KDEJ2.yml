@@ -71,6 +71,7 @@ system:
       movement:
         size: 4
         stride: 10
+        heightRatio: 1.5
       resistances:
         resistance: ''
         vulnerability: ''
@@ -327,11 +328,11 @@ items:
       dropped: false
       slot: 2
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453186
-      modifiedTime: 1791162453186
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
       duplicateSource: null
@@ -373,11 +374,11 @@ items:
       dropped: false
       slot: 1
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453186
-      modifiedTime: 1791162453186
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
       duplicateSource: null
@@ -415,11 +416,11 @@ items:
       invested: false
       actions: []
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453186
-      modifiedTime: 1791162453186
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
       duplicateSource: null
@@ -449,6 +450,7 @@ items:
             - void
             - skill
             - deception
+            - willpower
           cost:
             action: 1
             focus: 1
@@ -469,6 +471,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - target.willpower
+        - skill.deception
       nodes:
         - int0b
       iconicSpells: 0
@@ -481,12 +487,12 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453186
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453186
+      createdTime: 1793845838239
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
       exportSource: null
@@ -538,6 +544,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: light
+      keywords:
+        - playstyle.melee
+        - weapon.light
       nodes:
         - dex0b
       spellcraft: ''
@@ -546,11 +555,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453187
-      modifiedTime: 1791162453187
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.lunge00000000000
       duplicateSource: null
@@ -560,7 +569,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.lunge00000000000'
   - name: Preparedness
     type: talent
@@ -571,6 +579,9 @@ items:
         sacrifice your @Rule[movement.freeMovement] for the round to instead
         equip an <strong>Item</strong> from your inventory without spending any
         @Rule[resource.action] points.</p>
+      keywords:
+        - playstyle.utility
+        - action.movement
       nodes:
         - wis0a
       actions: []
@@ -584,10 +595,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453187
-      modifiedTime: 1791162453187
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.preparedness0000
       duplicateSource: null
@@ -663,6 +674,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags:
             - harmless
             - subtle
@@ -671,6 +683,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - skill.stealth
       nodes:
         - dex0a
       iconicSpells: 0
@@ -682,10 +697,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453187
-      modifiedTime: 1791162453187
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sneak00000000000
       duplicateSource: null
@@ -694,7 +709,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.sneak00000000000'
   - name: Backstab
     type: talent
@@ -739,6 +753,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapon.light
       nodes:
         - dex1b
       iconicSpells: 0
@@ -747,12 +764,12 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453187
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453187
+      createdTime: 1793845838239
       compendiumSource: Compendium.crucible.talent.Item.backstab00000000
       duplicateSource: null
       exportSource: null
@@ -761,7 +778,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.backstab00000000'
   - name: Perspicacity
     type: talent
@@ -774,6 +790,10 @@ items:
         <strong>Round</strong> to instead @Action[default search] without
         spending any @Rule[resource.action] points.</p>
       actions: []
+      keywords:
+        - playstyle.utility
+        - skill.awareness
+        - action.movement
       nodes:
         - wis0a
       iconicSpells: 0
@@ -785,10 +805,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453188
-      modifiedTime: 1791162453188
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.perspicacity0000
       duplicateSource: null
@@ -797,7 +817,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.perspicacity0000'
   - _id: counterevade0000
     name: Counter Evade
@@ -842,6 +861,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - defense.dodge
+        - action.reaction
       nodes:
         - dex2c
       iconicSpells: 0
@@ -850,12 +873,12 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453188
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453188
+      createdTime: 1793845838239
       compendiumSource: Compendium.crucible.talent.Item.counterevade0000
       duplicateSource: null
       exportSource: null
@@ -863,7 +886,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.counterevade0000'
   - name: Skirmisher
     type: talent
@@ -875,6 +897,9 @@ items:
         the @Rule[movement.engagement] radius of an enemy, that enemy has
         @Rule[dice.bane]{+2 Banes} to any @Action[default reactiveStrike]
         against you.</p>
+      keywords:
+        - movement.engagement
+        - action.movement
       nodes:
         - dex3b
       actions: []
@@ -886,12 +911,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453188
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453188
+      createdTime: 1793845838239
       compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
       duplicateSource: null
       exportSource: null
@@ -899,7 +924,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.skirmisher000000'
   - name: Strike First
     type: talent
@@ -911,6 +935,8 @@ items:
         on any <strong>Strike</strong> or <strong>Spell</strong> attack against
         an enemy whose initiative score is lower than your own.</p>
       actions: []
+      keywords:
+        - initiative
       nodes:
         - intdex1
       iconicSpells: 0
@@ -921,12 +947,12 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453188
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453188
+      createdTime: 1793845838239
       compendiumSource: Compendium.crucible.talent.Item.strikefirst00000
       duplicateSource: null
       exportSource: null
@@ -934,7 +960,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.strikefirst00000'
   - name: Volatile Accelerant
     type: talent
@@ -988,6 +1013,13 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - target.fortitude
+        - damageType.acid
+        - damageType.cold
+        - damageType.electricity
+        - damageType.fire
+        - skill.science
       nodes:
         - int2c
       spellcraft: ''
@@ -998,11 +1030,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453189
-      modifiedTime: 1791162453189
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.volatileAccelera
       duplicateSource: null
@@ -1012,7 +1044,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.volatileAccelera'
   - name: Rapid Countermeasure
     type: talent
@@ -1055,6 +1086,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
+        - skill.science
       nodes:
         - int1b
       spellcraft: ''
@@ -1065,11 +1099,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453189
-      modifiedTime: 1791162453189
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.rapidCountermeas
       duplicateSource: null
@@ -1079,7 +1113,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.rapidCountermeas'
   - _id: feintingstrike00
     name: Feinting Strike
@@ -1131,6 +1164,11 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.dualwield
+        - target.reflex
+        - skill.deception
       nodes:
         - intdex2
       iconicSpells: 0
@@ -1140,10 +1178,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453189
-      modifiedTime: 1791162453189
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.feintingstrike00
       duplicateSource: null
@@ -1152,7 +1190,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.feintingstrike00'
   - name: Anticipate Harm
     type: talent
@@ -1197,6 +1234,10 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.defensive
+        - action.reaction
+        - action.movement
       nodes:
         - int3b
       iconicSpells: 0
@@ -1207,11 +1248,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453189
-      modifiedTime: 1791162453189
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.anticipateharm00
       duplicateSource: null
@@ -1220,7 +1261,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.anticipateharm00'
   - name: Assassin
     type: talent
@@ -1268,6 +1308,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - initiative
+        - skill.stealth
       nodes:
         - sig3.intellect.dexterity
       iconicSpells: 0
@@ -1279,11 +1322,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453190
-      modifiedTime: 1791162453190
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.assassin00000000
       duplicateSource: null
@@ -1293,13 +1336,16 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.assassin00000000'
   - name: Interrupting Throw
     type: talent
     _id: interruptingDagg
     img: icons/skills/melee/strike-dagger-arcane-pink.webp
     system:
+      keywords:
+        - playstyle.melee
+        - weapons.thrown
+        - action.reaction
       nodes:
         - dex4a
       description: >-
@@ -1348,11 +1394,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453190
-      modifiedTime: 1791162453190
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.interruptingDagg
       duplicateSource: null
@@ -1361,7 +1407,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.interruptingDagg'
   - name: Focused Anticipation
     type: talent
@@ -1372,6 +1417,9 @@ items:
         <p>Anticipation leads to decisive action. When you have the highest
         <strong>Initiative</strong> score for a round of combat, you gain
         @Rule[resource.focus]{+1 Focus}.</p><p></p>
+      keywords:
+        - initiative
+        - resource.focus
       nodes:
         - int4d
       actions: []
@@ -1384,10 +1432,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453190
-      modifiedTime: 1791162453190
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.focusedanticipat
       duplicateSource: null
@@ -1396,7 +1444,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.focusedanticipat'
   - name: Intellectual Superiority
     type: talent
@@ -1409,6 +1456,8 @@ items:
         <strong>Spell</strong> attack against an enemy lower than you in
         <strong>Initiative</strong> order.</p>
       actions: []
+      keywords:
+        - initiative
       nodes:
         - int4d
       iconicSpells: 0
@@ -1420,10 +1469,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453190
-      modifiedTime: 1791162453190
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.intellectualsupe
       duplicateSource: null
@@ -1432,7 +1481,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.intellectualsupe'
   - name: Infiltrator
     type: talent
@@ -1452,6 +1500,9 @@ items:
         forthcoming stealth effect will record detection for each creature and
         treat this talent as raising how many you may evade at once.</p>
       actions: []
+      keywords:
+        - playstyle.utility
+        - skill.stealth
       nodes:
         - dex4c
       iconicSpells: 0
@@ -1463,10 +1514,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453190
-      modifiedTime: 1791162453190
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.infiltrator00000
       duplicateSource: null
@@ -1475,7 +1526,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.infiltrator00000'
   - name: Bloodletter
     type: talent
@@ -1490,6 +1540,11 @@ items:
         @Rule[ability.dexterity] score as additional damage to
         @Rule[resource.health].</p>
       actions: []
+      keywords:
+        - playstyle.melee
+        - playstyle.ranged
+        - damageType.slashing
+        - damageType.piercing
       nodes:
         - dex4d
       iconicSpells: 0
@@ -1501,12 +1556,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162453191
+      systemVersion: 0.11.2
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162453191
+      createdTime: 1793845838239
       compendiumSource: Compendium.crucible.talent.Item.bloodletter00000
       duplicateSource: null
       exportSource: null
@@ -1515,7 +1570,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.bloodletter00000'
   - name: Eldritch Bargain
     type: talent
@@ -1531,6 +1585,9 @@ items:
         @Condition[broken] condition, although such a trade may incur
         @Rule[resource.madness].</p>
       actions: []
+      keywords:
+        - playstyle.spellcraft
+        - resource.focus
       nodes:
         - int2b
       iconicSpells: 0
@@ -1542,10 +1599,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162453191
-      modifiedTime: 1791162453191
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.eldritchBargain0
       duplicateSource: null
@@ -1555,7 +1612,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.eldritchBargain0'
   - name: Wortcunning
     type: talent
@@ -1616,6 +1672,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - action.noncombat
+        - skill.alchemy
       nodes:
         - int2a
       spellcraft: ''
@@ -1626,11 +1685,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453191
-      modifiedTime: 1791162453191
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.wortcunning00000
       duplicateSource: null
@@ -1640,7 +1699,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.wortcunning00000'
   - name: Rallying Elixir
     type: consumable
@@ -1711,11 +1769,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453191
-      modifiedTime: 1791162453191
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
       duplicateSource: null
@@ -1725,7 +1783,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.Zi4l2jTOzPSUJPJm'
   - name: Healing Elixir
     type: consumable
@@ -1796,11 +1853,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453192
-      modifiedTime: 1791162453192
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
       duplicateSource: null
@@ -1810,7 +1867,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.vZoPESW8graPB9cb'
   - name: Lockpicks
     img: icons/tools/hand/lockpicks-steel-grey.webp
@@ -1841,11 +1897,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453192
-      modifiedTime: 1791162453192
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.lockpicks0000000
       duplicateSource: null
@@ -1855,7 +1911,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.IIV6FjpwNKw5HBA4'
   - name: Alchemist's Toolkit
     img: icons/containers/bags/case-embossed-leather-tan.webp
@@ -1894,11 +1949,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453192
-      modifiedTime: 1791162453192
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.alchemistsToolki
       duplicateSource: null
@@ -1908,7 +1963,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.pOvyiwN5NbC9lsWJ'
   - name: Ring of Reinforcement
     type: accessory
@@ -1976,11 +2030,11 @@ items:
         sort: 0
         flags: {}
         _stats:
-          coreVersion: '14.368'
+          coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.1
-          createdTime: 1791162453193
-          modifiedTime: 1791162453193
+          systemVersion: 0.11.2
+          createdTime: 1793845838239
+          modifiedTime: 1793845838239
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.reinforcement000
           duplicateSource: null
@@ -1989,11 +2043,11 @@ items:
           !actors.items.effects!0crVYYsPvV9KDEJ2.XFSqOGnYk6IMcKST.reinforcement000
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453193
-      modifiedTime: 1791162453193
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringOfReinforcem
       duplicateSource: null
@@ -2003,7 +2057,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.XFSqOGnYk6IMcKST'
   - name: Charm of Tenacity
     type: accessory
@@ -2075,11 +2128,11 @@ items:
         sort: 100000
         flags: {}
         _stats:
-          coreVersion: '14.368'
+          coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.1
-          createdTime: 1791162453194
-          modifiedTime: 1791162453194
+          systemVersion: 0.11.2
+          createdTime: 1793845838239
+          modifiedTime: 1793845838239
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.tenacity00000000
           duplicateSource: null
@@ -2088,11 +2141,11 @@ items:
           !actors.items.effects!0crVYYsPvV9KDEJ2.ln4ZHW3Q0aq8xMcQ.tenacity00000000
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453193
-      modifiedTime: 1791162453193
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.charmOfTenacity0
       duplicateSource: null
@@ -2102,7 +2155,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!0crVYYsPvV9KDEJ2.ln4ZHW3Q0aq8xMcQ'
   - name: Human Lineage
     type: talent
@@ -2163,6 +2215,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -2172,15 +2225,16 @@ items:
       spellcraft: ''
       requirements:
         training: {}
+      keywords: []
     effects: []
     flags: {}
     _id: humanLineage0000
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162453194
-      modifiedTime: 1791162453194
+      systemVersion: 0.11.2
+      createdTime: 1793845838239
+      modifiedTime: 1793845838239
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -2208,11 +2262,11 @@ flags:
         messageId: NyMamjAxcFOXQ601
         combat: null
 _stats:
-  coreVersion: '14.368'
+  coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.11.1
-  createdTime: 1791162453185
-  modifiedTime: 1791162453185
+  systemVersion: 0.11.2
+  createdTime: 1793845838239
+  modifiedTime: 1793845838239
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

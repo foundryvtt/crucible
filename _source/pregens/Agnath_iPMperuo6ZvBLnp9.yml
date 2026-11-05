@@ -74,6 +74,7 @@ system:
       movement:
         size: 4
         stride: 10
+        heightRatio: 1.5
       characteristics:
         blooded: true
         temperature: ''
@@ -300,10 +301,10 @@ items:
       slot: 3
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452303
-      modifiedTime: 1791162452303
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.greatsword000000
       duplicateSource: null
@@ -343,10 +344,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452304
-      modifiedTime: 1791162452304
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.splintMail000000
       duplicateSource: null
@@ -403,6 +404,9 @@ items:
           regionBehavior: null
       iconicSpells: 0
       training: talisman
+      keywords:
+        - weapon.talisman
+        - resource.focus
       nodes:
         - pre0a
       spellcraft: ''
@@ -411,11 +415,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452304
-      modifiedTime: 1791162452304
+      systemVersion: 0.11.2
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -437,6 +441,8 @@ items:
         identify its <strong>Rune</strong> if you also know that
         <strong>Rune</strong>.</p>
       actions: []
+      keywords:
+        - playstyle.spellcraft
       nodes:
         - int0b
       iconicSpells: 0
@@ -449,10 +455,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452304
-      modifiedTime: 1791162452304
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.recognizespellcr
       duplicateSource: null
@@ -516,6 +522,12 @@ items:
           persistRegion: false
           regionBehavior: null
       spellcraft: flame
+      keywords:
+        - playstyle.spellcraft
+        - spell.rune
+        - spell.elemental
+        - damageType.fire
+        - target.reflex
       nodes:
         - int0a
       iconicSpells: 0
@@ -526,11 +538,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452304
-      modifiedTime: 1791162452304
+      systemVersion: 0.11.2
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
       duplicateSource: null
@@ -551,6 +563,10 @@ items:
         @Rule[movement.freeMovement]{Free Move} once per turn while wearing
         <strong>Heavy</strong> armor.</p>
       actions: []
+      keywords:
+        - armor.heavy
+        - action.movement
+        - playstyle.defensive
       nodes:
         - str0b
       iconicSpells: 0
@@ -563,10 +579,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452305
-      modifiedTime: 1791162452305
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
       duplicateSource: null
@@ -576,7 +592,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!iPMperuo6ZvBLnp9.armoredefficienc'
   - name: Strong Grip
     type: talent
@@ -591,6 +606,12 @@ items:
         may wield a one-handed <strong>Heavy</strong> weapon in your
         off-hand.</p>
       actions: []
+      keywords:
+        - playstyle.melee
+        - playstyle.spellcraft
+        - weapons.twohand
+        - weapons.dualwield
+        - weapon.heavy
       nodes:
         - str1b
       iconicSpells: 0
@@ -602,10 +623,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452305
-      modifiedTime: 1791162452305
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
       duplicateSource: null
@@ -614,7 +635,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!iPMperuo6ZvBLnp9.stronggrip000000'
   - name: Uppercut
     type: talent
@@ -660,6 +680,9 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.twohand
       nodes:
         - str1a
       iconicSpells: 0
@@ -668,11 +691,11 @@ items:
       requirements:
         training: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452305
-      modifiedTime: 1791162452305
+      systemVersion: 0.11.2
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
       duplicateSource: null
@@ -682,7 +705,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!iPMperuo6ZvBLnp9.uppercut00000000'
   - name: Orc Lineage
     type: talent
@@ -747,6 +769,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -756,15 +779,16 @@ items:
       spellcraft: ''
       requirements:
         training: {}
+      keywords: []
     effects: []
     flags: {}
     _id: orcLineage000000
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452306
-      modifiedTime: 1791162452306
+      systemVersion: 0.11.2
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.orcLineage000000
       duplicateSource: null
@@ -802,11 +826,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452306
-      modifiedTime: 1791162452306
+      systemVersion: 0.11.2
+      createdTime: 1793845344227
+      modifiedTime: 1793845344227
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.cinderWand000000
       duplicateSource: null
@@ -816,7 +840,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!iPMperuo6ZvBLnp9.COd0nyqVNNPppISa'
 effects: []
 flags:
@@ -825,10 +848,10 @@ flags:
     lastSpell: spell.death.touch
 _stats:
   systemId: crucible
-  systemVersion: 0.11.1
-  coreVersion: '14.368'
-  createdTime: 1791162452303
-  modifiedTime: 1791162452303
+  systemVersion: 0.11.2
+  coreVersion: '14.370'
+  createdTime: 1793845344227
+  modifiedTime: 1793845344227
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -74,6 +74,7 @@ system:
       movement:
         size: 5
         stride: 10
+        heightRatio: 1.5
       characteristics:
         blooded: true
         temperature: ''
@@ -297,10 +298,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452290
-      modifiedTime: 1791162452290
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344217
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -365,6 +366,11 @@ items:
           regionBehavior: null
       spellcraft: life
       training: physical
+      keywords:
+        - playstyle.spellcraft
+        - spell.rune
+        - spell.physical
+        - target.healing
       nodes:
         - wis0b
       iconicSpells: 0
@@ -374,11 +380,11 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452291
-      modifiedTime: 1791162452291
+      systemVersion: 0.11.2
+      createdTime: 1793845344217
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeLife00000000
       duplicateSource: null
@@ -430,6 +436,8 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.utility
       nodes:
         - int0b
       iconicSpells: 0
@@ -441,10 +449,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452291
-      modifiedTime: 1791162452291
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344217
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
@@ -494,6 +502,11 @@ items:
           summon: null
           persistRegion: false
           regionBehavior: null
+      keywords:
+        - playstyle.ranged
+        - weapon.projectile
+        - weapon.mechanical
+        - weapon.talisman
       nodes:
         - dex0a
       iconicSpells: 0
@@ -503,10 +516,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452292
-      modifiedTime: 1791162452292
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344217
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.precisionshot000
       duplicateSource: null
@@ -531,6 +544,9 @@ items:
         Action</strong> and <strong>1 Focus</strong>.</p>
       actions: []
       spellcraft: ray
+      keywords:
+        - playstyle.spellcraft
+        - spell.gesture
       nodes:
         - wis1b
       iconicSpells: 0
@@ -541,12 +557,12 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      modifiedTime: 1791162452292
+      systemVersion: 0.11.2
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1791162452292
+      createdTime: 1793845344217
       compendiumSource: Compendium.crucible.talent.Item.gestureray000000
       duplicateSource: null
       exportSource: null
@@ -555,12 +571,14 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!z8PYWkq3bxce7vwb.gestureray000000'
   - name: Wildspeaker
     type: talent
     img: icons/skills/social/diplomacy-peace-alliance.webp
     system:
+      keywords:
+        - action.noncombat
+        - skill.wilderness
       nodes:
         - wis1a
       description: >-
@@ -613,11 +631,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452292
-      modifiedTime: 1791162452292
+      systemVersion: 0.11.2
+      createdTime: 1793845344217
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
       duplicateSource: null
@@ -627,7 +645,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!z8PYWkq3bxce7vwb.wildspeaker00000'
   - name: Primordial Seed
     type: weapon
@@ -658,11 +675,11 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452293
-      modifiedTime: 1791162452293
+      systemVersion: 0.11.2
+      createdTime: 1793845344217
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.primordialSeed00
       duplicateSource: null
@@ -672,7 +689,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!z8PYWkq3bxce7vwb.lTi6OWQft4PBppxt'
   - name: Unarmed Blocking
     type: talent
@@ -686,6 +702,11 @@ items:
         @Rule[ability.toughness] score contributes to your @Rule[defense.block]
         defense.</p>
       actions: []
+      keywords:
+        - playstyle.defensive
+        - weapon.unarmed
+        - weapon.natural
+        - defense.block
       nodes:
         - tou0a
       iconicSpells: 0
@@ -697,10 +718,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.1
-      coreVersion: '14.368'
-      createdTime: 1791162452293
-      modifiedTime: 1791162452293
+      systemVersion: 0.11.2
+      coreVersion: '14.370'
+      createdTime: 1793845344217
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.unarmedblocking0
       duplicateSource: null
@@ -709,7 +730,6 @@ items:
     sort: 0
     ownership:
       default: 0
-      WRGzDgYAt3ZuX6TU: 3
     _key: '!actors.items!z8PYWkq3bxce7vwb.unarmedblocking0'
   - name: Giantkin Lineage
     type: talent
@@ -773,6 +793,7 @@ items:
                 summons: []
                 properties: []
                 lights: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -782,15 +803,16 @@ items:
       spellcraft: ''
       requirements:
         training: {}
+      keywords: []
     effects: []
     flags: {}
     _id: giantkinLineage0
     _stats:
-      coreVersion: '14.368'
+      coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.1
-      createdTime: 1791162452294
-      modifiedTime: 1791162452294
+      systemVersion: 0.11.2
+      createdTime: 1793845344217
+      modifiedTime: 1793845344217
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.giantkinLineage0
       duplicateSource: null
@@ -807,10 +829,10 @@ flags:
     lastSpell: spell.life.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.11.1
-  coreVersion: '14.368'
-  createdTime: 1791162452289
-  modifiedTime: 1791162452289
+  systemVersion: 0.11.2
+  coreVersion: '14.370'
+  createdTime: 1793845344217
+  modifiedTime: 1793845344217
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null
