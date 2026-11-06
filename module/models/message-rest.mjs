@@ -283,11 +283,14 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
    * @returns {Promise<object|null>}  Serialized usage data of the confirmed action, or null if none was confirmed
    */
   async #confirmDesignation(participant) {
-    const data = participant.designation && participant.actions.find(a => a.action.id === participant.designation);
+    let data = participant.designation && participant.actions.find(a => a.action.id === participant.designation);
     if ( !data ) return null;
     try {
+      data = foundry.utils.deepClone(data);
       const action = crucible.api.models.CrucibleAction.fromData(data, this.parent);
+      await action._resolveEventStream();
       if ( (await action.confirm()) === false ) return null;
+      for ( const [i, event] of action.events.entries() ) data.events[i].resources = event.resources;
       return data;
     } catch(err) {
       console.error(err);
@@ -414,14 +417,15 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
   /* -------------------------------------------- */
 
   /**
-   * Pre-designate the recovery rest action for whichever of an actor's Wounds or Madness is greater.
+   * Pre-designate the recovery rest action for whichever of an actor's Wounds or Madness remains greater after resting.
    * @param {CrucibleActor} actor
    * @returns {string}              A rest action id, or a blank string to abstain
    */
   static #getDefaultDesignation(actor) {
     const {wounds, madness} = actor.system.resources;
-    const w = wounds?.value ?? 0;
-    const m = madness?.value ?? 0;
+    const reduction = Math.max(actor.level, 1);
+    const w = Math.max((wounds?.value ?? 0) - reduction, 0);
+    const m = Math.max((madness?.value ?? 0) - reduction, 0);
     if ( !(w || m) ) return "";
     const id = (w >= m) ? "convalesce" : "meditate";
     return (id in actor.actions) ? id : "";
