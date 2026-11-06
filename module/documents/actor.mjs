@@ -1197,9 +1197,10 @@ export default class CrucibleActor extends Actor {
     const changes = {};
     for ( let [resourceName, delta] of Object.entries(deltas) ) {
       if ( !(resourceName in r) || (delta === 0) ) continue;
-      if ( !(resourceName in changes) ) changes[resourceName] = {value: 0};
-      if ( reverse ) delta *= -1;
       const resource = r[resourceName];
+      const cfg = SYSTEM.RESOURCES[resourceName];
+      changes[resourceName] ||= {value: resource.value};
+      if ( reverse ) delta *= -1;
 
       // Handle Infinity
       if ( delta === Infinity ) {
@@ -1212,17 +1213,19 @@ export default class CrucibleActor extends Actor {
       }
 
       // Frightened and Diseased
+      const clamp = (cfg.type === "reserve") ? Math.max : Math.min;
       switch ( resourceName ) {
         case "action":
           if ( this.isIncapacitated ) delta = Math.min(delta, 0);
           break;
         case "health":
         case "wounds":
-          if ( this.statuses.has("diseased") ) delta = Math.min(delta, 0);
+          if ( this.statuses.has("diseased") ) delta = clamp(delta, 0);
           break;
         case "morale":
         case "madness":
-          if ( this.statuses.has("frightened") ) delta = Math.min(delta, 0);
+          if ( this.statuses.has("frightened") ) delta = clamp(delta, 0);
+          break;
       }
 
       // Enforce directional resource change constraints
@@ -1230,11 +1233,10 @@ export default class CrucibleActor extends Actor {
       if ( (constraint !== undefined) && (Math.sign(delta) !== Math.sign(constraint)) ) delta = 0;
 
       // Handle overflow
-      const uncapped = resource.value + delta;
+      const uncapped = changes[resourceName].value + delta;
       const overflow = Math.min(uncapped, 0);
 
       // An active pool overflows its deficit into its reserve sibling (Health -> Wounds, Morale -> Madness)
-      const cfg = SYSTEM.RESOURCES[resourceName];
       const reserveName = (cfg.type === "active") ? cfg.sibling : null;
       if ( reserveName && (overflow !== 0) && this.system.usesReserveResources ) {
         changes[reserveName] ||= {value: r[reserveName].value};
