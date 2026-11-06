@@ -8,8 +8,36 @@ system:
   description: >-
     <p>The @ref[actor.name]{creature} can change its form, shapeshifting to
     appear to be some other type of being. The range of possibilities depend on
-    the creature in question.</p>
-  actions: []
+    the creature in question, but the form assumed must be of the same size as
+    the creature.</p>
+  actions:
+    - id: revealForm
+      img: icons/magic/unholy/silhouette-robe-evil-glow.webp
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects: []
+      tags: []
+      name: Reveal Form
+      description: >-
+        <p>The @ref[actor.name]{creature} casts off its duplicitous guise,
+        shapeshifting back into its true form.</p>
+      condition: ''
   spellcraft: ''
   iconicSpells: 0
   requirements:
@@ -17,8 +45,8 @@ system:
   training: ''
   keywords:
     - playstyle.utility
-    - skill.deception
     - senses
+    - skill.deception
 effects: []
 sort: 0
 ownership:
@@ -30,7 +58,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   createdTime: 1793975235072
-  modifiedTime: 1793975377779
+  modifiedTime: 1793998394125
   lastModifiedBy: ZXJsFnFZuf21WDAk
   compendiumSource: null
   duplicateSource: null
