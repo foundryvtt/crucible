@@ -283,10 +283,13 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
    * @returns {Promise<object|null>}  Serialized usage data of the confirmed action, or null if none was confirmed
    */
   async #confirmDesignation(participant) {
-    const data = participant.designation && participant.actions.find(a => a.action.id === participant.designation);
-    if ( !data ) return null;
+    const recorded = participant.designation && participant.actions.find(a => a.action.id === participant.designation);
+    if ( !recorded ) return null;
     try {
+      const data = foundry.utils.deepClone(recorded);
       const action = crucible.api.models.CrucibleAction.fromData(data, this.parent);
+      await action.resolveEventStream(); // Re-resolve against the state after resting
+      for ( const [i, event] of data.events.entries() ) event.resources = action.events[i].resources;
       if ( (await action.confirm()) === false ) return null;
       return data;
     } catch(err) {
@@ -422,7 +425,8 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
     const {wounds, madness} = actor.system.resources;
     const w = wounds?.value ?? 0;
     const m = madness?.value ?? 0;
-    if ( !(w || m) ) return "";
+    const restReduction = Math.max(actor.level, 1);
+    if ( Math.max(w, m) <= restReduction ) return ""; // A basic rest is enough to clear damage
     const id = (w >= m) ? "convalesce" : "meditate";
     return (id in actor.actions) ? id : "";
   }

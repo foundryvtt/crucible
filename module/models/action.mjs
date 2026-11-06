@@ -569,7 +569,7 @@ class CrucibleActionTags extends Set {
  * - `CrucibleAction##settleRollOutcomes` - Flag critical successes/failures and report whether damage or healing landed.
  *    - Actor hooks called: `applyCriticalEffects` - Critical hit effects are recorded into the event stream when
  *      the action damages or heals another target.
- * - {@linkcode CrucibleAction#_resolveEventStream} - Simulate the stream on an actor clone to compute final
+ * - {@linkcode CrucibleAction#resolveEventStream} - Simulate the stream on an actor clone to compute final
  *      resource deltas (overflow, clamps, constraints, point-in-time statuses) and write the realized deltas back.
  * - Actor hooks called: `finalizeAction`
  * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, spell
@@ -1081,6 +1081,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #eventsByActor = null;
 
   /**
+   * Have roll outcomes been folded into the resource deltas of the event stream?
+   * @type {boolean}
+   */
+  #eventStreamResolved = false;
+
+  /**
    * Flag to force rebuild of the eventsByActor cache on next access.
    * Set to true by recordEvent. Can also be set manually if the events array is mutated directly.
    * @type {boolean}
@@ -1518,7 +1524,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     const dealsDamage = this.#settleRollOutcomes();
     if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
-    await this._resolveEventStream();
+    await this.resolveEventStream();
     this.actor.callActorHooks("finalizeAction", this);
     this.#finalizeEvents();
 
@@ -2295,9 +2301,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * deltas are applied to the actor's clone in chronological order - honoring pool overflow, clamps, status- and
    * action-scoped constraints, and statuses applied by earlier events - and the realized change is written back so the
    * recorded stream is exact and reverses accurately.
-   * @internal
+   * Resolving again treats the realized deltas as intended, re-resolving them against each actor's current state.
    */
-  async _resolveEventStream() {
+  async resolveEventStream() {
     const clones = new Map();
     const cloneFor = actor => {
       if ( !clones.has(actor) ) {
@@ -2317,7 +2323,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Gather this event's intended resource deltas and their damage annotations
       const intended = {};
       const annotations = {};
-      if ( event.roll ) {
+      if ( event.roll && !this.#eventStreamResolved ) {
         const damage = event.roll.data.damage || {};
         if ( !damage.harmless ) {
           const resource = damage.resource ?? "health";
@@ -2359,6 +2365,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Apply this event's effects so subsequent events observe the resulting statuses (point-in-time)
       if ( event.effects.length ) await clone._applyActionEffects(event.effects, {commit: false});
     }
+    this.#eventStreamResolved = true;
   }
 
   /* -------------------------------------------- */
@@ -4075,6 +4082,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }));
     }
     action.#deserializeEvents(serializedEvents, message);
+    action.#eventStreamResolved = true; // Serialized streams were resolved when the action was used
     return action;
   }
 

@@ -35,7 +35,7 @@ function applyRuneCritEffect(actor, action, runeId, effectFactory, {condition}={
 
 /**
  * Damage or restore the Morale of enemies or allies who witness a specific outcome from an Action.
- * Resource deltas are only realized once `_resolveEventStream` has run, so this must be called from `finalizeAction`.
+ * Resource deltas are only realized once `resolveEventStream` has run, so this must be called from `finalizeAction`.
  * A witness is affected at most once for a given wave, though if the action results in multiple waves, they may
  * potentially be affected by each. A wave source is never considered a witness to its wave, nor is the originator of
  * the action.

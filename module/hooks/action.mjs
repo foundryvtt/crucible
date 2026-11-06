@@ -1688,7 +1688,7 @@ HOOKS.interpose = {
     }
 
     // Post rewritten action as confirmed
-    await rewrittenAction._resolveEventStream();
+    await rewrittenAction.resolveEventStream();
     const rewrittenMessage = await rewrittenAction.toMessage({confirmed: false});
     await CrucibleAction.confirmMessage(rewrittenMessage);
     await this.message.setFlag("crucible", "rewrittenMessageId", rewrittenMessage.id);
