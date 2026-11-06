@@ -658,6 +658,9 @@
     "LoyalProtector": {
       "NotMaster": "You must target the companion's master."
     },
+    "PetrifyingCloud": {
+      "PetrificationStage": "Petrification: Stage {stage}"
+    },
     "Revive": {
       "RequiresDead": "Revive requires a Dead target."
     },

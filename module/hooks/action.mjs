@@ -1963,6 +1963,57 @@ HOOKS.paralyticIngest = {
 
 /* -------------------------------------------- */
 
+HOOKS.petrifyingCloudRegion = {
+  _PETRIFICATION_EFFECT_ID: "petrified0000000",
+  _PETRIFICATION_STAGES: {
+    1: {
+      statuses: ["slowed"],
+      duration: {value: 6, units: "rounds", expiry: "turnStart"},
+      showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.ALWAYS,
+      img: "icons/magic/earth/strike-body-stone-crumble.webp",
+      system: {dc: null}
+    },
+    2: {
+      statuses: ["slowed", "staggered"]
+    },
+    3: {
+      statuses: ["slowed", "stunned"]
+    },
+    4: {
+      statuses: ["paralyzed"],
+      duration: {value: null, expiry: null, units: "seconds"}
+    }
+  },
+  // Note: Non-localized errors because these will never be surfaced to the user
+  acquireTargets(targets) {
+    for ( const target of targets ) {
+      if ( target.actor?.talentIds.has("petrifyingCloud0") ) target.error = "Immune to petrification";
+      else {
+        const effect = target.actor?.effects.get(HOOKS.petrifyingCloudRegion._PETRIFICATION_EFFECT_ID);
+        if ( effect?.getFlag("crucible", "petrificationStage") === 4 ) target.error = "Already petrified";
+      }
+    }
+  },
+  postActivate() {
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.isSuccess ) continue;
+      const effect = target.effects.get(HOOKS.petrifyingCloudRegion._PETRIFICATION_EFFECT_ID);
+      const nextStage = (effect?.getFlag("crucible", "petrificationStage") ?? 0) + 1;
+      const update = Object.assign({
+        _id: HOOKS.petrifyingCloudRegion._PETRIFICATION_EFFECT_ID,
+        _action: effect ? "update" : null,
+        name: _loc("ACTIONS.PetrifyingCloud.PetrificationStage", {stage: nextStage}),
+        description: this.description,
+        start: ActiveEffect.implementation.getEffectStart(),
+        flags: {crucible: {petrificationStage: nextStage}}
+      }, HOOKS.petrifyingCloudRegion._PETRIFICATION_STAGES[nextStage]);
+      this.recordEvent({type: "effect", target, effects: [update]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.poisonBarbSnareTrigger = {
   preActivate() {
     const tiers = {shoddy: 1, standard: 2, fine: 3, superior: 4, masterwork: 6};

@@ -1,0 +1,38 @@
+folder: 9Ej4QwUt1yVpv4Wn
+name: False Form
+type: talent
+_id: falseForm0000000
+img: icons/magic/unholy/silhouette-robe-evil-glow.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} can change its form, shapeshifting to
+    appear to be some other type of being. The range of possibilities depend on
+    the creature in question.</p>
+  actions: []
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords:
+    - playstyle.utility
+    - skill.deception
+    - senses
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1793975235072
+  modifiedTime: 1793975377779
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!falseForm0000000'

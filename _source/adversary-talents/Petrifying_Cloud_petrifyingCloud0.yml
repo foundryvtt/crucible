@@ -1,0 +1,135 @@
+folder: pfqBQPVP2KV9fQFs
+name: Petrifying Cloud
+type: talent
+_id: petrifyingCloud0
+img: icons/magic/air/fog-gas-smoke-dense-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is able to emit a cloud of petrifying gas
+    from its maw.</p>
+  actions:
+    - id: petrifyingCloud
+      img: icons/magic/air/fog-gas-smoke-dense-green.webp
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 6
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 0
+        self: false
+        size: 6
+      persistRegion: true
+      regionBehavior:
+        name: Petrifying Cloud
+        system:
+          action:
+            id: petrifyingCloudRegion
+            name: Petrifying Cloud
+            img: icons/magic/air/fog-gas-smoke-dense-green.webp
+            description: >-
+              <p>When a creature first enters or begins its turn within the
+              cloud, its @Rule[defense.fortitude] is attacked. On a
+              @Rule[dice.failure], nothing happens. On a @Rule[dice.success],
+              their stage of petrification increases:</p><p><strong>Stage
+              1</strong>: The creature is @Condition[slowed] for <strong>6
+              Rounds</strong>.</p><p><strong>Stage 2</strong>: The creature is
+              @Condition[slowed] and @Condition[staggered] for <strong>6
+              Rounds</strong>.</p><p><strong>Stage 3</strong>: The creature is
+              @Condition[slowed] and @Condition[stunned] for <strong>6
+              Rounds</strong>.</p><p><strong>Stage 4</strong>: The creature is
+              Petrified; they are @Condition[paralyzed]
+              <strong>Indefinitely</strong>.</p><p>Any of the above stages
+              expiring prior to progressing to the next returns the affected
+              creature to their fully un-petrified state.</p>
+            effects: []
+            tags:
+              - natural
+              - harmless
+              - fortitude
+            target:
+              scope: 4
+            spellcraft: null
+          events:
+            - tokenEnter
+            - tokenTurnStart
+          frequency: roundActor
+      summon: null
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: 6
+            units: rounds
+            expiry: turnStart
+            expired: false
+          system:
+            dc: null
+            changes: []
+            dot: []
+            lights: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            suppression: {}
+      tags: []
+      name: Petrifying Cloud
+      description: >-
+        <p>The @ref[actor.name]{creature} opens its jaws and emits a dense cloud
+        of petrifying gas in the shape of a 6 foot <strong>Blast</strong>, which
+        remains in the area for <strong>6 Rounds</strong>.</p><p>When a creature
+        first enters or begins its turn within the cloud, its
+        @Rule[defense.fortitude] is attacked. On a @Rule[dice.failure], nothing
+        happens. On a @Rule[dice.success], their stage of petrification
+        increases:</p><p><strong>Stage 1</strong>: The creature is
+        @Condition[slowed] for <strong>6 Rounds</strong>.</p><p><strong>Stage
+        2</strong>: The creature is @Condition[slowed] and @Condition[staggered]
+        for <strong>6 Rounds</strong>.</p><p><strong>Stage 3</strong>: The
+        creature is @Condition[slowed] and @Condition[stunned] for <strong>6
+        Rounds</strong>.</p><p><strong>Stage 4</strong>: The creature is
+        Petrified; they are @Condition[paralyzed]
+        <strong>Indefinitely</strong>.</p><p>Any of the above stages expiring
+        prior to progressing to the next returns the affected creature to their
+        fully un-petrified state.</p>
+      condition: ''
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords:
+    - playstyle.ranged
+    - weapon.natural
+    - target.fortitude
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1793980247675
+  modifiedTime: 1793984748559
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!petrifyingCloud0'

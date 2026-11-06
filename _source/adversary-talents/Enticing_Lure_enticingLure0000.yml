@@ -1,0 +1,97 @@
+folder: DfHrE1gQRV575Dqq
+name: Enticing Lure
+type: talent
+_id: enticingLure0000
+img: icons/magic/control/hypnosis-mesmerism-eye.webp
+system:
+  description: >-
+    <p>The @ref[actor.name]{creature} can magically appeal to other beings,
+    attempting to instill in them the desire to approach. This may take the form
+    of a siren's song, a telepathic intrusion, or mysterious movements.</p>
+  nodes: []
+  actions:
+    - id: enticingLure
+      img: icons/magic/control/hypnosis-mesmerism-eye.webp
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      persistRegion: false
+      regionBehavior: null
+      summon: null
+      effects:
+        - name: Compelled Movement
+          scope: 3
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: 1
+            units: rounds
+            expiry: turnEnd
+            expired: false
+          system:
+            dc: null
+            changes: []
+            dot: []
+            lights: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            suppression: {}
+      tags:
+        - willpower
+        - skill
+        - performance
+        - harmless
+      name: Enticing Lure
+      description: >-
+        <p>The @ref[actor.name]{creature} attempts to magically attract a target
+        it can sense, performing a @Rule[skill.performance] check against its
+        @Rule[defense.willpower] defense. On a @Rule[dice.success], the target
+        is compelled to move towards the @ref[actor.name]{creature} immediately
+        at the start of its next turn, spending 2 @Rule[resource.action] to do
+        so. On a @Rule[dice.criticalSuccess], they must spend 4
+        @Rule[resource.action] instead.</p>
+      condition: ''
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords:
+    - playstyle.utility
+    - target.willpower
+    - skill.performance
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1793976290001
+  modifiedTime: 1793977064307
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!enticingLure0000'
