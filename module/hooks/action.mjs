@@ -106,6 +106,8 @@ HOOKS.amplifyAffix = {
       rejectClose: false
     });
     if ( !target ) throw new Error(_loc("ACTIONS.AmplifyAffix.Required"));
+    const prior = this.actor.effects.get(SYSTEM.EFFECTS.getEffectId("Amplify Affix"));
+    if ( prior ) this.metadata.priorAmplify = prior.toObject();
     this.metadata.amplify = target;
   },
   async confirm(reverse) {
@@ -115,7 +117,12 @@ HOOKS.amplifyAffix = {
 
     // A single replaceable marker records which affix is amplified; the Artificer prepare hook reads it
     if ( this.actor.effects.has(effectId) ) await this.actor.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
-    if ( reverse ) return;
+    if ( reverse ) {
+      if ( this.metadata.priorAmplify ) {
+        await this.actor.createEmbeddedDocuments("ActiveEffect", [this.metadata.priorAmplify], {keepId: true});
+      }
+      return;
+    }
     const dot = target.indexOf(".");
     const amplify = {itemId: target.slice(0, dot), affixId: target.slice(dot + 1)};
     await this.actor.createEmbeddedDocuments("ActiveEffect", [{
@@ -233,9 +240,11 @@ HOOKS.batteringSnareTrigger = {
 
 // TODO: Consider refactoring this talent to instead be a maintained action
 HOOKS.beastShapeRevert = {
-  async confirm(reverse) {
-    const effect = this.actor.effects.get(SYSTEM.EFFECTS.getEffectId("beastShape"));
-    await effect.delete();
+  postActivate() {
+    const _id = SYSTEM.EFFECTS.getEffectId("beastShape");
+    if ( this.actor.effects.has(_id) ) {
+      this.recordEvent({type: "effect", target: this.actor, effects: [{_id, _action: "delete"}]});
+    }
   }
 };
 
@@ -759,7 +768,20 @@ HOOKS.delay = {
     });
     if ( response ) this.metadata.initiativeDelay = response;
   },
-  async confirm() {
+  async confirm(reverse) {
+    if ( reverse ) {
+      const delay = this.actor.flags.crucible?.delay;
+      if ( !delay ) return;
+      await this.actor.unsetFlag("crucible", "delay");
+      const combatant = this.actor.combatant;
+      if ( combatant && (delay.round === game.combat?.round) ) {
+        await game.combat.update({
+          turn: delay.fromTurn ?? game.combat.turn,
+          combatants: [{_id: combatant.id, initiative: delay.from}]
+        }, {diff: false, turnEvents: false});
+      }
+      return;
+    }
     const initiative = this.metadata.initiativeDelay;
     if ( !Number.isInteger(initiative) ) throw new Error("Delay action requires an integer initiativeDelay value");
     return this.actor.delay(initiative);
@@ -1309,6 +1331,13 @@ HOOKS.imbueAffix = {
     if ( !(item.system.affixCapacity?.[affix.system.affixType]?.available >= 1) ) {
       throw new Error(_loc("ACTIONS.ImbueAffix.NoCapacity"));
     }
+    for ( const owned of this.actor.items ) {
+      const prior = owned.effects.find(e => e.getFlag("crucible", "imbued"));
+      if ( prior ) {
+        this.metadata.priorImbue = {itemUuid: owned.uuid, affix: prior.toObject()};
+        break;
+      }
+    }
     this.metadata.imbue = {itemUuid: item.uuid, affixUuid: affix.uuid};
   },
   async confirm(reverse) {
@@ -1320,7 +1349,12 @@ HOOKS.imbueAffix = {
       const prior = item.effects.find(e => e.getFlag("crucible", "imbued"));
       if ( prior ) await item.deleteEmbeddedDocuments("ActiveEffect", [prior.id]);
     }
-    if ( reverse ) return;
+    if ( reverse ) {
+      const prior = this.metadata.priorImbue;
+      const priorItem = prior ? await fromUuid(prior.itemUuid) : null;
+      if ( priorItem ) await priorItem.createEmbeddedDocuments("ActiveEffect", [prior.affix], {keepId: true});
+      return;
+    }
 
     // Inscribe the chosen affix onto the target item at Tier 1
     const item = await fromUuid(imbue.itemUuid);

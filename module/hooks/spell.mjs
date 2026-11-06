@@ -7,36 +7,37 @@ HOOKS.protectiveMirage = {
     if ( !action.tags.has("strike") ) return;
     const effect = this.effects.get("protectiveMirage");
     if ( !effect ) return;
-    const duplicates = effect.getFlag("crucible", "duplicates") ?? 3;
-    rollData.banes.mirage = {label: item.name, number: duplicates * 2};
+    const prior = action.eventsByActor.get(this)?.effect
+      .flatMap(e => e.effects).find(f => f._id === effect.id);
+    const duplicates = prior
+      ? (prior.flags?.crucible?.duplicates ?? 0)
+      : (effect.getFlag("crucible", "duplicates") ?? 3);
+    if ( duplicates > 0 ) rollData.banes.mirage = {label: item.name, number: duplicates * 2};
   },
-  confirmAction(_item, action, {reverse}) {
+  receiveAttack(_item, action, roll) {
+    if ( (roll.data.defenseType !== "physical") || roll.isSuccess ) return;
     const effect = this.effects.get("protectiveMirage");
     if ( !effect ) return;
-    let duplicates = effect.getFlag("crucible", "duplicates") ?? 3;
-
-    // Count physical attacks that were blocked (failed) against this actor
-    const delta = reverse ? 1 : -1;
-    for ( const event of action.events ) {
-      if ( (event.target !== this) || !event.roll ) continue;
-      if ( !(event.roll instanceof crucible.api.dice.AttackRoll) ) continue;
-      if ( (event.roll.data.defenseType !== "physical") || event.roll.isSuccess ) continue;
-      duplicates += delta;
+    if ( effect.getFlag("crucible", "duplicates") === undefined ) {
+      foundry.utils.setProperty(effect._source, "flags.crucible.duplicates", 3);
     }
-
-    // Delete exhausted effect
-    if ( duplicates <= 0 ) {
-      action.recordEvent({type: "effect", target: this, effects: [{_id: effect.id, _action: "delete"}]});
-      return;
-    }
-
-    // Decrement effect
-    action.recordEvent({type: "effect", target: this, effects: [{
+    const prior = action.eventsByActor.get(this)?.effect
+      .flatMap(e => e.effects).find(f => f._id === effect.id);
+    if ( prior?._action === "delete" ) return;
+    const current = prior ? prior.flags.crucible.duplicates : (effect.getFlag("crucible", "duplicates") ?? 3);
+    const duplicates = current - 1;
+    const change = (duplicates <= 0) ? {_id: effect.id, _action: "delete"} : {
       _id: effect.id,
       name: `Mirage (${duplicates})`,
-      "flags.crucible.duplicates": duplicates,
+      flags: {crucible: {duplicates}},
       _action: "update"
-    }]});
+    };
+    if ( prior ) {
+      delete prior.name;
+      delete prior.flags;
+      Object.assign(prior, change);
+    }
+    else action.recordEvent({type: "effect", target: this, effects: [change]});
   }
 };
 
