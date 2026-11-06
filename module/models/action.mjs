@@ -1950,6 +1950,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( actor === this.actor ) return this.target.self || (this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF);
     const token = actor.getActiveTokens?.(true, true)[0] ?? null;
     if ( !token ) return false;
+    const targets = [{token, actor, name: actor.name, uuid: actor.uuid}];
+    this._callActionHooks("acquireTargets", targets);
+    if ( targets[0].error ) return false;
     return this.#getTargetDispositions().includes(token.disposition);
   }
 
@@ -3827,6 +3830,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       });
       return sections.get(actor);
     };
+    const formatDuration = d => {
+      if ( (d?.units === "rounds") && d.value ) return _loc("ACTIVE_EFFECT.DURATION.Rounds", {value: d.value});
+      else if ( d?.expiry === "combatEnd" ) return _loc("ACTIVE_EFFECT.DURATION.Combat");
+      else return _loc("ACTIVE_EFFECT.DURATION.Infinite");
+    };
     for ( const event of this.events ) {
       const target = event.target;
       if ( !target ) continue;
@@ -3859,12 +3867,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           const name = existing?.name ?? effect.name ?? effect._id;
           section.effects.push({name, img: existing?.img ?? effect.img, gained: false});
         }
+        else if ( (effect._action === "update") && effect.name ) {
+          const existing = target.effects.get(effect._id);
+          const oldName = existing?.name;
+          if ( oldName ) section.effects.push({name: oldName, img: existing.img, gained: false});
+          const duration = formatDuration(effect.duration ?? existing.duration);
+          section.effects.push({name: effect.name, img: effect.img ?? existing.img, gained: true, duration});
+        }
         else if ( !effect._action ) {
-          const d = effect.duration;
-          let duration;
-          if ( (d?.units === "rounds") && d.value ) duration = _loc("ACTIVE_EFFECT.DURATION.Rounds", {value: d.value});
-          else if ( d?.expiry === "combatEnd" ) duration = _loc("ACTIVE_EFFECT.DURATION.Combat");
-          else duration = _loc("ACTIVE_EFFECT.DURATION.Infinite");
+          const duration = formatDuration(effect.duration);
           section.effects.push({name: effect.name ?? effect._id, img: effect.img, gained: true, duration});
         }
       }

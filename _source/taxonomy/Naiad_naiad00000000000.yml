@@ -1,0 +1,106 @@
+folder: TfforZVk56B2RHRA
+name: Naiad
+type: taxonomy
+_id: naiad00000000000
+img: icons/magic/water/elemental-water.webp
+system:
+  description: >-
+    <p>Water nymphs — Fey protectors of freshwater bodies of water. Naiads
+    typically resemble female humanoids, and each is bound to a particular body
+    of water, from which they will not usually stray far willingly; though it is
+    possible for a Naiad to bind themselves to a new body of water, should the
+    need or desire arise.</p>
+  identifier: naiad
+  category: fey
+  abilities:
+    wisdom: 3
+    presence: 3
+    intellect: 1
+    strength: 1
+    toughness: 1
+    dexterity: 3
+  movement:
+    size: 4
+    heightRatio: 1.5
+    stride: 10
+  resistances:
+    acid:
+      value: -1
+      immune: false
+    bludgeoning:
+      value: 0
+      immune: false
+    cold:
+      value: 2
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    electricity:
+      value: -2
+      immune: false
+    fire:
+      value: 3
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    poison:
+      value: -2
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.aqueousCamouflag
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.aqueousTransmiss
+      level: 1
+    - item: Compendium.crucible.adversary-talents.Item.slipperyForm0000
+      level: 0
+    - item: Compendium.crucible.talent.Item.runeFrost0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.gestureray000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gestureSurge0000
+      level: 4
+    - item: Compendium.crucible.talent.Item.lesserregenerati
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.coldAbsorption00
+      level: 3
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.frigidLimb000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: true
+    temperature: cool
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1793977734137
+  modifiedTime: 1793979010430
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!naiad00000000000'

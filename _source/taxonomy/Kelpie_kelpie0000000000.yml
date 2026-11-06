@@ -1,0 +1,104 @@
+folder: TfforZVk56B2RHRA
+name: Kelpie
+type: taxonomy
+_id: kelpie0000000000
+img: icons/magic/water/water-elemental-blue-teeth.webp
+system:
+  description: >-
+    <p>Shapeshifting Fey beings which reside in and around bodies of water,
+    their natural form is that of an imposing horse, but for the water weeds
+    appearing to make up their manes and tails. They are capable of shifting
+    into equine and humanoid forms, and often do so in order to lure
+    unsuspecting victims to a watery grave.</p>
+  identifier: kelpie
+  category: fey
+  abilities:
+    wisdom: 2
+    presence: 3
+    intellect: 1
+    strength: 3
+    toughness: 2
+    dexterity: 1
+  movement:
+    size: 6
+    heightRatio: 0.9
+    stride: 10
+  resistances:
+    acid:
+      value: 0
+      immune: false
+    bludgeoning:
+      value: 0
+      immune: false
+    cold:
+      value: -2
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    electricity:
+      value: -1
+      immune: false
+    fire:
+      value: 3
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    poison:
+      value: 0
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.falseForm0000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.restrainingChomp
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.thrash0000000000
+      level: 1
+    - item: Compendium.crucible.adversary-talents.Item.enticingLure0000
+      level: 0
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.lightPelt0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.bite000000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: false
+    temperature: neutral
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1793974444178
+  modifiedTime: 1793977501132
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!kelpie0000000000'

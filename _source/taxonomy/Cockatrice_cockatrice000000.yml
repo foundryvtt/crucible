@@ -1,0 +1,106 @@
+folder: NzDhqa3mUb9TQ7ub
+name: Cockatrice
+type: taxonomy
+_id: cockatrice000000
+img: icons/creatures/reptiles/lizard-mouth-glowing-red.webp
+system:
+  description: >-
+    <p>Monstrosities with the body of a wyvern and the head of a rooster,
+    Cockatrices possess the unique ability to petrify other beings using their
+    breath attack.</p>
+  identifier: cockatrice
+  category: monstrosity
+  abilities:
+    wisdom: 3
+    presence: 1
+    intellect: 1
+    strength: 1
+    toughness: 2
+    dexterity: 4
+  movement:
+    size: 3
+    heightRatio: 1
+    stride: 8
+  resistances:
+    acid:
+      value: 0
+      immune: false
+    bludgeoning:
+      value: -2
+      immune: false
+    cold:
+      value: 0
+      immune: false
+    corruption:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    fire:
+      value: 0
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    poison:
+      value: 2
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    void:
+      value: 0
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.darkvision000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.swoopingStrike00
+      level: 1
+    - item: Compendium.crucible.adversary-talents.Item.rake000000000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.glider0000000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.petrifyingCloud0
+      level: 1
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.lightScales00000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.beak000000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.talons0000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  characteristics:
+    blooded: true
+    equipment: false
+    spells: false
+    temperature: ''
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1793979420074
+  modifiedTime: 1793987330829
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!cockatrice000000'
