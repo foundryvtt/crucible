@@ -2244,6 +2244,26 @@ HOOKS.readScroll = {
 
 /* -------------------------------------------- */
 
+HOOKS.revealForm = {
+  async confirm(reverse) {
+    if ( !this.token ) return;
+    const fieldsToChange = ["name", "disposition", "texture", "ring"];
+    const update = {};
+    if ( reverse ) {
+      const stored = this.token.getFlag("crucible", "falseForm");
+      for ( const f of fieldsToChange ) if ( stored[f] ) update[f] = stored[f];
+    } else {
+      for ( const f of fieldsToChange ) {
+        update[f] = this.actor.prototypeToken[f];
+        foundry.utils.setProperty(update, `flags.crucible.falseForm.${f}`, this.token[f]);
+      }
+    }
+    await this.token.update(update, {animation: {transition: "morph"}});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.investiture = {
   canUse() {
     return this.actor.items.some(i => i.system.requiresInvestment && i.system.equipped);
