@@ -118,19 +118,24 @@ HOOKS.adrenalineSurge0 = {
 /* -------------------------------------------- */
 
 HOOKS.adrenaline000000 = {
-  confirmAction(item, action, {reverse}) {
-    if ( reverse || this.status.adrenaline ) return;
-    const myEvents = action.eventsByActor.get(this);
-    if ( !myEvents ) return;
-    for ( const event of myEvents.roll ) {
-      const dmg = event.roll?.data?.damage;
-      if ( (dmg?.resource !== "health") || (dmg.total <= 0) || dmg.restoration ) continue;
-      action.recordEvent({
-        target: this,
-        resources: [{resource: "focus", delta: 1}],
-        actorUpdates: {system: {status: {adrenaline: true}}}
-      });
-      return;
+  receiveAttack(item, action, roll) {
+    if ( this.status.adrenaline ) return;
+    const dmg = roll.data?.damage;
+    if ( (dmg?.resource !== "health") || (dmg.total <= 0) || dmg.restoration ) return;
+    if ( action.eventsByActor.get(this)?.all.some(e => e.actorUpdates?.system?.status?.adrenaline) ) return;
+    action.recordEvent({
+      target: this,
+      resources: [{resource: "focus", delta: 1}],
+      actorUpdates: {system: {status: {adrenaline: true}}},
+      statusText: [{text: item.name, fillColor: SYSTEM.RESOURCES.focus.color.css}]
+    });
+  },
+  confirmAction(_item, action, {reverse}) {
+    if ( !reverse ) return;
+    for ( const event of action.eventsByActor.get(this)?.all ?? [] ) {
+      if ( event.actorUpdates?.system?.status?.adrenaline ) {
+        event.actorUpdates.system.status.adrenaline = false;
+      }
     }
   }
 };
