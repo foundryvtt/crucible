@@ -13,6 +13,7 @@ HOOKS.aspect = {
       this.tags.add("harmless");
       this.range = {maximum: 1}; // Touch
       this.usage.hasDice = true;
+      this.usage.restoration = false;
       return;
     }
     else this.usage.hasDice = false;
