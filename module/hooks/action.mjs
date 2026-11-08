@@ -1823,10 +1823,10 @@ HOOKS.medicinalCompound = {
       const dmg = rollEvent.roll.data.damage.total;
       rollEvent.resources.push({resource: "health", delta: dmg});
       const amount = Math.ceil(dmg / 2);
-      if ( rollEvent.effects.length ) rollEvent.effects[0].system.dot.push(
+      if ( rollEvent.effects.length ) rollEvent.effects[0].system.dot = [
         {amount, resource: "health", restoration: true},
         {amount, resource: "morale", restoration: true}
-      );
+      ];
     }
   }
 };
@@ -1968,7 +1968,12 @@ HOOKS.paralyticIngest = {
     poison.duration = turnCount !== null
       ? {value: turnCount, units: "rounds", expiry: "turnEnd"}
       : {value: null, units: "seconds", expiry: null};
-    poison.system.dot.length = 0;
+  },
+  postActivate() {
+    for ( const [, events] of this.eventsByTarget ) {
+      const {effect} = events.getPrimaryEffect();
+      if ( effect?.system?.dot ) effect.system.dot.length = 0;
+    }
   }
 };
 

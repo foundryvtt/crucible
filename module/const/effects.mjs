@@ -130,7 +130,7 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function confused(actor, {ability="intellect", amount, turns=2}={}) {
+export function confused(actor, {ability="intellect", amount, turns=1}={}) {
   amount ??= actor.getAbilityBonus(ability, 2);
   return {
     _id: getEffectId("Confused"),

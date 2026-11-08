@@ -2033,7 +2033,11 @@ HOOKS.summoned00000000 = {
 
 HOOKS.surgeweaver00000 = {
   applyCriticalEffects(_item, action) {
-    applyRuneCritEffect(this, action, "storm", ability => SYSTEM.EFFECTS.shocked(this, {ability}));
+    applyRuneCritEffect(this, action, "storm", ability => {
+      const effect = SYSTEM.EFFECTS.shocked(this, {ability});
+      effect.statuses.push("staggered");
+      return effect;
+    });
   }
 };
 
