@@ -1524,6 +1524,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     const dealsDamage = this.#settleRollOutcomes();
     if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
+    this.#receiveEffects();
     await this.resolveEventStream();
     this.actor.callActorHooks("finalizeAction", this);
     this.#finalizeEvents();
@@ -2119,6 +2120,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Let each target's hooks adjust, split, or negate the final effects of its events before they resolve.
+   */
+  #receiveEffects() {
+    for ( const event of this.events ) {
+      if ( event.negated || !event.effects.length ) continue;
+      event.target.callActorHooks("receiveEffect", this, event.effects);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Record effect events for each target in the event stream based on the action's defined effects.
    * Effects are attached to qualifying roll events where possible, or recorded as standalone effect events.
    * If action creates a non-ephemeral region, ensure at least one self-effect to record it.
@@ -2174,14 +2187,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }
         effect.statuses = Array.from(statuses);
 
-        // The target's hooks may adjust, split, or negate the effect
-        const received = [effect];
-        target.callActorHooks("receiveEffect", this, received);
-        if ( !received.length ) continue;
-
-        // Attach the effects to the qualifying event, or record a standalone effect event
-        if ( event instanceof CrucibleActionEvent ) event.effects.push(...received);
-        else this.recordEvent({type: "effect", target, effects: received});
+        // Attach the effect to the qualifying event, or record a standalone effect event
+        if ( event instanceof CrucibleActionEvent ) event.effects.push(effect);
+        else this.recordEvent({type: "effect", target, effects: [effect]});
       }
 
       // If no self effect to track non-ephemeral region on, create one
