@@ -2503,7 +2503,7 @@ HOOKS.restrainingChomp = {
 HOOKS.swallow = {
   _SWALLOWED_EFFECT_ID: "swallowed00000000",
   _isHelpless(actor) {
-    return actor.isIncapacitated || ["restrained", "stunned", "incapacitated"].some(s => actor.statuses.has(s));
+    return actor.isIncapacitated || ["restrained", "stunned"].some(s => actor.statuses.has(s));
   },
   _swallowedMarkers(actor) {
     return actor.effects.filter(e => e.getFlag("crucible", "swallowing"));

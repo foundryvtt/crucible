@@ -3390,8 +3390,9 @@ export default class CrucibleActor extends Actor {
   async #applyResourceStatuses(data) {
     const r = data?.system?.resources || {};
     if ( ("health" in r) || ("wounds" in r) ) {
-      await this.toggleStatusEffect("weakened", {active: this.system.isWeakened && !this.system.isDead });
-      await this.toggleStatusEffect("dead", {active: this.system.isDead});
+      const isDead = this.system._isResourceDead;
+      await this.toggleStatusEffect("weakened", {active: this.system.isWeakened && !isDead});
+      await this.toggleStatusEffect("dead", {active: isDead});
       await this.toggleStatusEffect("asleep", {active: false});
     }
     if ( ("morale" in r) || ("madness" in r) ) {
