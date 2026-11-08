@@ -2204,6 +2204,7 @@
       "FREQUENCIES": {
         "every": "Every Time",
         "once": "Once",
+        "oncePerActor": "Once per Actor",
         "roundActor": "Once per Round per Actor"
       },
       "TABS": {
