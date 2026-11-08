@@ -737,10 +737,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Final weapon preparation
     if ( !weapons.mainhand && mhOpen ) weapons.mainhand = this._getUnarmedWeapon();
     const mh = weapons.mainhand;
-    const mhCategory = mh?.config.category || {};
+    const mhCategory = mh?.system.activeCategory || {};
     if ( !weapons.offhand && ohOpen ) weapons.offhand = mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
     const oh = weapons.offhand;
-    const ohCategory = oh?.config.category || {};
+    const ohCategory = oh?.system.activeCategory || {};
 
     // Weapon Set Metadata
     const isShield = c => (c?.id === "shieldLight") || (c?.id === "shieldHeavy");

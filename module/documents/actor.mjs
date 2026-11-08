@@ -2902,7 +2902,7 @@ export default class CrucibleActor extends Actor {
    * @throws {Error}                  An error explaining why the weapon cannot be equipped
    */
   #getAvailableWeaponSlot(weapon, slot) {
-    const category = weapon.config.category;
+    const category = weapon.system.activeCategory;
     const slots = SYSTEM.WEAPON.SLOTS;
     const {mainhand, offhand} = this.equipment.weapons;
 
@@ -2929,7 +2929,7 @@ export default class CrucibleActor extends Actor {
         break;
       case slots.OFFHAND:
         if ( offhand?.id ) occupied = offhand;
-        else if ( mainhand.config.category.hands === 2 ) occupied = mainhand;
+        else if ( mainhand?.system.activeCategory.hands === 2 ) occupied = mainhand;
         break;
     }
 

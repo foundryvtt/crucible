@@ -250,7 +250,7 @@ HOOKS.berserkStrike = {
     else if ( pct < 0.5 ) damageBonus = 2;
     else if ( pct < 0.75 ) damageBonus = 1;
     const weapon = this.usage.strikes[0];
-    if ( weapon.config.category.hands === 2 ) damageBonus *= 2;
+    if ( weapon.system.activeCategory.hands === 2 ) damageBonus *= 2;
     if ( damageBonus ) {
       this.usage.bonuses.damageBonus ||= 0;
       this.usage.bonuses.damageBonus += damageBonus;
@@ -2324,7 +2324,7 @@ HOOKS.refocus = {
     const rollEvent = this.selfEvents?.roll[0];
     const r = rollEvent?.roll;
     let focus = 0;
-    if ( r?.isSuccess ) focus += talisman.config.category.hands;
+    if ( r?.isSuccess ) focus += talisman.system.activeCategory.hands;
     if ( r?.isCriticalSuccess ) focus += 1;
     if ( focus ) this.recordEvent({resources: [{resource: "focus", delta: focus}]});
   }

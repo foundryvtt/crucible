@@ -93,12 +93,12 @@ function applyMoraleWave(actor, action, {test, radius, amount, label, wallType="
 
 HOOKS.acrobat000000000 = {
   defendAttack(item, action, _attacker, rollData) {
-    if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
+    if ( this.equipment.weapons.mainhand?.system.activeCategory.id !== "balanced2" ) return;
     if ( !action.target.isAttack || (action.range.category !== "ranged") || !action.tags.has("strike") ) return;
     rollData.banes.acrobat = {label: item.name, number: 2};
   },
   prepareMovement(_item, movement) {
-    if ( this.equipment.weapons.mainhand?.config?.category?.id !== "balanced2" ) return;
+    if ( this.equipment.weapons.mainhand?.system.activeCategory.id !== "balanced2" ) return;
     movement.costMultipliers.jump = 1;
   }
 };
@@ -456,7 +456,7 @@ for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
 HOOKS.cadence000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("strike") ) return;
-    if ( action.usage.weapon.config.category.hands !== 1 ) return;
+    if ( action.usage.weapon.system.activeCategory.hands !== 1 ) return;
     const {cadence} = this.status;
     const {actorStatus} = action.usage;
     actorStatus.cadence = (cadence ?? 0) + 1;
@@ -596,7 +596,7 @@ HOOKS.channeledResonan = {
 
 HOOKS.channelersGrip00 = {
   prepareWeapons(_item, weapons) {
-    const oneHanded = [weapons.mainhand, weapons.offhand].some(w => w?.category === "talisman1");
+    const oneHanded = [weapons.mainhand, weapons.offhand].some(w => w?.system.activeCategory.id === "talisman1");
     if ( oneHanded ) weapons.spellHands = Math.max(weapons.spellHands, 2);
   }
 };
@@ -2285,7 +2285,7 @@ HOOKS.duelist000000000 = {
   _isDueling(actor) {
     const w = actor.equipment.weapons;
     const mh = w.mainhand;
-    const cat = mh?.config?.category;
+    const cat = mh?.system.activeCategory;
     return mh?.id && !w.twoHanded && !w.shield && !w.offhand?.id && (cat?.hands < 2) && !cat?.ranged;
   },
   prepareDefenses(_item, defenses) {
