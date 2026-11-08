@@ -140,6 +140,29 @@ export default class CrucibleScene extends Scene {
   /* -------------------------------------------- */
 
   /**
+   * Find the movement surface nearest to an elevation, above or below it, which contains a set of test points.
+   * @param {Point[]} points                      Test points which the surface must contain
+   * @param {object} options
+   * @param {number} options.elevation            The elevation to which the surface must be nearest
+   * @param {string} options.level                The id of the level from which to search
+   * @param {number} [options.coverage=1]         The fraction of test points which a surface must contain
+   * @returns {{elevation: number, region: RegionDocument, level: Level}|null}
+   */
+  findNearestSurface(points, {elevation, level, coverage=1}) {
+    const required = Math.ceil(points.length * coverage);
+    let nearest = null;
+    for ( const surface of this.getSurfaces({level, type: "move"}) ) { // Ascending, so ties keep the lower surface
+      if ( nearest && (Math.abs(surface.elevation - elevation) >= Math.abs(nearest.elevation - elevation)) ) continue;
+      if ( this.#containsPoints(surface.region, points, required) ) nearest = surface;
+    }
+    if ( !nearest ) return null;
+    const restLevel = this.#findRestingLevel(nearest.region, nearest.elevation, level);
+    return {elevation: nearest.elevation, region: nearest.region, level: restLevel};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Find the supporting surface at or below an elevation which contains a set of test points.
    * A scene that defines any movement surface uses those surfaces as its only floors (surface mode); a scene with no
    * surfaces treats the base of every level as an implied floor (level mode).
@@ -160,21 +183,11 @@ export default class CrucibleScene extends Scene {
       const surfaces = this.getSurfaces({level, type: "move"});
       if ( !surfaces.length ) return null;
       const required = Math.ceil(points.length * coverage);
-      const allowedMisses = points.length - required;
       for ( let i = surfaces.length; i--; ) {
         const surface = surfaces[i];
-        if ( isAbove(surface.elevation) ) continue;
-        let inside = 0;
-        let missed = 0;
-        for ( const p of points ) {
-          if ( surface.region.polygonTree.testPoint(p) ) {
-            if ( ++inside >= required ) {
-              const restLevel = this.#findRestingLevel(surface.region, surface.elevation, level);
-              return {elevation: surface.elevation, region: surface.region, level: restLevel};
-            }
-          }
-          else if ( ++missed > allowedMisses ) break;
-        }
+        if ( isAbove(surface.elevation) || !this.#containsPoints(surface.region, points, required) ) continue;
+        const restLevel = this.#findRestingLevel(surface.region, surface.elevation, level);
+        return {elevation: surface.elevation, region: surface.region, level: restLevel};
       }
       return null;
     }
@@ -188,6 +201,28 @@ export default class CrucibleScene extends Scene {
     }
     if ( !floorLevel ) return null;
     return {elevation: floorLevel.elevation.base, region: null, level: floorLevel};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether a region contains a required number of test points, stopping as soon as the outcome is decided.
+   * @param {RegionDocument} region   The surface region
+   * @param {Point[]} points          The test points
+   * @param {number} required         The number of points the region must contain
+   * @returns {boolean}
+   */
+  #containsPoints(region, points, required) {
+    const allowedMisses = points.length - required;
+    let inside = 0;
+    let missed = 0;
+    for ( const p of points ) {
+      if ( region.polygonTree.testPoint(p, 0.75) ) { // The tolerance of TokenDocument#testInsideRegion
+        if ( ++inside >= required ) return true;
+      }
+      else if ( ++missed > allowedMisses ) return false;
+    }
+    return false;
   }
 
   /* -------------------------------------------- */

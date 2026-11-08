@@ -2174,9 +2174,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }
         effect.statuses = Array.from(statuses);
 
-        // Attach the effect to the qualifying event, or record a standalone effect event
-        if ( event instanceof CrucibleActionEvent ) event.effects.push(effect);
-        else this.recordEvent({type: "effect", target, effects: [effect]});
+        // The target's hooks may adjust, split, or negate the effect
+        const received = [effect];
+        target.callActorHooks("receiveEffect", this, received);
+        if ( !received.length ) continue;
+
+        // Attach the effects to the qualifying event, or record a standalone effect event
+        if ( event instanceof CrucibleActionEvent ) event.effects.push(...received);
+        else this.recordEvent({type: "effect", target, effects: received});
       }
 
       // If no self effect to track non-ephemeral region on, create one

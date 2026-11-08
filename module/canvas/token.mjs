@@ -484,6 +484,22 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /**
+   * Place a dropped token on the surface nearest to the bottom of the viewed level, unless an elevation was dropped.
+   * @inheritDoc
+   */
+  static _getDropActorPosition(token, point, options) {
+    const position = super._getDropActorPosition(token, point, options);
+    if ( (point.elevation !== undefined) || !token.parent?.usesSurfaces ) return position;
+    const points = token.getContainmentTestPoints(position);
+    const surface = token.parent.findNearestSurface(points, {elevation: canvas.level.elevation.bottom,
+      level: canvas.level.id, coverage: 0.75}); // The support coverage of CrucibleTokenDocument#_findSupportingSurface
+    if ( surface ) Object.assign(position, {elevation: surface.elevation, level: surface.level?.id ?? position.level});
+    return position;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * The token animation movement speed for a given Stride, in grid units per second.
    * Assume 6 strides per turn, 10 seconds per round, x2 multiplier for visual satisfaction.
    * @param {number} stride

@@ -1178,6 +1178,7 @@
       "Cursed": "Cursed"
     },
     "SUPPRESSION": {
+      "Broken": "Suppressed while the item is broken",
       "Duplicate": "Superseded by another instance of the same affix"
     },
     "WARNINGS": {

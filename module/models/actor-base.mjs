@@ -539,23 +539,24 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.equipment.weapons = {heavyOffhand: false};
     this.parent.callActorHooks("configureEquipment", this.equipment);
 
-    // Step 1: Armor
+    // Identify equipment, which depends only on the capabilities configured above, and resolve affix suppression
+    // before any equipment registers its hooks
     const armor = this._prepareArmor(items.armor);
+    const accessories = this._prepareAccessories(items.accessory, this.equipment.accessorySlots);
+    const weapons = this._prepareWeapons(items.weapon);
+    this.#suppressAffixes([armor, weapons.mainhand, weapons.offhand, ...accessories]);
+
+    // Step 1: Armor
     this.#registerActorHooks(armor);
     this.parent.callActorHooks("prepareArmor", armor);
 
     // Step 2: Accessories
-    const accessories = this._prepareAccessories(items.accessory, this.equipment.accessorySlots);
     for ( const a of accessories ) this.#registerActorHooks(a);
     this.parent.callActorHooks("prepareAccessories", accessories);
 
     // Step 3: Weapons
-    const weapons = this._prepareWeapons(items.weapon);
     if ( weapons.mainhand ) this.#registerActorHooks(weapons.mainhand);
     if ( weapons.offhand ) this.#registerActorHooks(weapons.offhand);
-
-    // All affixable equipment is now known, and suppression must be resolved before any affix hook is called
-    this.#suppressAffixes([armor, weapons.mainhand, weapons.offhand, ...accessories]);
     this.parent.callActorHooks("prepareWeapons", weapons);
 
     // Step 4: Toolbelt
@@ -813,7 +814,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const prevailing = new Map();
     for ( const item of items ) {
       if ( !item?.system.constructor.AFFIXABLE ) continue;
-      if ( item.system.requiresInvestment && !item.system.invested ) continue;
+      if ( item.system.broken || (item.system.requiresInvestment && !item.system.invested) ) continue;
       for ( const affix of Object.values(item.system.affixes) ) {
         const {identifier, itemTypes} = affix.system;
         if ( (itemTypes.size === 1) && itemTypes.has("weapon") ) continue;
@@ -1358,7 +1359,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @param {CrucibleItem} item         The Item registering the hook
    */
   #registerActorHooks(item) {
-    if ( item.system.requiresInvestment && !item.system.invested ) return;
+    if ( item.system.broken || (item.system.requiresInvestment && !item.system.invested) ) return;
 
     // Register module hooks for the item itself
     const identifier = item.system.identifier || item.id;
@@ -1372,15 +1373,15 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       }
     }
 
-    // Register module hooks contributed by embedded affixes
+    // Register module hooks contributed by embedded affixes which are not suppressed
     const affixes = item.system.constructor.AFFIXABLE ? Object.values(item.system.affixes) : [];
     for ( const affix of affixes ) {
       const affixHooks = crucible.api.hooks.affix?.[affix.system.identifier];
-      if ( !affixHooks ) continue;
+      if ( !affixHooks || affix.system.isSuppressed ) continue;
       for ( const [hook, fn] of Object.entries(affixHooks) ) {
         if ( hook in SYSTEM.ACTOR.HOOKS ) {
           this.actorHooks[hook] ||= [];
-          this.actorHooks[hook].push({item, fn, affix});
+          this.actorHooks[hook].push({item, fn});
         }
       }
     }

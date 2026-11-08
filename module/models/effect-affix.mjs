@@ -19,7 +19,7 @@ import * as crucibleFields from "./fields.mjs";
 /**
  * @typedef CrucibleAffixSuppression
  * @property {string} reason                  A localization key describing why the affix is suppressed
- * @property {CrucibleActiveEffect} source    The affix which caused this one to be suppressed
+ * @property {CrucibleActiveEffect} [source]  The affix which caused this one to be suppressed, if any
  */
 
 /**
@@ -85,7 +85,7 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
     const ae = this.parent;
     ae.transfer = false;
     this.changes = [];
-    this._suppression = null;
+    this._suppression = ae.parent?.system.broken ? {reason: "AFFIX.SUPPRESSION.Broken"} : null;
     this.tier.value = Math.clamp(this.tier.value, this.tier.min, this.tier.max);
     this.adjective ||= ae.name;
     if ( this.isCursed ) ae.name = _loc("AFFIX.CursedName", {name: ae.name});
