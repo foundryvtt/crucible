@@ -238,7 +238,7 @@ HOOKS.assassin00000000 = {
 HOOKS.bard000000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
-    if ( action.rune.id === "soul" ) rollData.boons.bard = {label: item.name, number: 2};
+    if ( (action.rune?.id === "soul") && rollData.restoration ) rollData.boons.bard = {label: item.name, number: 2};
   }
 };
 
@@ -976,7 +976,7 @@ HOOKS.wrestler00000000 = {
 HOOKS.healer0000000000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !action.tags.has("spell") ) return;
-    if ( action.rune.id === "life" ) rollData.boons.healer = {label: item.name, number: 2};
+    if ( (action.rune?.id === "life") && rollData.restoration ) rollData.boons.healer = {label: item.name, number: 2};
   }
 };
 
@@ -1945,7 +1945,7 @@ HOOKS.spellmute0000000 = {
 HOOKS.spiritbreaker000 = {
   prepareAttack(_item, action, _target, rollData) {
     // Any action that attacks Morale finds the cracks in a foe's will, lowering its Critical Success Threshold
-    if ( rollData.resource === "morale" ) {
+    if ( (rollData.resource === "morale") && !rollData.restoration && !action.tags.has("harmless") ) {
       rollData.criticalSuccessThreshold = (rollData.criticalSuccessThreshold ?? 6) - 2;
     }
   },

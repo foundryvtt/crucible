@@ -133,7 +133,9 @@ export default class CrucibleSpellAction extends CrucibleAction {
     if ( this.isComposed ) {
       this.cost = CrucibleSpellAction.#prepareCost.call(this);
       this.target = {...this.gesture.target};
-      if ( this.rune.restoration && (this.target.type === "single") ) this.target.self = true;
+      if ( this.rune.restoration && (this.inflection?.id !== "negate") && (this.target.type === "single") ) {
+        this.target.self = true;
+      }
       this.range = {...this.gesture.range};
       this._prepareRegionBehavior(); // The gesture supplies the target type, which super() resolved too early to see
       if ( this.composition >= STATES.COMPOSING ) {
@@ -187,7 +189,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
    * @returns {string}            The defense to test
    */
   static #prepareDefense() {
-    if ( this.rune.restoration ) return {
+    const restoration = this.isComposed
+      ? (this.rune.restoration && (this.inflection?.id !== "negate"))
+      : (this.tags.has("healing") || this.tags.has("rallying"));
+    if ( restoration ) return {
       health: "wounds",
       wounds: "wounds",
       morale: "madness",
@@ -259,7 +264,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     // A composed spell is its components, so its Rune determines restoration. An iconic spell's components are only
     // prerequisites for knowing it, so it must declare restoration explicitly with the healing or rallying tag.
-    if ( this.isComposed ) this.usage.restoration = !!this.rune.restoration;
+    if ( this.isComposed ) this.usage.restoration = Boolean(this.rune.restoration && (this.inflection?.id !== "negate"));
 
     // Spellcasting is always Intuitive if you know the rune
     this.usage.bonuses.skill = this.actor.getSkillBonus(this.training, {intuitive: true});
@@ -281,7 +286,8 @@ export default class CrucibleSpellAction extends CrucibleAction {
     // Iconic spells have dice by default only if they have an actionable target
     if ( this.isIconic && !this.usage.hasDice ) {
       const targetOther = this.target.scope > SYSTEM.ACTION.TARGET_SCOPES.SELF;
-      const healSelf = ((this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF) && this.rune.restoration);
+      const healSelf = ((this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF)
+        && (this.tags.has("healing") || this.tags.has("rallying")));
       this.usage.hasDice = targetOther || healSelf;
     }
   }
