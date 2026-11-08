@@ -38,9 +38,9 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
   static FREQUENCY_CHOICES = {
     every: "REGION_BEHAVIORS.ACTION.FREQUENCIES.every",
     once: "REGION_BEHAVIORS.ACTION.FREQUENCIES.once",
+    oncePerActor: "REGION_BEHAVIORS.ACTION.FREQUENCIES.oncePerActor",
     roundActor: "REGION_BEHAVIORS.ACTION.FREQUENCIES.roundActor"
     // TODO additional intended frequencies as proposed below:
-    // oncePerActor: "Once per Actor",
     // roundOnce: "Once per Round",
     // turnActor: "Once per Turn per Actor",
     // turnOnce: "Once per Turn"
@@ -174,10 +174,13 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
 
     // Restrict action usage based on allowed frequency
     switch ( this.frequency ) {
-      case "once":        // If once ever and already done, skip
+      case "once":          // If once ever and already done, skip
         if ( !foundry.utils.isEmpty(this.affectedActors) ) return;
         break;
-      case "roundActor":  // If once per-round-per-actor, skip actors already treated this round
+      case "oncePerActor":  // If once per actor, skip actors already treated
+        if ( actor.uuid in this.affectedActors ) return;
+        break;
+      case "roundActor":    // If once per-round-per-actor, skip actors already treated this round
         if ( this.affectedActors[actor.uuid]?.round === (game.combat?.round ?? -1) ) return;
         break;
     }
@@ -233,8 +236,8 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
    */
   updateAffectedActors(combat, {batch=true}={}) {
 
-    // Never clear affectedActors for "once" frequency
-    if ( this.frequency === "once" ) return null;
+    // Never clear affectedActors for "once" or "once per actor" frequencies
+    if ( ["once", "oncePerActor"].includes(this.frequency) ) return null;
     const affectedActors = foundry.utils.deepClone(this.affectedActors);
 
     // Do not reset out-of-combat affected marker for actors who are not currently participants in the combat
