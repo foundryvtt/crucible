@@ -1,0 +1,44 @@
+name: Cohering
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Cohering
+  identifier: cohering
+  changes: []
+  affixType: suffix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes: []
+_id: cohering00000000
+img: icons/magic/defensive/shield-barrier-flaming-diamond-purple-orange.webp
+disabled: false
+start: null
+description: >-
+  <p>Whenever the bearer becomes @Condition[entropy], reduce that condition's
+  duration by 1 round for each <strong>Tier</strong> of this suffix, to a
+  minimum of 1 round.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: effectsSuffix000
+sort: 420000
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!cohering00000000'

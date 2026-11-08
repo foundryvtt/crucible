@@ -1,0 +1,44 @@
+name: Preserving
+type: affix
+duration:
+  value: null
+  units: seconds
+  expiry: null
+  expired: false
+system:
+  adjective: Preserving
+  identifier: preserving
+  changes: []
+  affixType: suffix
+  tier:
+    min: 1
+    max: 3
+    value: 1
+  itemTypes: []
+_id: preserving000000
+img: icons/magic/defensive/shield-barrier-flaming-pentagon-green.webp
+disabled: false
+start: null
+description: >-
+  <p>Whenever the bearer becomes @Condition[decaying], reduce that condition's
+  duration by 1 round for each <strong>Tier</strong> of this suffix, to a
+  minimum of 1 round.</p>
+origin: null
+tint: '#ffffff'
+transfer: false
+statuses: []
+showIcon: 1
+folder: effectsSuffix000
+sort: 480000
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!effects!preserving000000'

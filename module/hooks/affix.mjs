@@ -120,6 +120,65 @@ for ( const skillId of Object.keys(SKILLS) ) {
 }
 
 /* -------------------------------------------- */
+/*  Condition Duration Affixes                  */
+/* -------------------------------------------- */
+
+/**
+ * Suffixes which shorten a condition the bearer receives by 1 round per tier, to a minimum of 1 round, or lengthen it
+ * when cursed. A condition which deals damage over time owns its effect, which is adjusted as a whole.
+ * @type {Record<string, {affix: string, dot?: boolean}>}
+ */
+const CONDITION_AFFIXES = Object.freeze({
+  disoriented: {affix: "orienting"},
+  enraged: {affix: "calming"},
+  frightened: {affix: "steeling"},
+  hexed: {affix: "hexbreaking"},
+  slowed: {affix: "unfettering"},
+  staggered: {affix: "steadying"},
+  bleeding: {affix: "staunching", dot: true},
+  burning: {affix: "quenching", dot: true},
+  confused: {affix: "clarifying", dot: true},
+  corroding: {affix: "neutralizing", dot: true},
+  decaying: {affix: "preserving", dot: true},
+  dominated: {affix: "liberating", dot: true},
+  entropy: {affix: "cohering", dot: true},
+  freezing: {affix: "thawing", dot: true},
+  irradiated: {affix: "shading", dot: true},
+  poisoned: {affix: "purging", dot: true},
+  shocked: {affix: "insulating", dot: true}
+});
+
+for ( const [statusId, {affix, dot: ownsEffect}] of Object.entries(CONDITION_AFFIXES) ) {
+  HOOKS[affix] = {
+    receiveAction(item, _action, events) {
+      const {isCursed, tier} = item.system.affixes[affix].system;
+      for ( const event of events ) {
+        for ( const effect of [...event.effects] ) {
+          const {units, value} = effect.duration ?? {};
+          if ( !effect.statuses?.includes(statusId) || (units !== "rounds") || !Number.isFinite(value) ) continue;
+          const rounds = isCursed ? (value + tier.value) : Math.max(value - tier.value, 1);
+          if ( rounds === value ) continue;
+
+          // Adjust the original effect
+          if ( ownsEffect || (effect.statuses.length === 1) ) {
+            effect.duration.value = rounds;
+            continue;
+          }
+
+          // Split the condition into its own effect
+          effect.statuses = effect.statuses.filter(s => s !== statusId);
+          const split = foundry.utils.deepClone(effect);
+          Object.assign(split, {_id: SYSTEM.EFFECTS.getEffectId(effect._id, {suffix: statusId.slice(0, 4)}),
+            statuses: [statusId], system: {}});
+          split.duration.value = rounds;
+          event.effects.push(split);
+        }
+      }
+    }
+  };
+}
+
+/* -------------------------------------------- */
 
 /**
  * Keen: reduce the critical success threshold by 1 per tier for attacks with this weapon.
@@ -271,35 +330,6 @@ HOOKS.evasion = {
 
 /* -------------------------------------------- */
 
-HOOKS.mindGrounding = {
-  receiveAction(item, _action, events) {
-    const {isCursed, tier} = item.system.affixes.mindGrounding.system;
-    const delta = isCursed ? tier.value : -tier.value;
-    for ( const event of events ) {
-      for ( const effect of [...event.effects] ) {
-        const {units, value} = effect.duration ?? {};
-        if ( !effect.statuses?.includes("disoriented") || (units !== "rounds") || !Number.isFinite(value) ) continue;
-        const rounds = value + delta;
-
-        // Split Disoriented away from any other statuses or mechanics the effect carries
-        const {changes, dot} = effect.system ?? {};
-        if ( (effect.statuses.length > 1) || changes?.length || dot?.length ) {
-          effect.statuses = effect.statuses.filter(s => s !== "disoriented");
-          if ( rounds <= 0 ) continue;
-          const split = foundry.utils.deepClone(effect);
-          Object.assign(split, {_id: SYSTEM.EFFECTS.getEffectId(`${effect._id}disoriented`),
-            statuses: ["disoriented"], system: {}});
-          split.duration.value = rounds;
-          event.effects.push(split);
-        }
-        else if ( rounds > 0 ) effect.duration.value = rounds;
-        else event.effects.splice(event.effects.indexOf(effect), 1);
-      }
-    }
-  }
-};
-
-/* -------------------------------------------- */
 
 HOOKS.nimbleness = {
   prepareDefenses(item, defenses) {

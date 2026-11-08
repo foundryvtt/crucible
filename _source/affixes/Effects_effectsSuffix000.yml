@@ -1,0 +1,20 @@
+type: ActiveEffect
+folder: rDiDk5TRu7DssbvD
+name: Effects
+color: null
+sorting: a
+_id: effectsSuffix000
+description: ''
+sort: 0
+flags: {}
+_stats:
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!folders!effectsSuffix000'

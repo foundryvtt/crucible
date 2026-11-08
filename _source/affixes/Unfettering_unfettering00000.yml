@@ -1,4 +1,4 @@
-name: Mind Grounding
+name: Unfettering
 type: affix
 duration:
   value: null
@@ -6,8 +6,8 @@ duration:
   expiry: null
   expired: false
 system:
-  adjective: Mind Grounding
-  identifier: mindGrounding
+  adjective: Unfettering
+  identifier: unfettering
   changes: []
   affixType: suffix
   tier:
@@ -15,21 +15,21 @@ system:
     max: 3
     value: 1
   itemTypes: []
-_id: mindGrounding000
-img: icons/magic/perception/third-eye-blue-red.webp
+_id: unfettering00000
+img: icons/magic/defensive/shield-barrier-flaming-diamond-blue.webp
 disabled: false
 start: null
 description: >-
-  <p>Whenever the bearer becomes @Condition[disoriented], reduce that condition's
-  duration by 1 round for each <strong>Tier</strong> of this suffix. Disoriented
-  reduced to 0 rounds does not take effect.</p>
+  <p>Whenever the bearer becomes @Condition[slowed], reduce that condition's
+  duration by 1 round for each <strong>Tier</strong> of this suffix, to a
+  minimum of 1 round.</p>
 origin: null
 tint: '#ffffff'
 transfer: false
 statuses: []
 showIcon: 1
-folder: rDiDk5TRu7DssbvD
-sort: 250000
+folder: effectsSuffix000
+sort: 560000
 flags: {}
 _stats:
   coreVersion: '14.369'
@@ -41,4 +41,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!effects!mindGrounding000'
+_key: '!effects!unfettering00000'
