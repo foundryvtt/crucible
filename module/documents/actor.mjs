@@ -767,7 +767,7 @@ export default class CrucibleActor extends Actor {
 
     // Physical Defense
     if ( defenseType === "physical" ) {
-      dc = d.physical.total;
+      dc = roll.data.dc ?? d.physical.total;
 
       // Hit
       if ( roll.total > dc ) return results.HIT;
@@ -790,8 +790,8 @@ export default class CrucibleActor extends Actor {
     }
 
     // Other Defenses
-    if ( defenseType in s ) dc = s[defenseType].passive;
-    else dc = d[defenseType].total;
+    if ( defenseType in s ) dc = roll.data.dc ?? s[defenseType].passive;
+    else dc = roll.data.dc ?? d[defenseType].total;
     if ( roll.total > dc ) return AttackRoll.RESULT_TYPES.HIT;
     else return AttackRoll.RESULT_TYPES.RESIST;
   }
@@ -903,7 +903,7 @@ export default class CrucibleActor extends Actor {
       boons: {...spell.usage.boons, ...options.boons},
       banes: {...spell.usage.banes, ...options.banes},
       defenseType,
-      dc: target.defenses[defenseType].total,
+      dc: options.dc ?? spell.usage.dc ?? target.defenses[defenseType].total,
       resource: options.resource || spell.rune.resource,
       damageType: options.damageType || spell.damage.type,
       damageBonus: options.damageBonus || spell.damage.bonus || 0,
@@ -964,7 +964,7 @@ export default class CrucibleActor extends Actor {
       boons: {...action.usage.boons, ...options.boons},
       banes: {...action.usage.banes, ...options.banes},
       defenseType,
-      dc: this.defenses[defenseType].total,
+      dc: options.dc ?? action.usage.dc ?? this.defenses[defenseType].total,
       resource: options.resource || action.usage.resource || "health",
       damageType: options.damageType || action.usage.damageType,
       damageBonus: options.damageBonus || 0,
@@ -1005,10 +1005,10 @@ export default class CrucibleActor extends Actor {
     // Coalesce AttackRollData from action usage and per-attack options
     let defenseType = options.defenseType || action.usage.defenseType;
     let dc;
-    if ( defenseType in target.defenses ) dc = target.defenses[defenseType].total;
+    if ( defenseType in target.defenses ) dc = options.dc ?? action.usage.dc ?? target.defenses[defenseType].total;
     else {
       defenseType = skillId;
-      dc = action.usage.dc ?? target.skills[skillId].passive;
+      dc = options.dc ?? action.usage.dc ?? target.skills[skillId].passive;
     }
     const rollData = {
       actorId: this.id,
@@ -1074,7 +1074,7 @@ export default class CrucibleActor extends Actor {
       boons: {...action.usage.boons, ...options.boons},
       banes: {...action.usage.banes, ...options.banes},
       defenseType,
-      dc: target.defenses[defenseType].total,
+      dc: options.dc ?? action.usage.dc ?? target.defenses[defenseType].total,
       criticalSuccessThreshold: damage.criticalSuccessThreshold + (action.usage.bonuses.criticalSuccessThreshold ?? 0),
       criticalFailureThreshold: damage.criticalFailureThreshold,
       resource: options.resource || action.usage.resource || "health",
