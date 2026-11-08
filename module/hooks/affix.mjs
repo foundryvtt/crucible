@@ -271,6 +271,36 @@ HOOKS.evasion = {
 
 /* -------------------------------------------- */
 
+HOOKS.mindGrounding = {
+  receiveAction(item, _action, events) {
+    const {isCursed, tier} = item.system.affixes.mindGrounding.system;
+    const delta = isCursed ? tier.value : -tier.value;
+    for ( const event of events ) {
+      for ( const effect of [...event.effects] ) {
+        const {units, value} = effect.duration ?? {};
+        if ( !effect.statuses?.includes("disoriented") || (units !== "rounds") || !Number.isFinite(value) ) continue;
+        const rounds = value + delta;
+
+        // Split Disoriented away from any other statuses or mechanics the effect carries
+        const {changes, dot} = effect.system ?? {};
+        if ( (effect.statuses.length > 1) || changes?.length || dot?.length ) {
+          effect.statuses = effect.statuses.filter(s => s !== "disoriented");
+          if ( rounds <= 0 ) continue;
+          const split = foundry.utils.deepClone(effect);
+          Object.assign(split, {_id: SYSTEM.EFFECTS.getEffectId(`${effect._id}disoriented`),
+            statuses: ["disoriented"], system: {}});
+          split.duration.value = rounds;
+          event.effects.push(split);
+        }
+        else if ( rounds > 0 ) effect.duration.value = rounds;
+        else event.effects.splice(event.effects.indexOf(effect), 1);
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.nimbleness = {
   prepareDefenses(item, defenses) {
     const {isCursed, tier} = item.system.affixes.nimbleness.system;

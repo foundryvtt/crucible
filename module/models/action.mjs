@@ -560,20 +560,26 @@ class CrucibleActionTags extends Set {
  *    events are recorded.
  *    - Action hooks called: `roll`
  *    - Actor hooks called: `rollAction`
- * - {@linkcode CrucibleAction##finalizeSelfEvents} - Finalize the pre-existing self events: merge `usage.actorStatus`
- *   into the actorUpdate event, compute activation costs from `this.cost`, and record summon events.
- * - `CrucibleAction##recordEffectEvents` - Record ActiveEffect data to roll events which should result in effect
- *   application, or as standalone "effect" events.
- * - {@linkcode CrucibleAction#_post} - Post-roll modification of the event stream.
+ * - {@linkcode CrucibleAction#_post} - Post-roll modification of the event stream, then settled roll outcomes.
+ *    - `CrucibleAction##recordSelfEvents` - Record onto the pre-existing self events: merge `usage.actorStatus` into
+ *      the actorUpdate event, compute activation costs from `this.cost`, and record summon events.
+ *    - `CrucibleAction##recordEffectEvents` - Record ActiveEffect data to roll events which should result in effect
+ *      application, or as standalone "effect" events.
  *    - Action hooks called: `postActivate`
- * - `CrucibleAction##settleRollOutcomes` - Flag critical successes/failures and report whether damage or healing landed.
+ *    - `CrucibleAction##settleRollOutcomes` - Flag critical successes/failures and report whether damage or healing
+ *      landed.
  *    - Actor hooks called: `applyCriticalEffects` - Critical hit effects are recorded into the event stream when
  *      the action damages or heals another target.
- * - {@linkcode CrucibleAction#resolveEventStream} - Simulate the stream on an actor clone to compute final
+ * - {@linkcode CrucibleAction#_finalize} - Final recipient adjustments, then resolution of the event stream.
+ *    - Actor hooks called: `receiveAction` - Each Actor, including the acting Actor, receives its own events for final
+ *      adjustments to what it receives: edit, remove, or add to `event.effects` (for example, splitting a status into
+ *      its own effect on the same event). Damage and its mitigation belong in `defendAttack` or `receiveAttack`, since
+ *      critical effects have already been decided.
+ *    - {@linkcode CrucibleAction#resolveEventStream} - Simulate the stream on an actor clone to compute final
  *      resource deltas (overflow, clamps, constraints, point-in-time statuses) and write the realized deltas back.
- * - Actor hooks called: `finalizeAction`
- * - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses, spell
- *      provenance on new effects, and effect-change snapshots for reversal.
+ *    - Actor hooks called: `finalizeAction`
+ *    - `CrucibleAction##finalizeEvents` - Final authority over the event stream: invisibility, movement statuses,
+ *      spell provenance on new effects, and effect-change snapshots for reversal.
  * - {@linkcode CrucibleAction#toMessage} - Serialize the action (including its event stream) into ChatMessage flags
  *   and create the message. The action is now persisted but not yet applied.
  *
@@ -1495,39 +1501,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Initialize self events before pre-activation hooks
     this.#initializeSelfEvents();
 
-    // Pre-execution steps, possibly preventing activation
+    // Execute the action recipe, any step of which may prevent activation
     try {
       await this._preActivate();
-    } catch(err) {
-      ui.notifications.warn(err);
-      return null;
-    }
-
-    // Iterate over designated targets
-    for ( const [actor, {token}] of this.targets ) {
-      try {
-        await this._roll(actor, token);
-      } catch(err) {
-        ui.notifications.warn(err);
-        return null;
-      }
-    }
-
-    // Finalize action events
-    this.#finalizeSelfEvents();
-    this.#recordEffectEvents();
-    try {
+      for ( const [actor, {token}] of this.targets ) await this._roll(actor, token);
       await this._post();
+      await this._finalize();
     } catch(err) {
       ui.notifications.warn(err);
       return null;
     }
-    const dealsDamage = this.#settleRollOutcomes();
-    if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
-    this.#receiveEffects();
-    await this.resolveEventStream();
-    this.actor.callActorHooks("finalizeAction", this);
-    this.#finalizeEvents();
 
     // Create the RegionDocument, visible to GMs and the placing user
     if ( this.region ) {
@@ -2089,9 +2072,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Finalize the pre-existing self events with actor status, activation costs, and summons.
+   * Record actor status, activation costs, and summons onto the pre-existing self events.
    */
-  #finalizeSelfEvents() {
+  #recordSelfEvents() {
 
     // Finalize actor status on the pre-existing actorUpdate event
     const updateEvent = this.selfUpdateEvent;
@@ -2114,18 +2097,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       for ( const summon of this.usage.summons ) {
         this.recordEvent({type: "summon", summon});
       }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Let each target's hooks adjust, split, or negate the final effects of its events before they resolve.
-   */
-  #receiveEffects() {
-    for ( const event of this.events ) {
-      if ( event.negated || !event.effects.length ) continue;
-      event.target.callActorHooks("receiveEffect", this, event.effects);
     }
   }
 
@@ -2995,13 +2966,33 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Handle post-roll modification of the event stream.
+   * Record self and effect events, apply post-roll hooks to the event stream, then settle roll outcomes.
    * Each hook receives the full action context via `this` and can access the event stream, eventsByTarget, etc.
    * @returns {Promise<void>}
    * @protected
    */
   async _post() {
+    this.#recordSelfEvents();
+    this.#recordEffectEvents();
     await this._callActionHooksAsync("postActivate");
+    const dealsDamage = this.#settleRollOutcomes();
+    if ( dealsDamage ) this.actor.callActorHooks("applyCriticalEffects", this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Give each recipient a final say over the events it receives, then resolve and finalize the event stream.
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _finalize() {
+    for ( const [actor, group] of Array.from(this.eventsByActor) ) { // Hooks may record or negate events
+      actor.callActorHooks("receiveAction", this, group.all);
+    }
+    await this.resolveEventStream();
+    this.actor.callActorHooks("finalizeAction", this);
+    this.#finalizeEvents();
   }
 
   /* -------------------------------------------- */
