@@ -2800,7 +2800,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const r = this.actor.system.resources;
 
     // Cannot spend action
-    if ( this.cost.action && this.actor.isIncapacitated ) {
+    if ( this.actor.isIncapacitated ) {
       throw new Error(_loc("ACTION.WARNINGS.CannotSpendAction", {
         name: this.actor.name
       }));

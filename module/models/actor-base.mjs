@@ -254,6 +254,15 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isDead() {
+    return this.parent.statuses.has("dead") || this._isResourceDead;
+  }
+
+  /**
+   * Is this Actor dead due to resource depletion?
+   * @type {boolean}
+   * @protected
+   */
+  get _isResourceDead() {
     if ( this.usesReserveResources ) return this.resources.wounds.value === this.resources.wounds.max;
     else return this.resources.health.value === 0;
   }
@@ -264,7 +273,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   get isIncapacitated() {
     const statuses = this.parent.statuses;
-    return this.isDead || statuses.has("unconscious") || statuses.has("paralyzed") || statuses.has("asleep");
+    return this.isDead || statuses.has("incapacitated") || statuses.has("paralyzed") || statuses.has("asleep");
   }
 
   /**
@@ -978,7 +987,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     m.engagement = m.baseEngagement + m.engagementBonus;
 
     // Free move eligibility
-    m.canFreeMove = !Object.values(m.freeMoveBlockers).some(Boolean);
+    m.canFreeMove = !this.isIncapacitated && !Object.values(m.freeMoveBlockers).some(Boolean);
   }
 
   /* -------------------------------------------- */

@@ -79,9 +79,9 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   }
 
   /** @override */
-  get isDead() {
+  get _isResourceDead() {
     if ( !this.abilities.toughness.value ) return false;
-    return super.isDead;
+    return super._isResourceDead;
   }
 
   /** @override */
