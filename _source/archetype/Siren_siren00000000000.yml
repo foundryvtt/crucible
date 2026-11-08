@@ -1,0 +1,73 @@
+folder: CEGTiWRsBo2NO2o7
+name: Siren
+type: archetype
+_id: siren00000000000
+img: icons/magic/control/mouth-smile-deception-purple.webp
+system:
+  description: >-
+    <p>Fey who lure their unknowing prey into a sense of comfort, only to turn
+    on them and enact their demise.</p>
+  identifier: siren
+  abilities:
+    wisdom: 2
+    presence: 4
+    intellect: 1
+    strength: 2
+    toughness: 2
+    dexterity: 1
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.enticingLure0000
+      level: 0
+    - item: Compendium.crucible.talent.Item.stilllake0000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.mentalfortress00
+      level: 3
+    - item: Compendium.crucible.talent.Item.subtleextricatio
+      level: 3
+    - item: Compendium.crucible.talent.Item.diversionist0000
+      level: 1
+    - item: Compendium.crucible.talent.Item.intimidator00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.wildStrike000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.runeControl00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.gestureaspect000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gesturepulse0000
+      level: 4
+    - item: Compendium.crucible.talent.Item.gestureinfluence
+      level: 0
+    - item: Compendium.crucible.talent.Item.gestureray000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.inflectionpull00
+      level: 2
+    - item: Compendium.crucible.talent.Item.thoughtbinder000
+      level: 4
+  training:
+    awareness: 1
+    stealth: 1
+    wilderness: 0
+    deception: 3
+    intimidation: 2
+    performance: 3
+    natural: 2
+  spells: []
+  equipment: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1794153455028
+  modifiedTime: 1794158309546
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!siren00000000000'
