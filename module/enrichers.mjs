@@ -1129,6 +1129,7 @@ export function resolveReferences(text, relativeTo) {
  * Tokens after the base UUID are parsed as affix identifiers (optionally with =tier), quality=tierName, broken,
  * description="Public description text", img=path/to/icon.webp, or quantity=number.
  * A quantity which is not stackable is displayed, but each drop composes a single copy.
+ * A description replaces the base item's public description and clears its private one.
  * @param {RegExpMatchArray} matchArray
  * @returns {Promise<HTMLAnchorElement|DocumentFragment|Text>}
  * @example Explicit name and quality

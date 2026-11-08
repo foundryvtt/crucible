@@ -178,7 +178,7 @@ export default class CrucibleItem extends foundry.documents.Item {
    * @param {string} [options.quality]              Explicit quality tier, or auto-selected if omitted
    * @param {string} [options.name]                 Display name override, or auto-composed from affixes
    * @param {boolean} [options.broken]              Whether the item should be broken, if relevant
-   * @param {string} [options.description]          Plain text public description override
+   * @param {string} [options.description]          Plain text public description, which also clears the private one
    * @param {string} [options.img]                  Item image override
    * @param {number} [options.quantity]             Stack quantity override, honored only for a stackable item
    * @returns {Promise<CrucibleItem>}               The generated item with enchantments applied
@@ -247,7 +247,10 @@ export default class CrucibleItem extends foundry.documents.Item {
     if ( broken ) itemData.system.broken = true;
     if ( img ) itemData.img = img;
     if ( quantity && baseItem.system.properties?.has("stackable") ) itemData.system.quantity = quantity;
-    if ( description ) itemData.system.description.public = `<p>${foundry.utils.escapeHTML(description)}</p>`;
+    if ( description ) {
+      itemData.system.description.public = `<p>${foundry.utils.escapeHTML(description)}</p>`;
+      itemData.system.description.private = ""; // The base item's secret notes describe the base item, not this one
+    }
     itemData.effects = [...(itemData.effects || []), ...affixEffects];
 
     // Compose the item name, including a possible prefix to denote its quality
