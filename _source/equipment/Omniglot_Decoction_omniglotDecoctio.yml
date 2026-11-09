@@ -7,7 +7,7 @@ system:
   category: flask
   quantity: 1
   weight: 1
-  price: 120
+  price: 6000
   quality: standard
   broken: false
   equipped: false
@@ -15,16 +15,19 @@ system:
   properties:
     - stackable
   description:
-    public: <p>A surprisingly thin liquid that tastes earthy and herbal.</p>
+    public: >-
+      <p>A surprisingly thin, pale green liquid that tastes earthy and herbal.
+      It goes down smoothly, leaving a pleasant tingling numbness across the
+      tongue and down the throat.</p>
     private: ''
   actions:
     - id: omniglotDecoction
       name: Omniglot Decoction
       img: icons/consumables/potions/bottle-circular-corked-labeled-green.webp
       description: >-
-        <p>When consumed, this decoction affords the drinker the fascinating
-        ability to read, speak, and comprehend languages. Its quality determines
-        the duration of the effect:</p><ul><li><p><strong>Shoddy</strong> - 10
+        <p>The drinker can read any written language and converse fluently in
+        languages that can be spoken aloud. The decoction's quality determines
+        the duration of this effect:</p><ul><li><p><strong>Shoddy</strong> - 15
         minutes</p></li><li><p><strong>Standard</strong> - 1
         hour</p></li><li><p><strong>Fine</strong> - 4
         hours</p></li><li><p><strong>Superior</strong> - 12
@@ -57,7 +60,7 @@ system:
             all: false
           statuses: []
           duration:
-            value: 0
+            value: 60
             units: minutes
             expiry: null
             expired: false
@@ -69,6 +72,7 @@ system:
             summons: []
       tags:
         - consume
+        - qualityDuration
   uses:
     value: 1
     max: 1

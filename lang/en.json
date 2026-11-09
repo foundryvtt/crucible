@@ -379,6 +379,8 @@
       "PartyTooltip": "This action requires membership in the active party.",
       "Projectile": "Projectile",
       "ProjectileTooltip": "This action requires use of a projectile weapon.",
+      "QualityDuration": "Scaled Duration",
+      "QualityDurationTooltip": "The duration of this action's effects scales with the quality of its item.",
       "Rallying": "Rallying",
       "RallyingTooltip": "This action provides restoration by testing an ally's Madness threshold.",
       "Ranged": "Ranged",

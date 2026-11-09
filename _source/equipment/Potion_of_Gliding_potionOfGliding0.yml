@@ -32,11 +32,11 @@ system:
         talent as if they were a creature that possessed that trait, turning
         what would otherwise be falls into controlled
         <strong>Glides</strong>.</p><p>The potion's quality determines the
-        duration of this effect:</p><ul><li><p><strong>Shoddy</strong>- 10
+        duration of this effect:</p><ul><li><p><strong>Shoddy</strong> - 15
         minutes</p></li><li><p><strong>Standard</strong> - 1
         hour</p></li><li><p><strong>Fine</strong> - 4
         hours</p></li><li><p><strong>Superior</strong> - 12
-        hours</p></li><li><p><strong>Masterwork</strong>- 24 hours</p></li></ul>
+        hours</p></li><li><p><strong>Masterwork</strong> - 24 hours</p></li></ul>
       cost:
         action: 2
         focus: 0
@@ -60,7 +60,7 @@ system:
             all: false
           statuses: []
           duration:
-            value: 0
+            value: 60
             units: minutes
             expiry: null
             expired: false
@@ -76,6 +76,7 @@ system:
             lights: []
       tags:
         - consume
+        - qualityDuration
       summon: null
       persistRegion: false
       regionBehavior: null

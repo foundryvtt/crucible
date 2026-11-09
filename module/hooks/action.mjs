@@ -1918,15 +1918,6 @@ HOOKS.oozeSubdivide = {
 
 /* -------------------------------------------- */
 
-HOOKS.omniglotDecoction = {
-  preActivate() {
-    const minutes = {shoddy: 10, standard: 60, fine: 240, superior: 720, masterwork: 1440}[this.item.system.quality];
-    if ( this.effects[0] ) this.effects[0].duration.value = minutes;
-  }
-};
-
-/* -------------------------------------------- */
-
 HOOKS.overrun = {
   prepare() {
     this.target.size = this.actor.size;
@@ -2036,14 +2027,6 @@ HOOKS.poisonIngest = {
     };
     const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, tiers[this.item.system.quality]);
     foundry.utils.mergeObject(this.effects[0], poisoned);
-  }
-};
-
-/* -------------------------------------------- */
-
-HOOKS.potionGliding = {
-  preActivate() {
-    HOOKS.omniglotDecoction.preActivate.call(this);
   }
 };
 

@@ -1,0 +1,105 @@
+name: Scrivener's Philter
+type: consumable
+_id: scrivenerPhilter
+img: icons/consumables/potions/bottle-pear-corked-labeled-ornamental-purple.webp
+system:
+  identifier: scrivenersPhilter
+  category: flask
+  quantity: 1
+  weight: 1
+  price: 800
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+  description:
+    public: >-
+      <p>A small vial of pale, iridescent liquid that shifts between colors like
+      oil on water. It pours slowly, thick as honey, and smells faintly of lamp
+      soot and crushed mint. The taste is bitter at first, then leaves a dry,
+      papery aftertaste on the tongue.</p>
+    private: ''
+  actions:
+    - id: scrivenersPhilter
+      name: Scrivener's Philter
+      img: icons/consumables/potions/bottle-pear-corked-labeled-ornamental-purple.webp
+      condition: ''
+      description: >-
+        <p>The drinker benefits from the
+        @UUID[Compendium.crucible.talent.Item.versatileTransla]{Versatile Translator}
+        talent. The philter's quality determines the duration of this
+        effect:</p><ul><li><p><strong>Shoddy</strong> - 15
+        minutes</p></li><li><p><strong>Standard</strong> - 1
+        hour</p></li><li><p><strong>Fine</strong> - 4
+        hours</p></li><li><p><strong>Superior</strong> - 12
+        hours</p></li><li><p><strong>Masterwork</strong> - 24
+        hours</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+        hands: 0
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 1
+        self: true
+      effects:
+        - name: ''
+          scope: 1
+          result:
+            type: success
+            all: false
+          statuses: []
+          duration:
+            value: 60
+            units: minutes
+            expiry: null
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            lights: []
+      tags:
+        - consume
+        - qualityDuration
+      summon: null
+      persistRegion: false
+      regionBehavior: null
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: WqUGvC0ubhjrpvz9
+sort: 460000
+ownership:
+  default: 0
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!scrivenerPhilter'

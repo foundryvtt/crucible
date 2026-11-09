@@ -13,6 +13,7 @@ import {defineEnum} from "./enum.mjs";
  * @property {number} bonus         The numeric bonus for this quality tier
  * @property {number} rarity        The rarity modifier for this quality tier
  * @property {number} capacity      The total affix capacity available at this quality tier
+ * @property {number} duration      The multiplier applied to effect durations of qualityDuration actions
  */
 
 /**
@@ -41,31 +42,36 @@ export const QUALITY_TIERS = defineEnum({
     label: "ITEM.QualityShoddy",
     bonus: -2,
     rarity: -1,
-    capacity: 0
+    capacity: 0,
+    duration: 0.25
   },
   standard: {
     label: "ITEM.QualityStandard",
     bonus: 0,
     rarity: 0,
-    capacity: 0
+    capacity: 0,
+    duration: 1
   },
   fine: {
     label: "ITEM.QualityFine",
     bonus: 1,
     rarity: 1,
-    capacity: 2
+    capacity: 2,
+    duration: 4
   },
   superior: {
     label: "ITEM.QualitySuperior",
     bonus: 2,
     rarity: 2,
-    capacity: 4
+    capacity: 4,
+    duration: 12
   },
   masterwork: {
     label: "ITEM.QualityMasterwork",
     bonus: 3,
     rarity: 4,
-    capacity: 6
+    capacity: 6,
+    duration: 24
   }
 });
 

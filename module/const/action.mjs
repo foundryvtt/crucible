@@ -2,6 +2,7 @@ import {SKILLS} from "./proficiencies.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import {MOVEMENT_ACTIONS} from "./actor.mjs";
 import {defineEnum, defineIntEnum} from "./enum.mjs";
+import {QUALITY_TIERS} from "./items.mjs";
 
 /**
  * The different required conditions under which an Active Effect can be applied from an Action.
@@ -545,6 +546,21 @@ export const TAGS = {
       const updateEvent = this.selfUpdateEvent;
       updateEvent.itemSnapshots.push(item.snapshot());
       updateEvent.actorUpdates.items.push(item.system.consume(uses, {save: false}));
+    }
+  },
+
+  // Effect Duration Scaled by Item Quality
+  qualityDuration: {
+    tag: "qualityDuration",
+    label: "ACTION.TAG.QualityDuration",
+    tooltip: "ACTION.TAG.QualityDurationTooltip",
+    category: "special",
+    preActivate() {
+      const multiplier = QUALITY_TIERS[this.item?.system.quality]?.duration ?? 1;
+      for ( const [i, effect] of this.effects.entries() ) {
+        const base = this._source.effects[i]?.duration?.value;
+        if ( base ) effect.duration.value = Math.round(base * multiplier);
+      }
     }
   },
 
