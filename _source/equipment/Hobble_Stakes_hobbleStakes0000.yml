@@ -1,0 +1,140 @@
+name: Hobble Stakes
+type: consumable
+_id: hobbleStakes0000
+img: icons/commodities/wood/kindling-sticks-brown.webp
+system:
+  identifier: hobbleStakes
+  category: trap
+  quantity: 1
+  weight: 12
+  price: 320
+  quality: standard
+  broken: false
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+  description:
+    public: >-
+      <p>This snare consists of several narrow, sharpened stakes, each over a
+      foot long, clustered together and pointing upward. Smaller creatures pass
+      among the stakes easily, but they impale the feet of a large creature
+      which steps on them.</p>
+    private: ''
+  actions:
+    - id: hobbleStakesArm
+      name: Arm Hobble Stakes
+      img: icons/commodities/wood/kindling-sticks-brown.webp
+      condition: ''
+      description: >-
+        <p>Setting the trap places a hazard that causes its effect if triggered.
+        The area of the trap is a circle with a radius of 2 feet.</p><p>The
+        trap is triggered only by a creature whose @Rule[movement.size]{Size} is
+        6 or greater. The creature that set the trap makes a
+        @Rule[skill.wilderness] skill attack against the @Rule[defense.reflex]
+        defense of the creature which triggered it. If not resisted, it deals
+        @Rule[damageType.piercing] damage and inflicts @Condition[bleeding] and
+        @Condition[slowed]. A creature can spend @Rule[resource.action]{3
+        Action} on @Action[default interact] to remove the stakes from itself
+        or an adjacent ally, ending both conditions. The bleeding damage and the
+        duration of both conditions vary according to the quality of the
+        trap.</p><ul><li><p><strong>Shoddy</strong> - 1 damage, 1
+        round</p></li><li><p><strong>Standard</strong> - 2 damage, 2
+        rounds</p></li><li><p><strong>Fine</strong> - 3 damage, 3
+        rounds</p></li><li><p><strong>Superior</strong> - 4 damage, 4
+        rounds</p></li><li><p><strong>Masterwork</strong> - 6 damage, 6
+        rounds</p></li></ul>
+      cost:
+        action: 4
+        focus: 0
+        heroism: 0
+        hands: 2
+        weapon: false
+      range:
+        minimum: null
+        maximum: 4
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 0
+        self: false
+        size: 2
+      effects: []
+      tags:
+        - consume
+      summon: null
+      persistRegion: true
+      regionBehavior:
+        name: Trigger Hobble Stakes
+        system:
+          action:
+            id: hobbleStakesTrigger
+            name: Trigger Hobble Stakes
+            img: icons/commodities/wood/kindling-sticks-brown.webp
+            description: >-
+              <p>The creature that set the trap makes a @Rule[skill.wilderness]
+              skill attack against the @Rule[defense.reflex] defense of the
+              creature which triggered it, if its @Rule[movement.size]{Size} is
+              6 or greater. If not resisted, it deals
+              @Rule[damageType.piercing] damage and inflicts
+              @Condition[bleeding] and @Condition[slowed].</p>
+            effects:
+              - name: Hobble Stakes
+                scope: 4
+                result:
+                  type: success
+                  all: false
+                statuses:
+                  - slowed
+                  - bleeding
+                duration:
+                  value: 2
+                  units: rounds
+                  expiry: turnStart
+                  expired: false
+                system:
+                  changes: []
+                  dot: []
+                  lights: []
+                  maintenance:
+                    cost: null
+                    hands: 0
+                  properties: []
+                  regions: []
+                  summons: []
+            tags:
+              - reflex
+              - piercing
+              - skill
+              - wilderness
+            target:
+              scope: 4
+            spellcraft: null
+          events:
+            - tokenMoveIn
+          frequency: once
+  uses:
+    value: 1
+    max: 1
+  scroll:
+    runes: []
+    gestures: []
+    inflections: []
+effects: []
+folder: gSADApbBEeo51EEP
+sort: 600000
+ownership:
+  default: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '14.369'
+  systemId: crucible
+  systemVersion: 0.11.1
+  createdTime: null
+  modifiedTime: null
+  lastModifiedBy: null
+_key: '!items!hobbleStakes0000'

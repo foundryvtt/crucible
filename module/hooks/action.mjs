@@ -1209,7 +1209,7 @@ HOOKS.grapple = {
         continue;
       }
       if ( !HOOKS.grapple._canGrapple(this.actor, target.actor) ) {
-        target.error ??= _loc("ACTIONS.Grapple.TooLarge", {name: target.actor.name});
+        target.error ??= _loc("ACTION.WARNINGS.TargetTooLarge", {target: target.actor.name, action: this.name});
       }
     }
   },
@@ -1597,6 +1597,25 @@ HOOKS.hide = {
     if ( actors.length > 1 ) {
       this.usage.banes.observers = {label: _loc("ACTION.WARNINGS.HideObservers"), number: actors.length - 1};
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.hobbleStakesTrigger = {
+  _MINIMUM_SIZE: 6,
+  acquireTargets(targets) {
+    for ( const t of targets ) {
+      if ( !t.actor || (t.actor.size >= HOOKS.hobbleStakesTrigger._MINIMUM_SIZE) ) continue;
+      t.error ??= _loc("ACTION.WARNINGS.TargetTooSmall", {target: t.actor.name, action: this.name});
+    }
+  },
+  preActivate() {
+    const tiers = {shoddy: 1, standard: 2, fine: 3, superior: 4, masterwork: 6};
+    const n = tiers[this.item.system.quality];
+    const stakes = this.effects[0];
+    stakes.duration = {value: n, units: "rounds", expiry: "turnStart"};
+    stakes.system.dot = [{amount: n, damageType: "piercing", resource: "health"}];
   }
 };
 

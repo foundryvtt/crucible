@@ -549,6 +549,7 @@
       "Restrained": "You may not move while Restrained!",
       "Silenced": "You cannot use this action while Silenced.",
       "TargetTooLarge": "Target \"{target}\" is too large for {action}.",
+      "TargetTooSmall": "Target \"{target}\" is too small for {action}.",
       "UnimplementedTarget": "Automation for target type {type} for action {name} is not yet supported, you must manually target affected tokens.",
       "WeaponDropped": "Your weapon has been dropped and must be retrieved in order to use this action.",
       "WrongMovementToken": "You must move the token performing this action."
@@ -640,8 +641,7 @@
     },
     "Grapple": {
       "AlreadyGrappled": "{name} is already Grappled by another creature.",
-      "AlreadyGrappling": "You are already Grappling another creature.",
-      "TooLarge": "{name} is too large for you to Grapple."
+      "AlreadyGrappling": "You are already Grappling another creature."
     },
     "Grudgebearer": {
       "Grudge": "Grudge: {target}"
