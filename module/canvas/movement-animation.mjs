@@ -225,7 +225,7 @@ export class CrucibleTokenMovementAnimation {
     if ( best ) return best.flags.core.material;
 
     // Legacy Ember surface material
-    return CrucibleTokenMovementAnimation.#getEmberMaterial(scene, point);
+    return CrucibleTokenMovementAnimation.#getEmberMaterial();
   }
 
   /* -------------------------------------------- */
@@ -257,23 +257,12 @@ export class CrucibleTokenMovementAnimation {
   /* -------------------------------------------- */
 
   /**
-   * Get the material of Ember's legacy footstep data, for Ember scenes which do not yet use Surface behavior materials.
-   * TODO: remove once Ember migrates its scenes to Surface behavior materials in V15.
-   * @param {Scene} scene
-   * @param {ElevatedPoint & {level?: string}} point
+   * Get the map-wide footstep material of a legacy Ember scene, which has no Surface behavior material underfoot.
+   * TODO: remove once Ember's legacy area maps define every material on Regions.
    * @returns {string|null}
    */
-  static #getEmberMaterial(scene, point) {
+  static #getEmberMaterial() {
     if ( !game.modules.get("ember")?.active ) return null;
-
-    // An ember.footstepSurface Region containing the point, at any elevation
-    for ( const region of scene.regions ) {
-      if ( point.level && !region.includedInLevel(point.level) ) continue;
-      const behavior = region.behaviors.find(b => !b.disabled && (b.type === "ember.footstepSurface"));
-      if ( behavior?.system.material && region.polygonTree.testPoint(point) ) return behavior.system.material;
-    }
-
-    // The footstep surface configured for an Ember-managed scene
     return globalThis.ember.scene?.config.footstepSurface ?? null;
   }
 
