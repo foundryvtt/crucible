@@ -1909,6 +1909,10 @@
         "hint": "What this surface is made of, which determines how footfalls on it sound.",
         "label": "Material"
       },
+      "materialPriority": {
+        "hint": "Where material Regions overlap, the highest priority wins. Raise it only on a small accent Region placed over a larger base Region.",
+        "label": "Material Priority"
+      },
       "materialVolume": {
         "hint": "The material fills the Region's whole elevation range, like a body of water, rather than lying only on its surfaces.",
         "label": "Material Fills Volume"

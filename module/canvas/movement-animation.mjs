@@ -8,9 +8,12 @@
  * - Materials: core Surface behaviors (defineSurface) gain `material` and `materialVolume` fields, migrated from the
  *   `flags.core.material` and `flags.core.materialVolume` written here. One material applies to every plane the
  *   behavior places; `materialVolume` means the material fills the Region's elevation range (water), not only its
- *   planes. A registry of material ids and labels (here `crucible.CONFIG.footfalls.materials`) moves to core CONFIG.
- * - Finding the material underfoot: a material volume containing the token's foot, else a plane at exactly the
- *   foot's elevation, else nothing. Absent material is silence, so pits and open air make no footfalls.
+ *   planes. An integer `materialPriority` (from `flags.core.materialPriority`, 0 if unset) lets a small accent Region
+ *   win over a larger base Region it overlaps, without cutting holes in the base. A registry of material ids and
+ *   labels (here `crucible.CONFIG.footfalls.materials`) moves to core CONFIG.
+ * - Finding the material underfoot: the highest-priority candidate among material volumes containing the token's foot
+ *   and planes at exactly the foot's elevation, a volume winning a tie; else nothing. Absent material is silence, so
+ *   pits and open air make no footfalls.
  * - Waypoint splitting: core splits movement animations at the boundaries of Regions whose Surface behaviors have a
  *   material (by subscribing them to TOKEN_ANIMATE_IN/OUT when a material is set, or by including them directly when
  *   building the animation path), treating a material plane at a Region's top as inside even when the top is
@@ -170,7 +173,8 @@ export class CrucibleTokenMovementAnimation {
     if ( !material && this.#footfalls.climbing ) {
       const position = {...document._source, x: document.x, y: document.y, elevation: document.elevation};
       const surface = document._findClimbableSurface(position) ?? this.#token.supportingSurface;
-      if ( surface?.region ) material = CrucibleTokenMovementAnimation.#getSurfaceMaterial(surface);
+      const behavior = surface?.region ? CrucibleTokenMovementAnimation.#getSurfaceBehavior(surface) : null;
+      material = behavior?.flags.core.material;
     }
     if ( !material ) return;
     const {mover, radius, volume} = this.#footfalls;
@@ -191,29 +195,34 @@ export class CrucibleTokenMovementAnimation {
   /* -------------------------------------------- */
 
   /**
-   * Find the material underfoot at a point: a material volume containing it, else the surface it stands on.
+   * Find the material underfoot at a point: the highest-priority material volume containing it or surface beneath it.
    * The material is stored on core Surface behaviors as flags.core.material, which core is expected to migrate in V15.
    * @param {Scene} scene                               The scene containing the point
    * @param {ElevatedPoint & {level?: string}} point    The point underfoot
    * @returns {string|null}
    */
   static getMaterial(scene, point) {
-    let material;
+    let best = null;
+    let bestPriority = -Infinity;
+    const consider = behavior => {
+      if ( !behavior ) return;
+      const priority = behavior.flags.core.materialPriority ?? 0;
+      if ( priority > bestPriority ) [best, bestPriority] = [behavior, priority];
+    };
 
-    // Volumes, whose material fills their whole elevation range, take precedence over surfaces
+    // Volumes, whose material fills their whole elevation range, win ties against surfaces
     for ( const region of scene.regions ) {
       if ( region.hidden || (point.level && !region.includedInLevel(point.level)) ) continue;
-      material = CrucibleTokenMovementAnimation.#getVolumeMaterial(region, point);
-      if ( material ) return material;
+      consider(CrucibleTokenMovementAnimation.#getVolumeBehavior(region, point));
     }
 
-    // The surface whose elevation is exactly that of the point
+    // Surfaces whose elevation is exactly that of the point
     for ( const surface of scene.getSurfaces({level: point.level, type: "move"}) ) {
       if ( surface.elevation !== point.elevation ) continue;
       if ( !surface.region.polygonTree.testPoint(point) ) continue;
-      material = CrucibleTokenMovementAnimation.#getSurfaceMaterial(surface);
-      if ( material ) return material;
+      consider(CrucibleTokenMovementAnimation.#getSurfaceBehavior(surface));
     }
+    if ( best ) return best.flags.core.material;
 
     // Legacy Ember surface material
     return CrucibleTokenMovementAnimation.#getEmberMaterial(scene, point);
@@ -276,10 +285,11 @@ export class CrucibleTokenMovementAnimation {
    */
   static #getMaterialSchema() {
     if ( CrucibleTokenMovementAnimation.#materialSchema ) return CrucibleTokenMovementAnimation.#materialSchema;
-    const {BooleanField, SchemaField, StringField} = foundry.data.fields;
+    const {BooleanField, NumberField, SchemaField, StringField} = foundry.data.fields;
     const schema = new SchemaField({
       material: new StringField({required: true, blank: true, initial: "",
         choices: () => crucible.CONFIG.footfalls.materials}),
+      materialPriority: new NumberField({required: true, nullable: false, integer: true, initial: 0}),
       materialVolume: new BooleanField({initial: false})
     });
     foundry.helpers.Localization.localizeSchema(schema, ["FOOTFALLS"]);
@@ -289,34 +299,33 @@ export class CrucibleTokenMovementAnimation {
   /* -------------------------------------------- */
 
   /**
-   * Get the material of a surface from the Surface behavior of its Region which places it.
+   * Get the Surface behavior which gives a surface its material, from the Region which places it.
    * @param {RegionSurface} surface
-   * @returns {string|null}
+   * @returns {RegionBehavior|null}
    */
-  static #getSurfaceMaterial(surface) {
+  static #getSurfaceBehavior(surface) {
     const {bottom, top} = surface.region.elevation;
     const flat = bottom === top;
     const placements = surface.elevation === bottom ? ["bottom", "both"] : ["top", "both"];
-    const behavior = surface.region.behaviors.find(b => !b.disabled && (b.type === "defineSurface")
-      && b.flags.core?.material && (flat || placements.includes(b.system.placement)));
-    return behavior?.flags.core.material ?? null;
+    return surface.region.behaviors.find(b => !b.disabled && (b.type === "defineSurface")
+      && b.flags.core?.material && (flat || placements.includes(b.system.placement))) ?? null;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Get the material of a Region volume which contains a point, inclusive of its bottom and top.
+   * Get the Surface behavior which fills a Region volume containing a point with material, inclusive of its bounds.
    * @param {RegionDocument} region
    * @param {ElevatedPoint} point
-   * @returns {string|null}
+   * @returns {RegionBehavior|null}
    */
-  static #getVolumeMaterial(region, point) {
+  static #getVolumeBehavior(region, point) {
     const {bottom, top} = region.elevation;
     if ( (point.elevation < bottom) || (point.elevation > top) ) return null;
     const behavior = region.behaviors.find(b => !b.disabled && (b.type === "defineSurface")
       && b.flags.core?.materialVolume && b.flags.core.material);
     if ( !behavior || !region.polygonTree.testPoint(point) ) return null;
-    return behavior.flags.core.material;
+    return behavior;
   }
 
   /* -------------------------------------------- */
