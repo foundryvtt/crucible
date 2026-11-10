@@ -582,7 +582,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareAccessories(accessoryItems, slots) {
     let equipped = accessoryItems.filter(i => i.system.equipped);
     if ( equipped.length > slots ) {
-      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than ${slots} equipped accessories.`);
+      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.parent.name} has more than ${slots} equipped accessories.`);
       equipped = equipped.slice(0, slots);
     }
     return equipped;
@@ -599,7 +599,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareArmor(armorItems) {
     const armors = armorItems.filter(i => i.system.equipped);
     if ( armors.length > 1 ) {
-      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than one equipped armor.`);
+      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.parent.name} has more than one equipped armor.`);
     }
     return armors[0] || crucible.api.models.CrucibleArmorItem.getUnarmoredArmor(this.parent);
   }
@@ -623,7 +623,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       if ( item.system.equipped ) equipped.push(item);
     }
     if ( equipped.length > slots ) {
-      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than ${slots} equipped consumables.`);
+      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.parent.name} has more than ${slots} equipped consumables.`);
       return equipped.slice(0, slots);
     }
     return equipped;
