@@ -3157,12 +3157,9 @@ export default class CrucibleActor extends Actor {
       this.#syncGrantedItems(data);
     }
 
-    // Update flanking
+    // Respond to incapacitation changes, then refresh cached resources
     if ( this._cachedResources ) {
-      const {wasIncapacitated, wasBroken} = this._cachedResources || {};
-      if ( (this.isIncapacitated !== wasIncapacitated) || (this.system.isBroken !== wasBroken) ) {
-        for ( const token of this.getActiveTokens(true) ) token.refreshFlanking();
-      }
+      this.#onIncapacitationChange(userId);
       this._updateCachedResources();
       this.#updateGroups();
     }
@@ -3208,6 +3205,12 @@ export default class CrucibleActor extends Actor {
 
     // Reconcile actor -> token properties if necessary
     if ( game.userId === userId ) this.#updateSize({}, options);
+
+    // Status effects can change incapacitation without any resource update
+    if ( (collection === "effects") && this._cachedResources ) {
+      this.#onIncapacitationChange(userId);
+      this._updateCachedResources();
+    }
   }
 
   /* -------------------------------------------- */
@@ -3398,6 +3401,29 @@ export default class CrucibleActor extends Actor {
     if ( ("morale" in r) || ("madness" in r) ) {
       await this.toggleStatusEffect("broken", {active: this.system.isBroken && !this.system.isInsane });
       await this.toggleStatusEffect("insane", {active: this.system.isInsane});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Respond to a change in whether this Actor is Incapacitated or Broken relative to its cached state.
+   * @param {string} userId     The id of the user who initiated the change
+   */
+  #onIncapacitationChange(userId) {
+    const {wasIncapacitated, wasBroken} = this._cachedResources;
+    const isIncapacitated = this.isIncapacitated;
+
+    // Refresh flanking contributed by this Actor's tokens
+    if ( (isIncapacitated !== wasIncapacitated) || (this.system.isBroken !== wasBroken) ) {
+      for ( const token of this.getActiveTokens(true) ) token.refreshFlanking();
+    }
+
+    // An Actor which becomes Incapacitated loses the effects it maintains, including any Region they sustain
+    if ( isIncapacitated && !wasIncapacitated && (game.userId === userId) ) {
+      const maintained = this.maintainedEffects.map(e => e.id);
+      // noinspection ES6MissingAwait
+      if ( maintained.length ) this.deleteEmbeddedDocuments("ActiveEffect", maintained);
     }
   }
 

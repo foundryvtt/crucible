@@ -63,6 +63,7 @@ system:
             properties: []
       tags:
         - generic
+        - involuntary
         - reflex
         - bludgeoning
         - intellect

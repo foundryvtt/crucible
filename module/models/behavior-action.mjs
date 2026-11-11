@@ -145,6 +145,7 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
     const {CrucibleAction, CrucibleSpellAction} = crucible.api.models;
     const isSpell = this.action.tags.has("spell");
     const {spellcraft, ...data} = this.toObject().action; // Construct from a copy because cleaning mutates
+    data.tags = [...data.tags, "involuntary"]; // A Region acts on its own, even while its source is Incapacitated
     // Flatten spell components in cases that this action needs to become a CrucibleSpellAction
     if ( isSpell ) Object.assign(data, spellcraft, {composition: CrucibleSpellAction.COMPOSITION_STATES.COMPOSED});
     const cls = isSpell ? CrucibleSpellAction : CrucibleAction;

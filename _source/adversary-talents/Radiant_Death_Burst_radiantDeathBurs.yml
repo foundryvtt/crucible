@@ -57,6 +57,7 @@ system:
             summons: []
       tags:
         - generic
+        - involuntary
         - fortitude
         - radiant
         - intellect

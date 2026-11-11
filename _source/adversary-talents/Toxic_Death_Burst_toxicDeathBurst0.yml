@@ -62,6 +62,7 @@ system:
             summons: []
       tags:
         - generic
+        - involuntary
         - fortitude
         - poison
         - intellect

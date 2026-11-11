@@ -2801,11 +2801,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   _canUse() {
     const r = this.actor.system.resources;
 
-    // Cannot spend action
-    if ( this.actor.isIncapacitated ) {
-      throw new Error(_loc("ACTION.WARNINGS.CannotSpendAction", {
-        name: this.actor.name
-      }));
+    // Cannot act while incapacitated, except involuntarily
+    if ( this.actor.isIncapacitated && !this.tags.has("involuntary") ) {
+      throw new Error(_loc("ACTION.WARNINGS.Incapacitated", {name: this.actor.name}));
     }
 
     // Cannot spend focus

@@ -470,6 +470,14 @@ export const TAGS = {
   /*  Context Requirements                        */
   /* -------------------------------------------- */
 
+  // Happens to a creature rather than being chosen, may be used while Incapacitated
+  involuntary: {
+    tag: "involuntary",
+    label: "ACTION.TAG.Involuntary",
+    tooltip: "ACTION.TAG.InvoluntaryTooltip",
+    category: "special"
+  },
+
   // Cannot be reversed once confirmed, so a Gamemaster confirms it manually
   irreversible: {
     tag: "irreversible",
@@ -1485,7 +1493,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     description: "ACTION.DEFAULT_ACTIONS.Fall.Description",
     target: { type: "self", scope: 1 },
     cost: { action: 0 },
-    tags: ["generic"],
+    tags: ["generic", "involuntary"],
     effects: [{ statuses: ["prone"] }]
   },
 

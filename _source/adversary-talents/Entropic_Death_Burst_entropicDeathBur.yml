@@ -62,6 +62,7 @@ system:
             properties: []
       tags:
         - generic
+        - involuntary
         - willpower
         - void
         - intellect
