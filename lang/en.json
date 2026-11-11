@@ -1531,6 +1531,7 @@
       "Removal": "Removal"
     },
     "SUPPRESSION": {
+      "Incapacitated": "Suppressed while Incapacitated",
       "Maintenance": "Requires Maintenance"
     },
     "MAINTENANCE": {

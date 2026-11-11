@@ -18,6 +18,7 @@ export const PROPERTIES = defineEnum({
  * @type {Record<string, {id: string, label: string}>}
  */
 export const SUPPRESSION_REASONS = defineEnum({
+  incapacitated: {label: "BASE_EFFECT.SUPPRESSION.Incapacitated"},
   maintenance: {label: "BASE_EFFECT.SUPPRESSION.Maintenance"}
 });
 

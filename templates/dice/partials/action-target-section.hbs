@@ -28,7 +28,9 @@
                     {{#if this.img}}<img class="effect-icon" src="{{this.img}}" alt="{{this.name}}">{{/if}}
                     <span class="effect-name">{{this.name}}</span>
                 </td>
-                {{#if this.gained}}
+                {{#if this.suppression}}
+                <td class="report-value {{#if this.gained}}increase{{else}}decrease{{/if}}"><i class="fa-solid {{#if this.gained}}fa-play{{else}}fa-pause{{/if}}" data-tooltip="{{this.suppression}}" aria-label="{{this.suppression}}"></i></td>
+                {{else if this.gained}}
                 <td class="report-value increase"><span class="tags"><i class="fa-solid fa-caret-up" inert></i><span class="tag">{{this.duration}}</span></span></td>
                 {{else}}
                 <td class="report-value decrease"><i class="fa-solid fa-caret-down" inert></i></td>

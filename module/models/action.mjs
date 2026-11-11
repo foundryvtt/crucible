@@ -2290,6 +2290,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Resolving again treats the realized deltas as intended, re-resolving them against each actor's current state.
    */
   async resolveEventStream() {
+    await this.#simulateEventStream({record: true});
+    this.#eventStreamResolved = true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Simulate the event stream on a clone of each affected actor, in chronological order.
+   * @param {object} options
+   * @param {boolean} options.record    Write each event's realized resource deltas back onto the event
+   * @param {Set<CrucibleActor>} [options.actors]  Only simulate these actors; each actor's clone is independent
+   * @returns {Promise<Map<CrucibleActor, CrucibleActor>>}  The simulated end state of each affected actor
+   */
+  async #simulateEventStream({record, actors}) {
     const clones = new Map();
     const cloneFor = actor => {
       if ( !clones.has(actor) ) {
@@ -2305,6 +2319,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const event of this.events ) {
       if ( event.negated ) continue; // Negated events contribute nothing to the simulated state
       const actor = event.target;
+      if ( actors && !actors.has(actor) ) continue;
 
       // Gather this event's intended resource deltas and their damage annotations
       const intended = {};
@@ -2327,7 +2342,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Targets without a simulable Actor keep their raw deltas (e.g. the transient Environment actor)
       if ( !actor?.system ) {
-        event.resources = Object.entries(intended).map(([resource, delta]) => ({resource, delta,
+        if ( record ) event.resources = Object.entries(intended).map(([resource, delta]) => ({resource, delta,
           damageType: annotations[resource]?.damageType, restoration: annotations[resource]?.restoration}));
         continue;
       }
@@ -2340,18 +2355,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const after = clone.system.resources;
 
       // Write realized per-resource deltas back (intended pools always recorded; overflowed reserve pools added)
-      const resources = new Set(Object.keys(intended));
-      for ( const k in after ) if ( after[k].value !== before[k].value ) resources.add(k);
-      event.resources = Array.from(resources, resource => {
-        const ann = annotations[resource] ?? annotations[SYSTEM.RESOURCES[resource]?.sibling] ?? {};
-        return {resource, delta: after[resource].value - before[resource].value,
-          damageType: ann.damageType, restoration: ann.restoration};
-      });
+      if ( record ) {
+        const resources = new Set(Object.keys(intended));
+        for ( const k in after ) if ( after[k].value !== before[k].value ) resources.add(k);
+        event.resources = Array.from(resources, resource => {
+          const ann = annotations[resource] ?? annotations[SYSTEM.RESOURCES[resource]?.sibling] ?? {};
+          return {resource, delta: after[resource].value - before[resource].value,
+            damageType: ann.damageType, restoration: ann.restoration};
+        });
+      }
 
       // Apply this event's effects so subsequent events observe the resulting statuses (point-in-time)
       if ( event.effects.length ) await clone._applyActionEffects(event.effects, {commit: false});
     }
-    this.#eventStreamResolved = true;
+    return clones;
   }
 
   /* -------------------------------------------- */
@@ -2992,7 +3009,35 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     await this.resolveEventStream();
     this.actor.callActorHooks("finalizeAction", this);
+    await this.#recordEffectSuppression();
     this.#finalizeEvents();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record suppression for ActiveEffects which are indirectly deactivated as a result of this action.
+   * @returns {Promise<void>}
+   */
+  async #recordEffectSuppression() {
+
+    // Identify actors who have some maintained effects that are at risk
+    const candidates = new Set();
+    for ( const actor of this.eventsByActor.keys() ) {
+      if ( !actor.isIncapacitated && actor.maintainedEffects?.length ) candidates.add(actor);
+    }
+    if ( !candidates.size ) return;
+
+    // Simulate event stream for those actors to see if they lose concentration on their maintained effects
+    const simulated = await this.#simulateEventStream({record: false, actors: candidates});
+    for ( const [actor, clone] of simulated ) {
+      if ( actor.isIncapacitated || !clone.isIncapacitated ) continue;
+      const deleted = new Set(this.eventsByActor.get(actor)?.all.flatMap(e => e.effects)
+        .filter(f => f._action === "delete").map(f => f._id));
+      const effects = actor.maintainedEffects.filter(e => !deleted.has(e.id) && !e.system.suppression?.incapacitated)
+        .map(e => ({_id: e.id, _action: "update", system: {suppression: {incapacitated: true}}}));
+      if ( effects.length ) this.recordEvent({type: "effect", target: actor, effects});
+    }
   }
 
   /* -------------------------------------------- */
@@ -3885,6 +3930,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           const duration = formatDuration(effect.duration ?? existing.duration);
           section.effects.push({name: effect.name, img: effect.img ?? existing.img, gained: true, duration});
         }
+
+        // Report suppression changes as a gained or lost effect
+        else if ( (effect._action === "update") && effect.system?.suppression ) {
+          const existing = target.effects.get(effect._id);
+          const reasons = Object.entries(effect.system.suppression);
+          const suppressed = reasons.some(([, v]) => v);
+          const [reason] = reasons.find(([, v]) => !!v === suppressed) ?? reasons[0] ?? [];
+          section.effects.push({name: existing?.name ?? effect._id, img: existing?.img, gained: !suppressed,
+            suppression: _loc(SYSTEM.EFFECTS.SUPPRESSION_REASONS[reason]?.label ?? reason)});
+        }
+
+        // Fallback to presenting effects as gained
         else if ( !effect._action ) {
           const duration = formatDuration(effect.duration);
           section.effects.push({name: effect.name ?? effect._id, img: effect.img, gained: true, duration});
