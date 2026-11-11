@@ -8,6 +8,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   constructor(...args) {
     super(...args);
     this.#ownedReferences = this.#collectOwnedReferences();
+    this.#priorSuppression = {...this.system.suppression};
   }
 
   /**
@@ -32,6 +33,12 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @type {Set<string>}
    */
   #ownedReferences;
+
+  /**
+   * The suppression record as of this effect's last known persisted data, for detecting changes in _onUpdate.
+   * @type {Record<string, boolean>}
+   */
+  #priorSuppression;
 
   /* -------------------------------------------- */
 
@@ -126,6 +133,50 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
       }
       ui.notifications.warn(_loc("ACTIVE_EFFECT.WARNINGS.ReferenceNotDeleted", {name: doc.name}));
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Hide or reveal the owned lights, regions, and summoned tokens of this effect on behalf of a requesting User.
+   * Only documents hidden by this suppression are revealed, so a document hidden deliberately stays hidden.
+   * @param {boolean} hidden              Hide the owned documents, rather than reveal them
+   * @param {string} userId               The user who performed the triggering operation
+   * @returns {Promise<void>}
+   */
+  async #setOwnedReferencesHidden(hidden, userId) {
+    if ( !game.user.isActiveGM ) return;
+    const user = game.users.get(userId);
+    if ( !user ) return;
+    const batches = new Map();
+    for ( const uuid of this.#collectOwnedReferences() ) {
+      const doc = await fromUuid(uuid);
+      if ( !doc?.parent || !(doc.documentName in CrucibleActiveEffect.#DELETABLE_TYPES) ) continue;
+      if ( !doc.testUserPermission(user, "OWNER") ) continue;
+      const marked = doc.getFlag("crucible", "suppressionHidden");
+      let update;
+      if ( hidden && !doc.hidden ) update = {_id: doc.id, hidden: true, flags: {crucible: {suppressionHidden: true}}};
+      else if ( !hidden && marked ) update = {_id: doc.id, hidden: false, flags: {crucible: {suppressionHidden: _del}}};
+      if ( !update ) continue;
+      const key = `${doc.parent.uuid}.${doc.documentName}`;
+      if ( !batches.has(key) ) batches.set(key, {parent: doc.parent, documentName: doc.documentName, updates: []});
+      batches.get(key).updates.push(update);
+    }
+    for ( const {parent, documentName, updates} of batches.values() ) {
+      await parent.updateEmbeddedDocuments(documentName, updates);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does a suppression record hide an effect's owned documents? True for any reason except routine maintenance,
+   * which only falls due until the owner pays it on their turn.
+   * @param {Record<string, boolean>} suppression
+   * @returns {boolean}
+   */
+  static #hidesOwnedReferences(suppression) {
+    return Object.entries(suppression ?? {}).some(([reason, suppressed]) => suppressed && (reason !== "maintenance"));
   }
 
   /* -------------------------------------------- */
@@ -238,6 +289,14 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const prior = this.#ownedReferences ?? new Set();
     this.#ownedReferences = this.#collectOwnedReferences();
     await this.#deleteOwnedReferences(prior.difference(this.#ownedReferences), userId);
+
+    // Respond to suppression changes
+    const priorSuppression = this.#priorSuppression;
+    this.#priorSuppression = {...this.system.suppression};
+    const hidden = CrucibleActiveEffect.#hidesOwnedReferences(this.#priorSuppression);
+    if ( hidden !== CrucibleActiveEffect.#hidesOwnedReferences(priorSuppression) ) {
+      await this.#setOwnedReferencesHidden(hidden, userId);
+    }
   }
 
   /* -------------------------------------------- */
