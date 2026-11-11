@@ -36,7 +36,8 @@ system:
         minutes</p></li><li><p><strong>Standard</strong> - 1
         hour</p></li><li><p><strong>Fine</strong> - 4
         hours</p></li><li><p><strong>Superior</strong> - 12
-        hours</p></li><li><p><strong>Masterwork</strong> - 24 hours</p></li></ul>
+        hours</p></li><li><p><strong>Masterwork</strong> - 24
+        hours</p></li></ul>
       cost:
         action: 2
         focus: 0

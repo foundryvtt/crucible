@@ -1559,7 +1559,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "single",
       number: 1,
-      scope: 3
+      scope: 4
     },
     tags: ["reaction"], // Added to in #prepareDefaultActions
     autoFavorite: true
@@ -1577,7 +1577,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "single",
       number: 1,
-      scope: 3
+      scope: 4
     },
     tags: ["thrown"]
   },
@@ -1719,7 +1719,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "single",
       number: 1,
-      scope: 3
+      scope: 4
     },
     cost: {
       action: 0,

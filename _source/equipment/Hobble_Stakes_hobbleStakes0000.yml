@@ -28,16 +28,16 @@ system:
       condition: ''
       description: >-
         <p>Setting the trap places a hazard that causes its effect if triggered.
-        The area of the trap is a circle with a radius of 2 feet.</p><p>The
-        trap is triggered only by a creature whose @Rule[movement.size]{Size} is
-        6 or greater. The creature that set the trap makes a
-        @Rule[skill.wilderness] skill attack against the @Rule[defense.reflex]
-        defense of the creature which triggered it. If not resisted, it deals
-        @Rule[damageType.piercing] damage and inflicts @Condition[bleeding] and
-        @Condition[slowed]. A creature can spend @Rule[resource.action]{3
-        Action} on @Action[default interact] to remove the stakes from itself
-        or an adjacent ally, ending both conditions. The bleeding damage and the
-        duration of both conditions vary according to the quality of the
+        The area of the trap is a circle with a radius of 2 feet.</p><p>The trap
+        is triggered only by a creature whose @Rule[movement.size]{Size} is 6 or
+        greater. The creature that set the trap makes a @Rule[skill.wilderness]
+        skill attack against the @Rule[defense.reflex] defense of the creature
+        which triggered it. If not resisted, it deals @Rule[damageType.piercing]
+        damage and inflicts @Condition[bleeding] and @Condition[slowed]. A
+        creature can spend @Rule[resource.action]{3 Action} on @Action[default
+        interact] to remove the stakes from itself or an adjacent ally, ending
+        both conditions. The bleeding damage and the duration of both conditions
+        vary according to the quality of the
         trap.</p><ul><li><p><strong>Shoddy</strong> - 1 damage, 1
         round</p></li><li><p><strong>Standard</strong> - 2 damage, 2
         rounds</p></li><li><p><strong>Fine</strong> - 3 damage, 3
@@ -76,9 +76,9 @@ system:
               <p>The creature that set the trap makes a @Rule[skill.wilderness]
               skill attack against the @Rule[defense.reflex] defense of the
               creature which triggered it, if its @Rule[movement.size]{Size} is
-              6 or greater. If not resisted, it deals
-              @Rule[damageType.piercing] damage and inflicts
-              @Condition[bleeding] and @Condition[slowed].</p>
+              6 or greater. If not resisted, it deals @Rule[damageType.piercing]
+              damage and inflicts @Condition[bleeding] and
+              @Condition[slowed].</p>
             effects:
               - name: Hobble Stakes
                 scope: 4

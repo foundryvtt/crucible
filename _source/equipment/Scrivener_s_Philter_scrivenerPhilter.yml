@@ -24,13 +24,14 @@ system:
   actions:
     - id: scrivenersPhilter
       name: Scrivener's Philter
-      img: icons/consumables/potions/bottle-pear-corked-labeled-ornamental-purple.webp
+      img: >-
+        icons/consumables/potions/bottle-pear-corked-labeled-ornamental-purple.webp
       condition: ''
       description: >-
         <p>The drinker benefits from the
-        @UUID[Compendium.crucible.talent.Item.versatileTransla]{Versatile Translator}
-        talent. The philter's quality determines the duration of this
-        effect:</p><ul><li><p><strong>Shoddy</strong> - 15
+        @UUID[Compendium.crucible.talent.Item.versatileTransla]{Versatile
+        Translator} talent. The philter's quality determines the duration of
+        this effect:</p><ul><li><p><strong>Shoddy</strong> - 15
         minutes</p></li><li><p><strong>Standard</strong> - 1
         hour</p></li><li><p><strong>Fine</strong> - 4
         hours</p></li><li><p><strong>Superior</strong> - 12

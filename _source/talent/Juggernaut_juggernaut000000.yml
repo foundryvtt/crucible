@@ -41,7 +41,7 @@ system:
       target:
         type: blast
         number: 1
-        scope: 3
+        scope: 4
         size: 1
         self: false
       range:
@@ -102,7 +102,7 @@ system:
       target:
         type: movement
         number: 1
-        scope: 3
+        scope: 4
         self: false
       range:
         minimum: null

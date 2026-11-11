@@ -38,7 +38,7 @@ system:
         weapon: true
       target:
         type: single
-        scope: 3
+        scope: 4
         number: 1
         self: false
       effects: []

@@ -9,7 +9,7 @@ HOOKS.aspect = {
 
     // Curse: Touch attack requiring dice roll
     if ( this.inflection?.id === "negate" ) {
-      this.target = {type: "single", scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES};
+      this.target = {type: "single", scope: SYSTEM.ACTION.TARGET_SCOPES.ALL};
       this.tags.add("harmless");
       this.range = {maximum: 1}; // Touch
       this.usage.hasDice = true;

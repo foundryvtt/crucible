@@ -28,7 +28,7 @@ system:
       target:
         type: single
         multiple: 3
-        scope: 3
+        scope: 4
         number: 1
         self: false
       effects: []

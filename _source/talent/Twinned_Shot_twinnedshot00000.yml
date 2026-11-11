@@ -19,7 +19,7 @@ system:
         type: single
         number: 1
         multiple: 2
-        scope: 3
+        scope: 4
         self: false
       effects: []
       name: Twinned Shot

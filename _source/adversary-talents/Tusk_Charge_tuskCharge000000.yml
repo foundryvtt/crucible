@@ -26,7 +26,7 @@ system:
         type: movement
         number: 1
         limit: 1
-        scope: 3
+        scope: 4
         self: false
       effects:
         - name: Tusk Charge

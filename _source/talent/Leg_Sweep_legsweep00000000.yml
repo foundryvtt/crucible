@@ -26,7 +26,7 @@ system:
       target:
         type: single
         number: 1
-        scope: 3
+        scope: 4
         self: false
       effects:
         - name: Leg Sweep

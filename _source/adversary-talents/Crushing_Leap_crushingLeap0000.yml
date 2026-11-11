@@ -39,7 +39,7 @@ system:
       target:
         type: blast
         number: 1
-        scope: 3
+        scope: 4
         self: false
         size: 10
       range:
