@@ -3,12 +3,15 @@ const HOOKS = {};
 /* -------------------------------------------- */
 
 HOOKS.protectiveMirage = {
+  _getPendingChange(actor, action, effect) {
+    const events = action.eventsByActor.get(actor)?.all ?? [];
+    return events.flatMap(e => e.effects).find(f => f._id === effect.id);
+  },
   defendAttack(item, action, _origin, rollData) {
     if ( !action.tags.has("strike") ) return;
     const effect = this.effects.get("protectiveMirage");
     if ( !effect ) return;
-    const prior = action.eventsByActor.get(this)?.effect
-      .flatMap(e => e.effects).find(f => f._id === effect.id);
+    const prior = HOOKS.protectiveMirage._getPendingChange(this, action, effect);
     const duplicates = prior
       ? (prior.flags?.crucible?.duplicates ?? 0)
       : (effect.getFlag("crucible", "duplicates") ?? 3);
@@ -18,11 +21,7 @@ HOOKS.protectiveMirage = {
     if ( (roll.data.defenseType !== "physical") || roll.isSuccess ) return;
     const effect = this.effects.get("protectiveMirage");
     if ( !effect ) return;
-    if ( effect.getFlag("crucible", "duplicates") === undefined ) {
-      foundry.utils.setProperty(effect._source, "flags.crucible.duplicates", 3);
-    }
-    const prior = action.eventsByActor.get(this)?.effect
-      .flatMap(e => e.effects).find(f => f._id === effect.id);
+    const prior = HOOKS.protectiveMirage._getPendingChange(this, action, effect);
     if ( prior?._action === "delete" ) return;
     const current = prior ? prior.flags.crucible.duplicates : (effect.getFlag("crucible", "duplicates") ?? 3);
     const duplicates = current - 1;

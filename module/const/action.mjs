@@ -421,7 +421,7 @@ export const TAGS = {
     label: "ACTION.TAG.Rest",
     tooltip: "ACTION.TAG.RestTooltip",
     category: "requirements",
-    propagate: ["noncombat"],
+    propagate: ["noncombat", "irreversible"],
     canUse() {
       const activeRest = crucible.api.models.CrucibleRestMessage.getActiveRest(this.actor);
       if ( activeRest ) {
@@ -469,6 +469,14 @@ export const TAGS = {
   /* -------------------------------------------- */
   /*  Context Requirements                        */
   /* -------------------------------------------- */
+
+  // Cannot be reversed once confirmed, so a Gamemaster confirms it manually
+  irreversible: {
+    tag: "irreversible",
+    label: "ACTION.TAG.Irreversible",
+    tooltip: "ACTION.TAG.IrreversibleTooltip",
+    category: "special"
+  },
 
   // Requires Reaction
   reaction: {
@@ -522,6 +530,10 @@ export const TAGS = {
       }
     }
   },
+
+  /* -------------------------------------------- */
+  /*  Consumables Tags                            */
+  /* -------------------------------------------- */
 
   // Consumables
   consume: {
@@ -1508,7 +1520,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "self",
       scope: 1
-    }
+    },
+    tags: ["irreversible"]
   },
 
   // Escape

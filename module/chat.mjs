@@ -97,7 +97,7 @@ export function addChatMessageContextOptions(_app, options) {
     visible: li => {
       const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
-      return flags.action && flags.confirmed;
+      return flags.action && flags.confirmed && !flags.action.tags?.includes("irreversible");
     },
     onClick: async (_e, li) => {
       const message = game.messages.get(li.dataset.messageId);

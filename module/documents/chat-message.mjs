@@ -266,6 +266,11 @@ export default class CrucibleChatMessage extends ChatMessage {
     button.className = "confirm frame-brown";
     const icon = document.createElement("i");
     icon.className = "fa-solid fa-hexagon-check";
+    if ( message.flags.crucible.action.tags?.includes("irreversible") ) {
+      icon.className = "fa-solid fa-triangle-exclamation";
+      button.classList.add("irreversible");
+      button.dataset.tooltip = "ACTION.TAG.IrreversibleTooltip";
+    }
     button.append(icon, _loc("DICE.Confirm"));
     button.addEventListener("click", () => {
       button.disabled = true;

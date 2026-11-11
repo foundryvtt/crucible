@@ -1916,8 +1916,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   canAutoConfirm() {
     const autoConfirm = game.settings.get("crucible", "autoConfirm");
 
-    // No Auto-Confirm or not GM
-    if ( !game.user.isGM || !autoConfirm ) return false;
+    // No Auto-Confirm, not GM, or an irreversible action which a Gamemaster must confirm manually
+    if ( !game.user.isGM || !autoConfirm || this.tags.has("irreversible") ) return false;
 
     // All Actions
     if ( autoConfirm === 2 ) return true;
@@ -3977,6 +3977,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     message._confirming = true;
     try {
       action ||= this.fromChatMessage(message);
+      if ( reverse && action.tags.has("irreversible") ) {
+        ui.notifications.warn(_loc("ACTION.WARNINGS.CannotReverse", {action: action.name}));
+        return;
+      }
       await action.confirm({reverse});
     } finally {
       message._confirming = false;
