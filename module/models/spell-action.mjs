@@ -262,16 +262,17 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _configureUsage() {
     super._configureUsage();
 
-    // A composed spell is its components, so its Rune determines restoration. An iconic spell's components are only
-    // prerequisites for knowing it, so it must declare restoration explicitly with the healing or rallying tag.
-    if ( this.isComposed ) this.usage.restoration = Boolean(this.rune.restoration && (this.inflection?.id !== "negate"));
+    // Restoration for composed spells depends on the Rune used as well as whether the spell is negated.
+    if ( this.isComposed ) {
+      const negated = this.inflection?.id === "negate";
+      this.usage.restoration = !!this.rune.restoration && !negated;
+    }
 
     // Spellcasting is always Intuitive if you know the rune
     this.usage.bonuses.skill = this.actor.getSkillBonus(this.training, {intuitive: true});
 
-    // The base class resets cost fields from _source, but for composed spells the action cost is computed
-    // dynamically from gesture and inflection components and is not stored in _source (which retains schema
-    // defaults). Re-apply the computed cost so that hooks in _prepare() start from the correct baseline.
+    // Cost fields are recomputed each preparation from gesture and inflection components, not stored in _source.
+    // Re-apply the computed cost so that subsequent hooks start from the correct baseline.
     if ( this.isComposed && this.gesture ) {
       const cost = CrucibleSpellAction.#prepareCost.call(this);
       this.cost.action = cost.action;
