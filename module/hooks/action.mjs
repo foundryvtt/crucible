@@ -1725,8 +1725,9 @@ HOOKS.interpose = {
     const CrucibleAction = crucible.api.models.CrucibleAction;
     const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
 
-    // Re-evaluate defense with the interposer's physical defense
+    // Re-evaluate defense with the interposer's physical defense, discarding the original defender's adjustments
     roll.data.dc = interposer.system.defenses.physical.total;
+    roll.data.defenseModifiers = {};
     roll.data.result = interposer.testDefense("physical", roll);
 
     // Recompute damage against the interposer, or zero it if the attack does not connect against the interposer

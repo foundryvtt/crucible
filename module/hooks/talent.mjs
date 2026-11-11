@@ -2294,7 +2294,7 @@ HOOKS.duelist000000000 = {
   defendAttack(_item, _action, _attacker, rollData) {
     if ( !rollData.flanked || (rollData.defenseType !== "physical") ) return;
     if ( !crucible.api.hooks.talent.duelist000000000._isDueling(this) ) return;
-    rollData.dc -= Math.min(this.defenses.parry.total, 2);
+    rollData.defenseModifiers.parry.duelist = -2;
   },
   receiveAttack(_item, _action, roll) {
     const T = roll.constructor.RESULT_TYPES;

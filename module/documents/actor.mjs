@@ -454,6 +454,9 @@ export default class CrucibleActor extends Actor {
     const rangeCategory = action.range.category;
     const statuses = CONFIG.statusEffects;
 
+    // Create a data structure for recording per-roll adjustments to physical defense components
+    rollData.defenseModifiers = {armor: {}, block: {}, dodge: {}, parry: {}};
+
     // Attack-related conditions apply to hostile rolls only, never to a roll which restores its target
     if ( !action.target.isAttack ) return;
     if ( restoration ) {
@@ -767,25 +770,21 @@ export default class CrucibleActor extends Actor {
 
     // Physical Defense
     if ( defenseType === "physical" ) {
-      dc = roll.data.dc ?? d.physical.total;
+      const components = roll._getDefenseComponents(this);
+      const dodge = components.dodge;
+      const parry = dodge + components.parry;
+      const block = parry + components.block;
+      const physical = block + components.armor;
+      dc = roll.data.dc ?? physical;
 
       // Hit
       if ( roll.total > dc ) return results.HIT;
 
-      // Dodge
-      const r = foundry.dice.MersenneTwister.random() * d.physical.total;
-      const dodge = d.dodge.total;
-      if ( r <= dodge ) return results.DODGE;
-
-      // Parry
-      const parry = dodge + d.parry.total;
-      if ( r <= parry ) return results.PARRY;
-
-      // Block
-      const block = parry + d.block.total;
-      if ( r <= block ) return results.BLOCK;
-
-      // Armor
+      // Allocate a miss according to each component's contribution to total physical defense
+      const r = foundry.dice.MersenneTwister.random() * physical;
+      if ( r < dodge ) return results.DODGE;
+      if ( r < parry ) return results.PARRY;
+      if ( r < block ) return results.BLOCK;
       return roll.isCriticalFailure ? results.ARMOR : results.GLANCE;
     }
 

@@ -6,6 +6,7 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  * @typedef {StandardCheckData} AttackRollData
  * @property {string} itemId                  The id of the Item being used to make the attack
  * @property {string} defenseType             The defense type being attacked, a value in SYSTEM.DEFENSES
+ * @property {AttackDefenseModifiers} defenseModifiers  Single-attack modifiers to Physical Defense components
  * @property {number} criticalSuccessThreshold  The threshold for critical success
  * @property {number} criticalFailureThreshold  The threshold for critical failure
  * @property {string} resource                The resource targeted by damage (e.g. "health", "morale")
@@ -15,7 +16,16 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  * @property {boolean} restoration            Does this roll restore the targeted resource rather than diminish it?
  * @property {number} flanked                 The degree to which the target is flanked by the attacker
  * @property {number} [result]                The result code in AttackRoll.RESULT_TYPES, undefined before evaluation
- * @property {DamageData} [damage]            The resolved damage of the roll, undefined before evaluation
+ * @property {DamageData} [damage]            The resolved damage from the roll, undefined before evaluation
+ */
+
+/**
+ * Signed modifiers to each component of the defender's Physical Defense for a single attack, keyed by their source.
+ * @typedef AttackDefenseModifiers
+ * @property {Record<string, number>} armor
+ * @property {Record<string, number>} block
+ * @property {Record<string, number>} dodge
+ * @property {Record<string, number>} parry
  */
 
 /**
@@ -44,6 +54,7 @@ export default class AttackRoll extends StandardCheck {
   static defaultData = foundry.utils.mergeObject(StandardCheck.defaultData, {
     target: undefined,
     defenseType: "physical",
+    defenseModifiers: {},
     result: undefined,
     damage: undefined,
     index: undefined,
@@ -129,6 +140,7 @@ export default class AttackRoll extends StandardCheck {
     this._total = this._evaluateTotal();
 
     // First resolution supplies a config; a re-derivation reuses the configuration retained on the damage record
+    if ( config ) this.#applyDefenseModifiers(target);
     const d = config ?? this.data.damage ?? {};
     const {multiplier=1, base=0, bonus=0, resource="health", restoration=this.data.restoration} = d;
     const damageType = d.damageType ?? d.type;
@@ -148,6 +160,37 @@ export default class AttackRoll extends StandardCheck {
       this.data.damage.total = crucible.api.models.CrucibleAction.computeDamage(this.data.damage);
     }
     return result;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the defender's Physical Defense components against this attack, each modified and floored at zero.
+   * @param {CrucibleActor} target                   The defending actor
+   * @returns {{armor: number, block: number, dodge: number, parry: number}}
+   * @internal
+   */
+  _getDefenseComponents(target) {
+    const defenses = target.system.defenses;
+    const components = {};
+    for ( const id of ["armor", "block", "dodge", "parry"] ) {
+      const modifier = Object.values(this.data.defenseModifiers[id] ?? {}).reduce((sum, v) => sum + v, 0);
+      components[id] = Math.max(0, defenses[id].total + modifier);
+    }
+    return components;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply the Physical Defense modifiers of this attack to its defense threshold.
+   * @param {CrucibleActor} target               The defending actor
+   */
+  #applyDefenseModifiers(target) {
+    if ( this.data.defenseType !== "physical" ) return;
+    const {armor, block, dodge, parry} = this._getDefenseComponents(target);
+    const change = (armor + block + dodge + parry) - target.system.defenses.physical.total;
+    this.data.dc = Math.max(0, this.data.dc + change);
   }
 
   /* -------------------------------------------- */
