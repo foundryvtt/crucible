@@ -60,7 +60,7 @@ system:
         - involuntary
         - fortitude
         - radiant
-        - intellect
+        - toughness
       summon:
         actorUuid: null
         permanent: true

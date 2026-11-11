@@ -65,7 +65,7 @@ system:
         - involuntary
         - fortitude
         - cold
-        - intellect
+        - toughness
       summon: null
       persistRegion: false
       regionBehavior: null

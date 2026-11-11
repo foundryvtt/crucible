@@ -43,6 +43,7 @@ system:
         - vocal
         - auditory
         - generic
+        - involuntary
       autoFavorite: false
   iconicSpells: 0
 effects: []

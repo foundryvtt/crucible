@@ -65,7 +65,7 @@ system:
         - involuntary
         - fortitude
         - acid
-        - intellect
+        - toughness
       summon: null
       persistRegion: false
       regionBehavior: null

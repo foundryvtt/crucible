@@ -65,7 +65,7 @@ system:
         - involuntary
         - reflex
         - fire
-        - intellect
+        - toughness
       summon: null
       persistRegion: false
       regionBehavior: null

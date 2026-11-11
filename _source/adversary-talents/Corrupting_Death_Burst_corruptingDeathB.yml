@@ -62,7 +62,7 @@ system:
         - involuntary
         - fortitude
         - corruption
-        - intellect
+        - toughness
       summon:
         actorUuid: null
         permanent: true

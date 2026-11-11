@@ -65,7 +65,7 @@ system:
         - involuntary
         - willpower
         - psychic
-        - intellect
+        - toughness
       summon: null
       persistRegion: false
       regionBehavior: null

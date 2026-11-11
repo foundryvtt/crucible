@@ -65,7 +65,7 @@ system:
         - involuntary
         - reflex
         - electricity
-        - intellect
+        - toughness
       summon: null
       persistRegion: false
       regionBehavior: null
