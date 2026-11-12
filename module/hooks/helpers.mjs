@@ -47,3 +47,21 @@ export async function interruptAction(action, messageId, {reverse=false}={}) {
   }
   await CrucibleAction.confirmMessage(message, {reverse});
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Format an effect name with parenthetical context, abbreviating each long context entry.
+ * @param {string} name                       The base name of the effect
+ * @param {...(string|number|null)} context   Context entries, omitting any which are empty
+ * @returns {string}
+ */
+export function formatEffectName(name, ...context) {
+  const maxLength = 20;
+  const entries = context.filter(c => (c ?? "") !== "").map(c => {
+    const entry = String(c);
+    return (entry.length > maxLength) ? `${entry.slice(0, maxLength - 3).trimEnd()}...` : entry;
+  });
+  if ( !entries.length ) return name;
+  return _loc("ACTIVE_EFFECT.ContextName", {effect: name, context: entries.join(", ")});
+}

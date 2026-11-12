@@ -34,7 +34,7 @@ system:
         self: false
       effects:
         - name: Vow of Animus
-          scope: 3
+          scope: 1
           statuses: []
           duration:
             value: 60

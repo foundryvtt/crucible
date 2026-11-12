@@ -490,6 +490,7 @@
       "CannotUse": "{name} does not satisfy the prerequisites to use {action}.",
       "CannotUseReason": "{name} does not satisfy the prerequisites to use {action}: {reason}",
       "CannotUseTagGeneric": "with tag {tag}",
+      "CyclicEffects": "{action} cannot create effects which depend upon one another in a cycle.",
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "CannotHideEngaged": "You cannot Hide while you are engaged with an enemy.",
       "GemConjuredFlameShoddy": "A Shoddy quality Gem of Conjured Flame fails to summon any elemental.",
@@ -627,7 +628,7 @@
       "RequiresOpening": "Estocade requires a target who is Exposed, Prone, Slowed, Staggered, Paralyzed, or Disarmed."
     },
     "FieldStudy": {
-      "Effect": "Field Study: {knowledge}",
+      "Effect": "Field Study",
       "Label": "Topic of Study",
       "Required": "You must choose a field of Knowledge to study.",
       "Title": "Field Study"
@@ -637,9 +638,9 @@
     },
     "Gambit": {
       "AnteWon": "Gambit (+{count})",
-      "Charges": "Gambit ({count})",
       "ChargeDescription": "A number of Gambit charges that can be spent instead of <strong>Heroism</strong> to perform your \"All In\" action.",
-      "LoadedDice": "Loaded Dice"
+      "LoadedDice": "Loaded Dice",
+      "Name": "Gambit"
     },
     "Glide": {
       "MustDescend": "A glide must end at a lower elevation than where it began."
@@ -649,7 +650,7 @@
       "AlreadyGrappling": "You are already Grappling another creature."
     },
     "Grudgebearer": {
-      "Grudge": "Grudge: {target}"
+      "Grudge": "Grudge"
     },
     "ImbueAffix": {
       "AffixLabel": "Affix",
@@ -666,7 +667,11 @@
       "NotMaster": "You must target the companion's master."
     },
     "PetrifyingCloud": {
-      "PetrificationStage": "Petrification: Stage {stage}"
+      "Petrification": "Petrification",
+      "Stage": "Stage {stage}"
+    },
+    "Regurgitate": {
+      "NotHeld": "You are not holding {target}."
     },
     "Revive": {
       "RequiresDead": "Revive requires a Dead target."
@@ -681,11 +686,11 @@
       "LightName": "Thrown Torch ({actor})"
     },
     "VowOfAnimus": {
-      "VowDescription": "You vowed to vanquish a specific foe who became the subject of your animus.",
-      "VowName": "Sworn Vow: {target}"
+      "VowDescription": "You vowed to vanquish a specific foe who became the subject of your animus."
     }
   },
   "ACTIVE_EFFECT": {
+    "ContextName": "{effect} ({context})",
     "ACTIONS": {
       "Create": "Create Effect",
       "Delete": "Delete Effect",
@@ -1512,7 +1517,7 @@
       "DeleteDoT": "Remove Damage Over Time",
       "Maintain": "Maintain",
       "MaintainCost": "Maintain ({cost} Focus)",
-      "MaintainDetail": "Expend Focus to maintain {effect}.",
+      "MaintainDetail": "Continue to maintain {effect}.",
       "MaintainName": "Maintain {effect}"
     },
     "PROPERTIES": {
@@ -1521,7 +1526,7 @@
       "Magical": "Magical",
       "MagicalTooltip": "This effect is magical in nature and may be removed by anti-magic abilities.",
       "Maintained": "Maintained",
-      "MaintainedTooltip": "This effect lapses at the end of your turn unless you spend Focus to maintain it.",
+      "MaintainedTooltip": "This effect lapses at the end of your turn unless you maintain it.",
       "Removable": "Removable",
       "RemovableTooltip": "This effect may be removed by overcoming its removal difficulty."
     },
@@ -1532,7 +1537,8 @@
     },
     "SUPPRESSION": {
       "Incapacitated": "Suppressed while Incapacitated",
-      "Maintenance": "Requires Maintenance"
+      "Maintenance": "Requires Maintenance",
+      "Source": "Suppressed while its Source is Inactive"
     },
     "MAINTENANCE": {
       "EndConfirm": "Maintaining {effect} will end {effects}, which you can no longer maintain.",

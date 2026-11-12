@@ -22,6 +22,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    * @type {Record<string, string>}
    */
   static #DELETABLE_TYPES = {
+    ActiveEffect: "effects",
     AmbientLight: "lights",
     Region: "regions",
     Token: "summons"
@@ -138,7 +139,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------- */
 
   /**
-   * Hide or reveal the owned lights, regions, and summoned tokens of this effect on behalf of a requesting User.
+   * Hide or reveal the owned documents of this effect on behalf of a requesting User; owned effects are suppressed.
    * Only documents hidden by this suppression are revealed, so a document hidden deliberately stays hidden.
    * @param {boolean} hidden              Hide the owned documents, rather than reveal them
    * @param {string} userId               The user who performed the triggering operation
@@ -149,18 +150,41 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const user = game.users.get(userId);
     if ( !user ) return;
     const batches = new Map();
+    const queue = (parent, documentName, update) => {
+      const key = `${parent.uuid}.${documentName}`;
+      if ( !batches.has(key) ) batches.set(key, {parent, documentName, updates: []});
+      batches.get(key).updates.push(update);
+    };
     for ( const uuid of this.#collectOwnedReferences() ) {
       const doc = await fromUuid(uuid);
       if ( !doc?.parent || !(doc.documentName in CrucibleActiveEffect.#DELETABLE_TYPES) ) continue;
       if ( !doc.testUserPermission(user, "OWNER") ) continue;
-      const marked = doc.getFlag("crucible", "suppressionHidden");
       let update;
-      if ( hidden && !doc.hidden ) update = {_id: doc.id, hidden: true, flags: {crucible: {suppressionHidden: true}}};
-      else if ( !hidden && marked ) update = {_id: doc.id, hidden: false, flags: {crucible: {suppressionHidden: _del}}};
-      if ( !update ) continue;
-      const key = `${doc.parent.uuid}.${doc.documentName}`;
-      if ( !batches.has(key) ) batches.set(key, {parent: doc.parent, documentName: doc.documentName, updates: []});
-      batches.get(key).updates.push(update);
+      if ( doc.documentName === "ActiveEffect" ) {
+        if ( hidden !== !!doc.system.suppression?.source ) update = {system: {suppression: {source: hidden}}};
+      } else {
+        const marked = doc.getFlag("crucible", "suppressionHidden");
+        if ( hidden && !doc.hidden ) update = {hidden: true, flags: {crucible: {suppressionHidden: true}}};
+        else if ( !hidden && marked ) update = {hidden: false, flags: {crucible: {suppressionHidden: _del}}};
+
+        // TODO: Core forces a token-attached Region's hidden state to match its Token, dropping the change above
+        //  (https://github.com/foundryvtt/foundryvtt/issues/14496), so also disable its behaviors and hide it from players
+        if ( update && (doc.documentName === "Region") ) {
+          if ( hidden && doc.attachment.token ) {
+            const behaviors = doc.behaviors.filter(b => !b.disabled).map(b => b.id);
+            update.flags.crucible.suppressionHidden = {behaviors, visibility: doc.visibility};
+            update.visibility = CONST.REGION_VISIBILITY.LAYER;
+            for ( const _id of behaviors ) queue(doc, "RegionBehavior", {_id, disabled: true});
+          }
+          else if ( !hidden && marked.behaviors ) {
+            update.visibility = marked.visibility;
+            for ( const _id of marked.behaviors ) {
+              if ( doc.behaviors.has(_id) ) queue(doc, "RegionBehavior", {_id, disabled: false});
+            }
+          }
+        }
+      }
+      if ( update ) queue(doc.parent, doc.documentName, {_id: doc.id, ...update});
     }
     for ( const {parent, documentName, updates} of batches.values() ) {
       await parent.updateEmbeddedDocuments(documentName, updates);

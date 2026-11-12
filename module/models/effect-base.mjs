@@ -20,6 +20,7 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
         resource: new fields.StringField({required: true, choices: SYSTEM.RESOURCES, nullable: false}),
         restoration: new fields.BooleanField()
       }), {nullable: false, initial: []}),
+      effects: new fields.SetField(new fields.DocumentUUIDField({type: "ActiveEffect", nullable: false})),
       lights: new fields.SetField(new fields.DocumentUUIDField({type: "AmbientLight", nullable: false})),
       maintenance: new fields.SchemaField({
         cost: new fields.NumberField({required: false, integer: true, nullable: true, min: 1, initial: null}),
@@ -90,7 +91,7 @@ export default class CrucibleBaseActiveEffect extends foundry.data.ActiveEffectT
   /* -------------------------------------------- */
 
   /**
-   * Construct the action which pays this effect's maintenance Focus cost.
+   * Construct the action which pays this effect's maintenance.
    * @returns {CrucibleAction|null}     The action, or null if this effect is not maintained by an Actor
    */
   getMaintainAction() {

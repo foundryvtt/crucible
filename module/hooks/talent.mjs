@@ -1,4 +1,4 @@
-import {interruptAction, isDeployingItem} from "./helpers.mjs";
+import {formatEffectName, interruptAction, isDeployingItem} from "./helpers.mjs";
 
 const HOOKS = {};
 
@@ -527,6 +527,9 @@ HOOKS.dependableRefocu = {
 
 HOOKS.champion00000000 = {
   _DOMINANCE_ID: "championDominanc",
+  _dominanceName(rival, stage) {
+    return formatEffectName(_loc("ACTIONS.Challenge.Dominance"), rival?.name, stage ? `+${stage}` : null);
+  },
   _getRival(actor) {
     const origin = actor.effects.get(HOOKS.champion00000000._DOMINANCE_ID)?.origin;
     return origin ? fromUuidSync(origin) : null;
@@ -545,7 +548,7 @@ HOOKS.champion00000000 = {
     const struckOther = Array.from(action.targets.keys()).some(t => t.uuid !== dominance.origin);
     if ( struckOther ) action.recordEvent({type: "effect", target: this, effects: [{
       _id: HOOKS.champion00000000._DOMINANCE_ID, _action: "update",
-      name: _loc("ACTIONS.Challenge.Dominance"),
+      name: HOOKS.champion00000000._dominanceName(HOOKS.champion00000000._getRival(this), 0),
       flags: {crucible: {dominance: {round: game.combat?.round ?? 0, stage: 0}}}
     }]});
   },
@@ -570,7 +573,7 @@ HOOKS.champion00000000 = {
     // Duel broken: reset the stage but keep the rival designation
     if ( !intact ) {
       if ( dominance.stage > 0 ) effectChanges.toUpdate.push({
-        _id: id, name: _loc("ACTIONS.Challenge.Dominance"),
+        _id: id, name: HOOKS.champion00000000._dominanceName(rival, 0),
         flags: {crucible: {dominance: {round: dominance.round, stage: 0}}}
       });
       return;
@@ -581,7 +584,7 @@ HOOKS.champion00000000 = {
     const stage = Math.min(dominance.stage + 1, this.abilities.presence.value);
     if ( stage === dominance.stage ) return;
     effectChanges.toUpdate.push({
-      _id: id, name: `${_loc("ACTIONS.Challenge.Dominance")} (+${stage})`,
+      _id: id, name: HOOKS.champion00000000._dominanceName(rival, stage),
       flags: {crucible: {dominance: {round, stage}}}
     });
   }
@@ -593,7 +596,7 @@ HOOKS.channeledResonan = {
   prepareAttack(_item, action, _target, rollData) {
     if ( this.equipment.weapons.mainhand?.system.activeCategory.id !== "talisman2" ) return;
     if ( !action.target.isAttack ) return;
-    const sustaining = this.parent.effects.some(e => e.active && e.system.properties?.has("maintained"));
+    const sustaining = this.parent.effects.some(e => e.active && e.system.maintenance?.cost);
     if ( sustaining ) rollData.damageBonus += 2;
   }
 };
@@ -862,7 +865,7 @@ HOOKS.gambit0000000000 = {
   _chargesEffect(actor, count) {
     return {
       _id: HOOKS.gambit0000000000._CHARGES_ID,
-      name: _loc("ACTIONS.Gambit.Charges", {count}),
+      name: formatEffectName(_loc("ACTIONS.Gambit.Name"), count),
       img: "icons/sundries/gaming/dice-pair-white-green.webp",
       description: `<p>${_loc("ACTIONS.Gambit.ChargeDescription")}</p>`,
       origin: actor.uuid,
@@ -932,7 +935,7 @@ HOOKS.gambit0000000000 = {
     const G = HOOKS.gambit0000000000;
     const count = G._chargeCount(this) + ante;
     const effect = this.effects.has(G._CHARGES_ID)
-      ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count}),
+      ? {_id: G._CHARGES_ID, _action: "update", name: formatEffectName(_loc("ACTIONS.Gambit.Name"), count),
         flags: {crucible: {gambitCharges: count}}}
       : G._chargesEffect(this, count);
     action.recordEvent({type: "effect", target: this, effects: [effect], statusText: [{
@@ -2212,36 +2215,11 @@ HOOKS.weakpoints000000 = {
 /* -------------------------------------------- */
 
 HOOKS.vowofanimus00000 = {
-  _TRACKER_ID: "vowOfAnimusTrack",
-  // TODO would be better handled if hooks can exist on active effects as a defendAttack hook
+  _VOW_ID: "vowOfAnimusTrack",
   prepareAttack(item, action, target, rollData) {
     if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
-    if ( target.effects.get(SYSTEM.EFFECTS.getEffectId(item.actions[0].id))?.origin !== this.uuid ) return;
+    if ( this.effects.get(HOOKS.vowofanimus00000._VOW_ID)?.origin !== target.uuid ) return;
     rollData.boons.vowOfAnimus = {label: item.name, number: 2};
-  },
-  finalizeAction(item, action) {
-    if ( action.id !== item.actions[0].id ) return;
-    const [newTarget] = action.targets.keys();
-    if ( !newTarget ) return;
-    const vowId = SYSTEM.EFFECTS.getEffectId(action.id);
-
-    // Relinquish the vow sworn against a different prior target
-    const tracker = this.effects.get(HOOKS.vowofanimus00000._TRACKER_ID);
-    const previous = tracker?.origin ? fromUuidSync(tracker.origin) : null;
-    if ( previous && (previous.uuid !== newTarget.uuid) && (previous.effects.get(vowId)?.origin === this.uuid) ) {
-      action.recordEvent({type: "effect", target: previous, effects: [{_id: vowId, _action: "delete"}]});
-    }
-
-    // Track the subject of the new vow
-    action.recordEvent({type: "effect", target: this, effects: [{
-      _id: HOOKS.vowofanimus00000._TRACKER_ID,
-      name: _loc("ACTIONS.VowOfAnimus.VowName", {target: newTarget.name}),
-      description: `<p>${_loc("ACTIONS.VowOfAnimus.VowDescription")}</p>`,
-      img: item.img,
-      origin: newTarget.uuid,
-      duration: action.effects[0].duration,
-      system: {dc: null}
-    }]});
   }
 };
 

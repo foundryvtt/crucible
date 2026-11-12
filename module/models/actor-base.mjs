@@ -782,7 +782,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Active effects may passively occupy hands while they persist (e.g. Grappling)
     let effectHands = 0;
     for ( const effect of this.parent.effects ) {
-      if ( !effect.active || (effect.type !== "base") ) continue;
+      if ( effect.type !== "base" ) continue;
+      const {suppression} = effect.system;
+      const due = !effect.disabled && suppression.maintenance
+        && Object.entries(suppression).every(([reason, suppressed]) => !suppressed || (reason === "maintenance"));
+      if ( !effect.active && !due ) continue;
       effectHands += effect.system.maintenance.hands;
     }
     if ( effectHands > 0 ) {

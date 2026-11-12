@@ -19,7 +19,8 @@ export const PROPERTIES = defineEnum({
  */
 export const SUPPRESSION_REASONS = defineEnum({
   incapacitated: {label: "BASE_EFFECT.SUPPRESSION.Incapacitated"},
-  maintenance: {label: "BASE_EFFECT.SUPPRESSION.Maintenance"}
+  maintenance: {label: "BASE_EFFECT.SUPPRESSION.Maintenance"},
+  source: {label: "BASE_EFFECT.SUPPRESSION.Source"}
 });
 
 /**

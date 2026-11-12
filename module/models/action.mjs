@@ -3010,6 +3010,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this.resolveEventStream();
     this.actor.callActorHooks("finalizeAction", this);
     await this.#recordEffectSuppression();
+    this.#validateDependentEffects();
     this.#finalizeEvents();
   }
 
@@ -3038,6 +3039,34 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         .map(e => ({_id: e.id, _action: "update", system: {suppression: {incapacitated: true}}}));
       if ( effects.length ) this.recordEvent({type: "effect", target: actor, effects});
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Reject recorded dependent effects which would form a cycle, where an effect transitively depends on itself.
+   * @throws {Error}    If a cycle exists among recorded and existing dependent effects
+   */
+  #validateDependentEffects() {
+    const recorded = new Map();
+    for ( const event of this.events ) {
+      if ( event.negated || !event.target ) continue;
+      for ( const effect of event.effects ) {
+        if ( (effect._action === "delete") || !effect.system?.effects ) continue;
+        recorded.set(`${event.target.uuid}.ActiveEffect.${effect._id}`, effect.system.effects);
+      }
+    }
+    if ( !recorded.size ) return;
+
+    // Depth-first search from each recorded effect, following recorded dependents ahead of existing ones
+    const dependentsOf = uuid => recorded.get(uuid) ?? fromUuidSync(uuid)?.system?.effects ?? [];
+    const visit = (uuid, path) => {
+      if ( path.has(uuid) ) throw new Error(_loc("ACTION.WARNINGS.CyclicEffects", {action: this.name}));
+      path.add(uuid);
+      for ( const dependent of dependentsOf(uuid) ) visit(dependent, path);
+      path.delete(uuid);
+    };
+    for ( const uuid of recorded.keys() ) visit(uuid, new Set());
   }
 
   /* -------------------------------------------- */

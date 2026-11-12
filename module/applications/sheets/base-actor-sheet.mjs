@@ -647,7 +647,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( !this.actor.maintainedEffects.includes(effect) || !effect.system.suppression.maintenance ) return null;
     if ( game.combat?.combatant?.actor !== this.actor ) return null;
     const {cost} = effect.system.getMaintainAction();
-    return _loc("BASE_EFFECT.ACTIONS.MaintainCost", {cost: cost.focus});
+    return cost.focus ? _loc("BASE_EFFECT.ACTIONS.MaintainCost", {cost: cost.focus})
+      : _loc("BASE_EFFECT.ACTIONS.Maintain");
   }
 
   /* -------------------------------------------- */

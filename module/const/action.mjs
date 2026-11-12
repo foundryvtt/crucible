@@ -1277,7 +1277,7 @@ export const TAGS = {
       effect.system.properties = Array.from(new Set(effect.system.properties).add("maintained"));
 
       // End maintained effects of the player's choosing beyond the actor's limit
-      const others = this.actor.maintainedEffects.filter(e => e.id !== effect._id);
+      const others = this.actor.maintainedEffects.filter(e => (e.id !== effect._id) && e.system.maintenance.cost);
       const excess = others.length + 1 - this.actor.resources.focus.maintained;
       if ( excess <= 0 ) return;
       const {SetField, StringField} = foundry.data.fields;

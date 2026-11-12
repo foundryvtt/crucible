@@ -1,4 +1,4 @@
-import {interruptAction} from "./helpers.mjs";
+import {formatEffectName, interruptAction} from "./helpers.mjs";
 
 const HOOKS = {};
 
@@ -73,7 +73,7 @@ HOOKS.gambitAllIn = {
     if ( this.cost.heroism !== 0 ) return;
     const remaining = G._chargeCount(this.actor) - 6;
     const change = remaining > 0
-      ? {_id: G._CHARGES_ID, _action: "update", name: _loc("ACTIONS.Gambit.Charges", {count: remaining}),
+      ? {_id: G._CHARGES_ID, _action: "update", name: formatEffectName(_loc("ACTIONS.Gambit.Name"), remaining),
         flags: {crucible: {gambitCharges: remaining}}}
       : {_id: G._CHARGES_ID, _action: "delete"};
     this.recordEvent({type: "effect", target: this.actor, effects: [change]});
@@ -454,7 +454,9 @@ HOOKS.challenge = {
     const effect = this.selfEvents?.all.find(e => e.type === "effect")?.effects[0];
     if ( !rival || !effect ) return;
     effect._id = crucible.api.hooks.talent.champion00000000._DOMINANCE_ID;
+    if ( this.actor.effects.has(effect._id) ) effect._action = "update"; // Reversal restores the rivalry this replaces
     effect.origin = rival.uuid;
+    effect.name = crucible.api.hooks.talent.champion00000000._dominanceName(rival, 0);
     effect.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
     foundry.utils.setProperty(effect, "flags.crucible.dominance", {round: 0, stage: 0});
   }
@@ -1032,7 +1034,7 @@ HOOKS.fieldStudy = {
 
     // Encode the chosen Knowledge as add-changes; a single fixed id means a new study replaces the previous one
     effect._id = id;
-    effect.name = _loc("ACTIONS.FieldStudy.Effect", {knowledge: _loc(crucible.CONFIG.knowledge[k].label)});
+    effect.name = formatEffectName(_loc("ACTIONS.FieldStudy.Effect"), _loc(crucible.CONFIG.knowledge[k].label));
     effect.system.changes = [
       {key: "system.details.background.knowledge", type: "add", value: k},
       {key: "system.details.knowledge", type: "add", value: k}
@@ -1193,6 +1195,7 @@ HOOKS.grapple = {
       if ( effect.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF ) {
         effect._id = HOOKS.grapple._GRAPPLING_EFFECT_ID;
         effect.system.maintenance = {hands: 1}; // Maintaining the grapple occupies one of the aggressor's hands
+        effect.system.properties = Array.from(new Set(effect.system.properties).add("maintained"));
       }
       else effect._id = HOOKS.grapple._GRAPPLED_EFFECT_ID;
     }
@@ -1222,6 +1225,7 @@ HOOKS.grapple = {
       const grappling = event.effects.find(e => e._id === HOOKS.grapple._GRAPPLING_EFFECT_ID);
       if ( grappling ) {
         grappling.origin = captive.uuid;
+        grappling.system.effects = [`${captive.uuid}.ActiveEffect.${HOOKS.grapple._GRAPPLED_EFFECT_ID}`];
         return;
       }
     }
@@ -1778,6 +1782,12 @@ HOOKS.maintain = {
     this.usage.maintainedEffectId ??= this.actor.maintainedEffects.find(e => e.system.suppression.maintenance)?.id;
     const effect = this.actor.effects.get(this.usage.maintainedEffectId);
     this.cost.focus = effect?.system.maintenance.cost ?? 0;
+    this.cost.hands = effect?.system.maintenance.hands ?? 0;
+  },
+  prepare() {
+    const effect = this.actor.effects.get(this.usage.maintainedEffectId);
+    const held = effect?.system.maintenance.hands ?? 0; // The effect's own hands remain held while due
+    this.usage.availableHands = this.actor.equipment.weapons.freeHands + held;
   },
   canUse() {
     const effect = this.actor.effects.get(this.usage.maintainedEffectId);
@@ -1792,8 +1802,9 @@ HOOKS.maintain = {
     const effect = this.actor.effects.get(this.usage.maintainedEffectId);
     const changes = [{_id: effect.id, _action: "update", system: {suppression: {maintenance: false}}}];
 
-    // Once paid effects reach the limit, maintained effects still due are ended
-    const others = this.actor.maintainedEffects.filter(e => e !== effect);
+    // Once paid effects reach the Focus limit, Focus-maintained effects still due are ended
+    const others = effect.system.maintenance.cost
+      ? this.actor.maintainedEffects.filter(e => (e !== effect) && e.system.maintenance.cost) : [];
     const paid = others.filter(e => !e.system.suppression.maintenance).length + 1;
     const ended = (paid >= this.actor.resources.focus.maintained)
       ? others.filter(e => e.system.suppression.maintenance) : [];
@@ -2020,7 +2031,8 @@ HOOKS.petrifyingCloudRegion = {
       const update = Object.assign({
         _id: HOOKS.petrifyingCloudRegion._PETRIFICATION_EFFECT_ID,
         _action: effect ? "update" : null,
-        name: _loc("ACTIONS.PetrifyingCloud.PetrificationStage", {stage: nextStage}),
+        name: formatEffectName(_loc("ACTIONS.PetrifyingCloud.Petrification"),
+          _loc("ACTIONS.PetrifyingCloud.Stage", {stage: nextStage})),
         description: this.description,
         start: ActiveEffect.implementation.getEffectStart(),
         flags: {crucible: {petrificationStage: nextStage}}
@@ -2120,6 +2132,21 @@ HOOKS.volatileAccelerant = {
       }
       this.recordEvent({type: "effect", target, effects: [update]});
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.vowOfAnimus = {
+  postActivate() {
+    const [subject] = this.targets.keys();
+    const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
+    if ( !subject || !effect ) return;
+    effect._id = crucible.api.hooks.talent.vowofanimus00000._VOW_ID;
+    if ( this.actor.effects.has(effect._id) ) effect._action = "update"; // Reversal restores the vow this replaces
+    effect.origin = subject.uuid;
+    effect.name = formatEffectName(effect.name, subject.name);
+    effect.description = `<p>${_loc("ACTIONS.VowOfAnimus.VowDescription")}</p>`;
   }
 };
 
@@ -2549,6 +2576,7 @@ HOOKS.swallow = {
     const token = this.targets.get(prey)?.token;
     marker._id = SYSTEM.EFFECTS.getEffectId("swallow", {suffix: token?.id ?? prey.id});
     marker.origin = token?.uuid ?? prey.uuid;
+    marker.system.effects = [`${prey.uuid}.ActiveEffect.${HOOKS.swallow._SWALLOWED_EFFECT_ID}`];
     marker.showIcon = CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER;
     foundry.utils.setProperty(marker, "flags.crucible.swallowing", true);
   },
@@ -2561,38 +2589,64 @@ HOOKS.swallow = {
 
 /* -------------------------------------------- */
 
+HOOKS.digestiveSacs = {
+  postActivate() {
+    const prey = this.targets.keys().next().value;
+    const preyEffect = prey ? this.eventsByActor.get(prey)?.all.flatMap(e => e.effects)[0] : null;
+    const {effect: holding} = this.selfEvents?.getPrimaryEffect() ?? {};
+    if ( !preyEffect || !holding ) return;
+    const existing = this.actor.effects.get(holding._id);
+    if ( existing ) holding._action = "update"; // Reversal restores the prey held before
+    holding.system.effects = [...(existing?.system.effects ?? []), `${prey.uuid}.ActiveEffect.${preyEffect._id}`];
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.regurgitate = {
-  _heldPrey(action) {
+  _holdingEffects(action) {
     const holdingActions = new Set((action.item?.actions ?? []).map(a => a.id));
     holdingActions.delete(action.id);
+    return action.actor.effects.filter(e => holdingActions.has(e.getFlag("crucible", "originAction")));
+  },
+  _heldEffects(action, prey) {
     const held = [];
-    for ( const token of ((action.token?.parent ?? canvas.scene)?.tokens ?? []) ) {
-      const prey = token.actor;
-      if ( !prey || (prey === action.actor) ) continue;
-      const effects = prey.effects.filter(e => (e.origin === action.actor.uuid) && e.statuses.has("restrained")
-        && holdingActions.has(e.getFlag("crucible", "originAction")));
-      if ( effects.length ) held.push({token, prey, effects});
+    for ( const holding of HOOKS.regurgitate._holdingEffects(action) ) {
+      for ( const uuid of holding.system.effects ) {
+        const effect = fromUuidSync(uuid);
+        if ( effect && (effect.parent === prey) ) held.push({holding, effect});
+      }
     }
     return held;
   },
   canUse() {
-    if ( !HOOKS.regurgitate._heldPrey(this).length ) return false;
+    if ( !HOOKS.regurgitate._holdingEffects(this).some(e => e.system.effects.size) ) return false;
+  },
+  acquireTargets(targets) {
+    for ( const target of targets ) {
+      if ( HOOKS.regurgitate._heldEffects(this, target.actor).length ) continue;
+      target.error ??= _loc("ACTIONS.Regurgitate.NotHeld", {target: target.actor?.name ?? target.name});
+    }
   },
   postActivate() {
-    const released = [];
-    const holdingActions = new Set();
-    // Release every creature in the scene restrained by an effect from this talent
-    for ( const {token, prey, effects} of HOOKS.regurgitate._heldPrey(this) ) {
-      this.recordEvent({type: "effect", target: prey, effects: effects.map(e => ({_id: e.id, _action: "delete"}))});
-      for ( const e of effects ) holdingActions.add(e.getFlag("crucible", "originAction"));
-      if ( token.hidden ) released.push(token.uuid);
+    const [prey] = this.targets.keys();
+    if ( !prey ) return;
+    const held = HOOKS.regurgitate._heldEffects(this, prey);
+
+    // Release the prey first, so the cascade from its holding effect finds nothing left to delete
+    this.recordEvent({type: "effect", target: prey, effects: held.map(({effect}) => ({_id: effect.id, _action: "delete"}))});
+
+    // Each holding effect lets go of the prey, ending once it holds no other creature
+    const released = new Set(held.map(({effect}) => effect.uuid));
+    const changes = [];
+    for ( const holding of new Set(held.map(h => h.holding)) ) {
+      const remaining = Array.from(holding.system.effects).filter(u => !released.has(u) && fromUuidSync(u));
+      if ( remaining.length ) changes.push({_id: holding.id, _action: "update", system: {effects: remaining}});
+      else changes.push({_id: holding.id, _action: "delete"});
     }
-    // End the creature's own effects from the actions which held that prey
-    const own = this.actor.effects.filter(e => holdingActions.has(e.getFlag("crucible", "originAction")));
-    if ( own.length ) {
-      this.recordEvent({type: "effect", target: this.actor, effects: own.map(e => ({_id: e.id, _action: "delete"}))});
-    }
-    this.metadata.released = released;
+    this.recordEvent({type: "effect", target: this.actor, effects: changes});
+    const token = this.targets.get(prey)?.token;
+    this.metadata.released = token?.hidden ? [token.uuid] : [];
   },
   async confirm(reverse) {
     for ( const tokenUuid of (this.metadata.released ?? []) ) {

@@ -87,8 +87,8 @@ system:
       name: Regurgitate
       img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
       description: >-
-        <p>You expel every creature you have swallowed, returning them to the
-        space around you and ending the @Condition[blinded] and
+        <p>You expel a creature you have swallowed, returning it to the space
+        around you and ending the @Condition[blinded] and
         @Condition[restrained] conditions imposed by your gullet.</p>
       condition: ''
       cost:
@@ -102,10 +102,10 @@ system:
         maximum: null
         weapon: false
       target:
-        type: self
-        number: 0
-        scope: 1
-        self: true
+        type: single
+        number: 1
+        scope: 4
+        self: false
       summon: null
       effects: []
       tags:

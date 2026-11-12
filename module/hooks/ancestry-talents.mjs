@@ -1,3 +1,5 @@
+import {formatEffectName} from "./helpers.mjs";
+
 const ACTION = {};
 const TALENT = {};
 
@@ -47,8 +49,9 @@ ACTION.grudgebearer = {
     const [target] = this.targets.keys();
     const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
     if ( !target || !effect ) return;
+    if ( this.actor.effects.has(effect._id) ) effect._action = "update"; // Reversal restores the grudge this replaces
     effect.origin = target.uuid;
-    effect.name = _loc("ACTIONS.Grudgebearer.Grudge", {target: target.name});
+    effect.name = formatEffectName(_loc("ACTIONS.Grudgebearer.Grudge"), target.name);
   }
 };
 

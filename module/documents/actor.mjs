@@ -167,7 +167,7 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * The effects this Actor maintains with Focus, independent of whether maintenance is currently due.
+   * The effects this Actor maintains, independent of whether maintenance is currently due.
    * @type {CrucibleActiveEffect[]}
    */
   get maintainedEffects() {
@@ -1546,8 +1546,9 @@ export default class CrucibleActor extends Actor {
         continue; // No need to manually delete an effect which is about to expire naturally
       }
 
-      // Delete maintained effects whose maintenance went unpaid
-      if ( effect.system.suppression?.maintenance ) effectChanges.toDelete.push(effect.id);
+      // Delete maintained effects which remain suppressed, whether their maintenance went unpaid or for another reason
+      const suppressed = Object.values(effect.system.suppression ?? {}).some(v => v);
+      if ( suppressed && effect.system.properties?.has("maintained") ) effectChanges.toDelete.push(effect.id);
     }
   }
 
@@ -1599,8 +1600,9 @@ export default class CrucibleActor extends Actor {
         const action = (reason === "maintenance") ? effect?.system.getMaintainAction() : null;
         if ( action ) {
           entry.changeLabel = _loc("BASE_EFFECT.ACTIONS.Maintain");
-          entry.maintain = {uuid: effect.uuid,
-            tooltip: _loc("BASE_EFFECT.ACTIONS.MaintainCost", {cost: action.cost.focus})};
+          const {focus} = action.cost;
+          entry.maintain = {uuid: effect.uuid, tooltip: focus ? _loc("BASE_EFFECT.ACTIONS.MaintainCost", {cost: focus})
+            : _loc("BASE_EFFECT.ACTIONS.Maintain")};
         }
         else entry.changeLabel = SYSTEM.EFFECTS.SUPPRESSION_REASONS[reason]?.label ?? reason;
         effects.push(entry);
