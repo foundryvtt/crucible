@@ -1868,6 +1868,15 @@ HOOKS.noxiousStrikes = {
 
 /* -------------------------------------------- */
 
+HOOKS.safecracker00000 = {
+  useAction(item, action) {
+    if ( (action.id !== "interact") || !action.tags.has("stealth") ) return;
+    action.usage.boons[item.id] = {label: item.name, number: 1};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.secondSkin000000 = {
   prepareMovement() {
     const armor = this.equipment.armor;

@@ -4,6 +4,7 @@ export * as elements from "./elements/_module.mjs";
 // Config Apps
 export {default as CrucibleActionBehaviorRegionConfig} from "./config/action-behavior-config.mjs";
 export {default as CrucibleActionConfig} from "./config/action-config.mjs";
+export {default as CrucibleWallConfig} from "./config/wall-config.mjs";
 
 // Settings Apps
 export {default as CompendiumSourcesConfig} from "./settings/compendium-sources.mjs";

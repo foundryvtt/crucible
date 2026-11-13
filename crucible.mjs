@@ -251,6 +251,7 @@ Hooks.once("init", async function() {
   CONFIG.Scene.documentClass = documents.CrucibleScene;
   CONFIG.Token.documentClass = documents.CrucibleToken;
   CONFIG.Token.objectClass = canvas.CrucibleTokenObject;
+  CONFIG.Wall.documentClass = documents.CrucibleWall;
 
   // Spellcraft Initialization
   Hooks.callAll("crucible.initializeSpellcraft");
@@ -296,6 +297,9 @@ Hooks.once("init", async function() {
     types: ["crucible.action"],
     label: "CRUCIBLE.SHEETS.ActionBehavior"
   });
+
+  sheets.unregisterSheet(WallDocument, "core", foundry.applications.sheets.WallConfig);
+  sheets.registerSheet(WallDocument, "crucible", applications.CrucibleWallConfig);
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
