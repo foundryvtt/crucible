@@ -13,7 +13,8 @@
  *   labels (here `crucible.CONFIG.footfalls.materials`) moves to core CONFIG.
  * - Finding the material underfoot: the highest-priority candidate among material volumes containing the token's foot
  *   and planes at exactly the foot's elevation, a volume winning a tie; else nothing. Absent material is silence, so
- *   pits and open air make no footfalls.
+ *   pits and open air make no footfalls. A Region behavior which carries tokens between surfaces, such as a ramp, may
+ *   opt in with `_getFootfallElevation(point)`, naming the elevation whose material its footfalls sound from.
  * - Waypoint splitting: core splits movement animations at the boundaries of Regions whose Surface behaviors have a
  *   material (by subscribing them to TOKEN_ANIMATE_IN/OUT when a material is set, or by including them directly when
  *   building the animation path), treating a material plane at a Region's top as inside even when the top is
@@ -111,17 +112,28 @@ export class CrucibleTokenMovementAnimation {
 
   #phase = 0;
 
+  /**
+   * The id of the movement chain which last made footfalls, whose later waypoints keep its cadence.
+   * Core commits a path crossing Regions as chained movements, each animated separately and ending the footfalls.
+   * @type {string|null}
+   */
+  #movementId = null;
+
   /* -------------------------------------------- */
   /*  Movement Animation                          */
   /* -------------------------------------------- */
 
   /**
    * Begin animating a movement waypoint, with the footfalls it makes or null for a silent one.
-   * A footfall lands as soon as the token starts walking.
+   * A footfall lands as soon as the token starts walking a movement, whose later waypoints keep its cadence.
    * @param {CrucibleFootfalls|null} footfalls
    */
   beginWaypoint(footfalls) {
-    const starting = footfalls && !this.#footfalls;
+    const {id, chain} = this.#token.document.movement;
+    const movementId = chain[0] || id || null;
+    const continuing = !!movementId && (movementId === this.#movementId);
+    const starting = footfalls && !this.#footfalls && !continuing;
+    if ( footfalls ) this.#movementId = movementId;
     this.#footfalls = footfalls;
     const {x, y, elevation} = this.#token.document;
     this.#position = {x, y, elevation};
@@ -175,6 +187,13 @@ export class CrucibleTokenMovementAnimation {
       const surface = document._findClimbableSurface(position) ?? this.#token.supportingSurface;
       const behavior = surface?.region ? CrucibleTokenMovementAnimation.#getSurfaceBehavior(surface) : null;
       material = behavior?.flags.core.material;
+    }
+
+    // A Region which carries the token between surfaces, such as a ramp, names the elevation its footfalls sound from
+    if ( !material ) {
+      const scene = document.parent;
+      const elevation = CrucibleTokenMovementAnimation.#getFootfallElevation(scene, point);
+      if ( elevation !== null ) material = CrucibleTokenMovementAnimation.getMaterial(scene, {...point, elevation});
     }
     if ( !material ) return;
     const {mover, radius, volume} = this.#footfalls;
@@ -264,6 +283,27 @@ export class CrucibleTokenMovementAnimation {
   static #getEmberMaterial() {
     if ( !game.modules.get("ember")?.active ) return null;
     return globalThis.ember.scene?.config.footstepSurface ?? null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the elevation whose material a footfall at a point sounds from, as named by a Region behavior there.
+   * A behavior type opts in by defining `_getFootfallElevation(point)`, returning an elevation or null.
+   * @param {Scene} scene                               The scene containing the point
+   * @param {ElevatedPoint & {level?: string}} point    The point underfoot
+   * @returns {number|null}
+   */
+  static #getFootfallElevation(scene, point) {
+    for ( const region of scene.regions ) {
+      if ( region.hidden ) continue;
+      for ( const behavior of region.behaviors ) {
+        if ( behavior.disabled ) continue;
+        const elevation = behavior.system?._getFootfallElevation?.(point) ?? null;
+        if ( elevation !== null ) return elevation;
+      }
+    }
+    return null;
   }
 
   /* -------------------------------------------- */
