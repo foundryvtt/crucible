@@ -1,8 +1,6 @@
 import {getRandomSound, getVFXSound} from "./sounds.mjs";
 import {getRandomSprite, getVFXFlipbook, getVFXTexturePath} from "./sprites.mjs";
-import {addDodgeSidestep, buildContactReaction, computeAttackOffset, computeManifestPoint, exposureInHot,
-  getAttackOutcome, pickRandom, positionalSound, pushActorScrollingText, pushTargetScrollingText, registerTargetRefs,
-  resolveActorGeometry, tokenCenter} from "./helpers.mjs";
+import * as helpers from "./helpers.mjs";
 import {buildProjectileTrail, getDamageTypeRune, getRuneImpact, resolveAttackEffect, resolveRuneTextures,
   resolveSpellImpact} from "./spells.mjs";
 import CrucibleFacingComponent, {CrucibleFacingPlan} from "./components/vfx-facing-component.mjs";
@@ -54,7 +52,7 @@ const PROJECTILE_DAMAGE_PRESETS = {
     flightSound: {rune: "storm", type: "crackle", fade: 60, release: 150, volume: 0.45},
     trail: {frames: ["SprayBolts"], params: {align: false, body: true, speed: {min: 10, max: 40},
       lifetime: {min: 90, max: 200}, spawnRate: 160, scale: {min: 0.4, max: 0.8},
-      alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: exposureInHot(0.7)}}
+      alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: helpers.exposureInHot(0.7)}}
   },
   fire: {size: 2, speed: 150, trail: true},
   poison: {
@@ -191,7 +189,7 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
   for ( const [actor, group] of action.eventsByTarget ) {
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
-    const {meshRef} = registerTargetRefs(references, "target", j, token);
+    const {meshRef} = helpers.registerTargetRefs(references, "target", j, token);
     targets.push({actor, group, meshRef, first: strikes.length, count: group.roll.length});
     for ( const event of group.roll ) strikes.push({target: token, meshRef, event, roll: event.roll});
     j++;
@@ -207,12 +205,12 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
   for ( const {actor, group, meshRef, first, count} of targets ) {
     const strike = built.strikes.slice(first, first + count).find(Boolean);
     if ( strike ) {
-      pushTargetScrollingText(components[strike.key].scrollingText, action, actor, group.all, meshRef,
+      helpers.pushTargetScrollingText(components[strike.key].scrollingText, action, actor, group.all, meshRef,
         strike.impactTime);
     }
   }
   const firstStrike = built.strikes.find(Boolean);
-  pushActorScrollingText(components[firstStrike.key].scrollingText, action, "tokenMesh");
+  helpers.pushActorScrollingText(components[firstStrike.key].scrollingText, action, "tokenMesh");
 
   // Validate the constructed effect and return its configuration
   try {
@@ -254,7 +252,7 @@ export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}
     }
 
     // Each beat turns to its target once the prior beat has settled, and its strikes begin together after the turn
-    if ( leader ) start = facing.turnToward(tokenCenter(strike.target));
+    if ( leader ) start = facing.turnToward(helpers.tokenCenter(strike.target));
     facing.deliver(start, {release: built.settledTime, end: built.deliveryEnd});
     const key = `strike_${i + 1}`;
     components[key] = built.component;
@@ -292,7 +290,7 @@ function _configureMeleeVFXEffect(action, strikes) {
     return {target, meshRef, result: roll.data.result, critical: !!roll.isCriticalSuccess,
       hand: (weapon === offhand) ? "left" : "right", damageType: weapon.system.damageType,
       effectType: _getStrikeDamageType(roll, weapon), size: MELEE_STRIKE_SIZES[weapon.system.category] ?? "medium",
-      outcome: getAttackOutcome(event)};
+      outcome: helpers.getAttackOutcome(event)};
   });
   return buildMeleeStrikes(token, data, {windup: true, punch: true, lunge: true});
 }
@@ -330,7 +328,7 @@ function _configureRangedVFXEffect(action, strikes, references) {
       results.push(null);
       continue;
     }
-    const position = sequenced ? facing.turnToward(tokenCenter(target)) : areaStart;
+    const position = sequenced ? facing.turnToward(helpers.tokenCenter(target)) : areaStart;
     facing.deliver(position, {release: built.releaseTime, end: built.impactTime});
     components[key] = built.component;
     timeline.push({component: key, position});
@@ -392,7 +390,7 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
     delivery: {
       texture, fps: C.fps, impactAt: C.impactAt, tint: strikeTint, mirror,
       offset: {forward: weapon.offset.forward, lateral: weapon.offset.lateral * ((hand === "left") ? -1 : 1)},
-      sound: positionalSound(getVFXSound("generic", "whooshFast")),
+      sound: helpers.positionalSound(getVFXSound("generic", "whooshFast")),
       animations: [{function: "strikeSpriteThrust", params: {distance: C.thrust}}]
     },
     impacts: [_buildMeleeImpact(target, result, {critical, preset, strikeTint, punch, effect,
@@ -437,17 +435,17 @@ function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impact
     case T.HIT:
     case T.GLANCE:
       impact.sound = sound("projectile", (result === T.HIT) ? "hitCreature" : "hitObject");
-      impact.animations.push(burst(pickRandom(preset.impacts)),
+      impact.animations.push(burst(helpers.pickRandom(preset.impacts)),
         {function: (critical && (result === T.HIT)) ? "impactSpriteShake" : "impactSpriteRecoil"});
       break;
     case T.ARMOR:
       impact.sound = sound("projectile", "block");
-      impact.animations.push(burst(pickRandom(preset.impacts)),
+      impact.animations.push(burst(helpers.pickRandom(preset.impacts)),
         {function: "impactSpriteRecoil", params: {distance: 6, duration: 380}});
       break;
     case T.RESIST:
       impact.sound = sound("projectile", "block");
-      impact.animations.push(burst(pickRandom(preset.impacts)));
+      impact.animations.push(burst(helpers.pickRandom(preset.impacts)));
       break;
     case T.PARRY:
       impact.sound = sound("melee", "parry");
@@ -464,7 +462,7 @@ function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impact
     default:
       impact.sound = sound("projectile", "miss");
   }
-  addDodgeSidestep(impact, {lead: C.reactionLead.dodge, retreat: C.dodgeRetreat});
+  helpers.addDodgeSidestep(impact, {lead: C.reactionLead.dodge, retreat: C.dodgeRetreat});
 
   // The effect beneath the contact particle
   impact.animations.unshift(...effect.animations);
@@ -502,8 +500,8 @@ function _computeMeleeStrikeOffset(token, target, result) {
   // Shift along the attack line, toward or away from the attacker
   const depth = MELEE_STRIKE_DEPTH[key];
   if ( depth ) {
-    const from = tokenCenter(token);
-    const to = tokenCenter(target);
+    const from = helpers.tokenCenter(token);
+    const to = helpers.tokenCenter(target);
     const dist = Math.hypot(to.x - from.x, to.y - from.y) || 1;
     const shift = depth * Math.max(w, h);
     offset.x += ((to.x - from.x) / dist) * shift;
@@ -536,20 +534,20 @@ function _buildMagicalProjectile(action, {key, token, event, roll, meshRef, refe
   const {size=2, speed=150, manifest=150, reveal, path, fps=null, textureAnchor=false,
     blend=PIXI.BLEND_MODES.NORMAL, stick=0, flightSound, burstSize, impact, trail} = preset;
   const textures = resolveRuneTextures(rune);
-  const texture = preset.frame ? getVFXTexturePath(preset.frame) : pickRandom(textures.projectile);
+  const texture = preset.frame ? getVFXTexturePath(preset.frame) : helpers.pickRandom(textures.projectile);
   if ( !texture ) return null;
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
-  const actorGeometry = resolveActorGeometry(action);
+  const actorGeometry = helpers.resolveActorGeometry(action);
   const result = roll.data.result;
   const revealAtRelease = reveal === "release";
 
   // The projectile manifests in front of the actor and flies to a result-dependent landing point
-  const manifestPoint = computeManifestPoint(actorGeometry, token);
+  const manifestPoint = helpers.computeManifestPoint(actorGeometry, token);
   const manifestRef = `${key}_manifest`;
   references[manifestRef] = {...manifestPoint, elevation: actorGeometry.elevation,
     sort: actorGeometry.meshSort + 1, sortLayer: SL.TOKENS};
-  const offset = computeAttackOffset(token, result, {sidestep: true});
-  const targetCenter = tokenCenter(token);
+  const offset = helpers.computeAttackOffset(token, result, {sidestep: true});
+  const targetCenter = helpers.tokenCenter(token);
   const {lead} = CrucibleProjectileComponent.computeLaunch(manifestPoint, targetCenter, {texture, size, textureAnchor});
   const distPx = Math.hypot(targetCenter.x - manifestPoint.x, targetCenter.y - manifestPoint.y) - lead;
   const flightMS = (distPx * 1000) / (speed * canvas.dimensions.distancePixels);
@@ -558,10 +556,10 @@ function _buildMagicalProjectile(action, {key, token, event, roll, meshRef, refe
   let sound;
   if ( flightSound ) {
     const {rune: soundRune, type, ...envelope} = flightSound;
-    sound = positionalSound(getVFXSound(soundRune, type));
+    sound = helpers.positionalSound(getVFXSound(soundRune, type));
     if ( sound ) Object.assign(sound, envelope);
   }
-  else sound = positionalSound(getVFXSound("generic", "whooshFast"));
+  else sound = helpers.positionalSound(getVFXSound("generic", "whooshFast"));
 
   // Impact treatment, as for a spell of the damage type's rune
   const treatment = resolveSpellImpact(event, {actor: token.actor, palette: rune, textures,
@@ -587,12 +585,12 @@ function _buildMagicalProjectile(action, {key, token, event, roll, meshRef, refe
     },
     impacts: [{
       result, id: token.id, stick: stickDuration,
-      sound: positionalSound(getVFXSound(rune, treatment.affected ? "impact" : "miss")),
+      sound: helpers.positionalSound(getVFXSound(rune, treatment.affected ? "impact" : "miss")),
       animations: treatment.animations, particles: treatment.particles
     }],
     scrollingText: []
   };
-  addDodgeSidestep(component.impacts[0]);
+  helpers.addDodgeSidestep(component.impacts[0]);
   return {component, releaseTime: manifest, impactTime: manifest + flightMS};
 }
 
@@ -615,21 +613,21 @@ function _buildPhysicalProjectile(action, {token, event, roll, meshRef}) {
   const STICK_DURATION = 2000; // Milliseconds a landed projectile lingers in the target before fading
 
   // Flight timing from the caster to the target
-  const casterCenter = action.token ? tokenCenter(action.token) : null;
-  const targetCenter = tokenCenter(token);
+  const casterCenter = action.token ? helpers.tokenCenter(action.token) : null;
+  const targetCenter = helpers.tokenCenter(token);
   const distPx = casterCenter ? Math.hypot(targetCenter.x - casterCenter.x, targetCenter.y - casterCenter.y) : 0;
   const flightMS = (distPx * 1000) / (PROJECTILE_SPEED * canvas.dimensions.distancePixels);
 
   // Impact treatment: the arrow lodges in a target it strikes unhindered, beside the effect of the damage dealt
   const impact = _buildPhysicalImpact(token, roll.data.result, meshRef);
-  const outcome = getAttackOutcome(event);
+  const outcome = helpers.getAttackOutcome(event);
   const isHit = (roll.data.result === T.HIT) || (roll.data.result === T.GLANCE);
   const stick = isHit ? STICK_DURATION : 0;
   const weapon = action.usage.strikes[roll.data.strike];
   const effect = resolveAttackEffect(outcome, {damageType: _getStrikeDamageType(roll, weapon), actor: token.actor,
     context: {elevation: (token.elevation ?? 0) + 1}});
   const impactAnimations = [...effect.animations,
-    ...buildContactReaction(outcome, roll.data.result, {critical: !!roll.isCriticalSuccess})];
+    ...helpers.buildContactReaction(outcome, roll.data.result, {critical: !!roll.isCriticalSuccess})];
 
   const component = {
     type: "crucibleProjectile",
@@ -658,7 +656,7 @@ function _buildPhysicalProjectile(action, {token, event, roll, meshRef}) {
     }],
     scrollingText: []
   };
-  addDodgeSidestep(component.impacts[0]);
+  helpers.addDodgeSidestep(component.impacts[0]);
   return {component, releaseTime: CHARGE_DURATION, impactTime: CHARGE_DURATION + flightMS};
 }
 
@@ -696,7 +694,7 @@ function _buildPhysicalImpact(token, result, targetMeshReference) {
       break;
   }
 
-  const offset = computeAttackOffset(token, result, {sidestep: true});
+  const offset = helpers.computeAttackOffset(token, result, {sidestep: true});
   const position = {reference: targetMeshReference, deltas: {sort: 1, x: offset.x, y: offset.y}};
   return {position, sound};
 }

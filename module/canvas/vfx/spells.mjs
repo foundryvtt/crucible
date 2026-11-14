@@ -1,8 +1,6 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
 import {getParticleScaleFactor} from "./blocks.mjs";
-import {addDodgeSidestep, buildContactReaction, buildDamageParticle, computeAttackOffset, computeManifestPoint,
-  exposureInHot, getAttackOutcome, pickRandom, positionalSound, pushActorScrollingText, pushTargetScrollingText,
-  registerTargetRefs, resolveActorGeometry, tokenCenter} from "./helpers.mjs";
+import * as helpers from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFacingComponent, {CrucibleFacingPlan} from "./components/vfx-facing-component.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
@@ -147,9 +145,10 @@ export function finalizeEffect(action, vfxEffect, references) {
 export function resolveSpellImpact(event, {actor, palette, runeProps, textures, elevation, knockback=false,
   context={}}) {
   const roll = event.roll;
-  const outcome = getAttackOutcome(event);
+  const outcome = helpers.getAttackOutcome(event);
   const affected = outcome.damage || outcome.healing;
-  const reaction = buildContactReaction(outcome, roll.data.result, {critical: !!roll.isCriticalSuccess, knockback});
+  const reaction = helpers.buildContactReaction(outcome, roll.data.result,
+    {critical: !!roll.isCriticalSuccess, knockback});
   let treatment;
   if ( affected ) {
     treatment = resolveAttackEffect(outcome, {damageType: roll.data.damage?.type, actor, palette, runeProps,
@@ -171,7 +170,7 @@ export function resolveMissTreatment(textures) {
   const animations = [];
   if ( textures.air.length ) {
     animations.push({function: "impactSpriteBurst",
-      params: {texture: pickRandom(textures.air), size: 3, duration: 1200, flash: false}});
+      params: {texture: helpers.pickRandom(textures.air), size: 3, duration: 1200, flash: false}});
   }
   return {animations, particles: []};
 }
@@ -240,11 +239,11 @@ function _planSpellFacing(action, point, end, impacts, offset=0) {
 function _buildTargetImpact({palette, group, token, result, start, tokenRef, runeProps, textures, elevation,
   impactType="impact", forcedMovements, treatmentCtx={}}) {
   const event = group.roll[0];
-  const knockback = getAttackOutcome(event).contact
+  const knockback = helpers.getAttackOutcome(event).contact
     && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
   const {animations, particles, affected} = resolveSpellImpact(event, {actor: token.actor, palette, runeProps,
     textures, elevation, knockback, context: treatmentCtx});
-  return {result, id: token.id, start, sound: positionalSound(getVFXSound(palette, affected ? impactType : "miss")),
+  return {result, id: token.id, start, sound: helpers.positionalSound(getVFXSound(palette, affected ? impactType : "miss")),
     animations, particles};
 }
 
@@ -293,7 +292,7 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
   {key, token, roll, group, tokenRef, meshRef, references, forcedMovements, position=0}) {
   const runeProps = ARROW_VFX_PROPS[palette];
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
-  const caster = resolveActorGeometry(action);
+  const caster = helpers.resolveActorGeometry(action);
   const {elevation: casterElevation, radiusPx: casterRadiusPx, meshSort: casterMeshSort} = caster;
   const result = roll.data.result;
 
@@ -302,7 +301,7 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
   const revealAtRelease = runeProps.projectileReveal === "release";
 
   // Resolve sound choices and configure their playback
-  const sound = positionalSound;
+  const sound = helpers.positionalSound;
   const chargeSound = (runeProps.chargeSound !== false) ? sound(getVFXSound(palette, "charge")) : null;
   let flightSound;
   if ( runeProps.flightSound ) {
@@ -316,15 +315,15 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
   }
 
   // The projectile materializes in front of the caster rather than at their center
-  const {x: tcx, y: tcy} = tokenCenter(token);
-  const {x: manifestX, y: manifestY} = computeManifestPoint(caster, token);
-  const offset = computeAttackOffset(token, result, {sidestep: true});
+  const {x: tcx, y: tcy} = helpers.tokenCenter(token);
+  const {x: manifestX, y: manifestY} = helpers.computeManifestPoint(caster, token);
+  const offset = helpers.computeAttackOffset(token, result, {sidestep: true});
 
   // Projectile flight timing; the arrival is the impact beat (shared by scrolling text and any knockback)
   const projectileSpeed = runeProps.projectileSpeed ?? 150;
   const projectileTexture = runeProps.projectileFrame
     ? getVFXTexturePath(runeProps.projectileFrame)
-    : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
+    : (helpers.pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
   const projectileSize = runeProps.projectileSize ?? 3;
   const textureAnchor = !!runeProps.projectileTextureAnchor;
   const {lead} = CrucibleProjectileComponent.computeLaunch({x: manifestX, y: manifestY}, {x: tcx, y: tcy},
@@ -342,7 +341,7 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
 
   // Impact treatment; a force-moved target plays its knockback glide AS the impact, replacing the recoil/shake
   const event = group.roll[0];
-  const knockback = getAttackOutcome(event).contact
+  const knockback = helpers.getAttackOutcome(event).contact
     && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, position + impactTime);
   const stick = runeProps.stickDuration ?? 0;
   const {animations, particles, affected} = resolveSpellImpact(event, {actor: token.actor, palette, runeProps,
@@ -382,7 +381,7 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
     }],
     scrollingText: []
   };
-  addDodgeSidestep(component.impacts[0]);
+  helpers.addDodgeSidestep(component.impacts[0]);
   return {component, releaseTime: chargeDuration, impactTime};
 }
 
@@ -415,19 +414,19 @@ function _configureArrowVFXEffect(action, context) {
     if ( !token ) continue;
     const roll = group.roll[0]?.roll;
     if ( !roll?.data.result ) continue;
-    const {tokenRef, meshRef} = registerTargetRefs(references, "target", j, token);
-    const position = plan.turnToward(tokenCenter(token));
+    const {tokenRef, meshRef} = helpers.registerTargetRefs(references, "target", j, token);
+    const position = plan.turnToward(helpers.tokenCenter(token));
     const {component, impactTime, releaseTime} = _buildArrowProjectile(action, context, {key: `arrow_${j}`, token,
       roll, group, tokenRef, meshRef, references, forcedMovements, position});
     plan.deliver(position, {release: releaseTime, end: impactTime});
-    pushTargetScrollingText(component.scrollingText, action, actor, group.all, meshRef, impactTime);
+    helpers.pushTargetScrollingText(component.scrollingText, action, actor, group.all, meshRef, impactTime);
     components[`arrow_${j}`] = component;
     timeline.push({component: `arrow_${j}`, position});
     j++;
   }
 
   if ( !timeline.length ) return null;
-  if ( components.arrow_1 ) pushActorScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
+  if ( components.arrow_1 ) helpers.pushActorScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
   return _finalizeSpellVFX(components, timeline, references, forcedMovements, {plan});
 }
 
@@ -452,7 +451,7 @@ function _configureFanVFXEffect(action, {palette, textures, particleElevation}) 
   const origin = {x, y};
   const rotRad = Math.toRadians(rotation);
   const halfAngleRad = Math.toRadians(angle / 2);
-  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = resolveActorGeometry(action);
+  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = helpers.resolveActorGeometry(action);
   const chargeDuration = runeProps.chargeDuration ?? 0;
   const sweepDuration = runeProps.sweepDuration ?? 400;
   const oscillate = !!runeProps.oscillate;
@@ -463,7 +462,7 @@ function _configureFanVFXEffect(action, {palette, textures, particleElevation}) 
     halfAngleRad);
   const sweepRangeRad = endAngleRad - startAngleRad;
 
-  const sound = positionalSound;
+  const sound = helpers.positionalSound;
 
   const references = {
     tokenMesh: "^token.object.mesh",
@@ -493,7 +492,7 @@ function _configureFanVFXEffect(action, {palette, textures, particleElevation}) 
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
     const event = group.roll[0];
-    if ( !event || !getAttackOutcome(event).contact ) continue; // Fan only marks targets its sweep makes contact with
+    if ( !event || !helpers.getAttackOutcome(event).contact ) continue; // Fan only marks targets its sweep makes contact with
     const result = event.roll.data.result;
     const isHit = (result === T.HIT) || (result === T.GLANCE);
     const cx = token.x + ((token.width * gridSize) / 2);
@@ -506,17 +505,17 @@ function _configureFanVFXEffect(action, {palette, textures, particleElevation}) 
     const defaultStart = chargeDuration + Math.round(tFrac * sweepDuration);
     const start = runeProps.impactStart?.({chargeDuration, sweepDuration, tFrac, token,
       defaultStart}) ?? defaultStart;
-    const {tokenRef, meshRef} = registerTargetRefs(references, "fanTarget", j, token);
+    const {tokenRef, meshRef} = helpers.registerTargetRefs(references, "fanTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     const impact = _buildTargetImpact({palette, group, token, result, start, tokenRef, runeProps, textures,
       elevation: particleElevation, impactType, forcedMovements});
     impact.animations.push(...(runeProps.buildImpact?.({...buildCtx, token, result, isHit}) ?? []));
     impacts.push(impact);
-    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    helpers.pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
-  pushActorScrollingText(scrollingText, action, "tokenMesh");
+  helpers.pushActorScrollingText(scrollingText, action, "tokenMesh");
 
   const deliverySound = runeProps.deliverySoundType
     ? _resolveDeliverySound({palette, sound}, runeProps.deliverySound ?? {}, runeProps.deliverySoundType)
@@ -567,13 +566,13 @@ function _configureRayVFXEffect(action, {palette, textures}) {
   const shapeData = regionShape.toObject();
   const {x, y, length, width, rotation} = shapeData;
   const rotRad = Math.toRadians(rotation);
-  const {elevation: casterElevation, radiusPx: casterRadiusPx} = resolveActorGeometry(action);
+  const {elevation: casterElevation, radiusPx: casterRadiusPx} = helpers.resolveActorGeometry(action);
   const beamElevation = casterElevation + 1;
   const chargeDistance = casterRadiusPx;       // Half the caster token width: pulls the charge to the token's front edge
   const beamLength = length - chargeDistance;  // Effective beam reach from the charge point to the shape's end
   const spawnRadius = Math.max(8, width / 2);
   const CHARGE_DURATION = runeProps.chargeDuration ?? 700;
-  const sound = positionalSound;
+  const sound = helpers.positionalSound;
 
   // Declare necessary references to resolve at play-time
   const references = {
@@ -602,16 +601,16 @@ function _configureRayVFXEffect(action, {palette, textures}) {
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
     const result = group.roll[0]?.roll?.data.result ?? null;
-    const {tokenRef, meshRef} = registerTargetRefs(references, "rayTarget", j, token);
+    const {tokenRef, meshRef} = helpers.registerTargetRefs(references, "rayTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
-    const start = timingFn(tokenCenter(token), timingCtx);
+    const start = timingFn(helpers.tokenCenter(token), timingCtx);
     impacts.push(_buildTargetImpact({palette, group, token, result, start, tokenRef, runeProps, textures,
       elevation: beamElevation, impactType, forcedMovements}));
-    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    helpers.pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
-  pushActorScrollingText(scrollingText, action, "tokenMesh");
+  helpers.pushActorScrollingText(scrollingText, action, "tokenMesh");
 
   // Build VFXEffect configuration
   const buildContext = {palette, textures, beamLength, beamElevation, spawnRadius, width, casterRadiusPx,
@@ -660,13 +659,13 @@ function _configureContactVFXEffect(action, {palette, textures, particleElevatio
   const channel = gesture.channel ?? null;
 
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = resolveActorGeometry(action);
+  const {gridSize, elevation: casterElevation, radiusPx: casterRadiusPx} = helpers.resolveActorGeometry(action);
   const chargeDuration = channel?.chargeDuration ?? runeProps.chargeDuration ?? 450;
   const deliveryDuration = channel?.deliveryDuration ?? runeProps.deliveryDuration ?? 100;
   const lingerDuration = channel?.lingerDuration ?? 0;
   const impactStart = chargeDuration + deliveryDuration;
 
-  const sound = positionalSound;
+  const sound = helpers.positionalSound;
 
   // Charge gathers at the caster's palm (halfway out toward the target) so the origin reads as the caster
   const references = {tokenMesh: "^token.object.mesh"};
@@ -688,10 +687,10 @@ function _configureContactVFXEffect(action, {palette, textures, particleElevatio
     if ( !result ) continue;
     const isHit = (result === T.HIT) || (result === T.GLANCE);
     const targetElevation = (token.elevation ?? 0) + 1;
-    const {tokenRef, meshRef} = registerTargetRefs(references, "contactTarget", j, token);
+    const {tokenRef, meshRef} = helpers.registerTargetRefs(references, "contactTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     channelTarget ??= {hit: isHit, radiusPx: (token.width * gridSize) / 2, elevation: targetElevation};
-    aim ??= tokenCenter(token);
+    aim ??= helpers.tokenCenter(token);
 
     // A channel keeps its glow on the delivery phase (suppressGlow) and lingers its burst over the linger window
     const treatmentCtx = channel
@@ -700,12 +699,12 @@ function _configureContactVFXEffect(action, {palette, textures, particleElevatio
       : {};
     impacts.push(_buildTargetImpact({palette, group, token, result, start: impactStart, tokenRef, runeProps,
       textures, elevation: targetElevation, forcedMovements, treatmentCtx}));
-    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, impactStart);
+    helpers.pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, impactStart);
     j++;
   }
 
   if ( !impacts.length ) return null;
-  pushActorScrollingText(scrollingText, action, "tokenMesh");
+  helpers.pushActorScrollingText(scrollingText, action, "tokenMesh");
 
   // Influence sustains the charge into a melee channel: the hand keeps channeling while the element crusts onto
   // the target and a tinted glow saturates it, lingering past the climax. Touch leaves delivery empty.
@@ -788,14 +787,14 @@ function _configureBlastVFXEffect(action, {palette, textures}) {
   const {x, y, radius} = shapeData;
   const origin = {x, y};
   const {elevation: casterElevation, radiusPx: casterRadiusPx,
-    center: casterCenter, meshSort: casterMeshSort} = resolveActorGeometry(action);
+    center: casterCenter, meshSort: casterMeshSort} = helpers.resolveActorGeometry(action);
   const particleElevation = (action.region?.elevation?.top ?? casterElevation) + 1;
   const chargeCtx = {palette, textures, casterRadiusPx, casterElevation, particleElevation};
   const CHARGE_DURATION = runeProps.chargeDuration ?? 0;
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
   const distancePixels = canvas.dimensions.distancePixels;
 
-  const sound = positionalSound;
+  const sound = helpers.positionalSound;
 
   const MASK_RADIUS_FACTOR = 1.5;
   const references = {
@@ -827,7 +826,7 @@ function _configureBlastVFXEffect(action, {palette, textures}) {
     const flightMs = (distPx * 1000) / (projectileSpeed * distancePixels);
     const projectileTexture = projectileSpec.frame
       ? getVFXTexturePath(projectileSpec.frame)
-      : (pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
+      : (helpers.pickRandom(textures.projectile) ?? getRandomSprite("projectiles", "arrow"));
 
     const projectileChargeLayers = runeProps.buildCharge?.(chargeCtx)
       ?? _resolveChargeLayers(runeProps, chargeCtx, {duration: CHARGE_DURATION});
@@ -879,23 +878,23 @@ function _configureBlastVFXEffect(action, {palette, textures}) {
   for ( const [actor, group] of struck ) {
     const token = action.targets.get(actor).token;
     const result = group.roll[0]?.roll?.data.result ?? null;
-    const {tokenRef, meshRef} = registerTargetRefs(references, "blastTarget", j, token);
+    const {tokenRef, meshRef} = helpers.registerTargetRefs(references, "blastTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     const start = runeProps.impactStart?.({...timingCtx, index: j - 1, total: struck.length})
-      ?? timingFn(tokenCenter(token), timingCtx);
+      ?? timingFn(helpers.tokenCenter(token), timingCtx);
     const impact = _buildTargetImpact({palette, group, token, result, start, tokenRef, runeProps, textures,
       elevation: particleElevation, impactType, forcedMovements});
     const impactAnimations = runeProps.buildImpact?.({action, palette, token, result, particleElevation, radius});
     impact.animations.push(...(impactAnimations ?? []));
     impacts.push(impact);
-    pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
+    helpers.pushTargetScrollingText(scrollingText, action, actor, group.all, meshRef, start);
     j++;
   }
 
   // Knockback times are effect-relative, so they follow the blast past any precursor projectile
   for ( const movement of forcedMovements ) movement.time += blastStartPosition;
 
-  pushActorScrollingText(scrollingText,
+  helpers.pushActorScrollingText(scrollingText,
     action, projectileComponent ? "fireballManifest" : "tokenMesh");
 
   const buildCtx = {action, palette, textures, origin, radius, particleElevation, casterElevation,
@@ -1142,7 +1141,7 @@ export function getRuneImpact(palette) {
 export function resolveAttackEffect(outcome, {damageType, actor, palette, runeProps, context}) {
   if ( !outcome.damage && !outcome.healing ) return {animations: [], particles: []};
   if ( outcome.damage && PHYSICAL_DAMAGE_TYPES.has(damageType) ) {
-    const particle = buildDamageParticle(actor);
+    const particle = helpers.buildDamageParticle(actor);
     return {animations: particle ? [particle] : [], particles: []};
   }
   const rune = outcome.healing ? palette : (DAMAGE_TYPE_RUNES[damageType] ?? palette);
@@ -1186,7 +1185,7 @@ export function resolveRuneEffect(palette, ctx, runeProps) {
   const animations = [];
   const particles = [];
   const burstTexture = runeProps?.impactSpriteFrame ? getVFXTexturePath(runeProps.impactSpriteFrame)
-    : pickRandom(textures.impact);
+    : helpers.pickRandom(textures.impact);
   if ( (runeProps?.impactSprite !== false) && burstTexture ) {
     const angle = Math.toRadians(runeProps?.impactSpriteAngle ?? 0) * ((Math.random() < 0.5) ? -1 : 1);
     animations.push({function: "impactSpriteBurst",
@@ -1371,7 +1370,7 @@ const _CHARGE_FROST_ICICLES = {
     {categories: ["spray"], above: true, radiusFactor: 2.0,
       params: {lifetime: 350, spawnRate: 480,
         alpha: {min: 0.5, max: 1.0}, scale: {min: 0.5, max: 1.0},
-        exposure: exposureInHot(0.5, {reverse: true})}},
+        exposure: helpers.exposureInHot(0.5, {reverse: true})}},
     {categories: ["air"], above: false, animation: "circleParticleResidue", radiusFactor: 1.5,
       params: {lifetime: {min: 1500, max: 2200}, spawnRate: 120, count: 30, initial: 0.3,
         alpha: {min: 0.08, max: 0.22}, scale: {min: 0.8, max: 1.4},
@@ -1390,7 +1389,7 @@ const _CHARGE_LIFE_BLOOMS = {
       params: {sort: 0, lifetime: {min: 2000, max: 4000}, spawnRate: 10, scale: {min: 1.0, max: 1.5}}},
     {categories: ["spray"], above: true, radiusFactor: 2.5,
       params: {lifetime: {min: 900, max: 1500}, spawnRate: 80, scale: {min: 0.5, max: 0.8},
-        exposure: exposureInHot(0.5)}}
+        exposure: helpers.exposureInHot(0.5)}}
   ]
 };
 
@@ -1432,7 +1431,7 @@ const _STORM_SWIRL_AURA = {spinSpeed: 0.6, jumpInterval: {min: 250, max: 700}, a
 // Electricity crackling in place: brief overexposed sparks blooming wherever they are spawned
 const _STORM_CRACKLE = {growFraction: 0.15, lifetime: {min: 70, max: 160}, alpha: {min: 0.8, max: 1.0},
   scale: {min: 0.6, max: 1.1}, fade: {in: 0.05, out: 0.3}, blend: PIXI.BLEND_MODES.ADD,
-  exposure: exposureInHot(0.7)};
+  exposure: helpers.exposureInHot(0.7)};
 const _STORM_SWIRL_SPARKS = {..._STORM_CRACKLE, spawnRate: 20, spawnRateEnd: 90};
 
 // Reusable aura charge-up for Storm spells, its sparks gathering wherever the gesture releases from
@@ -1508,7 +1507,7 @@ const _IMPACT_STORM = {
       frames: ["SprayBolts"],
       params: {count: 14, speed: {min: 90, max: 260}, lifetime: {min: 180, max: 420},
         alpha: {min: 0.7, max: 1.0}, scale: {min: 0.65, max: 1.3},
-        fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL, exposure: exposureInHot(0.7)}
+        fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.NORMAL, exposure: helpers.exposureInHot(0.7)}
     },
     {
       animation: "circleParticleBloom",
@@ -1557,7 +1556,7 @@ const _CHARGE_POISON_SPRAY = {
   chargeLayers: [
     {categories: ["spray"], above: true, radiusFactor: 2.5,
       params: {lifetime: {min: 900, max: 1500}, spawnRate: 80, scale: {min: 0.5, max: 0.8},
-        exposure: exposureInHot(0.5)}}
+        exposure: helpers.exposureInHot(0.5)}}
   ]
 };
 const _IMPACT_POISON = {
@@ -1708,7 +1707,7 @@ const ARROW_VFX_PROPS = {
     flightSound: {rune: "storm", type: "crackle", fade: 60, release: 150, volume: 0.45},
     trail: {frames: ["SprayBolts"], params: {align: false, body: true, speed: {min: 10, max: 40},
       lifetime: {min: 90, max: 200}, spawnRate: 160, scale: {min: 0.4, max: 0.8},
-      alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: exposureInHot(0.7)}}
+      alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: helpers.exposureInHot(0.7)}}
   }
 };
 
@@ -1851,7 +1850,7 @@ const RAY_VFX_PROPS = {
           params: {speed: beamSpeed, angleSpread: 0.5, radius: spawnRadius, spawnRate: 1200,
             rotationSpread: 0.05, alpha: {min: 0.5, max: 0.9}, scale: {min: 0.5, max: 1.1},
             fade: {in: 30, out: 150}, blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: exposureInHot(0.5), elevation: beamElevation}
+            exposure: helpers.exposureInHot(0.5), elevation: beamElevation}
         },
         { // Cast-off flare: a slow, wide, short-lived spray softening the beam's root
           animation: "rayParticleRootCastoff", anchor: "origin", textures: textures.spray,
@@ -1859,7 +1858,7 @@ const RAY_VFX_PROPS = {
           params: {speed: beamSpeed, coneDeg: 60, radius: spawnRadius, spawnRate: 240,
             rotationSpread: 0.3, lifetime: {min: 200, max: 400}, alpha: {min: 0.75, max: 1.0},
             scale: {min: 0.6, max: 1.2}, fade: {in: 0, out: 150}, blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: exposureInHot(0.5), elevation: beamElevation}
+            exposure: helpers.exposureInHot(0.5), elevation: beamElevation}
         },
         { // Ground cascade: static shards deposited along the beam path as the front sweeps through
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.impact,
@@ -1900,7 +1899,7 @@ const RAY_VFX_PROPS = {
             lifetime: {min: LINE_DURATION + 3500, max: LINE_DURATION + 5000},
             scale: {min: 0.9, max: 1.6}, alpha: {min: 0.45, max: 0.8},
             fade: {in: 100, out: 1500}, blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: exposureInHot(1, {normal: -1, hot: 1}), elevation: 0}
+            exposure: helpers.exposureInHot(1, {normal: -1, hot: 1}), elevation: 0}
         },
         { // Ground smoke: low haze rising slowly along the line, drifting up and dissipating
           animation: "rayParticleGroundCascade", anchor: "origin", textures: textures.air,
@@ -2269,7 +2268,7 @@ const BLAST_VFX_PROPS = {
             scaleCurve: [{time: 0, value: 1.0}, {time: 1, value: 1.0}],
             fade: {in: 200, out: 2500},
             blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: exposureInHot(1, {normal: -1, hot: 1}),
+            exposure: helpers.exposureInHot(1, {normal: -1, hot: 1}),
             elevation: 0}
         },
         { // Air smoke residue: brown-tinted smoke drifting upward from the explosion
@@ -2338,7 +2337,7 @@ const BLAST_VFX_PROPS = {
             spawnRate: 220, lifetime: {min: 1800, max: 2600},
             scale: {min: 0.6, max: 1.1}, alpha: {min: 0.6, max: 0.95},
             fade: {in: 0.1, out: 0.4},
-            exposure: exposureInHot(0.7, {reverse: true}),
+            exposure: helpers.exposureInHot(0.7, {reverse: true}),
             elevation: casterElevation + 1}
         },
         { // Drifting bubble residue lingering above as the energy dissipates
@@ -2378,7 +2377,7 @@ const BLAST_VFX_PROPS = {
       const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
       const isHit = (result === T.HIT) || (result === T.GLANCE);
       return [_stormStrike(palette, {radius, particleElevation},
-        isHit ? {} : {delta: computeAttackOffset(token, result), scorch: _stormScorch(palette)})];
+        isHit ? {} : {delta: helpers.computeAttackOffset(token, result), scorch: _stormScorch(palette)})];
     },
     scheduleStrikes({origin, radius}) {
       const strikes = [];
@@ -2684,7 +2683,7 @@ const FAN_VFX_PROPS = {
             lifetime: {min: 5000, max: 7000}, spawnRate: 70, elevation: 0,
             fade: {in: 0, out: 2500},
             blend: PIXI.BLEND_MODES.NORMAL,
-            exposure: exposureInHot(1, {normal: -1, hot: 1})
+            exposure: helpers.exposureInHot(1, {normal: -1, hot: 1})
           }
         },
         { // Sustained SprayEmbers stoking the area with ADD-blend sparks throughout the delivery
@@ -2725,7 +2724,7 @@ const FAN_VFX_PROPS = {
           scale: {min: 0.6, max: 1.1}, alpha: {min: 0.6, max: 0.95},
           elevation: casterElevation + 1,
           blend: PIXI.BLEND_MODES.NORMAL,
-          exposure: exposureInHot(0.6, {reverse: true}),
+          exposure: helpers.exposureInHot(0.6, {reverse: true}),
           fade: {in: 0.15, out: 0.45}}
       }];
     },
@@ -2740,7 +2739,7 @@ const FAN_VFX_PROPS = {
             reach: Math.round(radius * 0.9),
             lifetime: {min: sweepDuration, max: sweepDuration},
             rotationSpeed: 5,
-            exposure: exposureInHot(1.0),
+            exposure: helpers.exposureInHot(1.0),
             alpha: {min: 0.85, max: 1.0}, scale: {min: 1.0, max: 1.3},
             elevation: casterElevation + 1,
             fade: {in: 0.05, out: 0.15}
@@ -2787,7 +2786,7 @@ const FAN_VFX_PROPS = {
         frames: ["SprayBolts"], duration: 2850,
         params: {count: null, initial: 0, spawnRate: 40, speed: {min: 70, max: 220},
           lifetime: {min: 160, max: 380}, alpha: {min: 0.7, max: 1.0}, scale: {min: 0.55, max: 1.1},
-          fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.ADD, exposure: exposureInHot(0.7)}
+          fade: {in: 0.05, out: 0.4}, blend: PIXI.BLEND_MODES.ADD, exposure: helpers.exposureInHot(0.7)}
       },
       _IMPACT_STORM.impactParticles[1]
     ],
