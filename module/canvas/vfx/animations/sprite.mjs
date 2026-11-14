@@ -190,11 +190,12 @@ const strikeSpriteGleam = {
  * Wind up, lean, and twist an attacking token into a melee strike, display only.
  * The twist adds to the token's facing, which a {@link CrucibleFacingComponent} turns toward the target;
  * lean displaces the mesh anchor so it never contends for position.
- * Each motion follows a drive: the charge winds up to `windup` (a negative fraction, coiling back), the delivery
- * drives to full, and the recovery settles back to rest. The lean peaks at the impact; `follow` delays the twist's
- * unwinding toward a follow-through which peaks as the delivery ends (0 keeps it with the lean, 1 fully late).
+ * Each motion follows a drive: the charge winds up to a negative fraction (coiling or rearing back), complete by
+ * `windupBy` of the charge and held after, the delivery drives to full, and the recovery settles back to rest. The
+ * lean peaks at the impact; `follow` delays the twist's unwinding toward a follow-through which peaks as the delivery
+ * ends (0 keeps it with the lean, 1 fully late).
  * Tuning (`params`): `hand`, `lean` (fraction of token width), `twist` (degrees), `windup` (default -0.3),
- * `follow` (default 0), `recover` (milliseconds).
+ * `windupBy` (default 1), `follow` (default 0), `recover` (milliseconds).
  * @type {CrucibleVFXComponentAnimation}
  */
 const strikeSpriteLunge = {
@@ -220,11 +221,11 @@ const strikeSpriteLunge = {
     const leanPx = (params.lean ?? 0.15) * Math.abs(mesh.width);
     const io = t => ((t < 0.5) ? (2 * t * t) : (1 - (Math.pow((-2 * t) + 2, 2) / 2)));
     const progress = (t, from, to) => io(Math.clamp((t - from) / Math.max(to - from, 1), 0, 1));
+    const woundAt = Math.mix(chargeStart, deliveryStart, params.windupBy ?? 1);
 
-    // Wind up, drive to full between `from` and `peak`, hold, then settle
+    // Wind up and hold, drive to full between `from` and `peak`, hold, then settle
     const drive = (t, from, peak) => {
-      if ( t < deliveryStart ) return windup * progress(t, chargeStart, deliveryStart);
-      if ( t < from ) return windup;
+      if ( t < from ) return windup * progress(t, chargeStart, woundAt);
       if ( t < peak ) return Math.mix(windup, 1, progress(t, from, peak));
       if ( t < deliveryEnd ) return 1;
       return 1 - progress(t, deliveryEnd, deliveryEnd + recover);

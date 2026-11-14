@@ -127,17 +127,27 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {number} lean      Fraction of the token's width it leans toward the target
  * @property {number} twist     Degrees it twists the striking shoulder forward
  * @property {number} windup    Negative fraction of the lean and twist it coils back while charging
+ * @property {number} [windupBy=1]   Fraction of the charge by which the wind-up completes, held for the rest
  * @property {number} [follow=0]  How late the twist unwinds, from with the lean (0) to a follow-through peaking as
  *                                the strike ends (1)
  */
 
 /**
  * Melee strike art by damage type: candidate impacts, punch-through streaks, the attacker's lunge, and the strike art
- * per weapon size. A thrust leans in with little twist; a swing coils and unwinds with little lean.
+ * per weapon size. A thrust leans in with little twist; a swing coils and unwinds with little lean; a blunt blow
+ * rears back, holds, and slams forward without twisting.
  * @type {Record<string, {impacts: string[], punch: string[], lunge: MeleeStrikeLunge}
  *   & Record<string, MeleeStrikeArt>>}
  */
 const MELEE_STRIKE_PRESETS = {
+  bludgeoning: {
+    impacts: ["impacts/ImpactSparks", "impacts/ImpactRings"],
+    punch: ["bludgeoning/StreakSlam"],
+    lunge: {lean: 0.2, twist: 0, windup: -0.7, windupBy: 0.5},
+    small: {texture: "bludgeoning/StrikeSmall", offset: {forward: 0, lateral: 0}},
+    medium: {texture: "bludgeoning/StrikeMedium", offset: {forward: 0, lateral: 0}},
+    large: {texture: "bludgeoning/StrikeLarge", offset: {forward: 0.25, lateral: -0.25, rotation: -40}}
+  },
   piercing: {
     impacts: ["impacts/ImpactSparks", "impacts/ImpactRings"],
     punch: ["piercing/StreakFlare", "piercing/StreakLine"],
@@ -405,9 +415,8 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
       hold, size: C.windup.gleamSize, tint: C.windup.gleamTint}});
   }
   if ( lunge ) {
-    const {lean, twist, windup: coil, follow} = {...preset.lunge, ...art.lunge};
     chargeAnimations.push({function: "strikeSpriteLunge",
-      params: {hand, lean, twist, windup: coil, follow, recover: C.lunge.recover}});
+      params: {...preset.lunge, ...art.lunge, hand, recover: C.lunge.recover}});
   }
 
   const component = {
