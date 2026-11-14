@@ -497,6 +497,39 @@ const circleParticleBurst = {
 /* -------------------------------------------- */
 
 /**
+ * @typedef StrikeParticlePunchParams
+ * @property {number} [radius]             Spawn radius about the anchor
+ * @property {{min: number, max: number}} [speed]
+ * @property {number} [angleSpread]        Degrees of variance about the attack direction
+ * @property {number} [blend]
+ */
+
+/**
+ * Punch-through at impact. Aligned streaks burst out of the struck point and carry on along the attack line, as if
+ * the blow passed through the target.
+ * @type {CrucibleParticleBehavior<StrikeParticlePunchParams>}
+ */
+const strikeParticlePunch = {
+  setup(phase, layer) {
+    const params = layer.params;
+    const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.target;
+    const gridScale = this.state.gridScale;
+    const {radius = 6, speed = {min: 300, max: 600}, angleSpread = 18} = params;
+    const {direction} = this.state;
+    const heading = Math.toDegrees(Math.atan2(direction.y, direction.x));
+    return {
+      area: {type: "circle", x: anchor.x, y: anchor.y, radius},
+      velocity: {speed: [speed.min * gridScale, speed.max * gridScale],
+        angle: [heading - angleSpread, heading + angleSpread]},
+      rotation: {alignVelocity: true, spread: 0},
+      blend: params.blend ?? 0
+    };
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
  * @typedef RayParticleBeamParams
  * @property {number} [speed]              Px/sec base, grid-scaled; default 2500.
  * @property {number} [angleSpread]        Degree variance around the heading.
@@ -1392,5 +1425,6 @@ export const PARTICLE_ANIMATIONS = {
   fanParticleYoyo,
   blastParticleFallingDebris,
   blastParticleEmergenceSite,
-  blastParticleEmergingSprite
+  blastParticleEmergingSprite,
+  strikeParticlePunch
 };

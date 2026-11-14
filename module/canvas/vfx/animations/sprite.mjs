@@ -117,6 +117,158 @@ const deliveryProjectileFlight = {
 };
 
 /* -------------------------------------------- */
+/*  Melee Strike                                */
+/* -------------------------------------------- */
+
+/**
+ * Pull a melee strike sprite back from its origin along the attack line while fading it in, then hold it still.
+ * Tuning (`params`): `distance` (caster radii), `easing`, `hold` (milliseconds held still at the end of the phase).
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const strikeSpriteDrawBack = {
+  setup(phase, params) {
+    params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "outQuad");
+    params.distancePx = (params.distance ?? 0.3) * this.state.casterRadiusPx;
+    params.drawFraction = phase.duration ? Math.max(1 - ((params.hold ?? 0) / phase.duration), 0.01) : 1;
+    this.state.drawBackPx = params.distancePx;
+  },
+  animate(t, phase, params) {
+    const container = this.state.delivery?.container;
+    if ( !container ) return;
+    const {origin, direction} = this.state;
+    const d = params.distancePx * params.ease(Math.min(t / params.drawFraction, 1));
+    container.position.set(origin.x - (direction.x * d), origin.y - (direction.y * d));
+    container.alpha = Math.min(t * 3, 1);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Flash a gleam at the leading tip of a drawn-back melee strike sprite during its held pause.
+ * Pairs with a {@link strikeSpriteDrawBack} `hold`, listed after it so the drawn-back frame is already shown.
+ * Tuning (`params`): `texture` (required), `hold`, `size`, `tint`, `linger` (milliseconds past the hold).
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const strikeSpriteGleam = {
+  schedule(phase, params) {
+    const mesh = this.state.delivery?.container?.getChildByName("mesh");
+    if ( !params.texture || !mesh ) return;
+    const hold = params.hold ?? 120;
+    const linger = params.linger ?? 150;
+    const at = phase.start + phase.duration - hold;
+
+    // The tip is the leading edge of the shown frame's art, ahead of the anchor along the attack line
+    const {origin, direction} = this.state;
+    const tex = mesh.texture;
+    const leading = tex.trim ? (tex.trim.x + tex.trim.width) : tex.orig.width;
+    const tipPx = (leading - (mesh.anchor.x * tex.orig.width)) * Math.abs(mesh.scale.x);
+    const reach = tipPx - (this.state.drawBackPx ?? 0);
+    const point = {x: origin.x + (direction.x * reach), y: origin.y + (direction.y * reach),
+      elevation: origin.elevation, sort: origin.sort + 1, sortLayer: origin.sortLayer};
+    const container = this.addManagedDisplayObject(this._createSprite(params.texture, params.size ?? 3, point,
+      {blend: PIXI.BLEND_MODES.ADD}));
+    const gleam = container.getChildByName("mesh");
+    if ( gleam && (params.tint != null) ) gleam.tint = params.tint;
+
+    // Pop in, turn slightly while held, then fade as the strike releases
+    const pop = Math.min(60, hold / 2);
+    container.scale.set(0.2);
+    this.timeline.add(container, {alpha: {from: 0, to: 1, duration: pop}}, at)
+      .add(container.scale, {x: {from: 0.2, to: 1}, y: {from: 0.2, to: 1}, duration: pop, ease: "outQuad"}, at)
+      .add(container, {rotation: {from: 0, to: Math.PI / 4, duration: hold + linger}}, at)
+      .add(container, {alpha: {from: 1, to: 0, duration: hold + linger - pop}}, at + pop);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Turn an attacking token to face its target, then wind up, lean, and twist into a melee strike, display only.
+ * Art faces +y at rotation 0; lean displaces the mesh anchor so it never contends for position.
+ * Tuning (`params`): `hand`, `lean` (fraction of token width), `twist` (degrees), `recover` (milliseconds),
+ * `fromAngle` (radians toward a prior target to turn from), `final` (return to rest afterward).
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const strikeSpriteLunge = {
+  setup(phase, params) {
+    const mesh = this.originMesh;
+    if ( !mesh?.texture ) return;
+    const {source, destination} = this.state;
+    const angle = Math.atan2(destination.y - source.y, destination.x - source.x);
+    const locked = !!mesh.object?.document?.lockRotation;
+    const base = mesh.rotation;
+    const faceToward = (from, toward) => from + Math.normalizeRadians(toward - (Math.PI / 2) - from);
+    params._mesh = mesh;
+    params._dx = Math.cos(angle);
+    params._dy = Math.sin(angle);
+    params._base = base;
+    params._baseAnchor = {x: mesh.anchor.x, y: mesh.anchor.y};
+    params._start = (locked || (params.fromAngle == null)) ? base : faceToward(base, params.fromAngle);
+    params._facing = locked ? base : faceToward(params._start, angle);
+    params._twist = locked ? 0 : (Math.toRadians(params.twist ?? 12) * ((params.hand === "left") ? 1 : -1));
+  },
+  schedule(phase, params) {
+    const mesh = params._mesh;
+    if ( !mesh ) return;
+    const {turnStart, chargeStart, deliveryStart, deliveryEnd, impactStart} = this.timings;
+    const recover = params.recover ?? 300;
+    const final = params.final ?? true;
+    const leanPx = (params.lean ?? 0.15) * Math.abs(mesh.width);
+    const io = t => ((t < 0.5) ? (2 * t * t) : (1 - (Math.pow((-2 * t) + 2, 2) / 2)));
+    const progress = (t, from, to) => io(Math.clamp((t - from) / Math.max(to - from, 1), 0, 1));
+    scheduleTimelineClock(this.timeline, turnStart, (deliveryEnd + recover) - turnStart, ms => {
+      if ( mesh.destroyed || (ms <= 0) ) return; // Timeline init renders at 0 before the component begins
+      const t = turnStart + ms;
+
+      // Turn to face, wind up, drive into the blow, hold, then settle facing or return to rest
+      let rotation = params._facing;
+      let drive = 0;
+      if ( t < chargeStart ) rotation = Math.mix(params._start, params._facing, progress(t, turnStart, chargeStart));
+      else if ( t < deliveryStart ) drive = -0.3 * progress(t, chargeStart, deliveryStart);
+      else if ( t < impactStart ) drive = Math.mix(-0.3, 1, progress(t, deliveryStart, impactStart));
+      else if ( t < deliveryEnd ) drive = 1;
+      else {
+        const p = progress(t, deliveryEnd, deliveryEnd + recover);
+        drive = 1 - p;
+        if ( final ) rotation = Math.mix(params._facing, params._base, p);
+      }
+      mesh.rotation = rotation + (params._twist * drive);
+      _displaceAnchor(mesh, params._baseAnchor, params._dx, params._dy, leanPx * drive);
+    });
+  },
+  tearDown(phase, params) {
+    const mesh = params._mesh;
+    if ( !mesh || mesh.destroyed || (params.final === false) ) return;
+    mesh.rotation = params._base;
+    mesh.anchor.set(params._baseAnchor.x, params._baseAnchor.y);
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Drive a melee strike sprite forward along the attack line from any drawn-back position, past its origin.
+ * Tuning (`params`): `distance` (caster radii of travel beyond the origin), `easing`.
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const strikeSpriteThrust = {
+  setup(phase, params) {
+    params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "outCubic");
+    params.fromPx = -(this.state.drawBackPx ?? 0);
+    params.toPx = (params.distance ?? 0.5) * this.state.casterRadiusPx;
+  },
+  animate(t, phase, params) {
+    const container = this.state.delivery?.container;
+    if ( !container || (t <= 0) ) return; // Timeline init renders at t=0 before the phase begins
+    const {origin, direction} = this.state;
+    const d = Math.mix(params.fromPx, params.toPx, params.ease(t));
+    container.position.set(origin.x + (direction.x * d), origin.y + (direction.y * d));
+    container.alpha = 1;
+  }
+};
+
+/* -------------------------------------------- */
 /*  Impact Recoil                               */
 /* -------------------------------------------- */
 
@@ -144,21 +296,7 @@ function _impactRecoilAnimation(defaultOscillations) {
       const rp = (t * phase.duration) / (params.duration ?? 320);
       if ( rp >= 1 ) return; // Recoil settled; tearDown restores the resting anchor
       const offset = (params.distance ?? 12) * _recoilMagnitude(rp, params.oscillations ?? defaultOscillations);
-
-      // Rotate the anchor offset for the direction of the impact
-      const r = target.rotation || 0;
-      const cos = Math.cos(r);
-      const sin = Math.sin(r);
-      const localDx = (params._dx * cos) + (params._dy * sin);
-      const localDy = (params._dy * cos) - (params._dx * sin);
-
-      // Convert px displacement to an anchor delta, normalized for mesh size, animate the anchor
-      const w = (Math.abs(target.scale.x) * tex.width) || 1;
-      const h = (Math.abs(target.scale.y) * tex.height) || 1;
-      target.anchor.set(
-        params._baseAnchor.x - ((localDx * offset) / w),
-        params._baseAnchor.y - ((localDy * offset) / h)
-      );
+      _displaceAnchor(target, params._baseAnchor, params._dx, params._dy, offset);
     },
     tearDown(phase, params) {
       // Restore the resting anchor
@@ -168,6 +306,30 @@ function _impactRecoilAnimation(defaultOscillations) {
       }
     }
   };
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Displace a mesh from its resting anchor by a canvas-space distance, so it moves without contending for position.
+ * @param {PrimarySpriteMesh} target         The displaced mesh.
+ * @param {{x: number, y: number}} base      Its resting anchor.
+ * @param {number} dx                        Unit canvas-space x direction of the displacement.
+ * @param {number} dy                        Unit canvas-space y direction of the displacement.
+ * @param {number} px                        Displacement in canvas pixels.
+ */
+function _displaceAnchor(target, base, dx, dy, px) {
+  // Rotate the displacement into the mesh's local frame
+  const r = target.rotation || 0;
+  const cos = Math.cos(r);
+  const sin = Math.sin(r);
+  const localDx = (dx * cos) + (dy * sin);
+  const localDy = (dy * cos) - (dx * sin);
+
+  // Convert px displacement to an anchor delta, normalized for mesh size
+  const w = (Math.abs(target.scale.x) * target.texture.width) || 1;
+  const h = (Math.abs(target.scale.y) * target.texture.height) || 1;
+  target.anchor.set(base.x - ((localDx * px) / w), base.y - ((localDy * px) / h));
 }
 
 /* -------------------------------------------- */
@@ -203,6 +365,55 @@ const impactSpriteRecoil = _impactRecoilAnimation(0);
 const impactSpriteShake = _impactRecoilAnimation(3);
 
 /* -------------------------------------------- */
+
+/**
+ * A dodge: the struck token steps across the attacker-to-target line away from the side the attack was aimed at,
+ * optionally also backing away, holds, then slides back to rest.
+ * Tuning (`params`): `duration`, `distance` (fraction of the token's width), `retreat` (backward share of the step
+ * relative to its sideways share).
+ * @type {CrucibleVFXComponentAnimation}
+ */
+const impactSpriteDodge = {
+  setup(phase, params) {
+    const from = this.state.source ?? this.state.origin;
+    const to = this.state.targetMesh ?? this.state.destination;
+    const dir = Math.atan2(to.y - from.y, to.x - from.x);
+
+    // Step to the side opposite the aim point, or a random side for an attack aimed dead center
+    const aim = this.state.destination;
+    const aimSide = (-Math.sin(dir) * (aim.x - to.x)) + (Math.cos(dir) * (aim.y - to.y));
+    const side = aimSide ? -Math.sign(aimSide) : ((this.rng() < 0.5) ? -1 : 1);
+    const retreat = params.retreat ?? 0;
+    const dx = (-Math.sin(dir) * side) + (Math.cos(dir) * retreat);
+    const dy = (Math.cos(dir) * side) + (Math.sin(dir) * retreat);
+    const length = Math.hypot(dx, dy);
+    params._dx = dx / length;
+    params._dy = dy / length;
+    params._target = this.state.targetMesh;
+    params._baseAnchor = params._target ? {x: params._target.anchor.x, y: params._target.anchor.y} : null;
+  },
+  animate(t, phase, params) {
+    const target = params._target;
+    if ( !target || target.destroyed || !params._baseAnchor || !target.texture ) return;
+    const p = Math.min((t * phase.duration) / (params.duration ?? 450), 1);
+
+    // Quick sidestep out, a brief hold, then a smooth return
+    let magnitude;
+    if ( p < 0.25 ) magnitude = 1 - Math.pow(1 - (p / 0.25), 3);
+    else if ( p < 0.5 ) magnitude = 1;
+    else magnitude = 1 - (0.5 - (Math.cos(Math.PI * ((p - 0.5) / 0.5)) / 2));
+    const px = (params.distance ?? 0.25) * target.width * magnitude;
+    _displaceAnchor(target, params._baseAnchor, params._dx, params._dy, px);
+  },
+  tearDown(phase, params) {
+    const target = params._target;
+    if ( params._baseAnchor && target && !target.destroyed ) {
+      target.anchor.set(params._baseAnchor.x, params._baseAnchor.y);
+    }
+  }
+};
+
+/* -------------------------------------------- */
 /*  Impact Sprite                               */
 /* -------------------------------------------- */
 
@@ -210,15 +421,16 @@ const impactSpriteShake = _impactRecoilAnimation(3);
  * Spawn an impact sprite at the point of impact, oriented along the incoming direction, then pop it in
  * with a scale-up and ADD-blend flash before settling smaller and fading out over the rest of the hold.
  * Tuning (`params`): `texture` (required), `size`, `duration`, `scaleStart`, `scaleSettle`, `flash`,
- * `flashDuration`, `rotation` (radians turned away from the incoming direction).
+ * `flashDuration`, `rotation` (radians turned away from the incoming direction), `tint`, `fps` (flipbook textures),
+ * `textureAnchor` (false to center a standalone image file, whose default anchor is its top-left corner).
  * @type {CrucibleVFXComponentAnimation}
  */
 const impactSpriteBurst = {
   schedule(phase, params) {
     if ( !params.texture ) return;
     const {origin, destination} = this.state;
-    const container = this.addManagedDisplayObject(
-      this._createSprite(params.texture, params.size ?? 3, destination, {useTextureAnchor: true}));
+    const container = this.addManagedDisplayObject(this._createSprite(params.texture, params.size ?? 3, destination,
+      {useTextureAnchor: params.textureAnchor ?? true}));
     container.rotation = Math.atan2(destination.y - origin.y, destination.x - origin.x) + (params.rotation ?? 0);
 
     // A quick arrival pop, then a gradual settle + fade-out over the remainder of the hold.
@@ -240,10 +452,18 @@ const impactSpriteBurst = {
       .add(container.scale, {x: {to: scaleSettle}, y: {to: scaleSettle}, duration: settle}, start + rise);
 
     // Flash ADD blend on arrival, then cool to NORMAL.
-    const mesh = flash ? container.getChildByName?.("mesh") : null;
-    if ( mesh ) {
+    const mesh = container.getChildByName?.("mesh");
+    if ( !mesh ) return;
+    if ( flash ) {
       this.timeline.call(() => mesh.blendMode = PIXI.BLEND_MODES.ADD, start);
       this.timeline.call(() => mesh.blendMode = PIXI.BLEND_MODES.NORMAL, start + flashDuration);
+    }
+    if ( params.tint != null ) mesh.tint = params.tint;
+
+    // Play a flipbook once at its frame rate, holding the last frame through the settle
+    if ( mesh instanceof CrucibleFlipbookMesh ) {
+      const duration = Math.min(hold, (mesh.frames.length * 1000) / (params.fps ?? 16));
+      mesh.animate(this.timeline, {start, duration, mode: CrucibleFlipbookMesh.MODES.ONCE});
     }
   }
 };
@@ -653,10 +873,15 @@ export const SPRITE_ANIMATIONS = {
   impactSpriteBurst,
   impactSpriteRecoil,
   impactSpriteShake,
+  impactSpriteDodge,
   impactSpriteGlow,
   impactSpriteShock,
   impactSpriteStrike,
   impactSpriteArcs,
   fanSpriteArcs,
-  raySpriteBolt
+  raySpriteBolt,
+  strikeSpriteDrawBack,
+  strikeSpriteGleam,
+  strikeSpriteLunge,
+  strikeSpriteThrust
 };

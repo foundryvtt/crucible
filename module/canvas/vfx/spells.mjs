@@ -1,7 +1,8 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
 import {getParticleScaleFactor} from "./blocks.mjs";
-import {computeAttackOffset, computeManifestPoint, exposureInHot, pickRandom, positionalSound, pushActorScrollingText,
-  pushTargetScrollingText, registerTargetRefs, resolveActorGeometry, tokenCenter} from "./helpers.mjs";
+import {addDodgeSidestep, computeAttackOffset, computeManifestPoint, exposureInHot, pickRandom, positionalSound,
+  pushActorScrollingText, pushTargetScrollingText, registerTargetRefs, resolveActorGeometry,
+  tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
 import CrucibleProjectileComponent from "./components/vfx-projectile-component.mjs";
@@ -265,7 +266,7 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
   // The projectile materializes in front of the caster rather than at their center
   const {x: tcx, y: tcy} = tokenCenter(token);
   const {x: manifestX, y: manifestY} = computeManifestPoint(caster, token);
-  const offset = computeAttackOffset(token, result);
+  const offset = computeAttackOffset(token, result, {sidestep: true});
 
   // Projectile flight timing; the arrival is the impact beat (shared by scrolling text and any knockback)
   const projectileSpeed = runeProps.projectileSpeed ?? 150;
@@ -342,6 +343,7 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
     }],
     scrollingText: []
   };
+  addDodgeSidestep(component.impacts[0]);
   return {component, impactTime};
 }
 

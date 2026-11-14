@@ -124,7 +124,7 @@ function _parseCategory(suffix) {
   return null;
 }
 _parseCategory.CATEGORIES = ["Air", "Aura", "Disc", "Falling", "Ground", "Impact", "Orb", "Projectile", "Root",
-  "Spray", "Streak"];
+  "Spray", "Streak", "Strike"];
 
 /* -------------------------------------------- */
 
@@ -203,6 +203,7 @@ export function getRandomSprite(domain, key) {
  * @type {Record<string, Record<string, string[]|string>>}
  */
 export const VFX_SPRITES = {
+  // TODO temporary red blood images without anchors; replace with white, tintable blood art in the VFX atlas
   impacts: {
     prefix: "systems/crucible/assets/sprites/impacts",
     blood: ["BloodSplatter1.webp", "BloodSplatter2.webp", "BloodSplatter3.webp", "BloodSplatter4.webp"]

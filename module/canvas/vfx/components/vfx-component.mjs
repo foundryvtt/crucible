@@ -538,6 +538,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
 
   /**
    * Setup, schedule, animate, and register-teardown the registered animations of a phase.
+   * An animation which specifies a `lead` runs in a window opened that many milliseconds before the phase starts.
    * @param {object} phase   A phase config carrying `animations`, `start`, and `duration`.
    * @protected
    */
@@ -545,21 +546,20 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     for ( const entry of phase.animations ) {
       const animation = this._animationEntry(entry.function);
       if ( !animation ) continue;
-
-      // Clone per dispatch: a phase (e.g. a shared impact template) may be dispatched more than once and
-      // animations write per-invocation scratch into params, which must not collide between dispatches.
-      const params = {...(entry.params ?? {})};
-      if ( typeof animation.setup === "function" ) animation.setup.call(this, phase, params);
-      if ( typeof animation.schedule === "function" ) animation.schedule.call(this, phase, params);
+      const params = {...(entry.params ?? {})}; // Clone params for each animation
+      const lead = Math.min(params.lead ?? 0, phase.start);
+      const span = lead ? {...phase, start: phase.start - lead, duration: phase.duration + lead} : phase;
+      if ( typeof animation.setup === "function" ) animation.setup.call(this, span, params);
+      if ( typeof animation.schedule === "function" ) animation.schedule.call(this, span, params);
       if ( typeof animation.animate === "function" ) {
         const progress = {t: 0};
         this.timeline.add(progress, {
-          t: {from: 0, to: 1}, duration: phase.duration, ease: "linear",
-          onRender: () => animation.animate.call(this, progress.t, phase, params)
-        }, phase.start);
+          t: {from: 0, to: 1}, duration: span.duration, ease: "linear",
+          onRender: () => animation.animate.call(this, progress.t, span, params)
+        }, span.start);
       }
       if ( typeof animation.tearDown === "function" ) {
-        this._registerTearDown(() => animation.tearDown.call(this, phase, params));
+        this._registerTearDown(() => animation.tearDown.call(this, span, params));
       }
     }
   }

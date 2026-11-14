@@ -8,6 +8,7 @@ node_modules/
 # Working Files
 *.psd
 _todo/
+_temp/
 docs/
 
 # Foundry VTT

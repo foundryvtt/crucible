@@ -1,6 +1,6 @@
 import {getRandomSound, getVFXSound} from "./sounds.mjs";
-import {getRandomSprite, getVFXTexturePath} from "./sprites.mjs";
-import {computeAttackOffset, computeManifestPoint, exposureInHot, pickRandom, positionalSound,
+import {getRandomSprite, getVFXFlipbook, getVFXTexturePath} from "./sprites.mjs";
+import {addDodgeSidestep, computeAttackOffset, computeManifestPoint, exposureInHot, pickRandom, positionalSound,
   pushActorScrollingText, pushTargetScrollingText, resolveActorGeometry, tokenCenter} from "./helpers.mjs";
 import {buildProjectileTrail, getRuneImpact, resolveHitTreatment, resolveMissTreatment,
   resolveRuneTextures} from "./spells.mjs";
@@ -67,6 +67,89 @@ const PROJECTILE_DAMAGE_PRESETS = {
  * @type {Set<string>}
  */
 const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "projectile1", "projectile2"]);
+
+/**
+ * The style of a melee attack.
+ * @typedef MeleeStrikeOptions
+ * @property {string} [damageType="piercing"]   The damage type whose presets apply
+ * @property {"small"|"medium"|"large"} [size="medium"]   The weapon size, which selects the strike art
+ * @property {ColorSource} [tint]               Strike tint
+ * @property {ColorSource|null} [impactTint]    Impact tint, or null to match the strike tint
+ * @property {boolean} [windup=false]           Pause the drawn-back strike with a gleam at its tip before release
+ * @property {boolean} [punch=false]            Burst streaks through the target on a hit
+ * @property {boolean} [lunge=false]            Turn the attacker to face the target, then lean and twist into the blow
+ * @property {boolean} [blood=false]            Splatter blood beneath hits and glances
+ */
+
+/**
+ * One melee strike of an attack.
+ * @typedef MeleeStrikeData
+ * @property {TokenDocument} token              The attacking token
+ * @property {TokenDocument} target             The target token
+ * @property {string} meshRef                   Reference key of the target's token mesh
+ * @property {number} result                    The attack result in AttackRoll.RESULT_TYPES
+ * @property {boolean} [critical=false]         Whether the attack is a critical success
+ * @property {"right"|"left"} [hand="right"]    The attacker's side the strike originates from
+ * @property {boolean} [mirror=false]           Flip the strike art across the attack line
+ * @property {number|null} [fromAngle=null]     Radians toward a prior target a lunging attacker turns from
+ * @property {boolean} [final=true]             Whether a lunging attacker returns to rest after this strike
+ */
+
+/**
+ * Melee strike art by damage type: candidate impacts, punch-through streaks, and the strike per weapon size with its
+ * origin offset in caster radii, lateral toward the striking hand.
+ * @type {Record<string, {impacts: string[], punch: string[]} &
+ *   Record<string, {texture: string, offset: {forward: number, lateral: number}}>>}
+ */
+const MELEE_STRIKE_PRESETS = {
+  piercing: {
+    impacts: ["impacts/ImpactSparks", "impacts/ImpactRings"],
+    punch: ["piercing/StreakFlare", "piercing/StreakLine"],
+    small: {texture: "piercing/StrikeSmall", offset: {forward: -0.25, lateral: 0.8}},
+    medium: {texture: "piercing/StrikeMedium", offset: {forward: -0.25, lateral: 0.8}},
+    large: {texture: "piercing/StrikeLarge", offset: {forward: -0.5, lateral: 0.8}}
+  }
+};
+
+/**
+ * Shared tuning of every melee strike. Distances are in caster radii and durations in milliseconds.
+ * @type {object}
+ */
+const MELEE_STRIKE_CONFIG = {
+  fps: 16,
+  impactAt: 0.75,
+  charge: 200,
+  drawBack: 0.3,
+  thrust: 0.5,
+  tint: 0xD8E4F0,
+  impactTint: 0xD4B2AA,
+  impactSize: 4,
+  impactDuration: 700,
+  windup: {hold: 150, gleamSize: 3, gleamTint: 0xFFF4C0},
+  punchCount: 4,
+  lunge: {lean: 0.15, twist: 12, recover: 300, quarterTurn: 220},
+  reactionLead: {parry: 120, block: 100, dodge: 180},
+  dodgeRetreat: 0.5,
+  blockDustTint: 0xC8BBA8,
+  bloodSize: 6
+};
+
+/**
+ * Where a melee strike lands on its target by result, as a [min, max] range of offset from the target's center in
+ * fractions of its size. Every result but a clean miss lands within the target's visual footprint.
+ * @type {Record<string, [number, number]>}
+ */
+const MELEE_STRIKE_SPREAD = {
+  HIT: [0.05, 0.2], GLANCE: [0.15, 0.3], ARMOR: [0.05, 0.25], RESIST: [0.05, 0.25], BLOCK: [0.05, 0.25],
+  PARRY: [0.1, 0.3], DODGE: [0.2, 0.35], MISS: [0.35, 0.55]
+};
+
+/**
+ * How far a melee strike's landing point shifts along the attack line by result, in fractions of the target's size.
+ * Negative meets the strike short of the target's center (a parry), positive takes it past center (a block).
+ * @type {Record<string, number>}
+ */
+const MELEE_STRIKE_DEPTH = {PARRY: -0.2, BLOCK: 0.15};
 
 /**
  * Configure the data for a VFXEffect
@@ -136,6 +219,242 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
 /* -------------------------------------------- */
 
 /**
+ * Build a melee strike component delivered from beside the attacker to one target.
+ * @param {MeleeStrikeData} strike
+ * @param {MeleeStrikeOptions} [options]
+ * @returns {{component: object, impactTime: number, settledTime: number}|null}   Null if no preset matches the
+ *   damage type and size
+ */
+export function buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=MELEE_STRIKE_CONFIG.tint,
+  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=false, punch=false, lunge=false, blood=false}={}) {
+  const {token, target, meshRef, result, critical=false, hand="right", mirror=false, fromAngle=null,
+    final=true} = strike;
+  const preset = MELEE_STRIKE_PRESETS[damageType];
+  const weapon = preset?.[size];
+  if ( !weapon ) return null;
+  const C = MELEE_STRIKE_CONFIG;
+  const texture = getVFXTexturePath(weapon.texture);
+  const offset = _computeMeleeStrikeOffset(token, target, result);
+  const strikeTint = Number(foundry.utils.Color.from(tint));
+
+  // Draw back, optionally pause with a gleam at the tip, and optionally turn the attacker into the blow
+  const hold = windup ? C.windup.hold : 0;
+  const chargeDuration = C.charge + hold;
+  const chargeAnimations = [{function: "strikeSpriteDrawBack", params: {distance: C.drawBack, hold}}];
+  if ( windup ) {
+    chargeAnimations.push({function: "strikeSpriteGleam", params: {texture: getVFXTexturePath("impacts/SpraySpark"),
+      hold, size: C.windup.gleamSize, tint: C.windup.gleamTint}});
+  }
+  const turn = lunge ? _computeMeleeTurnDuration(token, target, fromAngle) : 0;
+  if ( lunge ) {
+    const {lean, twist, recover} = C.lunge;
+    chargeAnimations.push({function: "strikeSpriteLunge", params: {hand, lean, twist, recover, fromAngle, final}});
+  }
+
+  const component = {
+    type: "crucibleMeleeStrike",
+    originMesh: {reference: "tokenMesh"},
+    targetMeshes: [{reference: meshRef}],
+    destination: {reference: meshRef, deltas: {sort: 1, x: offset.x, y: offset.y}},
+    casterRadiusPx: (token.width * canvas.dimensions.size) / 2,
+    turn,
+    charge: {duration: chargeDuration, animations: chargeAnimations},
+    delivery: {
+      texture, fps: C.fps, impactAt: C.impactAt, tint: strikeTint, mirror,
+      offset: {forward: weapon.offset.forward, lateral: weapon.offset.lateral * ((hand === "left") ? -1 : 1)},
+      sound: positionalSound(getVFXSound("generic", "whooshFast")),
+      animations: [{function: "strikeSpriteThrust", params: {distance: C.thrust}}]
+    },
+    impacts: [_buildMeleeImpact(target, result, {critical, preset, strikeTint, punch, blood,
+      impactTint: (impactTint === null) ? strikeTint : Number(foundry.utils.Color.from(impactTint))})],
+    scrollingText: []
+  };
+
+  // A following strike may begin once this one has settled, or shortly after it connects without a lunge
+  const deliveryMS = ((getVFXFlipbook(texture)?.length ?? 1) * 1000) / C.fps;
+  const impactTime = turn + chargeDuration + (deliveryMS * C.impactAt);
+  const settledTime = lunge ? (turn + chargeDuration + deliveryMS + C.lunge.recover) : (impactTime + 100);
+  return {component, impactTime, settledTime};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build the melee strikes of one attack, structured into beats of concurrent strikes which follow one another.
+ * Only the first strike of a beat moves a lunging attacker, turning from the prior beat's target; concurrent strikes
+ * belong against a single target.
+ * @param {TokenDocument} token             The attacking token
+ * @param {Omit<MeleeStrikeData, "token"|"fromAngle"|"final">[]} strikes   In strike order
+ * @param {MeleeStrikeOptions & {concurrency?: number}} [options]   The attack style, plus the strikes per beat
+ * @returns {{components: Record<string, object>, timeline: {component: string, position: number}[],
+ *   impactTimes: number[]}|null}   Null if no preset matches the damage type and size
+ */
+export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}) {
+  const beatSize = Math.max(concurrency, 1);
+  const lastBeat = Math.floor((strikes.length - 1) / beatSize);
+  const from = tokenCenter(token);
+  const components = {};
+  const timeline = [];
+  const impactTimes = [];
+  let beatStart = 0;
+  let nextBeat = 0;
+  let beatTurn = 0;
+  let fromAngle = null;
+  for ( const [i, strike] of strikes.entries() ) {
+    const beat = Math.floor(i / beatSize);
+    const leader = (i % beatSize) === 0;
+    if ( leader && (i > 0) ) beatStart = nextBeat;
+    const built = buildMeleeStrike({...strike, token, fromAngle, final: beat === lastBeat},
+      {...options, lunge: !!options.lunge && leader});
+    if ( !built ) return null;
+    if ( leader ) {
+      const to = tokenCenter(strike.target);
+      fromAngle = Math.atan2(to.y - from.y, to.x - from.x);
+      beatTurn = built.component.turn;
+    }
+
+    // Other strikes of the beat wait out the leader's turn, and the next beat waits for all of them to settle
+    const start = leader ? beatStart : (beatStart + beatTurn);
+    nextBeat = Math.max(leader ? 0 : nextBeat, start + built.settledTime);
+    const key = `strike_${i + 1}`;
+    components[key] = built.component;
+    timeline.push({component: key, position: start});
+    impactTimes.push(start + built.impactTime);
+  }
+  return {components, timeline, impactTimes};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build the result-specific impact of a melee strike on its target.
+ * @param {TokenDocument} target
+ * @param {number} result                 The attack result in AttackRoll.RESULT_TYPES
+ * @param {object} options
+ * @param {boolean} options.critical      Whether the attack is a critical success
+ * @param {object} options.preset         The damage type's strike presets
+ * @param {number} options.strikeTint     Strike tint, carried by punch-through streaks
+ * @param {number} options.impactTint     Impact tint
+ * @param {boolean} options.punch         Burst streaks through the target on a hit
+ * @param {boolean} options.blood         Splatter blood beneath a hit
+ * @returns {object}                      The impact entry
+ */
+function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impactTint, punch, blood}) {
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const {START} = foundry.canvas.vfx.constants.SOUND_ALIGNMENT;
+  const C = MELEE_STRIKE_CONFIG;
+  const burst = (texture, params={}) => ({function: "impactSpriteBurst", params: {texture: getVFXTexturePath(texture),
+    size: C.impactSize, duration: C.impactDuration, tint: impactTint, ...params}});
+  const sound = (domain, key) => ({src: getRandomSound(domain, key), align: START});
+  const impact = {result, id: target.id, sound: null, animations: [], particles: []};
+
+  // TODO placeholder arrow sounds until melee thud and hit sounds exist
+  switch ( result ) {
+    case T.HIT:
+    case T.GLANCE:
+      impact.sound = sound("projectile", (result === T.HIT) ? "hitCreature" : "hitObject");
+      impact.animations.push(burst(pickRandom(preset.impacts)),
+        {function: (critical && (result === T.HIT)) ? "impactSpriteShake" : "impactSpriteRecoil"});
+      break;
+    case T.ARMOR:
+      impact.sound = sound("projectile", "block");
+      impact.animations.push(burst(pickRandom(preset.impacts)),
+        {function: "impactSpriteRecoil", params: {distance: 6, duration: 380}});
+      break;
+    case T.RESIST:
+      impact.sound = sound("projectile", "block");
+      impact.animations.push(burst(pickRandom(preset.impacts)));
+      break;
+    case T.PARRY:
+      impact.sound = sound("melee", "parry");
+      impact.animations.push(burst("impacts/ImpactGeometric", {size: 3, duration: 450, tint: 0xFFFFFF, fps: 20}),
+        burst("impacts/SpraySpark", {size: 5, duration: 600, tint: 0xFFE066, scaleStart: 0.3, scaleSettle: 0.7}),
+        {function: "impactSpriteRecoil", params: {distance: -5, duration: 300, lead: C.reactionLead.parry}});
+      break;
+    case T.BLOCK:
+      impact.sound = sound("projectile", "block");
+      impact.animations.push(burst("air/AirDust", {size: 3, duration: 800, flash: false, tint: C.blockDustTint,
+        scaleStart: 0.6, scaleSettle: 1.2}),
+      {function: "impactSpriteRecoil", params: {distance: 6, duration: 380, lead: C.reactionLead.block}});
+      break;
+    default:
+      impact.sound = sound("projectile", "miss");
+  }
+  addDodgeSidestep(impact, {lead: C.reactionLead.dodge, retreat: C.dodgeRetreat});
+  if ( (result !== T.HIT) && (result !== T.GLANCE) ) return impact;
+
+  // TODO standalone red blood images; replace with white atlas blood art, then drop textureAnchor: false
+  if ( blood ) {
+    impact.animations.unshift({function: "impactSpriteBurst", params: {texture: getRandomSprite("impacts", "blood"),
+      size: C.bloodSize, duration: C.impactDuration * 1.5, flash: false, textureAnchor: false}});
+  }
+
+  // Streaks burst out of the far side of the target, more on a critical and fewer on a glance
+  if ( punch ) {
+    const count = Math.round(C.punchCount * (critical ? 2 : 1) * ((result === T.GLANCE) ? 0.5 : 1));
+    impact.particles.push({animation: "strikeParticlePunch", anchor: "target",
+      textures: preset.punch.map(n => getVFXTexturePath(n)), duration: 50, params: {count, initial: 1, spawnRate: 0,
+        lifetime: {min: 160, max: 300}, scale: {min: 0.4, max: 0.8}, alpha: {min: 0.7, max: 1}, tint: strikeTint,
+        blend: PIXI.BLEND_MODES.ADD, elevation: (target.elevation ?? 0) + 1}});
+  }
+  return impact;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Compute where a melee strike lands relative to its target's center, by attack result.
+ * @param {TokenDocument} token           The attacking token
+ * @param {TokenDocument} target
+ * @param {number} result                 The attack result in AttackRoll.RESULT_TYPES
+ * @returns {{x: number, y: number}}
+ */
+function _computeMeleeStrikeOffset(token, target, result) {
+  const key = Object.entries(crucible.api.dice.AttackRoll.RESULT_TYPES).find(([, v]) => v === result)?.[0];
+  const [min, max] = MELEE_STRIKE_SPREAD[key] ?? [0, 0];
+  const size = canvas.dimensions.size;
+  const w = target.width * size;
+  const h = target.height * size;
+  const spread = extent => Math.mix(extent * min, extent * max, Math.random()) * ((Math.random() > 0.5) ? 1 : -1);
+  const offset = {x: spread(w), y: spread(h)};
+
+  // Shift along the attack line, toward or away from the attacker
+  const depth = MELEE_STRIKE_DEPTH[key];
+  if ( depth ) {
+    const from = tokenCenter(token);
+    const to = tokenCenter(target);
+    const dist = Math.hypot(to.x - from.x, to.y - from.y) || 1;
+    const shift = depth * Math.max(w, h);
+    offset.x += ((to.x - from.x) / dist) * shift;
+    offset.y += ((to.y - from.y) / dist) * shift;
+  }
+  return offset;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Milliseconds an attacker takes to turn from its current or prior facing toward a target, by the angle turned.
+ * Token art faces +y at rotation 0.
+ * @param {TokenDocument} token             The attacking token
+ * @param {TokenDocument} target            The target token
+ * @param {number|null} fromAngle           Radians toward a prior target, or null for the token's own rotation
+ * @returns {number}
+ */
+function _computeMeleeTurnDuration(token, target, fromAngle) {
+  if ( token.lockRotation ) return 0;
+  const from = tokenCenter(token);
+  const to = tokenCenter(target);
+  const facing = Math.atan2(to.y - from.y, to.x - from.x) - (Math.PI / 2);
+  const start = (fromAngle === null) ? Math.toRadians(token.rotation) : (fromAngle - (Math.PI / 2));
+  const turned = Math.abs(Math.normalizeRadians(facing - start));
+  if ( turned < Math.toRadians(10) ) return 0;
+  return Math.round(MELEE_STRIKE_CONFIG.lunge.quarterTurn * Math.min(turned / (Math.PI / 2), 1.5));
+}
+
+/* -------------------------------------------- */
+
+/**
  * Build a magical projectile component which manifests in front of the actor and flies straight to one target.
  * @param {CrucibleAction} action
  * @param {object} config
@@ -167,7 +486,7 @@ function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}
   const manifestRef = `${key}_manifest`;
   references[manifestRef] = {...manifestPoint, elevation: actorGeometry.elevation,
     sort: actorGeometry.meshSort + 1, sortLayer: SL.TOKENS};
-  const offset = computeAttackOffset(token, result);
+  const offset = computeAttackOffset(token, result, {sidestep: true});
   const targetCenter = tokenCenter(token);
   const {lead} = CrucibleProjectileComponent.computeLaunch(manifestPoint, targetCenter, {texture, size, textureAnchor});
   const distPx = Math.hypot(targetCenter.x - manifestPoint.x, targetCenter.y - manifestPoint.y) - lead;
@@ -212,6 +531,7 @@ function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}
     }],
     scrollingText: []
   };
+  addDodgeSidestep(component.impacts[0]);
   return {component, impactTime: manifest + flightMS};
 }
 
@@ -239,10 +559,11 @@ function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
   const flightMS = (distPx * 1000) / (PROJECTILE_SPEED * canvas.dimensions.distancePixels);
 
   // Impact treatment
-  const impact = _buildPhysicalImpact(token, roll, meshRef);
+  const impact = _buildPhysicalImpact(token, roll.data.result, meshRef);
   const isHit = (roll.data.result === T.HIT) || (roll.data.result === T.GLANCE);
   const stick = isHit ? STICK_DURATION : 0;
   const impactAnimations = [];
+  // TODO standalone blood image anchors at its top-left corner, landing past the target; fixed by white atlas blood art
   if ( impact.texture ) {
     impactAnimations.push({function: "impactSpriteBurst",
       params: {texture: impact.texture, size: 3, duration: stick || 1000}});
@@ -275,6 +596,7 @@ function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
     }],
     scrollingText: []
   };
+  addDodgeSidestep(component.impacts[0]);
   return {component, impactTime: CHARGE_DURATION + flightMS};
 }
 
@@ -283,17 +605,18 @@ function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
 /**
  * Build the landing position, sound, and texture of a physical projectile's impact on a target.
  * @param {CrucibleToken} token
- * @param {AttackRoll} roll
+ * @param {number} result                 The attack result in AttackRoll.RESULT_TYPES
  * @param {string} targetMeshReference
  * @returns {{position: {reference: string, deltas: Record<string, number>}, sound: string|null, texture: string|null}}
  */
-function _buildPhysicalImpact(token, roll, targetMeshReference) {
+function _buildPhysicalImpact(token, result, targetMeshReference) {
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   let sound = null;
   let texture = null;
 
   // Result-specific sound and impact texture; positional offset is shared via computeAttackOffset
-  switch ( roll.data.result ) {
+  // TODO standalone red blood images; replace with white atlas blood art
+  switch ( result ) {
     case T.HIT:
       sound = getRandomSound("projectile", "hitCreature");
       texture = getRandomSprite("impacts", "blood");
@@ -315,7 +638,7 @@ function _buildPhysicalImpact(token, roll, targetMeshReference) {
       break;
   }
 
-  const offset = computeAttackOffset(token, roll.data.result);
+  const offset = computeAttackOffset(token, result, {sidestep: true});
   const position = {reference: targetMeshReference, deltas: {sort: 1, x: offset.x, y: offset.y}};
   return {position, sound, texture};
 }

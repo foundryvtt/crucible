@@ -34,6 +34,11 @@ export const VFX_SOUNDS = {
     hitCreature: ["ArrowHitCreature1.ogg", "ArrowHitCreature2.ogg"],
     hitObject: ["ArrowHitObject1.ogg", "ArrowHitObject2.ogg"],
     miss: ["ArrowMiss1.ogg", "ArrowMiss2.ogg", "ArrowMiss3.ogg"]
+  },
+  melee: {
+    prefix: "systems/crucible/assets/sfx",
+    // TODO placeholder parry sounds
+    parry: ["parry/Parry1.ogg", "parry/Parry2.ogg", "parry/Parry3.ogg", "parry/Parry4.ogg", "parry/Parry5.ogg"]
   }
 };
 
