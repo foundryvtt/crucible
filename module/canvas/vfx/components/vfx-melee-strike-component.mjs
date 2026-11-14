@@ -12,6 +12,8 @@ const {BooleanField, ColorField, NumberField, SchemaField, StringField} = foundr
  * @property {number} impactAt          Fraction of the delivery at which the strike connects
  * @property {Color} tint               Tint applied to the white strike art
  * @property {boolean} mirror           Flip the art across the attack line
+ * @property {number} rotation          Radians to turn the art off the attack line, positive clockwise
+ * @property {{x: number, y: number}|null} anchor   An anchor for every frame in place of the atlas anchors
  * @property {{forward: number, lateral: number}} offset   Origin offset in caster radii along and across the
  *                                                          attack line; positive lateral is the attacker's right
  */
@@ -47,6 +49,11 @@ export default class CrucibleMeleeStrikeComponent extends CrucibleVFXComponent {
       impactAt: new NumberField({required: true, nullable: false, initial: 0.75, min: 0, max: 1}),
       tint: new ColorField({nullable: false, initial: "#ffffff"}),
       mirror: new BooleanField({initial: false}),
+      rotation: new NumberField({required: true, nullable: false, initial: 0}),
+      anchor: new SchemaField({ // TODO for calibrating anchors before they are set in the atlas
+        x: new NumberField({required: true, nullable: false}),
+        y: new NumberField({required: true, nullable: false})
+      }, {required: false, nullable: true, initial: null}),
       offset: new SchemaField({
         forward: new NumberField({required: true, nullable: false, initial: 0}),
         lateral: new NumberField({required: true, nullable: false, initial: 0})
@@ -113,15 +120,19 @@ export default class CrucibleMeleeStrikeComponent extends CrucibleVFXComponent {
     const dist = Math.max(1, Math.hypot(dx, dy));
     const direction = {x: dx / dist, y: dy / dist};
 
-    // Strike sprite on its atlas anchor at authored scale, turned onto the attack line
+    // Strike sprite on its atlas anchor at authored scale, turned onto the attack line and then by its own rotation
     const gridScale = getParticleScaleFactor();
-    const {texture, tint, mirror} = this.delivery;
+    const {texture, tint, mirror, rotation, anchor} = this.delivery;
     const container = this.addManagedDisplayObject(this._createSprite(texture, null, origin, {useTextureAnchor: true}));
-    container.rotation = Math.atan2(direction.y, direction.x);
+    container.rotation = Math.atan2(direction.y, direction.x) + rotation;
     const mesh = container.getChildByName("mesh");
     if ( mesh ) {
       mesh.tint = Number(tint);
       mesh.scale.set(gridScale, mirror ? -gridScale : gridScale);
+      if ( anchor ) {
+        mesh.frameAnchors = false;
+        mesh.anchor.set(anchor.x, anchor.y);
+      }
     }
     this.delivery.container = container;
 

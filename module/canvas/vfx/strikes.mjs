@@ -80,6 +80,7 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {boolean} [windup=false]           Pause the drawn-back strike with a gleam at its tip before release
  * @property {boolean} [punch=false]            Burst streaks through the target on a hit
  * @property {boolean} [lunge=false]            Lean and twist the attacker into the blow
+ * @property {Partial<MeleeStrikeArt>} [art]    Overrides merged over the preset art, for calibration
  */
 
 /**
@@ -110,18 +111,48 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  */
 
 /**
- * Melee strike art by damage type: candidate impacts, punch-through streaks, and the strike per weapon size with its
- * origin offset in caster radii, lateral toward the striking hand.
- * @type {Record<string, {impacts: string[], punch: string[]} &
- *   Record<string, {texture: string, offset: {forward: number, lateral: number}}>>}
+ * The strike art of one weapon size.
+ * @typedef MeleeStrikeArt
+ * @property {string} texture                   The strike flipbook
+ * @property {{forward: number, lateral: number, rotation?: number}} offset   Placement relative to the attacker:
+ *   forward and lateral (toward the hand) in caster radii, and degrees turned outward, away from the body
+ * @property {{x: number, y: number}} [anchor]  TODO calibration only: an anchor at the wielder for every frame, in
+ *                                              place of the atlas anchors, until it is set in the atlas
+ * @property {Partial<MeleeStrikeLunge>} [lunge]  Overrides of its damage type's lunge for this size
+ */
+
+/**
+ * How a lunging attacker moves its body into a strike.
+ * @typedef MeleeStrikeLunge
+ * @property {number} lean      Fraction of the token's width it leans toward the target
+ * @property {number} twist     Degrees it twists the striking shoulder forward
+ * @property {number} windup    Negative fraction of the lean and twist it coils back while charging
+ * @property {number} [follow=0]  How late the twist unwinds, from with the lean (0) to a follow-through peaking as
+ *                                the strike ends (1)
+ */
+
+/**
+ * Melee strike art by damage type: candidate impacts, punch-through streaks, the attacker's lunge, and the strike art
+ * per weapon size. A thrust leans in with little twist; a swing coils and unwinds with little lean.
+ * @type {Record<string, {impacts: string[], punch: string[], lunge: MeleeStrikeLunge}
+ *   & Record<string, MeleeStrikeArt>>}
  */
 const MELEE_STRIKE_PRESETS = {
   piercing: {
     impacts: ["impacts/ImpactSparks", "impacts/ImpactRings"],
     punch: ["piercing/StreakFlare", "piercing/StreakLine"],
+    lunge: {lean: 0.3, twist: 18, windup: -0.3},
     small: {texture: "piercing/StrikeSmall", offset: {forward: -0.25, lateral: 0.8}},
     medium: {texture: "piercing/StrikeMedium", offset: {forward: -0.25, lateral: 0.8}},
     large: {texture: "piercing/StrikeLarge", offset: {forward: -0.5, lateral: 0.8}}
+  },
+  slashing: {
+    impacts: ["impacts/ImpactSparks", "impacts/ImpactRings"],
+    punch: ["slashing/StreakSliceA", "slashing/StreakCurve"],
+    lunge: {lean: 0.1, twist: 35, windup: -0.7, follow: 0.75},
+    small: {texture: "slashing/StrikeSmall", offset: {forward: 0, lateral: 1.4, rotation: -30}},
+    medium: {texture: "slashing/StrikeMedium", offset: {forward: 0, lateral: 0, rotation: 60}},
+    large: {texture: "slashing/StrikeLarge", offset: {forward: 0, lateral: 0}}
   }
 };
 
@@ -141,19 +172,12 @@ const MELEE_STRIKE_CONFIG = {
   impactDuration: 700,
   windup: {hold: 150, gleamSize: 3, gleamTint: 0xFFF4C0},
   punchCount: 4,
-  lunge: {lean: 0.3, twist: 18, recover: 300},
+  lunge: {recover: 300},
   reactionLead: {parry: 120, block: 100, dodge: 120},
   dodgeRetreat: 0.5,
   blockDustTint: 0xC8BBA8,
   reach: 5 // Feet base-to-base beyond which an action is not animated as melee
 };
-
-/**
- * Melee strike art size by weapon category.
- * @type {Record<string, "small"|"medium"|"large">}
- */
-const MELEE_STRIKE_SIZES = {light1: "small", simple1: "medium", balanced1: "medium", heavy1: "large",
-  simple2: "large", balanced2: "large", heavy2: "large"};
 
 /**
  * Where a melee strike lands on its target by result, as a [min, max] range of offset from the target's center in
@@ -289,7 +313,7 @@ function _configureMeleeVFXEffect(action, strikes) {
     if ( getLinearRange(token, target) > MELEE_STRIKE_CONFIG.reach ) return null;
     return {target, meshRef, result: roll.data.result, critical: !!roll.isCriticalSuccess,
       hand: (weapon === offhand) ? "left" : "right", damageType: weapon.system.damageType,
-      effectType: _getStrikeDamageType(roll, weapon), size: MELEE_STRIKE_SIZES[weapon.system.category] ?? "medium",
+      effectType: _getStrikeDamageType(roll, weapon), size: _getMeleeStrikeSize(weapon),
       outcome: helpers.getAttackOutcome(event)};
   });
   return buildMeleeStrikes(token, data, {windup: true, punch: true, lunge: true});
@@ -349,7 +373,7 @@ function _configureRangedVFXEffect(action, strikes, references) {
  *   preset matches the damage type and size
  */
 function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=MELEE_STRIKE_CONFIG.tint,
-  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=false, punch=false, lunge=false}={}) {
+  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=false, punch=false, lunge=false, art: artOverride}={}) {
   const {token, target, meshRef, result, critical=false, hand="right", mirror=false,
     outcome={contact: true, damage: true, healing: false}} = strike;
   damageType = strike.damageType ?? damageType;
@@ -360,10 +384,15 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
     context: {elevation: (target.elevation ?? 0) + 1}});
   punch &&= outcome.damage;
   const preset = MELEE_STRIKE_PRESETS[damageType];
-  const weapon = preset?.[size];
-  if ( !weapon ) return null;
+  if ( !preset?.[size] ) return null;
+  const art = {...preset[size], ...artOverride, offset: {...preset[size].offset, ...artOverride?.offset}};
   const C = MELEE_STRIKE_CONFIG;
-  const texture = getVFXTexturePath(weapon.texture);
+  const texture = getVFXTexturePath(art.texture);
+
+  // Strike art is drawn right-handed, so a left-hand strike flips it across the attack line, as does a mirrored
+  // backswing; its outward rotation follows whichever hand the flipped art then belongs to
+  const flip = mirror !== (hand === "left");
+  const rotation = Math.toRadians(art.offset.rotation ?? 0) * (flip ? -1 : 1);
   const offset = _computeMeleeStrikeOffset(token, target, result);
   const strikeTint = Number(foundry.utils.Color.from(tint));
 
@@ -376,8 +405,9 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
       hold, size: C.windup.gleamSize, tint: C.windup.gleamTint}});
   }
   if ( lunge ) {
-    const {lean, twist, recover} = C.lunge;
-    chargeAnimations.push({function: "strikeSpriteLunge", params: {hand, lean, twist, recover}});
+    const {lean, twist, windup: coil, follow} = {...preset.lunge, ...art.lunge};
+    chargeAnimations.push({function: "strikeSpriteLunge",
+      params: {hand, lean, twist, windup: coil, follow, recover: C.lunge.recover}});
   }
 
   const component = {
@@ -388,8 +418,9 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
     casterRadiusPx: (token.width * canvas.dimensions.size) / 2,
     charge: {duration: chargeDuration, animations: chargeAnimations},
     delivery: {
-      texture, fps: C.fps, impactAt: C.impactAt, tint: strikeTint, mirror,
-      offset: {forward: weapon.offset.forward, lateral: weapon.offset.lateral * ((hand === "left") ? -1 : 1)},
+      texture, fps: C.fps, impactAt: C.impactAt, tint: strikeTint, mirror: flip, rotation,
+      anchor: art.anchor ?? null,
+      offset: {forward: art.offset.forward, lateral: art.offset.lateral * ((hand === "left") ? -1 : 1)},
       sound: helpers.positionalSound(getVFXSound("generic", "whooshFast")),
       animations: [{function: "strikeSpriteThrust", params: {distance: C.thrust}}]
     },
@@ -697,6 +728,18 @@ function _buildPhysicalImpact(token, result, targetMeshReference) {
   const offset = helpers.computeAttackOffset(token, result, {sidestep: true});
   const position = {reference: targetMeshReference, deltas: {sort: 1, x: offset.x, y: offset.y}};
   return {position, sound};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * The size of strike art a melee weapon uses: small for ambush weapons, large for two-handed weapons, otherwise medium.
+ * @param {CrucibleItem} weapon
+ * @returns {"small"|"medium"|"large"}
+ */
+function _getMeleeStrikeSize(weapon) {
+  if ( weapon.system.properties.has("ambush") ) return "small";
+  return (weapon.config.category?.hands === 2) ? "large" : "medium";
 }
 
 /* -------------------------------------------- */

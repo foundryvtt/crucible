@@ -159,13 +159,15 @@ const strikeSpriteGleam = {
     const linger = params.linger ?? 150;
     const at = phase.start + phase.duration - hold;
 
-    // The tip is the leading edge of the shown frame's art, ahead of the anchor along the attack line
+    // The tip is the leading edge of the shown frame's art, ahead of its drawn-back anchor along the art's own heading
     const {origin, direction} = this.state;
     const tex = mesh.texture;
     const leading = tex.trim ? (tex.trim.x + tex.trim.width) : tex.orig.width;
     const tipPx = (leading - (mesh.anchor.x * tex.orig.width)) * Math.abs(mesh.scale.x);
-    const reach = tipPx - (this.state.drawBackPx ?? 0);
-    const point = {x: origin.x + (direction.x * reach), y: origin.y + (direction.y * reach),
+    const back = this.state.drawBackPx ?? 0;
+    const heading = this.state.delivery.container.rotation;
+    const point = {x: origin.x - (direction.x * back) + (Math.cos(heading) * tipPx),
+      y: origin.y - (direction.y * back) + (Math.sin(heading) * tipPx),
       elevation: origin.elevation, sort: origin.sort + 1, sortLayer: origin.sortLayer};
     const container = this.addManagedDisplayObject(this._createSprite(params.texture, params.size ?? 3, point,
       {blend: PIXI.BLEND_MODES.ADD}));
@@ -188,7 +190,11 @@ const strikeSpriteGleam = {
  * Wind up, lean, and twist an attacking token into a melee strike, display only.
  * The twist adds to the token's facing, which a {@link CrucibleFacingComponent} turns toward the target;
  * lean displaces the mesh anchor so it never contends for position.
- * Tuning (`params`): `hand`, `lean` (fraction of token width), `twist` (degrees), `recover` (milliseconds).
+ * Each motion follows a drive: the charge winds up to `windup` (a negative fraction, coiling back), the delivery
+ * drives to full, and the recovery settles back to rest. The lean peaks at the impact; `follow` delays the twist's
+ * unwinding toward a follow-through which peaks as the delivery ends (0 keeps it with the lean, 1 fully late).
+ * Tuning (`params`): `hand`, `lean` (fraction of token width), `twist` (degrees), `windup` (default -0.3),
+ * `follow` (default 0), `recover` (milliseconds).
  * @type {CrucibleVFXComponentAnimation}
  */
 const strikeSpriteLunge = {
@@ -209,21 +215,27 @@ const strikeSpriteLunge = {
     if ( !mesh ) return;
     const {chargeStart, deliveryStart, deliveryEnd, impactStart} = this.timings;
     const recover = params.recover ?? 300;
+    const windup = params.windup ?? -0.3;
+    const follow = params.follow ?? 0;
     const leanPx = (params.lean ?? 0.15) * Math.abs(mesh.width);
     const io = t => ((t < 0.5) ? (2 * t * t) : (1 - (Math.pow((-2 * t) + 2, 2) / 2)));
     const progress = (t, from, to) => io(Math.clamp((t - from) / Math.max(to - from, 1), 0, 1));
+
+    // Wind up, drive to full between `from` and `peak`, hold, then settle
+    const drive = (t, from, peak) => {
+      if ( t < deliveryStart ) return windup * progress(t, chargeStart, deliveryStart);
+      if ( t < from ) return windup;
+      if ( t < peak ) return Math.mix(windup, 1, progress(t, from, peak));
+      if ( t < deliveryEnd ) return 1;
+      return 1 - progress(t, deliveryEnd, deliveryEnd + recover);
+    };
+    const twistFrom = Math.mix(deliveryStart, impactStart, follow);
+    const twistPeak = Math.mix(impactStart, deliveryEnd, follow);
     scheduleTimelineClock(this.timeline, chargeStart, (deliveryEnd + recover) - chargeStart, ms => {
       if ( mesh.destroyed || (ms <= 0) ) return; // Timeline init renders at 0 before the component begins
       const t = chargeStart + ms;
-
-      // Wind up, drive into the blow, hold, then settle
-      let drive;
-      if ( t < deliveryStart ) drive = -0.3 * progress(t, chargeStart, deliveryStart);
-      else if ( t < impactStart ) drive = Math.mix(-0.3, 1, progress(t, deliveryStart, impactStart));
-      else if ( t < deliveryEnd ) drive = 1;
-      else drive = 1 - progress(t, deliveryEnd, deliveryEnd + recover);
-      CrucibleFacingComponent.setMeshRotation(mesh, {twist: params._twist * drive});
-      _displaceAnchor(mesh, params._baseAnchor, params._dx, params._dy, leanPx * drive);
+      CrucibleFacingComponent.setMeshRotation(mesh, {twist: params._twist * drive(t, twistFrom, twistPeak)});
+      _displaceAnchor(mesh, params._baseAnchor, params._dx, params._dy, leanPx * drive(t, deliveryStart, impactStart));
     });
   },
   tearDown(phase, params) {
