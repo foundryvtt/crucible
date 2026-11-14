@@ -4,7 +4,7 @@ import {addDodgeSidestep, computeAttackOffset, computeManifestPoint, exposureInH
   pushActorScrollingText, pushTargetScrollingText, resolveActorGeometry, tokenCenter} from "./helpers.mjs";
 import {buildProjectileTrail, getRuneImpact, resolveHitTreatment, resolveMissTreatment,
   resolveRuneTextures} from "./spells.mjs";
-import CrucibleFacingComponent from "./components/vfx-facing-component.mjs";
+import CrucibleFacingComponent, {CrucibleFacingPlan} from "./components/vfx-facing-component.mjs";
 import CrucibleProjectileComponent from "./components/vfx-projectile-component.mjs";
 
 /**
@@ -287,27 +287,22 @@ export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}
   const components = {};
   const timeline = [];
   const impactTimes = [];
-  const turns = [];
-  let nextBeat = 0;
+  const facing = new CrucibleFacingPlan(token);
   let start = 0;
-  let release = 0;
   for ( const [i, strike] of strikes.entries() ) {
     const leader = (i % beatSize) === 0;
     const built = buildMeleeStrike({...strike, token}, {...options, lunge: !!options.lunge && leader});
     if ( !built ) return null;
 
     // Each beat turns to its target once the prior beat has settled, and its strikes begin together after the turn
-    if ( leader ) {
-      start = nextBeat + CrucibleFacingComponent.pushTurn(turns, token, tokenCenter(strike.target), nextBeat);
-    }
-    nextBeat = Math.max(nextBeat, start + built.settledTime);
-    release = Math.max(release, start + built.deliveryEnd);
+    if ( leader ) start = facing.turnToward(tokenCenter(strike.target));
+    facing.deliver(start, {release: built.settledTime, end: built.deliveryEnd});
     const key = `strike_${i + 1}`;
     components[key] = built.component;
     timeline.push({component: key, position: start});
     impactTimes.push(start + built.impactTime);
   }
-  CrucibleFacingComponent.applyFacing(components, timeline, turns, release);
+  facing.apply(components, timeline);
   return {components, timeline, impactTimes};
 }
 
@@ -326,14 +321,12 @@ export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}
 export function buildRangedStrikes(action, strikes, references) {
   const token = action.token;
   const sequenced = action.target.type === "single";
-  const turns = [];
+  const facing = new CrucibleFacingPlan(token);
   const areaAim = (!sequenced && token) ? CrucibleFacingComponent.getAreaAim(token, action.region) : null;
-  const areaTurn = areaAim ? CrucibleFacingComponent.pushTurn(turns, token, areaAim, 0) : 0;
+  const areaStart = areaAim ? facing.turnToward(areaAim) : 0;
   const components = {};
   const timeline = [];
   const results = [];
-  let beatStart = 0;
-  let release = 0;
   for ( const [i, {target, meshRef, roll}] of strikes.entries() ) {
     const key = `strike_${i + 1}`;
     const weapon = action.usage.strikes[roll.data.strike];
@@ -345,18 +338,14 @@ export function buildRangedStrikes(action, strikes, references) {
       results.push(null);
       continue;
     }
-    let position = areaTurn;
-    if ( sequenced && token ) {
-      position = beatStart + CrucibleFacingComponent.pushTurn(turns, token, tokenCenter(target), beatStart);
-      beatStart = position + built.releaseTime;
-    }
+    const position = sequenced ? facing.turnToward(tokenCenter(target)) : areaStart;
+    facing.deliver(position, {release: built.releaseTime, end: built.impactTime});
     components[key] = built.component;
     timeline.push({component: key, position});
-    release = Math.max(release, position + built.impactTime);
     results.push({key, impactTime: built.impactTime});
   }
   if ( !timeline.length ) return null;
-  CrucibleFacingComponent.applyFacing(components, timeline, turns, release);
+  facing.apply(components, timeline);
   return {components, timeline, strikes: results};
 }
 

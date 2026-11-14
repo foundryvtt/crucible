@@ -44,27 +44,13 @@ export default class CrucibleFacingComponent extends foundry.canvas.vfx.VFXCompo
         duration: new NumberField({required: true, nullable: false, initial: 0, min: 0})
       })),
       release: new NumberField({required: true, nullable: false, initial: 0, min: 0}),
+      hold: new NumberField({required: true, nullable: false, initial: 250, min: 0}), // Follow-through after release
       recover: new NumberField({required: true, nullable: false, initial: 300, min: 0})
     };
   }
 
   /* -------------------------------------------- */
   /*  Configuration                               */
-  /* -------------------------------------------- */
-
-  /**
-   * Add a facing component which plays the planned turns, shifting nothing else on the timeline.
-   * @param {Record<string, object>} components   The effect's components, mutated in place
-   * @param {object[]} timeline                    The effect's timeline, mutated in place
-   * @param {FacingTurnData[]} turns               The planned turns from {@link pushTurn}
-   * @param {number} release                       Effect-timeline milliseconds at which to return to rest
-   */
-  static applyFacing(components, timeline, turns, release) {
-    if ( !turns.length ) return;
-    components.facing = {type: this.TYPE, mesh: {reference: "tokenMesh"}, turns, release};
-    timeline.unshift({component: "facing", position: 0});
-  }
-
   /* -------------------------------------------- */
 
   /**
@@ -104,26 +90,6 @@ export default class CrucibleFacingComponent extends foundry.canvas.vfx.VFXCompo
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Plan a turn of the acting token toward a point, continuing from its prior planned turn.
-   * @param {FacingTurnData[]} turns          The planned turns, mutated in place
-   * @param {TokenDocument} token             The acting token
-   * @param {{x: number, y: number}} point    The point to face
-   * @param {number} time                     Effect-timeline milliseconds at which the turn begins
-   * @returns {number}                        Milliseconds the turn takes, 0 if none is needed
-   */
-  static pushTurn(turns, token, point, time) {
-    if ( token.lockRotation ) return 0;
-    const from = turns.at(-1)?.rotation ?? Math.toRadians(token.rotation);
-    const {x, y} = tokenCenter(token);
-    const turned = Math.normalizeRadians(Math.atan2(point.y - y, point.x - x) - (Math.PI / 2) - from);
-    const duration = this.getTurnDuration(turned);
-    if ( duration ) turns.push({time, rotation: from + turned, duration});
-    return duration;
-  }
-
-  /* -------------------------------------------- */
   /*  Playback                                    */
   /* -------------------------------------------- */
 
@@ -132,11 +98,12 @@ export default class CrucibleFacingComponent extends foundry.canvas.vfx.VFXCompo
     const mesh = this.mesh;
     const first = this.turns[0];
     if ( !mesh || !first ) return;
-    const end = this.release + this.recover;
+    const returnAt = this.release + this.hold;
+    const end = returnAt + this.recover;
     const io = t => ((t < 0.5) ? (2 * t * t) : (1 - (Math.pow((-2 * t) + 2, 2) / 2)));
     const progress = (t, from, duration) => io(Math.clamp((t - from) / Math.max(duration, 1), 0, 1));
 
-    // Each turn eases from the prior facing, which is held until the release eases back to rest
+    // Each turn eases from the prior facing, which is held through the follow-through and then eases back to rest
     scheduleTimelineClock(this.timeline, first.time, end - first.time, ms => {
       if ( mesh.destroyed || (ms <= 0) ) return; // Timeline init renders at 0 before the component begins
       const t = first.time + ms;
@@ -146,7 +113,7 @@ export default class CrucibleFacingComponent extends foundry.canvas.vfx.VFXCompo
         if ( t < turn.time ) break;
         facing = Math.mix(facing, turn.rotation, progress(t, turn.time, turn.duration));
       }
-      if ( t > this.release ) facing = Math.mix(facing, rest, progress(t, this.release, this.recover));
+      if ( t > returnAt ) facing = Math.mix(facing, rest, progress(t, returnAt, this.recover));
       CrucibleFacingComponent.setMeshRotation(mesh, {facing});
     });
     this.timeline.label("end", end);
@@ -197,5 +164,85 @@ export default class CrucibleFacingComponent extends foundry.canvas.vfx.VFXCompo
   static setMeshRotation(mesh, changes) {
     const rotation = Object.assign(this.getMeshRotation(mesh), changes);
     mesh.rotation = rotation.facing + rotation.twist;
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * The turns of an acting token through one attack, which also schedules the attack's beats: each beat turns toward its
+ * subject once the prior beat has released, and the token returns to rest after the last delivery.
+ */
+export class CrucibleFacingPlan {
+  /**
+   * @param {TokenDocument|null} token    The acting token, or null to schedule beats without turning
+   */
+  constructor(token) {
+    this.token = token;
+  }
+
+  /**
+   * The planned turns.
+   * @type {FacingTurnData[]}
+   */
+  turns = [];
+
+  /**
+   * Effect-timeline milliseconds at which the next beat may begin turning.
+   * @type {number}
+   */
+  next = 0;
+
+  /**
+   * Effect-timeline milliseconds at which the token returns to rest.
+   * @type {number}
+   */
+  release = 0;
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add a facing component which plays the planned turns, if any.
+   * @param {Record<string, object>} components   The effect's components, mutated in place
+   * @param {object[]} timeline                    The effect's timeline, mutated in place
+   */
+  apply(components, timeline) {
+    if ( !this.turns.length ) return;
+    const type = CrucibleFacingComponent.TYPE;
+    components.facing = {type, mesh: {reference: "tokenMesh"}, turns: this.turns, release: this.release};
+    timeline.unshift({component: "facing", position: 0});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record a beat's delivery, which allows the next beat once released and holds the facing until it ends.
+   * @param {number} start          Effect-timeline milliseconds at which the beat began
+   * @param {object} timing
+   * @param {number} timing.release Beat-relative milliseconds after which the next beat may begin
+   * @param {number} timing.end     Beat-relative milliseconds at which the beat's delivery ends
+   */
+  deliver(start, {release, end}) {
+    this.next = Math.max(this.next, start + release);
+    this.release = Math.max(this.release, start + end);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Turn toward a point once the prior beat allows, continuing from the prior planned turn.
+   * @param {{x: number, y: number}} point    The point to face
+   * @returns {number}                        Effect-timeline milliseconds at which the new beat begins
+   */
+  turnToward(point) {
+    const time = this.next;
+    const token = this.token;
+    if ( !token || token.lockRotation ) return time;
+    const from = this.turns.at(-1)?.rotation ?? Math.toRadians(token.rotation);
+    const {x, y} = tokenCenter(token);
+    const turned = Math.normalizeRadians(Math.atan2(point.y - y, point.x - x) - (Math.PI / 2) - from);
+    const duration = CrucibleFacingComponent.getTurnDuration(turned);
+    if ( duration ) this.turns.push({time, rotation: from + turned, duration});
+    return time + duration;
   }
 }

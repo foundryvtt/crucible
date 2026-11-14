@@ -4,6 +4,7 @@ import {addDodgeSidestep, computeAttackOffset, computeManifestPoint, exposureInH
   pushActorScrollingText, pushTargetScrollingText, registerTargetRefs, resolveActorGeometry,
   tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
+import CrucibleFacingComponent, {CrucibleFacingPlan} from "./components/vfx-facing-component.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
 import CrucibleProjectileComponent from "./components/vfx-projectile-component.mjs";
 import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-component.mjs";
@@ -146,17 +147,42 @@ export function resolveMissTreatment(textures) {
 /* -------------------------------------------- */
 
 /**
- * Attach accumulated forced movements to a built components/timeline pair and return the {@link SpellVFXData}.
- * The shared tail of every gesture configurator.
+ * Attach accumulated forced movements and the caster's facing to a built components/timeline pair and return the
+ * {@link SpellVFXData}. The shared tail of every gesture configurator.
  * @param {Record<string, object>} components
  * @param {object[]} timeline
  * @param {Record<string, string>} references
  * @param {object[]} forcedMovements
+ * @param {object} [facing]
+ * @param {CrucibleFacingPlan} [facing.plan]  The caster's planned turns
+ * @param {number} [facing.shift=0]           Milliseconds to delay everything else, for a turn built in after it
  * @returns {SpellVFXData}
  */
-function _finalizeSpellVFX(components, timeline, references, forcedMovements) {
+function _finalizeSpellVFX(components, timeline, references, forcedMovements, {plan, shift=0}={}) {
   CrucibleForcedMovementComponent.applyForcedMovements(components, timeline, forcedMovements);
+  if ( shift ) for ( const entry of timeline ) entry.position += shift;
+  plan?.apply(components, timeline);
   return {components, timeline, references};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Plan a single turn of the caster toward a point before a gesture's whole effect, held until its delivery ends and
+ * every impact has landed.
+ * @param {CrucibleSpellAction} action
+ * @param {{x: number, y: number}|null} point   The point to face, or null to not turn
+ * @param {number} end                          Milliseconds after the turn at which the delivery ends
+ * @param {{start: number}[]} impacts           The gesture component's impacts
+ * @param {number} [offset=0]                   Milliseconds after the turn at which that component begins
+ * @returns {{plan: CrucibleFacingPlan, shift: number}}   The plan and the turn by which to delay the effect
+ */
+function _planSpellFacing(action, point, end, impacts, offset=0) {
+  const plan = new CrucibleFacingPlan(action.token);
+  const shift = point ? plan.turnToward(point) : 0;
+  for ( const impact of impacts ) end = Math.max(end, offset + impact.start);
+  plan.deliver(shift, {release: 0, end});
+  return {plan, shift};
 }
 
 /* -------------------------------------------- */
@@ -234,10 +260,11 @@ export function buildProjectileTrail(palette, trail, textures, elevation) {
  * @param {string} config.meshRef             Reference key of the target's token mesh
  * @param {Record<string, any>} config.references   The references map, mutated in place
  * @param {object[]} config.forcedMovements   Accumulated forced movements
- * @returns {{component: object, impactTime: number}}
+ * @param {number} [config.position=0]        Effect-timeline milliseconds at which the component begins
+ * @returns {{component: object, releaseTime: number, impactTime: number}}
  */
 function _buildArrowProjectile(action, {palette, textures, particleElevation},
-  {key, token, roll, group, tokenRef, meshRef, references, forcedMovements}) {
+  {key, token, roll, group, tokenRef, meshRef, references, forcedMovements, position=0}) {
   const runeProps = ARROW_VFX_PROPS[palette];
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
@@ -291,7 +318,7 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
   // Impact treatment; a force-moved target plays its knockback glide AS the impact, replacing the recoil/shake
   const isHit = (result === T.HIT) || (result === T.GLANCE);
   const knockback = isHit
-    && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, impactTime);
+    && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, position + impactTime);
   const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
   let impactSound = null;
   const animations = [];
@@ -344,7 +371,7 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
     scrollingText: []
   };
   addDodgeSidestep(component.impacts[0]);
-  return {component, impactTime};
+  return {component, releaseTime: chargeDuration, impactTime};
 }
 
 /* -------------------------------------------- */
@@ -367,6 +394,8 @@ function _configureArrowVFXEffect(action, context) {
   const forcedMovements = [];
   const references = {tokenMesh: "^token.object.mesh"};
 
+  // The caster turns to each target and casts in sequence, the next turn beginning as the prior arrow is released
+  const plan = new CrucibleFacingPlan(action.token);
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
@@ -375,17 +404,19 @@ function _configureArrowVFXEffect(action, context) {
     const roll = group.roll[0]?.roll;
     if ( !roll?.data.result ) continue;
     const {tokenRef, meshRef} = registerTargetRefs(references, "target", j, token);
-    const {component, impactTime} = _buildArrowProjectile(action, context, {key: `arrow_${j}`, token, roll, group,
-      tokenRef, meshRef, references, forcedMovements});
+    const position = plan.turnToward(tokenCenter(token));
+    const {component, impactTime, releaseTime} = _buildArrowProjectile(action, context, {key: `arrow_${j}`, token,
+      roll, group, tokenRef, meshRef, references, forcedMovements, position});
+    plan.deliver(position, {release: releaseTime, end: impactTime});
     pushTargetScrollingText(component.scrollingText, action, actor, group.all, meshRef, impactTime);
     components[`arrow_${j}`] = component;
-    timeline.push({component: `arrow_${j}`, position: 0});
+    timeline.push({component: `arrow_${j}`, position});
     j++;
   }
 
   if ( !timeline.length ) return null;
   if ( components.arrow_1 ) pushActorScrollingText(components.arrow_1.scrollingText, action, "tokenMesh");
-  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements, {plan});
 }
 
 /* -------------------------------------------- */
@@ -498,7 +529,9 @@ function _configureFanVFXEffect(action, {palette, textures, particleElevation}) 
     }
   };
   const timeline = [{component: "fan", position: 0}];
-  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
+  const aim = action.token ? CrucibleFacingComponent.getAreaAim(action.token, action.region) : null;
+  const facing = _planSpellFacing(action, aim, chargeDuration + deliveryDuration, impacts);
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements, facing);
 }
 
 /* -------------------------------------------- */
@@ -588,7 +621,9 @@ function _configureRayVFXEffect(action, {palette, textures}) {
     }
   };
   const timeline = [{component: "ray", position: 0}];
-  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
+  const aim = action.token ? CrucibleFacingComponent.getAreaAim(action.token, action.region) : null;
+  const facing = _planSpellFacing(action, aim, CHARGE_DURATION + delivery.duration, impacts);
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements, facing);
 }
 
 /* -------------------------------------------- */
@@ -630,6 +665,7 @@ function _configureContactVFXEffect(action, {palette, textures, particleElevatio
   const scrollingText = [];
   const forcedMovements = [];
   let channelTarget = null;
+  let aim = null;
   let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     if ( !group.hasRoll ) continue;
@@ -642,6 +678,7 @@ function _configureContactVFXEffect(action, {palette, textures, particleElevatio
     const {tokenRef, meshRef} = registerTargetRefs(references, "contactTarget", j, token);
     targetMeshRefs.push({reference: meshRef});
     channelTarget ??= {hit: isHit, radiusPx: (token.width * gridSize) / 2, elevation: targetElevation};
+    aim ??= tokenCenter(token);
 
     // A channel keeps its glow on the delivery phase (suppressGlow) and lingers its burst over the linger window
     const treatmentCtx = channel
@@ -689,7 +726,8 @@ function _configureContactVFXEffect(action, {palette, textures, particleElevatio
     }
   };
   const timeline = [{component: "contact", position: 0}];
-  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
+  const facing = _planSpellFacing(action, aim, chargeDuration + deliveryDuration, impacts);
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements, facing);
 }
 
 /* -------------------------------------------- */
@@ -841,6 +879,9 @@ function _configureBlastVFXEffect(action, {palette, textures}) {
     j++;
   }
 
+  // Knockback times are effect-relative, so they follow the blast past any precursor projectile
+  for ( const movement of forcedMovements ) movement.time += blastStartPosition;
+
   pushActorScrollingText(scrollingText,
     action, projectileComponent ? "fireballManifest" : "tokenMesh");
 
@@ -880,7 +921,9 @@ function _configureBlastVFXEffect(action, {palette, textures}) {
     components.fireball = projectileComponent;
     timeline.unshift({component: "fireball", position: 0});
   }
-  return _finalizeSpellVFX(components, timeline, references, forcedMovements);
+  const deliveryEnd = blastStartPosition + blastChargeDuration + runeProps.deliveryDuration;
+  const facing = _planSpellFacing(action, origin, deliveryEnd, impacts, blastStartPosition);
+  return _finalizeSpellVFX(components, timeline, references, forcedMovements, facing);
 }
 
 /* -------------------------------------------- */
