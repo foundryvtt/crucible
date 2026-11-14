@@ -95,6 +95,14 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  */
 
 /**
+ * One ranged strike of an attack.
+ * @typedef RangedStrikeData
+ * @property {TokenDocument} target             The target token
+ * @property {string} meshRef                   Reference key of the target's token mesh
+ * @property {AttackRoll} roll                  The attack roll against the target
+ */
+
+/**
  * Melee strike art by damage type: candidate impacts, punch-through streaks, and the strike per weapon size with its
  * origin offset in caster radii, lateral toward the striking hand.
  * @type {Record<string, {impacts: string[], punch: string[]} &
@@ -158,66 +166,39 @@ const MELEE_STRIKE_DEPTH = {PARRY: -0.2, BLOCK: 0.15};
  */
 export function configureStrikeVFXEffect(action, vfxConfig) {
   if ( !action.tags.has("strike") ) throw new Error(`The Action ${action.id} does not use the strike tag.`);
-  const components = {};
-  const timeline = [];
   const references = {tokenMesh: "^token.object.mesh"};
 
-  // Single-target attacks turn to each target and fire in sequence; area attacks turn once and fire together
-  const sequenced = action.target.type === "single";
-  const turns = [];
-  const areaAim = (!sequenced && action.token) ? CrucibleFacingComponent.getAreaAim(action.token, action.region) : null;
-  const areaTurn = areaAim ? CrucibleFacingComponent.pushTurn(turns, action.token, areaAim, 0) : 0;
-  let beatStart = 0;
-  let release = 0;
-
-  let j = 1; // Target
+  // One strike per attack roll, in target order
+  const strikes = [];
+  const targets = [];
+  let j = 1;
   for ( const [actor, group] of action.eventsByTarget ) {
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
-    const targetTokenReference = `target_${j}_token`;
-    const targetMeshReference = `target_${j}_tokenMesh`;
-    Object.assign(references, {
-      [targetTokenReference]: `@${token.uuid}`,
-      [targetMeshReference]: `^${targetTokenReference}.object.mesh`
-    });
-
-    let i = 1; // Roll
-    let text = null;
-    for ( const event of group.roll ) {
-      const roll = event.roll;
-      const weapon = action.usage.strikes[roll.data.strike];
-      const projectileName = `projectile_${j}_${i}`;
-      const config = {key: projectileName, token, roll, meshRef: targetMeshReference, references};
-      if ( action.range.category !== "ranged" ) continue;
-      const built = _PHYSICAL_PROJECTILE_CATEGORIES.has(weapon?.category)
-        ? _buildPhysicalProjectile(action, config)
-        : _buildMagicalProjectile(action, config);
-      if ( !built ) continue;
-      let position = areaTurn;
-      if ( sequenced && action.token ) {
-        position = beatStart + CrucibleFacingComponent.pushTurn(turns, action.token, tokenCenter(token), beatStart);
-        beatStart = position + built.releaseTime;
-      }
-      components[projectileName] = built.component;
-      timeline.push({component: projectileName, position});
-      release = Math.max(release, position + built.impactTime);
-      text ??= built;
-      i++;
-    }
-
-    // Schedule scrolling text for the first impact on this target
-    if ( text ) {
-      pushTargetScrollingText(text.component.scrollingText, action, actor, group.all, targetMeshReference,
-        text.impactTime);
-    }
+    const tokenRef = `target_${j}_token`;
+    const meshRef = `target_${j}_tokenMesh`;
+    Object.assign(references, {[tokenRef]: `@${token.uuid}`, [meshRef]: `^${tokenRef}.object.mesh`});
+    targets.push({actor, group, meshRef, first: strikes.length, count: group.roll.length});
+    for ( const event of group.roll ) strikes.push({target: token, meshRef, roll: event.roll});
     j++;
   }
-  if ( !timeline.length ) return null;
 
-  // Caster activation-cost text rides the first projectile at the start of the sequence
-  const firstComponent = components[timeline[0].component];
-  if ( firstComponent ) pushActorScrollingText(firstComponent.scrollingText, action, "tokenMesh");
-  CrucibleFacingComponent.applyFacing(components, timeline, turns, release);
+  // TODO melee strikes are not yet animated from actions
+  if ( action.range.category !== "ranged" ) return null;
+  const built = buildRangedStrikes(action, strikes, references);
+  if ( !built ) return null;
+  const {components, timeline} = built;
+
+  // Scrolling text for each target at its first impact, and the actor's activation cost at its first strike
+  for ( const {actor, group, meshRef, first, count} of targets ) {
+    const strike = built.strikes.slice(first, first + count).find(Boolean);
+    if ( strike ) {
+      pushTargetScrollingText(components[strike.key].scrollingText, action, actor, group.all, meshRef,
+        strike.impactTime);
+    }
+  }
+  const firstStrike = built.strikes.find(Boolean);
+  pushActorScrollingText(components[firstStrike.key].scrollingText, action, "tokenMesh");
 
   // Validate the constructed effect and return its configuration
   try {
@@ -328,6 +309,55 @@ export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}
   }
   CrucibleFacingComponent.applyFacing(components, timeline, turns, release);
   return {components, timeline, impactTimes};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build the projectiles of a ranged attack. Single-target attacks turn to each target and fire in sequence, the next
+ * turn beginning as the prior projectile is released; area attacks turn once toward the area and fire together.
+ * @param {CrucibleAction} action
+ * @param {RangedStrikeData[]} strikes          In strike order
+ * @param {Record<string, any>} references      The references map, mutated in place
+ * @returns {{components: Record<string, object>, timeline: {component: string, position: number}[],
+ *   strikes: ({key: string, impactTime: number}|null)[]}|null}   Each strike's component and its component-relative
+ *   impact time, null where none could be built; null if no strike could be built
+ */
+export function buildRangedStrikes(action, strikes, references) {
+  const token = action.token;
+  const sequenced = action.target.type === "single";
+  const turns = [];
+  const areaAim = (!sequenced && token) ? CrucibleFacingComponent.getAreaAim(token, action.region) : null;
+  const areaTurn = areaAim ? CrucibleFacingComponent.pushTurn(turns, token, areaAim, 0) : 0;
+  const components = {};
+  const timeline = [];
+  const results = [];
+  let beatStart = 0;
+  let release = 0;
+  for ( const [i, {target, meshRef, roll}] of strikes.entries() ) {
+    const key = `strike_${i + 1}`;
+    const weapon = action.usage.strikes[roll.data.strike];
+    const config = {key, token: target, roll, meshRef, references};
+    const built = _PHYSICAL_PROJECTILE_CATEGORIES.has(weapon?.category)
+      ? _buildPhysicalProjectile(action, config)
+      : _buildMagicalProjectile(action, config);
+    if ( !built ) {
+      results.push(null);
+      continue;
+    }
+    let position = areaTurn;
+    if ( sequenced && token ) {
+      position = beatStart + CrucibleFacingComponent.pushTurn(turns, token, tokenCenter(target), beatStart);
+      beatStart = position + built.releaseTime;
+    }
+    components[key] = built.component;
+    timeline.push({component: key, position});
+    release = Math.max(release, position + built.impactTime);
+    results.push({key, impactTime: built.impactTime});
+  }
+  if ( !timeline.length ) return null;
+  CrucibleFacingComponent.applyFacing(components, timeline, turns, release);
+  return {components, timeline, strikes: results};
 }
 
 /* -------------------------------------------- */
