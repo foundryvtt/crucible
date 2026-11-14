@@ -139,6 +139,7 @@ export default class CrucibleMeleeStrikeComponent extends CrucibleVFXComponent {
     // Configure animation state
     this.state = {
       origin, source, destination, direction,
+      reachPx: dist, // From the origin to the strike point
       casterRadiusPx: r,
       gridScale,
       charge: this.charge,

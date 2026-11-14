@@ -74,12 +74,13 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * The style of a melee attack.
  * @typedef MeleeStrikeOptions
  * @property {string} [damageType="piercing"]   The damage type whose presets apply
- * @property {"small"|"medium"|"large"} [size="medium"]   The weapon size, which selects the strike art
+ * @property {"small"|"medium"|"large"|"natural"} [size="medium"]   The weapon size or a natural weapon, which selects
+ *   the strike art
  * @property {ColorSource} [tint]               Strike tint
  * @property {ColorSource|null} [impactTint]    Impact tint, or null to match the strike tint
- * @property {boolean} [windup=false]           Pause the drawn-back strike with a gleam at its tip before release
- * @property {boolean} [punch=false]            Burst streaks through the target on a hit
- * @property {boolean} [lunge=false]            Lean and twist the attacker into the blow
+ * @property {boolean} [windup=true]            Pause the drawn-back strike with a gleam at its tip before release
+ * @property {boolean} [punch=true]             Burst streaks through the target on a hit
+ * @property {boolean} [lunge=true]             Lean and twist the attacker into the blow
  * @property {Partial<MeleeStrikeArt>} [art]    Overrides merged over the preset art, for calibration
  */
 
@@ -91,13 +92,14 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {string} meshRef                   Reference key of the target's token mesh
  * @property {number} result                    The attack result in AttackRoll.RESULT_TYPES
  * @property {boolean} [critical=false]         Whether the attack is a critical success
- * @property {"right"|"left"} [hand="right"]    The attacker's side the strike originates from
+ * @property {"right"|"left"} [hand]           The attacker's side the strike originates from; right by default, while
+ *                                              an attack's natural strikes start on a random side and alternate
  * @property {boolean} [mirror=false]           Flip the strike art across the attack line
  * @property {string} [damageType]              Its weapon's damage type, which selects the strike art, overriding the
  *                                              attack style
  * @property {string} [effectType]              The damage type dealt, which selects the effect; its damageType
  *                                              by default
- * @property {"small"|"medium"|"large"} [size]  This strike's weapon size, overriding the attack style
+ * @property {"small"|"medium"|"large"|"natural"} [size]  This strike's weapon size, overriding the attack style
  * @property {AttackOutcome} [outcome]          What this strike did to its target; by default it harmed health
  */
 
@@ -119,6 +121,10 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {{x: number, y: number}} [anchor]  TODO calibration only: an anchor at the wielder for every frame, in
  *                                              place of the atlas anchors, until it is set in the atlas
  * @property {Partial<MeleeStrikeLunge>} [lunge]  Overrides of its damage type's lunge for this size
+ * @property {number} [contact]        Fraction across the art where it connects; if set, the art travels until that
+ *                                      point lands on the strike point, rather than a fixed distance past its origin
+ * @property {number} [momentum=0]      Degrees off the art's heading that the strike moves at contact, which the
+ *                                      punch-through streaks follow
  */
 
 /**
@@ -145,8 +151,9 @@ const MELEE_STRIKE_PRESETS = {
     punch: ["bludgeoning/StreakSlam"],
     lunge: {lean: 0.2, twist: 0, windup: -0.7, windupBy: 0.5},
     small: {texture: "bludgeoning/StrikeSmall", offset: {forward: 0, lateral: 0}},
-    medium: {texture: "bludgeoning/StrikeMedium", offset: {forward: 0, lateral: 0}},
-    large: {texture: "bludgeoning/StrikeLarge", offset: {forward: 0.25, lateral: -0.25, rotation: -40}}
+    medium: {texture: "bludgeoning/StrikeMedium", momentum: -90, offset: {forward: 0, lateral: 0}},
+    large: {texture: "bludgeoning/StrikeLarge", offset: {forward: 0.25, lateral: -0.25, rotation: -40}},
+    natural: {texture: "bludgeoning/StrikeSlam", offset: {forward: 0.25, lateral: 0}}
   },
   piercing: {
     impacts: ["impacts/ImpactSparks", "impacts/ImpactRings"],
@@ -154,15 +161,17 @@ const MELEE_STRIKE_PRESETS = {
     lunge: {lean: 0.3, twist: 18, windup: -0.3},
     small: {texture: "piercing/StrikeSmall", offset: {forward: -0.25, lateral: 0.8}},
     medium: {texture: "piercing/StrikeMedium", offset: {forward: -0.25, lateral: 0.8}},
-    large: {texture: "piercing/StrikeLarge", offset: {forward: -0.5, lateral: 0.8}}
+    large: {texture: "piercing/StrikeLarge", offset: {forward: -0.5, lateral: 0.8}},
+    natural: {texture: "piercing/StrikeBite", contact: 0.5, offset: {forward: 1, lateral: 0}}
   },
   slashing: {
     impacts: ["impacts/ImpactSparks", "impacts/ImpactRings"],
     punch: ["slashing/StreakSliceA", "slashing/StreakCurve"],
     lunge: {lean: 0.1, twist: 35, windup: -0.7, follow: 0.75},
     small: {texture: "slashing/StrikeSmall", offset: {forward: 0, lateral: 1.4, rotation: -30}},
-    medium: {texture: "slashing/StrikeMedium", offset: {forward: 0, lateral: 0, rotation: 60}},
-    large: {texture: "slashing/StrikeLarge", offset: {forward: 0, lateral: 0}}
+    medium: {texture: "slashing/StrikeMedium", momentum: -90, offset: {forward: 0, lateral: 0, rotation: 60}},
+    large: {texture: "slashing/StrikeLarge", momentum: -90, offset: {forward: 0, lateral: 0}},
+    natural: {texture: "slashing/StrikeClaw", contact: 0.8, offset: {forward: 0, lateral: 1.2}}
   }
 };
 
@@ -277,9 +286,21 @@ export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}
   const results = [];
   const facing = new CrucibleFacingPlan(token);
   let start = 0;
+
+  // Natural strikes have no hand: the first takes a random side and later ones alternate, chosen while configuring so
+  // every client plays the same sides
+  let natural = (Math.random() < 0.5) ? "left" : "right";
+  const handOf = strike => {
+    if ( strike.hand || ((strike.size ?? options.size) !== "natural") ) return strike.hand;
+    const hand = natural;
+    natural = (natural === "left") ? "right" : "left";
+    return hand;
+  };
+
   for ( const [i, strike] of strikes.entries() ) {
     const leader = (timeline.length % beatSize) === 0;
-    const built = strike ? _buildMeleeStrike({...strike, token}, {...options, lunge: !!options.lunge && leader}) : null;
+    const built = strike ? _buildMeleeStrike({...strike, token, hand: handOf(strike)},
+      {...options, lunge: (options.lunge ?? true) && leader}) : null;
     if ( !built ) {
       results.push(null);
       continue;
@@ -318,15 +339,18 @@ function _configureMeleeVFXEffect(action, strikes) {
   const data = strikes.map(({target, meshRef, event, roll}) => {
     const weapon = action.usage.strikes[roll.data.strike];
 
-    // TODO per-strike early outs: natural weapons and targets beyond melee reach
-    if ( !weapon || weapon.system.properties.has("natural") ) return null;
-    if ( getLinearRange(token, target) > MELEE_STRIKE_CONFIG.reach ) return null;
+    // TODO per-strike early out: targets beyond melee reach
+    if ( !weapon || (getLinearRange(token, target) > MELEE_STRIKE_CONFIG.reach) ) return null;
+
+    // A natural weapon has no hand, so the builder chooses one at random
+    const natural = weapon.system.properties.has("natural");
+    const hand = natural ? undefined : ((weapon === offhand) ? "left" : "right");
     return {target, meshRef, result: roll.data.result, critical: !!roll.isCriticalSuccess,
-      hand: (weapon === offhand) ? "left" : "right", damageType: weapon.system.damageType,
+      hand, damageType: weapon.system.damageType,
       effectType: _getStrikeDamageType(roll, weapon), size: _getMeleeStrikeSize(weapon),
       outcome: helpers.getAttackOutcome(event)};
   });
-  return buildMeleeStrikes(token, data, {windup: true, punch: true, lunge: true});
+  return buildMeleeStrikes(token, data);
 }
 
 /* -------------------------------------------- */
@@ -383,11 +407,13 @@ function _configureRangedVFXEffect(action, strikes, references) {
  *   preset matches the damage type and size
  */
 function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=MELEE_STRIKE_CONFIG.tint,
-  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=false, punch=false, lunge=false, art: artOverride}={}) {
-  const {token, target, meshRef, result, critical=false, hand="right", mirror=false,
+  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=true, punch=true, lunge=true, art: artOverride}={}) {
+  const {token, target, meshRef, result, critical=false, mirror=false,
     outcome={contact: true, damage: true, healing: false}} = strike;
   damageType = strike.damageType ?? damageType;
   size = strike.size ?? size;
+
+  const hand = strike.hand ?? "right";
 
   // The effect of the damage dealt, beneath the contact particle; a strike which harms health also punches through
   const effect = resolveAttackEffect(outcome, {damageType: strike.effectType ?? damageType, actor: target.actor,
@@ -403,6 +429,7 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
   // backswing; its outward rotation follows whichever hand the flipped art then belongs to
   const flip = mirror !== (hand === "left");
   const rotation = Math.toRadians(art.offset.rotation ?? 0) * (flip ? -1 : 1);
+  const momentum = Math.toRadians(art.momentum ?? 0) * (flip ? -1 : 1);
   const offset = _computeMeleeStrikeOffset(token, target, result);
   const strikeTint = Number(foundry.utils.Color.from(tint));
 
@@ -431,9 +458,9 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
       anchor: art.anchor ?? null,
       offset: {forward: art.offset.forward, lateral: art.offset.lateral * ((hand === "left") ? -1 : 1)},
       sound: helpers.positionalSound(getVFXSound("generic", "whooshFast")),
-      animations: [{function: "strikeSpriteThrust", params: {distance: C.thrust}}]
+      animations: [{function: "strikeSpriteThrust", params: {distance: C.thrust, contact: art.contact}}]
     },
-    impacts: [_buildMeleeImpact(target, result, {critical, preset, strikeTint, punch, effect,
+    impacts: [_buildMeleeImpact(target, result, {critical, preset, strikeTint, punch, momentum, effect,
       impactTint: (impactTint === null) ? strikeTint : Number(foundry.utils.Color.from(impactTint))})],
     scrollingText: []
   };
@@ -458,10 +485,11 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
  * @param {number} options.strikeTint     Strike tint, carried by punch-through streaks
  * @param {number} options.impactTint     Impact tint
  * @param {boolean} options.punch         Burst streaks through the target, for a strike which harms health
+ * @param {number} options.momentum       Radians off the strike art's heading that the streaks follow
  * @param {{animations: object[], particles: object[]}} options.effect   The effect of the damage dealt
  * @returns {object}                      The impact entry
  */
-function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impactTint, punch, effect}) {
+function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impactTint, punch, momentum, effect}) {
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const {START} = foundry.canvas.vfx.constants.SOUND_ALIGNMENT;
   const C = MELEE_STRIKE_CONFIG;
@@ -508,13 +536,14 @@ function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impact
   impact.animations.unshift(...effect.animations);
   impact.particles.push(...effect.particles);
 
-  // Streaks burst out of the far side of the target, more on a critical and fewer on a glance
+  // Streaks burst out of the far side of the target along the strike's momentum, more on a critical and fewer on a
+  // glance
   if ( punch ) {
     const count = Math.round(C.punchCount * (critical ? 2 : 1) * ((result === T.GLANCE) ? 0.5 : 1));
     impact.particles.push({animation: "strikeParticlePunch", anchor: "target",
       textures: preset.punch.map(n => getVFXTexturePath(n)), duration: 50, params: {count, initial: 1, spawnRate: 0,
-        lifetime: {min: 160, max: 300}, scale: {min: 0.4, max: 0.8}, alpha: {min: 0.7, max: 1}, tint: strikeTint,
-        blend: PIXI.BLEND_MODES.ADD, elevation: (target.elevation ?? 0) + 1}});
+        momentum, lifetime: {min: 160, max: 300}, scale: {min: 0.4, max: 0.8}, alpha: {min: 0.7, max: 1},
+        tint: strikeTint, blend: PIXI.BLEND_MODES.ADD, elevation: (target.elevation ?? 0) + 1}});
   }
   return impact;
 }
@@ -742,12 +771,14 @@ function _buildPhysicalImpact(token, result, targetMeshReference) {
 /* -------------------------------------------- */
 
 /**
- * The size of strike art a melee weapon uses: small for ambush weapons, large for two-handed weapons, otherwise medium.
+ * The size of strike art a melee weapon uses: its natural art for a natural weapon, small for unarmed strikes and
+ * ambush weapons, large for two-handed weapons, otherwise medium.
  * @param {CrucibleItem} weapon
- * @returns {"small"|"medium"|"large"}
+ * @returns {"small"|"medium"|"large"|"natural"}
  */
 function _getMeleeStrikeSize(weapon) {
-  if ( weapon.system.properties.has("ambush") ) return "small";
+  if ( weapon.system.properties.has("natural") ) return "natural";
+  if ( (weapon.system.category === "unarmed") || weapon.system.properties.has("ambush") ) return "small";
   return (weapon.config.category?.hands === 2) ? "large" : "medium";
 }
 

@@ -250,15 +250,21 @@ const strikeSpriteLunge = {
 /* -------------------------------------------- */
 
 /**
- * Drive a melee strike sprite forward along the attack line from any drawn-back position, past its origin.
- * Tuning (`params`): `distance` (caster radii of travel beyond the origin), `easing`.
+ * Drive a melee strike sprite forward along the attack line from any drawn-back position, past its origin, or with
+ * `contact` (a fraction across the art) until that point of the art lands on the strike point.
+ * Tuning (`params`): `distance` (caster radii of travel beyond the origin), `contact`, `easing`.
  * @type {CrucibleVFXComponentAnimation}
  */
 const strikeSpriteThrust = {
   setup(phase, params) {
     params.ease = foundry.canvas.vfx.utils.resolveEasing(params.easing ?? "outCubic");
     params.fromPx = -(this.state.drawBackPx ?? 0);
-    params.toPx = (params.distance ?? 0.5) * this.state.casterRadiusPx;
+    const mesh = this.state.delivery?.container?.getChildByName("mesh");
+    if ( (params.contact != null) && mesh ) {
+      const contactPx = (params.contact - mesh.anchor.x) * mesh.texture.orig.width * Math.abs(mesh.scale.x);
+      params.toPx = this.state.reachPx - contactPx;
+    }
+    else params.toPx = (params.distance ?? 0.5) * this.state.casterRadiusPx;
   },
   animate(t, phase, params) {
     const container = this.state.delivery?.container;

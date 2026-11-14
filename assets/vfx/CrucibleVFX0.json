@@ -25,7 +25,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":191,"y":27,"w":65,"h":202},
 	"sourceSize": {"w":256,"h":256},
-	"anchor": {"x":0.1,"y":0.5}
+	"anchor": {"x":0.8,"y":0.5}
 },
 "bludgeoning/StrikeLarge1":
 {
@@ -2494,6 +2494,6 @@
 	"format": "BASISU_ETC1S",
 	"size": {"w":512,"h":6656},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3331163466b3523712b510fc1255f262:caaee2251f0ebbed6ec6666cfe3df516:f62ce8200f4d7a9ca7b0203f0788715d$"
+	"smartupdate": "$TexturePacker:SmartUpdate:feef5fcbc6b6a32989504cf0c748b371:caaee2251f0ebbed6ec6666cfe3df516:f62ce8200f4d7a9ca7b0203f0788715d$"
 }
 }

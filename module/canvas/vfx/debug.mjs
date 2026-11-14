@@ -89,9 +89,9 @@ export async function previewAttack(actionId, outcomes={}) {
  *   hand?: string|string[], mirror?: boolean|boolean[]}} [options]   The attack style, plus result keys of
  *   AttackRoll.RESULT_TYPES such as "hit" or "parry"
  * @returns {Promise<void>}
- * @example crucible.api.canvas.vfx.debug.previewMeleeStrike({lunge: true, result: ["hit", "parry"]});
+ * @example crucible.api.canvas.vfx.debug.previewMeleeStrike({damageType: "slashing", result: ["hit", "parry"]});
  */
-export async function previewMeleeStrike({result="hit", critical=false, hand="right", mirror=false,
+export async function previewMeleeStrike({result="hit", critical=false, hand, mirror=false,
   damageType="piercing", size="medium", ...options}={}) {
   const token = canvas.tokens.controlled[0];
   const targets = Array.from(game.user.targets).filter(t => t !== token);

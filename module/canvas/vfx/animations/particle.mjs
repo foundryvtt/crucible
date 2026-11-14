@@ -500,13 +500,14 @@ const circleParticleBurst = {
  * @typedef StrikeParticlePunchParams
  * @property {number} [radius]             Spawn radius about the anchor
  * @property {{min: number, max: number}} [speed]
- * @property {number} [angleSpread]        Degrees of variance about the attack direction
+ * @property {number} [angleSpread]        Degrees of variance about the heading
+ * @property {number} [momentum]           Radians off the strike art's heading that the strike moves at contact
  * @property {number} [blend]
  */
 
 /**
- * Punch-through at impact. Aligned streaks burst out of the struck point and carry on along the attack line, as if
- * the blow passed through the target.
+ * Punch-through at impact. Aligned streaks burst out of the struck point and carry on along the strike's momentum, as
+ * if the blow passed through the target.
  * @type {CrucibleParticleBehavior<StrikeParticlePunchParams>}
  */
 const strikeParticlePunch = {
@@ -514,9 +515,12 @@ const strikeParticlePunch = {
     const params = layer.params;
     const anchor = this.state.anchors[layer.anchor] ?? this.state.anchors.target;
     const gridScale = this.state.gridScale;
-    const {radius = 6, speed = {min: 300, max: 600}, angleSpread = 18} = params;
-    const {direction} = this.state;
-    const heading = Math.toDegrees(Math.atan2(direction.y, direction.x));
+    const {radius = 6, speed = {min: 300, max: 600}, angleSpread = 18, momentum = 0} = params;
+
+    // Follow the strike art's own heading, turned by its momentum at contact, else the attack line
+    const {direction, delivery} = this.state;
+    const art = delivery?.container?.rotation ?? Math.atan2(direction.y, direction.x);
+    const heading = Math.toDegrees(art + momentum);
     return {
       area: {type: "circle", x: anchor.x, y: anchor.y, radius},
       velocity: {speed: [speed.min * gridScale, speed.max * gridScale],
