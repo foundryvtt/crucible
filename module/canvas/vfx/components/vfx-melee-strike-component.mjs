@@ -41,7 +41,6 @@ export default class CrucibleMeleeStrikeComponent extends CrucibleVFXComponent {
     const schema = super.defineSchema();
     schema.casterRadiusPx = new NumberField({required: true, nullable: false, initial: 50, min: 1});
     schema.destination = CrucibleMeleeStrikeComponent._pointField();
-    schema.turn = new NumberField({required: true, nullable: false, initial: 0, min: 0}); // Milliseconds before charge
     schema.delivery.extendFields({
       texture: new StringField({required: true, blank: false}),
       fps: new NumberField({required: true, nullable: false, initial: 16, positive: true}),
@@ -72,10 +71,9 @@ export default class CrucibleMeleeStrikeComponent extends CrucibleVFXComponent {
   _configureTimings() {
     const frames = getVFXFlipbook(this.delivery.texture)?.length ?? 1;
     const duration = (frames * 1000) / this.delivery.fps;
-    const deliveryStart = this.turn + this.charge.duration;
+    const deliveryStart = this.charge.duration;
     this.timings = {
-      turnStart: 0,
-      chargeStart: this.turn,
+      chargeStart: 0,
       chargeEnd: deliveryStart,
       deliveryStart,
       deliveryEnd: deliveryStart + duration,

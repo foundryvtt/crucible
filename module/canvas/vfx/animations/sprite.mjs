@@ -5,6 +5,7 @@
 import CrucibleElectrocutionFilter from "../../filters/electrocution-filter.mjs";
 import CrucibleFlipbookMesh from "../flipbook-mesh.mjs";
 import {pickRandom, scheduleTimelineClock} from "../helpers.mjs";
+import CrucibleFacingComponent from "../components/vfx-facing-component.mjs";
 
 /**
  * @import {default as CrucibleVFXComponent} from "../components/vfx-component.mjs";
@@ -184,10 +185,10 @@ const strikeSpriteGleam = {
 /* -------------------------------------------- */
 
 /**
- * Turn an attacking token to face its target, then wind up, lean, and twist into a melee strike, display only.
- * Art faces +y at rotation 0; lean displaces the mesh anchor so it never contends for position.
- * Tuning (`params`): `hand`, `lean` (fraction of token width), `twist` (degrees), `recover` (milliseconds),
- * `fromAngle` (radians toward a prior target to turn from), `final` (return to rest afterward).
+ * Wind up, lean, and twist an attacking token into a melee strike, display only.
+ * The twist adds to the token's facing, which a {@link CrucibleFacingComponent} turns toward the target;
+ * lean displaces the mesh anchor so it never contends for position.
+ * Tuning (`params`): `hand`, `lean` (fraction of token width), `twist` (degrees), `recover` (milliseconds).
  * @type {CrucibleVFXComponentAnimation}
  */
 const strikeSpriteLunge = {
@@ -197,50 +198,38 @@ const strikeSpriteLunge = {
     const {source, destination} = this.state;
     const angle = Math.atan2(destination.y - source.y, destination.x - source.x);
     const locked = !!mesh.object?.document?.lockRotation;
-    const base = mesh.rotation;
-    const faceToward = (from, toward) => from + Math.normalizeRadians(toward - (Math.PI / 2) - from);
     params._mesh = mesh;
     params._dx = Math.cos(angle);
     params._dy = Math.sin(angle);
-    params._base = base;
     params._baseAnchor = {x: mesh.anchor.x, y: mesh.anchor.y};
-    params._start = (locked || (params.fromAngle == null)) ? base : faceToward(base, params.fromAngle);
-    params._facing = locked ? base : faceToward(params._start, angle);
     params._twist = locked ? 0 : (Math.toRadians(params.twist ?? 12) * ((params.hand === "left") ? 1 : -1));
   },
   schedule(phase, params) {
     const mesh = params._mesh;
     if ( !mesh ) return;
-    const {turnStart, chargeStart, deliveryStart, deliveryEnd, impactStart} = this.timings;
+    const {chargeStart, deliveryStart, deliveryEnd, impactStart} = this.timings;
     const recover = params.recover ?? 300;
-    const final = params.final ?? true;
     const leanPx = (params.lean ?? 0.15) * Math.abs(mesh.width);
     const io = t => ((t < 0.5) ? (2 * t * t) : (1 - (Math.pow((-2 * t) + 2, 2) / 2)));
     const progress = (t, from, to) => io(Math.clamp((t - from) / Math.max(to - from, 1), 0, 1));
-    scheduleTimelineClock(this.timeline, turnStart, (deliveryEnd + recover) - turnStart, ms => {
+    scheduleTimelineClock(this.timeline, chargeStart, (deliveryEnd + recover) - chargeStart, ms => {
       if ( mesh.destroyed || (ms <= 0) ) return; // Timeline init renders at 0 before the component begins
-      const t = turnStart + ms;
+      const t = chargeStart + ms;
 
-      // Turn to face, wind up, drive into the blow, hold, then settle facing or return to rest
-      let rotation = params._facing;
-      let drive = 0;
-      if ( t < chargeStart ) rotation = Math.mix(params._start, params._facing, progress(t, turnStart, chargeStart));
-      else if ( t < deliveryStart ) drive = -0.3 * progress(t, chargeStart, deliveryStart);
+      // Wind up, drive into the blow, hold, then settle
+      let drive;
+      if ( t < deliveryStart ) drive = -0.3 * progress(t, chargeStart, deliveryStart);
       else if ( t < impactStart ) drive = Math.mix(-0.3, 1, progress(t, deliveryStart, impactStart));
       else if ( t < deliveryEnd ) drive = 1;
-      else {
-        const p = progress(t, deliveryEnd, deliveryEnd + recover);
-        drive = 1 - p;
-        if ( final ) rotation = Math.mix(params._facing, params._base, p);
-      }
-      mesh.rotation = rotation + (params._twist * drive);
+      else drive = 1 - progress(t, deliveryEnd, deliveryEnd + recover);
+      CrucibleFacingComponent.setMeshRotation(mesh, {twist: params._twist * drive});
       _displaceAnchor(mesh, params._baseAnchor, params._dx, params._dy, leanPx * drive);
     });
   },
   tearDown(phase, params) {
     const mesh = params._mesh;
-    if ( !mesh || mesh.destroyed || (params.final === false) ) return;
-    mesh.rotation = params._base;
+    if ( !mesh || mesh.destroyed ) return;
+    CrucibleFacingComponent.restoreMeshRotation(mesh);
     mesh.anchor.set(params._baseAnchor.x, params._baseAnchor.y);
   }
 };

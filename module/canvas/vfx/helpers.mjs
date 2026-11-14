@@ -40,10 +40,10 @@ export function computeAttackOffset(token, result, {sidestep=false}={}) {
  * Make a dodging target sidestep an arriving attack, starting before it arrives.
  * @param {object} impact                 An impact entry, mutated in place
  * @param {object} [options]
- * @param {number} [options.lead=160]     Milliseconds before arrival at which the sidestep begins
+ * @param {number} [options.lead=120]     Milliseconds before arrival at which the sidestep begins
  * @param {number} [options.retreat=0]    Backward share of the step relative to its sideways share
  */
-export function addDodgeSidestep(impact, {lead=160, retreat=0}={}) {
+export function addDodgeSidestep(impact, {lead=120, retreat=0}={}) {
   if ( impact.result !== crucible.api.dice.AttackRoll.RESULT_TYPES.DODGE ) return;
   impact.animations = [...(impact.animations ?? []),
     {function: "impactSpriteDodge", params: {duration: 450, lead, retreat}}];

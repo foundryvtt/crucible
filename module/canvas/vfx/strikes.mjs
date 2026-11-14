@@ -4,6 +4,7 @@ import {addDodgeSidestep, computeAttackOffset, computeManifestPoint, exposureInH
   pushActorScrollingText, pushTargetScrollingText, resolveActorGeometry, tokenCenter} from "./helpers.mjs";
 import {buildProjectileTrail, getRuneImpact, resolveHitTreatment, resolveMissTreatment,
   resolveRuneTextures} from "./spells.mjs";
+import CrucibleFacingComponent from "./components/vfx-facing-component.mjs";
 import CrucibleProjectileComponent from "./components/vfx-projectile-component.mjs";
 
 /**
@@ -77,7 +78,7 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {ColorSource|null} [impactTint]    Impact tint, or null to match the strike tint
  * @property {boolean} [windup=false]           Pause the drawn-back strike with a gleam at its tip before release
  * @property {boolean} [punch=false]            Burst streaks through the target on a hit
- * @property {boolean} [lunge=false]            Turn the attacker to face the target, then lean and twist into the blow
+ * @property {boolean} [lunge=false]            Lean and twist the attacker into the blow
  * @property {boolean} [blood=false]            Splatter blood beneath hits and glances
  */
 
@@ -91,8 +92,6 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {boolean} [critical=false]         Whether the attack is a critical success
  * @property {"right"|"left"} [hand="right"]    The attacker's side the strike originates from
  * @property {boolean} [mirror=false]           Flip the strike art across the attack line
- * @property {number|null} [fromAngle=null]     Radians toward a prior target a lunging attacker turns from
- * @property {boolean} [final=true]             Whether a lunging attacker returns to rest after this strike
  */
 
 /**
@@ -127,8 +126,8 @@ const MELEE_STRIKE_CONFIG = {
   impactDuration: 700,
   windup: {hold: 150, gleamSize: 3, gleamTint: 0xFFF4C0},
   punchCount: 4,
-  lunge: {lean: 0.15, twist: 12, recover: 300, quarterTurn: 220},
-  reactionLead: {parry: 120, block: 100, dodge: 180},
+  lunge: {lean: 0.15, twist: 12, recover: 300},
+  reactionLead: {parry: 120, block: 100, dodge: 120},
   dodgeRetreat: 0.5,
   blockDustTint: 0xC8BBA8,
   bloodSize: 6
@@ -163,6 +162,14 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
   const timeline = [];
   const references = {tokenMesh: "^token.object.mesh"};
 
+  // Single-target attacks turn to each target and fire in sequence; area attacks turn once and fire together
+  const sequenced = action.target.type === "single";
+  const turns = [];
+  const areaAim = (!sequenced && action.token) ? CrucibleFacingComponent.getAreaAim(action.token, action.region) : null;
+  const areaTurn = areaAim ? CrucibleFacingComponent.pushTurn(turns, action.token, areaAim, 0) : 0;
+  let beatStart = 0;
+  let release = 0;
+
   let j = 1; // Target
   for ( const [actor, group] of action.eventsByTarget ) {
     const token = action.targets.get(actor)?.token;
@@ -186,8 +193,14 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
         ? _buildPhysicalProjectile(action, config)
         : _buildMagicalProjectile(action, config);
       if ( !built ) continue;
+      let position = areaTurn;
+      if ( sequenced && action.token ) {
+        position = beatStart + CrucibleFacingComponent.pushTurn(turns, action.token, tokenCenter(token), beatStart);
+        beatStart = position + built.releaseTime;
+      }
       components[projectileName] = built.component;
-      timeline.push({component: projectileName, position: 0});
+      timeline.push({component: projectileName, position});
+      release = Math.max(release, position + built.impactTime);
       text ??= built;
       i++;
     }
@@ -204,6 +217,7 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
   // Caster activation-cost text rides the first projectile at the start of the sequence
   const firstComponent = components[timeline[0].component];
   if ( firstComponent ) pushActorScrollingText(firstComponent.scrollingText, action, "tokenMesh");
+  CrucibleFacingComponent.applyFacing(components, timeline, turns, release);
 
   // Validate the constructed effect and return its configuration
   try {
@@ -222,13 +236,12 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
  * Build a melee strike component delivered from beside the attacker to one target.
  * @param {MeleeStrikeData} strike
  * @param {MeleeStrikeOptions} [options]
- * @returns {{component: object, impactTime: number, settledTime: number}|null}   Null if no preset matches the
- *   damage type and size
+ * @returns {{component: object, impactTime: number, deliveryEnd: number, settledTime: number}|null}   Null if no
+ *   preset matches the damage type and size
  */
 export function buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=MELEE_STRIKE_CONFIG.tint,
   impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=false, punch=false, lunge=false, blood=false}={}) {
-  const {token, target, meshRef, result, critical=false, hand="right", mirror=false, fromAngle=null,
-    final=true} = strike;
+  const {token, target, meshRef, result, critical=false, hand="right", mirror=false} = strike;
   const preset = MELEE_STRIKE_PRESETS[damageType];
   const weapon = preset?.[size];
   if ( !weapon ) return null;
@@ -237,7 +250,7 @@ export function buildMeleeStrike(strike, {damageType="piercing", size="medium", 
   const offset = _computeMeleeStrikeOffset(token, target, result);
   const strikeTint = Number(foundry.utils.Color.from(tint));
 
-  // Draw back, optionally pause with a gleam at the tip, and optionally turn the attacker into the blow
+  // Draw back, optionally pause with a gleam at the tip, and optionally lunge the attacker into the blow
   const hold = windup ? C.windup.hold : 0;
   const chargeDuration = C.charge + hold;
   const chargeAnimations = [{function: "strikeSpriteDrawBack", params: {distance: C.drawBack, hold}}];
@@ -245,10 +258,9 @@ export function buildMeleeStrike(strike, {damageType="piercing", size="medium", 
     chargeAnimations.push({function: "strikeSpriteGleam", params: {texture: getVFXTexturePath("impacts/SpraySpark"),
       hold, size: C.windup.gleamSize, tint: C.windup.gleamTint}});
   }
-  const turn = lunge ? _computeMeleeTurnDuration(token, target, fromAngle) : 0;
   if ( lunge ) {
     const {lean, twist, recover} = C.lunge;
-    chargeAnimations.push({function: "strikeSpriteLunge", params: {hand, lean, twist, recover, fromAngle, final}});
+    chargeAnimations.push({function: "strikeSpriteLunge", params: {hand, lean, twist, recover}});
   }
 
   const component = {
@@ -257,7 +269,6 @@ export function buildMeleeStrike(strike, {damageType="piercing", size="medium", 
     targetMeshes: [{reference: meshRef}],
     destination: {reference: meshRef, deltas: {sort: 1, x: offset.x, y: offset.y}},
     casterRadiusPx: (token.width * canvas.dimensions.size) / 2,
-    turn,
     charge: {duration: chargeDuration, animations: chargeAnimations},
     delivery: {
       texture, fps: C.fps, impactAt: C.impactAt, tint: strikeTint, mirror,
@@ -272,55 +283,50 @@ export function buildMeleeStrike(strike, {damageType="piercing", size="medium", 
 
   // A following strike may begin once this one has settled, or shortly after it connects without a lunge
   const deliveryMS = ((getVFXFlipbook(texture)?.length ?? 1) * 1000) / C.fps;
-  const impactTime = turn + chargeDuration + (deliveryMS * C.impactAt);
-  const settledTime = lunge ? (turn + chargeDuration + deliveryMS + C.lunge.recover) : (impactTime + 100);
-  return {component, impactTime, settledTime};
+  const impactTime = chargeDuration + (deliveryMS * C.impactAt);
+  const deliveryEnd = chargeDuration + deliveryMS;
+  const settledTime = lunge ? (deliveryEnd + C.lunge.recover) : (impactTime + 100);
+  return {component, impactTime, deliveryEnd, settledTime};
 }
 
 /* -------------------------------------------- */
 
 /**
  * Build the melee strikes of one attack, structured into beats of concurrent strikes which follow one another.
- * Only the first strike of a beat moves a lunging attacker, turning from the prior beat's target; concurrent strikes
- * belong against a single target.
+ * The attacker turns to face each beat's target before it; only the first strike of a beat lunges, and concurrent
+ * strikes belong against a single target.
  * @param {TokenDocument} token             The attacking token
- * @param {Omit<MeleeStrikeData, "token"|"fromAngle"|"final">[]} strikes   In strike order
+ * @param {Omit<MeleeStrikeData, "token">[]} strikes   In strike order
  * @param {MeleeStrikeOptions & {concurrency?: number}} [options]   The attack style, plus the strikes per beat
  * @returns {{components: Record<string, object>, timeline: {component: string, position: number}[],
  *   impactTimes: number[]}|null}   Null if no preset matches the damage type and size
  */
 export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}) {
   const beatSize = Math.max(concurrency, 1);
-  const lastBeat = Math.floor((strikes.length - 1) / beatSize);
-  const from = tokenCenter(token);
   const components = {};
   const timeline = [];
   const impactTimes = [];
-  let beatStart = 0;
+  const turns = [];
   let nextBeat = 0;
-  let beatTurn = 0;
-  let fromAngle = null;
+  let start = 0;
+  let release = 0;
   for ( const [i, strike] of strikes.entries() ) {
-    const beat = Math.floor(i / beatSize);
     const leader = (i % beatSize) === 0;
-    if ( leader && (i > 0) ) beatStart = nextBeat;
-    const built = buildMeleeStrike({...strike, token, fromAngle, final: beat === lastBeat},
-      {...options, lunge: !!options.lunge && leader});
+    const built = buildMeleeStrike({...strike, token}, {...options, lunge: !!options.lunge && leader});
     if ( !built ) return null;
-    if ( leader ) {
-      const to = tokenCenter(strike.target);
-      fromAngle = Math.atan2(to.y - from.y, to.x - from.x);
-      beatTurn = built.component.turn;
-    }
 
-    // Other strikes of the beat wait out the leader's turn, and the next beat waits for all of them to settle
-    const start = leader ? beatStart : (beatStart + beatTurn);
-    nextBeat = Math.max(leader ? 0 : nextBeat, start + built.settledTime);
+    // Each beat turns to its target once the prior beat has settled, and its strikes begin together after the turn
+    if ( leader ) {
+      start = nextBeat + CrucibleFacingComponent.pushTurn(turns, token, tokenCenter(strike.target), nextBeat);
+    }
+    nextBeat = Math.max(nextBeat, start + built.settledTime);
+    release = Math.max(release, start + built.deliveryEnd);
     const key = `strike_${i + 1}`;
     components[key] = built.component;
     timeline.push({component: key, position: start});
     impactTimes.push(start + built.impactTime);
   }
+  CrucibleFacingComponent.applyFacing(components, timeline, turns, release);
   return {components, timeline, impactTimes};
 }
 
@@ -434,27 +440,6 @@ function _computeMeleeStrikeOffset(token, target, result) {
 /* -------------------------------------------- */
 
 /**
- * Milliseconds an attacker takes to turn from its current or prior facing toward a target, by the angle turned.
- * Token art faces +y at rotation 0.
- * @param {TokenDocument} token             The attacking token
- * @param {TokenDocument} target            The target token
- * @param {number|null} fromAngle           Radians toward a prior target, or null for the token's own rotation
- * @returns {number}
- */
-function _computeMeleeTurnDuration(token, target, fromAngle) {
-  if ( token.lockRotation ) return 0;
-  const from = tokenCenter(token);
-  const to = tokenCenter(target);
-  const facing = Math.atan2(to.y - from.y, to.x - from.x) - (Math.PI / 2);
-  const start = (fromAngle === null) ? Math.toRadians(token.rotation) : (fromAngle - (Math.PI / 2));
-  const turned = Math.abs(Math.normalizeRadians(facing - start));
-  if ( turned < Math.toRadians(10) ) return 0;
-  return Math.round(MELEE_STRIKE_CONFIG.lunge.quarterTurn * Math.min(turned / (Math.PI / 2), 1.5));
-}
-
-/* -------------------------------------------- */
-
-/**
  * Build a magical projectile component which manifests in front of the actor and flies straight to one target.
  * @param {CrucibleAction} action
  * @param {object} config
@@ -463,7 +448,8 @@ function _computeMeleeTurnDuration(token, target, fromAngle) {
  * @param {AttackRoll} config.roll            The attack roll against the target
  * @param {string} config.meshRef             Reference key of the target's token mesh
  * @param {Record<string, any>} config.references   The references map, mutated in place
- * @returns {{component: object, impactTime: number}|null}   Null if the damage type has no magical projectile
+ * @returns {{component: object, releaseTime: number, impactTime: number}|null}   Null if the damage type has no
+ *   magical projectile
  */
 function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}) {
   const weapon = action.usage.strikes[roll.data.strike];
@@ -532,7 +518,7 @@ function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}
     scrollingText: []
   };
   addDodgeSidestep(component.impacts[0]);
-  return {component, impactTime: manifest + flightMS};
+  return {component, releaseTime: manifest, impactTime: manifest + flightMS};
 }
 
 /* -------------------------------------------- */
@@ -544,7 +530,7 @@ function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}
  * @param {TokenDocument} config.token        The target token
  * @param {AttackRoll} config.roll            The attack roll against the target
  * @param {string} config.meshRef             Reference key of the target's token mesh
- * @returns {{component: object, impactTime: number}}
+ * @returns {{component: object, releaseTime: number, impactTime: number}}
  */
 function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
@@ -597,7 +583,7 @@ function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
     scrollingText: []
   };
   addDodgeSidestep(component.impacts[0]);
-  return {component, impactTime: CHARGE_DURATION + flightMS};
+  return {component, releaseTime: CHARGE_DURATION, impactTime: CHARGE_DURATION + flightMS};
 }
 
 /* -------------------------------------------- */
