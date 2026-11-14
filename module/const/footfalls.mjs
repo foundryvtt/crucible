@@ -7,8 +7,8 @@
  */
 
 /**
- * The materials which a surface can be made of.
- * @type {Record<string, {label: string}>}
+ * The materials which a surface can be made of. A fluid filling a Region's volume can be swum in and fallen into.
+ * @type {Record<string, {label: string, fluid?: boolean}>}
  */
 export const MATERIALS = Object.freeze({
   grass: {label: "FOOTFALLS.MATERIALS.Grass"},
@@ -16,7 +16,7 @@ export const MATERIALS = Object.freeze({
   metal: {label: "FOOTFALLS.MATERIALS.Metal"},
   snow: {label: "FOOTFALLS.MATERIALS.Snow"},
   stone: {label: "FOOTFALLS.MATERIALS.Stone"},
-  water: {label: "FOOTFALLS.MATERIALS.Water"},
+  water: {label: "FOOTFALLS.MATERIALS.Water", fluid: true},
   wood: {label: "FOOTFALLS.MATERIALS.Wood"}
 });
 

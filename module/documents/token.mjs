@@ -1,4 +1,7 @@
-/** @import {TokenMovementOperation} from "@client/documents/_types.mjs"; */
+/**
+ * @import {TokenMovementOperation} from "@client/documents/_types.mjs";
+ * @import {CrucibleSupportingSurface} from "./scene.mjs";
+ */
 
 export default class CrucibleToken extends foundry.documents.TokenDocument {
 
@@ -284,10 +287,10 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
   /* -------------------------------------------- */
 
   /**
-   * Find the supporting surface the token rests on or would fall onto, and the level it comes to rest on.
+   * Find the supporting surface the token rests on or would fall onto, a floor or a fluid, and its resting level.
    * A surface must contain 75% of the token's footprint; see {@link CrucibleScene#findSupportingSurface}.
    * @param {TokenCoordinates} [position] The position to evaluate against. Defaults to the token's source position.
-   * @returns {{elevation: number, region: RegionDocument|null, level: Level}|null}
+   * @returns {CrucibleSupportingSurface|null}
    * @internal
    */
   _findSupportingSurface(position=this._source) {
@@ -297,6 +300,7 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     const points = scene.usesSurfaces ? this.getContainmentTestPoints(position) : [];
     return scene.findSupportingSurface(points, {elevation, level, coverage: 0.75});
   }
+
 
   /* -------------------------------------------- */
 

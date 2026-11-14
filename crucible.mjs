@@ -135,9 +135,11 @@ Hooks.once("init", async function() {
     elevationScaling: true,
 
     /**
-     * Footfall sounds made by moving tokens.
-     * Expected to move into core CONFIG in V15.
-     * @type {{materials: Record<string, {label: string}>, sounds: Record<string, CrucibleFootfallSound>}}
+     * Footfall sounds made by moving tokens. Expected to move into core CONFIG in V15.
+     * @type {{
+     *   materials: Record<string, {label: string, fluid?: boolean}>,
+     *   sounds: Record<string, CrucibleFootfallSound>
+     * }}
      */
     footfalls: {
       materials: foundry.utils.deepClone(SYSTEM.FOOTFALLS.MATERIALS),

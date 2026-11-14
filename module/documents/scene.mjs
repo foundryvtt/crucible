@@ -1,4 +1,13 @@
 /**
+ * A surface which supports a token, at which a fall would land.
+ * @typedef CrucibleSupportingSurface
+ * @property {number} elevation                 The elevation at which the token is supported
+ * @property {RegionDocument|null} region       The Region which supports it, or null for the base of a level
+ * @property {Level|null} level                 The level which comes to rest there
+ * @property {{depth: number}|null} fluid       The fluid such as water which supports it, or null for a floor
+ */
+
+/**
  * A Scene subclass which extends the base Scene document with some Crucible-specific functionalities.
  */
 export default class CrucibleScene extends Scene {
@@ -166,30 +175,38 @@ export default class CrucibleScene extends Scene {
    * Find the supporting surface at or below an elevation which contains a set of test points.
    * A scene that defines any movement surface uses those surfaces as its only floors (surface mode); a scene with no
    * surfaces treats the base of every level as an implied floor (level mode).
+   * A surface whose Region is filled with a fluid such as water is its bed: the fluid supports a body within it where
+   * it is, and one above it at the Region's top, taking precedence over a floor at the same elevation.
    * @param {Point[]} points                      Test points which the surface must contain; used in surface mode
    * @param {object} options
    * @param {number} options.elevation            The elevation from which to search downward
    * @param {string} options.level                The id of the level from which to search
    * @param {number} [options.coverage=1]         The fraction of test points which a surface must contain
    * @param {boolean} [options.inclusive=true]    Whether a surface exactly at the search elevation may be returned
-   * @returns {{elevation: number, region: RegionDocument|null, level: Level}|null}
+   * @returns {CrucibleSupportingSurface|null}
    */
   findSupportingSurface(points, {elevation, level, coverage=1, inclusive=true}) {
     const isAbove = e => (inclusive ? (e > elevation) : (e >= elevation));
 
     // If the Scene uses Surfaces, then only Surface regions are treated as floors.
-    // Search highest to lowest and return the first region that is at-or-below the elevation which satisfies the test.
+    // Identify fluids whose top functions as an implicit surface.
     if ( this.usesSurfaces ) {
-      const surfaces = this.getSurfaces({level, type: "move"});
-      if ( !surfaces.length ) return null;
       const required = Math.ceil(points.length * coverage);
-      for ( let i = surfaces.length; i--; ) {
-        const surface = surfaces[i];
-        if ( isAbove(surface.elevation) || !this.#containsPoints(surface.region, points, required) ) continue;
-        const restLevel = this.#findRestingLevel(surface.region, surface.elevation, level);
-        return {elevation: surface.elevation, region: surface.region, level: restLevel};
+      const materials = crucible.CONFIG.footfalls.materials;
+      let best = null;
+      for ( const surface of this.getSurfaces({level, type: "move"}) ) {
+        const region = surface.region;
+        const {bottom, top} = region.elevation;
+        const fluid = region.behaviors.some(({flags}) => flags.core?.materialVolume
+          && materials[flags.core.material]?.fluid);
+        const supported = fluid ? Math.min(top, elevation) : surface.elevation;
+        if ( (supported < surface.elevation) || isAbove(supported) ) continue;
+        if ( best && ((supported < best.elevation) || ((supported === best.elevation) && !fluid)) ) continue;
+        if ( !this.#containsPoints(region, points, required) ) continue;
+        best = {elevation: supported, region, fluid: fluid ? {depth: top - bottom} : null};
       }
-      return null;
+      if ( !best ) return null;
+      return {...best, level: this.#findRestingLevel(best.region, best.elevation, level)};
     }
 
     // If there are no Surfaces in the Scene, the base of every Level is an implicit floor.
@@ -200,7 +217,7 @@ export default class CrucibleScene extends Scene {
       if ( !floorLevel || (lvl.elevation.base > floorLevel.elevation.base) ) floorLevel = lvl;
     }
     if ( !floorLevel ) return null;
-    return {elevation: floorLevel.elevation.base, region: null, level: floorLevel};
+    return {elevation: floorLevel.elevation.base, region: null, level: floorLevel, fluid: null};
   }
 
   /* -------------------------------------------- */
@@ -251,6 +268,7 @@ export default class CrucibleScene extends Scene {
     }
     return home ?? current;
   }
+
 
   /* -------------------------------------------- */
 

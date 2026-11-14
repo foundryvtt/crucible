@@ -903,19 +903,34 @@ HOOKS.fall = {
     this.usage.damageType = "bludgeoning";
     this.usage.bonuses.base = 1;
   },
-  // Use the acquireTargets hook to compute the parameters of the fall because it happens prior to action use dialog
+  // Find where the token falls to, prior to the action use dialog
   acquireTargets(targets) {
     const surface = this.token?._findSupportingSurface();
     const distance = surface ? (this.token._source.elevation - surface.elevation) : 0;
-    this.usage.fall = {distance, elevation: surface?.elevation, level: surface?.level?.id};
-    if ( (distance <= 0) || !surface ) return;
-    this.name = _loc("ACTION.DEFAULT_ACTIONS.Fall.NameDistance", {distance});
-    this.usage.bonuses.ability = distance;
+    this.usage.fall = {distance, elevation: surface?.elevation, level: surface?.level?.id,
+      depth: surface?.fluid?.depth ?? null};
+    if ( distance > 0 ) this.name = _loc("ACTION.DEFAULT_ACTIONS.Fall.NameDistance", {distance});
+  },
+  // Apply the rules of the fall, prior to the action use dialog
+  configure() {
+    const fall = this.usage.fall;
+    if ( !(fall?.distance > 0) ) return;
+
+    // Water reduction
+    let severity = fall.distance;
+    if ( severity <= 30 ) {
+      if ( fall.depth >= 5 ) severity = 0;
+    }
+    else if ( fall.depth >= 10 ) severity = Math.max(severity - 100, 0);
+    const height = this.token.depth * this.token.parent.grid.distance;
+    fall.swim = (fall.depth !== null) && (fall.depth > height);
+    fall.priorAction = this.token._source.movementAction ?? null;
+    this.usage.bonuses.ability = severity;
 
     // Short Falls: harmless for 10ft and below, otherwise Reflex defense
-    if ( distance <= 30 ) {
+    if ( severity <= 30 ) {
       this.usage.defenseType = "reflex";
-      if ( distance <= 10 ) {
+      if ( severity <= 10 ) {
         this.tags.delete("generic");
         this.tags.add("harmless");
       } else {
@@ -929,6 +944,10 @@ HOOKS.fall = {
       this.tags.add("fortitude");
       this.tags.add("severe");
     }
+  },
+  async confirm(reverse) {
+    const {swim, priorAction=null} = this.usage.fall ?? {};
+    if ( swim && this.token ) await this.token.update({movementAction: reverse ? priorAction : "swim"});
   },
   async postActivate() {
     const {distance, elevation, level} = this.usage.fall;
