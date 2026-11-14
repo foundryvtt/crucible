@@ -1,8 +1,8 @@
 import {getRandomSprite, getVFXTexturePaths, getVFXTexturePath, getVFXFrames} from "./sprites.mjs";
 import {getParticleScaleFactor} from "./blocks.mjs";
-import {addDodgeSidestep, computeAttackOffset, computeManifestPoint, exposureInHot, pickRandom, positionalSound,
-  pushActorScrollingText, pushTargetScrollingText, registerTargetRefs, resolveActorGeometry,
-  tokenCenter} from "./helpers.mjs";
+import {addDodgeSidestep, buildContactReaction, buildDamageParticle, computeAttackOffset, computeManifestPoint,
+  exposureInHot, getAttackOutcome, pickRandom, positionalSound, pushActorScrollingText, pushTargetScrollingText,
+  registerTargetRefs, resolveActorGeometry, tokenCenter} from "./helpers.mjs";
 import {getVFXSound} from "./sounds.mjs";
 import CrucibleFacingComponent, {CrucibleFacingPlan} from "./components/vfx-facing-component.mjs";
 import CrucibleFanComponent from "./components/vfx-fan-component.mjs";
@@ -41,14 +41,13 @@ import CrucibleForcedMovementComponent from "./components/vfx-forced-movement-co
  */
 
 /**
- * The declarative impact treatment of a rune on a struck target, consumed by {@link resolveHitTreatment}.
+ * The declarative effect of a rune on a target its attack harmed or healed, consumed by {@link resolveRuneEffect}.
  * @typedef RuneImpactData
- * @property {boolean} [impactSprite=true]    Show the impact burst sprite on a hit.
+ * @property {boolean} [impactSprite=true]    Show the impact burst sprite.
  * @property {string} [impactSpriteFrame]     A specific burst frame, otherwise a random `impact` texture.
  * @property {number} [impactSpriteAngle]     Degrees to turn the burst off the incoming direction, to a random side.
  * @property {number} [impactSpriteSize=2]    Burst size in feet, unless a gesture supplies its own burst size.
  * @property {number} [impactSpriteScale=1]   A multiplier on whichever burst size applies.
- * @property {boolean} [recoil=true]          Rock the struck token on a hit.
  * @property {object|object[]} [impactParticles]  Particle burst specs at the target, see {@link _buildImpactParticles}.
  * @property {object} [impactGlow]            {@link impactSpriteGlow} params for a glow on the target.
  * @property {object} [impactShock]           {@link impactSpriteShock} params for an electrocution strobe.
@@ -131,7 +130,40 @@ export function finalizeEffect(action, vfxEffect, references) {
 /* -------------------------------------------- */
 
 /**
- * Resolve the rune-styled treatment shown on a target which an attack failed to affect.
+ * Resolve what a spell or magical projectile shows on its target. Its effect, chosen by damage type, depicts contact
+ * and effect together alongside the target's reaction; where it neither harmed nor healed, contact or a miss shows
+ * the palette's harmless puff instead.
+ * @param {CrucibleActionEvent} event        The action event which records the attack roll
+ * @param {object} options
+ * @param {CrucibleActor|null} options.actor    The target actor
+ * @param {string} options.palette              The delivering palette
+ * @param {RuneImpactData} [options.runeProps]  The delivering palette's effect tuning
+ * @param {SpellVFXTextures} options.textures   The delivering palette's textures, for the harmless puff
+ * @param {number} options.elevation            Particle elevation of the effect
+ * @param {boolean} [options.knockback=false]   The target is force-moved, whose glide replaces its reaction
+ * @param {object} [options.context]            Further effect context forwarded to {@link resolveRuneEffect}
+ * @returns {{animations: object[], particles: object[], affected: boolean}}   Affected if it harmed or healed
+ */
+export function resolveSpellImpact(event, {actor, palette, runeProps, textures, elevation, knockback=false,
+  context={}}) {
+  const roll = event.roll;
+  const outcome = getAttackOutcome(event);
+  const affected = outcome.damage || outcome.healing;
+  const reaction = buildContactReaction(outcome, roll.data.result, {critical: !!roll.isCriticalSuccess, knockback});
+  let treatment;
+  if ( affected ) {
+    treatment = resolveAttackEffect(outcome, {damageType: roll.data.damage?.type, actor, palette, runeProps,
+      context: {elevation, ...context}});
+  }
+  else if ( runeProps?.impactSprite !== false ) treatment = resolveMissTreatment(textures);
+  else treatment = {animations: [], particles: []}; // A palette without a burst shows no puff either
+  return {animations: [...reaction, ...treatment.animations], particles: treatment.particles, affected};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve the rune-styled puff shown on a target which an attack failed to affect.
  * @param {SpellVFXTextures} textures   The rune's textures from {@link resolveRuneTextures}
  * @returns {{animations: object[], particles: object[]}}
  */
@@ -189,8 +221,7 @@ function _planSpellFacing(action, point, end, impacts, offset=0) {
 
 /**
  * Build a single target's impact entry for the standard `{start, sound, animations, particles}` shape shared by
- * the region and contact gestures. A hit resolves the shared {@link resolveHitTreatment} (crit- and
- * knockback-aware); any other result resolves {@link resolveMissTreatment}.
+ * the region and contact gestures, from {@link resolveSpellImpact}.
  * @param {object} opts
  * @param {string} opts.palette
  * @param {object} opts.group             The target's event group.
@@ -203,23 +234,18 @@ function _planSpellFacing(action, point, end, impacts, offset=0) {
  * @param {number} opts.elevation         Particle elevation for the hit treatment.
  * @param {string} [opts.impactType]      RUNE_SOUNDS key for the hit sound (default "impact").
  * @param {object[]} opts.forcedMovements
- * @param {object} [opts.treatmentCtx]    Per-spell overrides forwarded to {@link resolveHitTreatment}.
+ * @param {object} [opts.treatmentCtx]    Per-spell effect overrides forwarded to {@link resolveRuneEffect}.
  * @returns {object}
  */
 function _buildTargetImpact({palette, group, token, result, start, tokenRef, runeProps, textures, elevation,
   impactType="impact", forcedMovements, treatmentCtx={}}) {
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  const isHit = (result === T.HIT) || (result === T.GLANCE);
-  if ( isHit ) {
-    const knockback = CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
-    const crit = !!group.roll[0]?.roll?.isCriticalSuccess;
-    const treatment = resolveHitTreatment(palette, {textures, elevation, crit, knockback, ...treatmentCtx}, runeProps);
-    return {result, id: token.id, start, sound: positionalSound(getVFXSound(palette, impactType)),
-      animations: treatment.animations, particles: treatment.particles};
-  }
-  const treatment = resolveMissTreatment(textures);
-  return {result, id: token.id, start, sound: positionalSound(getVFXSound(palette, "miss")),
-    animations: treatment.animations, particles: treatment.particles};
+  const event = group.roll[0];
+  const knockback = getAttackOutcome(event).contact
+    && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, start);
+  const {animations, particles, affected} = resolveSpellImpact(event, {actor: token.actor, palette, runeProps,
+    textures, elevation, knockback, context: treatmentCtx});
+  return {result, id: token.id, start, sound: positionalSound(getVFXSound(palette, affected ? impactType : "miss")),
+    animations, particles};
 }
 
 /* -------------------------------------------- */
@@ -266,7 +292,6 @@ export function buildProjectileTrail(palette, trail, textures, elevation) {
 function _buildArrowProjectile(action, {palette, textures, particleElevation},
   {key, token, roll, group, tokenRef, meshRef, references, forcedMovements, position=0}) {
   const runeProps = ARROW_VFX_PROPS[palette];
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
   const caster = resolveActorGeometry(action);
   const {elevation: casterElevation, radiusPx: casterRadiusPx, meshSort: casterMeshSort} = caster;
@@ -316,28 +341,15 @@ function _buildArrowProjectile(action, {palette, textures, particleElevation},
     sort: casterMeshSort + 1, sortLayer: SL.TOKENS};
 
   // Impact treatment; a force-moved target plays its knockback glide AS the impact, replacing the recoil/shake
-  const isHit = (result === T.HIT) || (result === T.GLANCE);
-  const knockback = isHit
+  const event = group.roll[0];
+  const knockback = getAttackOutcome(event).contact
     && CrucibleForcedMovementComponent.pushKnockback(forcedMovements, group, tokenRef, position + impactTime);
-  const stickDuration = (isHit && runeProps.stickDuration) ? runeProps.stickDuration : 0;
-  let impactSound = null;
-  const animations = [];
-  const particles = [];
-  if ( isHit ) {
-    impactSound = sound(getVFXSound(palette, "impact"));
-    const treatment = resolveHitTreatment(palette, {textures, elevation: (token.elevation ?? 0) + 1,
-      crit: !!roll.isCriticalSuccess, knockback, burstSize: 3, burstDuration: stickDuration || 1000}, runeProps);
-    animations.push(...treatment.animations);
-    particles.push(...treatment.particles);
-  }
-  else {
-    impactSound = sound(getVFXSound(palette, "miss"));
-    if ( runeProps.impactSprite !== false ) {
-      const treatment = resolveMissTreatment(textures);
-      animations.push(...treatment.animations);
-      particles.push(...treatment.particles);
-    }
-  }
+  const stick = runeProps.stickDuration ?? 0;
+  const {animations, particles, affected} = resolveSpellImpact(event, {actor: token.actor, palette, runeProps,
+    textures, elevation: (token.elevation ?? 0) + 1, knockback,
+    context: {burstSize: 3, burstDuration: stick || 1000}});
+  const stickDuration = affected ? stick : 0;
+  const impactSound = sound(getVFXSound(palette, affected ? "impact" : "miss"));
 
   // Charge particles and the optional flight trail
   const chargeParticles = _resolveChargeLayers(runeProps,
@@ -480,9 +492,10 @@ function _configureFanVFXEffect(action, {palette, textures, particleElevation}) 
     if ( !group.hasRoll ) continue;
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
-    const result = group.roll[0]?.roll?.data.result ?? null;
+    const event = group.roll[0];
+    if ( !event || !getAttackOutcome(event).contact ) continue; // Fan only marks targets its sweep makes contact with
+    const result = event.roll.data.result;
     const isHit = (result === T.HIT) || (result === T.GLANCE);
-    if ( !isHit && (result !== T.RESIST) ) continue; // Fan only marks targets the sweep hits or that resist
     const cx = token.x + ((token.width * gridSize) / 2);
     const cy = token.y + ((token.height * gridSize) / 2);
     const bearing = Math.atan2(cy - origin.y, cx - origin.x);
@@ -1113,37 +1126,65 @@ export function getRuneImpact(palette) {
 /* -------------------------------------------- */
 
 /**
- * Resolve the shared per-target hit treatment for every gesture from the runeProps declarative toggles
- * (`impactSprite`, `recoil`, default true), the burst size (`impactSpriteSize`, default 2 feet, which a gesture's
- * own `burstSize` overrides, and `impactSpriteScale`, a rune's multiplier on whichever applies), and the opt-in
- * fields (`impactParticles`, `impactGlow`, `impactShock`).
- * A critical hit rocks harder via `impactSpriteShake`; a force-moved target keeps the burst/glow but drops the
- * recoil (the knockback glide replaces it). A rune that wants a "soft" restorative arrival just disables the
- * burst and recoil and supplies its own particle spec.
+ * Resolve the effect an attack shows on its target, chosen by damage type rather than by how it was delivered.
+ * Physical damage shows what it draws from the creature (blood, sparks, wisps); other damage shows its rune's effect;
+ * healing shows the restorative effect of the delivering palette. An attack which neither harmed health nor healed
+ * shows no effect.
+ * @param {AttackOutcome} outcome
+ * @param {object} options
+ * @param {string} [options.damageType]       The damage type dealt
+ * @param {CrucibleActor|null} options.actor  The target actor
+ * @param {string} [options.palette]          The delivering spell's palette, whose own tuning applies to its rune
+ * @param {RuneImpactData} [options.runeProps]  The delivering palette's effect tuning, otherwise its rune's own
+ * @param {object} options.context            Effect context forwarded to {@link resolveRuneEffect}, less textures
+ * @returns {{animations: object[], particles: object[]}}
+ */
+export function resolveAttackEffect(outcome, {damageType, actor, palette, runeProps, context}) {
+  if ( !outcome.damage && !outcome.healing ) return {animations: [], particles: []};
+  if ( outcome.damage && PHYSICAL_DAMAGE_TYPES.has(damageType) ) {
+    const particle = buildDamageParticle(actor);
+    return {animations: particle ? [particle] : [], particles: []};
+  }
+  const rune = outcome.healing ? palette : (DAMAGE_TYPE_RUNES[damageType] ?? palette);
+  if ( !rune ) return {animations: [], particles: []};
+  const props = ((rune === palette) && runeProps) ? runeProps : getRuneImpact(rune);
+  return resolveRuneEffect(rune, {...context, textures: resolveRuneTextures(rune)}, props);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Get the rune whose effect depicts a damage type, if it is not physical.
+ * @param {string} damageType
+ * @returns {string|undefined}
+ */
+export function getDamageTypeRune(damageType) {
+  return DAMAGE_TYPE_RUNES[damageType];
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve a rune's effect on a target from its declarative toggles (`impactSprite`, default true), the burst size
+ * (`impactSpriteSize`, default 2 feet, which a gesture's own `burstSize` overrides, and `impactSpriteScale`, a
+ * multiplier on whichever applies), and the opt-in fields (`impactParticles`, `impactGlow`, `impactShock`).
+ * The target's reaction to contact is separate, see {@link buildContactReaction}.
  * @param {string} palette
  * @param {object} ctx
  * @param {SpellVFXTextures} ctx.textures
  * @param {number} ctx.elevation
- * @param {boolean} [ctx.crit=false]          Critical hit: heavier shake instead of recoil.
- * @param {boolean} [ctx.knockback=false]     Target is force-moved: suppress the recoil (glide replaces it).
  * @param {number} [ctx.burstSize]            Override the burst sprite size (feet).
  * @param {number} [ctx.burstDuration=800]    Override the burst hold (ms).
  * @param {number} [ctx.flashDuration=150]    Override the burst ADD-blend flash window (ms).
  * @param {boolean} [ctx.suppressGlow=false]  Skip the rune's impact glow (e.g. when the gesture glows elsewhere).
+ * @param {object} [ctx.impactShock]          Override the rune's electrocution strobe.
  * @param {RuneImpactData} runeProps
  * @returns {{animations: object[], particles: object[]}}
  */
-export function resolveHitTreatment(palette, ctx, runeProps) {
-  const {textures, elevation, crit=false, knockback=false, burstSize, burstDuration=800,
-    flashDuration=150, suppressGlow=false} = ctx;
-  const gridSize = canvas.dimensions.size;
+export function resolveRuneEffect(palette, ctx, runeProps) {
+  const {textures, elevation, burstSize, burstDuration=800, flashDuration=150, suppressGlow=false} = ctx;
   const animations = [];
   const particles = [];
-  if ( !knockback && (runeProps?.recoil !== false) ) {
-    animations.push(crit
-      ? {function: "impactSpriteShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
-      : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}});
-  }
   const burstTexture = runeProps?.impactSpriteFrame ? getVFXTexturePath(runeProps.impactSpriteFrame)
     : pickRandom(textures.impact);
   if ( (runeProps?.impactSprite !== false) && burstTexture ) {
@@ -1485,10 +1526,10 @@ const _IMPACT_STORM = {
   ]
 };
 
-// Reusable impact treatment for Life spells: soft restorative arrival (no recoil/burst) + glow +
+// Reusable impact treatment for Life spells: soft restorative arrival (no burst) + glow +
 // leaf/bubble spray + GroundBlooms growing at the target's feet.
 const _IMPACT_LIFE = {
-  impactSprite: false, recoil: false,
+  impactSprite: false,
   impactGlow: {
     glowColor: 0xff5dc0, outerStrength: 6, innerStrength: 2, distance: 20, quality: 0.5, padding: 16,
     knockout: false, alpha: 1.0, duration: 1500, fadeOut: 1100
@@ -1520,7 +1561,7 @@ const _CHARGE_POISON_SPRAY = {
   ]
 };
 const _IMPACT_POISON = {
-  impactSprite: false, recoil: true,
+  impactSprite: false,
   impactGlow: {..._IMPACT_LIFE.impactGlow, glowColor: 0x8bd43a},
   impactParticles: [{frames: ["SprayLeaf", "SprayBubble"]}]
 };
@@ -1537,6 +1578,18 @@ const RUNE_IMPACTS = {
   poison: _IMPACT_POISON,
   storm: _IMPACT_STORM
 };
+
+/**
+ * The rune whose effect depicts each non-physical damage type, wherever the damage comes from.
+ * @type {Record<string, string>}
+ */
+const DAMAGE_TYPE_RUNES = {cold: "frost", corruption: "death", electricity: "storm", fire: "flame", poison: "poison"};
+
+/**
+ * Damage types whose effect is what the damage draws from the creature itself, such as blood.
+ * @type {Set<string>}
+ */
+const PHYSICAL_DAMAGE_TYPES = new Set(["bludgeoning", "piercing", "slashing"]);
 
 /* -------------------------------------------- */
 /*  Per-Gesture Configuration                   */

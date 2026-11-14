@@ -1,22 +1,25 @@
 import {getRandomSound, getVFXSound} from "./sounds.mjs";
 import {getRandomSprite, getVFXFlipbook, getVFXTexturePath} from "./sprites.mjs";
-import {addDodgeSidestep, computeAttackOffset, computeManifestPoint, exposureInHot, pickRandom, positionalSound,
-  pushActorScrollingText, pushTargetScrollingText, resolveActorGeometry, tokenCenter} from "./helpers.mjs";
-import {buildProjectileTrail, getRuneImpact, resolveHitTreatment, resolveMissTreatment,
-  resolveRuneTextures} from "./spells.mjs";
+import {addDodgeSidestep, buildContactReaction, computeAttackOffset, computeManifestPoint, exposureInHot,
+  getAttackOutcome, pickRandom, positionalSound, pushActorScrollingText, pushTargetScrollingText, registerTargetRefs,
+  resolveActorGeometry, tokenCenter} from "./helpers.mjs";
+import {buildProjectileTrail, getDamageTypeRune, getRuneImpact, resolveAttackEffect, resolveRuneTextures,
+  resolveSpellImpact} from "./spells.mjs";
 import CrucibleFacingComponent, {CrucibleFacingPlan} from "./components/vfx-facing-component.mjs";
 import CrucibleProjectileComponent from "./components/vfx-projectile-component.mjs";
+import {getLinearRange} from "../grid/targeting.mjs";
 
 /**
  * @import {ProjectileDeliveryData, ProjectilePathType} from "./components/vfx-projectile-component.mjs";
  * @import {ProjectileTrailConfig, RuneImpactData} from "./spells.mjs";
  * @import {RuneSoundCue} from "./sounds.mjs";
+ * @import {AttackOutcome} from "./helpers.mjs";
  */
 
 /**
- * The fields of a magical projectile preset which are specific to strikes.
+ * The fields of a magical projectile preset which are specific to strikes. The projectile is styled by the rune of
+ * its damage type, from {@link getDamageTypeRune}.
  * @typedef _ProjectileDamagePreset
- * @property {string} rune                      The rune whose art, sounds, and impact treatment style the projectile
  * @property {string} [frame]                   A specific projectile frame; otherwise a random rune projectile texture
  * @property {number} [manifest=150]            Milliseconds over which the projectile manifests before release
  * @property {"release"} [reveal]               Reveal the projectile at release instead of fading it in
@@ -24,7 +27,7 @@ import CrucibleProjectileComponent from "./components/vfx-projectile-component.m
  * @property {number} [stick=0]                 Milliseconds a landed projectile lingers in the target on a hit
  * @property {RuneSoundCue} [flightSound]       A rune sound played in flight; a generic whoosh by default
  * @property {number} [burstSize]               Impact burst size in feet, otherwise the rune impact's own size
- * @property {Partial<RuneImpactData>} [impact] Overrides merged over the rune's impact treatment
+ * @property {Partial<RuneImpactData>} [impact] Overrides merged over the rune's effect
  * @property {ProjectileTrailConfig} [trail]    A flight trail
  */
 
@@ -39,13 +42,13 @@ import CrucibleProjectileComponent from "./components/vfx-projectile-component.m
  * @type {Record<string, ProjectileDamagePreset>}
  */
 const PROJECTILE_DAMAGE_PRESETS = {
-  cold: {rune: "frost", size: 2, speed: 150, trail: true},
+  cold: {size: 2, speed: 150, trail: true},
   corruption: {
-    rune: "death", frame: "death/ProjectileBoneArrow", size: 3, stick: 1200, burstSize: 3, trail: true,
+    frame: "death/ProjectileBoneArrow", size: 3, stick: 1200, burstSize: 3, trail: true,
     path: {type: "weave", params: {arcCount: 2, amplitude: 0.1}}
   },
   electricity: {
-    rune: "storm", frame: "storm/ProjectileBolt", size: 8, speed: 40, fps: 8, reveal: "release",
+    frame: "storm/ProjectileBolt", size: 8, speed: 40, fps: 8, reveal: "release",
     textureAnchor: true, blend: PIXI.BLEND_MODES.ADD, burstSize: 3,
     impact: {impactSpriteFrame: "storm/ImpactBoltsSmall"},
     flightSound: {rune: "storm", type: "crackle", fade: 60, release: 150, volume: 0.45},
@@ -53,9 +56,9 @@ const PROJECTILE_DAMAGE_PRESETS = {
       lifetime: {min: 90, max: 200}, spawnRate: 160, scale: {min: 0.4, max: 0.8},
       alpha: {min: 0.7, max: 1.0}, blend: PIXI.BLEND_MODES.NORMAL, exposure: exposureInHot(0.7)}}
   },
-  fire: {rune: "flame", size: 2, speed: 150, trail: true},
+  fire: {size: 2, speed: 150, trail: true},
   poison: {
-    rune: "poison", frame: "poison/ProjectileWispy", size: 3, speed: 30,
+    frame: "poison/ProjectileWispy", size: 3, speed: 30,
     flightSound: {rune: "poison", type: "passive", release: 400, fade: 400},
     trail: {frames: ["SprayBubble"], params: {align: false, speed: {min: 2, max: 12},
       lifetime: {min: 800, max: 1400}, spawnRate: 40, scale: {min: 0.4, max: 0.9},
@@ -79,7 +82,6 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {boolean} [windup=false]           Pause the drawn-back strike with a gleam at its tip before release
  * @property {boolean} [punch=false]            Burst streaks through the target on a hit
  * @property {boolean} [lunge=false]            Lean and twist the attacker into the blow
- * @property {boolean} [blood=false]            Splatter blood beneath hits and glances
  */
 
 /**
@@ -92,13 +94,20 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {boolean} [critical=false]         Whether the attack is a critical success
  * @property {"right"|"left"} [hand="right"]    The attacker's side the strike originates from
  * @property {boolean} [mirror=false]           Flip the strike art across the attack line
+ * @property {string} [damageType]              Its weapon's damage type, which selects the strike art, overriding the
+ *                                              attack style
+ * @property {string} [effectType]              The damage type dealt, which selects the effect; its damageType
+ *                                              by default
+ * @property {"small"|"medium"|"large"} [size]  This strike's weapon size, overriding the attack style
+ * @property {AttackOutcome} [outcome]          What this strike did to its target; by default it harmed health
  */
 
 /**
- * One ranged strike of an attack.
- * @typedef RangedStrikeData
+ * One strike of an action: an attack roll against a target.
+ * @typedef ActionStrikeData
  * @property {TokenDocument} target             The target token
  * @property {string} meshRef                   Reference key of the target's token mesh
+ * @property {CrucibleActionEvent} event        The action event which records the attack roll
  * @property {AttackRoll} roll                  The attack roll against the target
  */
 
@@ -134,12 +143,19 @@ const MELEE_STRIKE_CONFIG = {
   impactDuration: 700,
   windup: {hold: 150, gleamSize: 3, gleamTint: 0xFFF4C0},
   punchCount: 4,
-  lunge: {lean: 0.15, twist: 12, recover: 300},
+  lunge: {lean: 0.3, twist: 18, recover: 300},
   reactionLead: {parry: 120, block: 100, dodge: 120},
   dodgeRetreat: 0.5,
   blockDustTint: 0xC8BBA8,
-  bloodSize: 6
+  reach: 5 // Feet base-to-base beyond which an action is not animated as melee
 };
+
+/**
+ * Melee strike art size by weapon category.
+ * @type {Record<string, "small"|"medium"|"large">}
+ */
+const MELEE_STRIKE_SIZES = {light1: "small", simple1: "medium", balanced1: "medium", heavy1: "large",
+  simple2: "large", balanced2: "large", heavy2: "large"};
 
 /**
  * Where a melee strike lands on its target by result, as a [min, max] range of offset from the target's center in
@@ -175,17 +191,15 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
   for ( const [actor, group] of action.eventsByTarget ) {
     const token = action.targets.get(actor)?.token;
     if ( !token ) continue;
-    const tokenRef = `target_${j}_token`;
-    const meshRef = `target_${j}_tokenMesh`;
-    Object.assign(references, {[tokenRef]: `@${token.uuid}`, [meshRef]: `^${tokenRef}.object.mesh`});
+    const {meshRef} = registerTargetRefs(references, "target", j, token);
     targets.push({actor, group, meshRef, first: strikes.length, count: group.roll.length});
-    for ( const event of group.roll ) strikes.push({target: token, meshRef, roll: event.roll});
+    for ( const event of group.roll ) strikes.push({target: token, meshRef, event, roll: event.roll});
     j++;
   }
 
-  // TODO melee strikes are not yet animated from actions
-  if ( action.range.category !== "ranged" ) return null;
-  const built = buildRangedStrikes(action, strikes, references);
+  const built = (action.range.category === "ranged")
+    ? _configureRangedVFXEffect(action, strikes, references)
+    : _configureMeleeVFXEffect(action, strikes);
   if ( !built ) return null;
   const {components, timeline} = built;
 
@@ -214,15 +228,139 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
 /* -------------------------------------------- */
 
 /**
+ * Build the melee strikes of one attack, structured into beats of concurrent strikes which follow one another.
+ * The attacker turns to face each beat's target before it; only the first strike of a beat lunges, and concurrent
+ * strikes belong against a single target.
+ * @param {TokenDocument} token             The attacking token
+ * @param {(Omit<MeleeStrikeData, "token">|null)[]} strikes   In strike order, null for a strike to skip
+ * @param {MeleeStrikeOptions & {concurrency?: number}} [options]   The attack style, plus the strikes per beat
+ * @returns {{components: Record<string, object>, timeline: {component: string, position: number}[],
+ *   strikes: ({key: string, impactTime: number}|null)[]}|null}   Each strike's component and its component-relative
+ *   impact time, null for a strike skipped or without a preset for its damage type and size; null if none were built
+ */
+export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}) {
+  const beatSize = Math.max(concurrency, 1);
+  const components = {};
+  const timeline = [];
+  const results = [];
+  const facing = new CrucibleFacingPlan(token);
+  let start = 0;
+  for ( const [i, strike] of strikes.entries() ) {
+    const leader = (timeline.length % beatSize) === 0;
+    const built = strike ? _buildMeleeStrike({...strike, token}, {...options, lunge: !!options.lunge && leader}) : null;
+    if ( !built ) {
+      results.push(null);
+      continue;
+    }
+
+    // Each beat turns to its target once the prior beat has settled, and its strikes begin together after the turn
+    if ( leader ) start = facing.turnToward(tokenCenter(strike.target));
+    facing.deliver(start, {release: built.settledTime, end: built.deliveryEnd});
+    const key = `strike_${i + 1}`;
+    components[key] = built.component;
+    timeline.push({component: key, position: start});
+    results.push({key, impactTime: built.impactTime});
+  }
+  if ( !timeline.length ) return null;
+  facing.apply(components, timeline);
+  return {components, timeline, strikes: results};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Configure the VFX for the melee strikes of an action, skipping strikes whose animation is not yet supported.
+ * @param {CrucibleAction} action
+ * @param {ActionStrikeData[]} strikes          In strike order
+ * @returns {{components: Record<string, object>, timeline: {component: string, position: number}[],
+ *   strikes: ({key: string, impactTime: number}|null)[]}|null}   Null if no strike could be animated
+ */
+function _configureMeleeVFXEffect(action, strikes) {
+  const token = action.token;
+  const offhand = action.actor?.equipment.weapons.offhand;
+
+  // TODO early outs, relaxed as melee art and style logic mature: single-target actions only
+  if ( !token || (action.target.type !== "single") ) return null;
+
+  // Each strike animates its own weapon against its own target; damage types without a preset are skipped as built
+  const data = strikes.map(({target, meshRef, event, roll}) => {
+    const weapon = action.usage.strikes[roll.data.strike];
+
+    // TODO per-strike early outs: natural weapons and targets beyond melee reach
+    if ( !weapon || weapon.system.properties.has("natural") ) return null;
+    if ( getLinearRange(token, target) > MELEE_STRIKE_CONFIG.reach ) return null;
+    return {target, meshRef, result: roll.data.result, critical: !!roll.isCriticalSuccess,
+      hand: (weapon === offhand) ? "left" : "right", damageType: weapon.system.damageType,
+      effectType: _getStrikeDamageType(roll, weapon), size: MELEE_STRIKE_SIZES[weapon.system.category] ?? "medium",
+      outcome: getAttackOutcome(event)};
+  });
+  return buildMeleeStrikes(token, data, {windup: true, punch: true, lunge: true});
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Configure the VFX for the projectiles of a ranged action.
+ * Single-target attacks turn to each target and fire in sequence, the next turn beginning as the prior projectile is
+ * released; area attacks turn once toward the area and fire together.
+ * @param {CrucibleAction} action
+ * @param {ActionStrikeData[]} strikes          In strike order
+ * @param {Record<string, any>} references      The references map, mutated in place
+ * @returns {{components: Record<string, object>, timeline: {component: string, position: number}[],
+ *   strikes: ({key: string, impactTime: number}|null)[]}|null}   Each strike's component and its component-relative
+ *   impact time, null where none could be built; null if no strike could be built
+ */
+function _configureRangedVFXEffect(action, strikes, references) {
+  const token = action.token;
+  const sequenced = action.target.type === "single";
+  const facing = new CrucibleFacingPlan(token);
+  const areaAim = (!sequenced && token) ? CrucibleFacingComponent.getAreaAim(token, action.region) : null;
+  const areaStart = areaAim ? facing.turnToward(areaAim) : 0;
+  const components = {};
+  const timeline = [];
+  const results = [];
+  for ( const [i, {target, meshRef, event, roll}] of strikes.entries() ) {
+    const key = `strike_${i + 1}`;
+    const weapon = action.usage.strikes[roll.data.strike];
+    const config = {key, token: target, event, roll, meshRef, references};
+    const built = _PHYSICAL_PROJECTILE_CATEGORIES.has(weapon?.system.category)
+      ? _buildPhysicalProjectile(action, config)
+      : _buildMagicalProjectile(action, config);
+    if ( !built ) {
+      results.push(null);
+      continue;
+    }
+    const position = sequenced ? facing.turnToward(tokenCenter(target)) : areaStart;
+    facing.deliver(position, {release: built.releaseTime, end: built.impactTime});
+    components[key] = built.component;
+    timeline.push({component: key, position});
+    results.push({key, impactTime: built.impactTime});
+  }
+  if ( !timeline.length ) return null;
+  facing.apply(components, timeline);
+  return {components, timeline, strikes: results};
+}
+
+/* -------------------------------------------- */
+
+/**
  * Build a melee strike component delivered from beside the attacker to one target.
  * @param {MeleeStrikeData} strike
  * @param {MeleeStrikeOptions} [options]
  * @returns {{component: object, impactTime: number, deliveryEnd: number, settledTime: number}|null}   Null if no
  *   preset matches the damage type and size
  */
-export function buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=MELEE_STRIKE_CONFIG.tint,
-  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=false, punch=false, lunge=false, blood=false}={}) {
-  const {token, target, meshRef, result, critical=false, hand="right", mirror=false} = strike;
+function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=MELEE_STRIKE_CONFIG.tint,
+  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=false, punch=false, lunge=false}={}) {
+  const {token, target, meshRef, result, critical=false, hand="right", mirror=false,
+    outcome={contact: true, damage: true, healing: false}} = strike;
+  damageType = strike.damageType ?? damageType;
+  size = strike.size ?? size;
+
+  // The effect of the damage dealt, beneath the contact particle; a strike which harms health also punches through
+  const effect = resolveAttackEffect(outcome, {damageType: strike.effectType ?? damageType, actor: target.actor,
+    context: {elevation: (target.elevation ?? 0) + 1}});
+  punch &&= outcome.damage;
   const preset = MELEE_STRIKE_PRESETS[damageType];
   const weapon = preset?.[size];
   if ( !weapon ) return null;
@@ -257,7 +395,7 @@ export function buildMeleeStrike(strike, {damageType="piercing", size="medium", 
       sound: positionalSound(getVFXSound("generic", "whooshFast")),
       animations: [{function: "strikeSpriteThrust", params: {distance: C.thrust}}]
     },
-    impacts: [_buildMeleeImpact(target, result, {critical, preset, strikeTint, punch, blood,
+    impacts: [_buildMeleeImpact(target, result, {critical, preset, strikeTint, punch, effect,
       impactTint: (impactTint === null) ? strikeTint : Number(foundry.utils.Color.from(impactTint))})],
     scrollingText: []
   };
@@ -273,85 +411,6 @@ export function buildMeleeStrike(strike, {damageType="piercing", size="medium", 
 /* -------------------------------------------- */
 
 /**
- * Build the melee strikes of one attack, structured into beats of concurrent strikes which follow one another.
- * The attacker turns to face each beat's target before it; only the first strike of a beat lunges, and concurrent
- * strikes belong against a single target.
- * @param {TokenDocument} token             The attacking token
- * @param {Omit<MeleeStrikeData, "token">[]} strikes   In strike order
- * @param {MeleeStrikeOptions & {concurrency?: number}} [options]   The attack style, plus the strikes per beat
- * @returns {{components: Record<string, object>, timeline: {component: string, position: number}[],
- *   impactTimes: number[]}|null}   Null if no preset matches the damage type and size
- */
-export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}) {
-  const beatSize = Math.max(concurrency, 1);
-  const components = {};
-  const timeline = [];
-  const impactTimes = [];
-  const facing = new CrucibleFacingPlan(token);
-  let start = 0;
-  for ( const [i, strike] of strikes.entries() ) {
-    const leader = (i % beatSize) === 0;
-    const built = buildMeleeStrike({...strike, token}, {...options, lunge: !!options.lunge && leader});
-    if ( !built ) return null;
-
-    // Each beat turns to its target once the prior beat has settled, and its strikes begin together after the turn
-    if ( leader ) start = facing.turnToward(tokenCenter(strike.target));
-    facing.deliver(start, {release: built.settledTime, end: built.deliveryEnd});
-    const key = `strike_${i + 1}`;
-    components[key] = built.component;
-    timeline.push({component: key, position: start});
-    impactTimes.push(start + built.impactTime);
-  }
-  facing.apply(components, timeline);
-  return {components, timeline, impactTimes};
-}
-
-/* -------------------------------------------- */
-
-/**
- * Build the projectiles of a ranged attack. Single-target attacks turn to each target and fire in sequence, the next
- * turn beginning as the prior projectile is released; area attacks turn once toward the area and fire together.
- * @param {CrucibleAction} action
- * @param {RangedStrikeData[]} strikes          In strike order
- * @param {Record<string, any>} references      The references map, mutated in place
- * @returns {{components: Record<string, object>, timeline: {component: string, position: number}[],
- *   strikes: ({key: string, impactTime: number}|null)[]}|null}   Each strike's component and its component-relative
- *   impact time, null where none could be built; null if no strike could be built
- */
-export function buildRangedStrikes(action, strikes, references) {
-  const token = action.token;
-  const sequenced = action.target.type === "single";
-  const facing = new CrucibleFacingPlan(token);
-  const areaAim = (!sequenced && token) ? CrucibleFacingComponent.getAreaAim(token, action.region) : null;
-  const areaStart = areaAim ? facing.turnToward(areaAim) : 0;
-  const components = {};
-  const timeline = [];
-  const results = [];
-  for ( const [i, {target, meshRef, roll}] of strikes.entries() ) {
-    const key = `strike_${i + 1}`;
-    const weapon = action.usage.strikes[roll.data.strike];
-    const config = {key, token: target, roll, meshRef, references};
-    const built = _PHYSICAL_PROJECTILE_CATEGORIES.has(weapon?.category)
-      ? _buildPhysicalProjectile(action, config)
-      : _buildMagicalProjectile(action, config);
-    if ( !built ) {
-      results.push(null);
-      continue;
-    }
-    const position = sequenced ? facing.turnToward(tokenCenter(target)) : areaStart;
-    facing.deliver(position, {release: built.releaseTime, end: built.impactTime});
-    components[key] = built.component;
-    timeline.push({component: key, position});
-    results.push({key, impactTime: built.impactTime});
-  }
-  if ( !timeline.length ) return null;
-  facing.apply(components, timeline);
-  return {components, timeline, strikes: results};
-}
-
-/* -------------------------------------------- */
-
-/**
  * Build the result-specific impact of a melee strike on its target.
  * @param {TokenDocument} target
  * @param {number} result                 The attack result in AttackRoll.RESULT_TYPES
@@ -360,11 +419,11 @@ export function buildRangedStrikes(action, strikes, references) {
  * @param {object} options.preset         The damage type's strike presets
  * @param {number} options.strikeTint     Strike tint, carried by punch-through streaks
  * @param {number} options.impactTint     Impact tint
- * @param {boolean} options.punch         Burst streaks through the target on a hit
- * @param {boolean} options.blood         Splatter blood beneath a hit
+ * @param {boolean} options.punch         Burst streaks through the target, for a strike which harms health
+ * @param {{animations: object[], particles: object[]}} options.effect   The effect of the damage dealt
  * @returns {object}                      The impact entry
  */
-function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impactTint, punch, blood}) {
+function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impactTint, punch, effect}) {
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const {START} = foundry.canvas.vfx.constants.SOUND_ALIGNMENT;
   const C = MELEE_STRIKE_CONFIG;
@@ -373,7 +432,7 @@ function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impact
   const sound = (domain, key) => ({src: getRandomSound(domain, key), align: START});
   const impact = {result, id: target.id, sound: null, animations: [], particles: []};
 
-  // TODO placeholder arrow sounds until melee thud and hit sounds exist
+  // Contact particles by result; TODO placeholder arrow sounds until melee thud and hit sounds exist
   switch ( result ) {
     case T.HIT:
     case T.GLANCE:
@@ -406,13 +465,10 @@ function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impact
       impact.sound = sound("projectile", "miss");
   }
   addDodgeSidestep(impact, {lead: C.reactionLead.dodge, retreat: C.dodgeRetreat});
-  if ( (result !== T.HIT) && (result !== T.GLANCE) ) return impact;
 
-  // TODO standalone red blood images; replace with white atlas blood art, then drop textureAnchor: false
-  if ( blood ) {
-    impact.animations.unshift({function: "impactSpriteBurst", params: {texture: getRandomSprite("impacts", "blood"),
-      size: C.bloodSize, duration: C.impactDuration * 1.5, flash: false, textureAnchor: false}});
-  }
+  // The effect beneath the contact particle
+  impact.animations.unshift(...effect.animations);
+  impact.particles.push(...effect.particles);
 
   // Streaks burst out of the far side of the target, more on a critical and fewer on a glance
   if ( punch ) {
@@ -464,26 +520,27 @@ function _computeMeleeStrikeOffset(token, target, result) {
  * @param {object} config
  * @param {string} config.key                 Unique component key, used to name the manifest reference
  * @param {TokenDocument} config.token        The target token
+ * @param {CrucibleActionEvent} config.event  The action event which records the attack roll
  * @param {AttackRoll} config.roll            The attack roll against the target
  * @param {string} config.meshRef             Reference key of the target's token mesh
  * @param {Record<string, any>} config.references   The references map, mutated in place
  * @returns {{component: object, releaseTime: number, impactTime: number}|null}   Null if the damage type has no
  *   magical projectile
  */
-function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}) {
+function _buildMagicalProjectile(action, {key, token, event, roll, meshRef, references}) {
   const weapon = action.usage.strikes[roll.data.strike];
-  const preset = PROJECTILE_DAMAGE_PRESETS[roll.data.damage?.type ?? weapon?.system.damageType];
-  if ( !preset ) return null;
-  const {rune, size=2, speed=150, manifest=150, reveal, path, fps=null, textureAnchor=false,
+  const damageType = _getStrikeDamageType(roll, weapon);
+  const preset = PROJECTILE_DAMAGE_PRESETS[damageType];
+  const rune = getDamageTypeRune(damageType);
+  if ( !preset || !rune ) return null;
+  const {size=2, speed=150, manifest=150, reveal, path, fps=null, textureAnchor=false,
     blend=PIXI.BLEND_MODES.NORMAL, stick=0, flightSound, burstSize, impact, trail} = preset;
   const textures = resolveRuneTextures(rune);
   const texture = preset.frame ? getVFXTexturePath(preset.frame) : pickRandom(textures.projectile);
   if ( !texture ) return null;
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const SL = foundry.canvas.groups.PrimaryCanvasGroup.SORT_LAYERS;
   const actorGeometry = resolveActorGeometry(action);
   const result = roll.data.result;
-  const isHit = (result === T.HIT) || (result === T.GLANCE);
   const revealAtRelease = reveal === "release";
 
   // The projectile manifests in front of the actor and flies to a result-dependent landing point
@@ -506,12 +563,11 @@ function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}
   }
   else sound = positionalSound(getVFXSound("generic", "whooshFast"));
 
-  // Impact treatment
-  const stickDuration = isHit ? stick : 0;
-  const treatment = isHit
-    ? resolveHitTreatment(rune, {textures, elevation: (token.elevation ?? 0) + 1, crit: !!roll.isCriticalSuccess,
-      burstSize, burstDuration: stickDuration || 1000}, {...getRuneImpact(rune), ...impact})
-    : resolveMissTreatment(textures);
+  // Impact treatment, as for a spell of the damage type's rune
+  const treatment = resolveSpellImpact(event, {actor: token.actor, palette: rune, textures,
+    runeProps: {...getRuneImpact(rune), ...impact}, elevation: (token.elevation ?? 0) + 1,
+    context: {burstSize, burstDuration: stick || 1000}});
+  const stickDuration = treatment.affected ? stick : 0;
 
   const component = {
     type: "crucibleProjectile",
@@ -531,7 +587,7 @@ function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}
     },
     impacts: [{
       result, id: token.id, stick: stickDuration,
-      sound: positionalSound(getVFXSound(rune, isHit ? "impact" : "miss")),
+      sound: positionalSound(getVFXSound(rune, treatment.affected ? "impact" : "miss")),
       animations: treatment.animations, particles: treatment.particles
     }],
     scrollingText: []
@@ -547,11 +603,12 @@ function _buildMagicalProjectile(action, {key, token, roll, meshRef, references}
  * @param {CrucibleAction} action
  * @param {object} config
  * @param {TokenDocument} config.token        The target token
+ * @param {CrucibleActionEvent} config.event  The action event which records the attack roll
  * @param {AttackRoll} config.roll            The attack roll against the target
  * @param {string} config.meshRef             Reference key of the target's token mesh
  * @returns {{component: object, releaseTime: number, impactTime: number}}
  */
-function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
+function _buildPhysicalProjectile(action, {token, event, roll, meshRef}) {
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   const PROJECTILE_SPEED = 150; // Feet-per-second
   const CHARGE_DURATION = 1000;
@@ -563,17 +620,16 @@ function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
   const distPx = casterCenter ? Math.hypot(targetCenter.x - casterCenter.x, targetCenter.y - casterCenter.y) : 0;
   const flightMS = (distPx * 1000) / (PROJECTILE_SPEED * canvas.dimensions.distancePixels);
 
-  // Impact treatment
+  // Impact treatment: the arrow lodges in a target it strikes unhindered, beside the effect of the damage dealt
   const impact = _buildPhysicalImpact(token, roll.data.result, meshRef);
+  const outcome = getAttackOutcome(event);
   const isHit = (roll.data.result === T.HIT) || (roll.data.result === T.GLANCE);
   const stick = isHit ? STICK_DURATION : 0;
-  const impactAnimations = [];
-  // TODO standalone blood image anchors at its top-left corner, landing past the target; fixed by white atlas blood art
-  if ( impact.texture ) {
-    impactAnimations.push({function: "impactSpriteBurst",
-      params: {texture: impact.texture, size: 3, duration: stick || 1000}});
-  }
-  if ( isHit ) impactAnimations.push({function: roll.isCriticalSuccess ? "impactSpriteShake" : "impactSpriteRecoil"});
+  const weapon = action.usage.strikes[roll.data.strike];
+  const effect = resolveAttackEffect(outcome, {damageType: _getStrikeDamageType(roll, weapon), actor: token.actor,
+    context: {elevation: (token.elevation ?? 0) + 1}});
+  const impactAnimations = [...effect.animations,
+    ...buildContactReaction(outcome, roll.data.result, {critical: !!roll.isCriticalSuccess})];
 
   const component = {
     type: "crucibleProjectile",
@@ -597,7 +653,8 @@ function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
       id: token.id,
       stick,
       sound: impact.sound ? {src: impact.sound, align: 1} : null,
-      animations: impactAnimations
+      animations: impactAnimations,
+      particles: effect.particles
     }],
     scrollingText: []
   };
@@ -608,23 +665,20 @@ function _buildPhysicalProjectile(action, {token, roll, meshRef}) {
 /* -------------------------------------------- */
 
 /**
- * Build the landing position, sound, and texture of a physical projectile's impact on a target.
+ * Build the landing position and sound of a physical projectile's impact on a target.
  * @param {CrucibleToken} token
  * @param {number} result                 The attack result in AttackRoll.RESULT_TYPES
  * @param {string} targetMeshReference
- * @returns {{position: {reference: string, deltas: Record<string, number>}, sound: string|null, texture: string|null}}
+ * @returns {{position: {reference: string, deltas: Record<string, number>}, sound: string|null}}
  */
 function _buildPhysicalImpact(token, result, targetMeshReference) {
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
   let sound = null;
-  let texture = null;
 
-  // Result-specific sound and impact texture; positional offset is shared via computeAttackOffset
-  // TODO standalone red blood images; replace with white atlas blood art
+  // Result-specific sound; positional offset is shared via computeAttackOffset
   switch ( result ) {
     case T.HIT:
       sound = getRandomSound("projectile", "hitCreature");
-      texture = getRandomSprite("impacts", "blood");
       break;
     case T.ARMOR:
     case T.BLOCK:
@@ -632,7 +686,6 @@ function _buildPhysicalImpact(token, result, targetMeshReference) {
       break;
     case T.GLANCE:
       sound = getRandomSound("projectile", "hitObject");
-      texture = getRandomSprite("impacts", "blood");
       break;
     case T.PARRY:
       sound = getRandomSound("projectile", "block");
@@ -645,7 +698,19 @@ function _buildPhysicalImpact(token, result, targetMeshReference) {
 
   const offset = computeAttackOffset(token, result, {sidestep: true});
   const position = {reference: targetMeshReference, deltas: {sort: 1, x: offset.x, y: offset.y}};
-  return {position, sound, texture};
+  return {position, sound};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * The damage type of one strike: what its roll dealt, otherwise what its weapon deals.
+ * @param {AttackRoll} roll
+ * @param {CrucibleItem|null} weapon
+ * @returns {string|undefined}
+ */
+function _getStrikeDamageType(roll, weapon) {
+  return roll.data.damage?.type ?? weapon?.system.damageType;
 }
 
 /* -------------------------------------------- */

@@ -1,6 +1,95 @@
+import {getRandomSprite, getVFXTexturePath} from "./sprites.mjs";
+
 /**
  * Shared utilities used by VFX configurators across spells and strikes.
  */
+
+/**
+ * What an attack did to its target, which decides what every attack animation displays there: the delivery's
+ * contact particle and reaction where it connected, plus an effect chosen by damage type where it harmed health or
+ * restored a resource.
+ * @typedef AttackOutcome
+ * @property {boolean} contact    The attack connected, even if deflected
+ * @property {boolean} damage     The attack harmed health
+ * @property {boolean} healing    The attack restored a resource
+ */
+
+/**
+ * A burst which harming a creature's health with physical damage draws from it, such as blood.
+ * @typedef DamageParticle
+ * @property {string} [frame]                   An atlas frame
+ * @property {[string, string]} [sprite]        A VFX_SPRITES domain and key, of which a random standalone image
+ * @property {number} size                      Burst size in feet
+ * @property {number} duration                  Burst milliseconds
+ * @property {boolean} flash                    Flash the burst in with ADD blending
+ * @property {boolean} [textureAnchor]          False to center a standalone image
+ */
+
+/**
+ * What physical damage to health draws from a creature: blood from a blooded creature, otherwise by creature category.
+ * @type {Record<string, DamageParticle>}
+ */
+const DAMAGE_PARTICLES = {
+  // TODO standalone red blood images; replace with white atlas blood art, then drop textureAnchor: false
+  blood: {sprite: ["impacts", "blood"], size: 6, duration: 1050, flash: false, textureAnchor: false},
+  construct: {frame: "storm/ImpactBoltsSmall", size: 4, duration: 500, flash: true},
+  undead: {frame: "death/GroundFissureSmall", size: 3, duration: 1200, flash: false}
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Build the impact animation which shows the damage particle physical damage draws from an actor, if any.
+ * @param {CrucibleActor|null} actor
+ * @returns {{function: string, params: object}|null}
+ */
+export function buildDamageParticle(actor) {
+  const biology = actor?.system.details?.[actor.system.constructor.biologyName];
+  if ( !biology ) return null;
+  const particle = biology.characteristics?.blooded ? DAMAGE_PARTICLES.blood : DAMAGE_PARTICLES[biology.category];
+  if ( !particle ) return null;
+  const {frame, sprite, ...params} = particle;
+  const texture = sprite ? getRandomSprite(...sprite) : getVFXTexturePath(frame);
+  return {function: "impactSpriteBurst", params: {texture, ...params}};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Determine the outcome of an attack against its target from the action event which records its roll.
+ * What the attack intends comes from the event's own vocabulary; it takes effect only where its damage total is
+ * positive, so a hit resisted to nothing shows contact alone.
+ * @param {CrucibleActionEvent} event
+ * @returns {AttackOutcome}
+ */
+export function getAttackOutcome(event) {
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  const data = event.roll?.data;
+  const contact = [T.HIT, T.GLANCE, T.ARMOR, T.RESIST, T.BLOCK, T.PARRY].includes(data?.result);
+  const landed = contact && (data.damage?.total > 0);
+  return {contact, damage: landed && event.damagesHealth, healing: landed && (event.healsHealth || event.healsMorale)};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Build a target's reaction to a ranged or spell attack which connected: a recoil, or a shake on a critical hit.
+ * A healing arrival or a knockback glide, which replaces the recoil, draws no reaction.
+ * @param {AttackOutcome} outcome
+ * @param {number} result                 The attack result in AttackRoll.RESULT_TYPES
+ * @param {object} [options]
+ * @param {boolean} [options.critical=false]
+ * @param {boolean} [options.knockback=false]
+ * @returns {object[]}                    Impact animations
+ */
+export function buildContactReaction(outcome, result, {critical=false, knockback=false}={}) {
+  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
+  if ( !outcome.contact || outcome.healing || knockback || ![T.HIT, T.GLANCE].includes(result) ) return [];
+  const gridSize = canvas.dimensions.size;
+  return [critical
+    ? {function: "impactSpriteShake", params: {distance: Math.round(gridSize * 0.3), oscillations: 3, duration: 480}}
+    : {function: "impactSpriteRecoil", params: {distance: Math.round(gridSize * 0.15), duration: 320}}];
+}
 
 /* -------------------------------------------- */
 
