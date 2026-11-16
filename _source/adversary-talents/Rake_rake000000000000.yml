@@ -48,7 +48,7 @@ system:
           duration:
             value: 2
             units: rounds
-            expiry: turnEnd
+            expiry: turnStart
             expired: false
           system:
             changes: []

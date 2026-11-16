@@ -188,8 +188,9 @@ const strikeSpriteGleam = {
 
 /**
  * Wind up, lean, and twist an attacking token into a melee strike, display only.
- * The twist adds to the token's facing, which a {@link CrucibleFacingComponent} turns toward the target;
- * lean displaces the mesh anchor so it never contends for position.
+ * The twist adds to the token's facing, which a {@link CrucibleFacingComponent} turns toward the target unless the
+ * token locks its rotation; the twist is part of the blow, so it plays either way. Lean displaces the mesh anchor so
+ * it never contends for position.
  * Each motion follows a drive: the charge winds up to a negative fraction (coiling or rearing back), complete by
  * `windupBy` of the charge and held after, the delivery drives to full, and the recovery settles back to rest. The
  * lean peaks at the impact; `follow` delays the twist's unwinding toward a follow-through which peaks as the delivery
@@ -204,12 +205,11 @@ const strikeSpriteLunge = {
     if ( !mesh?.texture ) return;
     const {source, destination} = this.state;
     const angle = Math.atan2(destination.y - source.y, destination.x - source.x);
-    const locked = !!mesh.object?.document?.lockRotation;
     params._mesh = mesh;
     params._dx = Math.cos(angle);
     params._dy = Math.sin(angle);
     params._baseAnchor = {x: mesh.anchor.x, y: mesh.anchor.y};
-    params._twist = locked ? 0 : (Math.toRadians(params.twist ?? 12) * ((params.hand === "left") ? 1 : -1));
+    params._twist = Math.toRadians(params.twist ?? 12) * ((params.hand === "left") ? 1 : -1);
   },
   schedule(phase, params) {
     const mesh = params._mesh;
