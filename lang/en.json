@@ -618,6 +618,9 @@
     "Challenge": {
       "Dominance": "Dominance"
     },
+    "CorrodeWeapon": {
+      "Label": "Weapon to Corrode"
+    },
     "DeathlessFury": {
       "CannotUse": "{name} can only enter a Deathless Fury while their Health does not exceed their Wounds."
     },
