@@ -2986,11 +2986,14 @@ HOOKS.throwTorch = {
 /* -------------------------------------------- */
 
 HOOKS.tailSweep = {
+  _TAIL_IDENTIFIERS: new Set(["tail", "giantTail"]),
   canUse() {
-    return this.usage.weapon.system.identifier === "tail";
+    return HOOKS.tailSweep._TAIL_IDENTIFIERS.has(this.usage.weapon?.system.identifier);
   },
   initialize() {
-    this.usage.weapon = this.actor.equipment.weapons.natural.find(w => w.system.identifier === "tail");
+    this.usage.weapon = this.actor.equipment.weapons.natural.find(w => {
+      return HOOKS.tailSweep._TAIL_IDENTIFIERS.has(w.system.identifier);
+    });
   }
 };
 
