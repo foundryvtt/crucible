@@ -322,6 +322,9 @@ HOOKS.bestialSenses000 = {
   prepareAttack(item, action, _target, rollData) {
     if ( !(action.tags.has("skill") && (action.usage.skillId === "awareness")) ) return;
     rollData.boons.bestialSenses = {label: item.name, number: 2};
+  },
+  prepareSkillCheck(item, skill, rollData) {
+    if ( rollData.type === "awareness" ) rollData.boons[item.id] = {label: item.name, number: 2};
   }
 };
 
