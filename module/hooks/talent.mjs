@@ -1820,6 +1820,22 @@ HOOKS.bloodless0000000 = {
   },
   prepareDefenses() {
     this.statuses.delete("bleeding");
+  },
+  receiveAction(_item, _action, events) {
+    for ( const event of events ) {
+      if ( !event.effects?.length ) continue;
+      event.effects = event.effects.filter(effect => {
+        const statuses = new Set(effect.statuses);
+        if ( !statuses.has("bleeding") ) return true;
+        if ( statuses.size === 1 ) return false;
+        statuses.delete("bleeding");
+        effect.statuses = Array.from(statuses);
+        return true;
+      });
+    }
+  },
+  startTurn(_item, turnStartConfig) {
+    turnStartConfig.dot = turnStartConfig.dot.filter(e => !e.statuses.has("bleeding"));
   }
 };
 
