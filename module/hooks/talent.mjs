@@ -1852,14 +1852,14 @@ HOOKS.corrosiveStrikes = {
 
 /* -------------------------------------------- */
 
-HOOKS.noxiousStrikes = {
+HOOKS.noxiousStrikes00 = {
   applyCriticalEffects(_item, action) {
     for ( const [, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
         const weapon = event.weaponItem;
-        if ( !weapon || weapon.config.category.ranged ) continue;
-        event.effects.push(SYSTEM.EFFECTS.poisoned(this, {ability: "toughness"}));
+        if ( !weapon || weapon.system.activeCategory.ranged ) continue;
+        event.effects.push(SYSTEM.EFFECTS.poisoned(this, {ability: "toughness", turns: 3}));
         break;
       }
     }
