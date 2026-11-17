@@ -1581,6 +1581,16 @@ HOOKS.resilient0000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.restlessDead0000 = {
+  prepareAction(item, action) {
+    if ( (action.id === "recover") && !this.inCombat && !this.system.isDead && !this.system.isInsane ) {
+      action.tags.add("involuntary");
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.rimecaller000000 = {
   applyCriticalEffects(_item, action) {
     applyRuneCritEffect(this, action, "frost", ability => SYSTEM.EFFECTS.freezing(this, {ability}));
