@@ -493,6 +493,7 @@
       "CyclicEffects": "{action} cannot create effects which depend upon one another in a cycle.",
       "DirectMovementOnly": "This action requires a direct movement path with no intermediate waypoints.",
       "CannotHideEngaged": "You cannot Hide while you are engaged with an enemy.",
+      "EludedReaction": "You cannot perform {action} in reaction to a spell enhanced with Inflection: Elude.",
       "GemConjuredFlameShoddy": "A Shoddy quality Gem of Conjured Flame fails to summon any elemental.",
       "HideObservers": "Additional Observers",
       "Incapacitated": "{name} cannot act while Incapacitated.",

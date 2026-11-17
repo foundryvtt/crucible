@@ -500,6 +500,9 @@ export const TAGS = {
         ability: SYSTEM.ABILITIES.dexterity.label,
         action: this.name
       }));
+      if ( this.tags.has("strike") && (ChatMessage.implementation.getLastAction()?.inflection?.id === "eluding") ) {
+        throw new Error(_loc("ACTION.WARNINGS.EludedReaction", {action: this.name}));
+      }
       return this.actor !== game.combat?.combatant?.actor;
     },
     prepare() {
