@@ -670,6 +670,9 @@
       "Petrification": "Petrification",
       "Stage": "Stage {stage}"
     },
+    "ReactiveStrike": {
+      "ElusiveFlight": "{target} cannot be targeted by Reactive Strike while in flight."
+    },
     "Regurgitate": {
       "NotHeld": "You are not holding {target}."
     },

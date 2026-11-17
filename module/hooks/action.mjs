@@ -2256,6 +2256,11 @@ HOOKS.reactiveStrike = {
     }
   },
   acquireTargets(targets) {
+    for ( const target of targets ) {
+      if ( target.actor?.talentIds.has("elusiveFlight000") && target.actor.statuses.has("flying") ) {
+        target.error ??= _loc("ACTIONS.ReactiveStrike.ElusiveFlight", {target: target.actor.name});
+      }
+    }
     if ( HOOKS.reactiveStrike._championBypass(this.actor) ) return;
     const token = this.token?.object;
     if ( !token ) return;
