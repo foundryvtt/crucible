@@ -2838,6 +2838,41 @@ HOOKS.selfRepair = {
 
 /* -------------------------------------------- */
 
+HOOKS.slipperyEscape = {
+  initialize() {
+    this.usage.movement.ignoreRestrained = true;
+  },
+  canUse() {
+    if ( !this.actor.statuses.has("restrained") ) return false;
+  },
+  postActivate() {
+    const target = this.actor;
+    const grapple = HOOKS.grapple;
+    const grapplePair = {
+      [grapple._GRAPPLED_EFFECT_ID]: grapple._GRAPPLING_EFFECT_ID,
+      [grapple._GRAPPLING_EFFECT_ID]: grapple._GRAPPLED_EFFECT_ID
+    };
+    for ( const effect of target.effects ) {
+      if ( !effect.active || !effect.statuses.has("restrained") ) continue;
+      if ( effect.isStatusOnly("restrained") ) {
+        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "delete"}]});
+      } else {
+        const statuses = Array.from(effect.statuses).filter(s => s !== "restrained");
+        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "update", statuses}]});
+      }
+      const pairedId = grapplePair[effect.id];
+      if ( pairedId ) {
+        const partner = effect.origin ? fromUuidSync(effect.origin) : null;
+        if ( partner?.effects.has(pairedId) ) {
+          this.recordEvent({type: "effect", target: partner, effects: [{_id: pairedId, _action: "delete"}]});
+        }
+      }
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.sneak = {
   postActivate() {
     _recordConcealmentDC(this);
