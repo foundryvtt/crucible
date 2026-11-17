@@ -12,7 +12,7 @@ system:
     within their bodies that, if not discharged safely, can cause serious
     injury.</p>
   actions:
-    - id: steamVent
+    - id: burnout
       name: Burnout
       img: icons/magic/air/fog-gas-smoke-swirling-orange.webp
       description: >-
@@ -49,8 +49,8 @@ system:
             - blinded
           duration:
             value: 3
-            units: turns
-            expiry: null
+            units: rounds
+            expiry: turnStart
             expired: false
           system:
             dot: []
@@ -59,7 +59,7 @@ system:
             summons: []
             changes: []
       tags:
-        - ranged
+        - generic
         - fire
         - reflex
   iconicSpells: 0
