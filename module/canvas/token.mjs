@@ -441,7 +441,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       }
 
       // Step 2: Apply difficult terrain
-      const terrainCost = calculateTerrainCost(from, to, distance, segment);
+      const terrainCost = options.ignoreTerrain ? distance : calculateTerrainCost(from, to, distance, segment);
 
       // Step 3: Apply movement action
       const costMultiplier = actor?.system.movement.costMultipliers?.[segment.action];
