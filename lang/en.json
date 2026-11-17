@@ -676,6 +676,10 @@
     "Revive": {
       "RequiresDead": "Revive requires a Dead target."
     },
+    "SelfRepair": {
+      "Label": "Status Condition",
+      "Required": "You must choose a status condition to end."
+    },
     "Swallow": {
       "AlreadySwallowing": "You are already Swallowing another creature."
     },
