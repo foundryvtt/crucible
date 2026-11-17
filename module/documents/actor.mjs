@@ -971,9 +971,12 @@ export default class CrucibleActor extends Actor {
       restoration: options.restoration ?? action.usage.restoration
     };
 
-    // Defender configuration, which may handle special cases like the "Environment" or the actor attacking themselves
-    this._configureTargetRollData(action, rollData);
-    this.callActorHooks("defendAttack", action, action.actor, rollData);
+    // Configure attacker/defender hooks when an acting actor exists, otherwise defender hooks only
+    if ( action.actor ) CrucibleActor._configureRollData(action, action.actor, this, rollData);
+    else {
+      this._configureTargetRollData(action, rollData);
+      this.callActorHooks("defendAttack", action, null, rollData);
+    }
 
     // Create and evaluate the AttackRoll instance, resolving its outcome and damage result
     const roll = new AttackRoll(rollData);
@@ -986,6 +989,7 @@ export default class CrucibleActor extends Actor {
       damageType: rollData.damageType,
       restoration: rollData.restoration
     });
+    this.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
 
