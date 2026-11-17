@@ -2858,6 +2858,24 @@ HOOKS.sneak = {
 
 /* -------------------------------------------- */
 
+HOOKS.steamVent = {
+  async postActivate() {
+    const origin = this.token?.object?.center;
+    if ( !origin ) return;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.isSuccess ) continue;
+      const targetToken = this.targets.get(target)?.token?.object;
+      if ( !targetToken ) continue;
+      const plan = await crucible.api.canvas.movement.planPushMovement(origin, targetToken, 10);
+      if ( !plan ) continue;
+      const {x, y, elevation} = plan.origin;
+      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.submergingWithdrawal = {
   canUse() {
     // Control conditions that pin the creature above ground and prevent it from retracting beneath the surface
