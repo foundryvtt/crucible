@@ -1,3 +1,4 @@
+export {default as DetectionModeBlindsight} from "./blindsight.mjs";
 export {default as DetectionModeBloodSense} from "./blood-sense.mjs";
 export {default as DetectionModeEcholocation} from "./echolocation.mjs";
 export {default as DetectionModeSenseCreature} from "./sense-creature.mjs";
