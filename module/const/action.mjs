@@ -5,6 +5,12 @@ import {defineEnum, defineIntEnum} from "./enum.mjs";
 import {QUALITY_TIERS} from "./items.mjs";
 
 /**
+ * The id of the top-level Actor Folder which holds summoned creatures imported to the World.
+ * @type {string}
+ */
+export const SUMMONS_FOLDER_ID = "crucibleSummons0";
+
+/**
  * The different required conditions under which an Active Effect can be applied from an Action.
  * @type {Readonly<Record<string, {id: string, label: string}>>}
  */
@@ -689,13 +695,14 @@ export const TAGS = {
         const scene = game.scenes.get(summon.scene);
         if ( !scene ) throw new Error(`The Scene in which "${this.name}" summons does not exist`);
 
-        // Get or create a world level Actor for the summons
+        // Get or create a world level Actor for the summons, filed in a folder for the summoner
         const sourceActor = await fromUuid(summon.actorUuid);
         const ownership = this.actor.hasPlayerOwner ? {default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER} : {};
         let worldActor = game.actors.get(sourceActor.id);
         if ( !worldActor ) {
-          worldActor = await game.actors.importFromCompendium(sourceActor.collection, sourceActor.id, {ownership},
-            {keepId: true, clearOwnership: false});
+          const folder = await this.actor.createSummonsFolder();
+          worldActor = await game.actors.importFromCompendium(sourceActor.collection, sourceActor.id,
+            {ownership, folder: folder.id}, {keepId: true, clearOwnership: false});
         }
         else await worldActor.update({ownership});
 

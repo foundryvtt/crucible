@@ -1277,6 +1277,27 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Create the Folder for the creatures this Actor summons within the top-level Summons Folder, unless both exist.
+   * @returns {Promise<Folder>}
+   */
+  async createSummonsFolder() {
+    const parentId = SYSTEM.ACTION.SUMMONS_FOLDER_ID;
+    const parent = game.folders.get(parentId);
+    const existing = parent?.getSubfolders().find(f => f.name === this.name);
+    if ( existing ) return existing;
+
+    // Create the summoner's Folder, and the top-level Summons Folder if it is missing
+    const toCreate = [];
+    if ( !parent ) toCreate.push({_id: parentId, name: _loc("ACTION.SummonsFolder"), type: "Actor", color: "#561206"});
+    const _id = foundry.utils.randomID();
+    toCreate.push({_id, name: this.name, type: "Actor", folder: parentId, color: "#380d05"});
+    await Folder.implementation.createDocuments(toCreate, {keepId: true});
+    return game.folders.get(_id);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Apply or reverse ActiveEffect changes from an action's event stream.
    * @param {ActionEffect[]} effects                The effect data array to apply
    * @param {object} [options]                      Options which configure how the effects are applied
