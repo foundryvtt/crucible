@@ -164,25 +164,8 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
         if ( hidden !== !!doc.system.suppression?.source ) update = {system: {suppression: {source: hidden}}};
       } else {
         const marked = doc.getFlag("crucible", "suppressionHidden");
-        if ( hidden && !doc.hidden ) update = {hidden: true, flags: {crucible: {suppressionHidden: true}}};
+        if ( hidden && !doc._source.hidden ) update = {hidden: true, flags: {crucible: {suppressionHidden: true}}};
         else if ( !hidden && marked ) update = {hidden: false, flags: {crucible: {suppressionHidden: _del}}};
-
-        // TODO: Core forces a token-attached Region's hidden state to match its Token, dropping the change above
-        //  (https://github.com/foundryvtt/foundryvtt/issues/14496), so also disable its behaviors and hide it from players
-        if ( update && (doc.documentName === "Region") ) {
-          if ( hidden && doc.attachment.token ) {
-            const behaviors = doc.behaviors.filter(b => !b.disabled).map(b => b.id);
-            update.flags.crucible.suppressionHidden = {behaviors, visibility: doc.visibility};
-            update.visibility = CONST.REGION_VISIBILITY.LAYER;
-            for ( const _id of behaviors ) queue(doc, "RegionBehavior", {_id, disabled: true});
-          }
-          else if ( !hidden && marked.behaviors ) {
-            update.visibility = marked.visibility;
-            for ( const _id of marked.behaviors ) {
-              if ( doc.behaviors.has(_id) ) queue(doc, "RegionBehavior", {_id, disabled: false});
-            }
-          }
-        }
       }
       if ( update ) queue(doc.parent, doc.documentName, {_id: doc.id, ...update});
     }
