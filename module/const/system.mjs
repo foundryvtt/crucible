@@ -299,6 +299,7 @@ export const RULES = {
   accessory: preparePropertyRules(ACCESSORY.PROPERTIES, `${EQUIPMENT_PAGE}.Accessories00000`),
   action: ACTION.TAGS, // Tags which pertain to an action; `reload`, `rest`, and `strike` also exist under `actions`
   actions: Object.fromEntries(ACTION.DEFAULT_ACTIONS.map(a => [a.id, a])),
+  affix: prepareRules(ITEM.AFFIX_PROPERTIES, `${EQUIPMENT_PAGE}.Affixes000000000`),
   armor: {
     ...preparePropertyRules(ARMOR.PROPERTIES, `${EQUIPMENT_PAGE}.JTsl6ENdxSDW765Q`),
     ...prepareCategoryRules(ARMOR.CATEGORIES, `${EQUIPMENT_PAGE}.JTsl6ENdxSDW765Q`) // Natural shares its property rule
@@ -310,6 +311,7 @@ export const RULES = {
   dice: DICE.RULES,
   item: {
     ...prepareRules(ITEM.PROPERTIES, `${EQUIPMENT_PAGE}.6QxbcLoOhUkXTbAj`),
+    ...prepareAliasRules(ITEM.AFFIX_PROPERTIES, "affix"),
     ...prepareAliasRules(ITEM.QUALITY_TIERS, "quality")
   },
   movement: ACTOR.MOVEMENT_RULES,

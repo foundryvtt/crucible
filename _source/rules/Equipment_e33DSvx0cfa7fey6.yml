@@ -614,11 +614,17 @@ pages:
         "of".</p></dd></dl><dl><dt><p></p></dt><dt><p>Actions</p></dt><dd><p>Some
         affixes grant usable actions to the bearer. These actions appear on the
         item alongside any actions the item natively provides and can be
-        activated during combat or exploration.</p></dd></dl><h2
-        class="divider">Enchantment Budget</h2><p>The total affix capacity of an
-        item is determined by its <strong>Quality</strong> tier. This capacity
-        is split equally between prefixes and suffixes. Each affix's tier value
-        counts against the budget for its
+        activated during combat or
+        exploration.</p></dd></dl><dl><dt><p>Cursed</p></dt><dd
+        data-rule="affix.cursed"><p>Some affixes are <strong>Cursed</strong>,
+        granting the opposite of what the affix would normally provide. Any
+        bonuses normally granted by such affixes become equivalent penalties
+        instead. Invested items with a <strong>Cursed</strong> affix cannot be
+        divested at will.</p></dd></dl><h2 class="divider">Enchantment
+        Budget</h2><p>The total affix capacity of an item is determined by its
+        <strong>Quality</strong> tier. This capacity is split equally between
+        prefixes and suffixes. Each affix's tier value counts against the budget
+        for its
         category.</p><table><thead><tr><th><p>Quality</p></th><th><p>Total
         Capacity</p></th><th><p>Prefix Budget</p></th><th><p>Suffix
         Budget</p></th></tr></thead><tbody><tr><td><p>Shoddy</p></td><td><p>0</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Standard</p></td><td><p>0</p></td><td><p>0</p></td><td><p>0</p></td></tr><tr><td><p>Fine</p></td><td><p>2</p></td><td><p>1</p></td><td><p>1</p></td></tr><tr><td><p>Superior</p></td><td><p>4</p></td><td><p>2</p></td><td><p>2</p></td></tr><tr><td><p>Masterwork</p></td><td><p>6</p></td><td><p>3</p></td><td><p>3</p></td></tr></tbody></table><p>An
@@ -644,12 +650,12 @@ pages:
       WRGzDgYAt3ZuX6TU: 3
     flags: {}
     _stats:
-      coreVersion: '14.359'
+      coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.9.0
       createdTime: 1775570460951
-      modifiedTime: 1775573135388
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      modifiedTime: 1795032344290
+      lastModifiedBy: ZXJsFnFZuf21WDAk
       compendiumSource: null
       duplicateSource: null
       exportSource: null
