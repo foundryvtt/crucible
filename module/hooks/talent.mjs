@@ -231,11 +231,15 @@ HOOKS.assassin00000000 = {
     if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
     if ( !target.statuses.has("unaware") ) return;
 
-    // Don't want to double-deadly
-    if ( action.tags.has("deadly") ) return;
+    // An action which is already Deadly is not doubly so. Remember that Assassin itself added the tag, otherwise
+    // every attack after the first in a multi-attack action would see it and skip the bonus
+    if ( action.tags.has("deadly") && !HOOKS.assassin00000000._deadlyActions.has(action) ) return;
+    HOOKS.assassin00000000._deadlyActions.add(action);
     action.tags.add("deadly");
     rollData.multiplier += 1;
-  }
+  },
+  /** Actions made Deadly by this talent, as opposed to actions which were already Deadly */
+  _deadlyActions: new WeakSet()
 }
 
 /* -------------------------------------------- */
