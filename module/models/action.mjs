@@ -388,7 +388,7 @@ class CrucibleActionEvent {
 /**
  * @typedef CrucibleActionUsageOptions
  * @property {CrucibleToken} [token]  A specific Token which is performing the action
- * @property {boolean} [dialog]             Present the user with an action configuration dialog?
+ * @property {object|boolean} [dialog]      Present an action configuration dialog, constructed with these options
  * @property {string} [messageMode]         Which message visibility mode to apply to the resulting message?
  * @property {ChatMessage} [message]        An existing ChatMessage which records the action instead
  */
@@ -1413,11 +1413,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Display a configuration prompt which customizes the Action usage.
+   * @param {object} [options]            Options passed to the dialog
    * @returns {Promise<object|null>}      The results of the configuration dialog
    */
-  async configureDialog() {
+  async configureDialog(options={}) {
     const roll = StandardCheck.fromAction(this);
     const response = await this.constructor.dialogClass.prompt({
+      ...options,
       action: this,
       actor: this.actor,
       roll,
@@ -1464,7 +1466,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Execute the cloned action.
    * @param {object} [options]                      Options which modify action usage
-   * @param {boolean} [options.dialog]              Present the user with an action configuration dialog?
+   * @param {object|boolean} [options.dialog]       Present a configuration dialog, constructed with these options
    * @param {object} [options.chatMessageOptions]   Options which are passed to Action#toMessage
    * @param {ChatMessage} [options.message]         An existing ChatMessage which records the action instead
    * @returns {Promise<CrucibleAction|null>}
@@ -1487,7 +1489,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Prompt for action configuration
     if ( dialog ) {
-      const configuration = await this.configureDialog();
+      const configuration = await this.configureDialog((dialog === true) ? {} : dialog);
       if ( configuration === null ) return null;  // Dialog closed
       try {
         this.acquireTargets({strict: true});  // Re-acquire configured targets, strictly

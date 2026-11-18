@@ -6,6 +6,9 @@ import ActionUseDialog from "./action-use-dialog.mjs";
 export default class SpellCastDialog extends ActionUseDialog {
 
   /** @override */
+  static LOCKABLE_FIELDS = ["rune", "gesture", "inflection"];
+
+  /** @override */
   static TEMPLATE = "systems/crucible/templates/dice/spell-cast-dialog.hbs";
 
   /* -------------------------------------------- */
@@ -28,6 +31,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     return foundry.utils.mergeObject(context, {
       runes, gestures, inflections,
       canInflect: true,
+      locked: Object.fromEntries(SpellCastDialog.LOCKABLE_FIELDS.map(c => [c, this._lockedFields.has(c)])),
       chooseDamageType: spell.rune.damageType === "physical",
       damageTypes: {
         bludgeoning: SYSTEM.DAMAGE_TYPES.bludgeoning.label,
@@ -63,8 +67,11 @@ export default class SpellCastDialog extends ActionUseDialog {
     const formData = (new foundry.applications.ux.FormDataExtended(form)).object;
     const composition = this.action.constructor.COMPOSITION_STATES.COMPOSED;
     if ( this.action.isComposed ) {
-      const {rune, gesture, inflection, damageType} = formData;
-      this.action.updateSource({composition, rune, gesture, inflection, damageType});
+      const changes = {composition, damageType: formData.damageType};
+      for ( const c of SpellCastDialog.LOCKABLE_FIELDS ) {
+        if ( !this._lockedFields.has(c) ) changes[c] = formData[c]; // Disabled selects are absent from formData
+      }
+      this.action.updateSource(changes);
     } else {
       const {damageType=""} = formData;
       this.action.updateSource({composition, damageType});

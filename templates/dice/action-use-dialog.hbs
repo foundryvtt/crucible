@@ -2,7 +2,7 @@
     {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
 
     {{#if weaponChoice}}
-    {{formGroup weaponChoice.field value=weaponChoice.value valueAttr="id"}}
+    {{formGroup weaponChoice.field value=weaponChoice.value valueAttr="id" disabled=weaponChoice.disabled}}
     {{/if}}
 
     {{> "systems/crucible/templates/dice/partials/action-use-footer.hbs"}}

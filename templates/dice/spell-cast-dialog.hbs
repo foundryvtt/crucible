@@ -5,7 +5,7 @@
     <div class="form-group spell-component">
         <label>{{localize "SPELL.COMPONENTS.Rune"}}</label>
         <div class="form-fields">
-            <select name="rune" class="component">
+            <select name="rune" class="component" {{disabled locked.rune}}>
                 {{selectOptions runes selected=action.rune.id valueAttr="id" labelAttr="name"}}
             </select>
         </div>
@@ -15,7 +15,7 @@
     <div class="form-group spell-component">
         <label>{{localize "SPELL.COMPONENTS.Gesture"}}</label>
         <div class="form-fields">
-            <select name="gesture" class="component">
+            <select name="gesture" class="component" {{disabled locked.gesture}}>
                 {{selectOptions gestures selected=action.gesture.id valueAttr="id" labelAttr="name"}}
             </select>
         </div>
@@ -26,7 +26,7 @@
     <div class="form-group spell-component">
         <label>{{localize "SPELL.COMPONENTS.Inflection"}}</label>
         <div class="form-fields">
-            <select name="inflection" class="component">
+            <select name="inflection" class="component" {{disabled locked.inflection}}>
                 {{selectOptions inflections selected=action.inflection.id blank="" valueAttr="id" labelAttr="name"}}
             </select>
         </div>

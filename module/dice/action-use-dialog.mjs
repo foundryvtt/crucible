@@ -5,11 +5,19 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
  * @extends {StandardCheckDialog}
  */
 export default class ActionUseDialog extends StandardCheckDialog {
-  constructor({action, actor, targets, ...options}) {
+  /**
+   * @param {object} options
+   * @param {CrucibleAction} options.action                   The Action being performed
+   * @param {CrucibleActor} options.actor                     The Actor performing the action
+   * @param {CrucibleToken[]} [options.targets]               The Tokens which are targeted by the action
+   * @param {boolean|Iterable<string>} [options.lockedFields]  Fields the user cannot change, or true for all lockable
+   */
+  constructor({action, actor, targets, lockedFields, ...options}) {
     super(options);
     this.action = action;
     this.actor = actor;
     this.targets = targets;
+    this._lockedFields = new Set((lockedFields === true) ? this.constructor.LOCKABLE_FIELDS : (lockedFields || []));
     const choice = action.getValidWeaponChoices().find(c => c.item === action.usage.weapon);
     this.#weaponChoice = choice?.id ?? (action.usage.weapon?.id || "");
   }
@@ -34,6 +42,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /** @override */
   static TEMPLATE = "systems/crucible/templates/dice/action-use-dialog.hbs";
+
+  /**
+   * The configuration fields of this dialog which a caller may lock.
+   * @type {string[]}
+   */
+  static LOCKABLE_FIELDS = ["weapon"];
 
   /**
    * Targets acquired from the most recently placed region for this Action.
@@ -79,6 +93,13 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @type {CrucibleToken[]}
    */
   targets;
+
+  /**
+   * Configuration fields the user cannot change.
+   * @type {Set<string>}
+   * @protected
+   */
+  _lockedFields;
 
   /**
    * The current weapon choice made by the user
@@ -180,7 +201,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /**
    * Prepare the field and value for choosing which weapon to use if the action supports weapon choice.
-   * @returns {{field: StringField, value: string}|null}
+   * @returns {{field: StringField, value: string, disabled: boolean}|null}
    */
   #prepareWeaponChoice() {
     if ( !this.action.allowWeaponChoice ) return null;
@@ -191,7 +212,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const weapon = new foundry.data.fields.StringField({blank: true, required: true, choices,
       label: _loc("ACTION.ChooseWeaponLabel"), hint: _loc("ACTION.ChooseWeaponHint")});
     weapon.name = "weapon";
-    return {field: weapon, value: this.#weaponChoice};
+    return {field: weapon, value: this.#weaponChoice, disabled: this._lockedFields.has("weapon")};
   }
 
   /* -------------------------------------------- */
@@ -362,7 +383,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Build initial region document data
-    const origin = token?.getCenterPoint(token._source) ?? canvas.dimensions.rect.center;
+    const origin = token?.getCenterPoint(token._source) ?? canvas.dimensions.sceneRect.center;
     const regionData = this.#getRegionData(origin, token, range, target, targetConfig);
     const autoPlace = (regionConfig.anchor === "self") && (["emanation", "circle"].includes(regionConfig.shape));
 
@@ -539,8 +560,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const baseRange = target.size ? target.size : maxRange;
     const addRange = regionConfig.addSize ? (this.actor.size / 2) : 0;
 
-    // Get token data
-    const levels = token?.level ? [token.level] : [];
+    // Get token data, or place a tokenless caster's region on the viewed Level
+    const level = token?.level ?? canvas.level.id;
     const tokenElevation = token?._source.elevation ?? 0;
     const tokenDepth = token?._source.depth ?? 0;
     const {bottom=tokenElevation, top=tokenElevation + tokenDepth} = this.action.usage.region.elevation ?? {};
@@ -643,7 +664,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       displayMeasurements: true,
       restriction: {enabled: this.action.usage.region.wallRestriction ?? true, type: "move"},
       elevation,
-      levels,
+      levels: [level],
       shapes: [shape],
       attachment
     };
