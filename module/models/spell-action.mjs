@@ -137,6 +137,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
         this.target.self = true;
       }
       this.range = {...this.gesture.range};
+      if ( this.gesture.id === "strike" ) {
+        this.tags.add("strike");
+        this.usage.weaponChoices = this._prepareWeaponChoices();
+      }
       this._prepareRegionBehavior(); // The gesture supplies the target type, which super() resolved too early to see
       if ( this.composition >= STATES.COMPOSING ) {
         this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
@@ -298,8 +302,12 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @inheritDoc */
   _prepare() {
 
-    // Inflections are vocalized, so tag before super() in order that hooks observe the final tag set
+    // Inflections and gestures contribute tags before super() so hooks and tag handlers observe the final tag set
     if ( this.inflection ) this.tags.add(this._isInflectionSubtle() ? "subtle" : "vocal");
+    if ( this.gesture?.id === "strike" ) {
+      this.tags.add("strike");
+      this.usage.weaponChoices ||= this._prepareWeaponChoices();
+    }
 
     super._prepare();
 
