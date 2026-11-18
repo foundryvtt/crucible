@@ -1594,7 +1594,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleActionTargets}
    */
   acquireTargets({strict=true}={}) {
-    if ( this.usage.forcedTargets?.length ) {
+    if ( Array.isArray(this.usage.forcedTargets) ) {
       return this.#assignTargets(this.usage.forcedTargets.map(actor => {
         const token = actor.getActiveTokens?.(true, true)[0] ?? null;
         return {actor, uuid: actor.uuid, name: actor.name, token};
