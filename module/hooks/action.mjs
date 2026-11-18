@@ -1720,14 +1720,15 @@ HOOKS.interpose = {
       if ( (event.type === "strike") && event.roll ) {
         const roll = Object.create(event.roll); // Shallow copy
         roll.data = foundry.utils.deepClone(event.roll.data);
-        HOOKS.interpose._rewriteStrike(rewrittenAction, roll, event.weapon, interposer);
+        HOOKS.interpose._rewriteStrike(rewrittenAction, roll, event.weapon, interposer, event.effects);
       }
       else if ( (event.type === "activation") || (event.type === "actorUpdate") ) {
         rewrittenAction.recordEvent({type: event.type, resources: event.resources,
           actorUpdates: event.actorUpdates, itemSnapshots: event.itemSnapshots}, {start: true});
       }
       else {
-        rewrittenAction.recordEvent({target: interposer, resources: event.resources, effects: event.effects});
+        const target = (event.target === originalAction.actor) ? originalAction.actor : interposer;
+        rewrittenAction.recordEvent({type: event.type, target, resources: event.resources, effects: event.effects});
       }
     }
 
@@ -1744,9 +1745,10 @@ HOOKS.interpose = {
    * @param {AttackRoll} roll                    A cloned roll with independent data
    * @param {CrucibleItemSnapshot} weapon        The weapon snapshot from the original event
    * @param {CrucibleActor} interposer           The actor interposing to receive the attack
+   * @param {object[]} [eventEffects=[]]         On-hit effects from the original strike event
    * @internal
    */
-  _rewriteStrike(action, roll, weapon, interposer) {
+  _rewriteStrike(action, roll, weapon, interposer, eventEffects=[]) {
     const CrucibleAction = crucible.api.models.CrucibleAction;
     const RESULTS = game.system.api.dice.AttackRoll.RESULT_TYPES;
 
@@ -1757,14 +1759,16 @@ HOOKS.interpose = {
 
     // Recompute damage against the interposer, or zero it if the attack does not connect against the interposer
     const dmg = roll.data.damage;
-    if ( roll.data.result >= RESULTS.GLANCE ) {
+    const connected = roll.data.result >= RESULTS.GLANCE;
+    if ( connected ) {
       dmg.overflow = roll.overflow;
       dmg.resistance = interposer.getResistance(dmg.resource, dmg.type, dmg.restoration);
       dmg.total = CrucibleAction.computeDamage(dmg);
     }
     else dmg.total = 0;
+    const effects = connected ? eventEffects : [];
     interposer.callActorHooks("receiveAttack", action, roll);
-    action.recordEvent({type: "strike", target: interposer, roll, weapon});
+    action.recordEvent({type: "strike", target: interposer, roll, weapon, effects});
   },
   /**
    * Reverse a previously confirmed Interpose by reversing its rewritten action. The original action stays reversed.
