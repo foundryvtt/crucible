@@ -2838,6 +2838,15 @@ HOOKS.selfRepair = {
 
 /* -------------------------------------------- */
 
+HOOKS.steadfastResolve = {
+  postActivate() {
+    const morale = this.actor.abilities.wisdom.value;
+    this.recordEvent({resources: [{resource: "morale", delta: morale}]});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.sneak = {
   postActivate() {
     _recordConcealmentDC(this);
