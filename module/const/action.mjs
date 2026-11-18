@@ -660,17 +660,17 @@ export const TAGS = {
       if ( !summonEvents.length ) return;
       const {effect: selfEffect} = this.selfEvents?.getPrimaryEffect() ?? {};
       for ( const event of summonEvents ) {
-        const position = this.region?.shapes[0] || this.token;
-        event.summon.tokenData ||= {};
-        event.summon.tokenData.x ??= position.x;
-        event.summon.tokenData.y ??= position.y;
+        event.summon.scene ??= (this.token?.parent ?? canvas.scene).id;
+
+        // Place the summoned Token on the placed summon template, or else as the caller configured it
+        const tokenData = event.summon.tokenData ||= {};
         if ( this.region ) {
-          event.summon.tokenData.elevation ??= this.region.elevation.bottom;
-          event.summon.tokenData.level ??= this.region.flags.crucible?.targetLevel ?? this.region.levels.first();
+          const {x, y} = this.region.shapes[0];
+          Object.assign(tokenData, {x, y, elevation: this.region.elevation.bottom,
+            level: this.region.flags.crucible?.targetLevel ?? this.region.levels.first()});
         }
-        if ( this.token ) {
-          event.summon.tokenData.elevation ??= this.token.elevation;
-          event.summon.tokenData.level ??= this.token.level;
+        if ( (tokenData.x === undefined) || (tokenData.y === undefined) ) {
+          throw new Error(_loc("ACTION.WARNINGS.MisconfiguredSummon", {action: this.name}));
         }
         if ( (event.summon.permanent === false) && !selfEffect ) {
           throw new Error(_loc("ACTION.WARNINGS.MissingSummonEffect", {action: this.id}));
@@ -679,7 +679,6 @@ export const TAGS = {
     },
     async confirm(reverse) {
       if ( reverse ) return; // TODO support reverse
-      if ( !this.token ) return; // No token acting  TODO eventually this shouldn't be required?
       const summonEvents = this.events.filter(e => e.type === "summon");
       if ( !summonEvents.length ) return;
 
@@ -687,6 +686,8 @@ export const TAGS = {
       const summonedTokens = [];
       for ( const event of summonEvents ) {
         const summon = event.summon;
+        const scene = game.scenes.get(summon.scene);
+        if ( !scene ) throw new Error(`The Scene in which "${this.name}" summons does not exist`);
 
         // Get or create a world level Actor for the summons
         const sourceActor = await fromUuid(summon.actorUuid);
@@ -706,20 +707,21 @@ export const TAGS = {
           delta: {name: tokenName}
         }, summon.tokenData || {});
         Object.assign(tokenData, {actorId: worldActor.id, actorLink: false});
-        const preparedToken = await worldActor.getTokenDocument(tokenData, {parent: this.token.parent});
+        const preparedToken = await worldActor.getTokenDocument(tokenData, {parent: scene});
 
-        // Recover resource pools as prepared with the summon's token data, retaining any explicitly configured values
+        // Recover resource pools as prepared with the summoned token data, retaining any explicitly configured values
         const recovery = preparedToken.actor._getRecoveryData();
         foundry.utils.mergeObject(recovery.system.resources, tokenData.delta.system?.resources ?? {});
         preparedToken.updateSource({delta: recovery});
-        const token = await TokenDocument.implementation.create(preparedToken, {parent: this.token.parent});
+        const token = await TokenDocument.implementation.create(preparedToken, {parent: scene});
         if ( !event.summon.permanent ) summonedTokens.push(token.uuid);
 
-        // Create a Combatant, unless opted-out
-        if ( this.actor.inCombat && (event.summon.combatant !== false) ) {
+        // Create a Combatant, unless opted-out. The transient Environment takes part in any combat in the Scene
+        const inCombat = this.actor.id ? this.actor.inCombat : (game.combat?.scene === scene);
+        if ( inCombat && (event.summon.combatant !== false) ) {
           await game.combat.createEmbeddedDocuments("Combatant", [{
             tokenId: token.id,
-            sceneId: canvas.scene.id,
+            sceneId: scene.id,
             actorId: worldActor.id,
             initiative: 1
           }]);

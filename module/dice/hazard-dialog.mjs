@@ -12,7 +12,7 @@ const {NumberField, StringField} = foundry.data.fields;
  */
 export default class HazardDialog extends ActionUseDialog {
   constructor({action, actor, targets, danger, defenseType, damageType, resource, tags, name, roll, ...options}={}) {
-    actor ||= new Actor.implementation({name: "Environment", type: "adversary"});
+    actor ||= crucible.api.documents.CrucibleActor.createEnvironment({level: danger});
     if ( !action ) {
       action = crucible.api.models.CrucibleAction.createHazard(
         {actor, danger, tags, defenseType, damageType, resource, name});
@@ -186,10 +186,14 @@ export default class HazardDialog extends ActionUseDialog {
   #rebuildAction(form) {
     const fd = new foundry.applications.ux.FormDataExtended(form).object;
     const forcedTargets = this.action.usage.forcedTargets ?? [];
+    const danger = Number(fd.danger) || 0;
+    if ( this.actor.talentIds.has(SYSTEM.TALENT.ENVIRONMENT_TALENT_ID) ) {
+      this.actor.updateSource({"system.advancement.level": danger});
+    }
     this.action = crucible.api.models.CrucibleAction.createHazard({
       actor: this.actor,
       name: fd.name?.trim() || _loc("HAZARD.Hazard"),
-      danger: Number(fd.danger) || 0,
+      danger,
       defenseType: fd.defenseType || undefined,
       damageType: fd.damageType || undefined,
       tags: Array.from(fd.tags ?? []),

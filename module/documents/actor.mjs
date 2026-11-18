@@ -3645,4 +3645,24 @@ export default class CrucibleActor extends Actor {
   onEmbed(element) {
     Hooks.callAll("crucible.embedActor", this, element);
   }
+
+  /* -------------------------------------------- */
+  /*  Factories                                   */
+  /* -------------------------------------------- */
+
+  /**
+   * Construct the transient Environment actor which performs actions no creature is responsible for, such as hazards.
+   * @param {object} [options]
+   * @param {number} [options.level]    The Environment's level, such as a hazard's danger
+   * @returns {CrucibleActor}
+   */
+  static createEnvironment({level}={}) {
+    const _id = SYSTEM.TALENT.ENVIRONMENT_TALENT_ID;
+    const name = _loc("HAZARD.EnvironmentTalent");
+    const talent = {_id, name, type: "talent"};
+    const effect = {_id, name, statuses: ["invulnerable", "limitless"]};
+    const system = (level === undefined) ? {} : {advancement: {level}};
+    return new this({name: _loc("HAZARD.DefaultActor"), type: "adversary", system, items: [talent],
+      effects: [effect]});
+  }
 }

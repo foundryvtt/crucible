@@ -123,6 +123,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {number} [initiative=1]
  * @property {boolean} [permanent=true]     Is this summoned creature permanent until killed? Otherwise, a corresponding
  *                                          active effect must exist to track its duration.
+ * @property {string} [scene]               The id of the Scene summoned into, by default the acting Token's or viewed
  */
 
 /**
@@ -4107,12 +4108,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       targets: serializedTargets
     } = data;
 
-    // Reference linked documents - hazards use a transient Environment actor that cannot resolve from UUID,
-    // so fabricate a fresh placeholder when reconstituting one from chat
+    // Reference linked documents
+    // Reconstruct a transient environment actor for unresolved actors or hazards.
     let actor = fromUuidSync(actorUuid) || ChatMessage.getSpeakerActor(message.speaker);
-    if ( !actor && actionData.tags?.includes("hazard") ) {
-      actor = new Actor.implementation({name: _loc("HAZARD.DefaultActor"), type: "adversary"});
-    }
+    if ( !actor && (!actorUuid || actionData.tags?.includes("hazard")) ) actor = Actor.implementation.createEnvironment();
     const item = fromUuidSync(itemUuid);
     const token = fromUuidSync(tokenUuid);
     const region = fromUuidSync(regionUuid);
@@ -4211,7 +4210,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleAction}              The resulting CrucibleAction that provides the configured hazard
    */
   static createHazard({actor, danger=0, tags, defenseType, damageType, resource, name, description, ...actionData}={}) {
-    actor ||= new Actor.implementation({name: "Environment", type: "adversary"});
+    actor ||= Actor.implementation.createEnvironment({level: danger});
     tags = Array.isArray(tags) ? tags.filter(t => t !== "hazard") : [];
     tags.unshift("hazard");
     return new this({

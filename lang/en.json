@@ -1948,6 +1948,7 @@
   "HAZARD": {
     "DefaultActor": "Environment",
     "DefaultName": "Environmental Hazard",
+    "EnvironmentTalent": "Omniscient Environment",
     "Falling": "Falling",
     "Hazard": "Hazard",
     "Parenthetical": "{label} ({tags})",

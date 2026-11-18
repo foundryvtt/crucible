@@ -1,3 +1,4 @@
+import {ENVIRONMENT_TALENT_ID} from "../const/talents.mjs";
 import {formatEffectName, interruptAction, isDeployingItem} from "./helpers.mjs";
 
 const HOOKS = {};
@@ -771,6 +772,17 @@ HOOKS.eldritchBargain0 = {
     action.cost.focus -= shortfall;
     action.cost.morale = (action.cost.morale ?? 0) + (shortfall * 10);
     action.constrainResources({morale: SYSTEM.RESOURCE_CONSTRAINTS.NO_INCREASE});
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS[ENVIRONMENT_TALENT_ID] = {
+  prepareGrimoire(_item, grimoire) {
+    const {RUNES, GESTURES, INFLECTIONS} = SYSTEM.SPELL;
+    grimoire.runeIds.push(...Object.keys(RUNES));
+    grimoire.gestureIds.push(...Object.keys(GESTURES));
+    grimoire.inflectionIds.push(...Object.keys(INFLECTIONS));
   }
 };
 

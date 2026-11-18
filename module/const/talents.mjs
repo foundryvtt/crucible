@@ -52,6 +52,12 @@ export const NODE_TIERS = Object.freeze({
 });
 
 /**
+ * The id of the code-only Talent which the transient Environment actor possesses, defined by its hooks alone.
+ * @type {string}
+ */
+export const ENVIRONMENT_TALENT_ID = "environment00000";
+
+/**
  * The maximum number of Signature Talents a hero may acquire (reached at character level 18).
  * @type {number}
  */
