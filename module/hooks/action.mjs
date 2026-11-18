@@ -2703,8 +2703,8 @@ HOOKS.ricochet = {
     let current = this.targets?.get(target)?.token;
     if ( !weapon || !current || !this.token ) return;
 
-    // Bounces capped at half intellect, each hop reaching at most Intellect feet
-    let remaining = Math.ceil(intellect / 2);
+    // Enemies struck are capped at half intellect, counting the initial target. Each hop reaches Intellect feet
+    let remaining = Math.ceil(intellect / 2) - 1;
     const visited = new Set([target]);
     let hop = 1; // Accumulating damage falloff: the second target takes -1, the third -2, and so on
 
