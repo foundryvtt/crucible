@@ -2116,11 +2116,11 @@ HOOKS.volatileAccelerant = {
       throw new Error(_loc("ACTION.WARNINGS.RequiresAlchemistsToolkit"));
     }
   },
-  preActivate(targets) {
+  preActivate() {
     // The reagent feeds whichever reaction is already underway, so the burst matches that reaction in both damage
     // type and resource. Resolved before the roll, which cannot be assembled without them
     const {conditions} = SYSTEM.DAMAGE_CATEGORIES.elemental;
-    const target = targets[0]?.actor;
+    const target = this.targets.keys().next().value;
     const afflictions = target?.effects.filter(e => e.active && conditions.some(c => e.statuses.has(c))) ?? [];
     if ( !afflictions.length ) {
       throw new Error(_loc("ACTION.WARNINGS.RequiresElementalCondition", {target: target?.name}));
@@ -2142,7 +2142,7 @@ HOOKS.volatileAccelerant = {
       const update = {
         _id: effect.id,
         _action: "update",
-        duration: {rounds: (effect.duration.rounds ?? 0) + 1}
+        duration: {value: (effect.duration.value ?? 0) + 1}
       };
 
       // A critical feeds the reaction itself rather than merely its duration
