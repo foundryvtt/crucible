@@ -97,11 +97,10 @@ system:
   status: null
   favorites:
     - strike
-    - backstab
     - lunge
     - reactiveStrike
-    - artfulParry
-    - counterRiposte
+    - defend
+    - hamstring
   advancement:
     level: 1
     rank: minion
@@ -123,25 +122,25 @@ system:
         - item: Compendium.crucible.talent.Item.bloodletter00000
           level: 4
         - item: Compendium.crucible.talent.Item.counterriposte00
-          level: 2
-        - item: Compendium.crucible.talent.Item.disarmingriposte
-          level: 4
-        - item: Compendium.crucible.talent.Item.artfulparry00000
           level: 3
-        - item: Compendium.crucible.talent.Item.strikefirst00000
-          level: 0
-        - item: Compendium.crucible.talent.Item.backstab00000000
-          level: 0
-        - item: Compendium.crucible.talent.Item.lunge00000000000
-          level: 1
-        - item: Compendium.crucible.talent.Item.harrier000000000
+        - item: Compendium.crucible.talent.Item.artfulparry00000
           level: 4
-        - item: Compendium.crucible.talent.Item.battlefocus00000
+        - item: Compendium.crucible.talent.Item.backstab00000000
           level: 2
+        - item: Compendium.crucible.talent.Item.lunge00000000000
+          level: 0
+        - item: Compendium.crucible.talent.Item.harrier000000000
+          level: 5
         - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
           level: 0
         - item: Compendium.crucible.talent.Item.weakpoints000000
+          level: 1
+        - item: Compendium.crucible.talent.Item.counterevade0000
           level: 2
+        - item: Compendium.crucible.talent.Item.gladiator0000000
+          level: 3
+        - item: Compendium.crucible.talent.Item.hamstring0000000
+          level: 1
       training:
         light: 1
       spells: []
@@ -224,7 +223,10 @@ system:
       name: Kinetic Animation
       img: icons/equipment/head/helm-barbute-horned-glowing.webp
     biography:
-      appearance: ''
+      appearance: >-
+        <p>A slender point of tarnished steel hovers perfectly still, its tip
+        drifting as though seeking a target. Its unnerving stillness promises a
+        strike as quick as an adder's, aimed at any gap in armor or flesh.</p>
       public: ''
       private: ''
     knowledge: []
@@ -495,111 +497,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!animatedNeedle00.subtleextricatio'
-  - name: Strike First
-    type: talent
-    _id: strikefirst00000
-    img: icons/skills/melee/sword-winged-holy-orange.webp
-    system:
-      description: >-
-        <p>Shoot first, ask questions later. You gain @Rule[dice.boon]{+1 Boon}
-        on any <strong>Strike</strong> or <strong>Spell</strong> attack against
-        an enemy whose initiative score is lower than your own.</p>
-      actions: []
-      keywords:
-        - initiative
-      nodes:
-        - intdex1
-      iconicSpells: 0
-      spellcraft: ''
-      requirements:
-        training: {}
-      training: ''
-    effects: []
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.11.3
-      coreVersion: '14.370'
-      createdTime: 1795017023055
-      modifiedTime: 1795017023055
-      lastModifiedBy: ZXJsFnFZuf21WDAk
-      compendiumSource: Compendium.crucible.talent.Item.strikefirst00000
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!animatedNeedle00.strikefirst00000'
-  - name: Backstab
-    type: talent
-    img: icons/skills/melee/strike-dagger-white-orange.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        <p>You focus your cunning instincts on exploiting the weak points of a
-        @Condition[flanked] target. You identify an opportunity and strike with
-        deadly efficiency.</p>
-      actions:
-        - id: backstab
-          condition: You are attacking a target with the Flanked condition.
-          description: >-
-            <p>You <strong>Strike</strong> with your weapon against a
-            @Condition[flanked] target, dealing @Rule[action.deadly] damage.</p>
-          tags:
-            - finesse
-            - flanking
-            - melee
-            - deadly
-          cost:
-            action: 0
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          name: Backstab
-          img: icons/skills/melee/strike-dagger-white-orange.webp
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-          summon: null
-          persistRegion: false
-          regionBehavior: null
-      keywords:
-        - playstyle.melee
-        - weapon.light
-      nodes:
-        - dex1b
-      iconicSpells: 0
-      training: light
-      spellcraft: ''
-      requirements:
-        training: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.11.3
-      coreVersion: '14.370'
-      createdTime: 1795017023055
-      modifiedTime: 1795017023055
-      lastModifiedBy: ZXJsFnFZuf21WDAk
-      compendiumSource: Compendium.crucible.talent.Item.backstab00000000
-      duplicateSource: null
-      exportSource: null
-    _id: backstab00000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!animatedNeedle00.backstab00000000'
   - name: Lunge
     type: talent
     img: icons/skills/melee/strike-polearm-light-orange.webp
@@ -708,6 +605,137 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!animatedNeedle00.livingWeapon0000'
+  - name: Weak Points
+    type: talent
+    _id: weakpoints000000
+    img: icons/skills/melee/strike-sword-stabbed-brown.webp
+    system:
+      description: >-
+        <p>You identify moments of opportunity to strike at an enemy's weak
+        points. When attacking a target that is @Condition[unaware],
+        @Condition[flanked], or @Condition[exposed] using a weapon which scales
+        with @Rule[ability.dexterity], you gain +2 damage to any
+        <strong>Strike</strong>.</p>
+      actions: []
+      keywords:
+        - playstyle.melee
+        - playstyle.ranged
+        - weapon.light
+        - weapon.projectile
+        - weapon.mechanical
+      nodes:
+        - dex1b
+      iconicSpells: 0
+      training: deception
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795039508331
+      modifiedTime: 1795039508331
+      lastModifiedBy: 2g4T1RcAPz2LBKZ1
+      compendiumSource: Compendium.crucible.talent.Item.weakpoints000000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedNeedle00.weakpoints000000'
+  - name: Hamstring
+    type: talent
+    img: icons/skills/melee/strike-blade-blood-red.webp
+    system:
+      description: >-
+        <p>You use a slashing weapon to target the legs of an enemy and cripple
+        their movement.</p>
+      actions:
+        - id: hamstring
+          condition: ''
+          description: >-
+            <p>You make <strong>Strike</strong> attack which is
+            @Rule[action.difficult], but if successful, inflicts the
+            @Condition[slowed] condition for <strong>3 Rounds</strong>.</p>
+          tags:
+            - melee
+            - difficult
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            weapon: true
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects:
+            - name: Hamstring
+              scope: 3
+              result:
+                type: success
+                all: false
+              statuses:
+                - slowed
+              duration:
+                value: 3
+                units: rounds
+                expiry: turnEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                properties: []
+                effects: []
+                lights: []
+                suppression: {}
+          name: Hamstring
+          img: icons/skills/melee/strike-axe-blood-red.webp
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      keywords:
+        - playstyle.melee
+      nodes:
+        - dex0b
+      training: light
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
+      duplicateSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795039508331
+      modifiedTime: 1795039508331
+      lastModifiedBy: 2g4T1RcAPz2LBKZ1
+      exportSource: null
+    _id: hamstring0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedNeedle00.hamstring0000000'
   - name: Spear
     type: weapon
     img: icons/weapons/polearms/spear-flared-blue.webp
@@ -746,9 +774,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795017023055
-      modifiedTime: 1795017047894
-      lastModifiedBy: ZXJsFnFZuf21WDAk
+      createdTime: 1795039508331
+      modifiedTime: 1795039508331
+      lastModifiedBy: 2g4T1RcAPz2LBKZ1
     _id: spear00000000000
     folder: null
     sort: 0
@@ -766,8 +794,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   createdTime: 1795017018866
-  modifiedTime: 1795017048571
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1795039511899
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

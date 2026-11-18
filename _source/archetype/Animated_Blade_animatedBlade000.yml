@@ -22,22 +22,22 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.disarmingriposte
       level: 4
-    - item: Compendium.crucible.talent.Item.hamstring0000000
-      level: 0
-    - item: Compendium.crucible.talent.Item.uppercut00000000
-      level: 1
-    - item: Compendium.crucible.talent.Item.ruthlessmomentum
-      level: 3
-    - item: Compendium.crucible.talent.Item.executionersstri
-      level: 4
-    - item: Compendium.crucible.talent.Item.battlefocus00000
-      level: 2
     - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
       level: 0
     - item: Compendium.crucible.talent.Item.legsweep00000000
-      level: 0
+      level: 1
     - item: Compendium.crucible.talent.Item.cadence000000000
       level: 2
+    - item: Compendium.crucible.talent.Item.heavyStrike00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.weakpoints000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gladiator0000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.berserkStrike000
+      level: 3
+    - item: Compendium.crucible.talent.Item.sentinel00000000
+      level: 5
   training:
     heavy: 1
   spells: []
@@ -57,8 +57,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   createdTime: 1794931188678
-  modifiedTime: 1795015276345
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1795038675648
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -96,14 +96,11 @@ system:
   currency: 0
   status: null
   favorites:
-    - hamstring
     - legSweep
-    - uppercut
     - strike
     - reactiveStrike
-    - executionersStrike
-    - ruthlessMomentum
-    - counterRiposte
+    - heavyStrike
+    - defend
   advancement:
     level: 1
     rank: minion
@@ -128,22 +125,22 @@ system:
           level: 2
         - item: Compendium.crucible.talent.Item.disarmingriposte
           level: 4
-        - item: Compendium.crucible.talent.Item.hamstring0000000
-          level: 0
-        - item: Compendium.crucible.talent.Item.uppercut00000000
-          level: 1
-        - item: Compendium.crucible.talent.Item.ruthlessmomentum
-          level: 3
-        - item: Compendium.crucible.talent.Item.executionersstri
-          level: 4
-        - item: Compendium.crucible.talent.Item.battlefocus00000
-          level: 2
         - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
           level: 0
         - item: Compendium.crucible.talent.Item.legsweep00000000
-          level: 0
+          level: 1
         - item: Compendium.crucible.talent.Item.cadence000000000
           level: 2
+        - item: Compendium.crucible.talent.Item.heavyStrike00000
+          level: 0
+        - item: Compendium.crucible.talent.Item.weakpoints000000
+          level: 1
+        - item: Compendium.crucible.talent.Item.gladiator0000000
+          level: 3
+        - item: Compendium.crucible.talent.Item.berserkStrike000
+          level: 3
+        - item: Compendium.crucible.talent.Item.sentinel00000000
+          level: 5
       training:
         heavy: 1
       spells: []
@@ -226,7 +223,11 @@ system:
       name: Kinetic Animation
       img: icons/equipment/head/helm-barbute-horned-glowing.webp
     biography:
-      appearance: ''
+      appearance: >-
+        <p>A notched and weathered blade hangs in the air, its edge slowly
+        turning as if guided by an unseen hand. It sways and dips with the poise
+        of a duelist taking measure, and its keen edge promises a swift and
+        bloody cut.</p>
       public: ''
       private: ''
     knowledge: []
@@ -497,165 +498,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!animatedBlade000.subtleextricatio'
-  - name: Hamstring
-    type: talent
-    img: icons/skills/melee/strike-blade-blood-red.webp
-    system:
-      description: >-
-        <p>You use a slashing weapon to target the legs of an enemy and cripple
-        their movement.</p>
-      actions:
-        - id: hamstring
-          condition: ''
-          description: >-
-            <p>You make <strong>Strike</strong> attack which is
-            @Rule[action.difficult], but if successful, inflicts the
-            @Condition[slowed] condition for <strong>3 Rounds</strong>.</p>
-          tags:
-            - melee
-            - difficult
-          cost:
-            action: 0
-            focus: 0
-            heroism: 0
-            weapon: true
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects:
-            - name: Hamstring
-              scope: 3
-              result:
-                type: success
-                all: false
-              statuses:
-                - slowed
-              duration:
-                value: 3
-                units: rounds
-                expiry: turnEnd
-                expired: false
-              system:
-                changes: []
-                dot: []
-                maintenance:
-                  cost: null
-                  hands: 0
-                regions: []
-                summons: []
-                properties: []
-                effects: []
-                lights: []
-                suppression: {}
-          name: Hamstring
-          img: icons/skills/melee/strike-axe-blood-red.webp
-          range:
-            minimum: null
-            maximum: null
-            weapon: true
-          summon: null
-          persistRegion: false
-          regionBehavior: null
-      iconicSpells: 0
-      keywords:
-        - playstyle.melee
-      nodes:
-        - dex0b
-      training: light
-      spellcraft: ''
-      requirements:
-        training: {}
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
-      duplicateSource: null
-      coreVersion: '14.370'
-      systemId: crucible
-      systemVersion: 0.11.3
-      createdTime: 1795016788930
-      modifiedTime: 1795016788930
-      lastModifiedBy: ZXJsFnFZuf21WDAk
-      exportSource: null
-    _id: hamstring0000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!animatedBlade000.hamstring0000000'
-  - name: Uppercut
-    type: talent
-    img: icons/skills/melee/strike-sword-gray.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        <p>A two-handed weapon technique where you swing your weapon upwards,
-        making a second <strong>Strike</strong> with the backswing of your
-        weapon.</p>
-      actions:
-        - id: uppercut
-          name: Uppercut
-          img: icons/skills/melee/strike-sword-gray.webp
-          condition: ''
-          description: >-
-            <p>Following a basic @Action[default strike] which did not
-            @Rule[dice.criticalFailure]{Critically Miss}, you
-            <strong>Strike</strong> the same target again with the backswing of
-            your weapon at reduced @Rule[resource.action] cost.</p>
-          tags:
-            - afterStrike
-            - melee
-            - twohand
-          cost:
-            action: -1
-            focus: 0
-            weapon: true
-            heroism: 0
-            hands: 0
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-          summon: null
-          persistRegion: false
-          regionBehavior: null
-      keywords:
-        - playstyle.melee
-        - weapons.twohand
-      nodes:
-        - str1a
-      iconicSpells: 0
-      training: heavy
-      spellcraft: ''
-      requirements:
-        training: {}
-    _stats:
-      compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '14.370'
-      systemId: crucible
-      systemVersion: 0.11.3
-      createdTime: 1795016788930
-      modifiedTime: 1795016788930
-      lastModifiedBy: ZXJsFnFZuf21WDAk
-    _id: uppercut00000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!animatedBlade000.uppercut00000000'
   - name: Living Weapon
     type: talent
     _id: livingWeapon0000
@@ -787,6 +629,114 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!animatedBlade000.legsweep00000000'
+  - name: Heavy Strike
+    type: talent
+    img: icons/skills/melee/strike-hammer-destructive-blue.webp
+    system:
+      description: >-
+        <p>You know how to use a heavy weapon to deliver punishing blows,
+        putting your entire strength behind every swing.</p>
+      actions:
+        - id: heavyStrike
+          img: icons/skills/melee/strike-hammer-destructive-blue.webp
+          cost:
+            action: 1
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - melee
+            - mainhand
+            - empowered
+          name: Heavy Strike
+          condition: ''
+          description: >-
+            <p>You unleash a powerful <strong>Strike</strong> with your mainhand
+            weapon. The attack is slower to execute, but is
+            @Rule[action.empowered] to deliver additional damage.</p>
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: heavy
+      keywords:
+        - playstyle.melee
+      nodes:
+        - str0a
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795039027410
+      modifiedTime: 1795039027410
+      lastModifiedBy: 2g4T1RcAPz2LBKZ1
+    _id: heavyStrike00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.heavyStrike00000'
+  - name: Weak Points
+    type: talent
+    _id: weakpoints000000
+    img: icons/skills/melee/strike-sword-stabbed-brown.webp
+    system:
+      description: >-
+        <p>You identify moments of opportunity to strike at an enemy's weak
+        points. When attacking a target that is @Condition[unaware],
+        @Condition[flanked], or @Condition[exposed] using a weapon which scales
+        with @Rule[ability.dexterity], you gain +2 damage to any
+        <strong>Strike</strong>.</p>
+      actions: []
+      keywords:
+        - playstyle.melee
+        - playstyle.ranged
+        - weapon.light
+        - weapon.projectile
+        - weapon.mechanical
+      nodes:
+        - dex1b
+      iconicSpells: 0
+      training: deception
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795039027410
+      modifiedTime: 1795039027410
+      lastModifiedBy: 2g4T1RcAPz2LBKZ1
+      compendiumSource: Compendium.crucible.talent.Item.weakpoints000000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.weakpoints000000'
   - name: Bastard Sword
     type: weapon
     img: icons/weapons/swords/greatsword-crossguard-silver.webp
@@ -826,9 +776,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795016788930
-      modifiedTime: 1795016975736
-      lastModifiedBy: ZXJsFnFZuf21WDAk
+      createdTime: 1795039027410
+      modifiedTime: 1795039027410
+      lastModifiedBy: 2g4T1RcAPz2LBKZ1
     _id: bastardSword0000
     folder: null
     sort: 0
@@ -846,8 +796,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   createdTime: 1795016773595
-  modifiedTime: 1795016976063
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1795039178542
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

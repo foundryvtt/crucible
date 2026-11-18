@@ -100,11 +100,8 @@ system:
     - heavyStrike
     - reactiveStrike
     - strike
-    - sunderingStrike
-    - ferociousLeap
-    - swipe
-    - counterRiposte
-    - intercept
+    - bullrush
+    - defend
   advancement:
     level: 1
     rank: minion
@@ -133,18 +130,18 @@ system:
           level: 0
         - item: Compendium.crucible.talent.Item.sunderingstrike0
           level: 3
-        - item: Compendium.crucible.talent.Item.intercept0000000
-          level: 4
-        - item: Compendium.crucible.talent.Item.ferociousleap000
-          level: 2
-        - item: Compendium.crucible.talent.Item.battlefocus00000
-          level: 2
         - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
           level: 0
         - item: Compendium.crucible.talent.Item.disarmingstrike0
-          level: 0
-        - item: Compendium.crucible.talent.Item.swipe00000000000
           level: 1
+        - item: Compendium.crucible.talent.Item.bullrush00000000
+          level: 1
+        - item: Compendium.crucible.talent.Item.gladiator0000000
+          level: 3
+        - item: Compendium.crucible.talent.Item.ruthlessmomentum
+          level: 2
+        - item: Compendium.crucible.talent.Item.sentinel00000000
+          level: 5
       training:
         heavy: 1
       spells: []
@@ -227,7 +224,10 @@ system:
       name: Kinetic Animation
       img: icons/equipment/head/helm-barbute-horned-glowing.webp
     biography:
-      appearance: ''
+      appearance: >-
+        <p>A battered cudgel bound in dented iron floats upright, its heavy head
+        bobbing with slow and ponderous menace. Its scarred and battered surface
+        hints at the bone-cracking force behind each swing.</p>
       public: ''
       private: ''
     knowledge: []
@@ -674,52 +674,85 @@ items:
       default: 0
       ZXJsFnFZuf21WDAk: 3
     _key: '!actors.items!animatedBludgeon.subtleextricatio'
-  - name: Swipe
+  - name: Bull Rush
     type: talent
-    _id: swipe00000000000
-    img: icons/skills/melee/strike-axe-red.webp
+    _id: bullrush00000000
+    img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
     system:
       description: >-
-        You perform a broad swipe with your weapon, hitting two adjacent targets
-        within your weapon range.
+        <p>You can use your physical prowess to push past opponents who block
+        your path.</p>
       actions:
-        - id: swipe
+        - id: bullrush
           description: >-
-            <p>You perform a <strong>Strike</strong> against two adjacent
-            enemies, attacking both of them using a single swing of your great
-            weapon.</p>
+            <p>You move up to your @Rule[movement.stride] with forceful
+            momentum, passing through the space of one other creature along your
+            path. An ally lets you pass freely.</p><p>An enemy contests your
+            passage: make an @Rule[skill.athletics] @Rule[action.skill] attack
+            against its @Rule[defense.fortitude] defense. On a
+            @Rule[dice.success] you drive through its space, knocking it
+            @Condition[prone], and it may not make any @Action[default
+            reactiveStrike] against you. On a @Rule[dice.failure] your movement
+            is blocked and you remain in your current position.</p>
           tags:
-            - melee
-            - twohand
+            - harmless
+            - fortitude
+            - skill
+            - athletics
           cost:
-            action: 1
-            focus: 0
-            weapon: true
+            action: 0
+            focus: 1
+            weapon: false
             heroism: 0
             hands: 0
           target:
-            type: single
-            number: 2
+            type: movement
+            number: 1
             scope: 4
             self: false
-          effects: []
-          name: Swipe
-          img: icons/skills/melee/strike-axe-red.webp
+          effects:
+            - name: Bull Rush
+              scope: 3
+              statuses:
+                - prone
+              result:
+                type: success
+                all: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                properties: []
+                effects: []
+                lights: []
+                suppression: {}
+              duration:
+                value: null
+                units: ''
+                expiry: null
+                expired: false
+          name: Bull Rush
+          img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
           condition: ''
           range:
             maximum: null
-            weapon: true
+            weapon: false
             minimum: null
           summon: null
           persistRegion: false
           regionBehavior: null
       keywords:
-        - playstyle.melee
-        - weapons.twohand
+        - playstyle.utility
+        - action.movement
+        - skill.athletics
       nodes:
-        - str0a
+        - toustr1
       iconicSpells: 0
-      training: heavy
+      training: athletics
       spellcraft: ''
       requirements:
         training: {}
@@ -729,17 +762,17 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795017145228
-      modifiedTime: 1795017145228
-      lastModifiedBy: ZXJsFnFZuf21WDAk
-      compendiumSource: Compendium.crucible.talent.Item.swipe00000000000
+      createdTime: 1795039049699
+      modifiedTime: 1795039049699
+      lastModifiedBy: 2g4T1RcAPz2LBKZ1
+      compendiumSource: Compendium.crucible.talent.Item.bullrush00000000
       duplicateSource: null
       exportSource: null
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!animatedBludgeon.swipe00000000000'
+    _key: '!actors.items!animatedBludgeon.bullrush00000000'
   - name: War Hammer
     type: weapon
     img: icons/weapons/hammers/hammer-war-rounding.webp
@@ -777,9 +810,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795017145228
-      modifiedTime: 1795017154654
-      lastModifiedBy: ZXJsFnFZuf21WDAk
+      createdTime: 1795039049699
+      modifiedTime: 1795039049699
+      lastModifiedBy: 2g4T1RcAPz2LBKZ1
     _id: warHammer0000000
     folder: null
     sort: 0
@@ -797,8 +830,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   createdTime: 1795016875066
-  modifiedTime: 1795017155203
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1795039189377
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

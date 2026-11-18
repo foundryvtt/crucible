@@ -18,8 +18,6 @@ system:
       level: 0
     - item: Compendium.crucible.talent.Item.bulwark000000000
       level: 0
-    - item: Compendium.crucible.talent.Item.intercept0000000
-      level: 3
     - item: Compendium.crucible.talent.Item.holdfast00000000
       level: 1
     - item: Compendium.crucible.talent.Item.bastion000000000
@@ -34,8 +32,14 @@ system:
       level: 2
     - item: Compendium.crucible.talent.Item.legsweep00000000
       level: 1
-    - item: Compendium.crucible.talent.Item.sunderingstrike0
+    - item: Compendium.crucible.talent.Item.interpose0000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.armoredShell0000
       level: 3
+    - item: Compendium.crucible.talent.Item.impenetrableGuar
+      level: 4
+    - item: Compendium.crucible.talent.Item.repercussiveBloc
+      level: 5
   training:
     athletics: 2
     awareness: 1
@@ -70,11 +74,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '14.369'
+  coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.11.2
+  systemVersion: 0.11.3
   createdTime: 1772307157486
-  modifiedTime: 1792532354026
+  modifiedTime: 1795041600108
   lastModifiedBy: 2g4T1RcAPz2LBKZ1
 _id: protector0000000
 sort: 1200000

@@ -26,18 +26,18 @@ system:
       level: 0
     - item: Compendium.crucible.talent.Item.sunderingstrike0
       level: 3
-    - item: Compendium.crucible.talent.Item.intercept0000000
-      level: 4
-    - item: Compendium.crucible.talent.Item.ferociousleap000
-      level: 2
-    - item: Compendium.crucible.talent.Item.battlefocus00000
-      level: 2
     - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
       level: 0
     - item: Compendium.crucible.talent.Item.disarmingstrike0
-      level: 0
-    - item: Compendium.crucible.talent.Item.swipe00000000000
       level: 1
+    - item: Compendium.crucible.talent.Item.bullrush00000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.gladiator0000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.ruthlessmomentum
+      level: 2
+    - item: Compendium.crucible.talent.Item.sentinel00000000
+      level: 5
   training:
     heavy: 1
   spells: []
@@ -57,8 +57,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   createdTime: 1794931363469
-  modifiedTime: 1795017134753
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1795038669914
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -88,8 +88,8 @@ system:
       img: icons/creatures/fish/fish-fangtooth-skeletal-green.webp
       description: >-
         <p>You expel a creature you have swallowed, returning it to the space
-        around you and ending the @Condition[blinded] and
-        @Condition[restrained] conditions imposed by your gullet.</p>
+        around you and ending the @Condition[blinded] and @Condition[restrained]
+        conditions imposed by your gullet.</p>
       condition: ''
       cost:
         action: 0

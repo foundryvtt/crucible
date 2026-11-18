@@ -99,8 +99,8 @@ system:
       name: Regurgitate
       img: icons/magic/nature/plant-maneater-purple.webp
       description: >-
-        <p>You expel a creature held within your digestive sacs, returning it
-        to the space around you and ending the @Condition[restrained] and
+        <p>You expel a creature held within your digestive sacs, returning it to
+        the space around you and ending the @Condition[restrained] and
         @Condition[corroding] conditions imposed by your sacs.</p>
       condition: ''
       cost:

@@ -1,0 +1,99 @@
+name: Animated Armor
+type: taxonomy
+_id: animatedArmor000
+img: icons/creatures/magical/construct-golem-robot-blue.webp
+system:
+  description: ''
+  identifier: animatedArmor
+  category: construct
+  abilities:
+    wisdom: 0
+    presence: 0
+    intellect: 2
+    strength: 4
+    toughness: 4
+    dexterity: 2
+  movement:
+    size: 5
+    heightRatio: 1.5
+    stride: 10
+  resistances:
+    acid:
+      value: -2
+      immune: false
+    bludgeoning:
+      value: -2
+      immune: false
+    cold:
+      value: -2
+      immune: false
+    corruption:
+      value: 1
+      immune: false
+    electricity:
+      value: 2
+      immune: false
+    fire:
+      value: -1
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    poison:
+      value: 2
+      immune: false
+    psychic:
+      value: 2
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 2
+      immune: false
+    void:
+      value: -2
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      level: 0
+    - item: Compendium.crucible.talent.Item.impenetrableGuar
+      level: 4
+    - item: Compendium.crucible.talent.Item.armoredefficienc
+      level: 0
+    - item: Compendium.crucible.talent.Item.armoredInstinct0
+      level: 2
+    - item: Compendium.crucible.talent.Item.powerfulphysique
+      level: 1
+    - item: Compendium.crucible.talent.Item.bodyblock0000000
+      level: 3
+  equipment:
+    - item: Compendium.crucible.equipment.Item.splintMail000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+  characteristics:
+    blooded: false
+    equipment: true
+    spells: true
+    temperature: ''
+effects: []
+folder: aQTavGHQfHKY6NVw
+sort: 300000
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1795040839168
+  modifiedTime: 1795041880923
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!animatedArmor000'
