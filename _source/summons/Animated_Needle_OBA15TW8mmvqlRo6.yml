@@ -1,0 +1,774 @@
+folder: 5oBBNdq95OvvXx3e
+name: Animated Needle
+type: adversary
+_id: OBA15TW8mmvqlRo6
+img: icons/svg/mystery-man.svg
+system:
+  abilities:
+    wisdom:
+      bonus: 0
+    presence:
+      bonus: 0
+    intellect:
+      bonus: 0
+    strength:
+      bonus: 0
+    toughness:
+      bonus: 0
+    dexterity:
+      bonus: 0
+  training: {}
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  resistances:
+    acid:
+      bonus: 0
+      immune: false
+    bludgeoning:
+      bonus: 0
+      immune: false
+    cold:
+      bonus: 0
+      immune: false
+    corruption:
+      bonus: 0
+      immune: false
+    electricity:
+      bonus: 0
+      immune: false
+    fire:
+      bonus: 0
+      immune: false
+    piercing:
+      bonus: 0
+      immune: false
+    poison:
+      bonus: 0
+      immune: false
+    psychic:
+      bonus: 0
+      immune: false
+    radiant:
+      bonus: 0
+      immune: false
+    slashing:
+      bonus: 0
+      immune: false
+    void:
+      bonus: 0
+      immune: false
+  resources:
+    health:
+      value: 21
+    wounds:
+      value: 0
+    morale:
+      value: 0
+    madness:
+      value: 0
+    action:
+      value: 4
+    focus:
+      value: 1
+    heroism:
+      value: 0
+  movement:
+    sizeBonus: -1
+    strideBonus: 0
+    engagementBonus: 0
+  currency: 0
+  status: null
+  favorites:
+    - strike
+    - backstab
+    - lunge
+    - reactiveStrike
+    - artfulParry
+    - counterRiposte
+  advancement:
+    level: 1
+    rank: minion
+    important: false
+  details:
+    archetype:
+      description: >-
+        <p>A weapon animated by the <strong>Rune of Kinesis</strong> which deals
+        @Rule[damageType.piercing] damage to those it besets.</p>
+      identifier: animatedNeedle
+      abilities:
+        wisdom: 0
+        presence: 0
+        intellect: 0
+        strength: 3
+        toughness: 4
+        dexterity: 5
+      talents:
+        - item: Compendium.crucible.talent.Item.bloodletter00000
+          level: 4
+        - item: Compendium.crucible.talent.Item.counterriposte00
+          level: 2
+        - item: Compendium.crucible.talent.Item.disarmingriposte
+          level: 4
+        - item: Compendium.crucible.talent.Item.artfulparry00000
+          level: 3
+        - item: Compendium.crucible.talent.Item.strikefirst00000
+          level: 0
+        - item: Compendium.crucible.talent.Item.backstab00000000
+          level: 0
+        - item: Compendium.crucible.talent.Item.lunge00000000000
+          level: 1
+        - item: Compendium.crucible.talent.Item.harrier000000000
+          level: 4
+        - item: Compendium.crucible.talent.Item.battlefocus00000
+          level: 2
+        - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
+          level: 0
+        - item: Compendium.crucible.talent.Item.weakpoints000000
+          level: 2
+      training:
+        light: 1
+      spells: []
+      equipment:
+        - item: Compendium.crucible.equipment.Item.spear00000000000
+          quantity: 1
+          equipped: true
+          autoScale: true
+      name: Animated Needle
+      img: icons/weapons/polearms/spear-flared-blue.webp
+    taxonomy:
+      description: <p>An embodiment of the metamagical concept of Kinesis.</p>
+      identifier: kineticAnimation
+      category: construct
+      abilities:
+        wisdom: 0
+        presence: 0
+        intellect: 1
+        strength: 4
+        toughness: 4
+        dexterity: 3
+      movement:
+        size: 4
+        heightRatio: 1
+        stride: 10
+      resistances:
+        acid:
+          value: -2
+          immune: false
+        bludgeoning:
+          value: -1
+          immune: false
+        cold:
+          value: -2
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        electricity:
+          value: 2
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        piercing:
+          value: 0
+          immune: false
+        poison:
+          value: 3
+          immune: false
+        psychic:
+          value: 0
+          immune: false
+        radiant:
+          value: 0
+          immune: false
+        slashing:
+          value: 0
+          immune: false
+        void:
+          value: 0
+          immune: false
+      talents:
+        - item: Compendium.crucible.adversary-talents.Item.blindsight000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+          level: 0
+        - item: Compendium.crucible.talent.Item.opportunist00000
+          level: 1
+        - item: Compendium.crucible.talent.Item.subtleextricatio
+          level: 1
+      equipment: []
+      characteristics:
+        blooded: false
+        equipment: true
+        spells: true
+        temperature: ''
+      name: Kinetic Animation
+      img: icons/equipment/head/helm-barbute-horned-glowing.webp
+    biography:
+      appearance: ''
+      public: ''
+      private: ''
+    knowledge: []
+    languages: []
+prototypeToken:
+  name: Animated Needle
+  displayName: 20
+  actorLink: false
+  width: 3
+  height: 3
+  depth: 3
+  texture:
+    src: icons/svg/mystery-man.svg
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    scaleX: 1
+    scaleY: 1
+    tint: '#ffffff'
+    alphaThreshold: 0.75
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: -1
+  displayBars: 20
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    negative: false
+    priority: 0
+    alpha: 0.5
+    angle: 360
+    bright: 0
+    color: null
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0
+    contrast: 0
+    shadows: 0
+    animation:
+      type: null
+      speed: 5
+      intensity: 5
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+  sight:
+    enabled: false
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: {}
+  occludable:
+    radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
+  movementAction: null
+  flags: {}
+  randomImg: false
+  appendNumber: false
+  prependAdjective: false
+items:
+  - name: Blindsight
+    type: talent
+    img: icons/magic/perception/eye-ringed-glow-angry-small-red.webp
+    system:
+      keywords:
+        - playstyle.utility
+        - senses
+      nodes: []
+      description: >-
+        <p>@ref[actor.name]{This creature} perceives its surroundings without
+        the use of sight, sensing the precise location of creatures and objects
+        within 60 feet. It is unaffected by @Condition[blinded], darkness, or
+        invisibility, and any creature it detects this way is treated as visible
+        to it.</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.blindsight000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795017021372
+      modifiedTime: 1795017021372
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: blindsight000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.blindsight000000'
+  - name: Bloodless
+    type: talent
+    _id: bloodless0000000
+    img: icons/magic/earth/construct-stone.webp
+    system:
+      keywords:
+        - playstyle.defensive
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature} has no blood, vital organs, or
+        exploitable weak points. It is immune to the @Condition[bleeding]
+        condition, and the @Rule[dice.criticalSuccessThreshold] for
+        <strong>Strikes</strong> against it is increased by 2.</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.bloodless0000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795017021372
+      modifiedTime: 1795017021372
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.bloodless0000000'
+  - name: False Appearance
+    type: talent
+    _id: falseAppearance0
+    img: icons/magic/perception/silhouette-stealth-shadow.webp
+    system:
+      keywords:
+        - playstyle.utility
+        - skill.stealth
+        - senses
+      nodes: []
+      description: >-
+        <p>While it remains motionless, the @ref[actor.name]{creature} is
+        indistinguishable from some other object or material.</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795017021372
+      modifiedTime: 1795017021372
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.falseAppearance0'
+  - name: Opportunist
+    type: talent
+    _id: opportunist00000
+    img: icons/skills/melee/spear-tips-three-green.webp
+    system:
+      description: >-
+        <p>You seize any opportunity you can to capitalize on an enemy who turns
+        their back on you. You may make a @Action[default reactiveStrike] even
+        if you are otherwise @Rule[movement.fullyEngaged].</p>
+      actions: []
+      keywords:
+        - playstyle.melee
+        - movement.engagement
+        - action.reaction
+      nodes:
+        - intdex1
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795017021372
+      modifiedTime: 1795017021372
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.talent.Item.opportunist00000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.opportunist00000'
+  - name: Subtle Extrication
+    type: talent
+    _id: subtleextricatio
+    img: icons/magic/air/wind-stream-blue-gray.webp
+    system:
+      description: >-
+        <p>You understand how to move away from an opponent without exposing
+        yourself to the worst attacks in return. Any @Action[default
+        reactiveStrike] against you is performed with @Rule[dice.bane]{+1
+        Bane}.</p>
+      actions: []
+      keywords:
+        - playstyle.defensive
+        - movement.engagement
+      nodes:
+        - intdex1
+      iconicSpells: 0
+      training: stealth
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795017021372
+      modifiedTime: 1795017021372
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.talent.Item.subtleextricatio
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.subtleextricatio'
+  - name: Strike First
+    type: talent
+    _id: strikefirst00000
+    img: icons/skills/melee/sword-winged-holy-orange.webp
+    system:
+      description: >-
+        <p>Shoot first, ask questions later. You gain @Rule[dice.boon]{+1 Boon}
+        on any <strong>Strike</strong> or <strong>Spell</strong> attack against
+        an enemy whose initiative score is lower than your own.</p>
+      actions: []
+      keywords:
+        - initiative
+      nodes:
+        - intdex1
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795017023055
+      modifiedTime: 1795017023055
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.talent.Item.strikefirst00000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.strikefirst00000'
+  - name: Backstab
+    type: talent
+    img: icons/skills/melee/strike-dagger-white-orange.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        <p>You focus your cunning instincts on exploiting the weak points of a
+        @Condition[flanked] target. You identify an opportunity and strike with
+        deadly efficiency.</p>
+      actions:
+        - id: backstab
+          condition: You are attacking a target with the Flanked condition.
+          description: >-
+            <p>You <strong>Strike</strong> with your weapon against a
+            @Condition[flanked] target, dealing @Rule[action.deadly] damage.</p>
+          tags:
+            - finesse
+            - flanking
+            - melee
+            - deadly
+          cost:
+            action: 0
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          name: Backstab
+          img: icons/skills/melee/strike-dagger-white-orange.webp
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapon.light
+      nodes:
+        - dex1b
+      iconicSpells: 0
+      training: light
+      spellcraft: ''
+      requirements:
+        training: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795017023055
+      modifiedTime: 1795017023055
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.talent.Item.backstab00000000
+      duplicateSource: null
+      exportSource: null
+    _id: backstab00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.backstab00000000'
+  - name: Lunge
+    type: talent
+    img: icons/skills/melee/strike-polearm-light-orange.webp
+    system:
+      description: >-
+        <p>You know how to wield light weapons fluidly with a high degree of
+        maneuverability and grace in combat.</p>
+      actions:
+        - id: lunge
+          name: Lunge
+          img: icons/skills/melee/strike-polearm-light-orange.webp
+          condition: ''
+          description: >-
+            <p>You dart forward nimbly, attacking with sudden and unexpected
+            swiftness to perform a <strong>Strike</strong> with a weapon which
+            scales using @Rule[ability.dexterity] against a single target, with
+            an increased range of <strong>+2 feet</strong>.</p><p>The attack is
+            @Rule[action.difficult], but you do not move from your current
+            position nor does this attack provoke a @Action[default
+            reactiveStrike].</p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            hands: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: 2
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - finesse
+            - melee
+            - difficult
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      training: light
+      keywords:
+        - playstyle.melee
+        - weapon.light
+      nodes:
+        - dex0b
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.lunge00000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795017023055
+      modifiedTime: 1795017023055
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: lunge00000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.lunge00000000000'
+  - name: Living Weapon
+    type: talent
+    _id: livingWeapon0000
+    img: icons/weapons/swords/sword-broad-serrated-blue.webp
+    system:
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature}'s body is a weapon; while it has only
+        weapons and no armor equipped, it gains its @Rule[ability.toughness]
+        score to its @Rule[defense.parry] defense.</p>
+      actions: []
+      spellcraft: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+      keywords:
+        - armor.unarmored
+        - defense.parry
+        - playstyle.defensive
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795017023055
+      modifiedTime: 1795017023055
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.livingWeapon0000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.livingWeapon0000'
+  - name: Spear
+    type: weapon
+    img: icons/weapons/polearms/spear-flared-blue.webp
+    effects: []
+    flags:
+      crucible:
+        autoScale: true
+    system:
+      category: balanced1
+      quantity: 1
+      weight: 4
+      price: 320
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - reach
+        - versatile
+      description:
+        public: >-
+          <p>A weapon of reach and rhythm, the spear features a long shaft
+          tipped with steel, perfect for holding the line or launching with
+          deadly force from behind a shield wall.</p>
+        private: ''
+      damageType: piercing
+      broken: false
+      identifier: spear
+      invested: false
+      actions: []
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: Compendium.crucible.equipment.Item.spear00000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795017023055
+      modifiedTime: 1795017047894
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: spear00000000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!OBA15TW8mmvqlRo6.spear00000000000'
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1795017018866
+  modifiedTime: 1795017048571
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!actors!OBA15TW8mmvqlRo6'

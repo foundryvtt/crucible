@@ -1,0 +1,65 @@
+folder: VzmX3ltBOPdcbOEY
+name: Animated Blade
+type: archetype
+_id: animatedBlade000
+img: icons/weapons/swords/scimitar-worn-blue.webp
+system:
+  description: >-
+    <p>A weapon animated by the <strong>Rune of Kinesis</strong> which deals
+    @Rule[damageType.slashing] damage to those it besets.</p>
+  identifier: animatedBlade
+  abilities:
+    wisdom: 0
+    presence: 0
+    intellect: 0
+    strength: 5
+    toughness: 3
+    dexterity: 4
+  talents:
+    - item: Compendium.crucible.talent.Item.bloodletter00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.counterriposte00
+      level: 2
+    - item: Compendium.crucible.talent.Item.disarmingriposte
+      level: 4
+    - item: Compendium.crucible.talent.Item.hamstring0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.uppercut00000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.ruthlessmomentum
+      level: 3
+    - item: Compendium.crucible.talent.Item.executionersstri
+      level: 4
+    - item: Compendium.crucible.talent.Item.battlefocus00000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
+      level: 0
+    - item: Compendium.crucible.talent.Item.legsweep00000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.cadence000000000
+      level: 2
+  training:
+    heavy: 1
+  spells: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.bastardSword0000
+      quantity: 1
+      equipped: true
+      autoScale: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1794931188678
+  modifiedTime: 1795015276345
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!animatedBlade000'

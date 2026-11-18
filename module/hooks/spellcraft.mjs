@@ -243,7 +243,8 @@ function _prepareSummon(level) {
 
   // Configure summon data
   const summonUUIDs = SYSTEM.SPELL.GESTURE_SUMMONS[this.gesture.id];
-  const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
+  const propertyPath = (this.rune.id === "kinesis") ? `kinesis.${this.damageType}` : this.rune.id;
+  const actorUuid = foundry.utils.getProperty(summonUUIDs, propertyPath) || summonUUIDs.fallback;
   const family = this.rune.training;
   const tokenData = {
     delta: {

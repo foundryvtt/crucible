@@ -600,6 +600,11 @@ export const GESTURE_SUMMONS = {
     earth: "Compendium.crucible.summons.Actor.xTFgTg5Rh2s0s5gZ",
     flame: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI",
     frost: "Compendium.crucible.summons.Actor.me5glbOshiijlVUH",
+    kinesis: {
+      bludgeoning: "Compendium.crucible.summons.Actor.jHm8riRjzdYg9VmE",
+      piercing: "Compendium.crucible.summons.Actor.OBA15TW8mmvqlRo6",
+      slashing: "Compendium.crucible.summons.Actor.yh7Rw3QnIF3cHvfD"
+    },
     storm: "Compendium.crucible.summons.Actor.Ne25xsSqYijgcrm0",
     fallback: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI" // FIXME flame
   },

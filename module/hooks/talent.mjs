@@ -1233,6 +1233,17 @@ HOOKS.lightbringer0000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.livingWeapon0000 = {
+  prepareActions(_item, actions) {
+    delete actions.throwWeapon;
+  },
+  prepareDefenses(_item, defenses) {
+    if ( this.equipment.unarmored ) defenses.parry.bonus += this.abilities.toughness.value;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.martialartist000 = {
   prepareWeapons(_item, weapons) {
     const fine = SYSTEM.ITEM.QUALITY_TIERS.fine;
