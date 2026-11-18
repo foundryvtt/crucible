@@ -4,8 +4,9 @@ _id: terrifyingPresen
 img: icons/magic/control/fear-fright-monster-purple-blue.webp
 system:
   keywords:
-    - action.reaction
     - target.willpower
+    - target.morale
+    - damageType.psychic
   nodes: []
   description: >-
     <p>Something about the presence of this creature motivates a pure and
@@ -15,10 +16,18 @@ system:
       name: Terrifying Presence
       img: icons/magic/control/fear-fright-monster-purple-blue.webp
       description: >-
-        <p>When an enemy moves within 20 feet of the @ref[actor.name]{creature},
-        it becomes exposed to the dreadful presence, attacking its
-        @Rule[defense.willpower] and inflicting the @Condition[frightened]
-        condition upon success.</p>
+        <p>The @ref[actor.name]{creature} lets loose an aura of fear. Any
+        enemies within <strong>20 feet</strong> of the
+        @ref[actor.name]{creature} immediately suffer an attack to their
+        @Rule[defense.willpower], with a @Rule[dice.success] dealing
+        @Rule[damageType.psychic] damage to their @Rule[resource.morale] and
+        causing the @Condition[frightened] until the start of their next turn.
+        Thereafter, whenever an enemy enters or starts its turn within
+        <strong>20 feet</strong> of the @ref[actor.name]{creature}, it becomes
+        exposed to the dreadful presence, suffering a @Rule[action.harmless]
+        attack to its @Rule[defense.willpower] and becoming
+        @Condition[frightened] until the start of its next turn upon
+        @Rule[dice.success].</p>
       condition: An enemy moves within 20 feet.
       cost:
         action: 0
@@ -36,10 +45,32 @@ system:
         scope: 3
         self: false
         size: 20
-      summon:
-        actorUuid: null
-        permanent: true
+      summon: null
       effects:
+        - name: 'Terrifying Presence: Source'
+          scope: 1
+          result:
+            type: any
+            all: false
+          statuses: []
+          duration:
+            value: 6
+            units: rounds
+            expiry: turnStart
+            expired: false
+          system:
+            dc: null
+            changes: []
+            dot: []
+            effects: []
+            lights: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
+            regions: []
+            summons: []
+            suppression: {}
         - name: ''
           scope: 3
           result:
@@ -48,23 +79,80 @@ system:
           statuses:
             - frightened
           duration:
-            value: 6
+            value: 1
             units: rounds
-            expiry: null
+            expiry: turnStart
             expired: false
           system:
             changes: []
             dot: []
-            maintenance: null
+            effects: []
+            lights: []
+            maintenance:
+              cost: null
+              hands: 0
+            properties: []
             regions: []
             summons: []
+            suppression: {}
       tags:
-        - reaction
         - generic
-        - harmless
         - willpower
+        - psychic
+        - morale
         - presence
-      autoFavorite: false
+      persistRegion: true
+      regionBehavior:
+        name: Terrifying Presence
+        system:
+          action:
+            id: terrifyingPresenceRegion
+            name: Terrifying Presence
+            img: icons/magic/control/fear-fright-monster-purple-blue.webp
+            description: >-
+              <p>Whenever an enemy enters or starts its turn within <strong>20
+              feet</strong> of the @ref[actor.name]{creature}, it becomes
+              exposed to the dreadful presence, suffering a
+              @Rule[action.harmless] attack to its @Rule[defense.willpower] and
+              becoming @Condition[frightened] until the start of its next turn
+              upon @Rule[dice.success].</p>
+            effects:
+              - name: ''
+                scope: 3
+                result:
+                  type: success
+                  all: false
+                statuses:
+                  - frightened
+                duration:
+                  value: 1
+                  units: rounds
+                  expiry: turnStart
+                  expired: false
+                system:
+                  changes: []
+                  dot: []
+                  effects: []
+                  lights: []
+                  maintenance:
+                    cost: null
+                    hands: 0
+                  properties: []
+                  regions: []
+                  summons: []
+                  suppression: {}
+            tags:
+              - generic
+              - harmless
+              - willpower
+              - presence
+            target:
+              scope: 3
+            spellcraft: null
+          events:
+            - tokenEnter
+            - tokenTurnStart
+          frequency: roundActor
   iconicSpells: 0
 effects: []
 folder: EDeByOa9cuYSaF8Y
@@ -76,12 +164,12 @@ flags:
   ember:
     crucibleOverride: true
 _stats:
-  coreVersion: '14.361'
+  coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.9.3
+  systemVersion: 0.11.3
   createdTime: 1778766695361
-  modifiedTime: 1778766695361
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1795026806099
+  lastModifiedBy: ZXJsFnFZuf21WDAk
   exportSource: null
   compendiumSource: null
   duplicateSource: null

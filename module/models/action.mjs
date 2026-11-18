@@ -1610,9 +1610,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targetCfg = SYSTEM.ACTION.TARGET_TYPES[targetType];
     if ( targetType === "summon" ) return this.#assignTargets([]);
 
-    // Acquire Region Targets. An Action which persists its Region affects only its caster, because the Region goes on
-    // to target other creatures on its own terms through the Action its behavior performs
-    if ( targetCfg.region ) targets = this.persistRegion ? this.#acquireSelfTargets() : this.#acquireTargetsFromRegion();
+    // Acquire Region Targets; self if explicitly self-scoped, otherwise normal logic
+    if ( targetCfg.region ) targets = (this.target.scope === SYSTEM.ACTION.TARGET_SCOPES.SELF)
+      ? this.#acquireSelfTargets()
+      : this.#acquireTargetsFromRegion();
 
     // Other Target Types
     else {
