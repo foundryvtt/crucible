@@ -547,10 +547,20 @@ HOOKS.coldFocus = {
 
 HOOKS.conjureArmament = {
   canUse() {
-    const boundArmamentId = this.actor.getFlag("crucible", this.id);
-    const weapon = this.items.get(boundArmamentId);
-    if ( !weapon || weapon.equipped ) return false;
-    this.canEquipWeapon(weapon);
+    const boundArmamentId = this.actor.getFlag("crucible", "bindArmament");
+    const weapon = this.actor.items.get(boundArmamentId);
+    if ( !weapon || weapon.system.equipped ) return false;
+    this.actor.canEquipItem(weapon);
+  },
+  preActivate() {
+    const boundArmamentId = this.actor.getFlag("crucible", "bindArmament");
+    const weapon = this.actor.items.get(boundArmamentId);
+    if ( !weapon ) return;
+    const {slot} = this.actor.canEquipItem(weapon);
+    const update = {_id: weapon.id, system: {dropped: false, equipped: true}};
+    if ( slot !== undefined ) update.system.slot = slot;
+    this.selfUpdateEvent.itemSnapshots.push(weapon.snapshot());
+    this.selfUpdateEvent.actorUpdates.items.push(update);
   }
 };
 
