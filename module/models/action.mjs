@@ -1994,7 +1994,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       target.flanked = this.computeFlanking(target.actor, target.token);
       best = Math.max(best, target.flanked);
     }
-    if ( !best || !this.target.isAttack || (this.range.category !== "melee") ) return;
+    const rangedFlanking = this.usage.allowRangedFlanking;
+    if ( !best || !this.target.isAttack || ((this.range.category !== "melee") && !rangedFlanking) ) return;
     this.usage.boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: best};
   }
 
