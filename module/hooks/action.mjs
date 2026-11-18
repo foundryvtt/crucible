@@ -2190,7 +2190,7 @@ HOOKS.rapidCountermeasure = {
   },
   postActivate() {
     const {conditions} = SYSTEM.DAMAGE_CATEGORIES.elemental;
-    for ( const [target] of this.eventsByTarget ) {
+    for ( const [target] of this.targets ) {
       const afflictions = target.effects.filter(e => e.active && conditions.some(c => e.statuses.has(c)));
       if ( !afflictions.length ) {
         throw new Error(_loc("ACTION.WARNINGS.RequiresElementalCondition", {target: target.name}));
