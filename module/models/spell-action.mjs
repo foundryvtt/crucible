@@ -114,6 +114,9 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.inflection = INFLECTIONS[this.inflection];
     }
 
+    // Damage type default for kinesis
+    if ( this.rune.id === "kinesis" ) this.damageType ??= "bludgeoning";
+
     // Spells must have both a Rune and a Gesture to be composed
     if ( this.isIconic ) this.composition = STATES.COMPOSED;
     if ( !this.rune || !this.gesture ) this.composition = Math.min(this.composition, STATES.COMPOSING);

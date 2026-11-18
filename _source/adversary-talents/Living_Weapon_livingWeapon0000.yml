@@ -1,0 +1,39 @@
+folder: By2dpEkYQSuee47b
+name: Living Weapon
+type: talent
+_id: livingWeapon0000
+img: icons/weapons/swords/sword-broad-serrated-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature}'s body is a weapon. It cannot use the
+    @Action[default throwWeapon] action, and while it has only weapons and no
+    armor equipped, it gains its @Rule[ability.toughness] score to its
+    @Rule[defense.parry] defense.</p>
+  actions: []
+  spellcraft: ''
+  iconicSpells: 0
+  requirements:
+    training: {}
+  training: ''
+  keywords:
+    - playstyle.defensive
+    - armor.unarmored
+    - defense.parry
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1795014133686
+  modifiedTime: 1795019112921
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!livingWeapon0000'

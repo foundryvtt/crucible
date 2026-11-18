@@ -1,0 +1,854 @@
+folder: 5oBBNdq95OvvXx3e
+name: Animated Blade
+type: adversary
+_id: animatedBlade000
+img: icons/svg/mystery-man.svg
+system:
+  abilities:
+    wisdom:
+      bonus: 0
+    presence:
+      bonus: 0
+    intellect:
+      bonus: 0
+    strength:
+      bonus: 0
+    toughness:
+      bonus: 0
+    dexterity:
+      bonus: 0
+  training: {}
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  resistances:
+    acid:
+      bonus: 0
+      immune: false
+    bludgeoning:
+      bonus: 0
+      immune: false
+    cold:
+      bonus: 0
+      immune: false
+    corruption:
+      bonus: 0
+      immune: false
+    electricity:
+      bonus: 0
+      immune: false
+    fire:
+      bonus: 0
+      immune: false
+    piercing:
+      bonus: 0
+      immune: false
+    poison:
+      bonus: 0
+      immune: false
+    psychic:
+      bonus: 0
+      immune: false
+    radiant:
+      bonus: 0
+      immune: false
+    slashing:
+      bonus: 0
+      immune: false
+    void:
+      bonus: 0
+      immune: false
+  resources:
+    health:
+      value: 21
+    wounds:
+      value: 0
+    morale:
+      value: 0
+    madness:
+      value: 0
+    action:
+      value: 4
+    focus:
+      value: 1
+    heroism:
+      value: 0
+  movement:
+    sizeBonus: -1
+    strideBonus: 0
+    engagementBonus: 0
+  currency: 0
+  status: null
+  favorites:
+    - hamstring
+    - legSweep
+    - uppercut
+    - strike
+    - reactiveStrike
+    - executionersStrike
+    - ruthlessMomentum
+    - counterRiposte
+  advancement:
+    level: 1
+    rank: minion
+    important: false
+  details:
+    archetype:
+      description: >-
+        <p>A weapon animated by the <strong>Rune of Kinesis</strong> which deals
+        @Rule[damageType.slashing] damage to those it besets.</p>
+      identifier: animatedBlade
+      abilities:
+        wisdom: 0
+        presence: 0
+        intellect: 0
+        strength: 5
+        toughness: 3
+        dexterity: 4
+      talents:
+        - item: Compendium.crucible.talent.Item.bloodletter00000
+          level: 4
+        - item: Compendium.crucible.talent.Item.counterriposte00
+          level: 2
+        - item: Compendium.crucible.talent.Item.disarmingriposte
+          level: 4
+        - item: Compendium.crucible.talent.Item.hamstring0000000
+          level: 0
+        - item: Compendium.crucible.talent.Item.uppercut00000000
+          level: 1
+        - item: Compendium.crucible.talent.Item.ruthlessmomentum
+          level: 3
+        - item: Compendium.crucible.talent.Item.executionersstri
+          level: 4
+        - item: Compendium.crucible.talent.Item.battlefocus00000
+          level: 2
+        - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
+          level: 0
+        - item: Compendium.crucible.talent.Item.legsweep00000000
+          level: 0
+        - item: Compendium.crucible.talent.Item.cadence000000000
+          level: 2
+      training:
+        heavy: 1
+      spells: []
+      equipment:
+        - item: Compendium.crucible.equipment.Item.bastardSword0000
+          quantity: 1
+          equipped: true
+          autoScale: true
+      name: Animated Blade
+      img: icons/weapons/swords/scimitar-worn-blue.webp
+    taxonomy:
+      description: <p>An embodiment of the metamagical concept of Kinesis.</p>
+      identifier: kineticAnimation
+      category: construct
+      abilities:
+        wisdom: 0
+        presence: 0
+        intellect: 1
+        strength: 4
+        toughness: 4
+        dexterity: 3
+      movement:
+        size: 4
+        heightRatio: 1
+        stride: 10
+      resistances:
+        acid:
+          value: -2
+          immune: false
+        bludgeoning:
+          value: -1
+          immune: false
+        cold:
+          value: -2
+          immune: false
+        corruption:
+          value: 0
+          immune: false
+        electricity:
+          value: 2
+          immune: false
+        fire:
+          value: 0
+          immune: false
+        piercing:
+          value: 0
+          immune: false
+        poison:
+          value: 3
+          immune: false
+        psychic:
+          value: 0
+          immune: false
+        radiant:
+          value: 0
+          immune: false
+        slashing:
+          value: 0
+          immune: false
+        void:
+          value: 0
+          immune: false
+      talents:
+        - item: Compendium.crucible.adversary-talents.Item.blindsight000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
+          level: 0
+        - item: Compendium.crucible.adversary-talents.Item.falseAppearance0
+          level: 0
+        - item: Compendium.crucible.talent.Item.opportunist00000
+          level: 1
+        - item: Compendium.crucible.talent.Item.subtleextricatio
+          level: 1
+      equipment: []
+      characteristics:
+        blooded: false
+        equipment: true
+        spells: true
+        temperature: ''
+      name: Kinetic Animation
+      img: icons/equipment/head/helm-barbute-horned-glowing.webp
+    biography:
+      appearance: ''
+      public: ''
+      private: ''
+    knowledge: []
+    languages: []
+prototypeToken:
+  name: Animated Blade
+  displayName: 20
+  actorLink: false
+  width: 3
+  height: 3
+  depth: 3
+  texture:
+    src: icons/svg/mystery-man.svg
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    scaleX: 1
+    scaleY: 1
+    tint: '#ffffff'
+    alphaThreshold: 0.75
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: -1
+  displayBars: 20
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    negative: false
+    priority: 0
+    alpha: 0.5
+    angle: 360
+    bright: 0
+    color: null
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0
+    contrast: 0
+    shadows: 0
+    animation:
+      type: null
+      speed: 5
+      intensity: 5
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+  sight:
+    enabled: false
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: {}
+  occludable:
+    radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
+  movementAction: null
+  flags: {}
+  randomImg: false
+  appendNumber: false
+  prependAdjective: false
+items:
+  - name: Blindsight
+    type: talent
+    img: icons/magic/perception/eye-ringed-glow-angry-small-red.webp
+    system:
+      keywords:
+        - playstyle.utility
+        - senses
+      nodes: []
+      description: >-
+        <p>@ref[actor.name]{This creature} perceives its surroundings without
+        the use of sight, sensing the precise location of creatures and objects
+        within 60 feet. It is unaffected by @Condition[blinded], darkness, or
+        invisibility, and any creature it detects this way is treated as visible
+        to it.</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.blindsight000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795016782119
+      modifiedTime: 1795016782119
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: blindsight000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.blindsight000000'
+  - name: Bloodless
+    type: talent
+    _id: bloodless0000000
+    img: icons/magic/earth/construct-stone.webp
+    system:
+      keywords:
+        - playstyle.defensive
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature} has no blood, vital organs, or
+        exploitable weak points. It is immune to the @Condition[bleeding]
+        condition, and the @Rule[dice.criticalSuccessThreshold] for
+        <strong>Strikes</strong> against it is increased by 2.</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.bloodless0000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795016782119
+      modifiedTime: 1795016782119
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.bloodless0000000'
+  - name: False Appearance
+    type: talent
+    _id: falseAppearance0
+    img: icons/magic/perception/silhouette-stealth-shadow.webp
+    system:
+      keywords:
+        - playstyle.utility
+        - skill.stealth
+        - senses
+      nodes: []
+      description: >-
+        <p>While it remains motionless, the @ref[actor.name]{creature} is
+        indistinguishable from some other object or material.</p>
+      actions: []
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.adversary-talents.Item.falseAppearance0
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795016782119
+      modifiedTime: 1795016782119
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.falseAppearance0'
+  - name: Opportunist
+    type: talent
+    _id: opportunist00000
+    img: icons/skills/melee/spear-tips-three-green.webp
+    system:
+      description: >-
+        <p>You seize any opportunity you can to capitalize on an enemy who turns
+        their back on you. You may make a @Action[default reactiveStrike] even
+        if you are otherwise @Rule[movement.fullyEngaged].</p>
+      actions: []
+      keywords:
+        - playstyle.melee
+        - movement.engagement
+        - action.reaction
+      nodes:
+        - intdex1
+      iconicSpells: 0
+      spellcraft: ''
+      requirements:
+        training: {}
+      training: ''
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795016782119
+      modifiedTime: 1795016782119
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.talent.Item.opportunist00000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.opportunist00000'
+  - name: Subtle Extrication
+    type: talent
+    _id: subtleextricatio
+    img: icons/magic/air/wind-stream-blue-gray.webp
+    system:
+      description: >-
+        <p>You understand how to move away from an opponent without exposing
+        yourself to the worst attacks in return. Any @Action[default
+        reactiveStrike] against you is performed with @Rule[dice.bane]{+1
+        Bane}.</p>
+      actions: []
+      keywords:
+        - playstyle.defensive
+        - movement.engagement
+      nodes:
+        - intdex1
+      iconicSpells: 0
+      training: stealth
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795016782119
+      modifiedTime: 1795016782119
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.talent.Item.subtleextricatio
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.subtleextricatio'
+  - name: Hamstring
+    type: talent
+    img: icons/skills/melee/strike-blade-blood-red.webp
+    system:
+      description: >-
+        <p>You use a slashing weapon to target the legs of an enemy and cripple
+        their movement.</p>
+      actions:
+        - id: hamstring
+          condition: ''
+          description: >-
+            <p>You make <strong>Strike</strong> attack which is
+            @Rule[action.difficult], but if successful, inflicts the
+            @Condition[slowed] condition for <strong>3 Rounds</strong>.</p>
+          tags:
+            - melee
+            - difficult
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            weapon: true
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects:
+            - name: Hamstring
+              scope: 3
+              result:
+                type: success
+                all: false
+              statuses:
+                - slowed
+              duration:
+                value: 3
+                units: rounds
+                expiry: turnEnd
+                expired: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                properties: []
+                effects: []
+                lights: []
+                suppression: {}
+          name: Hamstring
+          img: icons/skills/melee/strike-axe-blood-red.webp
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      iconicSpells: 0
+      keywords:
+        - playstyle.melee
+      nodes:
+        - dex0b
+      training: light
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
+      duplicateSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795016788930
+      modifiedTime: 1795016788930
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      exportSource: null
+    _id: hamstring0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.hamstring0000000'
+  - name: Uppercut
+    type: talent
+    img: icons/skills/melee/strike-sword-gray.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        <p>A two-handed weapon technique where you swing your weapon upwards,
+        making a second <strong>Strike</strong> with the backswing of your
+        weapon.</p>
+      actions:
+        - id: uppercut
+          name: Uppercut
+          img: icons/skills/melee/strike-sword-gray.webp
+          condition: ''
+          description: >-
+            <p>Following a basic @Action[default strike] which did not
+            @Rule[dice.criticalFailure]{Critically Miss}, you
+            <strong>Strike</strong> the same target again with the backswing of
+            your weapon at reduced @Rule[resource.action] cost.</p>
+          tags:
+            - afterStrike
+            - melee
+            - twohand
+          cost:
+            action: -1
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.twohand
+      nodes:
+        - str1a
+      iconicSpells: 0
+      training: heavy
+      spellcraft: ''
+      requirements:
+        training: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795016788930
+      modifiedTime: 1795016788930
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: uppercut00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.uppercut00000000'
+  - name: Living Weapon
+    type: talent
+    _id: livingWeapon0000
+    img: icons/weapons/swords/sword-broad-serrated-blue.webp
+    system:
+      nodes: []
+      description: >-
+        <p>The @ref[actor.name]{creature}'s body is a weapon; while it has only
+        weapons and no armor equipped, it gains its @Rule[ability.toughness]
+        score to its @Rule[defense.parry] defense.</p>
+      actions: []
+      spellcraft: ''
+      iconicSpells: 0
+      requirements:
+        training: {}
+      training: ''
+      keywords:
+        - armor.unarmored
+        - defense.parry
+        - playstyle.defensive
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795016788930
+      modifiedTime: 1795016788930
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.adversary-talents.Item.livingWeapon0000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.livingWeapon0000'
+  - name: Leg Sweep
+    type: talent
+    img: icons/skills/melee/strike-sword-slashing-red.webp
+    system:
+      description: >-
+        <p>You use a weapon which scales using @Rule[ability.strength] to sweep
+        your enemy off balance, swinging low to knock them from their feet.</p>
+      actions:
+        - id: legSweep
+          condition: ''
+          description: >-
+            <p>You make a <strong>Strike</strong> attack with your mainhand
+            weapon. This technique is @Rule[action.difficult] to execute and
+            deals reduced damage, but if successful renders your target
+            @Condition[prone].</p>
+          tags:
+            - brute
+            - melee
+            - difficult
+            - weakened
+          cost:
+            action: 0
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects:
+            - name: Leg Sweep
+              scope: 3
+              statuses:
+                - prone
+              result:
+                type: success
+                all: false
+              system:
+                changes: []
+                dot: []
+                maintenance:
+                  cost: null
+                  hands: 0
+                regions: []
+                summons: []
+                properties: []
+                effects: []
+                lights: []
+                suppression: {}
+              duration:
+                value: null
+                units: ''
+                expiry: null
+                expired: false
+          name: Leg Sweep
+          img: icons/skills/melee/strike-sword-slashing-red.webp
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapon.heavy
+      nodes:
+        - str0a
+      iconicSpells: 0
+      training: athletics
+      spellcraft: ''
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795016788930
+      modifiedTime: 1795016788930
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+      compendiumSource: Compendium.crucible.talent.Item.legsweep00000000
+      duplicateSource: null
+      exportSource: null
+    _id: legsweep00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.legsweep00000000'
+  - name: Bastard Sword
+    type: weapon
+    img: icons/weapons/swords/greatsword-crossguard-silver.webp
+    effects: []
+    flags:
+      core: {}
+      crucible:
+        autoScale: true
+    system:
+      category: heavy1
+      quantity: 1
+      weight: 3
+      price: 240
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - versatile
+      description:
+        public: >-
+          <p>A bastard sword, also known as a hand-and-a-half sword, is a
+          versatile weapon with a straight, double-edged blade around 40 inches
+          long. This weapon is forged for both single-handed agility and
+          two-handed power.</p>
+        private: ''
+      damageType: slashing
+      broken: false
+      actions: []
+      identifier: bastardSword
+      invested: false
+      dropped: false
+      slot: 0
+    _stats:
+      compendiumSource: Compendium.crucible.equipment.Item.bastardSword0000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795016788930
+      modifiedTime: 1795016975736
+      lastModifiedBy: ZXJsFnFZuf21WDAk
+    _id: bastardSword0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!animatedBlade000.bastardSword0000'
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1795016773595
+  modifiedTime: 1795016976063
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!actors!animatedBlade000'

@@ -1,0 +1,65 @@
+folder: VzmX3ltBOPdcbOEY
+name: Animated Bludgeon
+type: archetype
+_id: animatedBludgeon
+img: icons/weapons/hammers/hammer-double-steel-embossed.webp
+system:
+  description: >-
+    <p>A weapon animated by the <strong>Rune of Kinesis</strong> which deals
+    @Rule[damageType.bludgeoning] damage to those it besets.</p>
+  identifier: animatedBludgeon
+  abilities:
+    wisdom: 0
+    presence: 0
+    intellect: 0
+    strength: 4
+    toughness: 5
+    dexterity: 3
+  talents:
+    - item: Compendium.crucible.talent.Item.concussiveblows0
+      level: 4
+    - item: Compendium.crucible.talent.Item.counterriposte00
+      level: 2
+    - item: Compendium.crucible.talent.Item.disarmingriposte
+      level: 4
+    - item: Compendium.crucible.talent.Item.heavyStrike00000
+      level: 0
+    - item: Compendium.crucible.talent.Item.sunderingstrike0
+      level: 3
+    - item: Compendium.crucible.talent.Item.intercept0000000
+      level: 4
+    - item: Compendium.crucible.talent.Item.ferociousleap000
+      level: 2
+    - item: Compendium.crucible.talent.Item.battlefocus00000
+      level: 2
+    - item: Compendium.crucible.adversary-talents.Item.livingWeapon0000
+      level: 0
+    - item: Compendium.crucible.talent.Item.disarmingstrike0
+      level: 0
+    - item: Compendium.crucible.talent.Item.swipe00000000000
+      level: 1
+  training:
+    heavy: 1
+  spells: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.warHammer0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+effects: []
+sort: 0
+ownership:
+  default: 0
+  ZXJsFnFZuf21WDAk: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1794931363469
+  modifiedTime: 1795017134753
+  lastModifiedBy: ZXJsFnFZuf21WDAk
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!animatedBludgeon'
