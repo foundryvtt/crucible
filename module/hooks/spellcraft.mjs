@@ -61,9 +61,6 @@ HOOKS.aspect = {
 /* -------------------------------------------- */
 
 HOOKS.aura = {
-  _targetScope(rune) {
-    return SYSTEM.ACTION.TARGET_SCOPES[rune?.restoration ? "ALLIES" : "ENEMIES"];
-  },
   initialize() {
     this.tags.add("maintained");
     this.regionBehavior = {}; // Being truthy means this will be prepared with appropriate default values
@@ -76,10 +73,10 @@ HOOKS.aura = {
 
     // The region action resolves as a spell attack with scaling and damage based on its components
     const regionTags = ["spell"];
-    if ( this.rune.restoration ) regionTags.push((this.rune.resource === "health") ? "healing" : "rallying");
+    if ( this.usage.restoration ) regionTags.push((this.rune.resource === "health") ? "healing" : "rallying");
     Object.assign(this.regionBehavior.system.action, {
       id: "spellAuraRegion",
-      target: {scope: HOOKS.aura._targetScope(this.rune)},
+      target: {scope: SYSTEM.ACTION.TARGET_SCOPES[this.usage.restoration ? "ALLIES" : "ENEMIES"]},
       spellcraft: {rune: this.rune.id, gesture: this.gesture.id, inflection: this.inflection?.id ?? ""},
       tags: regionTags
     });
@@ -122,6 +119,14 @@ HOOKS.create = {
 
 /* -------------------------------------------- */
 
+HOOKS.life = {
+  initialize() {
+    if ( this.inflection?.id === "negate" ) this.usage.restoration = false;
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.react = {
   initialize() {
     this.tags.add("reaction");
@@ -132,8 +137,7 @@ HOOKS.react = {
 
 HOOKS.reshape = {
   prepare() {
-    if ( this.rune.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
-    else this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ENEMIES;
+    this.target.scope = SYSTEM.ACTION.TARGET_SCOPES[this.usage.restoration ? "ALLIES" : "ENEMIES"];
   }
 };
 
@@ -175,6 +179,14 @@ HOOKS.sense = {
       }
     }];
     foundry.utils.setProperty(trackingEffect, "flags.crucible.runes", [this.rune.id]);
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.soul = {
+  initialize() {
+    if ( this.inflection?.id === "negate" ) this.usage.restoration = false;
   }
 };
 

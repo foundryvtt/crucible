@@ -1213,6 +1213,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Propagate and sort tags
     this.tags = new CrucibleActionTags(this._source.tags, this);
+    this.usage.restoration = false;
 
     // Ability Scaling and Skill Training
     this.scaling = [];
@@ -2692,7 +2693,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   _configureUsage() {
     // Reset flags that are determined during action preparation
     this.usage.hasDice = false;
-    this.usage.restoration = false;
     delete this.usage.consumeUses;
 
     // Reset cost fields to their source values so that repeated prepare() calls do not accumulate costs

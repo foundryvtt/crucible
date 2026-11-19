@@ -65,3 +65,31 @@ export function formatEffectName(name, ...context) {
   if ( !entries.length ) return name;
   return _loc("ACTIVE_EFFECT.ContextName", {effect: name, context: entries.join(", ")});
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Allow a restorative rune in an actor's grimoire to be cast either to restore or to deal its damage type.
+ * @param {object} grimoire     The grimoire of the actor being prepared
+ * @param {string} rune         The restorative rune
+ */
+export function applyRuneDamageChoice(grimoire, rune) {
+  const component = grimoire.runes.get(rune);
+  if ( !component ) return;
+  grimoire.runes.set(rune, component.clone({damageTypes: [component.damageType, "restoration"]}, {once: true}));
+}
+
+
+/* -------------------------------------------- */
+
+/**
+ * Modify a rune in an actor's grimoire so that it scales with the provided ability.
+ * @param {object} grimoire     The grimoire of the actor being prepared
+ * @param {string} rune         The rune to change the scaling of
+ * @param {string} scaling      The ability the rune should newly scale with
+ */
+export function applyRuneScalingChange(grimoire, rune, scaling) {
+  const component = grimoire.runes.get(rune);
+  if ( !component ) return;
+  grimoire.runes.set(rune, component.clone({scaling}, {once: true}));
+}

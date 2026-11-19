@@ -27,17 +27,21 @@ export default class SpellCastDialog extends ActionUseDialog {
     const inflections = Array.from(actor.grimoire.inflections.values());
     inflections.sort((a, b) => a.name.localeCompare(b.name));
 
+    // Damage type choices
+    const restorationTag = (spell.rune?.resource === "morale") ? "rallying" : "healing";
+    const damageTypes = [];
+    for ( const value of spell.rune?.damageTypes ?? [] ) {
+      if ( value !== "restoration" ) damageTypes.push({value, label: SYSTEM.DAMAGE_TYPES[value].label});
+      else if ( spell.isComposed ) damageTypes.push({value, label: SYSTEM.ACTION.TAGS[restorationTag].label});
+    }
+
     // Merge context
     return foundry.utils.mergeObject(context, {
       runes, gestures, inflections,
       canInflect: true,
       locked: Object.fromEntries(SpellCastDialog.LOCKABLE_FIELDS.map(c => [c, this._lockedFields.has(c)])),
-      chooseDamageType: spell.rune.damageType === "physical",
-      damageTypes: {
-        bludgeoning: SYSTEM.DAMAGE_TYPES.bludgeoning.label,
-        piercing: SYSTEM.DAMAGE_TYPES.piercing.label,
-        slashing: SYSTEM.DAMAGE_TYPES.slashing.label
-      },
+      chooseDamageType: damageTypes.length > 1,
+      damageTypes,
       requiresComposition: this.action.isComposed || (this.action.id === "counterspell"),
       showDetails: true,
       submitLabel: _loc("ACTION.DEFAULT_ACTIONS.Cast.Name")

@@ -162,6 +162,18 @@ export const DAMAGE_TYPES = defineEnum({
   }
 });
 
+/* -------------------------------------------- */
+
+/**
+ * Damage type choices, including pseudo-types which resolve to a concrete damage type when used.
+ * @type {Readonly<Record<string, string>>}
+ */
+export const DAMAGE_TYPE_CHOICES = Object.freeze({
+  physical: "DAMAGE.Physical",
+  restoration: "DAMAGE.Restoration",
+  ...Object.fromEntries(Object.values(DAMAGE_TYPES).map(({id, label}) => [id, label]))
+});
+
 
 /* -------------------------------------------- */
 

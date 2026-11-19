@@ -1,5 +1,6 @@
 import {ENVIRONMENT_TALENT_ID} from "../const/talents.mjs";
-import {formatEffectName, interruptAction, isDeployingItem} from "./helpers.mjs";
+import {applyRuneDamageChoice, applyRuneScalingChange, formatEffectName, interruptAction,
+  isDeployingItem} from "./helpers.mjs";
 
 const HOOKS = {};
 
@@ -1699,20 +1700,6 @@ HOOKS.sneak00000000000 = {
 
 /* -------------------------------------------- */
 
-/**
- * Modifies a rune in an actor's grimoire so that it scales with the provided ability.
- * @param {object} grimoire The grimoire of the actor being prepared
- * @param {string} rune     The rune to change the scaling of
- * @param {string} scaling  The ability the rune should newly scale with
- */
-function applyRuneScalingChange(grimoire, rune, scaling) {
-  const component = grimoire.runes.get(rune);
-  if ( !component ) return;
-  grimoire.runes.set(rune, component.clone({scaling}, {once: true}));
-}
-
-/* -------------------------------------------- */
-
 HOOKS.acridEarth000000 = {
   prepareSpells(_item, grimoire) {
     applyRuneScalingChange(grimoire, "earth", "intellect");
@@ -1818,20 +1805,26 @@ HOOKS.willfulLife00000 = {
 /* -------------------------------------------- */
 
 HOOKS.blightcaller0000 = {
+  prepareAction(item, action) {
+    if ( !action.tags.has("composed") || !action.usesRune("life") ) return;
+    if ( action.usage.restoration ) action.usage.banes.blightcaller = {label: item.name, number: 1};
+    else delete action.usage.banes.blightcaller; // Usage persists while the choice changes in the cast dialog
+  },
   prepareSpells(_item, grimoire) {
-    const life = grimoire.runes.get("life");
-    if ( !life ) return;
-    grimoire.runes.set("life", life.clone({spellName: "SPELL.RUNES.Blight", restoration: false}, {once: true}));
+    applyRuneDamageChoice(grimoire, "life");
   }
 };
 
 /* -------------------------------------------- */
 
 HOOKS.tormentor0000000 = {
+  prepareAction(item, action) {
+    if ( !action.tags.has("composed") || !action.usesRune("soul") ) return;
+    if ( action.usage.restoration ) action.usage.banes.tormentor = {label: item.name, number: 1};
+    else delete action.usage.banes.tormentor; // Usage persists while the choice changes in the cast dialog
+  },
   prepareSpells(_item, grimoire) {
-    const soul = grimoire.runes.get("soul");
-    if ( !soul ) return;
-    grimoire.runes.set("soul", soul.clone({spellName: "SPELL.RUNES.Torment", restoration: false}, {once: true}));
+    applyRuneDamageChoice(grimoire, "soul");
   }
 };
 

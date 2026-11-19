@@ -26,7 +26,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     schema.gesture = new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.GESTURES, initial: ""});
     schema.inflection = new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.INFLECTIONS, initial: ""});
     schema.composition = new fields.NumberField({choices: Object.values(this.COMPOSITION_STATES)});
-    schema.damageType = new fields.StringField({required: false, choices: SYSTEM.DAMAGE_TYPES, initial: undefined});
+    schema.damageType = new fields.StringField({required: false, initial: undefined, choices: SYSTEM.DAMAGE_TYPE_CHOICES});
     return schema;
   }
 
@@ -114,31 +114,33 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.inflection = INFLECTIONS[this.inflection];
     }
 
-    // Damage type default for kinesis
-    if ( this.rune.id === "kinesis" ) this.damageType ??= "bludgeoning";
+    // Damage type choice, defaulting to the first the rune offers
+    const damageTypes = this.rune?.damageTypes ?? [];
+    if ( !damageTypes.length ) this.damageType = undefined;
+    else if ( !damageTypes.includes(this.damageType) ) this.damageType = damageTypes[0];
+    this.damage = CrucibleSpellAction.#prepareDamage.call(this);
 
-    // Spells must have both a Rune and a Gesture to be composed
-    if ( this.isIconic ) this.composition = STATES.COMPOSED;
-    if ( !this.rune || !this.gesture ) this.composition = Math.min(this.composition, STATES.COMPOSING);
+    // Spells which are not composed restore according to their tags
+    if ( !this.isComposed ) {
+      this.usage.restoration = this.tags.has("healing") || this.tags.has("rallying");
+      if ( this.isIconic ) this.composition = STATES.COMPOSED;
+    }
 
     // A spell may legitimately lack components while being composed in the dialog
     if ( !this.rune || !this.gesture ) {
-      this.damage = {base: 0, bonus: 0, multiplier: 1, type: this.damageType};
+      this.composition = Math.min(this.composition, STATES.COMPOSING);
       return;
     }
     this.scaling = [this.rune.scaling, this.gesture.scaling];
     this.training = [this.rune.training];
-    this.damage = CrucibleSpellAction.#prepareDamage.call(this);
-    this.usage.defenseType = CrucibleSpellAction.#prepareDefense.call(this);
     this.usage.region.color = this.rune.color;
 
-    // Composed Spells Only
+    // Composed spells derive restoration, cost, and targeting from their components, which hooks may later modify
     if ( this.isComposed ) {
+      const restorationChosen = !this.damageType || (this.damageType === "restoration");
+      this.usage.restoration = this.rune.restoration && restorationChosen;
       this.cost = CrucibleSpellAction.#prepareCost.call(this);
       this.target = {...this.gesture.target};
-      if ( this.rune.restoration && (this.inflection?.id !== "negate") && (this.target.type === "single") ) {
-        this.target.self = true;
-      }
       this.range = {...this.gesture.range};
       this._prepareRegionBehavior(); // The gesture supplies the target type, which super() resolved too early to see
       if ( this.composition >= STATES.COMPOSING ) {
@@ -192,10 +194,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
    * @returns {string}            The defense to test
    */
   static #prepareDefense() {
-    const restoration = this.isComposed
-      ? (this.rune.restoration && (this.inflection?.id !== "negate"))
-      : (this.tags.has("healing") || this.tags.has("rallying"));
-    if ( restoration ) return {
+    if ( this.usage.restoration ) return {
       health: "wounds",
       wounds: "wounds",
       morale: "madness",
@@ -213,10 +212,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
    */
   static #prepareDamage() {
     return {
-      base: this.gesture.damage.base ?? 0,
-      bonus: this.gesture.damage.bonus ?? 0,
+      base: this.gesture?.damage.base ?? 0,
+      bonus: this.gesture?.damage.bonus ?? 0,
       multiplier: 1,
-      type: this.damageType ?? this.rune.damageType
+      type: ((this.damageType !== "restoration") && this.damageType) || this.rune?.damageType
     };
   }
 
@@ -265,10 +264,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
   _configureUsage() {
     super._configureUsage();
 
-    // Restoration for composed spells depends on the Rune used as well as whether the spell is negated.
-    if ( this.isComposed ) {
-      const negated = this.inflection?.id === "negate";
-      this.usage.restoration = !!this.rune.restoration && !negated;
+    // Defense and self-targeting follow restoration, which component initialize hooks may have modified
+    if ( this.rune && this.gesture ) {
+      this.usage.defenseType = CrucibleSpellAction.#prepareDefense.call(this);
+      if ( this.isComposed && this.usage.restoration && (this.target.type === "single") ) this.target.self = true;
     }
 
     // Spellcasting is always Intuitive if you know the rune
