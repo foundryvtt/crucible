@@ -122,6 +122,11 @@ HOOKS.create = {
 HOOKS.life = {
   initialize() {
     if ( this.inflection?.id === "negate" ) this.usage.restoration = false;
+    if ( (this.damageType === "poison") && this.composition ) {
+      const {id, rune, gesture, inflection, nameFormat} = this;
+      this.name = crucible.api.models.CrucibleSpellAction.getComposedName({id, rune, gesture, inflection, nameFormat,
+        runeName: _loc("SPELL.RUNES.Blight"), runeAdjective: _loc("SPELL.RUNES.BlightAdj")});
+    }
   }
 };
 
@@ -187,6 +192,11 @@ HOOKS.sense = {
 HOOKS.soul = {
   initialize() {
     if ( this.inflection?.id === "negate" ) this.usage.restoration = false;
+    if ( (this.damageType === "void") && this.composition ) {
+      const {id, rune, gesture, inflection, nameFormat} = this;
+      this.name = crucible.api.models.CrucibleSpellAction.getComposedName({id, rune, gesture, inflection, nameFormat,
+        runeName: _loc("SPELL.RUNES.Torment"), runeAdjective: _loc("SPELL.RUNES.TormentAdj")});
+    }
   }
 };
 

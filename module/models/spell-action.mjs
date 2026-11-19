@@ -230,9 +230,11 @@ export default class CrucibleSpellAction extends CrucibleAction {
    * @param {CrucibleSpellcraftInflection} [components.inflection]
    * @param {number} [components.nameFormat]      One of SYSTEM.SPELL.NAME_FORMATS, otherwise rune.nameFormat
    * @param {{type: string}} [components.damage]  Spell damage configuration, if further disambiguation is needed
+   * @param {string} [components.runeName]        A rune name which replaces rune.spellName
+   * @param {string} [components.runeAdjective]   A rune adjective which replaces rune.adjective
    * @returns {string}
    */
-  static getComposedName({id, rune, gesture, inflection, nameFormat, damage}={}) {
+  static getComposedName({id, rune, gesture, inflection, nameFormat, damage, runeName, runeAdjective}={}) {
     let name = "";
     if ( !rune || !gesture ) return name;
 
@@ -248,10 +250,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
     nameFormat ||= rune.nameFormat;
     switch ( nameFormat ) {
       case SYSTEM.SPELL.NAME_FORMATS.NOUN:
-        name = _loc("SPELL.NameFormatNoun", {rune: rune.spellName, gesture});
+        name = _loc("SPELL.NameFormatNoun", {rune: runeName || rune.spellName, gesture});
         break;
       case SYSTEM.SPELL.NAME_FORMATS.ADJ:
-        name = _loc("SPELL.NameFormatAdj", {rune: rune.adjective, gesture});
+        name = _loc("SPELL.NameFormatAdj", {rune: runeAdjective || rune.adjective, gesture});
         break;
     }
     if ( inflection ) name = `${inflection.adjective} ${name}`;
