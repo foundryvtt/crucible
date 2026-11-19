@@ -1,5 +1,6 @@
 /**
  * @import CrucibleActiveEffect from "./active-effect.mjs"
+ * @import CruciblePhysicalItem from "../models/item-physical.mjs"
  */
 
 /**
@@ -97,7 +98,7 @@ export default class CrucibleItem extends foundry.documents.Item {
   /** @override */
   static validateJoint(data) {
     const itemModel = CONFIG.Item.dataModels[data.type];
-    if ( itemModel?.AFFIXABLE ) CrucibleItem.#validateAffixes(data);
+    if ( itemModel?.AFFIXABLE ) CrucibleItem.#validateAffixes(data, itemModel);
   }
 
   /* -------------------------------------------- */
@@ -105,9 +106,10 @@ export default class CrucibleItem extends foundry.documents.Item {
   /**
    * Validate the composition of affix effects against their parent item's type and enchantment capacity.
    * @param {Partial<ItemData>} data    Candidate Item data to persist
+   * @param {typeof CruciblePhysicalItem} itemModel  The system data model of the item type
    * @throws {Error}                    An error if the composition of affixes is disallowed
    */
-  static #validateAffixes(data) {
+  static #validateAffixes(data, itemModel) {
     const AffixModel = CONFIG.ActiveEffect.dataModels.affix;
 
     // Build affix summaries from raw source effects
@@ -133,6 +135,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     const TIERS = crucible.CONST.ITEM.QUALITY_TIERS;
     const quality = TIERS[data.system?.quality] ?? TIERS.standard;
     const halfCapacity = quality.capacity / 2;
+    const category = data.system?.category ?? itemModel.DEFAULT_CATEGORY;
     const identifiers = new Set();
     let prefixSpent = 0;
     let suffixSpent = 0;
@@ -141,8 +144,8 @@ export default class CrucibleItem extends foundry.documents.Item {
         throw new Error(`Duplicate affix identifier "${affix.identifier}".`);
       }
       identifiers.add(affix.identifier);
-      if ( affix.itemTypes.size && !affix.itemTypes.has(data.type) ) {
-        throw new Error(`Affix "${affix.identifier}" cannot be applied to item type "${data.type}".`);
+      if ( !AffixModel.allowsItemType(affix.itemTypes, data.type, category) ) {
+        throw new Error(`Affix "${affix.identifier}" cannot be applied to ${data.type} category "${category}".`);
       }
       if ( affix.affixType === "prefix" ) prefixSpent += affix.tierValue;
       else suffixSpent += affix.tierValue;
@@ -618,7 +621,7 @@ export default class CrucibleItem extends foundry.documents.Item {
    * @param {object} options
    * @param {{min: number, max: number}} options.price   Required price range in currency
    * @param {string} [options.baseUuid]                  Optional UUID of a specific base item to enchant
-   * @param {string|string[]} [options.itemTypes]         Optional item type filter(s)
+   * @param {string|string[]} [options.itemTypes]         Optional item type or "type.category" filter(s)
    * @param {string} [options.quality]                   Optional forced quality tier
    * @param {number} [options.maxRetries=10]             Maximum retry attempts
    * @returns {Promise<CrucibleItem>}
@@ -648,10 +651,12 @@ export default class CrucibleItem extends foundry.documents.Item {
       if ( !item ) throw new Error(`Base item "${baseUuid}" not found.`);
       candidates = [item];
     } else {
-      const allowedTypes = itemTypes?.length ? new Set(itemTypes) : affixableTypes;
+      const AffixModel = CONFIG.ActiveEffect.dataModels.affix;
+      const allowedTypes = [itemTypes ?? []].flat();
       candidates = allEquipment.filter(item => {
         if ( !(item.system instanceof crucible.api.models.CruciblePhysicalItem) ) return false;
-        if ( !allowedTypes.has(item.type) ) return false;
+        if ( !allowedTypes.length && !affixableTypes.has(item.type) ) return false;
+        if ( !AffixModel.allowsItemType(allowedTypes, item.type, item.system.category) ) return false;
         if ( item.system.price > price.max ) return false;
         return true;
       });
@@ -719,8 +724,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     const eligibleAffixes = allAffixes.filter(a => {
       if ( a.type !== "affix" ) return false;
       if ( a.system.identifier in baseItem.system.affixes ) return false;
-      const types = a.system.itemTypes;
-      return !types.size || types.has(baseItem.type);
+      return a.system.allowsItem(baseItem);
     });
     const prefixPool = eligibleAffixes.filter(a => a.system.affixType === "prefix");
     const suffixPool = eligibleAffixes.filter(a => a.system.affixType === "suffix");
@@ -907,11 +911,9 @@ export default class CrucibleItem extends foundry.documents.Item {
     const fields = foundry.data.fields;
     const _loc = game.i18n.localize.bind(game.i18n);
     const QT = crucible.CONST.ITEM.QUALITY_TIERS;
-    const affixableTypes = crucible.CONST.ITEM.AFFIXABLE_ITEM_TYPES;
 
     // Retrieve cached parameters from last invocation
     const p = CrucibleItem.#lastRandomizeParams;
-    if ( !p.itemTypes.length ) p.itemTypes = Array.from(affixableTypes);
 
     // Build form fields
     const currencyInput = (field, config) => {
@@ -922,8 +924,8 @@ export default class CrucibleItem extends foundry.documents.Item {
     const baseUuidField = new fields.DocumentUUIDField({label: _loc("ITEM.RANDOMIZE.BaseItem"),
       required: false, blank: true, type: "Item"});
     const itemTypesField = new fields.SetField(new fields.StringField({
-      choices: Object.fromEntries(Array.from(affixableTypes).map(t => [t, game.i18n.localize(`TYPES.Item.${t}`)]))
-    }), {label: _loc("ITEM.RANDOMIZE.ItemTypes")});
+      choices: CONFIG.ActiveEffect.dataModels.affix.getItemTypeChoices()
+    }), {label: _loc("ITEM.RANDOMIZE.ItemTypes"), hint: _loc("ITEM.RANDOMIZE.ItemTypesHint")});
     const qualityField = new fields.StringField({label: _loc("ITEM.RANDOMIZE.Quality"), required: false,
       blank: true, choices: {"": _loc("ITEM.RANDOMIZE.QualityAny"),
         ...Object.fromEntries(Object.values(QT).map(q => [q.id, _loc(q.label)]))}});
@@ -934,8 +936,7 @@ export default class CrucibleItem extends foundry.documents.Item {
       priceMinField.toFormGroup({}, {name: "priceMin", input: currencyInput, value: p.priceMin}),
       priceMaxField.toFormGroup({}, {name: "priceMax", input: currencyInput, value: p.priceMax}),
       baseUuidField.toFormGroup({}, {name: "baseUuid", value: p.baseUuid}),
-      itemTypesField.toFormGroup({stacked: true}, {name: "itemTypes", type: "checkboxes",
-        value: p.itemTypes}),
+      itemTypesField.toFormGroup({}, {name: "itemTypes", value: p.itemTypes}),
       qualityField.toFormGroup({}, {name: "quality", value: p.quality})
     );
 

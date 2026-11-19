@@ -3,6 +3,7 @@ import * as crucibleFields from "./fields.mjs";
 
 /**
  * @import {CrucibleTag} from "./action.mjs";
+ * @import CrucibleItem from "../documents/item.mjs";
  */
 
 /**
@@ -10,7 +11,7 @@ import * as crucibleFields from "./fields.mjs";
  * @property {string} identifier              A unique identifier for the affix
  * @property {string} adjective               An adjective used when composing the item name, defaults to the name
  * @property {string} affixType               The affix category, "prefix" or "suffix"
- * @property {Set<string>} itemTypes          Item types this affix may be applied to, empty allows any
+ * @property {Set<string>} itemTypes          Item types ("weapon") or categories ("weapon.heavy1"), empty allows any
  * @property {Set<string>} properties         Boolean property tags which this affix possesses
  * @property {{min: number, max: number, value: number}} tier   The power tier with configurable range (1-3)
  * @property {CrucibleActionData[]} actions   Actions granted to items that bear this affix
@@ -38,7 +39,7 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
     schema.affixType = new fields.StringField({required: true, blank: false,
       choices: SYSTEM.ITEM.AFFIX_TYPES, initial: "prefix"});
     schema.itemTypes = new fields.SetField(new fields.StringField({blank: false, required: true,
-      choices: () => Array.from(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES)}));
+      choices: () => this.getItemTypeChoices()}));
     schema.properties = new fields.SetField(new fields.StringField({required: true,
       choices: SYSTEM.ITEM.AFFIX_PROPERTIES}));
     schema.tier = new fields.SchemaField({
@@ -78,6 +79,14 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
     return !!this._suppression;
   }
 
+  /**
+   * Is this affix restricted to weapons, either as a whole or to specific weapon categories?
+   * @type {boolean}
+   */
+  get isWeaponOnly() {
+    return !!this.itemTypes.size && Array.from(this.itemTypes).every(t => t.split(".")[0] === "weapon");
+  }
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -89,6 +98,17 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
     this.tier.value = Math.clamp(this.tier.value, this.tier.min, this.tier.max);
     this.adjective ||= ae.name;
     if ( this.isCursed ) ae.name = _loc("AFFIX.CursedName", {name: ae.name});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Can this affix be applied to the given item?
+   * @param {CrucibleItem} item     The candidate item
+   * @returns {boolean}
+   */
+  allowsItem(item) {
+    return this.constructor.allowsItemType(this.itemTypes, item.type, item.system.category);
   }
 
   /* -------------------------------------------- */
@@ -106,5 +126,37 @@ export default class CrucibleAffixActiveEffect extends foundry.data.ActiveEffect
       tags.cursed = {label: SYSTEM.ITEM.AFFIX_PROPERTIES.cursed.label, unmet: true};
     }
     return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Does a set of item type restrictions allow an item of a given type and category?
+   * @param {Iterable<string>} itemTypes  Allowed item types or "type.category" pairs, empty allows any
+   * @param {string} type                 The item type
+   * @param {string} category             The item category
+   * @returns {boolean}
+   */
+  static allowsItemType(itemTypes, type, category) {
+    itemTypes = new Set(itemTypes);
+    return !itemTypes.size || itemTypes.has(type) || itemTypes.has(`${type}.${category}`);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Item type and category choices for affix restrictions, grouped by item type.
+   * @returns {Record<string, {label: string, group: string}>}
+   */
+  static getItemTypeChoices() {
+    const choices = {};
+    for ( const type of SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES ) {
+      const group = _loc(CONFIG.Item.typeLabels[type] ?? type);
+      choices[type] = {label: _loc("AFFIX.ItemTypeAny", {type: group}), group};
+      for ( const category of Object.values(CONFIG.Item.dataModels[type].ITEM_CATEGORIES) ) {
+        choices[`${type}.${category.id}`] = {label: category.label, group};
+      }
+    }
+    return choices;
   }
 }

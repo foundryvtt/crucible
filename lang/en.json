@@ -1167,7 +1167,7 @@
       },
       "itemTypes": {
         "label": "Item Types",
-        "hint": "Which item types this affix can be applied to. If no specific types are checked, then all item types are allowed."
+        "hint": "Which item types or categories this affix can be applied to. An item qualifies if it matches any selection. If nothing is selected, then all item types are allowed."
       },
       "properties": {
         "label": "Affix Properties"
@@ -1200,6 +1200,7 @@
     "CursedName": "Cursed {name}",
     "ConfigIdentity": "Affix Identity",
     "ConfigTier": "Tier Configuration",
+    "ItemTypeAny": "Any {type}",
     "TierRestriction": "Tier Range",
     "Prefixes": "Prefixes",
     "Suffixes": "Suffixes",
@@ -2126,6 +2127,7 @@
       "PriceMax": "Maximum Price",
       "BaseItem": "Base Item",
       "ItemTypes": "Item Types",
+      "ItemTypesHint": "Restrict base items to these types or categories. If nothing is selected, then any enchantable item is allowed.",
       "Quality": "Quality Tier",
       "QualityAny": "Any",
       "Generate": "Generate",

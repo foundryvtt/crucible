@@ -1326,7 +1326,7 @@ HOOKS.imbueAffix = {
     const affix = await fromUuid(data.affixUuid);
     if ( affix?.type !== "affix" ) throw new Error(_loc("ACTIONS.ImbueAffix.InvalidAffix"));
     if ( affix.system.tier.min > 1 ) throw new Error(_loc("ACTIONS.ImbueAffix.TierTooHigh"));
-    if ( affix.system.itemTypes.size && !affix.system.itemTypes.has(item.type) ) {
+    if ( !affix.system.allowsItem(item) ) {
       throw new Error(_loc("ACTIONS.ImbueAffix.Incompatible"));
     }
 

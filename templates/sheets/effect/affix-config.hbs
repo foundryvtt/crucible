@@ -5,7 +5,7 @@
         {{formGroup fields.identifier value=source.system.identifier disabled=identifierLocked}}
         {{formGroup fields.affixType value=source.system.affixType localize=true}}
         {{formGroup fields.adjective value=source.system.adjective}}
-        {{formGroup fields.itemTypes value=source.system.itemTypes type="checkboxes" stacked=true options=itemTypeOptions}}
+        {{formGroup fields.itemTypes value=source.system.itemTypes}}
     </fieldset>
 
     <fieldset class="item-properties" {{fieldDisabled}}>

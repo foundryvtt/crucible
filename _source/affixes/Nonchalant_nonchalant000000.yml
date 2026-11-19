@@ -16,6 +16,8 @@ system:
     value: 1
   itemTypes:
     - armor
+    - weapon.talisman1
+    - weapon.talisman2
 _id: nonchalant000000
 img: icons/magic/defensive/shield-barrier-glowing-triangle-blue.webp
 disabled: false
@@ -34,12 +36,12 @@ folder: 3YVk29Fu7VWCpaG9
 sort: 400000
 flags: {}
 _stats:
-  coreVersion: '14.367'
+  coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.9.1
+  systemVersion: 0.11.3
   createdTime: 1775502000000
-  modifiedTime: 1789416847596
-  lastModifiedBy: ZXJsFnFZuf21WDAk
+  modifiedTime: 1795111152223
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
   compendiumSource: null
   duplicateSource: null
   exportSource: null

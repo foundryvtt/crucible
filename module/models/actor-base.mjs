@@ -829,8 +829,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       if ( !item?.system.constructor.AFFIXABLE ) continue;
       if ( item.system.broken || (item.system.requiresInvestment && !item.system.invested) ) continue;
       for ( const affix of Object.values(item.system.affixes) ) {
-        const {identifier, itemTypes} = affix.system;
-        if ( (itemTypes.size === 1) && itemTypes.has("weapon") ) continue;
+        if ( affix.system.isWeaponOnly ) continue;
+        const identifier = affix.system.identifier;
         candidates.push(affix);
         const current = prevailing.get(identifier);
         if ( !current || prevails(affix, current) ) prevailing.set(identifier, affix);

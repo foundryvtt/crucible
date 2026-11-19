@@ -116,9 +116,6 @@ export default class CrucibleAffixEffectSheet extends api.HandlebarsApplicationM
         context.isEditable = this.isEditable;
         context.fieldDisabled = this.isEditable ? "" : "disabled";
         context.identifierLocked = !!this.document.parent;
-        context.itemTypeOptions = Array.from(SYSTEM.ITEM.AFFIXABLE_ITEM_TYPES).map(t => ({
-          value: t, label: _loc(CONFIG.Item.typeLabels[t] ?? t)
-        }));
         context.propertyOptions = Object.values(SYSTEM.ITEM.AFFIX_PROPERTIES).map(p => ({
           value: p.id, label: p.label, disabled: (p.id === "cursed") && !game.user.isGM
         }));
