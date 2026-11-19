@@ -77,7 +77,8 @@ HOOKS.aura = {
     Object.assign(this.regionBehavior.system.action, {
       id: "spellAuraRegion",
       target: {scope: SYSTEM.ACTION.TARGET_SCOPES[this.usage.restoration ? "ALLIES" : "ENEMIES"]},
-      spellcraft: {rune: this.rune.id, gesture: this.gesture.id, inflection: this.inflection?.id ?? ""},
+      spellcraft: {rune: this.rune.id, gesture: this.gesture.id, inflection: this.inflection?.id ?? "",
+        damageType: this.damageType},
       tags: regionTags
     });
   },

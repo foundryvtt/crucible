@@ -104,7 +104,8 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       spellcraft: new fields.SchemaField({
         rune: new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.RUNES}),
         gesture: new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.GESTURES}),
-        inflection: new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.INFLECTIONS})
+        inflection: new fields.StringField({required: true, blank: true, choices: SYSTEM.SPELL.INFLECTIONS}),
+        damageType: new fields.StringField({required: false, choices: SYSTEM.DAMAGE_TYPE_CHOICES})
       }, {nullable: true, initial: null})
     });
     return {
