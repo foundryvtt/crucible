@@ -532,6 +532,7 @@ Hooks.once("init", async function() {
 
   // Crucible-specific detection modes
   Object.assign(CONFIG.Canvas.detectionModes, {
+    blindsight: new canvas.detectionModes.DetectionModeBlindsight(),
     bloodSense: new canvas.detectionModes.DetectionModeBloodSense(),
     echolocation: new canvas.detectionModes.DetectionModeEcholocation(),
     senseCreature: new canvas.detectionModes.DetectionModeSenseCreature(),

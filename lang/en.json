@@ -1799,6 +1799,7 @@
     "WoundsShort": "Healing"
   },
   "DETECTION_MODES": {
+    "Blindsight": "Blindsight",
     "BloodSense": "Blood Sense",
     "Echolocation": "Echolocation",
     "SenseCreature": "Sense Creature",

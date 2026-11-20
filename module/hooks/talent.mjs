@@ -329,6 +329,20 @@ HOOKS.bestialSenses000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.blindsight000000 = {
+  prepareAttack(_item, _action, _target, rollData) {
+    if ( this.statuses.has("blinded") ) delete rollData.banes.blind;
+  },
+  defendAttack(_item, _action, _attacker, rollData) {
+    if ( this.statuses.has("blinded") ) delete rollData.boons.blind;
+  },
+  prepareToken(_item, token) {
+    token.detectionModes.blindsight ??= {enabled: true, range: 60};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.bloodfrenzy00000 = {
   applyCriticalEffects(item, action) {
     if ( this.status.bloodFrenzy ) return;
