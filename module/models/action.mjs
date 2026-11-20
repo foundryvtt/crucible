@@ -55,6 +55,7 @@ import {resolveReferences} from "../enrichers.mjs";
  * @property {ActionRegionUsage} region     Overrides applied to a RegionDocument placed by this action
  * @property {ActionRestUsage} rest         Configuration for an action used as part of a Rest
  * @property {boolean} restoration          Default {@link AttackRollData#restoration} seeding this action's rolls
+ * @property {boolean} [allowFlanking]      Force flanking boons on or off, overriding the melee-attack default
  * @property {number} [availableHands]      How many hands does the actor this action is on have available?
  * @property {string} [messageMode]         A message visibility mode to apply to the chat message
  * @property {string} [defenseType]         A special defense type being targeted
@@ -1998,7 +1999,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       target.flanked = this.computeFlanking(target.actor, target.token);
       best = Math.max(best, target.flanked);
     }
-    if ( !best || !this.target.isAttack || (this.range.category !== "melee") ) return;
+    const eligible = this.usage.allowFlanking ?? (this.target.isAttack && (this.range.category === "melee"));
+    if ( !best || !eligible ) return;
     this.usage.boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: best};
   }
 

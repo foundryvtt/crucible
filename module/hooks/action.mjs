@@ -3110,11 +3110,7 @@ HOOKS.thrash = {
 
 HOOKS.threadTheNeedle = {
   configure() {
-    // Grant flanked boons for ranged attacks (normally only melee gets flanking)
-    const [target] = this.targets.values(); // Single target action
-    if ( target?.flanked ) {
-      this.usage.boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: target.flanked};
-    }
+    this.usage.allowFlanking = true; // Ranged attacks are normally excluded from flanking
   }
 };
 

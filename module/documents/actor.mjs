@@ -479,13 +479,13 @@ export default class CrucibleActor extends Actor {
       }
     }
 
-    // Flanking is per-target, so the optimistic boon previewed in action usage is replaced or cleared here.
-    // A ranged attack keeps whatever usage offered, since only a hook (like Thread the Needle) can grant it.
+    // Flanking is per-target, so the optimistic boon previewed in action usage is replaced or cleared here
     rollData.flanked = action.targets.get(this)?.flanked ?? 0;
-    if ( rangeCategory === "melee" ) {
-      if ( rollData.flanked ) boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: rollData.flanked};
-      else delete boons.flanked;
+    const allowFlanking = action.usage.allowFlanking ?? (rangeCategory === "melee");
+    if ( allowFlanking && rollData.flanked ) {
+      boons.flanked = {label: SYSTEM.RULES.condition.flanked.name, number: rollData.flanked};
     }
+    else delete boons.flanked;
   }
 
   /* -------------------------------------------- */
