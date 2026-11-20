@@ -699,6 +699,7 @@ HOOKS.deftgrip00000000 = {
     if ( action.id !== "equipItem" ) return;
     const weapon = this.items.get(action.usage.actorUpdates.items?.[0]?._id);
     if ( (weapon?.type !== "weapon") || !weapon.system.scaling.includes("dexterity") ) return;
+    if ( weapon.system.activeCategory.hands !== 2 ) return; // Only two-handed Dexterity weapons, per the talent text
     if ( action.cost.action && this.system.hasFreeMove ) {
       action.cost.action = 0;
       action.usage.actorStatus.hasMoved = true;
