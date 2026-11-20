@@ -2393,6 +2393,22 @@ HOOKS.ancestralForm000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.unnaturalSight00 = {
+  prepareAttack(item, action, _target, rollData) {
+    if ( action.tags.has("skill") && (action.usage.skillId === "awareness") ) {
+      rollData.boons[item.id] = {label: item.name, number: 2};
+    }
+  },
+  prepareSkillCheck(item, skill, rollData) {
+    if ( rollData.type === "awareness" ) rollData.boons[item.id] = {label: item.name, number: 2};
+  },
+  prepareToken(_item, token) {
+    token.detectionModes.seeInvisibility ??= {enabled: true, range: Infinity};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.warden0000000000 = {
   _GROVE_EFFECT_ID: "ancestralGrove00",
   finalizeAction(_item, action) {
