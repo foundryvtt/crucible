@@ -2211,10 +2211,7 @@ function _divingStrikeHooks({requireDescent=false}={}) {
         if ( !token ) continue;
         const tCenter = token.getCenterPoint();
         const approached = feetDistance(start, tCenter) - feetDistance(end, tCenter);
-        if ( approached < 10 ) {
-          target.error ??= _loc(requireDescent ? "ACTION.WARNINGS.MustDescend" : "ACTION.WARNINGS.MustApproach",
-            {action: this.name});
-        }
+        if ( approached < 10 ) target.error ??= _loc("ACTION.WARNINGS.MustApproach", {action: this.name});
       }
     },
     configure() {
@@ -2916,9 +2913,6 @@ HOOKS.selfRepair = {
 /* -------------------------------------------- */
 
 HOOKS.slipperyEscape = {
-  initialize() {
-    this.usage.movement.ignoreRestrained = true;
-  },
   canUse() {
     if ( !this.actor.statuses.has("restrained") ) return false;
   },

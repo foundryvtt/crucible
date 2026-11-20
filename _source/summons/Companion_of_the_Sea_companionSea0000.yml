@@ -471,8 +471,7 @@ items:
             scope: 1
             self: false
           effects: []
-          tags:
-            - movement
+          tags: []
           summon: null
           persistRegion: false
           regionBehavior: null
