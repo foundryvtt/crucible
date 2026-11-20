@@ -990,8 +990,9 @@ HOOKS.feintingStrike = {
   async roll(target) {
     const targetEvents = this.eventsByActor.get(target);
     if ( !targetEvents ) return;
-    const [feintEvent, deceptionEvent] = targetEvents.roll;
-    if ( !(feintEvent && deceptionEvent ) ) return;
+    const deceptionEvent = targetEvents.roll.find(e => e.type === "check");
+    const feintEvent = targetEvents.roll.find(e => e.type === "strike");
+    if ( !(feintEvent && deceptionEvent) ) return;
     const feintIndex = this.events.indexOf(feintEvent);
     const deceptionIndex = this.events.indexOf(deceptionEvent);
 
@@ -1011,8 +1012,10 @@ HOOKS.feintingStrike = {
     const strike = this.recordEvent({type: "strike", target, roll, weapon}, {temporary: true});
 
     // Reorder event stream chronology so that the offhand strike immediately follows the deception event
-    this.events[feintIndex] = deceptionEvent;
-    this.events[deceptionIndex] = strike;
+    const first = Math.min(feintIndex, deceptionIndex);
+    const second = Math.max(feintIndex, deceptionIndex);
+    this.events[first] = deceptionEvent;
+    this.events[second] = strike;
     this._eventsDirty = true;
   }
 };
