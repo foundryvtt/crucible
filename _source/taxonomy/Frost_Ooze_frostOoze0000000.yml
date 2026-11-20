@@ -1,0 +1,107 @@
+folder: zo1Egh9MIjBCmv7C
+name: Frost Ooze
+type: taxonomy
+_id: frostOoze0000000
+img: icons/magic/water/ice-snowman.webp
+system:
+  description: >-
+    <p>A heaving mass of frozen rot, its translucent body clouded with dead
+    leaves, bones and dark swamp muck. A sickly reek and a creeping frost rise
+    from wherever it oozes. Frost crystals form and crack across its surface,
+    and its stench poisons the air around it.</p>
+  identifier: frostOoze
+  category: ooze
+  abilities:
+    wisdom: 2
+    presence: 0
+    intellect: 1
+    strength: 4
+    toughness: 4
+    dexterity: 1
+  movement:
+    size: 6
+    heightRatio: 0.5
+    stride: 6
+  resistances:
+    acid:
+      value: 0
+      immune: false
+    bludgeoning:
+      value: -1
+      immune: false
+    cold:
+      value: 2
+      immune: true
+    corruption:
+      value: 0
+      immune: false
+    electricity:
+      value: 0
+      immune: false
+    fire:
+      value: -3
+      immune: false
+    piercing:
+      value: 0
+      immune: false
+    poison:
+      value: 2
+      immune: false
+    psychic:
+      value: 0
+      immune: false
+    radiant:
+      value: 0
+      immune: false
+    slashing:
+      value: 0
+      immune: false
+    void:
+      value: -2
+      immune: false
+  talents:
+    - item: Compendium.crucible.adversary-talents.Item.blindsight000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.bloodless0000000
+      level: 0
+    - item: Compendium.crucible.adversary-talents.Item.coldAbsorption00
+      level: 3
+    - item: Compendium.crucible.talent.Item.runeFrost0000000
+      level: 1
+    - item: Compendium.crucible.talent.Item.rimecaller000000
+      level: 3
+    - item: Compendium.crucible.adversary-talents.Item.oozeMultiply0000
+      level: 2
+    - item: Compendium.crucible.talent.Item.gestureSurge0000
+      level: 4
+  equipment:
+    - item: Compendium.crucible.adversary-equipment.Item.pseudopod0000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.adversary-equipment.Item.elementalArmor00
+      quantity: 1
+      equipped: true
+      autoScale: true
+  characteristics:
+    blooded: false
+    equipment: false
+    spells: true
+    temperature: cool
+effects: []
+ownership:
+  default: 0
+  2g4T1RcAPz2LBKZ1: 3
+flags: {}
+_stats:
+  coreVersion: '14.370'
+  systemId: crucible
+  systemVersion: 0.11.3
+  createdTime: 1795142914171
+  modifiedTime: 1795143058527
+  lastModifiedBy: 2g4T1RcAPz2LBKZ1
+  compendiumSource: Compendium.quest-frozen-flame.crucible-adversary.Item.qftffRimeSludge0
+  duplicateSource: null
+  exportSource: null
+sort: 100000
+_key: '!items!frostOoze0000000'

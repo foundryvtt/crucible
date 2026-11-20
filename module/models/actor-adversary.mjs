@@ -333,7 +333,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     const rank = this.advancement.rank || "normal";
     const rankName = rank !== "normal" ? SYSTEM.THREAT_RANKS[rank]?.label : "";
     context.level = [this.advancement.threatLevel, rankName ? `(${rankName})` : ""].filterJoin(" ");
-    context.subtitle = [this.details.taxonomy?.name || "Unknown", this.details.archetype?.name || "Unknown"].join(" ");
+    context.subtitle = [this.details.taxonomy?.name || "Unknown", this.details.archetype?.name || "Unknown"];
     return context;
   }
 

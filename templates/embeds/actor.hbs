@@ -6,7 +6,7 @@
     </h4>
     <div class="meta">
         <span class="threat">{{localize "ACTOR.LevelSpecific" level=level}}</span>
-        <span class="category">{{subtitle}}</span>
+        <span class="category">{{#each subtitle}}<span>{{this}}</span>{{/each}}</span>
     </div>
 </header>
 {{#if readaloud}}

@@ -7,7 +7,7 @@ system:
   keywords:
     - playstyle.spellcraft
     - spell.spiritual
-    - damageType.psychic
+    - damageType.void
     - target.rallying
   nodes:
     - wis4d

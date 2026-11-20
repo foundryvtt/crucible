@@ -1355,7 +1355,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       link: actor.toAnchor({name}).outerHTML,
       count: config.count,
       level: this.advancement.threatLevel,
-      subtitle: "",
+      subtitle: [],
       readaloud: await CONFIG.ux.TextEditor.enrichHTML(appearance, {
         relativeTo: actor,
         secrets: actor.isOwner

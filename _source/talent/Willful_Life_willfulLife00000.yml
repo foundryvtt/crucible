@@ -7,6 +7,7 @@ system:
   keywords:
     - playstyle.spellcraft
     - spell.physical
+    - damageType.poison
     - target.healing
   nodes:
     - pre4d
