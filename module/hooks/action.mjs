@@ -2552,7 +2552,7 @@ HOOKS.restrainingChomp = {
 /* -------------------------------------------- */
 
 HOOKS.swallow = {
-  _SWALLOWED_EFFECT_ID: "swallowed00000000",
+  _SWALLOWED_EFFECT_ID: "swallowed0000000",
   _isHelpless(actor) {
     return actor.isIncapacitated || ["restrained", "stunned"].some(s => actor.statuses.has(s));
   },
