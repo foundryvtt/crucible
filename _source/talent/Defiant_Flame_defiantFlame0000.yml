@@ -1,4 +1,4 @@
-name: Inexorable Flame
+name: Defiant Flame
 type: talent
 img: icons/magic/fire/flame-burning-campfire-rocks.webp
 system:
@@ -7,11 +7,12 @@ system:
     - spell.elemental
     - damageType.fire
   nodes:
-    - wis4d
+    - pre4d
   description: >-
-    <p>You recognize that fire can spread with inevitable and unstoppable
-    purpose. Your usage of the <strong>Rune of Flame</strong> scales with
-    @Rule[ability.wisdom] instead of @Rule[ability.intellect].</p>
+    <p>Your fire burns with your refusal to yield; the harder the world presses
+    against you, the hotter it answers. Your usage of the <strong>Rune of
+    Flame</strong> scales with @Rule[ability.presence] instead of
+    @Rule[ability.intellect].</p>
   actions: []
   iconicSpells: 0
   training: elemental
@@ -31,6 +32,6 @@ _stats:
   createdTime: 1765571304162
   modifiedTime: 1773514792584
   lastModifiedBy: QvBFYpRRXHRBcOfP
-_id: inexorableFlame0
+_id: defiantFlame0000
 sort: 0
-_key: '!items!inexorableFlame0'
+_key: '!items!defiantFlame0000'

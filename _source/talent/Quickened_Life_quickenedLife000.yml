@@ -1,7 +1,7 @@
 folder: xhBPnxcjrC9F4AVL
-name: Willful Life
+name: Quickened Life
 type: talent
-_id: willfulLife00000
+_id: quickenedLife000
 img: icons/magic/life/heart-hand-gold-green.webp
 system:
   keywords:
@@ -10,12 +10,12 @@ system:
     - damageType.poison
     - target.healing
   nodes:
-    - pre4d
+    - int4a
   description: >-
-    <p>You know you can heal any ally's physical ailments; your self confidence
-    drives the flow of mending magic when you attend their needs. Your use of
-    the <strong>Rune of Life</strong> scales with @Rule[ability.presence]
-    instead of @Rule[ability.wisdom].</p>
+    <p>Life springs up at the flicker of a thought, mending flesh in the instant
+    it takes you to imagine it whole. Your usage of the <strong>Rune of
+    Life</strong> scales with @Rule[ability.intellect] instead of
+    @Rule[ability.wisdom].</p>
   actions: []
   spellcraft: ''
   iconicSpells: 0
@@ -38,4 +38,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!items!willfulLife00000'
+_key: '!items!quickenedLife000'

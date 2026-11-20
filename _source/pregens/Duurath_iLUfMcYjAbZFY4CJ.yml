@@ -314,10 +314,10 @@ items:
       dropped: false
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.warHammer0000000
       duplicateSource: null
@@ -358,10 +358,10 @@ items:
       slot: 2
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.heaterShield0000
       duplicateSource: null
@@ -402,9 +402,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -440,10 +440,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
       duplicateSource: null
@@ -509,6 +509,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags:
             - shield
             - afterStrike
@@ -531,9 +532,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.shieldBash000000
       duplicateSource: null
@@ -605,10 +606,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838195
+      createdTime: 1795194524632
       compendiumSource: Compendium.crucible.talent.Item.intimidator00000
       duplicateSource: null
       exportSource: null
@@ -668,9 +669,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
       duplicateSource: null
@@ -710,10 +711,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838195
+      createdTime: 1795194524632
       compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
       duplicateSource: null
       exportSource: null
@@ -779,6 +780,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           range:
             maximum: null
             weapon: false
@@ -797,10 +799,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
       duplicateSource: null
@@ -888,9 +890,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
       duplicateSource: null
@@ -935,10 +937,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gestureaspect000
       duplicateSource: null
@@ -973,10 +975,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.iramancer0000000
       duplicateSource: null
@@ -1047,6 +1049,7 @@ items:
                 summons: []
                 lights: []
                 suppression: {}
+                effects: []
           name: Rallying Cry
           img: icons/creatures/abilities/mouth-teeth-human.webp
           condition: ''
@@ -1074,9 +1077,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.rallyingCry00000
       duplicateSource: null
@@ -1112,10 +1115,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mentalfortress00
       duplicateSource: null
@@ -1186,6 +1189,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           img: icons/magic/death/skull-horned-worn-fire-blue.webp
           condition: ''
           range:
@@ -1214,10 +1218,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838195
+      createdTime: 1795194524632
       compendiumSource: Compendium.crucible.talent.Item.dreadlord0000000
       duplicateSource: null
       exportSource: null
@@ -1251,10 +1255,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.rout000000000000
       duplicateSource: null
@@ -1290,10 +1294,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838195
+      createdTime: 1795194524632
       compendiumSource: Compendium.crucible.talent.Item.testudo000000000
       duplicateSource: null
       exportSource: null
@@ -1336,10 +1340,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838195
+      createdTime: 1795194524632
       compendiumSource: Compendium.crucible.talent.Item.gestureward00000
       duplicateSource: null
       exportSource: null
@@ -1376,9 +1380,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.shieldward000000
       duplicateSource: null
@@ -1446,10 +1450,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838195
+      createdTime: 1795194524632
       compendiumSource: Compendium.crucible.talent.Item.counterstrike000
       duplicateSource: null
       exportSource: null
@@ -1487,9 +1491,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.armoredShell0000
       duplicateSource: null
@@ -1527,9 +1531,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.impenetrableGuar
       duplicateSource: null
@@ -1564,10 +1568,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
       duplicateSource: null
@@ -1642,6 +1646,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           img: icons/skills/melee/shield-block-fire-orange.webp
           range:
             minimum: null
@@ -1669,10 +1674,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.bastion000000000
       duplicateSource: null
@@ -1753,9 +1758,9 @@ items:
         _stats:
           coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.2
-          createdTime: 1793845838195
-          modifiedTime: 1793845838195
+          systemVersion: 0.11.3
+          createdTime: 1795194524632
+          modifiedTime: 1795194524632
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.evasion000000000
           duplicateSource: null
@@ -1766,9 +1771,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringOfEvasion000
       duplicateSource: null
@@ -1850,9 +1855,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
       duplicateSource: null
@@ -1941,6 +1946,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags:
             - consume
             - healing
@@ -1959,9 +1965,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.healingTonic0000
       duplicateSource: null
@@ -2002,9 +2008,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.crowbar000000000
       duplicateSource: null
@@ -2078,6 +2084,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags:
             - harmless
           summon: null
@@ -2095,9 +2102,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838195
-      modifiedTime: 1793845838195
+      systemVersion: 0.11.3
+      createdTime: 1795194524632
+      modifiedTime: 1795194524632
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.dwarfLineage0000
       duplicateSource: null
@@ -2111,13 +2118,16 @@ effects: []
 flags:
   core: {}
   crucible:
-    actionHistory: []
+    actionHistory:
+      - id: heavyStrike
+        messageId: ZfRfKtaLHVQCCPW2
+        combat: null
 _stats:
   coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.11.2
-  createdTime: 1793845838195
-  modifiedTime: 1793845838195
+  systemVersion: 0.11.3
+  createdTime: 1795194524632
+  modifiedTime: 1795194524632
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

@@ -233,6 +233,11 @@ export const TALENT_ID_MIGRATIONS = {
   runetime00000000: "Compendium.crucible.talent.Item.runeIllusion0000",
   runevoid00000000: "Compendium.crucible.talent.Item.runeOblivion0000",
 
+  // Spellcraft Transformer Reassignments
+  expeditiousIllum: null,
+  inexorableFlame0: null,
+  willfulLife00000: null,
+
   // Weapon Trainings
   heavystrike00000: "Compendium.crucible.talent.Item.heavyStrike00000",
   heavyWeaponTrain: "Compendium.crucible.talent.Item.heavyStrike00000",

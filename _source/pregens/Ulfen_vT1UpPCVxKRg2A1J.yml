@@ -299,10 +299,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344220
-      modifiedTime: 1793845344220
+      createdTime: 1795194523733
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -343,10 +343,10 @@ items:
       slot: 3
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344220
-      modifiedTime: 1793845344220
+      createdTime: 1795194523733
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.greataxe00000000
       duplicateSource: null
@@ -405,6 +405,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
             - name: Grappling
               scope: 1
               result:
@@ -428,6 +429,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags:
             - difficult
             - harmless
@@ -459,9 +461,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344220
-      modifiedTime: 1793845344220
+      systemVersion: 0.11.3
+      createdTime: 1795194523733
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.grapple000000000
       duplicateSource: null
@@ -526,10 +528,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344220
-      modifiedTime: 1793845344220
+      createdTime: 1795194523733
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
@@ -591,6 +593,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           name: Hamstring
           img: icons/skills/melee/strike-axe-blood-red.webp
           range:
@@ -614,9 +617,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344220
-      modifiedTime: 1793845344220
+      systemVersion: 0.11.3
+      createdTime: 1795194523733
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
       duplicateSource: null
@@ -680,10 +683,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344220
-      modifiedTime: 1793845344220
+      createdTime: 1795194523733
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.swipe00000000000
       duplicateSource: null
@@ -748,10 +751,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845344220
+      systemVersion: 0.11.3
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845344220
+      createdTime: 1795194523733
       compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
       duplicateSource: null
       exportSource: null
@@ -815,6 +818,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
               duration:
                 value: null
                 units: ''
@@ -845,10 +849,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344220
-      modifiedTime: 1793845344220
+      createdTime: 1795194523733
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.bullrush00000000
       duplicateSource: null
@@ -918,6 +922,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags: []
           summon: null
           persistRegion: false
@@ -934,9 +939,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344220
-      modifiedTime: 1793845344220
+      systemVersion: 0.11.3
+      createdTime: 1795194523733
+      modifiedTime: 1795194523733
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -952,10 +957,10 @@ flags:
   crucible: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.11.2
+  systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1793845344220
-  modifiedTime: 1793845344220
+  createdTime: 1795194523733
+  modifiedTime: 1795194523733
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

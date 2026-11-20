@@ -298,10 +298,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344217
-      modifiedTime: 1793845344217
+      createdTime: 1795194523729
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -382,9 +382,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344217
-      modifiedTime: 1793845344217
+      systemVersion: 0.11.3
+      createdTime: 1795194523729
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeLife00000000
       duplicateSource: null
@@ -449,10 +449,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344217
-      modifiedTime: 1793845344217
+      createdTime: 1795194523729
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
@@ -516,10 +516,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344217
-      modifiedTime: 1793845344217
+      createdTime: 1795194523729
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.precisionshot000
       duplicateSource: null
@@ -559,10 +559,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845344217
+      systemVersion: 0.11.3
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845344217
+      createdTime: 1795194523729
       compendiumSource: Compendium.crucible.talent.Item.gestureray000000
       duplicateSource: null
       exportSource: null
@@ -633,9 +633,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344217
-      modifiedTime: 1793845344217
+      systemVersion: 0.11.3
+      createdTime: 1795194523729
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
       duplicateSource: null
@@ -677,9 +677,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344217
-      modifiedTime: 1793845344217
+      systemVersion: 0.11.3
+      createdTime: 1795194523729
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.primordialSeed00
       duplicateSource: null
@@ -718,10 +718,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344217
-      modifiedTime: 1793845344217
+      createdTime: 1795194523729
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.unarmedblocking0
       duplicateSource: null
@@ -794,6 +794,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags: []
           summon: null
           persistRegion: false
@@ -810,9 +811,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344217
-      modifiedTime: 1793845344217
+      systemVersion: 0.11.3
+      createdTime: 1795194523729
+      modifiedTime: 1795194523729
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.giantkinLineage0
       duplicateSource: null
@@ -829,10 +830,10 @@ flags:
     lastSpell: spell.life.influence
 _stats:
   systemId: crucible
-  systemVersion: 0.11.2
+  systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1793845344217
-  modifiedTime: 1793845344217
+  createdTime: 1795194523729
+  modifiedTime: 1795194523729
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

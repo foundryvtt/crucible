@@ -1,7 +1,7 @@
 folder: xhBPnxcjrC9F4AVL
-name: Expeditious Illumination
+name: Searing Illumination
 type: talent
-_id: expeditiousIllum
+_id: searingIlluminat
 img: icons/magic/light/beam-deflect-path-yellow.webp
 system:
   keywords:
@@ -9,12 +9,12 @@ system:
     - spell.spiritual
     - damageType.radiant
   nodes:
-    - int4a
+    - wis4d
   description: >-
-    <p>You manifest illumination with a speed almost rivaling that of the light
-    itself, deploying it precisely where and when it will have the greatest
-    effect. Your usage of the <strong>Rune of Illumination</strong> scales with
-    @Rule[ability.intellect] instead of @Rule[ability.presence].</p>
+    <p>You do not shed light so much as drive it, a blaze forced upon your foes
+    by sheer strength of will until it burns. Your usage of the <strong>Rune of
+    Illumination</strong> scales with @Rule[ability.wisdom] instead of
+    @Rule[ability.presence].</p>
   actions: []
   spellcraft: ''
   iconicSpells: 0
@@ -37,4 +37,4 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-_key: '!items!expeditiousIllum'
+_key: '!items!searingIlluminat'

@@ -326,13 +326,13 @@ items:
       invested: false
       actions: []
       dropped: false
-      slot: 2
+      slot: 1
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
       duplicateSource: null
@@ -372,13 +372,13 @@ items:
       invested: false
       actions: []
       dropped: false
-      slot: 1
+      slot: 2
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
       duplicateSource: null
@@ -418,9 +418,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
       duplicateSource: null
@@ -489,10 +489,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838239
+      createdTime: 1795194524675
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
       exportSource: null
@@ -557,9 +557,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.lunge00000000000
       duplicateSource: null
@@ -595,10 +595,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.preparedness0000
       duplicateSource: null
@@ -675,6 +675,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags:
             - harmless
             - subtle
@@ -697,10 +698,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sneak00000000000
       duplicateSource: null
@@ -766,10 +767,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838239
+      createdTime: 1795194524675
       compendiumSource: Compendium.crucible.talent.Item.backstab00000000
       duplicateSource: null
       exportSource: null
@@ -805,10 +806,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.perspicacity0000
       duplicateSource: null
@@ -875,10 +876,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838239
+      createdTime: 1795194524675
       compendiumSource: Compendium.crucible.talent.Item.counterevade0000
       duplicateSource: null
       exportSource: null
@@ -913,10 +914,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838239
+      createdTime: 1795194524675
       compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
       duplicateSource: null
       exportSource: null
@@ -949,10 +950,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838239
+      createdTime: 1795194524675
       compendiumSource: Compendium.crucible.talent.Item.strikefirst00000
       duplicateSource: null
       exportSource: null
@@ -1032,9 +1033,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.volatileAccelera
       duplicateSource: null
@@ -1101,9 +1102,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.rapidCountermeas
       duplicateSource: null
@@ -1178,10 +1179,10 @@ items:
         training: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.feintingstrike00
       duplicateSource: null
@@ -1250,9 +1251,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.anticipateharm00
       duplicateSource: null
@@ -1324,9 +1325,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.assassin00000000
       duplicateSource: null
@@ -1396,9 +1397,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.interruptingDagg
       duplicateSource: null
@@ -1432,10 +1433,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.focusedanticipat
       duplicateSource: null
@@ -1469,10 +1470,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.intellectualsupe
       duplicateSource: null
@@ -1482,51 +1483,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.intellectualsupe'
-  - name: Infiltrator
-    type: talent
-    _id: infiltrator00000
-    img: icons/magic/perception/shadow-stealth-eyes-purple.webp
-    system:
-      description: >-
-        <p>You have mastered traditional stealth, using shadow and cover to slip
-        the notice of watchful sentries. When you use
-        @Action[Compendium.crucible.talent.Item.sneak00000000000 sneak] you may
-        target up to three creatures simultaneously, resolving a separate
-        @Rule[skill.stealth] check against the passive @Rule[skill.awareness] of
-        each.</p><h3 class="divider">Playtest Notes</h3><p>All three checks
-        resolve, but Crucible does not yet record which creatures have lost
-        track of you, so beating one target conceals you no differently from
-        beating all three and the Gamemaster adjudicates the difference. A
-        forthcoming stealth effect will record detection for each creature and
-        treat this talent as raising how many you may evade at once.</p>
-      actions: []
-      keywords:
-        - playstyle.utility
-        - skill.stealth
-      nodes:
-        - dex4c
-      iconicSpells: 0
-      training: stealth
-      spellcraft: ''
-      requirements:
-        training: {}
-    effects: []
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.11.2
-      coreVersion: '14.370'
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.Item.infiltrator00000
-      duplicateSource: null
-      exportSource: null
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!0crVYYsPvV9KDEJ2.infiltrator00000'
   - name: Bloodletter
     type: talent
     img: icons/skills/wounds/blood-spurt-spray-red.webp
@@ -1558,10 +1514,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838239
+      createdTime: 1795194524675
       compendiumSource: Compendium.crucible.talent.Item.bloodletter00000
       duplicateSource: null
       exportSource: null
@@ -1599,10 +1555,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.eldritchBargain0
       duplicateSource: null
@@ -1687,9 +1643,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.wortcunning00000
       duplicateSource: null
@@ -1771,9 +1727,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
       duplicateSource: null
@@ -1855,9 +1811,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
       duplicateSource: null
@@ -1899,9 +1855,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.lockpicks0000000
       duplicateSource: null
@@ -1951,9 +1907,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.alchemistsToolki
       duplicateSource: null
@@ -2032,9 +1988,9 @@ items:
         _stats:
           coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.2
-          createdTime: 1793845838239
-          modifiedTime: 1793845838239
+          systemVersion: 0.11.3
+          createdTime: 1795194524675
+          modifiedTime: 1795194524675
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.reinforcement000
           duplicateSource: null
@@ -2045,9 +2001,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringOfReinforcem
       duplicateSource: null
@@ -2130,9 +2086,9 @@ items:
         _stats:
           coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.2
-          createdTime: 1793845838239
-          modifiedTime: 1793845838239
+          systemVersion: 0.11.3
+          createdTime: 1795194524675
+          modifiedTime: 1795194524675
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.tenacity00000000
           duplicateSource: null
@@ -2143,9 +2099,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.charmOfTenacity0
       duplicateSource: null
@@ -2216,6 +2172,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags: []
           summon: null
           persistRegion: false
@@ -2232,9 +2189,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838239
-      modifiedTime: 1793845838239
+      systemVersion: 0.11.3
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -2244,11 +2201,84 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.humanLineage0000'
+  - _id: flurry0000000000
+    name: Flurry
+    type: talent
+    img: icons/skills/melee/blade-tips-triple-steel.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        <p>A martial technique using two weapons to overwhelm a single target
+        with a relentless sequence of attacks.</p>
+      actions:
+        - id: flurry
+          name: Flurry
+          img: icons/skills/melee/blade-tips-triple-steel.webp
+          condition: ''
+          description: >-
+            <p>You <strong>Strike</strong> twice with each weapon, but each
+            strike is @Rule[action.difficult].</p>
+          tags:
+            - dualwield
+            - melee
+            - mainhand
+            - offhand
+            - difficult
+          cost:
+            action: 1
+            focus: 0
+            weapon: true
+            heroism: 0
+            hands: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            multiple: 2
+            self: false
+          effects: []
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      keywords:
+        - playstyle.melee
+        - weapons.dualwield
+      nodes:
+        - dex0b
+      iconicSpells: 0
+      training: light
+      spellcraft: ''
+      requirements:
+        training: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.11.3
+      coreVersion: '14.370'
+      createdTime: 1795194524675
+      modifiedTime: 1795194524675
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+      compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.flurry0000000000'
 effects: []
 flags:
   core: {}
   crucible:
     actionHistory:
+      - id: flurry
+        messageId: ytB3RZFxK3CG6UCq
+        combat: null
       - id: rest
         messageId: zeEweSBcpfinoTaZ
         combat: null
@@ -2264,9 +2294,9 @@ flags:
 _stats:
   coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.11.2
-  createdTime: 1793845838239
-  modifiedTime: 1793845838239
+  systemVersion: 0.11.3
+  createdTime: 1795194524675
+  modifiedTime: 1795194524675
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

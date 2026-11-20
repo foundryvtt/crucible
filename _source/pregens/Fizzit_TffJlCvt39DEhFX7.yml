@@ -296,10 +296,10 @@ items:
       actions: []
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
       duplicateSource: null
@@ -342,10 +342,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.arcaneOrb0000000
       duplicateSource: null
@@ -387,10 +387,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.grimoire00000000
       duplicateSource: null
@@ -461,9 +461,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      systemVersion: 0.11.3
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -499,10 +499,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.recognizespellcr
       duplicateSource: null
@@ -587,9 +587,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      systemVersion: 0.11.3
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
       duplicateSource: null
@@ -674,9 +674,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      systemVersion: 0.11.3
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
       duplicateSource: null
@@ -725,10 +725,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845344240
+      systemVersion: 0.11.3
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845344240
+      createdTime: 1795194523753
       compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
       duplicateSource: null
       exportSource: null
@@ -800,6 +800,7 @@ items:
                 summons: []
                 lights: []
                 suppression: {}
+                effects: []
           img: icons/magic/control/mouth-smile-deception-purple.webp
           range:
             minimum: null
@@ -825,10 +826,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.provocateur00000
       duplicateSource: null
@@ -897,6 +898,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags: []
           summon: null
           persistRegion: false
@@ -913,9 +915,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845344240
-      modifiedTime: 1793845344240
+      systemVersion: 0.11.3
+      createdTime: 1795194523753
+      modifiedTime: 1795194523753
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.gnomeLineage0000
       duplicateSource: null
@@ -932,10 +934,10 @@ flags:
     lastSpell: spell.lightning.arrow
 _stats:
   systemId: crucible
-  systemVersion: 0.11.2
+  systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1793845344240
-  modifiedTime: 1793845344240
+  createdTime: 1795194523753
+  modifiedTime: 1795194523753
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

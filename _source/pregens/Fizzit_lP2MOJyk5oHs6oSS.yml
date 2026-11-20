@@ -352,9 +352,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -391,10 +391,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838224
+      createdTime: 1795194524660
       compendiumSource: Compendium.crucible.talent.Item.recognizespellcr
       duplicateSource: null
       exportSource: null
@@ -478,9 +478,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
       duplicateSource: null
@@ -565,9 +565,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
       duplicateSource: null
@@ -616,10 +616,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838224
+      createdTime: 1795194524660
       compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
       duplicateSource: null
       exportSource: null
@@ -691,6 +691,7 @@ items:
                 summons: []
                 lights: []
                 suppression: {}
+                effects: []
           img: icons/magic/control/mouth-smile-deception-purple.webp
           range:
             minimum: null
@@ -716,10 +717,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.provocateur00000
       duplicateSource: null
@@ -757,10 +758,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838224
+      createdTime: 1795194524660
       compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
       duplicateSource: null
       exportSource: null
@@ -797,10 +798,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inflectionpush00
       duplicateSource: null
@@ -869,6 +870,7 @@ items:
                 summons: []
                 lights: []
                 suppression: {}
+                effects: []
           tags:
             - talisman
             - ranged
@@ -890,10 +892,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.orbitingAegis000
       duplicateSource: null
@@ -930,10 +932,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838224
+      createdTime: 1795194524660
       compendiumSource: Compendium.crucible.talent.Item.conjurer00000000
       duplicateSource: null
       exportSource: null
@@ -997,10 +999,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.arcingBolt000000
       duplicateSource: null
@@ -1035,10 +1037,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.channelersGrip00
       duplicateSource: null
@@ -1119,6 +1121,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           summon: null
           persistRegion: false
           regionBehavior: null
@@ -1141,9 +1144,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.telekinetic00000
       duplicateSource: null
@@ -1232,9 +1235,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
       duplicateSource: null
@@ -1274,10 +1277,10 @@ items:
       core: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
       duplicateSource: null
@@ -1342,6 +1345,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
               duration:
                 value: null
                 units: ''
@@ -1369,10 +1373,10 @@ items:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.11.2
+      systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sentinelBolts000
       duplicateSource: null
@@ -1426,9 +1430,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gestureConjure00
       duplicateSource: null
@@ -1438,128 +1442,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.gestureConjure00'
-  - name: Inexorable Flame
-    type: talent
-    img: icons/magic/fire/flame-burning-campfire-rocks.webp
-    system:
-      keywords:
-        - playstyle.spellcraft
-        - spell.elemental
-        - damageType.fire
-      nodes:
-        - wis4d
-      description: >-
-        <p>You recognize that fire can spread with inevitable and unstoppable
-        purpose. Your usage of the <strong>Rune of Flame</strong> scales with
-        @Rule[ability.wisdom] instead of @Rule[ability.intellect].</p>
-      actions: []
-      iconicSpells: 0
-      training: elemental
-      spellcraft: ''
-      requirements:
-        training: {}
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '14.370'
-      systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.Item.inexorableFlame0
-      duplicateSource: null
-      exportSource: null
-    _id: inexorableFlame0
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.inexorableFlame0'
-  - name: 'Rune: Flame'
-    type: talent
-    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
-    system:
-      description: >-
-        <p>The chaotic force of elemental, thermal energy. The
-        <strong>Flame</strong> rune governs fire and heat.</p><p>The
-        <strong>Flame</strong> rune scales using @Rule[ability.intellect],
-        targets @Rule[defense.reflex], and deals <strong>Fire</strong> damage to
-        @Rule[resource.health]. It is opposed by the orderly rune of
-        <strong>Frost</strong>.</p>
-      actions:
-        - id: enkindle
-          name: Enkindle
-          img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
-          condition: ''
-          description: >-
-            <p>Your command of the Rune of Flame allows you to manipulate fire
-            and thermal energy in creative ways, producing one of the following
-            effects:</p><ul><li><p>Manifest a burst of elemental flame in one
-            inch sphere which can ignite a candle, torch, or other flammable
-            materials.</p></li><li><p>Imbue your body with momentary thermal
-            shielding which provides you with immunity to fire damage on an
-            immediately subsequent action that costs <strong>1 Action</strong>
-            or less.</p></li><li><p>Control the movement of flames within a
-            small area, causing them to flicker, dance, or shift in an animated
-            performance of light and shadow.</p></li></ul><p>Enkindle may only
-            affect a creature or object you can physically touch. You may
-            attempt other uses similar those above, the effectiveness of which
-            is decided by the Gamemaster.</p>
-          cost:
-            action: 3
-            focus: 1
-            heroism: 0
-            weapon: false
-            hands: 1
-          range:
-            minimum: null
-            maximum: 1
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 4
-            self: false
-          effects: []
-          tags:
-            - spell
-            - harmless
-          summon: null
-          persistRegion: false
-          regionBehavior: null
-      spellcraft: flame
-      keywords:
-        - playstyle.spellcraft
-        - spell.rune
-        - spell.elemental
-        - damageType.fire
-        - target.reflex
-      nodes:
-        - int0a
-      iconicSpells: 0
-      training: elemental
-      requirements:
-        training: {}
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '14.370'
-      systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
-      lastModifiedBy: WRGzDgYAt3ZuX6TU
-      compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
-      duplicateSource: null
-      exportSource: null
-    _id: runeFlame0000000
-    folder: null
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.runeFlame0000000'
   - name: Rimecaller
     type: talent
     img: icons/magic/water/orb-ice-web.webp
@@ -1592,10 +1474,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838224
+      createdTime: 1795194524660
       compendiumSource: Compendium.crucible.talent.Item.rimecaller000000
       duplicateSource: null
       exportSource: null
@@ -1634,9 +1516,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
       duplicateSource: null
@@ -1752,9 +1634,9 @@ items:
         _stats:
           coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.2
-          createdTime: 1793845838224
-          modifiedTime: 1793845838224
+          systemVersion: 0.11.3
+          createdTime: 1795194524660
+          modifiedTime: 1795194524660
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.focusing00000000
           duplicateSource: null
@@ -1767,9 +1649,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.focusingPearl000
       duplicateSource: null
@@ -1848,9 +1730,9 @@ items:
         _stats:
           coreVersion: '14.370'
           systemId: crucible
-          systemVersion: 0.11.2
-          createdTime: 1793845838224
-          modifiedTime: 1793845838224
+          systemVersion: 0.11.3
+          createdTime: 1795194524660
+          modifiedTime: 1795194524660
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.reinforcement000
           duplicateSource: null
@@ -1861,9 +1743,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringOfReinforcem
       duplicateSource: null
@@ -1946,6 +1828,7 @@ items:
                 lights: []
                 properties: []
                 suppression: {}
+                effects: []
           tags:
             - consume
           persistRegion: false
@@ -1964,9 +1847,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.omniglotDecoctio
       duplicateSource: null
@@ -2055,6 +1938,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags:
             - consume
             - rallying
@@ -2073,9 +1957,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.rallyingTonic000
       duplicateSource: null
@@ -2157,9 +2041,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
       duplicateSource: null
@@ -2227,10 +2111,10 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1793845838224
+      createdTime: 1795194524660
       compendiumSource: Compendium.crucible.talent.Item.assessResolve000
       duplicateSource: null
       exportSource: null
@@ -2298,6 +2182,7 @@ items:
                 properties: []
                 lights: []
                 suppression: {}
+                effects: []
           tags: []
           summon: null
           persistRegion: false
@@ -2314,9 +2199,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.gnomeLineage0000
       duplicateSource: null
@@ -2358,9 +2243,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.arcaneOrb0000000
       duplicateSource: null
@@ -2404,9 +2289,9 @@ items:
     _stats:
       coreVersion: '14.370'
       systemId: crucible
-      systemVersion: 0.11.2
-      createdTime: 1793845838224
-      modifiedTime: 1793845838224
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.grimoire00000000
       duplicateSource: null
@@ -2417,6 +2302,177 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.iRbztfBKIJFieidQ'
+  - name: 'Rune: Control'
+    type: talent
+    img: icons/magic/control/hypnosis-mesmerism-eye.webp
+    system:
+      description: >-
+        <p>The orderly force of discipline and permanence. The
+        <strong>Control</strong> rune governs thought, reason, and
+        persistence.</p><p>The <strong>Control</strong> rune scales using
+        @Rule[ability.wisdom], targets @Rule[defense.willpower], and deals
+        <strong>Psychic</strong> damage to @Rule[resource.morale]. It is opposed
+        by the chaotic rune of <strong>Kinesis</strong>.</p>
+      actions:
+        - id: motivate
+          img: icons/magic/control/hypnosis-mesmerism-eye.webp
+          cost:
+            action: 3
+            focus: 1
+            heroism: 0
+            weapon: false
+            hands: 1
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - spell
+            - harmless
+          name: Motivate
+          condition: ''
+          description: >-
+            <p>Your command of the Rune of Control allows you to affect the
+            decision making of others in basic ways, producing one of the
+            following effects:</p><ul><li><p>Moderately intensify or dampen the
+            primary emotion being felt by a creature you touch. If the creature
+            is intelligent enough to be aware of the laws governing spellcraft,
+            they are aware of your actions.</p></li><li><p>Understand the
+            abstract motivations of another living creature which allows you to
+            touch it. You are able to intuit their immediate goals expressed in
+            the form of a single verb.</p></li><li><p>Intensely focus on your
+            current objective and the means of achieving it. You receive a brief
+            hint or reminder from the Gamemaster about that objective containing
+            only information which you have previously
+            learned.</p></li></ul><p>Motivate may only affect a creature or
+            object which you can physically touch. You may attempt other uses
+            similar those above, the effectiveness of which is decided by the
+            Gamemaster.</p>
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      spellcraft: control
+      keywords:
+        - playstyle.spellcraft
+        - spell.rune
+        - spell.physical
+        - damageType.psychic
+        - target.willpower
+        - target.morale
+      nodes:
+        - wis0b
+      iconicSpells: 0
+      training: physical
+      requirements:
+        training: {}
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.runeControl00000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _id: runeControl00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.runeControl00000'
+  - name: Quickening
+    type: talent
+    img: icons/magic/symbols/rune-sigil-horned-blue.webp
+    system:
+      description: >-
+        <p>Years of binding have taught your hands to feel magic through leather
+        and steel. Whether a glyph was freshly set or has long since sunk into
+        the grain, you know that it is there.</p>
+      actions:
+        - id: quickening
+          name: Quickening
+          img: icons/magic/symbols/rune-sigil-horned-blue.webp
+          condition: You have an Enchanter's Toolkit equipped.
+          description: >-
+            <p>With an <strong>Enchanter's Toolkit</strong> equipped, you can
+            produce any one of the following
+            effects:</p><ul><li><p><strong>Read.</strong> You need only touch an
+            item to know whether it is enchanted, whether or not it belongs to
+            you. Handling it at length tells you which affixes it bears and how
+            much of its capacity remains
+            unspent.</p></li><li><p><strong>Destroy.</strong> You touch an
+            object bearing a minor enchantment which still waits upon its
+            condition, whether your own work or another enchanter's, and unmake
+            it. The object itself is unharmed. Alternatively you may conceal an
+            item's enchantment for <strong>10 minutes</strong>, so that it reads
+            as mundane to anyone whose passive @Rule[skill.enchanting] does not
+            exceed your own, though it loses nothing of its
+            power.</p></li><li><p><strong>Create.</strong> You imbue a
+            <strong>Rune</strong> you know into an object no larger than a foot
+            in any dimension, empowering it to perform one simple task under a
+            condition you name. The enchantment lasts until the object has
+            performed that task once, or until <strong>24 hours</strong> have
+            passed.</p></li></ul><p>You may attempt other uses similar to those
+            above, the effectiveness of which is decided by the
+            <strong>Gamemaster</strong>.</p>
+          cost:
+            action: 3
+            focus: 0
+            heroism: 0
+            hands: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: none
+            number: 0
+            scope: 0
+            self: false
+          effects: []
+          tags: []
+          summon: null
+          persistRegion: false
+          regionBehavior: null
+      keywords:
+        - action.noncombat
+        - skill.enchanting
+      nodes:
+        - pre2a
+      spellcraft: ''
+      iconicSpells: 0
+      training: enchanting
+      requirements:
+        training: {}
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.quickening000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '14.370'
+      systemId: crucible
+      systemVersion: 0.11.3
+      createdTime: 1795194524660
+      modifiedTime: 1795194524660
+      lastModifiedBy: WRGzDgYAt3ZuX6TU
+    _id: quickening000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.quickening000000'
 effects: []
 flags:
   core: {}
@@ -2513,9 +2569,9 @@ flags:
 _stats:
   coreVersion: '14.370'
   systemId: crucible
-  systemVersion: 0.11.2
-  createdTime: 1793845838224
-  modifiedTime: 1793845838224
+  systemVersion: 0.11.3
+  createdTime: 1795194524660
+  modifiedTime: 1795194524660
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: null

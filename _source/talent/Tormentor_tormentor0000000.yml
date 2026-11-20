@@ -13,10 +13,10 @@ system:
   description: >-
     <p>A spirit which can be lifted can just as surely be broken. Your command
     of the <strong>Rune of Soul</strong> has turned toward torment. Spells you
-    compose with it deal @Rule[damageType.void] damage to
-    @Rule[resource.morale] and are resisted by @Rule[defense.willpower]. You
-    may still compose them to restore @Rule[resource.morale], but you suffer one
-    @Rule[dice.bane] when you do.</p>
+    compose with it deal @Rule[damageType.void] damage to @Rule[resource.morale]
+    and are resisted by @Rule[defense.willpower]. You may still compose them to
+    restore @Rule[resource.morale], but you suffer one @Rule[dice.bane] when you
+    do.</p>
   actions: []
   iconicSpells: 0
   training: spiritual

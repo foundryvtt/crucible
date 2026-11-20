@@ -1745,9 +1745,9 @@ HOOKS.compellingIllusi = {
 
 /* -------------------------------------------- */
 
-HOOKS.expeditiousIllum = {
+HOOKS.defiantFlame0000 = {
   prepareSpells(_item, grimoire) {
-    applyRuneScalingChange(grimoire, "illumination", "intellect");
+    applyRuneScalingChange(grimoire, "flame", "presence");
   }
 };
 
@@ -1769,14 +1769,6 @@ HOOKS.gatheringStorm00 = {
 
 /* -------------------------------------------- */
 
-HOOKS.inexorableFlame0 = {
-  prepareSpells(_item, grimoire) {
-    applyRuneScalingChange(grimoire, "flame", "wisdom");
-  }
-};
-
-/* -------------------------------------------- */
-
 HOOKS.livingBoulder000 = {
   prepareSpells(_item, grimoire) {
     applyRuneScalingChange(grimoire, "earth", "toughness");
@@ -1788,6 +1780,22 @@ HOOKS.livingBoulder000 = {
 HOOKS.patientSoul00000 = {
   prepareSpells(_item, grimoire) {
     applyRuneScalingChange(grimoire, "soul", "wisdom");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.quickenedLife000 = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "life", "intellect");
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.searingIlluminat = {
+  prepareSpells(_item, grimoire) {
+    applyRuneScalingChange(grimoire, "illumination", "wisdom");
   }
 };
 
@@ -1812,14 +1820,6 @@ HOOKS.undeniableOblivi = {
 HOOKS.visceralDeath000 = {
   prepareSpells(_item, grimoire) {
     applyRuneScalingChange(grimoire, "death", "strength");
-  }
-};
-
-/* -------------------------------------------- */
-
-HOOKS.willfulLife00000 = {
-  prepareSpells(_item, grimoire) {
-    applyRuneScalingChange(grimoire, "life", "presence");
   }
 };
 
