@@ -2896,6 +2896,15 @@ HOOKS.sneak = {
 
 /* -------------------------------------------- */
 
+HOOKS.steadfastResolve = {
+  postActivate() {
+    const morale = this.actor.abilities.wisdom.value;
+    this.recordEvent({resources: [{resource: "morale", delta: morale}]});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.submergingWithdrawal = {
   canUse() {
     // Control conditions that pin the creature above ground and prevent it from retracting beneath the surface
