@@ -1201,6 +1201,20 @@ HOOKS.geyserStone = {
   prepare() {
     const tiers = {shoddy: 2, standard: 3, fine: 4, superior: 6, masterwork: 8};
     this.usage.bonuses.base = tiers[this.item.system.quality];
+  },
+  async postActivate() {
+    const shape = this.region?.shapes?.[0];
+    const origin = shape ? {x: shape.x, y: shape.y} : this.token?.object?.center;
+    if ( !origin ) return;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.isSuccess ) continue;
+      const targetToken = this.targets.get(target)?.token?.object;
+      if ( !targetToken ) continue;
+      const plan = await crucible.api.canvas.movement.planPushMovement(origin, targetToken, 15);
+      if ( !plan ) continue;
+      const {x, y, elevation} = plan.origin;
+      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+    }
   }
 };
 
