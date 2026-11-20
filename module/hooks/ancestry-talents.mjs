@@ -147,16 +147,19 @@ ACTION.stoutHeart = {
   postActivate() {
     const activation = this.selfEvents?.activation;
     if ( !activation ) return;
-    activation.resources.push({resource: "morale", delta: this.actor.abilities.presence.value * 2});
     const purged = ["frightened", "confused"];
+    const confusedId = SYSTEM.EFFECTS.getEffectId("Confused");
     for ( const effect of this.actor.effects ) {
       if ( !purged.some(s => effect.statuses.has(s)) ) continue;
-      if ( effect.isStatusOnly(...purged) ) activation.effects.push({_id: effect.id, _action: "delete"});
+      if ( (effect.id === confusedId) || effect.isStatusOnly(...purged) ) {
+        activation.effects.push({_id: effect.id, _action: "delete"});
+      }
       else {
         const statuses = Array.from(effect.statuses).filter(s => !purged.includes(s));
         activation.effects.push({_id: effect.id, _action: "update", statuses});
       }
     }
+    this.recordEvent({resources: [{resource: "morale", delta: this.actor.abilities.presence.value * 2}]});
   }
 };
 
