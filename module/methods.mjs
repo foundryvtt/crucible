@@ -2,6 +2,94 @@ import {allocatePoints} from "./advancement.mjs";
 import CrucibleTalentNode from "./const/talent-node.mjs";
 
 /**
+ * @typedef CrucibleTrainingAuditFinding
+ * @property {string} actor           The audited Actor's name
+ * @property {string} uuid            The audited Actor's UUID
+ * @property {string} issue           One of "untrained", "unusedWeight", "noArchetype", "noWeights", "invalidWeight"
+ * @property {string} proficiency     The proficiency labels concerned, any one of which would suffice
+ * @property {string} source          The weapon, armor, action, or rune which relies on the proficiency
+ */
+
+/**
+ * Audit whether Actors are trained in the proficiencies their equipment, actions, and runes rely upon.
+ * @param {object} [options]
+ * @param {string|CrucibleActor|Iterable<string|CrucibleActor>} [options.actors]  World Actors or their IDs to audit,
+ *                                                                                by default every World Actor
+ * @param {(actor: CrucibleActor) => boolean} [options.filter]  Audit only the Actors for which this returns true
+ * @returns {CrucibleTrainingAuditFinding[]}                     Findings, also logged to the console
+ */
+export function auditTraining({actors=game.actors, filter}={}) {
+  if ( (typeof actors === "string") || (actors instanceof foundry.documents.Actor) ) actors = [actors];
+  actors = Array.from(actors, a => {
+    if ( typeof a !== "string" ) return a;
+    const actor = game.actors.get(a);
+    if ( !actor ) throw new Error(`auditTraining could not find a World Actor with ID "${a}"`);
+    return actor;
+  });
+  const {PROFICIENCIES} = SYSTEM.PROFICIENCY;
+  const defaultActionIds = new Set(SYSTEM.ACTION.DEFAULT_ACTIONS.map(a => a.id));
+  const label = ids => ids.map(id => _loc(PROFICIENCIES[id]?.label ?? id)).join(" or ");
+  const findings = [];
+  let audited = 0;
+  for ( const actor of actors ) {
+    if ( !actor.system.training || (filter && !filter(actor)) ) continue;
+    audited++;
+    const report = (issue, ids, source) => findings.push({actor: actor.name, uuid: actor.uuid, issue,
+      proficiency: label(ids), source});
+
+    // Proficiencies relied upon by equipped items, talent and spell actions, and known runes
+    const requirements = [];
+    const {weapons, armor} = actor.equipment;
+    for ( const w of [weapons.mainhand, weapons.offhand, ...weapons.natural] ) {
+      if ( !w || !actor.items.has(w.id) ) continue; // The default unarmed weapon is not an owned item
+      requirements.push({ids: w.system.proficiencies, source: w.name,
+        intuitive: w.system.properties.has("intuitive")});
+    }
+    if ( armor && actor.items.has(armor.id) && (armor.system.dodge.scaling > 0) ) {
+      requirements.push({ids: ["armor"], source: armor.name});
+    }
+    for ( const action of Object.values(actor.actions) ) {
+      if ( defaultActionIds.has(action.id) || !action.training.length ) continue;
+      requirements.push({ids: action.training, source: action.name});
+    }
+    for ( const rune of actor.grimoire.runes.values() ) requirements.push({ids: [rune.training], source: rune.name});
+
+    // Untrained requirements
+    const relied = new Set();
+    for ( const {ids, source, intuitive} of requirements ) {
+      for ( const id of ids ) relied.add(id);
+      if ( actor.getSkillBonus(ids, {intuitive}) < 0 ) report("untrained", ids, source);
+    }
+
+    // Archetype training weights
+    if ( actor.type !== "adversary" ) continue;
+    const archetype = actor._source.system.details.archetype;
+    if ( !archetype ) {
+      report("noArchetype", [], "");
+      continue;
+    }
+    const weights = archetype.training ?? {};
+    for ( const id of Object.keys(weights) ) {
+      if ( !(id in PROFICIENCIES) ) report("invalidWeight", [id], archetype.name);
+    }
+    if ( !Object.values(weights).some(w => w > 0) ) report("noWeights", [], archetype.name);
+
+    // Weapon, armor, and spellcraft weight which nothing relies upon; skills always matter in play
+    for ( const [id, weight] of Object.entries(weights) ) {
+      if ( !(weight > 0) || relied.has(id) || !["weapon", "equipment", "spell"].includes(PROFICIENCIES[id]?.group) ) {
+        continue;
+      }
+      report("unusedWeight", [id], archetype.name);
+    }
+  }
+  console.log(`Crucible | Training audit found ${findings.length} issues across ${audited} Actors`);
+  if ( findings.length ) console.table(findings);
+  return findings;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Create an Archetype which reproduces the build of an advanced Hero.
  * @param {CrucibleActor} hero                    The Hero whose build is reproduced
  * @param {object} [archetypeData]                Archetype data which overrides derived values, usually a name
