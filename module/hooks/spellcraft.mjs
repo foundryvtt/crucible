@@ -1,4 +1,4 @@
-import {planPushMovement} from "../canvas/movement.mjs";
+import {recordPushMovement} from "./helpers.mjs";
 
 const HOOKS = {};
 
@@ -323,14 +323,8 @@ async function _inflectMovement(direction) {
   for ( const [target, events] of this.eventsByTarget ) {
     if ( target === this.actor ) continue;
     if ( this.usage.hasDice && !events.isSuccess ) continue; // Only creatures the spell affected
-    const targetToken = this.targets.get(target)?.token?.object;
-    if ( !targetToken ) continue;
     const distanceFeet = direction * baseFeet * (events.isCriticalSuccess ? 2 : 1);
-    const minGap = (casterToken.w + targetToken.w) / 2; // Base-to-base contact, clamps a pull short of the caster
-    const plan = await planPushMovement(casterToken.center, targetToken, distanceFeet, {minGap});
-    if ( !plan ) continue;
-    const origin = {x: plan.origin.x, y: plan.origin.y, elevation: plan.origin.elevation};
-    this.recordEvent({type: "movement", target, movement: {id: plan.id, origin}});
+    await recordPushMovement(this, target, casterToken.center, distanceFeet);
   }
 }
 

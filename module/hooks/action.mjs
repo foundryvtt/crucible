@@ -1,4 +1,4 @@
-import {formatEffectName, interruptAction} from "./helpers.mjs";
+import {formatEffectName, interruptAction, recordPushMovement} from "./helpers.mjs";
 
 const HOOKS = {};
 
@@ -1207,13 +1207,7 @@ HOOKS.geyserStone = {
     const origin = shape ? {x: shape.x, y: shape.y} : this.token?.object?.center;
     if ( !origin ) return;
     for ( const [target, events] of this.eventsByTarget ) {
-      if ( !events.isSuccess ) continue;
-      const targetToken = this.targets.get(target)?.token?.object;
-      if ( !targetToken ) continue;
-      const plan = await crucible.api.canvas.movement.planPushMovement(origin, targetToken, 15);
-      if ( !plan ) continue;
-      const {x, y, elevation} = plan.origin;
-      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+      if ( events.isSuccess ) await recordPushMovement(this, target, origin, 15);
     }
   }
 };
@@ -2919,6 +2913,18 @@ HOOKS.steadfastResolve = {
 
 /* -------------------------------------------- */
 
+HOOKS.steamVent = {
+  async postActivate() {
+    const origin = this.token?.object?.center;
+    if ( !origin ) return;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( events.isSuccess ) await recordPushMovement(this, target, origin, 10);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.submergingWithdrawal = {
   canUse() {
     // Control conditions that pin the creature above ground and prevent it from retracting beneath the surface
@@ -3072,15 +3078,8 @@ HOOKS.ensnare = {
       }
 
       // On a hit, reel the ensnared prey back toward the constrictor, stopping adjacent
-      if ( !events.isSuccess ) continue;
-      const targetToken = this.targets.get(target)?.token?.object;
-      if ( !targetToken || !this.token?.object ) continue;
-      const minGap = ((this.token.width + targetToken.document.width) / 2) * canvas.grid.size;
-      const plan = await crucible.api.canvas.movement.planPushMovement(this.token.object.center, targetToken, -1000,
-        {minGap});
-      if ( !plan ) continue;
-      const {x, y, elevation} = plan.origin;
-      this.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
+      const origin = this.token?.object?.center;
+      if ( events.isSuccess && origin ) await recordPushMovement(this, target, origin, -1000);
     }
   }
 };

@@ -1,7 +1,9 @@
 /**
  * @import CrucibleAction from "../models/action.mjs";
+ * @import CrucibleActor from "../documents/actor.mjs";
  * @import CrucibleItem from "../documents/item.mjs";
  */
+import {planPushMovement} from "../canvas/movement.mjs";
 
 /**
  * Test whether an action deploys an item by recording a deployed effect which originates from it.
@@ -92,4 +94,25 @@ export function applyRuneScalingChange(grimoire, rune, scaling) {
   const component = grimoire.runes.get(rune);
   if ( !component ) return;
   grimoire.runes.set(rune, component.clone({scaling}, {once: true}));
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Record a forced movement which pushes a target away from, or pulls it toward, a point.
+ * @param {CrucibleAction} action     The action performing the forced movement
+ * @param {CrucibleActor} target      The targeted actor to displace
+ * @param {Point} fromPoint           The point to push away from or pull toward
+ * @param {number} distanceFeet       Signed distance in feet; positive pushes, negative pulls
+ * @returns {Promise<void>}
+ */
+export async function recordPushMovement(action, target, fromPoint, distanceFeet) {
+  const targetToken = action.targets.get(target)?.token?.object;
+  if ( !targetToken ) return;
+  const sourceToken = action.token?.object;
+  const minGap = sourceToken ? (sourceToken.w + targetToken.w) / 2 : 0; // A pull stops base-to-base with the source
+  const plan = await planPushMovement(fromPoint, targetToken, distanceFeet, {minGap});
+  if ( !plan ) return;
+  const {x, y, elevation} = plan.origin;
+  action.recordEvent({type: "movement", target, movement: {id: plan.id, origin: {x, y, elevation}}});
 }

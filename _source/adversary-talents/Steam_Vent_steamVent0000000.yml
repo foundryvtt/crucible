@@ -34,6 +34,7 @@ system:
         number: 1
         scope: 4
         self: false
+        size: 10
       summon:
         actorUuid: null
         permanent: true
@@ -52,8 +53,9 @@ system:
             summons: []
             changes: []
       tags:
-        - ranged
+        - generic
         - fire
+        - reflex
   iconicSpells: 0
 effects: []
 folder: By2dpEkYQSuee47b
