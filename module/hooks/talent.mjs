@@ -613,9 +613,12 @@ HOOKS.champion00000000 = {
 
 HOOKS.channeledResonan = {
   prepareAttack(_item, action, _target, rollData) {
-    if ( this.equipment.weapons.mainhand?.system.activeCategory.id !== "talisman2" ) return;
+    const mainhand = this.equipment.weapons.mainhand;
+    if ( mainhand?.system.activeCategory.id !== "talisman2" ) return;
     if ( !action.target.isAttack ) return;
-    const sustaining = this.parent.effects.some(e => e.active && e.system.maintenance?.cost);
+    const isTalismanAttack = action.tags.has("talisman") || (action.usage.weapon?.id === mainhand.id);
+    if ( !isTalismanAttack ) return;
+    const sustaining = this.effects.some(e => e.active && e.system.maintenance?.cost);
     if ( sustaining ) rollData.damageBonus += 2;
   }
 };
