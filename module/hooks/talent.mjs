@@ -233,9 +233,7 @@ HOOKS.assassin00000000 = {
     if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
     if ( !target.statuses.has("unaware") ) return;
 
-    // Don't want to double-deadly
-    if ( action.tags.has("deadly") ) return;
-    action.tags.add("deadly");
+    if ( action.tags.has("deadly") ) return; // An action which is already Deadly gains nothing further
     rollData.multiplier += 1;
   }
 }
