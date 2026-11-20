@@ -147,7 +147,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
         this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
         this.name = CrucibleSpellAction.getComposedName(this);
         this.img = this.rune.img;
-        this.description = _loc("ACTION.DEFAULT_ACTIONS.Cast.Description"); // TODO make dynamic
+        this.description = CrucibleSpellAction.#getComposedDescription(this);
       }
     }
   }
@@ -165,6 +165,18 @@ export default class CrucibleSpellAction extends CrucibleAction {
     gesture ??= (this.gesture?.id || "none");
     inflection ??= (this.inflection?.id || "none");
     return ["spell", rune, gesture, inflection].filterJoin(".");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Describe a composed spell by the components it combines.
+   * @param {CrucibleSpellAction} spell   The composed spell
+   * @returns {string}                    The description HTML
+   */
+  static #getComposedDescription({rune, gesture, inflection}) {
+    const key = inflection ? "SPELL.ComposedDescriptionInflected" : "SPELL.ComposedDescription";
+    return `<p>${_loc(key, {rune: rune.name, gesture: gesture.name, inflection: inflection?.name})}</p>`;
   }
 
   /* -------------------------------------------- */
@@ -465,7 +477,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
     delete tags.action.spell;
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
     if ( this.damage.healing ) tags.action.healing = _loc("ACTION.TAG.Healing");
-    else tags.action.defense = SYSTEM.DEFENSES[this.usage.defenseType].label;
+    else {
+      const defenseType = this.usage.defenseType ?? CrucibleSpellAction.#prepareDefense.call(this); // Without an actor
+      tags.action.defense = SYSTEM.DEFENSES[defenseType].label;
+    }
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
     return tags;
   }

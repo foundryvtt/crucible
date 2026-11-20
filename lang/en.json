@@ -2651,6 +2651,8 @@
       "NotConfigured": "This Iconic Spell is not yet fully configured. It requires all three spellcraft components to be defined.",
       "SorcererNoIconic": "As a {talent}, you cannot cast Iconic Spells."
     },
+    "ComposedDescription": "A composed spell using the {rune} Rune and the {gesture} Gesture.",
+    "ComposedDescriptionInflected": "A composed spell using the {rune} Rune, the {gesture} Gesture, and the {inflection} Inflection.",
     "DamageType": "Damage Type",
     "Iconic": "Iconic Spell",
     "IconicPl": "Iconic Spells",

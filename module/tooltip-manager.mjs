@@ -65,6 +65,8 @@ export default class CrucibleTooltipManager extends foundry.helpers.interaction.
         return cls.#displayTalentCheck(event);
       case "languageCheck":
         return cls.#displayLanguageCheck(event);
+      case "composedSpell":
+        return cls.#displayComposedSpellTooltip(event);
       case "passiveCheck":
         return cls.#displayPassiveCheck(event);
       case "tag":
@@ -110,6 +112,36 @@ export default class CrucibleTooltipManager extends foundry.helpers.interaction.
 
     element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
     element.dataset.tooltipHtml = await action.renderCard();
+    element.dataset.tooltipClass = "crucible crucible-tooltip";
+    const pointerover = new event.constructor(event.type, event);
+    element.dispatchEvent(pointerover);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Display a composed spell card as a tooltip, composed from the owner Actor's grimoire if one is given.
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #displayComposedSpellTooltip(event) {
+    const element = event.target;
+    const {uuid, spellId} = element.dataset;
+    let actor;
+    if ( uuid ) {
+      actor = await fromUuid(uuid);
+      if ( !(actor instanceof Actor) ) return;
+    }
+    let spell;
+    try {
+      spell = crucible.api.models.CrucibleSpellAction.fromId(spellId, {actor});
+    } catch(err) {
+      return;
+    }
+    event.stopImmediatePropagation();
+
+    element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+    element.dataset.tooltipHtml = await spell.renderCard();
     element.dataset.tooltipClass = "crucible crucible-tooltip";
     const pointerover = new event.constructor(event.type, event);
     element.dispatchEvent(pointerover);

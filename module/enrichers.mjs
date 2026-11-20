@@ -88,7 +88,7 @@ export function registerEnrichers() {
     },
     {
       id: "crucibleSpell",
-      pattern: /@Spell\[([\w.]+)]/g,
+      pattern: /@Spell\[(?:([\w-.]+) )?([\w.]+)]/g,
       enricher: enrichSpell
     },
     {
@@ -721,22 +721,30 @@ function enrichAction([match, ownerUUID, actionId]) {
 
 
 /**
- * Enrich a spell reference into an interactive element linking to the spell action.
+ * Enrich a spell reference with format @Spell[{ownerUUID?} {spellId}] into an element linking to the spell action.
+ * An owner Actor composes the spell from its own grimoire, so the name reflects how that Actor would cast it.
  * @param {RegExpMatchArray} matchArray
+ * @returns {HTMLEnrichedContentElement|Text}
  */
-function enrichSpell([match, spellId]) {
+function enrichSpell([match, ownerUUID, spellId]) {
+  let actor;
+  if ( ownerUUID ) {
+    actor = fromUuidSync(ownerUUID);
+    if ( !(actor instanceof Actor) ) return new Text(match);
+  }
   let spell;
   if ( !spellId.startsWith("spell.") ) spellId = `spell.${spellId}`;
   try {
-    spell = crucible.api.models.CrucibleSpellAction.fromId(spellId);
+    spell = crucible.api.models.CrucibleSpellAction.fromId(spellId, {actor});
   } catch(err) {
     return new Text(match);
   }
   const tag = document.createElement("enriched-content");
   tag.innerHTML = spell.name;
   tag.dataset.spellId = spell.id;
+  if ( ownerUUID ) tag.dataset.uuid = ownerUUID;
   tag.classList.add("rule", "spell");
-  tag.dataset.tooltip = "Spell tooltips are still TO-DO."; // TODO
+  tag.dataset.crucibleTooltip = "composedSpell";
   return tag;
 }
 
