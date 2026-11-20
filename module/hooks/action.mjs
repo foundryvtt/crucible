@@ -2174,6 +2174,71 @@ HOOKS.vowOfAnimus = {
 
 /* -------------------------------------------- */
 
+/**
+ * Shared hook factory for Pouncing Strike and Swooping Strike.
+ * @param {object} [options]
+ * @param {boolean} [options.requireDescent=false]  Require at least 10 ft of elevation decrease
+ * @returns {object}
+ */
+function _divingStrikeHooks({requireDescent=false}={}) {
+  const getMove = action => {
+    const last = action.actor.lastConfirmedAction;
+    if ( (last?.id !== "move") || !last.movement?.origin || !last.movement?.waypoints?.length ) return null;
+    return last.movement;
+  };
+  const feetDistance = (a, b) => {
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
+    const dz = ((a.elevation ?? 0) - (b.elevation ?? 0)) * canvas.dimensions.distancePixels;
+    return Math.hypot(dx, dy, dz) / canvas.dimensions.distancePixels;
+  };
+  return {
+    canUse() {
+      const move = getMove(this);
+      if ( !move ) throw new Error(_loc("ACTION.WARNINGS.MustFollowMove", {action: this.name}));
+      if ( requireDescent ) {
+        const descent = (move.origin.elevation ?? 0) - (move.waypoints.at(-1).elevation ?? 0);
+        if ( descent < 10 ) throw new Error(_loc("ACTION.WARNINGS.MustDescend", {action: this.name}));
+      }
+    },
+    acquireTargets(targets) {
+      const move = getMove(this);
+      if ( !move ) return;
+      const start = this.token ? this.token.getCenterPoint(move.origin) : move.origin;
+      const end = this.token ? this.token.getCenterPoint(move.waypoints.at(-1)) : move.waypoints.at(-1);
+      for ( const target of targets ) {
+        const token = target.token;
+        if ( !token ) continue;
+        const tCenter = token.getCenterPoint();
+        const approached = feetDistance(start, tCenter) - feetDistance(end, tCenter);
+        if ( approached < 10 ) {
+          target.error ??= _loc(requireDescent ? "ACTION.WARNINGS.MustDescend" : "ACTION.WARNINGS.MustApproach",
+            {action: this.name});
+        }
+      }
+    },
+    configure() {
+      const move = getMove(this);
+      if ( !move ) return;
+      const startElev = move.origin.elevation ?? 0;
+      const endElev = move.waypoints.at(-1).elevation ?? 0;
+      const descent = startElev - endElev;
+      if ( descent < 10 ) return;
+      if ( !requireDescent ) {
+        const [target] = this.targets.values();
+        const targetElev = target?.token?.elevation ?? 0;
+        if ( startElev <= targetElev ) return;
+      }
+      const boons = Math.floor(descent / 10);
+      if ( boons > 0 ) this.usage.boons[this.id] = {label: this.name, number: boons};
+    }
+  };
+}
+
+HOOKS.pouncingStrike = _divingStrikeHooks();
+
+/* -------------------------------------------- */
+
 HOOKS.protectiveMirage = {
   postActivate() {
     const {effect} = this.selfEvents.getPrimaryEffect();
@@ -2551,6 +2616,10 @@ HOOKS.restrainingChomp = {
     }
   }
 };
+
+/* -------------------------------------------- */
+
+HOOKS.swoopingStrike = _divingStrikeHooks({requireDescent: true});
 
 /* -------------------------------------------- */
 
