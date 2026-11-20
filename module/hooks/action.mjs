@@ -191,7 +191,7 @@ HOOKS.armorCrusher = {
       const dmg = event.roll.data.damage;
       dmg.bonus += this.actor.system.abilities.toughness.value;
       dmg.total = crucible.api.models.CrucibleAction.computeDamage(dmg);
-      event.resources.push({resource: "focus", delta: -1});
+      this.selfEvents.activation.resources.push({resource: "focus", delta: -1}); // The attacker pays, not the target
       return;
     }
   }
