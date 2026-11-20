@@ -1,0 +1,67 @@
+name: Tormentor
+type: archetype
+_id: tormentor0000000
+img: icons/magic/perception/eye-ringed-glow-angry-teal.webp
+system:
+  description: >-
+    Creatures that feed on fear and despair, breaking the resolve of their prey
+    with cruel words, phantasms, and torments of the soul.
+  abilities:
+    wisdom: 2
+    presence: 4
+    intellect: 3
+    strength: 0
+    toughness: 1
+    dexterity: 2
+  talents:
+    - item: Compendium.crucible.talent.Item.runeSoul00000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.tormentor0000000
+      level: 0
+    - item: Compendium.crucible.talent.Item.provocateur00000
+      level: 1
+    - item: Compendium.crucible.talent.Item.runeIllusion0000
+      level: 4
+    - item: Compendium.crucible.talent.Item.intimidator00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.gestureinfluence
+      level: 3
+    - item: Compendium.crucible.talent.Item.battlefocus00000
+      level: 2
+    - item: Compendium.crucible.talent.Item.compellingIllusi
+      level: 4
+    - item: Compendium.crucible.talent.Item.exploitDespair00
+      level: 3
+    - item: Compendium.crucible.talent.Item.rout000000000000
+      level: 5
+  identifier: tormentor
+  training:
+    awareness: 1
+    stealth: 1
+    arcana: 0
+    society: 0
+    deception: 3
+    diplomacy: 0
+    intimidation: 2
+    performance: 2
+    spiritual: 3
+  spells: []
+  equipment: []
+effects: []
+folder: 6Up7ddrphLept3RW
+sort: 3200000
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.11.3
+  coreVersion: '14.370'
+  createdTime: 1795204800000
+  modifiedTime: 1795203007444
+  lastModifiedBy: WRGzDgYAt3ZuX6TU
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_key: '!items!tormentor0000000'
