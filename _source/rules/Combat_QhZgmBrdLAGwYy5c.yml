@@ -266,11 +266,14 @@ pages:
         your <strong>Effective Distance</strong> traveled is
         doubled.</p><h4>Crawl</h4><p>You move while @Condition[prone] and your
         <strong>Effective Distance</strong> traveled is
-        doubled.</p><h4>Jump</h4><p>Your <strong>Effective Distance</strong>
-        traveled is doubled, but required by certain actions or to surmount
-        certain obstacles.</p><h4>Climb</h4><p>Used while scaling vertical
-        surfaces, your <strong>Effective Distance</strong> traveled is
-        doubled.</p><h4>Swim</h4><p>Used while moving in waist-deep or deeper
+        doubled.</p><h4>Jump</h4><p>Used to leap across gaps or over obstacles.
+        Your <strong>Effective
+        Distance</strong> traveled is doubled. A jump carries you through the
+        air, over terrain on the ground: it is not slowed by Difficult or
+        Extreme Terrain, only by terrain which hinders
+        flight.</p><h4>Climb</h4><p>Used to move up, down, or across steep surfaces, such as
+        cliffs, walls, or slopes greater than 45 degrees. Your <strong>Effective
+        Distance</strong> traveled is doubled.</p><h4>Swim</h4><p>Used while moving in waist-deep or deeper
         water, your <strong>Effective Distance</strong> traveled is
         doubled.</p><h4>Fly</h4><p>Used by creatures which can fly or hover.
         Movement while flying is faster than walking. A creature which ends its
@@ -295,9 +298,8 @@ pages:
         Efficiency} talent.</p></div><h2 class="divider">Terrain</h2><p>The
         ground a creature crosses may increase the cost of moving across it.
         Terrain multiplies the <strong>Effective Distance</strong> of
-        <strong>Walk</strong>, <strong>Step</strong>, <strong>Climb</strong>,
-        and <strong>Jump</strong> movement. Terrain is classified as one of the
-        following:</p><dl><dt><p>Normal Terrain</p></dt><dd
+        <strong>Walk</strong>, <strong>Step</strong>, and <strong>Climb</strong>
+        movement. Terrain is classified as one of the following:</p><dl><dt><p>Normal Terrain</p></dt><dd
         data-rule="movement.normalTerrain"><p>Open ground which poses no
         obstacle to movement, such as roads, floors, or short grass. Normal
         Terrain does not modify the <strong>Effective Distance</strong> of
@@ -312,13 +314,18 @@ pages:
         is tripled.</p></dd></dl><p>A creature which <strong>Crawls</strong> is
         not penalized twice: the doubled cost of Crawl already accounts for
         Difficult Terrain, so Crawling costs double on Normal or Difficult
-        Terrain and triple on Extreme Terrain.</p><section
+        Terrain and triple on Extreme Terrain. A creature which
+        <strong>Jumps</strong> passes over ground terrain entirely; the doubled
+        cost of Jump applies on any terrain, and only terrain which hinders
+        flight, such as a dense canopy of vines, increases it further.</p><section
         class="foundryvtt"><h4>Gamemaster Guidance</h4><p>Always specify
         Difficult and Extreme Terrain by drawing a Scene Region over the
         affected area and giving it the <strong>Modify Movement Cost</strong>
         behavior, with its <strong>Walk</strong> cost set to 2 (Difficult) or 3
-        (Extreme). Step, Crawl, Climb, and Jump movement derive their cost from
-        this Walk setting automatically. Crucible reads terrain only from this
+        (Extreme). Step, Crawl, and Climb movement derive their cost from this
+        Walk setting automatically. Jump movement instead uses the
+        <strong>Fly</strong> cost, so also set Fly for terrain which should
+        hinder airborne movement. Crucible reads terrain only from this
         behavior when it measures movement, so terrain marked any other way,
         such as with a Drawing or a Note, is not reflected in the Action cost
         shown by the movement ruler. Normal Terrain needs no

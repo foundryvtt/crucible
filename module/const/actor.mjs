@@ -304,7 +304,7 @@ export const MOVEMENT_ACTIONS = Object.freeze({
     img: "icons/svg/jump.svg",
     costMultiplier: 2,
     speedMultiplier: 1.5,
-    deriveTerrainDifficulty: ({walk, fly}) => Math.max(walk, fly),
+    terrainAction: "fly", // Airborne, a jump clears ground terrain but is still hindered by terrain in the air
     tokenCollision: false
   },
   climb: {

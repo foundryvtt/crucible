@@ -1022,6 +1022,18 @@ HOOKS.feintingStrike = {
 
 /* -------------------------------------------- */
 
+HOOKS.ferociousLeap = {
+  prepare() {
+    Object.assign(this.usage.movement, {
+      action: "jump",
+      strength: SYSTEM.ACTOR.MOVEMENT_STRENGTHS.POWERFUL,
+      targeting: "destination" // Strike only creatures where you land
+    });
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.fieldStudy = {
   async preActivate() {
     const choices = Object.fromEntries(Object.entries(crucible.CONFIG.knowledge)
