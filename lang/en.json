@@ -510,8 +510,6 @@
       "MissingSummonEffect": "ActiveEffect data must be defined to track the non-permanent summon created by the action \"{action}\"",
       "MovementTooFar": "The planned movement path exceeds the maximum range allowed by this action.",
       "MovementTooShort": "The planned movement path does not meet the minimum range required by this action.",
-      "MustApproach": "You may only perform {action} against a target you moved at least 10 feet closer to.",
-      "MustDescend": "You may only perform {action} after descending at least 10 feet towards the target.",
       "MustFollowMainhandStrike": "You may only perform the {action} action after a basic Strike action with your mainhand weapon.",
       "MustFollowMeleeDefense": "You may only perform the {action} action after defending a melee attack with a {defense}.",
       "MustFollowMeleeKill": "You may only perform the {action} action after incapacitating an enemy with a melee attack.",
@@ -673,9 +671,6 @@
     "PetrifyingCloud": {
       "Petrification": "Petrification",
       "Stage": "Stage {stage}"
-    },
-    "ReactiveStrike": {
-      "ElusiveFlight": "{target} cannot be targeted by Reactive Strike while in flight."
     },
     "Regurgitate": {
       "NotHeld": "You are not holding {target}."

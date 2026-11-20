@@ -831,6 +831,19 @@ HOOKS.estocade = {
 
 HOOKS.escape = {
   suppressFromSheet: true,
+  _recordEscape(action, target, effect) {
+    action.recordEvent({type: "effect", target, effects: [effect.planStatusRemoval("restrained")]});
+    const grapple = HOOKS.grapple; // End a symmetric grapple
+    const pairedId = {
+      [grapple._GRAPPLED_EFFECT_ID]: grapple._GRAPPLING_EFFECT_ID,
+      [grapple._GRAPPLING_EFFECT_ID]: grapple._GRAPPLED_EFFECT_ID
+    }[effect.id];
+    if ( !pairedId ) return;
+    const partner = effect.origin ? fromUuidSync(effect.origin) : null;
+    if ( partner?.effects.has(pairedId) ) {
+      action.recordEvent({type: "effect", target: partner, effects: [{_id: pairedId, _action: "delete"}]});
+    }
+  },
   _restraints(actor) {
     const restraints = [];
     for ( const effect of actor.effects ) {
@@ -848,31 +861,8 @@ HOOKS.escape = {
   roll(target) {
     const check = this.events.find(e => (e.type === "check") && (e.target === target));
     if ( !check?.roll ) return;
-    const total = check.roll.total;
-    const grapple = HOOKS.grapple;
-    const grapplePair = {
-      [grapple._GRAPPLED_EFFECT_ID]: grapple._GRAPPLING_EFFECT_ID,
-      [grapple._GRAPPLING_EFFECT_ID]: grapple._GRAPPLED_EFFECT_ID
-    };
     for ( const effect of HOOKS.escape._restraints(target) ) {
-      if ( total <= effect.system.dc ) continue;
-
-      // Remove a status-only restraint entirely, otherwise keep the effect but prune the restrained status
-      if ( effect.isStatusOnly("restrained") ) {
-        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "delete"}]});
-      } else {
-        const statuses = Array.from(effect.statuses).filter(s => s !== "restrained");
-        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "update", statuses}]});
-      }
-
-      // Special case for ending the other side of a symmetric grapple
-      const pairedId = grapplePair[effect.id];
-      if ( pairedId ) {
-        const partner = effect.origin ? fromUuidSync(effect.origin) : null;
-        if ( partner?.effects.has(pairedId) ) {
-          this.recordEvent({type: "effect", target: partner, effects: [{_id: pairedId, _action: "delete"}]});
-        }
-      }
+      if ( check.roll.total > effect.system.dc ) HOOKS.escape._recordEscape(this, target, effect);
     }
   }
 };
@@ -2174,65 +2164,19 @@ HOOKS.vowOfAnimus = {
 
 /* -------------------------------------------- */
 
-/**
- * Shared hook factory for Pouncing Strike and Swooping Strike.
- * @param {object} [options]
- * @param {boolean} [options.requireDescent=false]  Require at least 10 ft of elevation decrease
- * @returns {object}
- */
-function _divingStrikeHooks({requireDescent=false}={}) {
-  const getMove = action => {
-    const last = action.actor.lastConfirmedAction;
-    if ( (last?.id !== "move") || !last.movement?.origin || !last.movement?.waypoints?.length ) return null;
-    return last.movement;
-  };
-  const feetDistance = (a, b) => {
-    const dx = a.x - b.x;
-    const dy = a.y - b.y;
-    const dz = ((a.elevation ?? 0) - (b.elevation ?? 0)) * canvas.dimensions.distancePixels;
-    return Math.hypot(dx, dy, dz) / canvas.dimensions.distancePixels;
-  };
-  return {
-    canUse() {
-      const move = getMove(this);
-      if ( !move ) throw new Error(_loc("ACTION.WARNINGS.MustFollowMove", {action: this.name}));
-      if ( requireDescent ) {
-        const descent = (move.origin.elevation ?? 0) - (move.waypoints.at(-1).elevation ?? 0);
-        if ( descent < 10 ) throw new Error(_loc("ACTION.WARNINGS.MustDescend", {action: this.name}));
-      }
-    },
-    acquireTargets(targets) {
-      const move = getMove(this);
-      if ( !move ) return;
-      const start = this.token ? this.token.getCenterPoint(move.origin) : move.origin;
-      const end = this.token ? this.token.getCenterPoint(move.waypoints.at(-1)) : move.waypoints.at(-1);
-      for ( const target of targets ) {
-        const token = target.token;
-        if ( !token ) continue;
-        const tCenter = token.getCenterPoint();
-        const approached = feetDistance(start, tCenter) - feetDistance(end, tCenter);
-        if ( approached < 10 ) target.error ??= _loc("ACTION.WARNINGS.MustApproach", {action: this.name});
-      }
-    },
-    configure() {
-      const move = getMove(this);
-      if ( !move ) return;
-      const startElev = move.origin.elevation ?? 0;
-      const endElev = move.waypoints.at(-1).elevation ?? 0;
-      const descent = startElev - endElev;
-      if ( descent < 10 ) return;
-      if ( !requireDescent ) {
-        const [target] = this.targets.values();
-        const targetElev = target?.token?.elevation ?? 0;
-        if ( startElev <= targetElev ) return;
-      }
-      const boons = Math.floor(descent / 10);
-      if ( boons > 0 ) this.usage.boons[this.id] = {label: this.name, number: boons};
+HOOKS.pouncingStrike = {
+  canUse() {
+    if ( this.actor.lastConfirmedAction?.id !== "move" ) {
+      throw new Error(_loc("ACTION.WARNINGS.MustFollowMove", {action: this.name}));
     }
-  };
-}
-
-HOOKS.pouncingStrike = _divingStrikeHooks();
+  },
+  configure() {
+    const {origin, waypoints} = this.actor.lastConfirmedAction?.movement ?? {};
+    const descent = (origin?.elevation ?? 0) - (waypoints?.at(-1)?.elevation ?? 0);
+    const boons = Math.floor(descent / 10);
+    if ( boons > 0 ) this.usage.boons[this.id] = {label: this.name, number: boons};
+  }
+};
 
 /* -------------------------------------------- */
 
@@ -2321,11 +2265,6 @@ HOOKS.reactiveStrike = {
     }
   },
   acquireTargets(targets) {
-    for ( const target of targets ) {
-      if ( target.actor?.talentIds.has("elusiveFlight000") && target.actor.statuses.has("flying") ) {
-        target.error ??= _loc("ACTIONS.ReactiveStrike.ElusiveFlight", {target: target.actor.name});
-      }
-    }
     if ( HOOKS.reactiveStrike._championBypass(this.actor) ) return;
     const token = this.token?.object;
     if ( !token ) return;
@@ -2616,7 +2555,7 @@ HOOKS.restrainingChomp = {
 
 /* -------------------------------------------- */
 
-HOOKS.swoopingStrike = _divingStrikeHooks({requireDescent: true});
+HOOKS.swoopingStrike = HOOKS.pouncingStrike;
 
 /* -------------------------------------------- */
 
@@ -2917,27 +2856,8 @@ HOOKS.slipperyEscape = {
     if ( !this.actor.statuses.has("restrained") ) return false;
   },
   postActivate() {
-    const target = this.actor;
-    const grapple = HOOKS.grapple;
-    const grapplePair = {
-      [grapple._GRAPPLED_EFFECT_ID]: grapple._GRAPPLING_EFFECT_ID,
-      [grapple._GRAPPLING_EFFECT_ID]: grapple._GRAPPLED_EFFECT_ID
-    };
-    for ( const effect of target.effects ) {
-      if ( !effect.active || !effect.statuses.has("restrained") ) continue;
-      if ( effect.isStatusOnly("restrained") ) {
-        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "delete"}]});
-      } else {
-        const statuses = Array.from(effect.statuses).filter(s => s !== "restrained");
-        this.recordEvent({type: "effect", target, effects: [{_id: effect.id, _action: "update", statuses}]});
-      }
-      const pairedId = grapplePair[effect.id];
-      if ( pairedId ) {
-        const partner = effect.origin ? fromUuidSync(effect.origin) : null;
-        if ( partner?.effects.has(pairedId) ) {
-          this.recordEvent({type: "effect", target: partner, effects: [{_id: pairedId, _action: "delete"}]});
-        }
-      }
+    for ( const effect of this.actor.effects ) {
+      if ( effect.active && effect.statuses.has("restrained") ) HOOKS.escape._recordEscape(this, this.actor, effect);
     }
   }
 };

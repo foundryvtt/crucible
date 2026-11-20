@@ -1343,11 +1343,8 @@ export const TAGS = {
       // Voluntarily stand up from prone when performing your own movement
       if ( this.actor.statuses.has("prone") && this.movement?.waypoints?.some(w => w.action !== "crawl") ) {
         for ( const effect of this.actor.effects ) {
-          if ( !effect.statuses.has("prone") ) continue;
-          const change = effect.isStatusOnly("prone")
-            ? {_id: effect.id, _action: "delete"}
-            : {_id: effect.id, _action: "update", statuses: [...effect.statuses].filter(s => s !== "prone")};
-          this.recordEvent({type: "effect", target: this.actor, effects: [change]});
+          const change = effect.planStatusRemoval("prone");
+          if ( change ) this.recordEvent({type: "effect", target: this.actor, effects: [change]});
         }
       }
     },

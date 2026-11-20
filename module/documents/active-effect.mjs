@@ -96,6 +96,19 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------- */
 
   /**
+   * Plan the effect change which removes the given status conditions from this effect.
+   * @param {...string} statusIds   The status conditions to remove
+   * @returns {object|null}         A delete or statuses update change, or null if no listed status is present
+   */
+  planStatusRemoval(...statusIds) {
+    if ( !statusIds.some(s => this.statuses.has(s)) ) return null;
+    if ( this.isStatusOnly(...statusIds) ) return {_id: this.id, _action: "delete"};
+    return {_id: this.id, _action: "update", statuses: [...this.statuses].filter(s => !statusIds.includes(s))};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Collect the UUIDs of the Documents this effect currently owns from its persisted references.
    * @returns {Set<string>}
    */
