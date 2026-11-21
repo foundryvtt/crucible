@@ -165,6 +165,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   });
 
   /**
+   * The IDs of purchased equipment items currently owned by the Actor clone.
+   * @type {Set<string>}
+   */
+  #purchasedItemIds = new Set();
+
+  /**
    * The Actor's name, stored only when restarting character creation
    * @type {string|null}
    */
@@ -387,6 +393,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     items.sort((a, b) => a.item.name.localeCompare(b.item.name));
     this._state.equipmentItems = items;
     this._state.equipment = {};
+    this.#applyPurchasedEquipment();
 
     // Build category label map indexed by item type for the filter sidebar
     const categoriesByType = {};
@@ -1150,6 +1157,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Increment quantity or add new item
     if ( isExisting ) this._state.equipment[uuid].quantity++;
     else this._state.equipment[uuid] = {item, quantity: 1, scaledPrice};
+    this.#applyPurchasedEquipment();
     crucible.api.audio.playClick();
     await this.render({parts: ["equipment"]});
   }
@@ -1168,6 +1176,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( !(uuid in this._state.equipment) ) return;
     this._state.equipment[uuid].quantity--;
     if ( this._state.equipment[uuid].quantity <= 0 ) delete this._state.equipment[uuid];
+    this.#applyPurchasedEquipment();
     crucible.api.audio.playClick();
     await this.render({parts: ["equipment"]});
   }
@@ -1229,18 +1238,30 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const item of creationData.items ) delete item.ownership;
     creationData.flags.core.sheetClass = "";
     creationData.system.advancement.level = 1;
+  }
 
-    // Grant purchased equipment items and apply remaining currency
+  /* -------------------------------------------- */
+
+  /**
+   * Replace the purchased equipment owned by the Actor clone with the current purchases, auto-equipping the best.
+   */
+  #applyPurchasedEquipment() {
+    const actor = this._clone;
+    for ( const id of this.#purchasedItemIds ) actor.items.delete(id);
+    this.#purchasedItemIds.clear();
+
+    // Unstack individual units of an item so they can each have different stateful properties
     let spent = 0;
+    const items = [];
     const autoEquipCandidates = [];
     for ( const {item, quantity, scaledPrice} of Object.values(this._state.equipment) ) {
       if ( quantity <= 0 ) continue;
-      const itemData = this._clone._cleanItemData(item);
-      delete itemData._id;
-
-      // Unstack individual units of an item so they can each have different stateful properties
-      const units = crucible.api.models.CruciblePhysicalItem.unstackItemData(itemData, quantity);
-      creationData.items.push(...units);
+      const units = crucible.api.models.CruciblePhysicalItem.unstackItemData(actor._cleanItemData(item), quantity);
+      for ( const unitData of units ) {
+        unitData._id = foundry.utils.randomID();
+        this.#purchasedItemIds.add(unitData._id);
+      }
+      items.push(...units);
 
       // Each individually equippable unit of purchased gear is a candidate for auto-equip
       if ( ["weapon", "armor", "tool", "consumable", "accessory"].includes(item.type) ) {
@@ -1248,10 +1269,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       }
       spent += scaledPrice * quantity;
     }
-    creationData.system.currency = SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET - spent;
 
-    // Automatically equip the highest-value purchased Weapons and Armor that fit available equipment slots
+    // Automatically equip the highest-value purchased gear that fits available equipment slots
     this._autoEquipPurchasedItems(autoEquipCandidates);
+    actor.updateSource({items, "system.currency": SYSTEM.ACTOR.STARTING_EQUIPMENT_BUDGET - spent});
+    actor.reset();
   }
 
   /* -------------------------------------------- */
@@ -1330,6 +1352,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async _reset() {
     await this.deactivateTalentTree();
     this._clone = this.#createClone();
+    this.#purchasedItemIds.clear();
     this.#characterName = this._state.name;
     this._state = {};
     for ( const k in this._completed ) this._completed[k] = false;
