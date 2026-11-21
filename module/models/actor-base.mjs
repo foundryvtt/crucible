@@ -1074,7 +1074,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( !this.abilities.intellect.value ) resources.focus.max = 0;
 
     // Final status modifiers, applied before clamping so reduced maximums constrain current values
-    if ( this.isWeakened ) resources.action.max = Math.max(resources.action.max - 2, 0);
+    // A prepareResources hook may lessen the Weakened penalty by assigning resources.action.weakenedPenalty
+    if ( this.isWeakened ) {
+      const penalty = resources.action.weakenedPenalty ?? 2;
+      resources.action.max = Math.max(resources.action.max - penalty, 0);
+    }
     if ( this.isIncapacitated ) resources.action.max = 0;
 
     // Clamp resource values
