@@ -971,9 +971,12 @@ export default class CrucibleActor extends Actor {
       restoration: options.restoration ?? action.usage.restoration
     };
 
-    // Defender configuration, which may handle special cases like the "Environment" or the actor attacking themselves
-    this._configureTargetRollData(action, rollData);
-    this.callActorHooks("defendAttack", action, action.actor, rollData);
+    // A hazard's actor is the environment or the creature which triggered it, never an attacker with its own hooks
+    if ( action.tags.has("hazard") ) {
+      this._configureTargetRollData(action, rollData);
+      this.callActorHooks("defendAttack", action, action.actor, rollData);
+    }
+    else CrucibleActor._configureRollData(action, action.actor, this, rollData);
 
     // Create and evaluate the AttackRoll instance, resolving its outcome and damage result
     const roll = new AttackRoll(rollData);
@@ -986,6 +989,7 @@ export default class CrucibleActor extends Actor {
       damageType: rollData.damageType,
       restoration: rollData.restoration
     });
+    this.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
 
