@@ -1693,6 +1693,18 @@
     "VisualizeFlanking": "Visualize Flanking"
   },
   "CRUCIBLE": {
+    "MIGRATION": {
+      "STEPS": {
+        "detailItems": "Synchronizing Detail Items",
+        "flankedEffects": "Removing Retired Flanking Effects",
+        "heroTalents": "Resetting Hero Talents",
+        "talismanIdentifiers": "Renaming Talisman Identifiers",
+        "worldActors": "Synchronizing World Actors",
+        "worldEquipment": "Synchronizing World Equipment"
+      },
+      "Progress": "Migrating World Data: {step} ({index} of {total})",
+      "Title": "Migrating World Data"
+    },
     "SHEETS": {
       "Accessory": "Crucible Accessory Sheet",
       "ActionBehavior": "Crucible Action Behavior Sheet",
@@ -1721,8 +1733,7 @@
     "Rules": "Crucible Rules",
     "Scaled": "Scaled",
     "Scaling": "Scaling",
-    "SendChatReadaloud": "Send to Chat",
-    "Syncing": "Synchronizing Talents & Spells"
+    "SendChatReadaloud": "Send to Chat"
   },
   "CURRENCY_DENOMINATIONS": {
     "CP": {

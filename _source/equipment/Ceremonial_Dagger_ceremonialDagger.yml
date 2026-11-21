@@ -14,7 +14,7 @@ system:
   properties:
     - ambush
   damageType: piercing
-  identifier: ceremonialDagger
+  identifier: talismanPiercing1
   invested: false
   description:
     public: >-

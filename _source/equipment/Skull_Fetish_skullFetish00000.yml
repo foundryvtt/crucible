@@ -13,7 +13,7 @@ system:
   equipped: false
   properties: []
   damageType: corruption
-  identifier: skullFetish
+  identifier: talismanCorruption1
   invested: false
   description:
     public: >-

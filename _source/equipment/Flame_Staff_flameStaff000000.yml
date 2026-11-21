@@ -2,7 +2,7 @@ name: Flame Staff
 type: weapon
 img: icons/weapons/staves/staff-engraved-red.webp
 system:
-  identifier: flameStaff
+  identifier: talismanFire2
   category: talisman2
   quantity: 1
   weight: 4

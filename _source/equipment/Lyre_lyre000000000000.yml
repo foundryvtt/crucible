@@ -2,7 +2,7 @@ name: Lyre
 type: weapon
 img: icons/tools/instruments/harp-red.webp
 system:
-  identifier: lyre
+  identifier: talismanPsychic1
   category: talisman1
   quantity: 1
   weight: 2

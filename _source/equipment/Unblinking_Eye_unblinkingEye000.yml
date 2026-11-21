@@ -2,7 +2,7 @@ name: Unblinking Eye
 type: weapon
 img: icons/commodities/biological/eye-purple.webp
 system:
-  identifier: unblinkingEye
+  identifier: talismanVoid1
   category: talisman1
   quantity: 1
   weight: 1

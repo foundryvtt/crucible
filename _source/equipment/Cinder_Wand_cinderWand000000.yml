@@ -2,7 +2,7 @@ name: Cinder Wand
 type: weapon
 img: icons/weapons/wands/wand-carved-fire.webp
 system:
-  identifier: cinderWand
+  identifier: talismanFire1
   category: talisman1
   quantity: 1
   weight: 1

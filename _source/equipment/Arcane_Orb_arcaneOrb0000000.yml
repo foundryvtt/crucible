@@ -14,7 +14,7 @@ system:
   properties:
     - versatile
   damageType: electricity
-  identifier: arcaneOrb
+  identifier: talismanElectricity1
   invested: false
   description:
     public: >-

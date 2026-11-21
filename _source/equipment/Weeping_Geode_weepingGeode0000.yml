@@ -2,7 +2,7 @@ name: Weeping Geode
 type: weapon
 img: icons/commodities/stone/geode-raw-green.webp
 system:
-  identifier: weepingGeode
+  identifier: talismanAcid1
   category: talisman1
   quantity: 1
   weight: 2

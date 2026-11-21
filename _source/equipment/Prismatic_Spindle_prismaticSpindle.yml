@@ -2,7 +2,7 @@ name: Prismatic Spindle
 type: weapon
 img: icons/weapons/staves/staff-orante-gold.webp
 system:
-  identifier: prismaticSpindle
+  identifier: talismanRadiant2
   category: talisman2
   quantity: 1
   weight: 4

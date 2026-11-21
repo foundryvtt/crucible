@@ -2,7 +2,7 @@ name: Rime Crystal
 type: weapon
 img: icons/commodities/gems/gem-shattered-blue.webp
 system:
-  identifier: rimeCrystal
+  identifier: talismanCold1
   category: talisman1
   quantity: 1
   weight: 1
