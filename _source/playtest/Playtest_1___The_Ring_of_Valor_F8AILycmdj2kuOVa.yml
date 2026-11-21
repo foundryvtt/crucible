@@ -402,7 +402,7 @@ actors:
                 type: movement
                 number: 1
                 limit: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Tusk Charge
@@ -421,9 +421,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
                   duration:
                     value: null
                     units: ''
@@ -1467,7 +1467,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Grappled
@@ -1491,9 +1491,9 @@ actors:
                     summons: []
                     changes: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
                 - name: Grappling
                   scope: 1
                   result:
@@ -1515,9 +1515,9 @@ actors:
                     summons: []
                     changes: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - difficult
                 - harmless
@@ -1745,13 +1745,13 @@ actors:
             dexterity: 4
           talents:
             - item: Compendium.crucible.talent.Item.flurry0000000000
-              level: null
+              level: 1
             - item: Compendium.crucible.talent.Item.skirmisher000000
               level: 3
             - item: Compendium.crucible.talent.Item.lunge00000000000
-              level: null
+              level: 0
             - item: Compendium.crucible.talent.Item.dualWield0000000
-              level: null
+              level: 0
             - item: Compendium.crucible.talent.Item.defensiveroll000
               level: 2
             - item: Compendium.crucible.talent.Item.subtleextricatio
@@ -1759,11 +1759,17 @@ actors:
             - item: Compendium.crucible.talent.Item.feintingstrike00
               level: 2
             - item: Compendium.crucible.talent.Item.weakpoints000000
-              level: 1
+              level: 0
             - item: Compendium.crucible.talent.Item.strikefirst00000
               level: 1
             - item: Compendium.crucible.talent.Item.deftgrip00000000
               level: 3
+            - item: Compendium.crucible.talent.Item.counterevade0000
+              level: 3
+            - item: Compendium.crucible.talent.Item.bloodletter00000
+              level: 4
+            - item: Compendium.crucible.talent.Item.harrier000000000
+              level: 4
           identifier: skirmisher
           training:
             athletics: 2
@@ -1776,7 +1782,19 @@ actors:
             projectile: 2
             armor: 1
           spells: []
-          equipment: []
+          equipment:
+            - item: Compendium.crucible.equipment.Item.handAxe000000000
+              quantity: 2
+              equipped: true
+              autoScale: true
+            - item: Compendium.crucible.equipment.Item.studdedLeatherAr
+              quantity: 1
+              equipped: true
+              autoScale: true
+            - item: Compendium.crucible.equipment.Item.shortbow00000000
+              quantity: 1
+              equipped: false
+              autoScale: true
           name: Skirmisher
           img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
         taxonomy:
@@ -1787,6 +1805,10 @@ actors:
             relentless struggle of a harsh northern clime. Your people are known
             for their strength and resilience above all else.</p>
           identifier: orc
+          movement:
+            size: 4
+            stride: 10
+            heightRatio: 1.5
           category: humanoid
           abilities:
             wisdom: 1
@@ -1796,37 +1818,37 @@ actors:
             toughness: 3
             dexterity: 1
           resistances:
+            acid:
+              value: 0
+              immune: false
             bludgeoning:
               value: 0
+              immune: false
+            cold:
+              value: 1
               immune: false
             corruption:
               value: 0
               immune: false
-            piercing:
-              value: 0
-              immune: false
-            slashing:
-              value: 0
-              immune: false
-            poison:
-              value: 0
-              immune: false
-            acid:
+            electricity:
               value: 0
               immune: false
             fire:
               value: -1
               immune: false
-            cold:
-              value: 1
+            piercing:
+              value: 0
               immune: false
-            electricity:
+            poison:
               value: 0
               immune: false
             psychic:
               value: 0
               immune: false
             radiant:
+              value: 0
+              immune: false
+            slashing:
               value: 0
               immune: false
             void:
@@ -1840,10 +1862,6 @@ actors:
           talents:
             - item: Compendium.crucible.ancestry.Item.orcLineage000000
               level: null
-          movement:
-            size: 4
-            stride: 10
-            heightRatio: 1.5
           equipment: []
           name: Orc
           img: icons/creatures/magical/construct-iron-stomping-yellow.webp
@@ -2162,7 +2180,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 multiple: 2
                 self: false
               effects: []
@@ -2224,7 +2242,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Hamstring
@@ -2248,9 +2266,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               name: Hamstring
               img: icons/skills/melee/strike-axe-blood-red.webp
               range:
@@ -2454,7 +2472,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -2558,7 +2576,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Feinting Strike
@@ -2786,8 +2804,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -2857,6 +2875,245 @@ actors:
           duplicateSource: null
           exportSource: null
         _id: m2JDltYXjcxJu9YP
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - _id: counterevade0000
+        name: Counter Evade
+        type: talent
+        img: icons/skills/melee/maneuver-greatsword-yellow.webp
+        effects: []
+        flags:
+          core: {}
+        system:
+          description: >-
+            <p>You are practiced in evasive fighting styles which use an enemy's
+            missed attack to devise an opening to counter-attack.</p>
+          actions:
+            - id: counterEvade
+              name: Counter Evade
+              img: icons/skills/melee/maneuver-greatsword-yellow.webp
+              condition: You Dodge an incoming melee Strike.
+              description: >-
+                <p>When you defend against a melee attack with a
+                @Rule[defense.dodge], you may expend @Rule[resource.focus] to
+                retaliate with a reduced-cost <strong>Strike</strong> using your
+                mainhand weapon.</p>
+              tags:
+                - reaction
+                - melee
+              cost:
+                action: -1
+                focus: 1
+                weapon: true
+                heroism: 0
+                hands: 0
+              target:
+                type: single
+                number: 1
+                scope: 4
+                self: false
+              effects: []
+              range:
+                maximum: 1
+                weapon: true
+                minimum: null
+              summon: null
+              persistRegion: false
+              regionBehavior: null
+          keywords:
+            - playstyle.melee
+            - defense.dodge
+            - action.reaction
+          nodes:
+            - dex2c
+          iconicSpells: 0
+          training: light
+          spellcraft: ''
+          requirements:
+            training: {}
+        _stats:
+          systemId: crucible
+          systemVersion: 0.11.3
+          coreVersion: '14.370'
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.counterevade0000
+          duplicateSource: null
+          exportSource: null
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Hand Axe
+        type: weapon
+        img: icons/weapons/axes/axe-broad-engraved.webp
+        effects: []
+        flags: {}
+        system:
+          category: balanced1
+          quantity: 1
+          weight: 2
+          price: 160
+          quality: standard
+          enchantment: mundane
+          equipped: false
+          properties:
+            - thrown
+            - intuitive
+          description:
+            public: >-
+              <p>Compact and deadly, the hand axe is a one-handed chopper with a
+              short haft and sharp blade, ideal for throwing or close-quarters
+              strikes where speed outmatches reach.</p>
+            private: ''
+          damageType: slashing
+          broken: false
+          identifier: handAxe
+          invested: false
+          actions: []
+          dropped: false
+          slot: 0
+        _stats:
+          compendiumSource: Compendium.crucible.equipment.Item.handAxe000000000
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: handAxe000000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Hand Axe
+        type: weapon
+        img: icons/weapons/axes/axe-broad-engraved.webp
+        effects: []
+        flags: {}
+        system:
+          category: balanced1
+          quantity: 1
+          weight: 2
+          price: 160
+          quality: standard
+          enchantment: mundane
+          equipped: false
+          properties:
+            - thrown
+            - intuitive
+          description:
+            public: >-
+              <p>Compact and deadly, the hand axe is a one-handed chopper with a
+              short haft and sharp blade, ideal for throwing or close-quarters
+              strikes where speed outmatches reach.</p>
+            private: ''
+          damageType: slashing
+          broken: false
+          identifier: handAxe
+          invested: false
+          actions: []
+          dropped: false
+          slot: 0
+        _stats:
+          compendiumSource: Compendium.crucible.equipment.Item.handAxe000000000
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: handAxe000000001
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Studded Leather Armor
+        type: armor
+        img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
+        effects: []
+        flags: {}
+        system:
+          category: light
+          quantity: 1
+          weight: 16
+          price: 640
+          quality: standard
+          enchantment: mundane
+          equipped: true
+          properties: []
+          description:
+            public: >-
+              <p>A base of leather reinforced with small metal studs or riveted
+              plates, this armor strikes a balance between mobility and modest
+              protection against slashes.</p>
+            private: ''
+          armor:
+            base: 8
+          broken: false
+          identifier: studdedLeatherArmor
+          invested: false
+          actions: []
+        _stats:
+          compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: studdedLeatherAr
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Shortbow
+        type: weapon
+        img: icons/weapons/bows/shortbow-leather.webp
+        effects: []
+        flags: {}
+        system:
+          category: projectile2
+          quantity: 1
+          weight: 2
+          price: 240
+          quality: standard
+          enchantment: mundane
+          equipped: false
+          properties: []
+          description:
+            public: >-
+              <p>Compact and quick to draw, the shortbow excels in rapid,
+              close-quarters archery and skirmishes, favored by scouts, hunters,
+              and swift-footed raiders.</p>
+            private: ''
+          damageType: piercing
+          broken: false
+          identifier: shortbow
+          invested: false
+          actions: []
+          dropped: false
+          slot: 0
+        _stats:
+          compendiumSource: Compendium.crucible.equipment.Item.shortbow00000000
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: shortbow00000000
         folder: null
         sort: 0
         ownership:
@@ -2971,46 +3228,50 @@ actors:
             are most known for a genetic predisposition toward determination,
             with traditions that drive a stubborn will to survive.</p>
           identifier: human
+          movement:
+            size: 4
+            stride: 10
+            heightRatio: 1.5
           category: humanoid
           abilities:
             wisdom: 1
-            presence: 4
+            presence: 3
             intellect: 1
-            strength: 1
-            toughness: 4
-            dexterity: 1
+            strength: 2
+            toughness: 3
+            dexterity: 2
           resistances:
-            bludgeoning:
-              value: 0
-              immune: false
-            corruption:
-              value: 0
-              immune: false
-            piercing:
-              value: 0
-              immune: false
-            slashing:
-              value: 0
-              immune: false
-            poison:
-              value: 0
-              immune: false
             acid:
               value: 0
               immune: false
-            fire:
+            bludgeoning:
               value: 0
               immune: false
             cold:
               value: 0
               immune: false
+            corruption:
+              value: 0
+              immune: false
             electricity:
+              value: 0
+              immune: false
+            fire:
+              value: 0
+              immune: false
+            piercing:
+              value: 0
+              immune: false
+            poison:
               value: 0
               immune: false
             psychic:
               value: 0
               immune: false
             radiant:
+              value: 0
+              immune: false
+            slashing:
               value: 0
               immune: false
             void:
@@ -3024,10 +3285,6 @@ actors:
           talents:
             - item: Compendium.crucible.ancestry.Item.humanLineage0000
               level: null
-          movement:
-            size: 4
-            stride: 10
-            heightRatio: 1.5
           equipment: []
           name: Human
           img: icons/skills/social/diplomacy-handshake.webp
@@ -3076,13 +3333,13 @@ actors:
           immune: false
       resources:
         health:
-          value: 80
+          value: 76
         morale:
-          value: 100
+          value: 92
         action:
           value: 10
         focus:
-          value: 9
+          value: 8
         heroism:
           value: 0
         wounds:
@@ -3201,7 +3458,7 @@ actors:
           equipped: true
           properties: []
           damageType: corruption
-          identifier: skullFetish
+          identifier: talismanCorruption1
           invested: false
           description:
             public: >-
@@ -3667,9 +3924,9 @@ actors:
             personality, and mental health.</p><p>The <strong>Soul</strong> rune
             scales using @Rule[ability.presence] and provides
             <strong>Restoration</strong> of @Rule[resource.morale]. In special
-            circumstances it may be used to inflict <strong>Psychic</strong>
-            damage opposed by @Rule[defense.willpower]. It is opposed by the
-            chaotic rune of <strong>Oblivion</strong>.</p>
+            circumstances it may be used to inflict <strong>Void</strong> damage
+            opposed by @Rule[defense.willpower]. It is opposed by the chaotic
+            rune of <strong>Oblivion</strong>.</p>
           actions:
             - id: evoke
               img: icons/magic/light/projectile-halo-teal.webp
@@ -3847,7 +4104,7 @@ actors:
             - blocking
           damageType: bludgeoning
           slot: 2
-          identifier: grimoire
+          identifier: talismanBludgeoning1
           invested: false
           description:
             public: >-
@@ -3978,7 +4235,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Hexed
@@ -4002,9 +4259,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - talisman
                 - ranged
@@ -4179,8 +4436,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -4353,8 +4610,8 @@ actors:
             temperature: ''
           movement:
             size: 4
-            stride: 8
             heightRatio: 1.5
+            stride: 8
           talents:
             - item: Compendium.crucible.adversary-talents.Item.restlessDead0000
               level: null
@@ -4625,7 +4882,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Precision Shot
@@ -4804,7 +5061,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -4899,37 +5156,83 @@ actors:
       details:
         archetype:
           description: >-
-            Hardened melee combatants expert at weilding one-handed weaponry,
+            Hardened melee combatants expert at wielding one-handed weaponry,
             shield, and heavy armor.
           abilities:
-            wisdom: 1
-            presence: 1
+            wisdom: 0
+            presence: 2
             intellect: 1
-            strength: 3
+            strength: 4
             toughness: 3
-            dexterity: 3
+            dexterity: 2
           talents:
             - item: Compendium.crucible.talent.Item.armoredefficienc
-              level: null
+              level: 0
+            - item: Compendium.crucible.talent.Item.bulwark000000000
+              level: 0
+            - item: Compendium.crucible.talent.Item.heavyStrike00000
+              level: 0
+            - item: Compendium.crucible.talent.Item.holdfast00000000
+              level: 2
+            - item: Compendium.crucible.talent.Item.intimidator00000
+              level: 1
             - item: Compendium.crucible.talent.Item.legsweep00000000
               level: 1
-            - item: Compendium.crucible.talent.Item.heavyStrike00000
-              level: null
-            - item: Compendium.crucible.talent.Item.bulwark000000000
-              level: null
+            - item: Compendium.crucible.talent.Item.shieldBash000000
+              level: 1
+            - item: Compendium.crucible.talent.Item.powerfulphysique
+              level: 2
+            - item: Compendium.crucible.talent.Item.shieldcharge0000
+              level: 2
+            - item: Compendium.crucible.talent.Item.testudo000000000
+              level: 4
+            - item: Compendium.crucible.talent.Item.cadence000000000
+              level: 4
+            - item: Compendium.crucible.talent.Item.counterstrike000
+              level: 3
+            - item: Compendium.crucible.talent.Item.headbutt00000000
+              level: 3
+            - item: Compendium.crucible.talent.Item.armoredShell0000
+              level: 3
+            - item: Compendium.crucible.talent.Item.berserkStrike000
+              level: 5
+            - item: Compendium.crucible.talent.Item.ironResolve00000
+              level: 4
+            - item: Compendium.crucible.talent.Item.sunderingstrike0
+              level: 6
+            - item: Compendium.crucible.talent.Item.adrenaline000000
+              level: 6
+            - item: Compendium.crucible.talent.Item.bloodfrenzy00000
+              level: 5
           identifier: fighter
           training:
             athletics: 1
             awareness: 1
-            intimidation: 1
+            medicine: 1
+            intimidation: 2
+            smithing: 0
             heavy: 3
             mechanical: 0
             shield: 3
-            armor: 3
-            smithing: 0
-            medicine: 1
+            armor: 2
           spells: []
-          equipment: []
+          equipment:
+            - item: Compendium.crucible.equipment.Item.towerShield00000
+              quantity: 1
+              equipped: true
+              autoScale: true
+            - item: Compendium.crucible.equipment.Item.battleAxe0000000
+              quantity: 1
+              equipped: true
+              autoScale: true
+            - item: Compendium.crucible.equipment.Item.spear00000000000
+              quantity: 1
+              equipped: false
+              autoScale: true
+            - item: Compendium.crucible.equipment.Item.splintMail000000
+              quantity: 1
+              equipped: true
+              autoScale: true
           name: Fighter
           img: icons/skills/melee/sword-shield-stylized-white.webp
         taxonomy:
@@ -4991,8 +5294,8 @@ actors:
             temperature: ''
           movement:
             size: 4
-            stride: 8
             heightRatio: 1.5
+            stride: 8
           talents:
             - item: Compendium.crucible.adversary-talents.Item.restlessDead0000
               level: null
@@ -5047,7 +5350,7 @@ actors:
         health:
           value: 18
         morale:
-          value: 6
+          value: 8
         action:
           value: 4
         focus:
@@ -5207,7 +5510,7 @@ actors:
           price: 320
           quality: standard
           enchantment: mundane
-          equipped: true
+          equipped: false
           properties:
             - reach
             - versatile
@@ -5347,7 +5650,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Leg Sweep
@@ -5366,9 +5669,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
                   duration:
                     value: null
                     units: ''
@@ -5489,7 +5792,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -5587,6 +5890,342 @@ actors:
           duplicateSource: null
           exportSource: null
         _id: heavyStrike00000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Intimidator
+        type: talent
+        _id: intimidator00000
+        img: icons/magic/death/skull-humanoid-crown-white-blue.webp
+        system:
+          description: >-
+            You specialize in exerting your intimidating presence to break the
+            morale of your foes.
+          actions:
+            - id: intimidate
+              name: Intimidate
+              description: >-
+                <p>You bring your intimidating presence to bear upon an enemy
+                within 30 feet, performing an @Rule[skill.intimidation]
+                @Rule[action.skill] attack against your target's passive
+                @Rule[skill.intimidation] defense. On a success, they sustain
+                @Rule[action.void] damage to their @Rule[resource.morale].</p>
+              tags:
+                - void
+                - morale
+                - skill
+                - intimidation
+              cost:
+                action: 1
+                focus: 1
+                heroism: 0
+                weapon: false
+                hands: 0
+              target:
+                type: single
+                number: 1
+                scope: 4
+                self: false
+              effects: []
+              img: icons/magic/death/skull-humanoid-crown-white-blue.webp
+              condition: ''
+              range:
+                minimum: null
+                maximum: 30
+                weapon: false
+              summon: null
+              persistRegion: false
+              regionBehavior: null
+          keywords:
+            - target.morale
+            - damageType.void
+            - skill.intimidation
+          nodes:
+            - pre0a
+          iconicSpells: 0
+          training: intimidation
+          spellcraft: ''
+          requirements:
+            training: {}
+        effects: []
+        flags: {}
+        _stats:
+          systemId: crucible
+          systemVersion: 0.11.3
+          coreVersion: '14.370'
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.intimidator00000
+          duplicateSource: null
+          exportSource: null
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Shield Bash
+        type: talent
+        img: icons/skills/melee/shield-block-bash-blue.webp
+        system:
+          description: >-
+            <p>You are practiced at fighting with shield, using it to slam into
+            and unbalance your foes.</p>
+          actions:
+            - id: shieldBash
+              name: Shield Bash
+              img: icons/skills/melee/shield-block-bash-blue.webp
+              condition: ''
+              description: >-
+                <p>Following a basic @Action[default strike] with your mainhand
+                weapon, you <strong>Strike</strong> with your shield, causing
+                the @Condition[staggered] condition for <strong>1
+                Round</strong>.</p>
+              cost:
+                action: 0
+                focus: 0
+                heroism: 0
+                hands: 0
+                weapon: true
+              range:
+                minimum: null
+                maximum: null
+                weapon: true
+              target:
+                type: single
+                number: 1
+                scope: 4
+                self: false
+              effects:
+                - name: Shield Bash
+                  scope: 3
+                  result:
+                    type: success
+                    all: false
+                  statuses:
+                    - staggered
+                  duration:
+                    value: 1
+                    units: rounds
+                    expiry: turnEnd
+                    expired: false
+                  system:
+                    changes: []
+                    dot: []
+                    maintenance:
+                      cost: null
+                      hands: 0
+                    regions: []
+                    summons: []
+                    properties: []
+                    effects: []
+                    lights: []
+                    suppression: {}
+              tags:
+                - shield
+                - afterStrike
+                - offhand
+              summon: null
+              persistRegion: false
+              regionBehavior: null
+          iconicSpells: 0
+          training: shield
+          keywords:
+            - playstyle.melee
+            - weapon.shield
+          nodes:
+            - tou0b
+          spellcraft: ''
+          requirements:
+            training: {}
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.shieldBash000000
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: shieldBash000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Tower Shield
+        type: weapon
+        img: icons/equipment/shield/wardoor-wooden-boss-brown.webp
+        effects: []
+        flags:
+          core: {}
+        system:
+          category: shieldHeavy
+          quantity: 1
+          weight: 12
+          price: 960
+          quality: standard
+          enchantment: mundane
+          equipped: true
+          properties:
+            - blocking
+            - engaging
+            - oversized
+          description:
+            public: >-
+              <p>A massive, rectangular wall of wood and metal, the tower shield
+              turns its bearer into a walking fortress, ideal for holding choke
+              points—but at the cost of speed and vision.</p>
+            private: ''
+          damageType: bludgeoning
+          broken: false
+          identifier: towerShield
+          invested: false
+          actions: []
+          dropped: false
+          slot: 0
+        _stats:
+          compendiumSource: Compendium.crucible.equipment.Item.towerShield00000
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: towerShield00000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Battle Axe
+        type: weapon
+        img: icons/weapons/axes/axe-battle-black.webp
+        effects: []
+        flags: {}
+        system:
+          category: heavy1
+          quantity: 1
+          weight: 4
+          price: 320
+          quality: standard
+          enchantment: mundane
+          equipped: true
+          properties:
+            - versatile
+          description:
+            public: >-
+              <p>A heavy, crescent-bladed weapon built for cleaving through
+              armor and bone alike. Its haft is marked from countless blows.
+              This weapon can be gripped either in one hand or two. </p>
+            private: ''
+          damageType: slashing
+          broken: false
+          identifier: battleAxe
+          invested: false
+          actions: []
+          dropped: false
+          slot: 0
+        _stats:
+          compendiumSource: Compendium.crucible.equipment.Item.battleAxe0000000
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: battleAxe0000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Spear
+        type: weapon
+        img: icons/weapons/polearms/spear-flared-blue.webp
+        effects: []
+        flags: {}
+        system:
+          category: balanced1
+          quantity: 1
+          weight: 4
+          price: 320
+          quality: standard
+          enchantment: mundane
+          equipped: false
+          properties:
+            - reach
+            - versatile
+          description:
+            public: >-
+              <p>A weapon of reach and rhythm, the spear features a long shaft
+              tipped with steel, perfect for holding the line or launching with
+              deadly force from behind a shield wall.</p>
+            private: ''
+          damageType: piercing
+          broken: false
+          identifier: spear
+          invested: false
+          actions: []
+          dropped: false
+          slot: 0
+        _stats:
+          compendiumSource: Compendium.crucible.equipment.Item.spear00000000000
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: spear00000000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Splint Mail
+        type: armor
+        img: icons/equipment/chest/breastplate-layered-steel-black.webp
+        effects: []
+        flags: {}
+        system:
+          category: heavy
+          quantity: 1
+          weight: 40
+          price: 4800
+          quality: standard
+          enchantment: mundane
+          equipped: true
+          properties:
+            - bulky
+          description:
+            public: >-
+              <p>A layer of vertical metal strips riveted to a backing of
+              leather or mail, splint armor offers strong limb protection while
+              sacrificing some flexibility.</p>
+            private: ''
+          armor:
+            base: 16
+          broken: false
+          identifier: splintMail
+          invested: false
+          actions: []
+        _stats:
+          compendiumSource: Compendium.crucible.equipment.Item.splintMail000000
+          coreVersion: '14.370'
+          systemId: crucible
+          systemVersion: 0.11.3
+          createdTime: null
+          modifiedTime: null
+          lastModifiedBy: null
+          duplicateSource: null
+          exportSource: null
+        _id: splintMail000000
         folder: null
         sort: 0
         ownership:
@@ -6147,7 +6786,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               img: icons/magic/death/skull-humanoid-crown-white-blue.webp
@@ -6433,9 +7072,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               img: icons/magic/unholy/silhouette-evil-horned-giant.webp
               range:
                 minimum: null
@@ -6614,7 +7253,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Pouncing Strike
@@ -6632,10 +7271,10 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     properties: []
                     suppression: {}
-                    effects: []
                   duration:
                     value: null
                     units: ''
@@ -6900,8 +7539,8 @@ actors:
             temperature: ''
           movement:
             size: 5
-            stride: 10
             heightRatio: 1.5
+            stride: 10
           identifier: harbinger
           equipment: []
           name: Harbinger
@@ -7708,8 +8347,8 @@ actors:
             temperature: ''
           movement:
             size: 5
-            stride: 10
             heightRatio: 1.5
+            stride: 10
           identifier: harbinger
           equipment: []
           name: Harbinger
@@ -8235,8 +8874,8 @@ actors:
             temperature: ''
           movement:
             size: 5
-            stride: 10
             heightRatio: 1.5
+            stride: 10
           identifier: harbinger
           equipment: []
           name: Harbinger
@@ -8947,7 +9586,7 @@ actors:
         _id: 5HWc3RX8F46IJt9g
         img: icons/weapons/staves/staff-engraved-red.webp
         system:
-          identifier: flameStaff
+          identifier: talismanFire2
           category: talisman2
           quantity: 1
           weight: 4
@@ -9227,7 +9866,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               img: icons/skills/social/peace-luck-insult.webp
@@ -9324,13 +9963,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.refocus000000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.refocus000000000
           duplicateSource: null
           exportSource: null
         _id: refocus000000000
@@ -9408,13 +10047,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: null
-          modifiedTime: null
           lastModifiedBy: null
+          modifiedTime: null
+          createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
           duplicateSource: null
           exportSource: null
         _id: runeFlame0000000
@@ -9450,9 +10089,9 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -9525,8 +10164,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -9566,7 +10205,7 @@ actors:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.sqTUaPrXpwCzk3xs
       duplicateSource: null
       exportSource: null
     _id: sqTUaPrXpwCzk3xs
@@ -10214,13 +10853,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -10261,7 +10900,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               range:
@@ -10282,13 +10921,13 @@ actors:
           requirements:
             training: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
           duplicateSource: null
           exportSource: null
         _id: uppercut00000000
@@ -10324,12 +10963,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
           exportSource: null
@@ -10360,19 +10999,19 @@ actors:
           requirements:
             training: {}
         effects: []
+        folder: null
+        sort: 0
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.opportunisticspe
           duplicateSource: null
           exportSource: null
-        folder: null
-        sort: 0
         ownership:
           default: 0
       - name: Pyromancer
@@ -10406,9 +11045,9 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -10496,13 +11135,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeStorm0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.runeStorm0000000
           duplicateSource: null
           exportSource: null
         _id: runeStorm0000000
@@ -10556,7 +11195,8 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Spellblade
+      - folder: null
+        name: Spellblade
         type: talent
         img: icons/weapons/swords/sword-winged-pink.webp
         system:
@@ -10588,17 +11228,16 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.spellblade000000
           duplicateSource: null
           exportSource: null
         _id: spellblade000000
-        folder: null
         sort: 0
         ownership:
           default: 0
@@ -10633,13 +11272,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.gestureCone00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.gestureCone00000
           duplicateSource: null
           exportSource: null
         _id: gestureCone00000
@@ -10677,12 +11316,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.gesturestrike000
           duplicateSource: null
           exportSource: null
@@ -10745,13 +11384,13 @@ actors:
           requirements:
             training: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           modifiedTime: null
           lastModifiedBy: null
-          compendiumSource: Compendium.crucible.talent.Item.ruthlessmomentum
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.ruthlessmomentum
           duplicateSource: null
           exportSource: null
         folder: null
@@ -10960,7 +11599,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Sundered Armor
@@ -10984,9 +11623,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               range:
                 maximum: null
                 weapon: true
@@ -11005,9 +11644,9 @@ actors:
           requirements:
             training: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -11044,13 +11683,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.secondSkin000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.secondSkin000000
           duplicateSource: null
           exportSource: null
         _id: secondSkin000000
@@ -11137,13 +11776,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.coldwork00000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.coldwork00000000
           duplicateSource: null
           exportSource: null
         _id: coldwork00000000
@@ -11726,8 +12365,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -11759,7 +12398,7 @@ actors:
         type: weapon
         img: icons/weapons/wands/wand-carved-fire.webp
         system:
-          identifier: cinderWand
+          identifier: talismanFire1
           category: talisman1
           quantity: 1
           weight: 1
@@ -11823,7 +12462,7 @@ actors:
               combatantId: h5BoLzXPp70rdtTJ
               tokenId: dADEtTB8iYFSmMKd
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.B40EKua2Q7zQ8CFZ
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
@@ -12297,7 +12936,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               img: icons/skills/social/peace-luck-insult.webp
@@ -12368,7 +13007,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -12485,7 +13124,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Sneaking
@@ -12508,9 +13147,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - harmless
                 - subtle
@@ -12577,7 +13216,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Backstab
@@ -12600,12 +13239,12 @@ actors:
           requirements:
             training: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.backstab00000000
           duplicateSource: null
           exportSource: null
@@ -12685,7 +13324,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               range:
@@ -12707,12 +13346,12 @@ actors:
           requirements:
             training: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.counterevade0000
           duplicateSource: null
           exportSource: null
@@ -12744,12 +13383,12 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
           duplicateSource: null
           exportSource: null
@@ -12780,12 +13419,12 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.strikefirst00000
           duplicateSource: null
           exportSource: null
@@ -12836,7 +13475,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -12863,13 +13502,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.volatileAccelera
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.volatileAccelera
           duplicateSource: null
           exportSource: null
         _id: volatileAccelera
@@ -12931,13 +13570,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.rapidCountermeas
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.rapidCountermeas
           duplicateSource: null
           exportSource: null
         _id: rapidCountermeas
@@ -12975,7 +13614,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Feinting Strike
@@ -13079,9 +13718,9 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13152,9 +13791,9 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -13225,13 +13864,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.interruptingDagg
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.interruptingDagg
           duplicateSource: null
           exportSource: null
         folder: null
@@ -13340,12 +13979,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.bloodletter00000
           duplicateSource: null
           exportSource: null
@@ -13468,13 +14107,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.wortcunning00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.wortcunning00000
           duplicateSource: null
           exportSource: null
         _id: wortcunning00000
@@ -13989,8 +14628,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -14052,7 +14691,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 multiple: 2
                 self: false
               effects: []
@@ -14108,7 +14747,7 @@ actors:
             messageId: NyMamjAxcFOXQ601
             combat: null
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.0crVYYsPvV9KDEJ2
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
@@ -14631,9 +15270,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - shield
                 - afterStrike
@@ -14699,7 +15338,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               img: icons/magic/death/skull-humanoid-crown-white-blue.webp
@@ -14789,13 +15428,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
           duplicateSource: null
           exportSource: null
         _id: heavyStrike00000
@@ -14830,13 +15469,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
           exportSource: null
         _id: bulwark000000000
@@ -14898,9 +15537,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               range:
                 maximum: null
                 weapon: false
@@ -15010,13 +15649,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
           duplicateSource: null
           exportSource: null
         _id: runeKinesis00000
@@ -15167,9 +15806,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               name: Rallying Cry
               img: icons/creatures/abilities/mouth-teeth-human.webp
               condition: ''
@@ -15195,13 +15834,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.rallyingCry00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.rallyingCry00000
           duplicateSource: null
           exportSource: null
         _id: rallyingCry00000
@@ -15305,9 +15944,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               img: icons/magic/death/skull-horned-worn-fire-blue.webp
               condition: ''
               range:
@@ -15334,12 +15973,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.dreadlord0000000
           duplicateSource: null
           exportSource: null
@@ -15409,12 +16048,12 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.testudo000000000
           duplicateSource: null
           exportSource: null
@@ -15454,12 +16093,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.gestureward00000
           duplicateSource: null
           exportSource: null
@@ -15494,9 +16133,9 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -15539,7 +16178,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               range:
@@ -15563,12 +16202,12 @@ actors:
           requirements:
             training: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.counterstrike000
           duplicateSource: null
           exportSource: null
@@ -15604,13 +16243,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.armoredShell0000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.armoredShell0000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -15643,13 +16282,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.impenetrableGuar
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.impenetrableGuar
           duplicateSource: null
           exportSource: null
         _id: impenetrableGuar
@@ -15758,9 +16397,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               img: icons/skills/melee/shield-block-fire-orange.webp
               range:
                 minimum: null
@@ -16054,9 +16693,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - consume
                 - healing
@@ -16167,7 +16806,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Grudge
@@ -16191,8 +16830,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags:
                 - harmless
               summon: null
@@ -16230,7 +16869,7 @@ actors:
             messageId: ZfRfKtaLHVQCCPW2
             combat: null
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.iLUfMcYjAbZFY4CJ
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
@@ -16703,7 +17342,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -16891,7 +17530,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Marked
@@ -16915,9 +17554,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               name: Mark Prey
               img: icons/skills/targeting/crosshair-mark-rough-pink.webp
               condition: ''
@@ -16944,13 +17583,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.markprey00000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.markprey00000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -16986,13 +17625,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.weakpoints000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.weakpoints000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -17125,12 +17764,12 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.evasiveshot00000
           duplicateSource: null
           exportSource: null
@@ -17193,9 +17832,9 @@ actors:
           requirements:
             training: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -17241,12 +17880,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.arcanearcher0000
           duplicateSource: null
           exportSource: null
@@ -17329,13 +17968,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
           duplicateSource: null
           exportSource: null
         _id: runeFrost0000000
@@ -17412,13 +18051,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.forensicreconstr
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.forensicreconstr
           duplicateSource: null
           exportSource: null
         _id: forensicreconstr
@@ -17490,12 +18129,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
           exportSource: null
@@ -17650,13 +18289,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.fletchersMending
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.fletchersMending
           duplicateSource: null
           exportSource: null
         _id: fletchersMending
@@ -17694,7 +18333,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -17754,9 +18393,9 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -18264,8 +18903,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -18452,7 +19091,7 @@ actors:
               combatantId: KADxvoR1nun8GlDL
               tokenId: XFCfsXeGFVJ8Vb5s
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.2lvTCCOj4dnBI774
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
@@ -18881,9 +19520,9 @@ actors:
             personality, and mental health.</p><p>The <strong>Soul</strong> rune
             scales using @Rule[ability.presence] and provides
             <strong>Restoration</strong> of @Rule[resource.morale]. In special
-            circumstances it may be used to inflict <strong>Psychic</strong>
-            damage opposed by @Rule[defense.willpower]. It is opposed by the
-            chaotic rune of <strong>Oblivion</strong>.</p>
+            circumstances it may be used to inflict <strong>Void</strong> damage
+            opposed by @Rule[defense.willpower]. It is opposed by the chaotic
+            rune of <strong>Oblivion</strong>.</p>
           actions:
             - id: evoke
               img: icons/magic/light/projectile-halo-teal.webp
@@ -19031,13 +19670,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
           duplicateSource: null
           exportSource: null
         _id: runeFrost0000000
@@ -19083,13 +19722,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           duplicateSource: null
           exportSource: null
         _id: gesturecreate000
@@ -19134,7 +19773,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: ''
@@ -19158,9 +19797,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               img: icons/magic/control/mouth-smile-deception-purple.webp
               range:
                 minimum: null
@@ -19225,12 +19864,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
           duplicateSource: null
           exportSource: null
@@ -19335,9 +19974,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - talisman
                 - ranged
@@ -19396,12 +20035,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.conjurer00000000
           duplicateSource: null
           exportSource: null
@@ -19441,7 +20080,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -19582,9 +20221,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -19605,13 +20244,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.telekinetic00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.telekinetic00000
           duplicateSource: null
           exportSource: null
         _id: telekinetic00000
@@ -19698,13 +20337,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
           duplicateSource: null
           exportSource: null
         _id: runeKinesis00000
@@ -19807,9 +20446,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
                   duration:
                     value: null
                     units: ''
@@ -19892,13 +20531,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.gestureConjure00
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.gestureConjure00
           duplicateSource: null
           exportSource: null
         folder: null
@@ -19936,12 +20575,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.rimecaller000000
           duplicateSource: null
           exportSource: null
@@ -20221,7 +20860,7 @@ actors:
           category: flask
           quantity: 1
           weight: 1
-          price: 120
+          price: 6000
           quality: standard
           broken: false
           equipped: true
@@ -20229,7 +20868,10 @@ actors:
           properties:
             - stackable
           description:
-            public: <p>A surprisingly thin liquid that tastes earthy and herbal.</p>
+            public: >-
+              <p>A surprisingly thin, pale green liquid that tastes earthy and
+              herbal. It goes down smoothly, leaving a pleasant tingling
+              numbness across the tongue and down the throat.</p>
             private: ''
           actions:
             - id: omniglotDecoction
@@ -20237,10 +20879,10 @@ actors:
               img: >-
                 icons/consumables/potions/bottle-circular-corked-labeled-green.webp
               description: >-
-                <p>When consumed, this decoction affords the drinker the
-                fascinating ability to read, speak, and comprehend languages.
-                Its quality determines the duration of the
-                effect:</p><ul><li><p><strong>Shoddy</strong> - 10
+                <p>The drinker can read any written language and converse
+                fluently in languages that can be spoken aloud. The decoction's
+                quality determines the duration of this
+                effect:</p><ul><li><p><strong>Shoddy</strong> - 15
                 minutes</p></li><li><p><strong>Standard</strong> - 1
                 hour</p></li><li><p><strong>Fine</strong> - 4
                 hours</p></li><li><p><strong>Superior</strong> - 12
@@ -20271,7 +20913,7 @@ actors:
                     all: false
                   statuses: []
                   duration:
-                    value: 0
+                    value: 60
                     units: minutes
                     expiry: null
                     expired: false
@@ -20283,12 +20925,13 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     properties: []
                     suppression: {}
-                    effects: []
               tags:
                 - consume
+                - qualityDuration
               persistRegion: false
               regionBehavior: null
           uses:
@@ -20393,9 +21036,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - consume
                 - rallying
@@ -20566,13 +21209,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.assessResolve000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.assessResolve000
           duplicateSource: null
           exportSource: null
         _id: assessResolve000
@@ -20639,8 +21282,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -20683,7 +21326,7 @@ actors:
           properties:
             - versatile
           damageType: electricity
-          identifier: arcaneOrb
+          identifier: talismanElectricity1
           invested: false
           description:
             public: >-
@@ -20728,7 +21371,7 @@ actors:
             - blocking
           damageType: bludgeoning
           slot: 2
-          identifier: grimoire
+          identifier: talismanBludgeoning1
           invested: false
           description:
             public: >-
@@ -21022,7 +21665,7 @@ actors:
             messageId: t3WM9HAg9PzUI3c7
             combat: null
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.lP2MOJyk5oHs6oSS
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
@@ -21552,7 +22195,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Precision Shot
@@ -21619,13 +22262,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           duplicateSource: null
           exportSource: null
         _id: gestureray000000
@@ -21692,13 +22335,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
           duplicateSource: null
           exportSource: null
         _id: wildspeaker00000
@@ -21710,7 +22353,7 @@ actors:
         type: weapon
         img: icons/equipment/neck/pendant-rough-copper-green.webp
         system:
-          identifier: primordialSeed
+          identifier: talismanPoison1
           category: talisman1
           quantity: 1
           weight: 1
@@ -21825,13 +22468,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.hearthwork000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.hearthwork000000
           duplicateSource: null
           exportSource: null
         _id: hearthwork000000
@@ -21869,9 +22512,9 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -21931,9 +22574,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - healing
                 - health
@@ -21988,17 +22631,17 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.healer0000000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.healer0000000000
           duplicateSource: null
           exportSource: null
-        _id: healer0000000000
         folder: null
+        _id: healer0000000000
         sort: 0
         ownership:
           default: 0
@@ -22066,10 +22709,10 @@ actors:
                       hands: 0
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     properties: []
                     suppression: {}
-                    effects: []
               img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
               condition: ''
               range:
@@ -22190,13 +22833,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.wildStrike000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.wildStrike000000
           duplicateSource: null
           exportSource: null
         _id: wildStrike000000
@@ -22272,13 +22915,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.feralBrawler0000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.feralBrawler0000
           duplicateSource: null
           exportSource: null
         _id: feralBrawler0000
@@ -22383,13 +23026,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
           duplicateSource: null
           exportSource: null
         _id: battleWorn000000
@@ -22428,13 +23071,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.slowSimmer000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.slowSimmer000000
           duplicateSource: null
           exportSource: null
         _id: slowSimmer000000
@@ -22516,13 +23159,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeControl00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.runeControl00000
           duplicateSource: null
           exportSource: null
         _id: runeControl00000
@@ -22556,12 +23199,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
           duplicateSource: null
           exportSource: null
@@ -22602,13 +23245,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.gestureSurge0000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.gestureSurge0000
           duplicateSource: null
           exportSource: null
         _id: gestureSurge0000
@@ -22627,9 +23270,9 @@ actors:
             personality, and mental health.</p><p>The <strong>Soul</strong> rune
             scales using @Rule[ability.presence] and provides
             <strong>Restoration</strong> of @Rule[resource.morale]. In special
-            circumstances it may be used to inflict <strong>Psychic</strong>
-            damage opposed by @Rule[defense.willpower]. It is opposed by the
-            chaotic rune of <strong>Oblivion</strong>.</p>
+            circumstances it may be used to inflict <strong>Void</strong> damage
+            opposed by @Rule[defense.willpower]. It is opposed by the chaotic
+            rune of <strong>Oblivion</strong>.</p>
           actions:
             - id: evoke
               img: icons/magic/light/projectile-halo-teal.webp
@@ -22689,13 +23332,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
           duplicateSource: null
           exportSource: null
         _id: runeSoul00000000
@@ -23029,8 +23672,8 @@ actors:
                           regions: []
                           summons: []
                           lights: []
-                          suppression: {}
                           effects: []
+                          suppression: {}
                     tags:
                       - reflex
                       - piercing
@@ -23219,8 +23862,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -23339,7 +23982,7 @@ actors:
             messageId: OhEmh4Wf2BjFDsk2
             combat: null
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.Il4NDaNBdHNcjJ9d
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
@@ -23754,7 +24397,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Grappled
@@ -23778,9 +24421,9 @@ actors:
                     summons: []
                     changes: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
                 - name: Grappling
                   scope: 1
                   result:
@@ -23802,9 +24445,9 @@ actors:
                     summons: []
                     changes: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - difficult
                 - harmless
@@ -23942,7 +24585,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Hamstring
@@ -23966,9 +24609,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               name: Hamstring
               img: icons/skills/melee/strike-axe-blood-red.webp
               range:
@@ -24030,7 +24673,7 @@ actors:
               target:
                 type: single
                 number: 2
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Swipe
@@ -24122,13 +24765,13 @@ actors:
           requirements:
             training: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
           duplicateSource: null
           exportSource: null
         folder: null
@@ -24188,9 +24831,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
                   duration:
                     value: null
                     units: ''
@@ -24258,12 +24901,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
           duplicateSource: null
           exportSource: null
@@ -24401,13 +25044,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
           duplicateSource: null
           exportSource: null
         _id: battleWorn000000
@@ -24475,9 +25118,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - subtle
                 - healing
@@ -24492,13 +25135,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.lastStand0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.lastStand0000000
           duplicateSource: null
           exportSource: null
         _id: lastStand0000000
@@ -24529,9 +25172,9 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -24602,9 +25245,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               img: icons/magic/unholy/silhouette-evil-horned-giant.webp
               range:
                 minimum: null
@@ -24627,12 +25270,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.berserker0000000
           duplicateSource: null
           exportSource: null
@@ -24677,7 +25320,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Sundered Armor
@@ -24701,9 +25344,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               range:
                 maximum: null
                 weapon: true
@@ -24722,9 +25365,9 @@ actors:
           requirements:
             training: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -24804,7 +25447,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Executioner's Strike
@@ -24827,9 +25470,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               name: Executioner's Strike
               img: icons/skills/melee/strike-axe-blood-red.webp
               range:
@@ -24852,12 +25495,12 @@ actors:
         effects: []
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.executionersstri
           duplicateSource: null
           exportSource: null
@@ -24888,13 +25531,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.spellmute0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.spellmute0000000
           duplicateSource: null
           exportSource: null
         _id: spellmute0000000
@@ -24936,7 +25579,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: ''
@@ -24960,9 +25603,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - melee
                 - difficult
@@ -24986,13 +25629,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.headbutt00000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.headbutt00000000
           duplicateSource: null
           exportSource: null
         _id: headbutt00000000
@@ -25023,13 +25666,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.ironResolve00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.ironResolve00000
           duplicateSource: null
           exportSource: null
         _id: ironResolve00000
@@ -25058,13 +25701,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.adrenaline000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.adrenaline000000
           duplicateSource: null
           exportSource: null
         _id: adrenaline000000
@@ -25187,9 +25830,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - consume
                 - weakened
@@ -25637,8 +26280,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -25692,7 +26335,7 @@ actors:
               combatantId: 9OhW0GfLeDPN6scA
               tokenId: ml1efMTNhGS9kbqS
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.L0qEPpUQBZQPCxN3
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
@@ -26005,7 +26648,7 @@ actors:
         _id: 5HWc3RX8F46IJt9g
         img: icons/weapons/staves/staff-engraved-red.webp
         system:
-          identifier: flameStaff
+          identifier: talismanFire2
           category: talisman2
           quantity: 1
           weight: 4
@@ -26285,7 +26928,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               img: icons/skills/social/peace-luck-insult.webp
@@ -26382,13 +27025,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.refocus000000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.refocus000000000
           duplicateSource: null
           exportSource: null
         _id: refocus000000000
@@ -26466,13 +27109,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: null
-          modifiedTime: null
           lastModifiedBy: null
+          modifiedTime: null
+          createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
           duplicateSource: null
           exportSource: null
         _id: runeFlame0000000
@@ -26508,13 +27151,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           modifiedTime: null
           lastModifiedBy: null
           createdTime: null
+          compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
           exportSource: null
         _id: gesturearrow0000
@@ -26544,19 +27187,19 @@ actors:
           requirements:
             training: {}
         effects: []
+        folder: null
+        sort: 0
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.opportunisticspe
           duplicateSource: null
           exportSource: null
-        folder: null
-        sort: 0
         ownership:
           default: 0
       - name: Opportunist
@@ -26734,9 +27377,9 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
@@ -26819,12 +27462,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.pyromancer000000
           duplicateSource: null
           exportSource: null
@@ -26857,13 +27500,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.sorcerer00000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.sorcerer00000000
           duplicateSource: null
           exportSource: null
         _id: sorcerer00000000
@@ -26977,13 +27620,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.quickening000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.quickening000000
           duplicateSource: null
           exportSource: null
         _id: quickening000000
@@ -27136,13 +27779,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.kineturge0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.kineturge0000000
           duplicateSource: null
           exportSource: null
         _id: kineturge0000000
@@ -27179,19 +27822,19 @@ actors:
           requirements:
             training: {}
         effects: []
+        folder: null
+        sort: 0
         flags: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.gesturepulse0000
           duplicateSource: null
           exportSource: null
-        folder: null
-        sort: 0
         ownership:
           default: 0
       - name: 'Gesture: Blast'
@@ -27225,13 +27868,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.gestureBlast0000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.gestureBlast0000
           duplicateSource: null
           exportSource: null
         _id: gestureBlast0000
@@ -27608,9 +28251,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - consume
                 - weakened
@@ -27728,9 +28371,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - consume
                 - weakened
@@ -27910,8 +28553,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -27978,7 +28621,7 @@ actors:
               combatantId: IVxZ7pdZO88zAAQ7
               tokenId: L62zbZZ3PjGIAKO5
     _stats:
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.tCBBi3Kyc3M4KHGZ
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
@@ -28657,7 +29300,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               range:
@@ -28678,13 +29321,13 @@ actors:
           requirements:
             training: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
           duplicateSource: null
           exportSource: null
         _id: uppercut00000000
@@ -28755,8 +29398,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -28788,7 +29431,7 @@ actors:
         type: weapon
         img: icons/weapons/wands/wand-carved-fire.webp
         system:
-          identifier: cinderWand
+          identifier: talismanFire1
           category: talisman1
           quantity: 1
           weight: 1
@@ -28838,7 +29481,7 @@ actors:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9
       duplicateSource: null
       exportSource: null
     _id: iPMperuo6ZvBLnp9
@@ -29280,7 +29923,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               img: icons/skills/social/peace-luck-insult.webp
@@ -29351,7 +29994,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -29468,7 +30111,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Sneaking
@@ -29491,9 +30134,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - harmless
                 - subtle
@@ -29560,7 +30203,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Backstab
@@ -29694,8 +30337,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -29734,7 +30377,7 @@ actors:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.hfOaEbw4ObPXu6Qa
       duplicateSource: null
       exportSource: null
     _id: hfOaEbw4ObPXu6Qa
@@ -30233,9 +30876,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - shield
                 - afterStrike
@@ -30301,7 +30944,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               img: icons/magic/death/skull-humanoid-crown-white-blue.webp
@@ -30391,13 +31034,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
           duplicateSource: null
           exportSource: null
         _id: heavyStrike00000
@@ -30432,12 +31075,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
           exportSource: null
@@ -30500,9 +31143,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               range:
                 maximum: null
                 weapon: false
@@ -30571,7 +31214,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Grudge
@@ -30595,8 +31238,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags:
                 - harmless
               summon: null
@@ -30636,7 +31279,7 @@ actors:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.nPOVNsOFhqA7SUud
       duplicateSource: null
       exportSource: null
     _id: nPOVNsOFhqA7SUud
@@ -31070,7 +31713,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               tags:
@@ -31258,7 +31901,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Marked
@@ -31282,9 +31925,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               name: Mark Prey
               img: icons/skills/targeting/crosshair-mark-rough-pink.webp
               condition: ''
@@ -31498,8 +32141,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -31538,7 +32181,7 @@ actors:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.kSGFBe6ZaLDC8wRy
       duplicateSource: null
       exportSource: null
     _id: kSGFBe6ZaLDC8wRy
@@ -31873,7 +32516,7 @@ actors:
           properties:
             - versatile
           damageType: electricity
-          identifier: arcaneOrb
+          identifier: talismanElectricity1
           invested: false
           description:
             public: >-
@@ -31916,7 +32559,7 @@ actors:
             - blocking
           damageType: bludgeoning
           slot: 1
-          identifier: grimoire
+          identifier: talismanBludgeoning1
           invested: false
           description:
             public: >-
@@ -32067,9 +32710,9 @@ actors:
             personality, and mental health.</p><p>The <strong>Soul</strong> rune
             scales using @Rule[ability.presence] and provides
             <strong>Restoration</strong> of @Rule[resource.morale]. In special
-            circumstances it may be used to inflict <strong>Psychic</strong>
-            damage opposed by @Rule[defense.willpower]. It is opposed by the
-            chaotic rune of <strong>Oblivion</strong>.</p>
+            circumstances it may be used to inflict <strong>Void</strong> damage
+            opposed by @Rule[defense.willpower]. It is opposed by the chaotic
+            rune of <strong>Oblivion</strong>.</p>
           actions:
             - id: evoke
               img: icons/magic/light/projectile-halo-teal.webp
@@ -32217,13 +32860,13 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
           duplicateSource: null
           exportSource: null
         _id: runeFrost0000000
@@ -32269,12 +32912,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           duplicateSource: null
           exportSource: null
@@ -32320,7 +32963,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: ''
@@ -32344,9 +32987,9 @@ actors:
                     properties: []
                     regions: []
                     summons: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               img: icons/magic/control/mouth-smile-deception-purple.webp
               range:
                 minimum: null
@@ -32444,8 +33087,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -32485,7 +33128,7 @@ actors:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.TffJlCvt39DEhFX7
       duplicateSource: null
       exportSource: null
     _id: TffJlCvt39DEhFX7
@@ -32986,7 +33629,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Precision Shot
@@ -33053,12 +33696,12 @@ actors:
         flags:
           core: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           duplicateSource: null
           exportSource: null
@@ -33126,13 +33769,13 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
           createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
           duplicateSource: null
           exportSource: null
         _id: wildspeaker00000
@@ -33144,7 +33787,7 @@ actors:
         type: weapon
         img: icons/equipment/neck/pendant-rough-copper-green.webp
         system:
-          identifier: primordialSeed
+          identifier: talismanPoison1
           category: talisman1
           quantity: 1
           weight: 1
@@ -33286,8 +33929,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -33327,7 +33970,7 @@ actors:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.z8PYWkq3bxce7vwb
       duplicateSource: null
       exportSource: null
     _id: z8PYWkq3bxce7vwb
@@ -33714,7 +34357,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Grappled
@@ -33738,9 +34381,9 @@ actors:
                     summons: []
                     changes: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
                 - name: Grappling
                   scope: 1
                   result:
@@ -33762,9 +34405,9 @@ actors:
                     summons: []
                     changes: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               tags:
                 - difficult
                 - harmless
@@ -33902,7 +34545,7 @@ actors:
               target:
                 type: single
                 number: 1
-                scope: 3
+                scope: 4
                 self: false
               effects:
                 - name: Hamstring
@@ -33926,9 +34569,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
               name: Hamstring
               img: icons/skills/melee/strike-axe-blood-red.webp
               range:
@@ -33990,7 +34633,7 @@ actors:
               target:
                 type: single
                 number: 2
-                scope: 3
+                scope: 4
                 self: false
               effects: []
               name: Swipe
@@ -34082,12 +34725,12 @@ actors:
           requirements:
             training: {}
         _stats:
+          coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
           modifiedTime: null
           lastModifiedBy: null
+          createdTime: null
           compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
           duplicateSource: null
           exportSource: null
@@ -34148,9 +34791,9 @@ actors:
                     regions: []
                     summons: []
                     properties: []
+                    effects: []
                     lights: []
                     suppression: {}
-                    effects: []
                   duration:
                     value: null
                     units: ''
@@ -34252,8 +34895,8 @@ actors:
                     summons: []
                     properties: []
                     lights: []
-                    suppression: {}
                     effects: []
+                    suppression: {}
               tags: []
               summon: null
               persistRegion: false
@@ -34292,7 +34935,7 @@ actors:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: null
+      compendiumSource: Compendium.crucible.pregens.Actor.vT1UpPCVxKRg2A1J
       duplicateSource: null
       exportSource: null
     _id: vT1UpPCVxKRg2A1J
@@ -37863,7 +38506,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.370'
-  modifiedTime: 1795194525624
+  modifiedTime: 1795278384069
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

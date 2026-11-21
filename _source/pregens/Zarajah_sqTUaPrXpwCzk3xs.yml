@@ -274,7 +274,7 @@ items:
     _id: 5HWc3RX8F46IJt9g
     img: icons/weapons/staves/staff-engraved-red.webp
     system:
-      identifier: flameStaff
+      identifier: talismanFire2
       category: talisman2
       quantity: 1
       weight: 4
@@ -302,8 +302,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523736
-      modifiedTime: 1795194523736
+      createdTime: 1795278382420
+      modifiedTime: 1795278382420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.flameStaff000000
       duplicateSource: null
@@ -345,8 +345,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523736
-      modifiedTime: 1795194523736
+      createdTime: 1795278382420
+      modifiedTime: 1795278382420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
       duplicateSource: null
@@ -420,8 +420,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523736
-      modifiedTime: 1795194523736
+      createdTime: 1795278382420
+      modifiedTime: 1795278382420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.camaraderie00000
       duplicateSource: null
@@ -511,8 +511,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523736
-      modifiedTime: 1795194523736
+      createdTime: 1795278382420
+      modifiedTime: 1795278382420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
       duplicateSource: null
@@ -554,7 +554,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
@@ -582,8 +582,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523736
-      modifiedTime: 1795194523736
+      createdTime: 1795278382420
+      modifiedTime: 1795278382420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
@@ -655,8 +655,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523736
-      modifiedTime: 1795194523736
+      createdTime: 1795278382420
+      modifiedTime: 1795278382420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -740,8 +740,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1795194523736
-      createdTime: 1795194523736
+      modifiedTime: 1795278382420
+      createdTime: 1795278382420
       compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
       duplicateSource: null
       exportSource: null
@@ -782,8 +782,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523736
-      modifiedTime: 1795194523736
+      createdTime: 1795278382420
+      modifiedTime: 1795278382420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
       duplicateSource: null
@@ -855,8 +855,8 @@ items:
                 summons: []
                 properties: []
                 lights: []
-                suppression: {}
                 effects: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -874,8 +874,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523736
-      modifiedTime: 1795194523736
+      createdTime: 1795278382420
+      modifiedTime: 1795278382420
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.devilkinLineage0
       duplicateSource: null
@@ -894,11 +894,11 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795194523736
-  modifiedTime: 1795194523736
+  createdTime: 1795278382420
+  modifiedTime: 1795278382420
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
-  compendiumSource: null
+  compendiumSource: Compendium.crucible.pregens.Actor.sqTUaPrXpwCzk3xs
   duplicateSource: null
 _id: sqTUaPrXpwCzk3xs
 ownership:

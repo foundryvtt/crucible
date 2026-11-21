@@ -301,8 +301,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523733
-      modifiedTime: 1795194523733
+      createdTime: 1795278382418
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -345,8 +345,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523733
-      modifiedTime: 1795194523733
+      createdTime: 1795278382418
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.greataxe00000000
       duplicateSource: null
@@ -379,7 +379,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects:
             - name: Grappled
@@ -403,9 +403,9 @@ items:
                 summons: []
                 changes: []
                 properties: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
             - name: Grappling
               scope: 1
               result:
@@ -427,9 +427,9 @@ items:
                 summons: []
                 changes: []
                 properties: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
           tags:
             - difficult
             - harmless
@@ -462,8 +462,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523733
-      modifiedTime: 1795194523733
+      createdTime: 1795278382418
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.grapple000000000
       duplicateSource: null
@@ -530,8 +530,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523733
-      modifiedTime: 1795194523733
+      createdTime: 1795278382418
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
@@ -567,7 +567,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects:
             - name: Hamstring
@@ -591,9 +591,9 @@ items:
                 regions: []
                 summons: []
                 properties: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
           name: Hamstring
           img: icons/skills/melee/strike-axe-blood-red.webp
           range:
@@ -618,8 +618,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523733
-      modifiedTime: 1795194523733
+      createdTime: 1795278382418
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
       duplicateSource: null
@@ -656,7 +656,7 @@ items:
           target:
             type: single
             number: 2
-            scope: 3
+            scope: 4
             self: false
           effects: []
           name: Swipe
@@ -685,8 +685,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523733
-      modifiedTime: 1795194523733
+      createdTime: 1795278382418
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.swipe00000000000
       duplicateSource: null
@@ -752,9 +752,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795194523733
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795194523733
+      createdTime: 1795278382418
       compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
       duplicateSource: null
       exportSource: null
@@ -816,9 +816,9 @@ items:
                 regions: []
                 summons: []
                 properties: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
               duration:
                 value: null
                 units: ''
@@ -851,8 +851,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523733
-      modifiedTime: 1795194523733
+      createdTime: 1795278382418
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.bullrush00000000
       duplicateSource: null
@@ -921,8 +921,8 @@ items:
                 summons: []
                 properties: []
                 lights: []
-                suppression: {}
                 effects: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -940,8 +940,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523733
-      modifiedTime: 1795194523733
+      createdTime: 1795278382418
+      modifiedTime: 1795278382418
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -959,11 +959,11 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795194523733
-  modifiedTime: 1795194523733
+  createdTime: 1795278382418
+  modifiedTime: 1795278382418
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
-  compendiumSource: null
+  compendiumSource: Compendium.crucible.pregens.Actor.vT1UpPCVxKRg2A1J
   duplicateSource: null
 _id: vT1UpPCVxKRg2A1J
 ownership:

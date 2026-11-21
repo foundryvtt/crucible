@@ -298,8 +298,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523746
-      modifiedTime: 1795194523746
+      createdTime: 1795278382426
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.warHammer0000000
       duplicateSource: null
@@ -342,8 +342,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523746
-      modifiedTime: 1795194523746
+      createdTime: 1795278382426
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.heaterShield0000
       duplicateSource: null
@@ -385,8 +385,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523746
-      modifiedTime: 1795194523746
+      createdTime: 1795278382426
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -424,8 +424,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523746
-      modifiedTime: 1795194523746
+      createdTime: 1795278382426
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
       duplicateSource: null
@@ -489,9 +489,9 @@ items:
                 regions: []
                 summons: []
                 properties: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
           tags:
             - shield
             - afterStrike
@@ -515,8 +515,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523746
-      modifiedTime: 1795194523746
+      createdTime: 1795278382426
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.shieldBash000000
       duplicateSource: null
@@ -558,7 +558,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects: []
           img: icons/magic/death/skull-humanoid-crown-white-blue.webp
@@ -589,9 +589,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795194523746
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795194523746
+      createdTime: 1795278382426
       compendiumSource: Compendium.crucible.talent.Item.intimidator00000
       duplicateSource: null
       exportSource: null
@@ -652,8 +652,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523746
-      modifiedTime: 1795194523746
+      createdTime: 1795278382426
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
       duplicateSource: null
@@ -694,9 +694,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795194523746
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795194523746
+      createdTime: 1795278382426
       compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
       duplicateSource: null
       exportSource: null
@@ -760,9 +760,9 @@ items:
                 regions: []
                 summons: []
                 properties: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
           range:
             maximum: null
             weapon: false
@@ -783,8 +783,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523746
-      modifiedTime: 1795194523746
+      createdTime: 1795278382426
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
       duplicateSource: null
@@ -832,7 +832,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects:
             - name: Grudge
@@ -856,8 +856,8 @@ items:
                 summons: []
                 properties: []
                 lights: []
-                suppression: {}
                 effects: []
+                suppression: {}
           tags:
             - harmless
           summon: null
@@ -876,8 +876,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523746
-      modifiedTime: 1795194523746
+      createdTime: 1795278382426
+      modifiedTime: 1795278382426
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.dwarfLineage0000
       duplicateSource: null
@@ -895,11 +895,11 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795194523746
-  modifiedTime: 1795194523746
+  createdTime: 1795278382426
+  modifiedTime: 1795278382426
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
-  compendiumSource: null
+  compendiumSource: Compendium.crucible.pregens.Actor.nPOVNsOFhqA7SUud
   duplicateSource: null
 _id: nPOVNsOFhqA7SUud
 ownership:

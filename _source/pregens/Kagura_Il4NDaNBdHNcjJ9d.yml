@@ -323,8 +323,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -406,8 +406,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeLife00000000
       duplicateSource: null
@@ -474,8 +474,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
@@ -513,7 +513,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects: []
           name: Precision Shot
@@ -541,8 +541,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.precisionshot000
       duplicateSource: null
@@ -583,9 +583,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795194524625
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795194524625
+      createdTime: 1795278383157
       compendiumSource: Compendium.crucible.talent.Item.gestureray000000
       duplicateSource: null
       exportSource: null
@@ -657,8 +657,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.wildspeaker00000
       duplicateSource: null
@@ -673,7 +673,7 @@ items:
     type: weapon
     img: icons/equipment/neck/pendant-rough-copper-green.webp
     system:
-      identifier: primordialSeed
+      identifier: talismanPoison1
       category: talisman1
       quantity: 1
       weight: 1
@@ -701,8 +701,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.primordialSeed00
       duplicateSource: null
@@ -788,8 +788,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.hearthwork000000
       duplicateSource: null
@@ -832,8 +832,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mender0000000000
       duplicateSource: null
@@ -892,9 +892,9 @@ items:
                 properties: []
                 regions: []
                 summons: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
           tags:
             - healing
             - health
@@ -951,9 +951,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795194524625
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795194524625
+      createdTime: 1795278383157
       compendiumSource: Compendium.crucible.talent.Item.healer0000000000
       duplicateSource: null
       exportSource: null
@@ -1026,10 +1026,10 @@ items:
                   hands: 0
                 regions: []
                 summons: []
+                effects: []
                 lights: []
                 properties: []
                 suppression: {}
-                effects: []
           img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
           condition: ''
           range:
@@ -1084,8 +1084,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.shapeshifter0000
       duplicateSource: null
@@ -1153,8 +1153,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.wildStrike000000
       duplicateSource: null
@@ -1195,8 +1195,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.unarmedblocking0
       duplicateSource: null
@@ -1236,8 +1236,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.feralBrawler0000
       duplicateSource: null
@@ -1274,8 +1274,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
       duplicateSource: null
@@ -1312,8 +1312,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.lesserregenerati
       duplicateSource: null
@@ -1349,8 +1349,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
       duplicateSource: null
@@ -1395,8 +1395,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.slowSimmer000000
       duplicateSource: null
@@ -1483,8 +1483,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeControl00000
       duplicateSource: null
@@ -1523,9 +1523,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795194524625
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795194524625
+      createdTime: 1795278383157
       compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
       duplicateSource: null
       exportSource: null
@@ -1569,8 +1569,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gestureSurge0000
       duplicateSource: null
@@ -1592,7 +1592,7 @@ items:
         and mental health.</p><p>The <strong>Soul</strong> rune scales using
         @Rule[ability.presence] and provides <strong>Restoration</strong> of
         @Rule[resource.morale]. In special circumstances it may be used to
-        inflict <strong>Psychic</strong> damage opposed by
+        inflict <strong>Void</strong> damage opposed by
         @Rule[defense.willpower]. It is opposed by the chaotic rune of
         <strong>Oblivion</strong>.</p>
       actions:
@@ -1656,8 +1656,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
       duplicateSource: null
@@ -1693,8 +1693,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.undaunted0000000
       duplicateSource: null
@@ -1778,8 +1778,8 @@ items:
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: 1795194524625
-          modifiedTime: 1795194524625
+          createdTime: 1795278383157
+          modifiedTime: 1795278383157
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.nimbleness000000
           duplicateSource: null
@@ -1791,8 +1791,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.amuletOfNimblene
       duplicateSource: null
@@ -1876,8 +1876,8 @@ items:
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: 1795194524625
-          modifiedTime: 1795194524625
+          createdTime: 1795278383157
+          modifiedTime: 1795278383157
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.tenacity00000000
           duplicateSource: null
@@ -1889,8 +1889,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.charmOfTenacity0
       duplicateSource: null
@@ -1999,8 +1999,8 @@ items:
                       regions: []
                       summons: []
                       lights: []
-                      suppression: {}
                       effects: []
+                      suppression: {}
                 tags:
                   - reflex
                   - piercing
@@ -2031,8 +2031,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.steeljawTrap0000
       duplicateSource: null
@@ -2115,8 +2115,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.rallyingElixir00
       duplicateSource: null
@@ -2189,8 +2189,8 @@ items:
                 summons: []
                 properties: []
                 lights: []
-                suppression: {}
                 effects: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -2208,8 +2208,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194524625
-      modifiedTime: 1795194524625
+      createdTime: 1795278383157
+      modifiedTime: 1795278383157
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.giantkinLineage0
       duplicateSource: null
@@ -2313,11 +2313,11 @@ _stats:
   coreVersion: '14.370'
   systemId: crucible
   systemVersion: 0.11.3
-  createdTime: 1795194524625
-  modifiedTime: 1795194524625
+  createdTime: 1795278383157
+  modifiedTime: 1795278383157
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
-  compendiumSource: null
+  compendiumSource: Compendium.crucible.pregens.Actor.Il4NDaNBdHNcjJ9d
   duplicateSource: null
 _id: Il4NDaNBdHNcjJ9d
 ownership:

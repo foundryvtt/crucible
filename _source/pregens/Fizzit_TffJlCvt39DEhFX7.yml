@@ -298,8 +298,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
       duplicateSource: null
@@ -326,7 +326,7 @@ items:
       properties:
         - versatile
       damageType: electricity
-      identifier: arcaneOrb
+      identifier: talismanElectricity1
       invested: false
       description:
         public: >-
@@ -344,8 +344,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.arcaneOrb0000000
       duplicateSource: null
@@ -370,7 +370,7 @@ items:
         - blocking
       damageType: bludgeoning
       slot: 1
-      identifier: grimoire
+      identifier: talismanBludgeoning1
       invested: false
       description:
         public: >-
@@ -389,8 +389,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.grimoire00000000
       duplicateSource: null
@@ -462,8 +462,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -501,8 +501,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.recognizespellcr
       duplicateSource: null
@@ -524,7 +524,7 @@ items:
         and mental health.</p><p>The <strong>Soul</strong> rune scales using
         @Rule[ability.presence] and provides <strong>Restoration</strong> of
         @Rule[resource.morale]. In special circumstances it may be used to
-        inflict <strong>Psychic</strong> damage opposed by
+        inflict <strong>Void</strong> damage opposed by
         @Rule[defense.willpower]. It is opposed by the chaotic rune of
         <strong>Oblivion</strong>.</p>
       actions:
@@ -588,8 +588,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
       duplicateSource: null
@@ -675,8 +675,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
       duplicateSource: null
@@ -726,9 +726,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795194523753
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795194523753
+      createdTime: 1795278382430
       compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
       duplicateSource: null
       exportSource: null
@@ -774,7 +774,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects:
             - name: ''
@@ -798,9 +798,9 @@ items:
                 properties: []
                 regions: []
                 summons: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
           img: icons/magic/control/mouth-smile-deception-purple.webp
           range:
             minimum: null
@@ -828,8 +828,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.provocateur00000
       duplicateSource: null
@@ -897,8 +897,8 @@ items:
                 summons: []
                 properties: []
                 lights: []
-                suppression: {}
                 effects: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -916,8 +916,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523753
-      modifiedTime: 1795194523753
+      createdTime: 1795278382430
+      modifiedTime: 1795278382430
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.gnomeLineage0000
       duplicateSource: null
@@ -936,11 +936,11 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795194523753
-  modifiedTime: 1795194523753
+  createdTime: 1795278382430
+  modifiedTime: 1795278382430
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
-  compendiumSource: null
+  compendiumSource: Compendium.crucible.pregens.Actor.TffJlCvt39DEhFX7
   duplicateSource: null
 _id: TffJlCvt39DEhFX7
 ownership:

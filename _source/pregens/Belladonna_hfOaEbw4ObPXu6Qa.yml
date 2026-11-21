@@ -305,8 +305,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
       duplicateSource: null
@@ -351,8 +351,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.dagger0000000000
       duplicateSource: null
@@ -393,8 +393,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
       duplicateSource: null
@@ -434,7 +434,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
@@ -464,9 +464,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795194523743
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795194523743
+      createdTime: 1795278382424
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
       exportSource: null
@@ -506,7 +506,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects: []
           tags:
@@ -532,8 +532,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.lunge00000000000
       duplicateSource: null
@@ -571,8 +571,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.preparedness0000
       duplicateSource: null
@@ -624,7 +624,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects:
             - name: Sneaking
@@ -647,9 +647,9 @@ items:
                 regions: []
                 summons: []
                 properties: []
+                effects: []
                 lights: []
                 suppression: {}
-                effects: []
           tags:
             - harmless
             - subtle
@@ -674,8 +674,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sneak00000000000
       duplicateSource: null
@@ -716,7 +716,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects: []
           name: Backstab
@@ -742,8 +742,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.backstab00000000
       duplicateSource: null
@@ -782,8 +782,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.perspicacity0000
       duplicateSource: null
@@ -852,8 +852,8 @@ items:
                 summons: []
                 properties: []
                 lights: []
-                suppression: {}
                 effects: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -871,8 +871,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523743
-      modifiedTime: 1795194523743
+      createdTime: 1795278382424
+      modifiedTime: 1795278382424
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -890,11 +890,11 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795194523743
-  modifiedTime: 1795194523743
+  createdTime: 1795278382424
+  modifiedTime: 1795278382424
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
-  compendiumSource: null
+  compendiumSource: Compendium.crucible.pregens.Actor.hfOaEbw4ObPXu6Qa
   duplicateSource: null
 _id: hfOaEbw4ObPXu6Qa
 ownership:

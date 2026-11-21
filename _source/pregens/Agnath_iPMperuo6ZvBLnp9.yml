@@ -303,8 +303,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.greatsword000000
       duplicateSource: null
@@ -346,8 +346,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.splintMail000000
       duplicateSource: null
@@ -418,8 +418,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -457,8 +457,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.recognizespellcr
       duplicateSource: null
@@ -541,8 +541,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
       duplicateSource: null
@@ -581,8 +581,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
       duplicateSource: null
@@ -625,8 +625,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
       duplicateSource: null
@@ -670,7 +670,7 @@ items:
           target:
             type: single
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects: []
           range:
@@ -694,8 +694,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
       duplicateSource: null
@@ -769,8 +769,8 @@ items:
                 summons: []
                 properties: []
                 lights: []
-                suppression: {}
                 effects: []
+                suppression: {}
           tags: []
           summon: null
           persistRegion: false
@@ -788,8 +788,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.orcLineage000000
       duplicateSource: null
@@ -803,7 +803,7 @@ items:
     type: weapon
     img: icons/weapons/wands/wand-carved-fire.webp
     system:
-      identifier: cinderWand
+      identifier: talismanFire1
       category: talisman1
       quantity: 1
       weight: 1
@@ -830,8 +830,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795194523739
-      modifiedTime: 1795194523739
+      createdTime: 1795278382422
+      modifiedTime: 1795278382422
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.cinderWand000000
       duplicateSource: null
@@ -851,11 +851,11 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795194523739
-  modifiedTime: 1795194523739
+  createdTime: 1795278382422
+  modifiedTime: 1795278382422
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
-  compendiumSource: null
+  compendiumSource: Compendium.crucible.pregens.Actor.iPMperuo6ZvBLnp9
   duplicateSource: null
 _id: iPMperuo6ZvBLnp9
 ownership:
