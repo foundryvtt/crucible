@@ -2124,7 +2124,8 @@ export default class CrucibleActor extends Actor {
       console.debug(`Syncing equipment: ${item.name} in Actor ${this.name} [${item.uuid}]`);
     }
     if ( performUpdates && toUpdate.length ) {
-      await this.updateEmbeddedDocuments("Item", toUpdate, {diff: false, recursive: false, noHook: true});
+      await this.updateEmbeddedDocuments("Item", toUpdate, {diff: false, recursive: false, noHook: true,
+        _crucibleSync: true});
     }
     return {toUpdate};
   }
@@ -2383,6 +2384,20 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Is an owned equipment Item granted by one of this Actor's detail items, and still synchronized with that grant?
+   * @param {CrucibleItem} item     The owned Item
+   * @returns {boolean}
+   */
+  isSyncedGrant(item) {
+    if ( item.getFlag("crucible", "customized")?.mechanics ) return false;
+    return Object.values(this.system.details).some(detail => detail?.equipment?.some(grant => {
+      return foundry.utils.parseUuid(grant.item)?.documentId === item.id;
+    }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Apply actor detail data.
    * This is an internal helper method not intended for external use.
    * @param {CrucibleItem|null} item          An Item document, object of Item data, or null to clear data
@@ -2409,7 +2424,7 @@ export default class CrucibleActor extends Actor {
 
     // Commit the update. Deletion first, intentionally.
     if ( deleteItemIds.size ) await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
-    await this.update(updateData, {keepEmbeddedIds: true});
+    await this.update(updateData, {keepEmbeddedIds: true, _crucibleSync: true});
     if ( message && notify ) ui.notifications.info(message);
   }
 
@@ -2447,6 +2462,11 @@ export default class CrucibleActor extends Actor {
       for ( const id of this.#detailGrantedItemIds(otherDetail) ) deleteItemIds.delete(id);
     }
 
+    // Keep equipment detached if it has authored mechanical changes
+    for ( const id of deleteItemIds ) {
+      if ( this.items.get(id)?.getFlag("crucible", "customized")?.mechanics ) deleteItemIds.delete(id);
+    }
+
     // Record intentional background talent substitutions
     const key = `system.details.${type}`;
     const updateData = {};
@@ -2474,18 +2494,25 @@ export default class CrucibleActor extends Actor {
       for ( const id of talentsToKeep ) deleteItemIds.delete(id); // Talent already owned
       updateItems.push(...talentsToCreate);                       // Add new Talent
 
-      // Grant Equipment
+      // Grant Equipment, skipping over equipment that has authored mechanical changes
       for ( const {item: uuid, quantity, equipped, autoScale} of (detail.equipment || []) ) {
         const item = await CrucibleActor.#resolveGrant(this, uuid, "Equipment");
         if ( !item ) continue;
+        const owned = this.items.get(item.id);
+        if ( owned?.getFlag("crucible", "customized")?.mechanics ) {
+          deleteItemIds.delete(owned.id);
+          continue;
+        }
         const itemData = this._cleanItemData(item);
-        Object.assign(itemData.system, {quantity, equipped});
-        if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
+        if ( owned ) owned._retainCustomizations(itemData);
+        else {
+          Object.assign(itemData.system, {quantity, equipped});
+          if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
+        }
         if ( autoScale ) {
           itemData.system.quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
-          foundry.utils.setProperty(itemData, "flags.crucible.autoScale", true);
         }
-        updateItems.push(itemData); // Always update equipment, even if already owned
+        updateItems.push(itemData);
       }
 
       // Grant Spells
@@ -3552,25 +3579,27 @@ export default class CrucibleActor extends Actor {
       const {toDelete, toKeep, toCreate} = await this.#prepareGrantedDetailTalents(detail.talents);
       for ( const id of toDelete ) deleteItemIds.add(id);
       for ( const id of toKeep ) keepItemIds.add(id);
-
-      // Ensure no duplicate talents from multiple detail items
-      createItems.push(...toCreate.filter(t => !createItems.some(i => i._id === t._id)));
+      createItems.push(...toCreate.filter(t => !createItems.some(i => i._id === t._id))); // Dedupe across sources
     }
 
-    // Don't delete a talent that another detail still grants at an allowed level (see issue crucible#1279)
+    // Don't delete a talent that another detail still grants at an allowed level
     for ( const id of keepItemIds ) deleteItemIds.delete(id);
 
-    // Adjust the quality of automatically scaled equipment
+    // Adjust the quality of equipment granted with automatic scaling, skipping items with authored mechanical changes
     const updateItems = [];
-    for ( const item of this.items ) {
-      if ( item.getFlag("crucible", "autoScale") !== true ) continue;
-      const quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
-      if ( item.system.quality !== quality ) updateItems.push({_id: item.id, system: {quality}});
+    for ( const itemType of CrucibleActor.#DETAIL_ITEM_TYPES ) {
+      for ( const {item: uuid, autoScale} of (this.system.details[itemType]?.equipment ?? []) ) {
+        const item = autoScale ? this.items.get(foundry.utils.parseUuid(uuid)?.documentId) : null;
+        if ( !item || item.getFlag("crucible", "customized")?.mechanics ) continue;
+        const quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
+        if ( item.system.quality !== quality ) updateItems.push({_id: item.id, system: {quality}});
+      }
     }
 
+    // Execute all operations in a batch
     const batchOperations = this.defineBatchOperations({}, {
       createItems: {changes: createItems, options: {keepId: true}},
-      updateItems: {changes: updateItems, options: {_crucibleAutoScale: true}},
+      updateItems: {changes: updateItems, options: {_crucibleSync: true}},
       deleteItems: Array.from(deleteItemIds)
     });
     if ( batchOperations.length ) await foundry.documents.modifyBatch(batchOperations);

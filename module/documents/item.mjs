@@ -331,6 +331,9 @@ export default class CrucibleItem extends foundry.documents.Item {
     // If physical item without stackable, clamp quantity to [0, 1]
     if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return;
 
+    // Authored changes to an owned item preserve its presentation or detach it from the detail which granted it
+    if ( this.actor && !options._crucibleSync ) this.#recordCustomization(data);
+
     // A cursed item cannot be willingly divested; only a Gamemaster may break the attachment
     if ( (data.system?.invested === false) && this.system.invested && !user.isGM && this.system.isCursed ) {
       ui.notifications.warn(_loc("ITEM.WARNINGS.CursedDivestment", {name: this.name}));
@@ -343,7 +346,9 @@ export default class CrucibleItem extends foundry.documents.Item {
       foundry.utils.setProperty(data, "system.quantity", 1);
     }
 
-    const isStackable = (data.system?.properties && data.system.properties.includes("stackable")) ?? this.system.properties.has("stackable");
+    // Increment quantity if the item is stackable
+    const isStackable = (data.system?.properties && data.system.properties.includes("stackable"))
+      ?? this.system.properties.has("stackable");
     if ( isStackable ) return;
     const currQuantity = data.system?.quantity ?? this.system.quantity;
     foundry.utils.setProperty(data, "system.quantity", Math.clamp(currQuantity, 0, 1));
@@ -371,16 +376,9 @@ export default class CrucibleItem extends foundry.documents.Item {
       }
     }
 
-    // Respond to a quality tier change
+    // Procedurally rename for a quality tier change, unless the update also explicitly renames the item
     const newQuality = data.system?.quality;
     if ( newQuality && (newQuality !== this.system.quality) ) {
-
-      // Take manual control of an automatically scaled item, unless the change came from the scaling workflow
-      if ( !options._crucibleAutoScale && (this.getFlag("crucible", "autoScale") === true) ) {
-        foundry.utils.setProperty(data, "flags.crucible.autoScale", false);
-      }
-
-      // Procedurally rename the item, unless the update also explicitly renames it
       const isRenamed = ("name" in data) && (data.name !== this.name);
       if ( !isRenamed && (await this.hasProceduralName()) ) {
         data.name = await this.getProceduralName({quality: newQuality});
@@ -394,6 +392,49 @@ export default class CrucibleItem extends foundry.documents.Item {
   _onUpdate(data, options, userId) {
     this._displayScrollingStatus(data);
     return super._onUpdate(data, options, userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Carry this Item's gameplay state and any customized presentation into data synchronized from upstream sources.
+   * @param {object} data     Upstream synchronization data, to be applied inplace
+   * @internal
+   */
+  _retainCustomizations(data) {
+    const source = this.toObject();
+    data.system ??= {};
+    for ( const field of (this.system.constructor.STATEFUL_FIELDS ?? []) ) {
+      if ( source.system[field] !== undefined ) data.system[field] = source.system[field];
+    }
+    if ( !this.getFlag("crucible", "customized")?.presentation ) return;
+    Object.assign(data, {name: source.name, img: source.img});
+    data.system.description = source.system.description;
+    foundry.utils.setProperty(data, "flags.crucible.customized.presentation", true);
+    console.info(`Crucible | Synchronized ${this.name} [${this.uuid}] but kept its customized name, image, and`
+      + " description, which may now be stale");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Flag the authored presentation and mechanics changes in a pending update to this owned Item.
+   * @param {object} data     The pending update data, mutated in place
+   */
+  #recordCustomization(data) {
+    const stateful = this.system.constructor.STATEFUL_FIELDS;
+    let presentation = false;
+    let mechanical = false;
+    for ( const [key, value] of Object.entries(foundry.utils.flattenObject(data)) ) {
+      if ( foundry.utils.equals(foundry.utils.getProperty(this._source, key), value) ) continue;
+      const [root, field] = key.split(".");
+      if ( ["name", "img"].includes(root) || ((root === "system") && (field === "description")) ) presentation = true;
+      else if ( (root === "system") && field && !stateful.includes(field) ) mechanical = true;
+    }
+    if ( presentation ) foundry.utils.setProperty(data, "flags.crucible.customized.presentation", true);
+    if ( mechanical && this.actor.isSyncedGrant(this) ) {
+      foundry.utils.setProperty(data, "flags.crucible.customized.mechanics", true);
+    }
   }
 
   /* -------------------------------------------- */
@@ -847,11 +888,12 @@ export default class CrucibleItem extends foundry.documents.Item {
   /* -------------------------------------------- */
 
   /**
-   * Test whether this Item currently bears its procedural name, with or without an explicit quality tier prefix.
+   * Test whether this Item bears an uncustomized procedural name, with or without an explicit quality tier prefix.
    * @returns {Promise<boolean>}
    */
   async hasProceduralName() {
     if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return false;
+    if ( this.getFlag("crucible", "customized")?.presentation ) return false;
     const baseName = await this.#getBaseItemName();
     if ( !baseName ) return false;
     const affixes = this.effects.filter(e => e.type === "affix");
@@ -870,7 +912,7 @@ export default class CrucibleItem extends foundry.documents.Item {
    * @returns {Promise<void>}
    */
   async setProceduralName() {
-    await this.update({name: await this.getProceduralName()});
+    await this.update({name: await this.getProceduralName()}, {_crucibleSync: true}); // Derived, not authored
   }
 
   /* -------------------------------------------- */
@@ -991,5 +1033,22 @@ export default class CrucibleItem extends foundry.documents.Item {
         quality: data.quality || null
       }}}
     });
+  }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    source = super.migrateData(source);
+    const flags = source.flags?.crucible;
+
+    /** @deprecated since 0.11.4: flags.crucible.autoScale is replaced by flags.crucible.customized.mechanics */
+    if ( flags && ("autoScale" in flags) ) {
+      if ( flags.autoScale === false ) foundry.utils.setProperty(flags, "customized.mechanics", true);
+      delete flags.autoScale;
+    }
+    return source;
   }
 }

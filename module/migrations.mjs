@@ -156,6 +156,7 @@ function _indexEquipment(items) {
  */
 export function migrateEquipmentItem(item, index) {
   if ( !SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(item.type) ) return null;
+  if ( item.getFlag("crucible", "customized")?.mechanics ) return null; // Detached from upstream by authored changes
   const currentSource = item.toObject();
   const upstream = index[item.system.identifier];
   if ( !upstream ) return null;
@@ -164,11 +165,13 @@ export function migrateEquipmentItem(item, index) {
   if ( !currentSource._stats.compendiumSource ) {
     update._stats = {...currentSource._stats, compendiumSource: upstream.uuid};
   }
-  const stateFields = [...item.system.constructor.STATEFUL_FIELDS, "quantity", "quality", "enchantment"];
-  for ( const field of stateFields ) {
+  // Keep quality and enchantment, which belong to this instance (a Fine Longsword syncs from the base Longsword).
+  // Detail grants instead take both from the granted item, so these are not retained as customizations.
+  for ( const field of ["quality", "enchantment"] ) {
     const value = currentSource.system[field];
-    if ( value !== undefined ) foundry.utils.setProperty(update.system, field, value);
+    if ( value !== undefined ) update.system[field] = value;
   }
+  item._retainCustomizations(update);
   update.system = _replace(update.system); // Force full replacement
   return update;
 }

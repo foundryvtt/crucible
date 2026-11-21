@@ -354,6 +354,15 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   static async _onCreateOperation(documents, operation, user) {
     await super._onCreateOperation(documents, operation, user);
     if ( user.isSelf && operation.updateProceduralName ) await operation.parent.setProceduralName();
+    await CrucibleActiveEffect.#onAnyOperation(documents, operation, user);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static async _onUpdateOperation(documents, operation, user) {
+    await super._onUpdateOperation(documents, operation, user);
+    await CrucibleActiveEffect.#onAnyOperation(documents, operation, user);
   }
 
   /* -------------------------------------------- */
@@ -412,6 +421,24 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   static async _onDeleteOperation(documents, operation, user) {
     await super._onDeleteOperation(documents, operation, user);
     if ( user.isSelf && operation.updateProceduralName ) await operation.parent.setProceduralName();
+    await CrucibleActiveEffect.#onAnyOperation(documents, operation, user);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Respond to any create, update, or delete operation performed by this User on ActiveEffects.
+   * Authoring the affixes of granted equipment customizes its mechanics, detaching it from its grant.
+   * @param {CrucibleActiveEffect[]} documents    The ActiveEffects created, updated, or deleted
+   * @param {object} operation                    The database operation
+   * @param {User} user                           The User who performed the operation
+   * @returns {Promise<void>}
+   */
+  static async #onAnyOperation(documents, operation, user) {
+    if ( !user.isSelf || operation._crucibleSync ) return;
+    const item = operation.parent;
+    if ( !(item instanceof foundry.documents.Item) || !documents.some(d => d.type === "affix") ) return;
+    if ( item.actor?.isSyncedGrant(item) ) await item.setFlag("crucible", "customized.mechanics", true);
   }
 
   /* -------------------------------------------- */

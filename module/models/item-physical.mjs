@@ -78,7 +78,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * This informs tag presentation as well as item snapshot or restoration.
    * @type {string[]}
    */
-  static STATEFUL_FIELDS = ["equipped", "dropped", "invested", "broken"];
+  static STATEFUL_FIELDS = ["equipped", "dropped", "invested", "broken", "quantity"];
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM"];
