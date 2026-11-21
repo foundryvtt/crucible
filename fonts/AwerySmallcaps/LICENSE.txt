@@ -1,0 +1,9 @@
+==============================================
+Awery Smallcaps
+==============================================
+
+AwerySmallcaps.ttf is the Awery Smallcaps typeface, Copyright Typesgal 2012. It is not covered by the Crucible game
+system license.
+
+This font was obtained from https://www.dafont.com/awery.font and added to Crucible on 2023-05-14. That page states:
+"This font family is made by Typesgal and is free for both personal and commercial usage."

@@ -1,0 +1,10 @@
+==============================================
+Caslon Antique
+==============================================
+
+The font files in this directory are a digitization of Caslon Antique, a typeface designed by Berne Nadall in 1894.
+The digital font is Copyright Typographer Mediengestaltung 2000. It is not covered by the Crucible game system
+license.
+
+This font was obtained from https://www.fontspace.com/caslon-antique-font-f168 and added to Crucible on 2019-11-30.
+That page lists its license as "Freeware."

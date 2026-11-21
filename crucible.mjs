@@ -313,6 +313,22 @@ Hooks.once("init", async function() {
     editor: true,
     fonts: [{urls: ["systems/crucible/fonts/AwerySmallcaps/AwerySmallcaps.ttf"]}]
   };
+  CONFIG.fontDefinitions.CaslonAntique = {
+    editor: true,
+    fonts: [
+      {urls: ["systems/crucible/fonts/CaslonAntique/CaslonAntique.ttf"]},
+      {urls: ["systems/crucible/fonts/CaslonAntique/CaslonAntique-Italic.ttf"], style: "italic"},
+      {urls: ["systems/crucible/fonts/CaslonAntique/CaslonAntique-Bold.ttf"], weight: "700"},
+      {urls: ["systems/crucible/fonts/CaslonAntique/CaslonAntique-BoldItalic.ttf"], weight: "700", style: "italic"}
+    ]
+  };
+  CONFIG.fontDefinitions.Vollkorn = {
+    editor: true,
+    fonts: [
+      {urls: ["systems/crucible/fonts/Vollkorn/Vollkorn-VariableFont_wght.ttf"], weight: "400 900"},
+      {urls: ["systems/crucible/fonts/Vollkorn/Vollkorn-Italic-VariableFont_wght.ttf"], weight: "400 900", style: "italic"}
+    ]
+  };
 
   // Rich Text Enrichers
   registerEnrichers();

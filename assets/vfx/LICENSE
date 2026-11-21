@@ -2,6 +2,7 @@ All visual effect files in this directory and its subdirectories - including spr
 atlas data - are Copyright Foundry Gaming LLC. These files are licensed only for use as part of the Crucible game
 system running inside Foundry Virtual Tabletop. You may not redistribute, modify, repackage, or use them in any other
 product, system, module, or media - including other Foundry VTT systems or modules - without the explicit written
-permission of Foundry Gaming LLC.
+permission of Foundry Gaming LLC. As the one exception, a Foundry VTT package made for Crucible may load these files
+from the installed Crucible system, by path or through Crucible's APIs, but may not copy or distribute them.
 
 The terms in this file override the broader Crucible source repository license for the contents of this directory.
