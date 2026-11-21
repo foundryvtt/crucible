@@ -2390,9 +2390,9 @@ export default class CrucibleActor extends Actor {
    */
   isSyncedGrant(item) {
     if ( item.getFlag("crucible", "customized")?.mechanics ) return false;
-    return Object.values(this.system.details).some(detail => detail?.equipment?.some(grant => {
-      return foundry.utils.parseUuid(grant.item)?.documentId === item.id;
-    }));
+    return Object.values(this.system.details).some(detail => {
+      return CrucibleActor.#getGrantedEquipmentIds(detail?.equipment).flat().includes(item.id);
+    });
   }
 
   /* -------------------------------------------- */
@@ -2495,24 +2495,33 @@ export default class CrucibleActor extends Actor {
       updateItems.push(...talentsToCreate);                       // Add new Talent
 
       // Grant Equipment, skipping over equipment that has authored mechanical changes
-      for ( const {item: uuid, quantity, equipped, autoScale} of (detail.equipment || []) ) {
+      const equipment = detail.equipment || [];
+      const equipmentIds = CrucibleActor.#getGrantedEquipmentIds(equipment);
+      for ( const [i, {item: uuid, quantity, equipped, autoScale}] of equipment.entries() ) {
         const item = await CrucibleActor.#resolveGrant(this, uuid, "Equipment");
         if ( !item ) continue;
-        const owned = this.items.get(item.id);
-        if ( owned?.getFlag("crucible", "customized")?.mechanics ) {
-          deleteItemIds.delete(owned.id);
-          continue;
+        const stackable = item.system.properties?.has("stackable");
+        const units = crucible.api.models.CruciblePhysicalItem.unstackItemData(this._cleanItemData(item), quantity);
+        for ( const [u, itemData] of units.entries() ) {
+          itemData._id = equipmentIds[i][u];
+          const owned = this.items.get(itemData._id);
+          if ( owned?.getFlag("crucible", "customized")?.mechanics ) {
+            deleteItemIds.delete(owned.id);
+            continue;
+          }
+          if ( owned ) {
+            owned._retainCustomizations(itemData);
+            if ( !stackable ) itemData.system.quantity = 1; // Repair a prior grant which stacked separate items
+          }
+          else {
+            itemData.system.equipped = equipped;
+            if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
+          }
+          if ( autoScale ) {
+            itemData.system.quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
+          }
+          updateItems.push(itemData);
         }
-        const itemData = this._cleanItemData(item);
-        if ( owned ) owned._retainCustomizations(itemData);
-        else {
-          Object.assign(itemData.system, {quantity, equipped});
-          if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
-        }
-        if ( autoScale ) {
-          itemData.system.quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
-        }
-        updateItems.push(itemData);
       }
 
       // Grant Spells
@@ -2545,9 +2554,34 @@ export default class CrucibleActor extends Actor {
       if ( id && this.items.has(id) ) grantedIds.add(id);
     };
     for ( const {item} of (detail.talents || []) ) add(item);
-    for ( const {item} of (detail.equipment || []) ) add(item);
     for ( const {item} of (detail.spells || []) ) add(item);
+    for ( const id of CrucibleActor.#getGrantedEquipmentIds(detail.equipment).flat() ) {
+      if ( this.items.has(id) ) grantedIds.add(id);
+    }
     return grantedIds;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Assign deterministic item IDs to each unit of equipment granted by a detail.
+   * The first unit of an item keeps its compendium ID. Further units, counted across the whole detail, overwrite the
+   * end of that ID with their index: clawHammer000000, clawHammer000001, and so on.
+   * @param {object[]} [equipment]    The equipment grants of a detail
+   * @returns {string[][]}            The IDs of each grant's units, aligned with the equipment array
+   */
+  static #getGrantedEquipmentIds(equipment) {
+    const counts = {};
+    return (equipment ?? []).map(({item, quantity}) => {
+      const baseId = foundry.utils.parseUuid(item)?.documentId;
+      if ( !baseId ) return [];
+      return Array.from({length: quantity}, () => {
+        const index = counts[baseId] = (counts[baseId] ?? -1) + 1;
+        if ( !index ) return baseId;
+        const suffix = String(index);
+        return baseId.slice(0, baseId.length - suffix.length) + suffix;
+      });
+    });
   }
 
   /* -------------------------------------------- */
@@ -3588,11 +3622,16 @@ export default class CrucibleActor extends Actor {
     // Adjust the quality of equipment granted with automatic scaling, skipping items with authored mechanical changes
     const updateItems = [];
     for ( const itemType of CrucibleActor.#DETAIL_ITEM_TYPES ) {
-      for ( const {item: uuid, autoScale} of (this.system.details[itemType]?.equipment ?? []) ) {
-        const item = autoScale ? this.items.get(foundry.utils.parseUuid(uuid)?.documentId) : null;
-        if ( !item || item.getFlag("crucible", "customized")?.mechanics ) continue;
-        const quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
-        if ( item.system.quality !== quality ) updateItems.push({_id: item.id, system: {quality}});
+      const equipment = this.system.details[itemType]?.equipment ?? [];
+      const equipmentIds = CrucibleActor.#getGrantedEquipmentIds(equipment);
+      for ( const [i, {autoScale}] of equipment.entries() ) {
+        if ( !autoScale ) continue;
+        for ( const id of equipmentIds[i] ) {
+          const item = this.items.get(id);
+          if ( !item || item.getFlag("crucible", "customized")?.mechanics ) continue;
+          const quality = SYSTEM.ITEM.QUALITY_SCALING.getQuality(this.system.advancement.level, item.type);
+          if ( item.system.quality !== quality ) updateItems.push({_id: item.id, system: {quality}});
+        }
       }
     }
 

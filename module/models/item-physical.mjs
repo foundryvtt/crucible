@@ -346,6 +346,23 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   /* -------------------------------------------- */
 
   /**
+   * Divide the data of an item acquired in some quantity into units, one stack if stackable or else one item each.
+   * @param {object} itemData     Item source data, which becomes the first unit
+   * @param {number} quantity     The quantity acquired
+   * @returns {object[]}          Item data for each unit
+   */
+  static unstackItemData(itemData, quantity) {
+    if ( itemData.system.properties?.includes("stackable") ) {
+      itemData.system.quantity = quantity;
+      return [itemData];
+    }
+    itemData.system.quantity = 1;
+    return Array.from({length: quantity}, (_, i) => (i ? foundry.utils.deepClone(itemData) : itemData));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Iterate the owning Actor's effects which exist because this item was deployed and end when it is recovered.
    * @yields {CrucibleActiveEffect}
    */

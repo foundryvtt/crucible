@@ -1239,12 +1239,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       delete itemData._id;
 
       // Unstack individual units of an item so they can each have different stateful properties
-      let units;
-      if ( itemData.system.properties.includes("stackable") ) {
-        itemData.system.quantity = quantity;
-        units = [itemData];
-      }
-      else units = Array.from({length: quantity}, () => foundry.utils.deepClone(itemData));
+      const units = crucible.api.models.CruciblePhysicalItem.unstackItemData(itemData, quantity);
       creationData.items.push(...units);
 
       // Each individually equippable unit of purchased gear is a candidate for auto-equip
