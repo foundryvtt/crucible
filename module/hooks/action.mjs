@@ -2654,6 +2654,24 @@ HOOKS.swallow = {
 /* -------------------------------------------- */
 
 HOOKS.digestiveSacs = {
+  _MAX_ENGULFED: 3,
+  _heldCount(actor) {
+    return actor.effects.reduce((n, e) => {
+      return n + ((e.getFlag("crucible", "originAction") === "digestiveSacs") ? e.system.effects.size : 0);
+    }, 0);
+  },
+  canUse() {
+    if ( HOOKS.digestiveSacs._heldCount(this.actor) >= HOOKS.digestiveSacs._MAX_ENGULFED ) return false;
+  },
+  acquireTargets(targets) {
+    for ( const target of targets ) {
+      const prey = target.actor;
+      if ( !prey ) continue;
+      if ( this.actor.size < (prey.size + 2) ) {
+        target.error ??= _loc("ACTION.WARNINGS.TargetTooLarge", {target: prey.name, action: this.name});
+      }
+    }
+  },
   postActivate() {
     const prey = this.targets.keys().next().value;
     const preyEffect = prey ? this.eventsByActor.get(prey)?.all.flatMap(e => e.effects)[0] : null;

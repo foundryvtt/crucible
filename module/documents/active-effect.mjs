@@ -302,8 +302,17 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  async _onCreate(data, options, userId) {
+    await super._onCreate(data, options, userId);
+    await this.#regurgitateOnCondition(userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   async _onUpdate(changed, options, userId) {
     await super._onUpdate(changed, options, userId);
+    await this.#regurgitateOnCondition(userId);
 
     // Delete any owned Token/Region no longer referenced after this update
     const prior = this.#ownedReferences ?? new Set();
@@ -317,6 +326,21 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     if ( hidden !== CrucibleActiveEffect.#hidesOwnedReferences(priorSuppression) ) {
       await this.#setOwnedReferencesHidden(hidden, userId);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Regurgitate any creatures held in Digestive Sacs if the actor gains a triggering condition.
+   * @param {string} userId
+   */
+  async #regurgitateOnCondition(userId) {
+    if ( (userId !== game.user.id) || !(this.parent instanceof foundry.documents.Actor) || this.disabled ) return;
+    if ( !["burning", "stunned", "incapacitated", "weakened"].some(s => this.statuses.has(s)) ) return;
+    const holdingIds = this.parent.effects
+      .filter(e => e.getFlag("crucible", "originAction") === "digestiveSacs")
+      .map(e => e.id);
+    if ( holdingIds.length ) await this.parent.deleteEmbeddedDocuments("ActiveEffect", holdingIds);
   }
 
   /* -------------------------------------------- */
