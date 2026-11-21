@@ -2,7 +2,7 @@ name: Primordial Seed
 type: weapon
 img: icons/equipment/neck/pendant-rough-copper-green.webp
 system:
-  identifier: primordialSeed
+  identifier: talismanPoison1
   category: talisman1
   quantity: 1
   weight: 1

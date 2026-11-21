@@ -2,7 +2,7 @@ name: Frost Spire
 type: weapon
 img: icons/weapons/staves/staff-simple-blue.webp
 system:
-  identifier: frostSpire
+  identifier: talismanCold2
   category: talisman2
   quantity: 1
   weight: 5

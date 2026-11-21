@@ -70,8 +70,9 @@ Hooks.once("init", async function() {
     documents,
     methods: {
       ...methods,
-      syncOwnedItems: migrations.syncOwnedItems,
-      syncWorldItems: migrations.syncWorldItems
+      performMigrations: migrations.performMigrations,
+      syncWorldActors: migrations.syncWorldActors,
+      syncWorldEquipment: migrations.syncWorldEquipment
     },
     talents: {
       CrucibleTalentNode,

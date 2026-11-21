@@ -2,7 +2,7 @@ name: Verdigris Scepter
 type: weapon
 img: icons/weapons/staves/staff-ornate-green.webp
 system:
-  identifier: verdigrisScepter
+  identifier: talismanAcid2
   category: talisman2
   quantity: 1
   weight: 6

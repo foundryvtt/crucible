@@ -14,7 +14,7 @@ system:
     - blocking
   damageType: bludgeoning
   slot: 0
-  identifier: grimoire
+  identifier: talismanBludgeoning1
   invested: false
   description:
     public: >-

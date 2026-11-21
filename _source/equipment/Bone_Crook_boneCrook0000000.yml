@@ -2,7 +2,7 @@ name: Bone Crook
 type: weapon
 img: icons/weapons/staves/staff-animal-skull-horned.webp
 system:
-  identifier: boneCrook
+  identifier: talismanCorruption2
   category: talisman2
   quantity: 1
   weight: 3

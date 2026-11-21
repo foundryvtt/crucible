@@ -2,7 +2,7 @@ name: War Drum
 type: weapon
 img: icons/tools/instruments/drum-brown-red.webp
 system:
-  identifier: warDrum
+  identifier: talismanPsychic2
   category: talisman2
   quantity: 1
   weight: 6

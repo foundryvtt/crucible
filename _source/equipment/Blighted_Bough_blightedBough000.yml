@@ -2,7 +2,7 @@ name: Blighted Bough
 type: weapon
 img: icons/weapons/staves/staff-forest-hooked.webp
 system:
-  identifier: blightedBough
+  identifier: talismanPoison2
   category: talisman2
   quantity: 1
   weight: 5

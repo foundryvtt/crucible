@@ -2,7 +2,7 @@ name: Writhing Crozier
 type: weapon
 img: icons/weapons/staves/staff-ornate-eye.webp
 system:
-  identifier: writhingCrozier
+  identifier: talismanVoid2
   category: talisman2
   quantity: 1
   weight: 4

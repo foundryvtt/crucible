@@ -2,7 +2,7 @@ name: Lightning Rod
 type: weapon
 img: icons/weapons/staves/staff-hooked-banded.webp
 system:
-  identifier: lightningRod
+  identifier: talismanElectricity2
   category: talisman2
   quantity: 1
   weight: 5

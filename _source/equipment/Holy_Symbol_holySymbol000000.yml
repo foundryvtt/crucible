@@ -2,7 +2,7 @@ name: Holy Symbol
 type: weapon
 img: icons/equipment/neck/amulet-round-star-gold.webp
 system:
-  identifier: holySymbol
+  identifier: talismanRadiant1
   category: talisman1
   quantity: 1
   weight: 1
