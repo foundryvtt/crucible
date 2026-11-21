@@ -254,7 +254,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isDead() {
-    return this.parent.statuses.has("dead") || this._isResourceDead;
+    return this.parent.statuses.has("dead") || (this._isResourceDead && !this.parent.talentIds.has("restlessDead0000"));
   }
 
   /**
