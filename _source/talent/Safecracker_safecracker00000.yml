@@ -12,7 +12,7 @@ system:
     - action.noncombat
     - skill.stealth
   nodes:
-    - dex4c
+    - dex3b
   iconicSpells: 0
   training: stealth
 effects: []

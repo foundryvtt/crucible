@@ -8,7 +8,7 @@ system:
     - playstyle.spellcraft
     - spell.physical
   nodes:
-    - dex4a
+    - dex4b
   description: >-
     <p>You wield kinetic power with unbridled speed, hurling myriad projectiles
     with nimble finger-work. Your use of the <strong>Rune of Kinesis</strong>

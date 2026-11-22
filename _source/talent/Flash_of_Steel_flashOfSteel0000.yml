@@ -7,7 +7,7 @@ system:
     - playstyle.melee
     - weapons.thrown
   nodes:
-    - dex2c
+    - dex3a
   description: >-
     <p>You are an expert in using a thrown weapon to unbalance or expose your
     target for follow-up strikes.</p>

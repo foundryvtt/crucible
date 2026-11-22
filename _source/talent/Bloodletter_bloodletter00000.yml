@@ -16,7 +16,7 @@ system:
     - damageType.slashing
     - damageType.piercing
   nodes:
-    - dex4d
+    - dex4c
   iconicSpells: 0
   training: light
 effects: []

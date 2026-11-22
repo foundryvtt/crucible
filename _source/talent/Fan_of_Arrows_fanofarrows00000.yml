@@ -43,7 +43,7 @@ system:
     - weapon.mechanical
     - weapon.talisman
   nodes:
-    - dex3a
+    - dex4a
   iconicSpells: 0
   training: projectile
 _stats:

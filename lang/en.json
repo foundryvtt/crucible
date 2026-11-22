@@ -620,6 +620,13 @@
     "Challenge": {
       "Dominance": "Dominance"
     },
+    "DeadeyeShot": {
+      "AlreadyAiming": "You are already taking aim.",
+      "MaintainFirst": "You must maintain your aim before you can release Deadeye Shot.",
+      "Moved": "You have moved since you took aim, so your aim is broken.",
+      "NotAiming": "You must Take Aim at a target before you can release Deadeye Shot.",
+      "WrongTarget": "Deadeye Shot must target the creature you took aim at."
+    },
     "DeathlessFury": {
       "CannotUse": "{name} can only enter a Deathless Fury while their Health does not exceed their Wounds."
     },

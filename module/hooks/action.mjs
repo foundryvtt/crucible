@@ -724,6 +724,39 @@ HOOKS.crushingLeap = {
 
 /* -------------------------------------------- */
 
+HOOKS.deadeyeShot = {
+  canUse() {
+    const aim = this.actor.effects.get(HOOKS.takeAim._AIM_ID);
+    if ( !aim ) throw new Error(_loc("ACTIONS.DeadeyeShot.NotAiming"));
+    if ( aim.system.suppression?.maintenance ) throw new Error(_loc("ACTIONS.DeadeyeShot.MaintainFirst"));
+
+    // Any movement since taking aim breaks it, including forced movement
+    const origin = aim.getFlag("crucible", "takeAim")?.origin;
+    const token = this.token?._source;
+    if ( origin && token && ["x", "y", "elevation"].some(k => token[k] !== origin[k]) ) {
+      throw new Error(_loc("ACTIONS.DeadeyeShot.Moved"));
+    }
+  },
+  acquireTargets(targets) {
+    const uuid = this.actor.effects.get(HOOKS.takeAim._AIM_ID)?.getFlag("crucible", "takeAim")?.target;
+    for ( const target of targets ) {
+      if ( target.actor?.uuid !== uuid ) target.error ??= _loc("ACTIONS.DeadeyeShot.WrongTarget");
+    }
+  },
+  postActivate() {
+    const aim = this.actor.effects.get(HOOKS.takeAim._AIM_ID);
+    if ( !aim ) return;
+    this.recordEvent({type: "effect", target: this.actor, effects: [{_id: aim.id, _action: "delete"}]});
+    const {target: uuid, sights} = aim.getFlag("crucible", "takeAim") ?? {};
+    const target = fromUuidSync(uuid);
+    if ( target?.effects.has(sights) ) {
+      this.recordEvent({type: "effect", target, effects: [{_id: sights, _action: "delete"}]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.decisiveAction = {
   postActivate() {
     const amount = Math.ceil(this.actor.abilities.intellect.value / 2);
@@ -3140,6 +3173,33 @@ HOOKS.throwWeapon = {
 HOOKS.throwTorch = {
   configureVFX(vfxConfig) {
     return crucible.api.canvas.vfx.equipment.configureThrowTorchVFXEffect(this) ?? vfxConfig;
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.takeAim = {
+  _AIM_ID: "takingAim0000000",
+  canUse() {
+    if ( !this.actor.equipment.weapons.ranged ) throw new Error(_loc("ACTION.WARNINGS.RequiresRanged"));
+    if ( this.actor.effects.has(HOOKS.takeAim._AIM_ID) ) throw new Error(_loc("ACTIONS.DeadeyeShot.AlreadyAiming"));
+  },
+  prepare() {
+    const {SELF, ENEMIES} = SYSTEM.ACTION.TARGET_SCOPES;
+    const aim = this.effects.find(e => e.scope === SELF);
+    const sights = this.effects.find(e => e.scope === ENEMIES);
+    if ( aim ) aim._id = HOOKS.takeAim._AIM_ID;
+    if ( sights ) sights._id = foundry.utils.randomID(); // Recorded on the aim so the shot can remove it
+  },
+  postActivate() {
+    const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
+    const target = this.targets.keys().next().value;
+    if ( !effect || !target ) return;
+    effect.system.maintenance.cost = 1; // Taking aim costs no Focus, but maintaining it does
+    const token = this.token?._source;
+    const origin = token ? {x: token.x, y: token.y, elevation: token.elevation} : null;
+    const sights = this.effects.find(e => e.scope === SYSTEM.ACTION.TARGET_SCOPES.ENEMIES);
+    foundry.utils.setProperty(effect, "flags.crucible.takeAim", {target: target.uuid, sights: sights?._id, origin});
   }
 };
 

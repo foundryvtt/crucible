@@ -13,7 +13,7 @@ system:
     - movement.engagement
     - action.reaction
   nodes:
-    - intdex1
+    - intdex2
   iconicSpells: 0
 effects: []
 folder: aB808IWOdgwmFCIF

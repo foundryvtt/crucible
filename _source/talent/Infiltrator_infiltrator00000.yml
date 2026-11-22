@@ -20,7 +20,7 @@ system:
     - playstyle.utility
     - skill.stealth
   nodes:
-    - dex4c
+    - dex4a
   iconicSpells: 0
   training: stealth
 effects: []
