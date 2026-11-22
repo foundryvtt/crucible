@@ -300,6 +300,16 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     return true;
   }
 
+  /**
+   * The amount of Wounds and Madness which a Rest removes.
+   * @type {{wounds: number, madness: number}}
+   */
+  get restRecovery() {
+    const level = Math.max(this.advancement.level, 1);
+    const {toughness, presence} = this.abilities;
+    return {wounds: level + toughness.value, madness: level + presence.value};
+  }
+
   /* -------------------------------------------- */
   /*  Base Data Preparation                       */
   /* -------------------------------------------- */

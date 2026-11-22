@@ -1,0 +1,71 @@
+name: Healer's Vigil
+type: talent
+img: icons/consumables/potions/bottle-round-corked-red.webp
+system:
+  description: >-
+    <p>You know the rhythms of a healer's watch: when to change a dressing, when
+    to clean a wound, when to rest your own eyes. Companions in your care mend
+    faster through the night.</p>
+  actions:
+    - id: healersVigil
+      name: Healer's Vigil
+      img: icons/consumables/potions/bottle-round-corked-red.webp
+      condition: ''
+      description: >-
+        <p>During a @Action[default rest], you tend to the injuries of your
+        companions between your own hours of sleep. You make a
+        @Rule[skill.medicine] check against the @Rule[defense.wounds] of each of
+        them. Upon a success they recover <strong>Wounds</strong> equal to half
+        your @Rule[ability.wisdom], or your full @Rule[ability.wisdom] upon a
+        @Rule[dice.criticalSuccess].</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: party
+        number: 1
+        scope: 2
+        self: false
+      effects: []
+      tags:
+        - rest
+        - noncombat
+        - skill
+        - medicine
+        - harmless
+        - party
+      summon: null
+  keywords:
+    - playstyle.utility
+    - action.rest
+    - action.noncombat
+    - skill.medicine
+  nodes:
+    - wis0a
+  iconicSpells: 0
+  training: medicine
+effects: []
+folder: fldMedicine00000
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1795392000000
+  modifiedTime: 1795392000000
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: healersVigil0000
+sort: 200000
+_key: '!items!healersVigil0000'

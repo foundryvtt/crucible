@@ -9683,9 +9683,10 @@ actors:
                 <p>Following a @Action[default rest], you find the common ground
                 you share with each of your companions. You make a
                 @Rule[skill.society] check against the @Rule[defense.madness] of
-                each of them. Upon a success they shed <strong>Madness</strong>
-                equal to half your @Rule[ability.wisdom], or your full
-                @Rule[ability.wisdom] upon a @Rule[dice.criticalSuccess].</p>
+                each of them. Upon a success they recover
+                <strong>Madness</strong> equal to half your
+                @Rule[ability.wisdom], or your full @Rule[ability.wisdom] upon a
+                @Rule[dice.criticalSuccess].</p>
               cost:
                 action: 0
                 focus: 0
@@ -20428,7 +20429,7 @@ actors:
                 type: aura
                 number: 1
                 size: 10
-                scope: 3
+                scope: 1
                 self: false
               effects:
                 - name: Sentinel Bolts
@@ -23686,6 +23687,7 @@ actors:
                   events:
                     - tokenMoveIn
                   frequency: once
+                  immediate: false
           uses:
             value: 1
             max: 1
@@ -26746,9 +26748,10 @@ actors:
                 <p>Following a @Action[default rest], you find the common ground
                 you share with each of your companions. You make a
                 @Rule[skill.society] check against the @Rule[defense.madness] of
-                each of them. Upon a success they shed <strong>Madness</strong>
-                equal to half your @Rule[ability.wisdom], or your full
-                @Rule[ability.wisdom] upon a @Rule[dice.criticalSuccess].</p>
+                each of them. Upon a success they recover
+                <strong>Madness</strong> equal to half your
+                @Rule[ability.wisdom], or your full @Rule[ability.wisdom] upon a
+                @Rule[dice.criticalSuccess].</p>
               cost:
                 action: 0
                 focus: 0
@@ -38507,7 +38510,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.370'
-  modifiedTime: 1795278384069
+  modifiedTime: 1795367995572
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

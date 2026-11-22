@@ -302,8 +302,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382420
-      modifiedTime: 1795278382420
+      createdTime: 1795367993783
+      modifiedTime: 1795367993783
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.flameStaff000000
       duplicateSource: null
@@ -345,8 +345,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382420
-      modifiedTime: 1795278382420
+      createdTime: 1795367993783
+      modifiedTime: 1795367993783
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
       duplicateSource: null
@@ -373,7 +373,7 @@ items:
             <p>Following a @Action[default rest], you find the common ground you
             share with each of your companions. You make a @Rule[skill.society]
             check against the @Rule[defense.madness] of each of them. Upon a
-            success they shed <strong>Madness</strong> equal to half your
+            success they recover <strong>Madness</strong> equal to half your
             @Rule[ability.wisdom], or your full @Rule[ability.wisdom] upon a
             @Rule[dice.criticalSuccess].</p>
           cost:
@@ -420,8 +420,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382420
-      modifiedTime: 1795278382420
+      createdTime: 1795367993783
+      modifiedTime: 1795367993783
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.camaraderie00000
       duplicateSource: null
@@ -511,8 +511,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382420
-      modifiedTime: 1795278382420
+      createdTime: 1795367993783
+      modifiedTime: 1795367993783
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
       duplicateSource: null
@@ -582,8 +582,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382420
-      modifiedTime: 1795278382420
+      createdTime: 1795367993783
+      modifiedTime: 1795367993783
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
@@ -655,8 +655,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382420
-      modifiedTime: 1795278382420
+      createdTime: 1795367993783
+      modifiedTime: 1795367993783
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -740,8 +740,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1795278382420
-      createdTime: 1795278382420
+      modifiedTime: 1795367993783
+      createdTime: 1795367993783
       compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
       duplicateSource: null
       exportSource: null
@@ -782,8 +782,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382420
-      modifiedTime: 1795278382420
+      createdTime: 1795367993783
+      modifiedTime: 1795367993783
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
       duplicateSource: null
@@ -874,8 +874,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382420
-      modifiedTime: 1795278382420
+      createdTime: 1795367993783
+      modifiedTime: 1795367993783
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.devilkinLineage0
       duplicateSource: null
@@ -894,8 +894,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795278382420
-  modifiedTime: 1795278382420
+  createdTime: 1795367993783
+  modifiedTime: 1795367993783
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: Compendium.crucible.pregens.Actor.sqTUaPrXpwCzk3xs

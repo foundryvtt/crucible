@@ -1305,6 +1305,22 @@ HOOKS.healingTonic = {
 
 /* -------------------------------------------- */
 
+HOOKS.healersVigil = {
+  prepare() {
+    this.usage.defenseType = "wounds";
+  },
+  postActivate() {
+    const wisdom = this.actor.system.abilities.wisdom.value;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.isSuccess ) continue;
+      const amount = events.isCriticalSuccess ? wisdom : Math.ceil(wisdom / 2);
+      this.recordEvent({target, resources: [{resource: "wounds", delta: -amount}]});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.horrificCritical = {
   canUse() {
     const lastAction = this.actor.lastConfirmedAction;
@@ -2555,9 +2571,9 @@ function _restRecoverPostActivate(action, {reduceWoundMadness}) {
   // Wounds and madness reduction (rest only); clamped to current value so reversal restores exactly
   if ( reduceWoundMadness && actor.system.usesReserveResources ) {
     const {wounds, madness} = actor.system.resources;
-    const reduction = Math.max(actor.level, 1);
-    const woundsDelta = -Math.min(reduction, wounds.value);
-    const madnessDelta = -Math.min(reduction, madness.value);
+    const reduction = actor.system.restRecovery;
+    const woundsDelta = -Math.min(reduction.wounds, wounds.value);
+    const madnessDelta = -Math.min(reduction.madness, madness.value);
     if ( woundsDelta < 0 ) activationEvent.resources.push({resource: "wounds", delta: woundsDelta});
     if ( madnessDelta < 0 ) activationEvent.resources.push({resource: "madness", delta: madnessDelta});
   }

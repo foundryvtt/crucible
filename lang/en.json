@@ -102,7 +102,7 @@
         "Name": "Reload Weapon"
       },
       "Rest": {
-        "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources. Delivers all <strong>Recover</strong> benefits, and characters who suffer <strong>Wounds</strong> and <strong>Madness</strong> reduce each by their <strong>Level</strong>. Temporary effects with a longer duration also end.",
+        "Description": "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources. Delivers all <strong>Recover</strong> benefits, and characters reduce their <strong>Wounds</strong> by their <strong>Level</strong> plus <strong>Toughness</strong>, and their <strong>Madness</strong> by their <strong>Level</strong> plus <strong>Presence</strong>. Temporary effects with a longer duration also end.",
         "Name": "Rest"
       },
       "Search": {

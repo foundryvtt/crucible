@@ -423,10 +423,10 @@ export default class CrucibleRestMessage extends foundry.abstract.TypeDataModel 
    */
   static #getDefaultDesignation(actor) {
     const {wounds, madness} = actor.system.resources;
-    const w = wounds?.value ?? 0;
-    const m = madness?.value ?? 0;
-    const restReduction = Math.max(actor.level, 1);
-    if ( Math.max(w, m) <= restReduction ) return ""; // A basic rest is enough to clear damage
+    const recovery = actor.system.restRecovery;
+    const w = Math.max((wounds?.value ?? 0) - recovery.wounds, 0);
+    const m = Math.max((madness?.value ?? 0) - recovery.madness, 0);
+    if ( !(w || m) ) return ""; // A basic rest is enough to clear damage
     const id = (w >= m) ? "convalesce" : "meditate";
     return (id in actor.actions) ? id : "";
   }

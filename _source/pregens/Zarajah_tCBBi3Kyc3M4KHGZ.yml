@@ -325,8 +325,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.flameStaff000000
       duplicateSource: null
@@ -368,8 +368,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
       duplicateSource: null
@@ -396,7 +396,7 @@ items:
             <p>Following a @Action[default rest], you find the common ground you
             share with each of your companions. You make a @Rule[skill.society]
             check against the @Rule[defense.madness] of each of them. Upon a
-            success they shed <strong>Madness</strong> equal to half your
+            success they recover <strong>Madness</strong> equal to half your
             @Rule[ability.wisdom], or your full @Rule[ability.wisdom] upon a
             @Rule[dice.criticalSuccess].</p>
           cost:
@@ -443,8 +443,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.camaraderie00000
       duplicateSource: null
@@ -534,8 +534,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeKinesis00000
       duplicateSource: null
@@ -605,8 +605,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.diversionist0000
       duplicateSource: null
@@ -678,8 +678,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -763,8 +763,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      modifiedTime: 1795278383180
-      createdTime: 1795278383180
+      modifiedTime: 1795367994580
+      createdTime: 1795367994580
       compendiumSource: Compendium.crucible.talent.Item.runeFlame0000000
       duplicateSource: null
       exportSource: null
@@ -805,9 +805,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795278383180
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795278383180
+      createdTime: 1795367994580
       compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
       duplicateSource: null
       exportSource: null
@@ -845,9 +845,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795278383180
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795278383180
+      createdTime: 1795367994580
       compendiumSource: Compendium.crucible.talent.Item.opportunisticspe
       duplicateSource: null
       exportSource: null
@@ -881,8 +881,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.opportunist00000
       duplicateSource: null
@@ -950,8 +950,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.intuitweakness00
       duplicateSource: null
@@ -1032,8 +1032,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.counterspell0000
       duplicateSource: null
@@ -1073,8 +1073,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inflectionquicke
       duplicateSource: null
@@ -1118,9 +1118,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795278383180
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795278383180
+      createdTime: 1795367994580
       compendiumSource: Compendium.crucible.talent.Item.pyromancer000000
       duplicateSource: null
       exportSource: null
@@ -1157,8 +1157,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sorcerer00000000
       duplicateSource: null
@@ -1195,8 +1195,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.piercingBolts000
       duplicateSource: null
@@ -1278,8 +1278,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.quickening000000
       duplicateSource: null
@@ -1318,8 +1318,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
       duplicateSource: null
@@ -1359,8 +1359,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inflectionpush00
       duplicateSource: null
@@ -1395,8 +1395,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.certainFocus0000
       duplicateSource: null
@@ -1438,8 +1438,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.kineturge0000000
       duplicateSource: null
@@ -1486,9 +1486,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795278383180
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795278383180
+      createdTime: 1795367994580
       compendiumSource: Compendium.crucible.talent.Item.gesturepulse0000
       duplicateSource: null
       exportSource: null
@@ -1529,8 +1529,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.gestureBlast0000
       duplicateSource: null
@@ -1672,8 +1672,8 @@ items:
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: 1795278383180
-          modifiedTime: 1795278383180
+          createdTime: 1795367994580
+          modifiedTime: 1795367994580
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.luminous00000000
           duplicateSource: null
@@ -1687,8 +1687,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.gemOfIlluminatio
       duplicateSource: null
@@ -1804,8 +1804,8 @@ items:
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: 1795278383180
-          modifiedTime: 1795278383180
+          createdTime: 1795367994580
+          modifiedTime: 1795367994580
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.focusing00000000
           duplicateSource: null
@@ -1817,8 +1817,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.spellband0000000
       duplicateSource: null
@@ -1941,8 +1941,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.frostdropFlask00
       duplicateSource: null
@@ -2056,8 +2056,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.alchemistsFire00
       duplicateSource: null
@@ -2140,8 +2140,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
       duplicateSource: null
@@ -2232,8 +2232,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278383180
-      modifiedTime: 1795278383180
+      createdTime: 1795367994580
+      modifiedTime: 1795367994580
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.devilkinLineage0
       duplicateSource: null
@@ -2285,8 +2285,8 @@ _stats:
   coreVersion: '14.370'
   systemId: crucible
   systemVersion: 0.11.3
-  createdTime: 1795278383180
-  modifiedTime: 1795278383180
+  createdTime: 1795367994580
+  modifiedTime: 1795367994580
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: Compendium.crucible.pregens.Actor.tCBBi3Kyc3M4KHGZ
