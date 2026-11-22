@@ -2225,6 +2225,10 @@
           "hint": "How frequently should this action be able to be applied to a triggering token?",
           "label": "Frequency"
         },
+        "immediate": {
+          "hint": "Also perform this action against eligible tokens within the region when it is first placed.",
+          "label": "Trigger Immediately"
+        },
         "origin": {
           "hint": "The effect responsible for tracking the existence of this behavior.",
           "label": "Origin"

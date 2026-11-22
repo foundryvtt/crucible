@@ -150,18 +150,14 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
-    // Drop the trailing fieldset of auto-added system fields
-    context.fields = context.fields.slice(0, -1).reduce((acc, {fields}) => {
-      for ( const {field, value} of fields ) {
-        acc[field.name] = {field, value};
-      }
-      return acc;
-    }, {});
-
-    // Remove Disabled checkbox if pre-configuring
-    if ( this.isSynthetic ) delete context.fields.disabled;
+    // Index the core fields, dropping the trailing fieldset of auto-added system fields
+    const coreFields = {};
+    for ( const {fields} of context.fields.slice(0, -1) ) {
+      for ( const {field, value} of fields ) coreFields[field.name] = {field, value};
+    }
     return {
       ...context,
+      behaviorFields: this.#prepareBehaviorFields(coreFields, context.source),
       effectContext: CrucibleActionConfig.prepareEffectContext(this.document.system.schema.fields.action.fields.effects,
         context.source.system.action.name),
       effectPartial: this.constructor.ACTIVE_EFFECT_PARTIAL,
@@ -177,6 +173,32 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       systemFields: this.document.system.schema.fields
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the fields rendered on the behavior tab, in display order.
+   * @param {Record<string, {field: DataField, value: any}>} coreFields  Core Region Behavior fields keyed by name
+   * @param {object} source                                              Source data of the Region Behavior
+   * @returns {{field: DataField, value: any, disabled?: boolean}[]}
+   */
+  #prepareBehaviorFields(coreFields, source) {
+    const {actor, frequency, immediate, origin} = this.document.system.schema.fields;
+    const {system} = source;
+    if ( this.isSynthetic ) return [
+      {field: actor, value: system.actor, disabled: true},
+      {field: frequency, value: system.frequency},
+      {field: immediate, value: system.immediate},
+      coreFields.events
+    ];
+    return [
+      {field: origin, value: system.origin, disabled: true},
+      {field: actor, value: system.actor},
+      {field: frequency, value: system.frequency},
+      coreFields.disabled,
+      coreFields.events
+    ];
   }
 
   /* -------------------------------------------- */
@@ -327,7 +349,8 @@ export default class CrucibleActionBehaviorRegionConfig extends foundry.applicat
     const source = this.document.toObject();
     actions[idx].regionBehavior = {
       name: source.name,
-      system: {action: source.system.action, events: source.system.events, frequency: source.system.frequency}
+      system: {action: source.system.action, events: source.system.events, frequency: source.system.frequency,
+        immediate: source.system.immediate}
     };
     await parent.update({"system.actions": actions}, options);
     await this.render(); // Transient behaviors need to be manually re-rendered

@@ -23,7 +23,7 @@ system:
       target:
         type: aura
         number: 1
-        scope: 2
+        scope: 1
         size: 20
         self: true
       effects:
@@ -83,6 +83,7 @@ system:
             - tokenEnter
             - tokenTurnStart
           frequency: roundActor
+          immediate: true
   iconicSpells: 1
   spellcraft: life
   keywords:

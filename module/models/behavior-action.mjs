@@ -19,6 +19,7 @@
  * @property {Record<string, ActionBehaviorAffectedActor>} affectedActors  Keyed by the affected Actor's UUID
  * @property {Set<string>} events       Region events which trigger the embedded Action
  * @property {string} frequency         How often the Action may apply to one triggering Actor
+ * @property {boolean} immediate        Does the Action also apply to eligible Actors in the Region when it is placed?
  * @property {string|null} origin       UUID of the ActiveEffect which keeps the parent Region alive
  */
 
@@ -120,7 +121,8 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
       }}),
       events: this._createEventsField(),
       frequency: new fields.StringField({initial: "roundActor", required: true, nullable: false,
-        choices: this.FREQUENCY_CHOICES})
+        choices: this.FREQUENCY_CHOICES}),
+      immediate: new fields.BooleanField()
     };
   }
 
@@ -134,23 +136,78 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
   /* -------------------------------------------- */
 
   /**
-   * Instantiate the embedded Action to be performed against one triggering Actor. Either a {@link CrucibleSpellAction},
-   * if the "spell" tag is applied to the action, otherwise a standard {@link CrucibleAction}.
+   * Perform the embedded Action against the eligible Actors within a Region as it is placed, short of resolution.
    * @param {object} options
-   * @param {CrucibleActor} options.actor     The Actor performing the Action
-   * @param {CrucibleActor} options.target    The Actor which triggered this behavior
-   * @param {CrucibleItem|null} options.item  The Item, if any, of the action which spawned this behavior's Region
+   * @param {CrucibleActor} options.actor         The Actor performing the Action
+   * @param {CrucibleItem|null} options.item      The Item, if any, of the action which places the Region
+   * @param {TokenDocument|null} options.token    The Token performing the Action
+   * @param {CrucibleActor[]} options.candidates  Actors with a Token inside the Region
+   * @returns {Promise<CrucibleAction|null>}      The activated Action, or null if no candidate is eligible
+   */
+  async activateImmediately({actor, item, token, candidates}) {
+    const action = this.createAction({actor, item, token, targets: []});
+    action.usage.forcedTargets = candidates.filter(c => action.canTargetActor(c));
+    if ( !action.usage.forcedTargets.length ) return null;
+    action._canUse();
+    action.acquireTargets();
+    action._callActionHooks("configure");
+    action._configureFlanking();
+    await action._activate();
+    return action;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Instantiate the embedded Action. Either a {@link CrucibleSpellAction}, if the "spell" tag is applied to the
+   * action, otherwise a standard {@link CrucibleAction}.
+   * @param {object} options
+   * @param {CrucibleActor} options.actor         The Actor performing the Action
+   * @param {CrucibleItem|null} options.item      The Item, if any, of the action which spawned this behavior's Region
+   * @param {CrucibleActor[]} options.targets     The Actors which the Action affects
+   * @param {TokenDocument|null} [options.token]  The Token performing the Action, if known
    * @returns {CrucibleAction}
    */
-  createAction({actor, item, target}) {
+  createAction({actor, item, targets, token=null}) {
     const {CrucibleAction, CrucibleSpellAction} = crucible.api.models;
-    const isSpell = this.action.tags.has("spell");
     const {spellcraft, ...data} = this.toObject().action; // Construct from a copy because cleaning mutates
+    const isSpell = data.tags.includes("spell");
     data.tags = [...data.tags, "involuntary"]; // A Region acts on its own, even while its source is Incapacitated
     // Flatten spell components in cases that this action needs to become a CrucibleSpellAction
     if ( isSpell ) Object.assign(data, spellcraft, {composition: CrucibleSpellAction.COMPOSITION_STATES.COMPOSED});
     const cls = isSpell ? CrucibleSpellAction : CrucibleAction;
-    return new cls(data, {actor, item, usage: {forcedTargets: [target], hasDice: isSpell}});
+    return new cls(data, {actor, item, token, usage: {forcedTargets: targets, hasDice: isSpell}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Register this behavior with the current Combat, so that its affected Actors are cleared when the Combat is deleted.
+   * @returns {Promise<void>}
+   */
+  async trackCombat() {
+    if ( !game.combat ) return;
+    const combatBehaviors = game.combat.getFlag("crucible", "trackedActionBehaviors") ?? [];
+    if ( combatBehaviors.includes(this.parent.uuid) ) return;
+    combatBehaviors.push(this.parent.uuid);
+    await game.combat.setFlag("crucible", "trackedActionBehaviors", combatBehaviors);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Describe the circumstances under which a behavior Action applies to the Actor of a Token.
+   * @param {TokenDocument|null} token        The affected Token
+   * @returns {ActionBehaviorAffectedActor}
+   */
+  static getAffectedActorData(token) {
+    return {
+      combatId: game.combat?.id ?? null,
+      combatantId: token?.combatant?.id ?? null,
+      tokenId: token?.id ?? null,
+      round: game.combat?.round ?? -1,
+      turn: game.combat?.turn ?? -1
+    };
   }
 
   /* -------------------------------------------- */
@@ -171,7 +228,7 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
 
     // Determine target eligibility using the region's action target configuration
     const sourceItem = await fromUuid(this.item);
-    const action = this.createAction({actor: sourceActor, target: actor, item: sourceItem});
+    const action = this.createAction({actor: sourceActor, item: sourceItem, targets: [actor]});
     if ( !action.canTargetActor(actor) ) return;
 
     // Restrict action usage based on allowed frequency
@@ -192,22 +249,9 @@ export default class CrucibleActionRegionBehavior extends foundry.data.regionBeh
 
     // If non-"every" frequency, track that actor has been affected
     if ( this.frequency !== "every" ) {
-      await this.parent.update({"system.affectedActors": {[actor.uuid]: {
-        combatId: game.combat?.id ?? null,
-        combatantId: token.combatant?.id ?? null,
-        tokenId: token.id,
-        round: game.combat?.round ?? -1,
-        turn: game.combat?.turn ?? -1
-      }}});
-
-      // If in combat, record this behavior to the current Combat so that affectedActors is cleared on combat deletion
-      if ( game.combat ) {
-        const combatBehaviors = game.combat.getFlag("crucible", "trackedActionBehaviors") ?? [];
-        if ( !combatBehaviors.includes(this.parent.uuid) ) {
-          combatBehaviors.push(this.parent.uuid);
-          await game.combat.setFlag("crucible", "trackedActionBehaviors", combatBehaviors);
-        }
-      }
+      const affectedActor = CrucibleActionRegionBehavior.getAffectedActorData(token);
+      await this.parent.update({"system.affectedActors": {[actor.uuid]: affectedActor}});
+      await this.trackCombat();
     }
   }
 

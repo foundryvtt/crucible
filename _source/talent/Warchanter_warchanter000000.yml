@@ -39,7 +39,7 @@ system:
       target:
         type: aura
         number: 1
-        scope: 2
+        scope: 1
         size: 15
         self: true
       effects:
@@ -88,7 +88,7 @@ system:
       target:
         type: aura
         number: 1
-        scope: 2
+        scope: 1
         size: 15
         self: true
       effects:
@@ -137,7 +137,7 @@ system:
       target:
         type: aura
         number: 1
-        scope: 2
+        scope: 1
         size: 15
         self: true
       effects:
@@ -186,7 +186,7 @@ system:
       target:
         type: aura
         number: 1
-        scope: 3
+        scope: 1
         size: 15
         self: false
       effects:
@@ -235,7 +235,7 @@ system:
       target:
         type: aura
         number: 1
-        scope: 3
+        scope: 1
         size: 15
         self: false
       effects:
@@ -283,7 +283,7 @@ system:
       target:
         type: aura
         number: 1
-        scope: 3
+        scope: 1
         size: 15
         self: false
       effects:

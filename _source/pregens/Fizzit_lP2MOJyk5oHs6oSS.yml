@@ -1325,7 +1325,7 @@ items:
             type: aura
             number: 1
             size: 10
-            scope: 3
+            scope: 1
             self: false
           effects:
             - name: Sentinel Bolts

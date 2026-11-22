@@ -16,21 +16,17 @@ system:
       name: Terrifying Presence
       img: icons/magic/control/fear-fright-monster-purple-blue.webp
       description: >-
-        <p>The @ref[actor.name]{creature} lets loose an aura of fear. Any
-        enemies within <strong>20 feet</strong> of the
-        @ref[actor.name]{creature} immediately suffer an attack to their
-        @Rule[defense.willpower], with a @Rule[dice.success] dealing
-        @Rule[damageType.psychic] damage to their @Rule[resource.morale] and
-        causing the @Condition[frightened] until the start of their next turn.
-        Thereafter, whenever an enemy enters or starts its turn within
-        <strong>20 feet</strong> of the @ref[actor.name]{creature}, it becomes
-        exposed to the dreadful presence, suffering a @Rule[action.harmless]
-        attack to its @Rule[defense.willpower] and becoming
-        @Condition[frightened] until the start of its next turn upon
-        @Rule[dice.success].</p>
-      condition: An enemy moves within 20 feet.
+        <p>The @ref[actor.name]{creature} makes a formidable display of menace
+        which fills those nearby with dread. For the next <strong>6
+        Rounds</strong>, any enemy within <strong>20 feet</strong> of the
+        @ref[actor.name]{creature}, or which later enters that area, suffers an
+        attack to its @Rule[defense.willpower]. On a @Rule[dice.success], the
+        attack deals @Rule[damageType.psychic] damage to its
+        @Rule[resource.morale] and causes it to become @Condition[frightened]
+        until the start of its next turn.</p>
+      condition: The creature's presence is not already active.
       cost:
-        action: 0
+        action: 2
         focus: 1
         heroism: 0
         hands: 0
@@ -42,12 +38,12 @@ system:
       target:
         type: aura
         number: 1
-        scope: 3
+        scope: 1
         self: false
         size: 20
       summon: null
       effects:
-        - name: 'Terrifying Presence: Source'
+        - name: Terrifying Presence
           scope: 1
           result:
             type: any
@@ -71,36 +67,7 @@ system:
             regions: []
             summons: []
             suppression: {}
-        - name: ''
-          scope: 3
-          result:
-            type: success
-            all: false
-          statuses:
-            - frightened
-          duration:
-            value: 1
-            units: rounds
-            expiry: turnStart
-            expired: false
-          system:
-            changes: []
-            dot: []
-            effects: []
-            lights: []
-            maintenance:
-              cost: null
-              hands: 0
-            properties: []
-            regions: []
-            summons: []
-            suppression: {}
-      tags:
-        - generic
-        - willpower
-        - psychic
-        - morale
-        - presence
+      tags: []
       persistRegion: true
       regionBehavior:
         name: Terrifying Presence
@@ -110,12 +77,12 @@ system:
             name: Terrifying Presence
             img: icons/magic/control/fear-fright-monster-purple-blue.webp
             description: >-
-              <p>Whenever an enemy enters or starts its turn within <strong>20
-              feet</strong> of the @ref[actor.name]{creature}, it becomes
-              exposed to the dreadful presence, suffering a
-              @Rule[action.harmless] attack to its @Rule[defense.willpower] and
-              becoming @Condition[frightened] until the start of its next turn
-              upon @Rule[dice.success].</p>
+              <p>Whenever an enemy enters the area within <strong>20
+              feet</strong> of the @ref[actor.name]{creature}, it suffers an
+              attack to its @Rule[defense.willpower]. On a @Rule[dice.success],
+              the attack deals @Rule[damageType.psychic] damage to its
+              @Rule[resource.morale] and causes it to become
+              @Condition[frightened] until the start of its next turn.</p>
             effects:
               - name: ''
                 scope: 3
@@ -143,16 +110,17 @@ system:
                   suppression: {}
             tags:
               - generic
-              - harmless
               - willpower
+              - psychic
+              - morale
               - presence
             target:
               scope: 3
             spellcraft: null
           events:
             - tokenEnter
-            - tokenTurnStart
           frequency: roundActor
+          immediate: true
   iconicSpells: 0
 effects: []
 folder: EDeByOa9cuYSaF8Y

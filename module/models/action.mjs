@@ -1095,6 +1095,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #eventStreamResolved = false;
 
   /**
+   * Targets which the immediate region Action affected as this action placed its region.
+   * @type {ActionUseTarget[]}
+   */
+  #immediateTargets = [];
+
+  /**
    * Flag to force rebuild of the eventsByActor cache on next access.
    * Set to true by recordEvent. Can also be set manually if the events array is mutated directly.
    * @type {boolean}
@@ -1503,44 +1509,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this._configureFlanking(); // Configure hooks may override the attack classification
     }
 
-    // Initialize self events before pre-activation hooks
-    this.#initializeSelfEvents();
-
     // Execute the action recipe, any step of which may prevent activation
     try {
-      await this._preActivate();
-      for ( const [actor, {token}] of this.targets ) await this._roll(actor, token);
-      await this._post();
+      await this._activate();
       await this._finalize();
     } catch(err) {
       ui.notifications.warn(err);
       return null;
     }
 
-    // Create the RegionDocument, visible to GMs and the placing user
-    if ( this.region ) {
-      const regionData = this.region.toObject();
-      regionData.name = this.name;
-      regionData.ownership = {default: 0, [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER};
-      regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER; // Author and GM only until confirmed
-      if ( this.persistRegion && this.regionBehavior ) {
-        const existing = regionData.behaviors.find(b => b.type === "crucible.action");
-        if ( !existing ) {
-          const behavior = {
-            disabled: true,
-            type: "crucible.action",
-            system: {
-              actor: this.actor.uuid,
-              item: this.item?.uuid ?? null
-            }
-          };
-          foundry.utils.mergeObject(behavior, this.regionBehavior);
-          regionData.behaviors.push(behavior);
-        }
-      }
-      const region = await this.region.constructor.create(regionData, {parent: canvas.scene, keepId: true});
-      Object.defineProperty(this, "region", {value: region, configurable: true});
-    }
+    // Create the RegionDocument
+    if ( this.region ) await this.#createRegion();
 
     // Record action history and create a ChatMessage to confirm the action
     message ??= await this.toMessage({
@@ -1555,6 +1534,52 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       await this.actor.update({"flags.crucible": this.usage.actorFlags});
     }
     return this;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create the RegionDocument placed by this action, visible to GMs and the placing user until confirmed.
+   * @returns {Promise<void>}
+   */
+  async #createRegion() {
+    const regionData = this.region.toObject();
+    regionData.name = this.name;
+    regionData.ownership = {default: 0, [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER};
+    regionData.visibility = CONST.REGION_VISIBILITY.OBSERVER;
+    const hasBehavior = regionData.behaviors.some(b => b.type === "crucible.action");
+    if ( this.persistRegion && this.regionBehavior && !hasBehavior ) {
+      regionData.behaviors.push(this.#prepareRegionBehaviorData());
+    }
+    const region = await this.region.constructor.create(regionData, {parent: canvas.scene, keepId: true});
+    Object.defineProperty(this, "region", {value: region, configurable: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare creation data for the disabled Action behavior of a persisted region, which is enabled upon confirmation.
+   * @returns {object}
+   */
+  #prepareRegionBehaviorData() {
+    const behavior = {
+      disabled: true,
+      type: "crucible.action",
+      system: {
+        actor: this.actor.uuid,
+        item: this.item?.uuid ?? null
+      }
+    };
+    foundry.utils.mergeObject(behavior, this.regionBehavior);
+
+    // Targets of the immediate region Action are already affected for the purpose of its frequency
+    if ( this.regionBehavior.system.frequency !== "every" ) {
+      const {getAffectedActorData} = crucible.api.models.CrucibleActionRegionBehavior;
+      behavior.system.affectedActors = Object.fromEntries(this.#immediateTargets.map(({actor, token}) => {
+        return [actor.uuid, getAffectedActorData(token)];
+      }));
+    }
+    return behavior;
   }
 
   /* -------------------------------------------- */
@@ -1814,29 +1839,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Acquire target tokens from a placed region using RegionDocument#tokens.
-   * This needs to work with an ephemeral RegionDocument, so it cannot utilize RegionDocument#tokens directly.
+   * Acquire targets from the Tokens within this action's region which match its target scope.
    * @returns {ActionUseTarget[]}
    */
   #acquireTargetsFromRegion() {
-    if ( !this.region ) return [];
-    const potentialTokens = canvas.tokens.quadtree.getObjects(this.region.bounds);
     const targetDispositions = this.#getTargetDispositions();
-
-    // A region resting upon a surface of another level also contains tokens on that level
-    const targetLevel = this.region.flags.crucible?.targetLevel;
-    const regionLevel = this.region.levels.first();
-
-    // Identify tokens contained within the region which match the correct disposition and visibility
     const targets = [];
-    for ( const token of potentialTokens ) {
-      const tokenDoc = token.document;
+    for ( const tokenDoc of this.#getRegionTokens() ) {
       if ( !this.target.self && (tokenDoc.actor === this.actor) ) continue;       // Exclude self
       if ( !targetDispositions.includes(tokenDoc.disposition) ) continue;         // Require correct disposition
-      if ( tokenDoc.hidden ) continue;                                            // Ignore hidden
-      const onTargetLevel = !!targetLevel && (tokenDoc._source.level === targetLevel);
-      const position = onTargetLevel ? {...tokenDoc._source, level: regionLevel} : tokenDoc._source;
-      if ( !tokenDoc.testInsideRegion(this.region, position) ) continue;          // Require region containment
       targets.push(CrucibleAction.#getTargetFromToken(tokenDoc));
     }
 
@@ -1851,6 +1862,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     targets.sort((a, b) => a._d2 - b._d2);
     return targets.slice(0, this.target.limit);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify the visible Tokens contained within this action's region.
+   * This needs to work with an ephemeral RegionDocument, so it cannot utilize RegionDocument#tokens directly.
+   * A region resting upon a surface of another level also contains tokens on that level.
+   * @returns {TokenDocument[]}
+   */
+  #getRegionTokens() {
+    if ( !this.region ) return [];
+    const targetLevel = this.region.flags.crucible?.targetLevel;
+    const regionLevel = this.region.levels.first();
+    const tokens = [];
+    for ( const token of canvas.tokens.quadtree.getObjects(this.region.bounds) ) {
+      const tokenDoc = token.document;
+      if ( tokenDoc.hidden ) continue;
+      const onTargetLevel = !!targetLevel && (tokenDoc._source.level === targetLevel);
+      const position = onTargetLevel ? {...tokenDoc._source, level: regionLevel} : tokenDoc._source;
+      if ( tokenDoc.testInsideRegion(this.region, position) ) tokens.push(tokenDoc);
+    }
+    return tokens;
   }
 
   /* -------------------------------------------- */
@@ -2187,6 +2221,34 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }]});
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Perform an immediate region Action against the eligible Actors within the region, recording its events here.
+   * @returns {Promise<void>}
+   */
+  async #recordImmediateRegionEvents() {
+    const system = this.regionBehavior?.system;
+    if ( !this.region || !this.persistRegion || !system?.immediate ) return;
+    const behaviorData = this.schema.getField("regionBehavior.system").toObject(system);
+    const behavior = new crucible.api.models.CrucibleActionRegionBehavior(behaviorData);
+    const candidates = new Set(this.#getRegionTokens().map(t => t.actor).filter(Boolean));
+    const regionAction = await behavior.activateImmediately({actor: this.actor, item: this.item, token: this.token,
+      candidates: Array.from(candidates)});
+    if ( !regionAction ) return;
+
+    // Adopt its targets, then its events, omitting singleton events which this action already records
+    for ( const [actor, target] of regionAction.targets ) {
+      if ( !this.targets.has(actor) ) this.targets.set(actor, target);
+    }
+    for ( const event of regionAction.events ) {
+      const isSingleton = CrucibleAction.#SINGLETON_EVENT_TYPES.has(event.type);
+      if ( isSingleton && this.events.some(e => (e.type === event.type) && (e.target === event.target)) ) continue;
+      Object.assign(this.recordEvent({type: event.type, target: event.target}), event);
+    }
+    this.#immediateTargets = Array.from(regionAction.targets.values());
   }
 
   /* -------------------------------------------- */
@@ -2957,6 +3019,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Activate the configured action against its targets, recording its events up to their resolution.
+   * @throws {Error}                          An error which prevents action activation
+   * @protected
+   */
+  async _activate() {
+    this.#initializeSelfEvents(); // Before pre-activation hooks, which may record onto self events
+    await this._preActivate();
+    for ( const [actor, {token}] of this.targets ) await this._roll(actor, token);
+    await this._post();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Pre-activation steps which happen after dialog configuration of the action but before the action is evaluated.
    * This could be used to mutate the array of targets which are affected by the action.
    *
@@ -3010,6 +3086,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   async _finalize() {
+    await this.#recordImmediateRegionEvents();
     for ( const [actor, group] of Array.from(this.eventsByActor) ) { // Hooks may record or negate events
       actor.callActorHooks("receiveAction", this, group.all);
     }
@@ -3129,6 +3206,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const actionBehavior = this.region.behaviors.find(b => b.type === "crucible.action");
         await this.region.update({visibility: CONST.REGION_VISIBILITY.ALWAYS});
         await actionBehavior?.update({disabled: false, system: {origin: retainedEffect.uuid}});
+        if ( !foundry.utils.isEmpty(actionBehavior?.system.affectedActors) ) await actionBehavior.system.trackCombat();
       }
       else await this.region.delete();
     }
