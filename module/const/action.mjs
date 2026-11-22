@@ -1308,7 +1308,8 @@ export const TAGS = {
     async postActivate() {
       const {effect} = this.selfEvents?.getPrimaryEffect() ?? {};
       if ( !effect ) return;
-      const maintainedCost = this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
+      const maintainedCost = effect.system.maintenance?.cost // A cost configured on the effect takes precedence
+        ?? this.actor.actions[this.id]?.cost.focus ?? this.gesture?.cost.focus ?? 1;
       effect.system.maintenance = {cost: maintainedCost};
       effect.system.properties = Array.from(new Set(effect.system.properties).add("maintained"));
 
