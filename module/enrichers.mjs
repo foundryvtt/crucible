@@ -1,5 +1,7 @@
 /** @import {GroupCheckSkillConfig} from "./dice/group-check.mjs"; */
 
+import {TEMPLATES} from "./chat.mjs";
+
 /**
  * An optional `{Display Name}` label following an enricher tag.
  * @type {RegExp}
@@ -348,11 +350,14 @@ export async function awardCurrency(currency, {each=false, rolls=[]}={}) {
     }
     return formatAwardEntries(allocated).join(" ");
   };
-  const template = "systems/crucible/templates/chat/award-summary.hbs";
-  const summaryHTML = await foundry.applications.handlebars.renderTemplate(template, {
-    title: _loc(`AWARD.SUMMARIES.${isCost ? "Cost" : "Reward"}${each ? "" : "Split"}`),
-    award: formatAwardEntries(currency, true).join(" "),
-    recipients: recipients.map(a => ({name: a.name, amount: formatAmount(amounts.get(a))}))
+  const currencyHTML = html => new Handlebars.SafeString(`<span class="currencies-inline">${html}</span>`);
+  const summaryHTML = await foundry.applications.handlebars.renderTemplate(TEMPLATES.reportTable, {
+    cssClass: "award-summary",
+    header: {
+      label: _loc(`AWARD.SUMMARIES.${isCost ? "Cost" : "Reward"}${each ? "" : "Split"}`),
+      value: currencyHTML(formatAwardEntries(currency, true).join(" "))
+    },
+    rows: recipients.map(a => ({label: a.name, value: currencyHTML(formatAmount(amounts.get(a)))}))
   });
   const rollsHTML = await Promise.all(rolls.map(r => r.render()));
   await ChatMessage.implementation.create({

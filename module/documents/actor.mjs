@@ -1003,23 +1003,28 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<AttackRoll|null>}                  A created AttackRoll instance or null
    */
   async skillAttack(action, target, options={}) {
-    const {bonuses, skillId} = action.usage;
+    const {bonuses} = action.usage;
+
+    // A per-attack skill other than the action's own derives its bonuses from this actor's training in that skill
+    const skillId = options.type || action.usage.skillId;
+    const skill = (skillId === action.usage.skillId) ? bonuses : {ability: this.skills[skillId].abilityBonus,
+      skill: this.skills[skillId].skillBonus, enchantment: this.skills[skillId].enchantmentBonus};
 
     // Coalesce AttackRollData from action usage and per-attack options
     let defenseType = options.defenseType || action.usage.defenseType;
     let dc;
     if ( defenseType in target.defenses ) dc = options.dc ?? action.usage.dc ?? target.defenses[defenseType].total;
     else {
-      defenseType = skillId;
-      dc = options.dc ?? action.usage.dc ?? target.skills[skillId].passive;
+      if ( !(defenseType in target.skills) ) defenseType = skillId; // Opposed by the passive score of the same skill
+      dc = options.dc ?? action.usage.dc ?? target.skills[defenseType].passive;
     }
     const rollData = {
       actorId: this.id,
       type: skillId,
       target: target.uuid,
-      ability: bonuses.ability,
-      skill: bonuses.skill,
-      enchantment: bonuses.enchantment,
+      ability: skill.ability,
+      skill: skill.skill,
+      enchantment: skill.enchantment,
       boons: {...action.usage.boons, ...options.boons},
       banes: {...action.usage.banes, ...options.banes},
       defenseType,

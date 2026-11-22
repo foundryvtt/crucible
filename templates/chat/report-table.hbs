@@ -1,0 +1,22 @@
+<section class="crucible {{cssClass}}">
+    <table class="report-table {{tableClass}}">
+        <thead>
+            <tr>
+                {{#if header.value}}
+                <th class="report-label">{{header.label}}</th>
+                <th class="report-value">{{header.value}}</th>
+                {{else}}
+                <th colspan="2">{{header.label}}</th>
+                {{/if}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each rows}}
+            <tr>
+                <td class="report-label">{{label}}</td>
+                <td class="report-value {{cssClass}}">{{#each icons}}<i class="{{this}}" inert></i> {{/each}}{{value}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>

@@ -1,4 +1,5 @@
 import {formatEffectName, interruptAction, recordPushMovement} from "./helpers.mjs";
+import {TEMPLATES} from "../chat.mjs";
 
 const HOOKS = {};
 
@@ -2103,6 +2104,61 @@ HOOKS.petrifyingCloudRegion = {
 
 /* -------------------------------------------- */
 
+HOOKS.pickpocket = {
+  // The first icon shows whether the item was taken, the second whether the attempt was detected
+  _OUTCOMES: {
+    perfect: {label: "ACTIONS.Pickpocket.Perfect", cssClass: "boons", icons: ["fa-solid fa-check-double"]},
+    noticed: {label: "ACTIONS.Pickpocket.Noticed", cssClass: "boons",
+      icons: ["fa-solid fa-check", "fa-solid fa-triangle-exclamation"]},
+    feigned: {label: "ACTIONS.Pickpocket.Feigned", cssClass: "banes", icons: ["fa-solid fa-xmark", "fa-solid fa-mask"]},
+    suspected: {label: "ACTIONS.Pickpocket.Suspected", cssClass: "banes",
+      icons: ["fa-solid fa-xmark", "fa-solid fa-triangle-exclamation"]},
+    caught: {label: "ACTIONS.Pickpocket.Caught", cssClass: "banes",
+      icons: ["fa-solid fa-xmark", "fa-solid fa-triangle-exclamation"]}
+  },
+  _getOutcome(rolls) {
+    const detection = rolls.find(r => r.data.defenseType === "awareness");
+    const snatch = rolls.find(r => r.data.defenseType === "reflex");
+    if ( !detection || !snatch ) return null;
+    if ( snatch.isSuccess ) return detection.isSuccess ? "perfect" : "noticed";
+    if ( !detection.isSuccess ) return "caught";
+    const deception = rolls.find(r => r.data.type === "deception");
+    return deception?.isSuccess ? "feigned" : "suspected";
+  },
+  prepare() {
+    this.usage.defenseType = "reflex";
+  },
+  async roll(target) {
+    const snatchEvent = this.eventsByActor.get(target)?.roll.find(e => e.type === "check");
+    if ( !snatchEvent ) return;
+
+    // Detection: Stealth against passive Awareness, recorded ahead of the snatch
+    const detection = await this.actor.skillAttack(this, target, {defenseType: "awareness"});
+    this.recordEvent({type: "check", target, roll: detection}, {index: this.events.indexOf(snatchEvent)});
+
+    // Deception: only a fumble which went unnoticed may be passed off as accidental contact
+    if ( !detection.isSuccess || snatchEvent.roll.isSuccess ) return;
+    const deception = await this.actor.skillAttack(this, target, {type: "deception", defenseType: "deception"});
+    this.recordEvent({type: "check", target, roll: deception});
+  },
+  async prepareMessage(element) {
+    const target = this.targets.keys().next().value;
+    const rolls = (this.eventsByActor.get(target)?.roll ?? []).map(e => e.roll).filter(Boolean);
+    const outcome = HOOKS.pickpocket._OUTCOMES[HOOKS.pickpocket._getOutcome(rolls)];
+    if ( !outcome ) return;
+    const html = await foundry.applications.handlebars.renderTemplate(TEMPLATES.reportTable, {
+      cssClass: "turn-change-summary",
+      tableClass: "turn-report-table",
+      header: {label: this.name},
+      rows: [{label: target.name, value: _loc(outcome.label), cssClass: outcome.cssClass, icons: outcome.icons}]
+    });
+    const summary = foundry.utils.parseHTML(html);
+    if ( summary ) element.appendChild(summary);
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.poisonBarbSnareTrigger = {
   preActivate() {
     const tiers = {shoddy: 1, standard: 2, fine: 3, superior: 4, masterwork: 6};
@@ -2426,11 +2482,21 @@ HOOKS.investiture = {
       if ( !("invested" in (update.system ?? {})) ) continue;
       const item = this.actor.items.get(update._id);
       if ( !item ) continue;
-      (update.system.invested ? invested : divested).push(item.name);
+      if ( update.system.invested ) {
+        invested.push({label: item.name, value: _loc("ACTION.SUMMARY.ItemInvested"), cssClass: "boons",
+          icons: ["fa-solid fa-caret-up"]});
+      }
+      else divested.push({label: item.name, value: _loc("ACTION.SUMMARY.ItemDivested"), cssClass: "banes",
+        icons: ["fa-solid fa-caret-down"]});
     }
-    if ( !invested.length && !divested.length ) return;
-    const html = await foundry.applications.handlebars.renderTemplate(
-      "systems/crucible/templates/dice/partials/investiture-summary.hbs", {invested, divested});
+    const rows = invested.concat(divested);
+    if ( !rows.length ) return;
+    const html = await foundry.applications.handlebars.renderTemplate(TEMPLATES.reportTable, {
+      cssClass: "turn-change-summary",
+      tableClass: "turn-report-table",
+      header: {label: _loc("ACTION.SUMMARY.Investiture")},
+      rows
+    });
     const summary = foundry.utils.parseHTML(html);
     if ( summary ) element.appendChild(summary);
   }

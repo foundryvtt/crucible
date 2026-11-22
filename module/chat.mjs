@@ -2,11 +2,29 @@ import CrucibleAction from "./models/action.mjs";
 import {playClick} from "./audio.mjs";
 
 /**
+ * @typedef ReportTableRow
+ * @property {string} label                         The row label
+ * @property {string|Handlebars.SafeString} value   The row value, a SafeString to render HTML
+ * @property {string} [cssClass]                    A class for the value cell, such as "boons" or "banes"
+ * @property {string[]} [icons]                     Font Awesome classes for each icon preceding the value
+ */
+
+/**
+ * @typedef ReportTableContext
+ * @property {{label: string, value?: string|Handlebars.SafeString}} header  The header, spanning both columns if
+ *                                                                           it has no value
+ * @property {ReportTableRow[]} rows                The table rows
+ * @property {string} [cssClass]                    A class for the wrapping section
+ * @property {string} [tableClass]                  A class for the table
+ */
+
+/**
  * Handlebars template paths used for chat message rendering
- * @type {{initiativeReport: string, turnSummary: string}}
+ * @type {Record<string, string>}
  */
 export const TEMPLATES = {
   initiativeReport: "systems/crucible/templates/chat/initiative-summary.hbs",
+  reportTable: "systems/crucible/templates/chat/report-table.hbs",
   turnSummary: "systems/crucible/templates/chat/turn-change-summary.hbs",
   actionHeader: "systems/crucible/templates/dice/partials/action-use-header.hbs",
   actionFooter: "systems/crucible/templates/dice/partials/action-use-footer.hbs",

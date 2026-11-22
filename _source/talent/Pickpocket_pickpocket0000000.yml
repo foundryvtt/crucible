@@ -1,0 +1,84 @@
+name: Pickpocket
+type: talent
+_id: pickpocket000000
+img: icons/containers/bags/coinpouch-leather-grey.webp
+system:
+  description: >-
+    <p>Light fingers and a casual manner let you relieve others of their
+    belongings without them ever feeling a thing.</p>
+  actions:
+    - id: pickpocket
+      name: Pickpocket
+      img: icons/containers/bags/coinpouch-leather-grey.webp
+      condition: ''
+      description: >-
+        <p>Outside of combat, name an unsecured item you believe an unsuspecting
+        adjacent creature carries and which weighs no more than <strong>2
+        pounds</strong>. Unsecured items include anything stowed or on the
+        creature's toolbelt, or its coin pouch, but not its equipped weapons,
+        armor, or accessories.</p><p>You make a @Rule[skill.stealth] check
+        against the creature's passive @Rule[skill.awareness] to approach
+        unnoticed, and a second @Rule[skill.stealth] check against its
+        @Rule[defense.reflex] to snatch the item. If your approach goes unnoticed
+        but the snatch fails, you also make a @Rule[skill.deception] check
+        against the creature's passive @Rule[skill.deception] to pass off the
+        contact as an accident. The attempt has one of the following
+        outcomes:</p><dl><dt><p>Perfect</p></dt><dd><p>Both
+        @Rule[skill.stealth] checks succeed. You take the item unnoticed, if the
+        creature carries it.</p></dd><dt><p>Noticed</p></dt><dd><p>Only the
+        snatch succeeds. You take the item, if the creature carries it, but the
+        creature knows you took it.</p></dd><dt><p>Feigned</p></dt><dd><p>The
+        snatch fails, but the @Rule[skill.deception] check succeeds. You do not
+        take the item, and the creature believes the contact was an
+        accident.</p></dd><dt><p>Suspected</p></dt><dd><p>The snatch and the
+        @Rule[skill.deception] check both fail. You do not take the item, and
+        the creature knows you tried.</p></dd><dt><p>Caught</p></dt><dd><p>Both
+        @Rule[skill.stealth] checks fail. You do not take the item, and the
+        creature knows you tried.</p></dd></dl>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        hands: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - harmless
+        - subtle
+        - noncombat
+        - skill
+        - stealth
+      summon: null
+  keywords:
+    - playstyle.utility
+    - skill.stealth
+  nodes:
+    - dex0b
+  iconicSpells: 0
+  training: stealth
+effects: []
+folder: fldStealth000000
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.11.1
+  coreVersion: '14.369'
+  createdTime: 1795392000000
+  modifiedTime: 1795392000000
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+sort: 600000
+_key: '!items!pickpocket000000'

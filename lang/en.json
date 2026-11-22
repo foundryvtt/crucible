@@ -672,6 +672,13 @@
       "Petrification": "Petrification",
       "Stage": "Stage {stage}"
     },
+    "Pickpocket": {
+      "Caught": "Caught",
+      "Feigned": "Feigned",
+      "Noticed": "Noticed",
+      "Perfect": "Perfect",
+      "Suspected": "Suspected"
+    },
     "Regurgitate": {
       "NotHeld": "You are not holding {target}."
     },
