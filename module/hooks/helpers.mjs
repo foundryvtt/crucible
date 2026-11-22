@@ -99,6 +99,20 @@ export function applyRuneScalingChange(grimoire, rune, scaling) {
 /* -------------------------------------------- */
 
 /**
+ * Modify a gesture in an actor's grimoire with the provided changes.
+ * @param {object} grimoire     The grimoire of the actor being prepared
+ * @param {string} gesture      The gesture to change
+ * @param {object} changes      Partial gesture data to apply
+ */
+export function applyGestureChange(grimoire, gesture, changes) {
+  const component = grimoire.gestures.get(gesture);
+  if ( !component ) return;
+  grimoire.gestures.set(gesture, component.clone(changes, {once: true}));
+}
+
+/* -------------------------------------------- */
+
+/**
  * Record a forced movement which pushes a target away from, or pulls it toward, a point.
  * @param {CrucibleAction} action     The action performing the forced movement
  * @param {CrucibleActor} target      The targeted actor to displace

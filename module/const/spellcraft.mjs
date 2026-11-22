@@ -469,13 +469,13 @@ export const GESTURES = Object.seal({
       focus: 1
     },
     damage: {
-      base: 6
+      base: 4
     },
     hands: 1,
     range: {
       maximum: 1
     },
-    scaling: "dexterity",
+    scaling: "presence",
     target: {
       type: "single"
     }

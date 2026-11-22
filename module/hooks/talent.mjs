@@ -1,5 +1,5 @@
 import {ENVIRONMENT_TALENT_ID} from "../const/talents.mjs";
-import {applyRuneDamageChoice, applyRuneScalingChange, formatEffectName, interruptAction,
+import {applyGestureChange, applyRuneDamageChoice, applyRuneScalingChange, formatEffectName, interruptAction,
   isDeployingItem} from "./helpers.mjs";
 
 const HOOKS = {};
@@ -1751,6 +1751,14 @@ HOOKS.defiantFlame0000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.dartingTouch0000 = {
+  prepareSpells(_item, grimoire) {
+    applyGestureChange(grimoire, "touch", {scaling: "dexterity", damage: {base: 6}});
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.flashFrost000000 = {
   prepareSpells(_item, grimoire) {
     applyRuneScalingChange(grimoire, "frost", "intellect");
@@ -1774,6 +1782,7 @@ HOOKS.livingBoulder000 = {
 };
 
 /* -------------------------------------------- */
+
 
 HOOKS.patientSoul00000 = {
   prepareSpells(_item, grimoire) {

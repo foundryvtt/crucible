@@ -17,7 +17,7 @@ system:
     - weapon.projectile
     - weapon.mechanical
   nodes:
-    - dex1b
+    - dex1a
   iconicSpells: 0
   training: deception
 effects: []
