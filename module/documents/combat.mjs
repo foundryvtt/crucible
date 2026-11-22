@@ -18,11 +18,57 @@ export default class CrucibleCombat extends foundry.documents.Combat {
 
   /** @inheritDoc */
   async nextRound() {
-    if ( !game.user.isGM ) {
-      ui.notifications.warn(_loc("COMBAT.WARNINGS.CannotChangeRound"));
+    if ( game.user.isGM ) return super.nextRound();
+
+    // Players may ask the Gamemaster to advance the round when they cannot end the final turn themselves
+    if ( this._canRequestRoundAdvance(game.user) ) return this._requestRoundAdvance();
+    ui.notifications.warn(_loc("COMBAT.WARNINGS.CannotChangeRound"));
+    return this;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is the current turn the final one in the round, such that advancing the turn would advance the Combat to the
+   * next round? Mirrors the wrap-around behavior of Combat#nextTurn, including the skipDefeated setting.
+   * @type {boolean}
+   */
+  get isFinalTurn() {
+    if ( this.round === 0 ) return false;
+    const turn = this.turn ?? -1;
+    if ( this.settings.skipDefeated ) return this.turns.slice(turn + 1).every(c => c.isDefeated);
+    return (turn + 1) >= this.turns.length;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * May a User request that the Gamemaster advance the round on their behalf? Only permitted when the Combat is
+   * underway, the User owns the currently acting Combatant, and that Combatant is the final one to act.
+   * @param {User} user     The requesting User
+   * @returns {boolean}     Whether the User may make the request
+   */
+  _canRequestRoundAdvance(user) {
+    return ( this.round > 0 ) && this.isFinalTurn && ( this.combatant?.testUserPermission(user, "OWNER") ?? false );
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Request that the Gamemaster advance the Combat round on behalf of the current User, which occurs when the final
+   * acting Combatant of a round belongs to a player who is otherwise unable to end their own turn.
+   * @returns {Promise<Combat>}
+   */
+  async _requestRoundAdvance() {
+    if ( !game.users.activeGM ) {
+      ui.notifications.warn(_loc("COMBAT.WARNINGS.NoGamemasterPresent"));
       return this;
     }
-    return super.nextRound();
+    game.socket.emit("system.crucible", {
+      action: "requestRoundAdvance",
+      data: {combatId: this.id, userId: game.user.id, round: this.round}
+    });
+    return this;
   }
 
   /* -------------------------------------------- */
