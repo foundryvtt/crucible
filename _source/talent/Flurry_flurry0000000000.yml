@@ -45,7 +45,7 @@ system:
     - playstyle.melee
     - weapons.dualwield
   nodes:
-    - dex0b
+    - dex1b
   iconicSpells: 0
   training: light
 _stats:

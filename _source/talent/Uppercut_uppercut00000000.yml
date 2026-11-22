@@ -6,8 +6,9 @@ flags:
   core: {}
 system:
   description: >-
-    <p>A two-handed weapon technique where you swing your weapon upwards, making
-    a second <strong>Strike</strong> with the backswing of your weapon.</p>
+    <p>A heavy weapon technique where you swing your weapon upwards, making a
+    second <strong>Strike</strong> with the backswing of a weapon which scales
+    using @Rule[ability.strength].</p>
   actions:
     - id: uppercut
       name: Uppercut
@@ -21,7 +22,7 @@ system:
       tags:
         - afterStrike
         - melee
-        - twohand
+        - brute
       cost:
         action: -1
         focus: 0
@@ -41,9 +42,9 @@ system:
       summon: null
   keywords:
     - playstyle.melee
-    - weapons.twohand
+    - weapon.heavy
   nodes:
-    - str1a
+    - str0a
   iconicSpells: 0
   training: heavy
 _stats:

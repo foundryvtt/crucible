@@ -63,7 +63,7 @@ system:
     - action.noncombat
     - skill.tailoring
   nodes:
-    - dex2a
+    - dex2c
   spellcraft: ''
   iconicSpells: 0
   training: tailoring

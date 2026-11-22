@@ -3,49 +3,67 @@ type: archetype
 img: icons/magic/water/water-drop-swirl-blue.webp
 system:
   description: >-
-    <p>Operators are experts at maneuvering in tense situations, able to balance
-    shrewd political sense with cunning and decisive action.</p>
+    <p>Operators keep their nerve when others lose theirs. They hold firm
+    through wounds that would fell lesser fighters, break the will of those who
+    face them with cold menace, and answer every crisis with decisive
+    action.</p>
   abilities:
     wisdom: 0
-    presence: 2
-    intellect: 4
+    presence: 4
+    intellect: 1
     strength: 0
-    toughness: 2
-    dexterity: 4
+    toughness: 4
+    dexterity: 3
   talents:
-    - item: Compendium.crucible.talent.Item.operator00000000
-      level: 3
-    - item: Compendium.crucible.talent.Item.strategicreposit
-      level: 3
-    - item: Compendium.crucible.talent.Item.subtleextricatio
-      level: 1
-    - item: Compendium.crucible.talent.Item.weakpoints000000
-      level: 2
     - item: Compendium.crucible.talent.Item.lunge00000000000
       level: 0
-    - item: Compendium.crucible.talent.Item.quickDraw0000000
+    - item: Compendium.crucible.talent.Item.intimidator00000
       level: 0
-    - item: Compendium.crucible.talent.Item.deftgrip00000000
-      level: 2
-    - item: Compendium.crucible.talent.Item.preternaturalins
-      level: 4
-    - item: Compendium.crucible.talent.Item.strikefirst00000
-      level: 0
-    - item: Compendium.crucible.talent.Item.backstab00000000
+    - item: Compendium.crucible.talent.Item.secondwind000000
       level: 1
+    - item: Compendium.crucible.talent.Item.subtleextricatio
+      level: 1
+    - item: Compendium.crucible.talent.Item.exploitDespair00
+      level: 2
+    - item: Compendium.crucible.talent.Item.lastStand0000000
+      level: 2
+    - item: Compendium.crucible.talent.Item.operator00000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.backstab00000000
+      level: 3
+    - item: Compendium.crucible.talent.Item.ironResolve00000
+      level: 4
+    - item: Compendium.crucible.talent.Item.mentalfortress00
+      level: 4
+    - item: Compendium.crucible.talent.Item.adrenaline000000
+      level: 5
+    - item: Compendium.crucible.talent.Item.rout000000000000
+      level: 5
   training:
     athletics: 1
     awareness: 2
-    stealth: 3
+    stealth: 1
     society: 1
-    deception: 2
-    diplomacy: 1
-    intimidation: 0
+    deception: 1
+    diplomacy: 2
+    intimidation: 2
     light: 3
     mechanical: 2
   identifier: operator
   spells: []
-  equipment: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.dagger0000000000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.handCrossbow0000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.studdedLeatherAr
+      quantity: 1
+      equipped: true
+      autoScale: true
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:

@@ -40,7 +40,7 @@ system:
     - playstyle.melee
     - weapons.twohand
   nodes:
-    - str0a
+    - str1a
   iconicSpells: 0
   training: heavy
 effects: []
