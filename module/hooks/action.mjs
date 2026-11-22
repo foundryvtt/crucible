@@ -2875,9 +2875,55 @@ HOOKS.secondWind = {
 /* -------------------------------------------- */
 
 HOOKS.selfRepair = {
+  _removableStatuses(actor) {
+    const statuses = {};
+    for ( const effect of actor.effects ) {
+      if ( !effect.active ) continue;
+      for ( const id of effect.statuses ) {
+        if ( id in statuses ) continue;
+        const cfg = CONFIG.statusEffects[id];
+        statuses[id] = _loc(cfg?.name ?? id);
+      }
+    }
+    return statuses;
+  },
+  async preActivate() {
+    const choices = HOOKS.selfRepair._removableStatuses(this.actor);
+    const keys = Object.keys(choices);
+    if ( !keys.length ) return;
+    if ( this.metadata.status && (this.metadata.status in choices) ) return;
+    if ( keys.length === 1 ) {
+      this.metadata.status = keys[0];
+      return;
+    }
+    const field = new foundry.data.fields.StringField({
+      required: true, blank: false, choices, label: _loc("ACTIONS.SelfRepair.Label")
+    });
+    const content = field.toFormGroup({}, {name: "status"}).outerHTML;
+    const status = await foundry.applications.api.DialogV2.prompt({
+      window: {title: this.name},
+      content,
+      ok: {label: this.name, callback: (event, button) => button.form.elements.status.value},
+      rejectClose: false
+    });
+    if ( !status ) throw new Error(_loc("ACTIONS.SelfRepair.Required"));
+    this.metadata.status = status;
+  },
   postActivate() {
     const activation = this.events.find(e => e.type === "activation");
     if ( activation ) activation.resources.push({resource: "health", delta: this.actor.abilities.toughness.value});
+    const status = this.metadata.status;
+    if ( !status ) return;
+    const effects = [];
+    for ( const effect of this.actor.effects ) {
+      if ( !effect.active || !effect.statuses.has(status) ) continue;
+      if ( effect.isStatusOnly(status) ) effects.push({_id: effect.id, _action: "delete"});
+      else {
+        const statuses = Array.from(effect.statuses).filter(s => s !== status);
+        effects.push({_id: effect.id, _action: "update", statuses});
+      }
+    }
+    if ( effects.length ) this.recordEvent({type: "effect", target: this.actor, effects});
   }
 };
 
