@@ -1010,15 +1010,42 @@ export const TAGS = {
     category: "attack",
     priority: 0,
     internal: true,
+    woundRate: 6,
     initialize() {
       this.usage.hasDice = true;
       this.usage.resource ??= "health";
       this.usage.defenseType ??= "physical";
-      this.usage.bonuses.ability = this.usage.danger;
+      this.usage.bonuses.ability = this.usage.danger ?? 0;
       this.usage.bonuses.base = 1;
     },
     configure() {
       this.target.isAttack = false; // An environmental hazard is not an attack made by a creature
+    },
+    postActivate() {
+      if ( this.tags.has("severe") ) return; // Severe damage is already dealt to reserve pools
+
+      // Sum the total damage dealt to each resource pool
+      const totals = new Map();
+      for ( const event of this.events ) {
+        const damage = event.roll?.data.damage;
+        if ( event.negated || !event.roll?.hasDamage || damage.restoration ) continue;
+        if ( !event.target?.system?.usesReserveResources ) continue;
+        const cfg = RESOURCES[damage.resource];
+        const reserve = (cfg?.type === "active") ? cfg.sibling : null;
+        if ( !reserve ) continue;
+        const key = `${event.target.uuid}.${reserve}`;
+        const entry = totals.get(key) ?? {damage: 0, damageType: damage.type, reserve};
+        entry.damage += damage.total;
+        entry.event = event;
+        totals.set(key, entry);
+      }
+
+      // Each full increment of damage also inflicts one Wound or Madness
+      const rate = TAGS.hazard.woundRate;
+      for ( const {damage, damageType, event, reserve} of totals.values() ) {
+        const delta = Math.floor(damage / rate);
+        if ( delta > 0 ) event.resources.push({resource: reserve, delta, damageType});
+      }
     },
     async roll(target) {
       const n = this.target.multiple ?? 1;
@@ -1499,7 +1526,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     description: "ACTION.DEFAULT_ACTIONS.Fall.Description",
     target: { type: "self", scope: 1 },
     cost: { action: 0 },
-    tags: ["generic", "involuntary"],
+    tags: ["hazard", "involuntary"],
     effects: [{ statuses: ["prone"] }]
   },
 

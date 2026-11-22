@@ -901,7 +901,6 @@ HOOKS.fall = {
   },
   prepare() {
     this.usage.damageType = "bludgeoning";
-    this.usage.bonuses.base = 1;
   },
   // Find where the token falls to, prior to the action use dialog
   acquireTargets(targets) {
@@ -925,13 +924,13 @@ HOOKS.fall = {
     const height = this.token.depth * this.token.parent.grid.distance;
     fall.swim = (fall.depth !== null) && (fall.depth > height);
     fall.priorAction = this.token._source.movementAction ?? null;
-    this.usage.bonuses.ability = severity;
+    this.usage.danger = this.usage.bonuses.ability = severity;
 
     // Short Falls: harmless for 10ft and below, otherwise Reflex defense
     if ( severity <= 30 ) {
       this.usage.defenseType = "reflex";
       if ( severity <= 10 ) {
-        this.tags.delete("generic");
+        this.tags.delete("hazard");
         this.tags.add("harmless");
       } else {
         this.tags.add("reflex");

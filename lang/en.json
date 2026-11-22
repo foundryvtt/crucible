@@ -67,7 +67,7 @@
         "Name": "Escape"
       },
       "Fall": {
-        "Description": "You plummet to the surface beneath you. Falls of 11-30 feet challenge Reflex, dealing Bludgeoning damage to Health. Falls of more than 30 feet are a Severe hazard challenging Fortitude. Unless resisted, the creature falls Prone.",
+        "Description": "You plummet to the surface beneath you. Falls of 11-30 feet are a hazard challenging Reflex, dealing Bludgeoning damage to Health. Falls of more than 30 feet are a Severe hazard challenging Fortitude. Unless resisted, the creature falls Prone.",
         "Name": "Fall",
         "NameDistance": "Fall ({distance} feet)"
       },
