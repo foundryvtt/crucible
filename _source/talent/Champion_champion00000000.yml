@@ -28,11 +28,11 @@ system:
         at a time.</p><p>While your <strong>Challenged</strong> rival is the
         only enemy you are engaged with, your immersion in the duel deepens: at
         the end of each of your turns you gain stacking <strong>+1 Bonus
-        Damage</strong> to your melee <strong>Strikes</strong> against that
+        Damage</strong> to your melee @Rule[action.strike]{Strikes} against that
         rival, to a maximum equal to your @Rule[ability.presence]. This bonus
         resets to zero if the duel is broken, which happens if another enemy
         engages you, if your rival escapes your @Rule[movement.engagement], or
-        if you <strong>Strike</strong> any other creature.</p>
+        if you @Rule[action.strike] any other creature.</p>
       cost:
         action: 1
         focus: 1

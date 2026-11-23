@@ -3,11 +3,11 @@ type: talent
 img: icons/magic/death/skull-humanoid-white-blue.webp
 system:
   description: >-
-    <p>You specialize in bringing death the the unwary. Any
-    <strong>Strike</strong> or <strong>Spell</strong> attack against an
-    @Condition[unaware] target becomes @Rule[action.deadly].</p><p>An
-    @Condition[unaware] creature hit by your attack may not alert its allies
-    until its own turn in <strong>Combat</strong>.</p>
+    <p>You specialize in bringing death the the unwary. Any @Rule[action.strike]
+    or <strong>Spell</strong> attack against an @Condition[unaware] target
+    becomes @Rule[action.deadly].</p><p>An @Condition[unaware] creature hit by
+    your attack may not alert its allies until its own turn in
+    <strong>Combat</strong>.</p>
   actions:
     - id: markForDeath
       name: Mark For Death

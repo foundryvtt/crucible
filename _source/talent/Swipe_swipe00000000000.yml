@@ -9,7 +9,7 @@ system:
   actions:
     - id: swipe
       description: >-
-        <p>You perform a <strong>Strike</strong> against two adjacent enemies,
+        <p>You perform a @Rule[action.strike] against two adjacent enemies,
         attacking both of them using a single swing of your great weapon.</p>
       tags:
         - melee

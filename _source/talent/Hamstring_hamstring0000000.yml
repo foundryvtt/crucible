@@ -10,9 +10,9 @@ system:
     - id: hamstring
       condition: ''
       description: >-
-        <p>You make <strong>Strike</strong> attack which is
-        @Rule[action.difficult], but if successful, inflicts the
-        @Condition[slowed] condition for <strong>3 Rounds</strong>.</p>
+        <p>You make a @Rule[action.strike] which is @Rule[action.difficult], but
+        if successful, inflicts the @Condition[slowed] condition for <strong>3
+        Rounds</strong>.</p>
       tags:
         - melee
         - difficult

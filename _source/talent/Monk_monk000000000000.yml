@@ -13,8 +13,8 @@ system:
     - id: doublePunch
       name: Double Punch
       description: >-
-        <p>You <strong>Strike</strong> twice in the blink of an eye, punching
-        with both arms.</p>
+        <p>You @Rule[action.strike] twice in the blink of an eye, punching with
+        both arms.</p>
       tags:
         - unarmed
         - melee

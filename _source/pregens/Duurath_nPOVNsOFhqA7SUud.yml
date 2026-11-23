@@ -298,8 +298,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382426
-      modifiedTime: 1795278382426
+      createdTime: 1795393562380
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.warHammer0000000
       duplicateSource: null
@@ -342,8 +342,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382426
-      modifiedTime: 1795278382426
+      createdTime: 1795393562380
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.heaterShield0000
       duplicateSource: null
@@ -385,8 +385,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382426
-      modifiedTime: 1795278382426
+      createdTime: 1795393562380
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -424,8 +424,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382426
-      modifiedTime: 1795278382426
+      createdTime: 1795393562380
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
       duplicateSource: null
@@ -515,8 +515,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382426
-      modifiedTime: 1795278382426
+      createdTime: 1795393562380
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.shieldBash000000
       duplicateSource: null
@@ -589,9 +589,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795278382426
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795278382426
+      createdTime: 1795393562380
       compendiumSource: Compendium.crucible.talent.Item.intimidator00000
       duplicateSource: null
       exportSource: null
@@ -627,13 +627,13 @@ items:
           tags:
             - melee
             - mainhand
-            - empowered
+            - massive
           name: Heavy Strike
           condition: ''
           description: >-
-            <p>You unleash a powerful <strong>Strike</strong> with your mainhand
-            weapon. The attack is slower to execute, but is
-            @Rule[action.empowered] to deliver additional damage.</p>
+            <p>You put your full weight behind a @Rule[action.massive]
+            @Rule[action.strike] with your mainhand weapon. It takes longer to
+            execute, but hits far harder.</p>
           summon: null
           persistRegion: false
           regionBehavior: null
@@ -652,8 +652,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382426
-      modifiedTime: 1795278382426
+      createdTime: 1795393562380
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.heavyStrike00000
       duplicateSource: null
@@ -694,9 +694,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795278382426
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795278382426
+      createdTime: 1795393562380
       compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
       duplicateSource: null
       exportSource: null
@@ -783,8 +783,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382426
-      modifiedTime: 1795278382426
+      createdTime: 1795393562380
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
       duplicateSource: null
@@ -876,8 +876,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382426
-      modifiedTime: 1795278382426
+      createdTime: 1795393562380
+      modifiedTime: 1795393562380
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.dwarfLineage0000
       duplicateSource: null
@@ -895,8 +895,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795278382426
-  modifiedTime: 1795278382426
+  createdTime: 1795393562380
+  modifiedTime: 1795393562380
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: Compendium.crucible.pregens.Actor.nPOVNsOFhqA7SUud

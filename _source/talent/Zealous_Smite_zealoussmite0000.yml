@@ -10,7 +10,7 @@ system:
     - id: zealousSmite
       condition: You are attacking an enemy with a Strength-based weapon.
       description: >-
-        <p>You <strong>Strike</strong> using a @Rule[ability.strength]-based
+        <p>You @Rule[action.strike] using a @Rule[ability.strength]-based
         weapon. The attack becomes @Rule[action.deadly] and any damage dealt is
         <strong>Radiant</strong>.</p>
       tags:

@@ -4,13 +4,13 @@ type: talent
 img: icons/weapons/swords/sword-winged-pink.webp
 system:
   description: >-
-    <p>You are an arcane warrior who can weave together <strong>Strike</strong>
-    and <strong>Spell</strong> relying on both martial and arcane techniques in
+    <p>You are an arcane warrior who can weave together @Rule[action.strike] and
+    <strong>Spell</strong> relying on both martial and arcane techniques in
     battle. The physical strikes of your weaponry partially substitute for the
     somatic gestures of traditional spellcraft.</p><p>While wielding a
     <strong>Melee</strong> weapon as your mainhand weapon, spells you cast using
     <strong>Gesture: Strike</strong> benefit from your weapon's damage
-    bonus.</p><p>Immediately after performing a <strong>Strike</strong> with a
+    bonus.</p><p>Immediately after performing a @Rule[action.strike] with a
     melee weapon, you may cast a spell with its @Rule[resource.action] cost
     reduced by 1.</p>
   actions: []

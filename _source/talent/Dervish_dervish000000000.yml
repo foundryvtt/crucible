@@ -11,7 +11,7 @@ system:
       img: icons/skills/melee/swords-triple-orange.webp
       description: >-
         <p>You become a cyclone of whirling weaponry, making
-        <strong>Strike</strong> attacks with both weapons against every enemy
+        @Rule[action.strike]{Strikes} with both weapons against every enemy
         within range.</p>
       tags:
         - dualwield

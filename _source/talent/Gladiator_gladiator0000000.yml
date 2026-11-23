@@ -5,7 +5,7 @@ img: icons/skills/melee/spear-tips-triple-orange.webp
 system:
   description: >-
     <p>Once per <strong>Round</strong>, you can make a @Rule[action.reaction]
-    which incorporates a <strong>Strike</strong> attack without spending any
+    which incorporates a @Rule[action.strike] without spending any
     @Rule[resource.focus].</p>
   actions: []
   keywords:

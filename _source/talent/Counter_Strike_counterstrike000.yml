@@ -16,7 +16,7 @@ system:
       description: >-
         <p>When you defend against a melee attack with a @Rule[defense.block]
         you may expend @Rule[resource.focus] to retaliate with a reduced-cost
-        <strong>Strike</strong> using a melee weapon.</p>
+        @Rule[action.strike] using a melee weapon.</p>
       tags:
         - reaction
         - melee

@@ -6,8 +6,8 @@ system:
   description: >-
     <p>Your physical resilience makes you too tough to be deeply affected by a
     powerful blow. The @Rule[dice.criticalSuccessThreshold] for
-    <strong>Strikes</strong> against you is increased by +1, making you harder
-    to critically hit.</p>
+    @Rule[action.strike]{Strikes} against you is increased by +1, making you
+    harder to critically hit.</p>
   actions: []
   keywords:
     - playstyle.defensive

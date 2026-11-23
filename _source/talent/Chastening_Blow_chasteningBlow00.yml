@@ -12,7 +12,7 @@ system:
       img: icons/skills/melee/hand-grip-staff-blue.webp
       condition: ''
       description: >-
-        <p>You perform a deliberately non-lethal weapon <strong>Strike</strong>
+        <p>You perform a deliberately non-lethal weapon @Rule[action.strike]
         which deals its damage to the target's @Rule[resource.morale] rather
         than their @Rule[resource.health].</p>
       cost:

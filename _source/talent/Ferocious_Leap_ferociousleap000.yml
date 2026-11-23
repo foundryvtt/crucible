@@ -10,8 +10,8 @@ system:
     - id: ferociousLeap
       description: >-
         <p>You <strong>Jump</strong> up to <strong>10 feet</strong>, delivering
-        a <strong>Strike</strong> against an enemy within melee range of where
-        you land. Your movement ignores difficult terrain and is not blocked by
+        a @Rule[action.strike] against an enemy within melee range of where you
+        land. Your movement ignores difficult terrain and is not blocked by
         enemy creatures.</p>
       tags:
         - melee

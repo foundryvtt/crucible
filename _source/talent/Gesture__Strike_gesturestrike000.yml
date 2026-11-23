@@ -4,13 +4,13 @@ img: icons/magic/fire/dagger-rune-enchant-flame-red.webp
 system:
   description: >-
     <p>You empower a direct close-range attack with the arcane essence of a
-    <strong>Rune</strong>, performing a <strong>Strike</strong> with your
-    equipped weapon.</p><p>The <strong>Strike</strong> gesture scales using
+    <strong>Rune</strong>, performing a @Rule[action.strike] with your equipped
+    weapon.</p><p>The <strong>Strike</strong> gesture scales using
     @Rule[ability.strength] and deal damage based on your used weapon but with
     the damage type of the incorporated <strong>Rune</strong>. This gesture does
     not require any free hand and has a base cost of <strong>1 Focus</strong> in
     addition to the @Rule[resource.action] cost of your weapon
-    <strong>Strike</strong>.</p>
+    @Rule[action.strike].</p>
   actions: []
   spellcraft: strike
   keywords:

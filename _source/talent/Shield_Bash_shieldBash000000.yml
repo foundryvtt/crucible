@@ -13,7 +13,7 @@ system:
       condition: ''
       description: >-
         <p>Following a basic @Action[default strike] with your mainhand weapon,
-        you <strong>Strike</strong> with your shield, causing the
+        you @Rule[action.strike] with your shield, causing the
         @Condition[staggered] condition for <strong>1 Round</strong>.</p>
       cost:
         action: 0

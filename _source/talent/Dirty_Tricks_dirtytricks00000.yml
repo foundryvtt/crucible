@@ -11,8 +11,8 @@ system:
     - id: dirtyTricks
       description: >-
         <p>You fling debris into the eyes of an enemy. If the
-        <strong>Strike</strong> is successful, they are @Condition[blinded]
-        until the end of their next <strong>Turn</strong>.</p>
+        @Rule[action.strike] is successful, they are @Condition[blinded] until
+        the end of their next <strong>Turn</strong>.</p>
       tags:
         - harmless
         - reflex

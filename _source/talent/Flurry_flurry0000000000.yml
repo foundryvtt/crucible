@@ -15,8 +15,8 @@ system:
       img: icons/skills/melee/blade-tips-triple-steel.webp
       condition: ''
       description: >-
-        <p>You <strong>Strike</strong> twice with each weapon, but each strike
-        is @Rule[action.difficult].</p>
+        <p>You @Rule[action.strike] twice with each weapon, but each strike is
+        @Rule[action.difficult].</p>
       tags:
         - dualwield
         - melee

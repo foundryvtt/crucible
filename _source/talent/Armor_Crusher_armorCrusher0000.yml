@@ -11,8 +11,8 @@ system:
       name: Armor Crusher
       img: icons/magic/fire/flame-burning-fist-strike.webp
       description: >-
-        <p>You make an unarmed <strong>Strike</strong> against a nearby enemy.
-        If the attack results in a <strong>Glancing Blow</strong>, you spend
+        <p>You make an unarmed @Rule[action.strike] against a nearby enemy. If
+        the attack results in a <strong>Glancing Blow</strong>, you spend
         @Rule[resource.focus]{1 Focus} if possible to deal bonus damage equal to
         your @Rule[ability.toughness] score.</p>
       cost:

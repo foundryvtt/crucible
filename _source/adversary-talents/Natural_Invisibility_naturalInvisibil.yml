@@ -18,7 +18,7 @@ system:
         <p>You become @Condition[invisible] and cannot be detected using
         sight-based perception. You cannot be directly targeted by any action.
         This effect remains active for 10 minutes or until any
-        non-<strong>Movement</strong> action is taken.</p>
+        non-@Rule[action.movement] action is taken.</p>
       condition: ''
       cost:
         action: 3

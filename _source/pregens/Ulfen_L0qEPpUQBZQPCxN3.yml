@@ -323,8 +323,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scaleMail0000000
       duplicateSource: null
@@ -367,8 +367,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.greataxe00000000
       duplicateSource: null
@@ -484,8 +484,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.grapple000000000
       duplicateSource: null
@@ -552,8 +552,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.mnemonicrealizat
       duplicateSource: null
@@ -640,8 +640,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
       duplicateSource: null
@@ -695,7 +695,7 @@ items:
         - playstyle.melee
         - weapons.twohand
       nodes:
-        - str0a
+        - str1a
       iconicSpells: 0
       training: heavy
       spellcraft: ''
@@ -707,8 +707,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.swipe00000000000
       duplicateSource: null
@@ -774,9 +774,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795367994573
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795367994573
+      createdTime: 1795393860993
       compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
       duplicateSource: null
       exportSource: null
@@ -873,8 +873,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.bullrush00000000
       duplicateSource: null
@@ -912,9 +912,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795367994573
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795367994573
+      createdTime: 1795393860993
       compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
       duplicateSource: null
       exportSource: null
@@ -983,8 +983,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.ferociousleap000
       duplicateSource: null
@@ -1019,8 +1019,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.brutalDisplay000
       duplicateSource: null
@@ -1057,8 +1057,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.battleWorn000000
       duplicateSource: null
@@ -1149,8 +1149,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.lastStand0000000
       duplicateSource: null
@@ -1187,8 +1187,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
       duplicateSource: null
@@ -1285,9 +1285,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795367994573
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795367994573
+      createdTime: 1795393860993
       compendiumSource: Compendium.crucible.talent.Item.berserker0000000
       duplicateSource: null
       exportSource: null
@@ -1313,7 +1313,7 @@ items:
           img: icons/skills/melee/shield-damaged-broken-gold.webp
           condition: ''
           description: >-
-            <p>You make a <strong>Strike</strong> with a
+            <p>You make a @Rule[action.strike] with a
             @Rule[ability.strength]-scaling weapon which, if successful, applies
             the @Condition[exposed] condition to your target for <strong>3
             Rounds</strong>. This attack is @Rule[action.difficult] to perform
@@ -1380,8 +1380,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sunderingstrike0
       duplicateSource: null
@@ -1419,8 +1419,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.bloodfrenzy00000
       duplicateSource: null
@@ -1511,9 +1511,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795367994573
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795367994573
+      createdTime: 1795393860993
       compendiumSource: Compendium.crucible.talent.Item.executionersstri
       duplicateSource: null
       exportSource: null
@@ -1548,8 +1548,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.spellmute0000000
       duplicateSource: null
@@ -1572,12 +1572,12 @@ items:
           name: Headbutt
           img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
           description: >-
-            <p>Make an unarmed <strong>Strike</strong> against the
+            <p>Make an unarmed @Rule[action.strike] against the
             @Rule[defense.fortitude] defense of an adjacent enemy. If your
             <strong>Initiative</strong> is superior to that of your target, you
             gain @Rule[dice.boon]{+1 Boon} to this attack.</p><p>The attack is
-            @Rule[action.difficult] and only deals @Rule[action.weakened]
-            damage, but if successful it inflicts the @Condition[staggered] for
+            @Rule[action.difficult] and only deals @Rule[action.slight] damage,
+            but if successful it inflicts the @Condition[staggered] for
             <strong>1 Round</strong>.</p><p>This action always uses an
             <strong>Unarmed</strong> weapon, even if your weapon slots are
             otherwise occupied.</p>
@@ -1624,7 +1624,7 @@ items:
           tags:
             - melee
             - difficult
-            - weakened
+            - slight
             - fortitude
           condition: ''
           summon: null
@@ -1647,8 +1647,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.headbutt00000000
       duplicateSource: null
@@ -1684,8 +1684,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.ironResolve00000
       duplicateSource: null
@@ -1720,8 +1720,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.adrenaline000000
       duplicateSource: null
@@ -1759,8 +1759,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.sentinel00000000
       duplicateSource: null
@@ -1798,17 +1798,16 @@ items:
           img: icons/consumables/potions/bottle-conical-fumes-green.webp
           condition: ''
           description: >-
-            <p>You fling the @ref[item.name], dealing @Rule[action.weakened]
-            immediate <strong>Acid</strong> damage but causing the
+            <p>You fling the @ref[item.name], dealing @Rule[action.slight]
+            immediate @Rule[damageType.acid] damage but causing the
             @Condition[corroding] condition to all enemies in a 4 foot radius
             <strong>Blast</strong> who fail to avoid the attack.</p><p>The
             amount of corroding damage and its duration is dependent on the
-            quality of the
-            @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage
-            for 2 rounds</p></li><li><p><strong>Standard</strong> - 3 damage for
-            3 rounds</p></li><li><p><strong>Fine</strong> - 4 damage for 4
-            rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
-            rounds</p></li><li><p><strong>Masterwork</strong> - 8 damage for 6
+            quality of the @ref[item.name]:</p><ul><li><p>@Rule[quality.shoddy]
+            - 2 damage for 2 rounds</p></li><li><p>@Rule[quality.standard] - 3
+            damage for 3 rounds</p></li><li><p>@Rule[quality.fine] - 4 damage
+            for 4 rounds</p></li><li><p>@Rule[quality.superior] - 6 damage for 5
+            rounds</p></li><li><p>@Rule[quality.masterwork] - 8 damage for 6
             rounds</p></li></ul>
           cost:
             action: 2
@@ -1853,7 +1852,7 @@ items:
                 suppression: {}
           tags:
             - consume
-            - weakened
+            - slight
             - reflex
             - acid
             - skill
@@ -1874,8 +1873,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.causticPhial0000
       duplicateSource: null
@@ -1958,8 +1957,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.healingElixir000
       duplicateSource: null
@@ -2044,8 +2043,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.antitoxin0000000
       duplicateSource: null
@@ -2125,8 +2124,8 @@ items:
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: 1795367994573
-          modifiedTime: 1795367994573
+          createdTime: 1795393860993
+          modifiedTime: 1795393860993
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.reinforcement000
           duplicateSource: null
@@ -2138,8 +2137,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringOfReinforcem
       duplicateSource: null
@@ -2221,8 +2220,8 @@ items:
           coreVersion: '14.370'
           systemId: crucible
           systemVersion: 0.11.3
-          createdTime: 1795367994573
-          modifiedTime: 1795367994573
+          createdTime: 1795393860993
+          modifiedTime: 1795393860993
           lastModifiedBy: WRGzDgYAt3ZuX6TU
           compendiumSource: Compendium.crucible.affixes.ActiveEffect.evasion000000000
           duplicateSource: null
@@ -2234,8 +2233,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringOfEvasion000
       duplicateSource: null
@@ -2324,8 +2323,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795367994573
-      modifiedTime: 1795367994573
+      createdTime: 1795393860993
+      modifiedTime: 1795393860993
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.humanLineage0000
       duplicateSource: null
@@ -2364,8 +2363,8 @@ _stats:
   coreVersion: '14.370'
   systemId: crucible
   systemVersion: 0.11.3
-  createdTime: 1795367994573
-  modifiedTime: 1795367994573
+  createdTime: 1795393860993
+  modifiedTime: 1795393860993
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: Compendium.crucible.pregens.Actor.L0qEPpUQBZQPCxN3

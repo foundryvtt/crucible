@@ -14,10 +14,11 @@ system:
       description: >-
         <p>With a ranged weapon equipped, you take aim at an enemy you can see,
         at any distance. You gain <strong>Deadeye Aim</strong>, which you must
-        maintain at the start of your next turn, and the enemy gains <strong>Deadeye
-        Target</strong>, which warns that you are aiming at it. Both end at
-        the end of your next turn, or when you release a <strong>Deadeye
-        Shot</strong>, which you must do before you move on that turn.</p>
+        maintain at the start of your next turn, and the enemy gains
+        <strong>Deadeye Target</strong>, which warns that you are aiming at it.
+        Both end at the end of your next turn, or when you release a
+        <strong>Deadeye Shot</strong>, which you must do before you move on that
+        turn.</p>
       cost:
         action: 1
         focus: 0
@@ -80,11 +81,13 @@ system:
     - id: deadeyeShot
       name: Deadeye Shot
       img: icons/skills/targeting/crosshair-triple-strike-orange.webp
-      condition: You took aim during a previous round, have maintained it this turn, and have not yet moved this turn.
+      condition: >-
+        You took aim during a previous round, have maintained it this turn, and
+        have not yet moved this turn.
       description: >-
         <p>On your next turn after you take aim, once you have maintained it and
         before you move, you release the shot you have been lining up. You make
-        a ranged <strong>Strike</strong> against the enemy you took aim at. The
+        a ranged @Rule[action.strike] against the enemy you took aim at. The
         Strike is @Rule[action.deadly] and @Rule[action.accurate], and its range
         is that of your weapon.</p>
       cost:

@@ -20,11 +20,11 @@ system:
         <p>You imbue your strike with momentum and intensity, increasing the
         <strong>Damage Bonus</strong> of your strike according to your missing
         @Rule[resource.health].</p><ul><li><p>If your <strong>Health</strong> is
-        below 75%, your <strong>Strike</strong> deals <strong>+1
+        below 75%, your @Rule[action.strike] deals <strong>+1
         Damage</strong></p></li><li><p>If your <strong>Health</strong> is below
-        50%, your <strong>Strike</strong> deals <strong>+2
+        50%, your @Rule[action.strike] deals <strong>+2
         Damage</strong></p></li><li><p>If your <strong>Health</strong> is below
-        25%, your <strong>Strike</strong> deals <strong>+3
+        25%, your @Rule[action.strike] deals <strong>+3
         Damage</strong></p></li></ul><p>This damage bonus is doubled if you are
         using a <strong>Two-Handed</strong> weapon.</p>
       cost:

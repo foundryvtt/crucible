@@ -5,8 +5,8 @@ system:
   description: >-
     <p>The potency of <strong>Elemental Runes</strong> flows through you. By
     adopting an elemental <strong>Stance</strong> you channel a
-    <strong>Rune</strong> through your weapon <strong>Strikes</strong>. You may
-    enter a <strong>Stance</strong> for one of the <strong>Elemental
+    <strong>Rune</strong> through your weapon @Rule[action.strike]{Strikes}. You
+    may enter a <strong>Stance</strong> for one of the <strong>Elemental
     Runes</strong> that you
     know:</p><ul><li><p>@UUID[Compendium.crucible.talent.Item.runeEarth0000000]{Rune:
     Earth}</p></li><li><p>@UUID[Compendium.crucible.talent.Item.runeFlame0000000]{Rune:
@@ -17,8 +17,8 @@ system:
     change it or until <strong>Combat</strong> ends. While in a
     <strong>Stance</strong>, talents or features which apply
     @Rule[dice.criticalSuccess]{Critical Hit} effects for actions that use that
-    <strong>Stance's Rune</strong> apply to your weapon <strong>Strikes</strong>
-    as well.</p>
+    <strong>Stance's Rune</strong> apply to your weapon
+    @Rule[action.strike]{Strikes} as well.</p>
   actions:
     - id: stormStance
       name: Storm Stance
@@ -73,7 +73,7 @@ system:
       description: >-
         <p>You adopt the <strong>Cinder Stance</strong>, channeling the
         <strong>Rune of Flame</strong>. While in this <strong>Stance</strong>
-        your weapon <strong>Strikes</strong> deal 2 additional <strong>Fire
+        your weapon @Rule[action.strike]{Strikes} deal 2 additional <strong>Fire
         </strong>damage.</p>
       tags: []
       cost:

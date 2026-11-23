@@ -14,7 +14,7 @@ system:
     - id: stunningStrike
       condition: ''
       description: >-
-        <p>You <strong>Strike</strong> a vital pressure point, inflicting the
+        <p>You @Rule[action.strike] a vital pressure point, inflicting the
         @Rule[condition.stunned] condition on your enemy for <strong>1
         Round</strong> if successful.</p>
       tags:

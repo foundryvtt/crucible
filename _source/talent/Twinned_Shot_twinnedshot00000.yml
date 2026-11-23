@@ -27,7 +27,7 @@ system:
       condition: ''
       description: >-
         <p>You concentrate to nock two projectiles at once making two
-        simultaneous <strong>Strikes</strong> against the same single
+        simultaneous @Rule[action.strike]{Strikes} against the same single
         target.</p>
       range:
         maximum: null

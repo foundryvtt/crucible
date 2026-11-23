@@ -1407,13 +1407,13 @@ actors:
               tags:
                 - melee
                 - mainhand
-                - empowered
+                - massive
               name: Heavy Strike
               condition: ''
               description: >-
-                <p>You unleash a powerful <strong>Strike</strong> with your
-                mainhand weapon. The attack is slower to execute, but is
-                @Rule[action.empowered] to deliver additional damage.</p>
+                <p>You put your full weight behind a @Rule[action.massive]
+                @Rule[action.strike] with your mainhand weapon. It takes longer
+                to execute, but hits far harder.</p>
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -1744,32 +1744,30 @@ actors:
             toughness: 3
             dexterity: 4
           talents:
-            - item: Compendium.crucible.talent.Item.flurry0000000000
-              level: 1
-            - item: Compendium.crucible.talent.Item.skirmisher000000
-              level: 3
             - item: Compendium.crucible.talent.Item.lunge00000000000
               level: 0
             - item: Compendium.crucible.talent.Item.dualWield0000000
               level: 0
+            - item: Compendium.crucible.talent.Item.flurry0000000000
+              level: 1
+            - item: Compendium.crucible.talent.Item.weakpoints000000
+              level: 1
             - item: Compendium.crucible.talent.Item.defensiveroll000
               level: 2
-            - item: Compendium.crucible.talent.Item.subtleextricatio
-              level: 2
-            - item: Compendium.crucible.talent.Item.feintingstrike00
-              level: 2
-            - item: Compendium.crucible.talent.Item.weakpoints000000
-              level: 0
             - item: Compendium.crucible.talent.Item.strikefirst00000
-              level: 1
-            - item: Compendium.crucible.talent.Item.deftgrip00000000
+              level: 2
+            - item: Compendium.crucible.talent.Item.skirmisher000000
               level: 3
             - item: Compendium.crucible.talent.Item.counterevade0000
               level: 3
+            - item: Compendium.crucible.talent.Item.feintingstrike00
+              level: 4
+            - item: Compendium.crucible.talent.Item.subtleextricatio
+              level: 4
             - item: Compendium.crucible.talent.Item.bloodletter00000
-              level: 4
+              level: 5
             - item: Compendium.crucible.talent.Item.harrier000000000
-              level: 4
+              level: 5
           identifier: skirmisher
           training:
             athletics: 2
@@ -1939,6 +1937,8 @@ actors:
         - reactiveStrike
         - defend
         - offhandStrike
+        - counterEvade
+        - deathlessFury
       currency: 0
       training: {}
     prototypeToken:
@@ -2021,94 +2021,6 @@ actors:
       movementAction: null
       depth: 4
     items:
-      - _id: USkv0uNRXrGoLTKR
-        name: Hand Axe
-        type: weapon
-        img: icons/weapons/axes/axe-broad-engraved.webp
-        effects: []
-        folder: 3BDkyJ5nPk8nVa81
-        flags: {}
-        system:
-          category: balanced1
-          quantity: 1
-          weight: 2
-          price: 160
-          quality: standard
-          enchantment: mundane
-          equipped: true
-          properties:
-            - thrown
-            - intuitive
-          description:
-            public: >-
-              <p>Compact and deadly, the hand axe is a one-handed chopper with a
-              short haft and sharp blade, ideal for throwing or close-quarters
-              strikes where speed outmatches reach.</p>
-            private: ''
-          damageType: slashing
-          broken: false
-          identifier: handAxe
-          invested: false
-          actions: []
-          dropped: false
-          slot: 2
-        _stats:
-          systemId: crucible
-          systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-          compendiumSource: Compendium.crucible.weapon.Item.handaxe000000000
-          duplicateSource: null
-          exportSource: null
-        sort: 400000
-        ownership:
-          default: 0
-      - _id: vC9gvBdcMRLHxCWo
-        name: Scale Mail
-        type: armor
-        img: icons/equipment/chest/breastplate-banded-steel-studded.webp
-        effects: []
-        flags:
-          core: {}
-        system:
-          category: medium
-          quantity: 1
-          weight: 30
-          price: 2400
-          quality: standard
-          enchantment: mundane
-          equipped: true
-          properties:
-            - noisy
-          description:
-            public: >-
-              <p>Overlapping metal plates sewn or riveted onto a leather or
-              cloth backing, scale mail resembles the hide of a dragon and
-              protects well against cuts and stabs—though it's noisy and
-              inflexible.</p>
-            private: ''
-          armor:
-            base: 13
-          broken: false
-          identifier: scaleMail
-          invested: false
-          actions: []
-        _stats:
-          systemId: crucible
-          systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-          compendiumSource: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
-          duplicateSource: null
-          exportSource: null
-        folder: gQTZ7J9hqDpVTtPb
-        sort: 200000
-        ownership:
-          default: 0
       - name: Skirmisher
         type: talent
         _id: skirmisher000000
@@ -2195,7 +2107,7 @@ actors:
             - playstyle.melee
             - weapons.dualwield
           nodes:
-            - dex0b
+            - dex1b
           iconicSpells: 0
           training: light
           spellcraft: ''
@@ -2347,7 +2259,7 @@ actors:
             - playstyle.melee
             - weapons.dualwield
           nodes:
-            - dex1b
+            - dex0b
           iconicSpells: 0
           training: light
           spellcraft: ''
@@ -2509,120 +2421,6 @@ actors:
         sort: 0
         ownership:
           default: 0
-      - name: Subtle Extrication
-        type: talent
-        _id: subtleextricatio
-        img: icons/magic/air/wind-stream-blue-gray.webp
-        system:
-          description: >-
-            <p>You understand how to move away from an opponent without exposing
-            yourself to the worst attacks in return. Any @Action[default
-            reactiveStrike] against you is performed with @Rule[dice.bane]{+1
-            Bane}.</p>
-          actions: []
-          keywords:
-            - playstyle.defensive
-            - movement.engagement
-          nodes:
-            - intdex1
-          iconicSpells: 0
-          training: stealth
-          spellcraft: ''
-          requirements:
-            training: {}
-        effects: []
-        flags: {}
-        _stats:
-          systemId: crucible
-          systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-          compendiumSource: Compendium.crucible.talent.Item.subtleextricatio
-          duplicateSource: null
-          exportSource: null
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
-      - _id: feintingstrike00
-        name: Feinting Strike
-        type: talent
-        img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-        effects: []
-        flags:
-          core: {}
-        system:
-          description: >-
-            <p>A two-weapon technique which makes a feint with your primary
-            weapon, exposing your target for an @Rule[action.offhand]
-            attack.</p>
-          actions:
-            - id: feintingStrike
-              tags:
-                - dualwield
-                - melee
-                - offhand
-                - reflex
-                - skill
-                - deception
-              cost:
-                action: 1
-                focus: 0
-                weapon: true
-                heroism: 0
-                hands: 0
-              target:
-                type: single
-                number: 1
-                scope: 4
-                self: false
-              effects: []
-              name: Feinting Strike
-              img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-              condition: ''
-              description: >-
-                <p>You feint with your mainhand weapon, making a
-                @Rule[skill.deception] attack against the target's
-                @Rule[defense.reflex] defense. You immediately make a
-                <strong>Strike</strong> with your <strong>offhand</strong>
-                weapon.</p><p>If your deception was successful, you gain
-                @Rule[dice.boon]{+2 Boons} to your <strong>Strike</strong> and
-                it deals an additional <strong>+6 Damage</strong>.</p>
-              range:
-                maximum: null
-                weapon: true
-                minimum: null
-              summon: null
-              persistRegion: false
-              regionBehavior: null
-          keywords:
-            - playstyle.melee
-            - weapons.dualwield
-            - target.reflex
-            - skill.deception
-          nodes:
-            - intdex2
-          iconicSpells: 0
-          training: deception
-          spellcraft: ''
-          requirements:
-            training: {}
-        _stats:
-          systemId: crucible
-          systemVersion: 0.11.3
-          coreVersion: '14.370'
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
-          compendiumSource: Compendium.crucible.talent.Item.feintingstrike00
-          duplicateSource: null
-          exportSource: null
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
       - name: Weak Points
         type: talent
         _id: weakpoints000000
@@ -2642,7 +2440,7 @@ actors:
             - weapon.projectile
             - weapon.mechanical
           nodes:
-            - dex1b
+            - dex1a
           iconicSpells: 0
           training: deception
           spellcraft: ''
@@ -2694,47 +2492,6 @@ actors:
           modifiedTime: null
           lastModifiedBy: null
           compendiumSource: Compendium.crucible.talent.Item.strikefirst00000
-          duplicateSource: null
-          exportSource: null
-        folder: null
-        sort: 0
-        ownership:
-          default: 0
-      - name: Deft Grip
-        type: talent
-        _id: deftgrip00000000
-        img: icons/skills/melee/stabbing-knife.webp
-        system:
-          keywords:
-            - playstyle.melee
-            - playstyle.spellcraft
-            - weapons.twohand
-          nodes:
-            - dex2c
-          description: >-
-            <p>Your grasp of your weaponry is fluid and precise. While wielding
-            a two-handed weapon that scales with @Rule[ability.dexterity] you
-            may cast spells which require two hands, and attempts to
-            <strong>Disarm</strong> you are made with @Rule[dice.bane]{+2
-            Banes}.</p><p>Additionally, you may use your
-            @Rule[movement.freeMovement] to equip or unequip such a weapon
-            without any @Rule[resource.action] cost.</p>
-          actions: []
-          iconicSpells: 0
-          training: light
-          spellcraft: ''
-          requirements:
-            training: {}
-        effects: []
-        flags: {}
-        _stats:
-          compendiumSource: Compendium.crucible.talent.Item.deftgrip00000000
-          coreVersion: '14.370'
-          systemId: crucible
-          systemVersion: 0.11.3
-          createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
           duplicateSource: null
           exportSource: null
         folder: null
@@ -2959,7 +2716,7 @@ actors:
           price: 160
           quality: standard
           enchantment: mundane
-          equipped: false
+          equipped: true
           properties:
             - thrown
             - intuitive
@@ -2975,7 +2732,7 @@ actors:
           invested: false
           actions: []
           dropped: false
-          slot: 0
+          slot: 2
         _stats:
           compendiumSource: Compendium.crucible.equipment.Item.handAxe000000000
           coreVersion: '14.370'
@@ -5632,15 +5389,15 @@ actors:
             - id: legSweep
               condition: ''
               description: >-
-                <p>You make a <strong>Strike</strong> attack with your mainhand
-                weapon. This technique is @Rule[action.difficult] to execute and
-                deals reduced damage, but if successful renders your target
-                @Condition[prone].</p>
+                <p>You make a @Rule[action.strike] with your mainhand weapon.
+                This technique is @Rule[action.difficult] to execute and deals
+                @Rule[action.slight] damage, but if successful renders your
+                target @Condition[prone].</p>
               tags:
                 - brute
                 - melee
                 - difficult
-                - weakened
+                - slight
               cost:
                 action: 0
                 focus: 0
@@ -5858,13 +5615,13 @@ actors:
               tags:
                 - melee
                 - mainhand
-                - empowered
+                - massive
               name: Heavy Strike
               condition: ''
               description: >-
-                <p>You unleash a powerful <strong>Strike</strong> with your
-                mainhand weapon. The attack is slower to execute, but is
-                @Rule[action.empowered] to deliver additional damage.</p>
+                <p>You put your full weight behind a @Rule[action.massive]
+                @Rule[action.strike] with your mainhand weapon. It takes longer
+                to execute, but hits far harder.</p>
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -6920,7 +6677,7 @@ actors:
             - damageType.slashing
             - damageType.piercing
           nodes:
-            - dex4d
+            - dex4c
           iconicSpells: 0
           training: light
           spellcraft: ''
@@ -7337,13 +7094,13 @@ actors:
               tags:
                 - melee
                 - mainhand
-                - empowered
+                - massive
               name: Heavy Strike
               condition: ''
               description: >-
-                <p>You unleash a powerful <strong>Strike</strong> with your
-                mainhand weapon. The attack is slower to execute, but is
-                @Rule[action.empowered] to deliver additional damage.</p>
+                <p>You put your full weight behind a @Rule[action.massive]
+                @Rule[action.strike] with your mainhand weapon. It takes longer
+                to execute, but hits far harder.</p>
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -9128,12 +8885,12 @@ actors:
             - id: devourThoughts
               description: >-
                 <p>Lash onto a single enemy with multiple tendrils, dealing
-                Weakened Psychic damage and inflicting the Stunned condition on
-                a success.</p>
+                @Rule[action.slight] @Rule[damageType.psychic] damage and
+                inflicting the @Condition[stunned] condition on a success.</p>
               tags:
+                - slight
                 - melee
                 - natural
-                - weakened
                 - morale
               cost:
                 action: 2
@@ -9157,21 +8914,21 @@ actors:
                     - stunned
                   duration:
                     value: 1
-                    units: turns
-                    expiry: null
+                    units: rounds
+                    expiry: turnEnd
                     expired: false
                   system:
+                    dc: null
+                    changes: []
                     dot: []
+                    effects: []
+                    lights: []
                     maintenance:
                       cost: null
                       hands: 0
+                    properties: []
                     regions: []
                     summons: []
-                    changes: []
-                    dc: null
-                    properties: []
-                    effects: []
-                    lights: []
                     suppression: {}
               name: Devour Thoughts
               img: icons/creatures/magical/spirit-fear-energy-pink.webp
@@ -10875,9 +10632,9 @@ actors:
           core: {}
         system:
           description: >-
-            <p>A two-handed weapon technique where you swing your weapon
-            upwards, making a second <strong>Strike</strong> with the backswing
-            of your weapon.</p>
+            <p>A heavy weapon technique where you swing your weapon upwards,
+            making a second <strong>Strike</strong> with the backswing of a
+            weapon which scales using @Rule[ability.strength].</p>
           actions:
             - id: uppercut
               name: Uppercut
@@ -10891,7 +10648,7 @@ actors:
               tags:
                 - afterStrike
                 - melee
-                - twohand
+                - brute
               cost:
                 action: -1
                 focus: 0
@@ -10913,9 +10670,9 @@ actors:
               regionBehavior: null
           keywords:
             - playstyle.melee
-            - weapons.twohand
+            - weapon.heavy
           nodes:
-            - str1a
+            - str0a
           iconicSpells: 0
           training: heavy
           spellcraft: ''
@@ -11580,7 +11337,7 @@ actors:
               img: icons/skills/melee/shield-damaged-broken-gold.webp
               condition: ''
               description: >-
-                <p>You make a <strong>Strike</strong> with a
+                <p>You make a @Rule[action.strike] with a
                 @Rule[ability.strength]-scaling weapon which, if successful,
                 applies the @Condition[exposed] condition to your target for
                 <strong>3 Rounds</strong>. This attack is
@@ -13970,7 +13727,7 @@ actors:
             - damageType.slashing
             - damageType.piercing
           nodes:
-            - dex4d
+            - dex4c
           iconicSpells: 0
           training: light
           spellcraft: ''
@@ -14707,7 +14464,7 @@ actors:
             - playstyle.melee
             - weapons.dualwield
           nodes:
-            - dex0b
+            - dex1b
           iconicSpells: 0
           training: light
           spellcraft: ''
@@ -15407,13 +15164,13 @@ actors:
               tags:
                 - melee
                 - mainhand
-                - empowered
+                - massive
               name: Heavy Strike
               condition: ''
               description: >-
-                <p>You unleash a powerful <strong>Strike</strong> with your
-                mainhand weapon. The attack is slower to execute, but is
-                @Rule[action.empowered] to deliver additional damage.</p>
+                <p>You put your full weight behind a @Rule[action.massive]
+                @Rule[action.strike] with your mainhand weapon. It takes longer
+                to execute, but hits far harder.</p>
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -17617,7 +17374,7 @@ actors:
             - weapon.projectile
             - weapon.mechanical
           nodes:
-            - dex1b
+            - dex1a
           iconicSpells: 0
           training: deception
           spellcraft: ''
@@ -17826,7 +17583,7 @@ actors:
             - weapon.mechanical
             - weapon.talisman
           nodes:
-            - dex3a
+            - dex4a
           iconicSpells: 0
           training: projectile
           spellcraft: ''
@@ -19753,12 +19510,13 @@ actors:
                 <p>You exaggerate your opponent's shortcomings with a scathing
                 bon mot, improvising a @Rule[skill.performance] skill attack
                 against your target's @Rule[defense.willpower]. On a
-                @Rule[dice.success] they suffer modest <strong>Psychic</strong>
-                damage to @Rule[resource.morale].</p><p>On a
-                @Rule[dice.criticalSuccess], they also become
-                @Condition[enraged] for <strong>1 Round</strong>.</p>
+                @Rule[dice.success] they suffer @Rule[action.slight]
+                @Rule[damageType.psychic] damage to
+                @Rule[resource.morale].</p><p>On a @Rule[dice.criticalSuccess],
+                they also become @Condition[enraged] for <strong>1
+                Round</strong>.</p>
               tags:
-                - weakened
+                - slight
                 - willpower
                 - psychic
                 - morale
@@ -24693,7 +24451,7 @@ actors:
             - playstyle.melee
             - weapons.twohand
           nodes:
-            - str0a
+            - str1a
           iconicSpells: 0
           training: heavy
           spellcraft: ''
@@ -25303,7 +25061,7 @@ actors:
               img: icons/skills/melee/shield-damaged-broken-gold.webp
               condition: ''
               description: >-
-                <p>You make a <strong>Strike</strong> with a
+                <p>You make a @Rule[action.strike] with a
                 @Rule[ability.strength]-scaling weapon which, if successful,
                 applies the @Condition[exposed] condition to your target for
                 <strong>3 Rounds</strong>. This attack is
@@ -25560,12 +25318,12 @@ actors:
               name: Headbutt
               img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
               description: >-
-                <p>Make an unarmed <strong>Strike</strong> against the
+                <p>Make an unarmed @Rule[action.strike] against the
                 @Rule[defense.fortitude] defense of an adjacent enemy. If your
                 <strong>Initiative</strong> is superior to that of your target,
                 you gain @Rule[dice.boon]{+1 Boon} to this attack.</p><p>The
                 attack is @Rule[action.difficult] and only deals
-                @Rule[action.weakened] damage, but if successful it inflicts the
+                @Rule[action.slight] damage, but if successful it inflicts the
                 @Condition[staggered] for <strong>1 Round</strong>.</p><p>This
                 action always uses an <strong>Unarmed</strong> weapon, even if
                 your weapon slots are otherwise occupied.</p>
@@ -25612,7 +25370,7 @@ actors:
               tags:
                 - melee
                 - difficult
-                - weakened
+                - slight
                 - fortitude
               condition: ''
               summon: null
@@ -25783,18 +25541,18 @@ actors:
               img: icons/consumables/potions/bottle-conical-fumes-green.webp
               condition: ''
               description: >-
-                <p>You fling the @ref[item.name], dealing @Rule[action.weakened]
-                immediate <strong>Acid</strong> damage but causing the
+                <p>You fling the @ref[item.name], dealing @Rule[action.slight]
+                immediate @Rule[damageType.acid] damage but causing the
                 @Condition[corroding] condition to all enemies in a 4 foot
                 radius <strong>Blast</strong> who fail to avoid the
                 attack.</p><p>The amount of corroding damage and its duration is
                 dependent on the quality of the
-                @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2
-                damage for 2 rounds</p></li><li><p><strong>Standard</strong> - 3
-                damage for 3 rounds</p></li><li><p><strong>Fine</strong> - 4
-                damage for 4 rounds</p></li><li><p><strong>Superior</strong> - 6
-                damage for 5 rounds</p></li><li><p><strong>Masterwork</strong> -
-                8 damage for 6 rounds</p></li></ul>
+                @ref[item.name]:</p><ul><li><p>@Rule[quality.shoddy] - 2 damage
+                for 2 rounds</p></li><li><p>@Rule[quality.standard] - 3 damage
+                for 3 rounds</p></li><li><p>@Rule[quality.fine] - 4 damage for 4
+                rounds</p></li><li><p>@Rule[quality.superior] - 6 damage for 5
+                rounds</p></li><li><p>@Rule[quality.masterwork] - 8 damage for 6
+                rounds</p></li></ul>
               cost:
                 action: 2
                 focus: 0
@@ -25838,7 +25596,7 @@ actors:
                     suppression: {}
               tags:
                 - consume
-                - weakened
+                - slight
                 - reflex
                 - acid
                 - skill
@@ -27222,7 +26980,7 @@ actors:
             - movement.engagement
             - action.reaction
           nodes:
-            - intdex1
+            - intdex2
           iconicSpells: 0
           spellcraft: ''
           requirements:
@@ -28206,16 +27964,16 @@ actors:
               img: icons/consumables/potions/flask-corked-blue-glow.webp
               condition: ''
               description: >-
-                <p>You throw the @ref[item.name], dealing weakened <strong>Cold
-                </strong>damage to all enemies in the radius of the explosion
-                who fail to avoid the attack and causing them to be
-                @Condition[slowed] briefly. The radius of the
+                <p>You throw the @ref[item.name], dealing @Rule[action.slight]
+                @Rule[damageType.cold] damage to all enemies in the radius of
+                the explosion who fail to avoid the attack and causing them to
+                be @Condition[slowed] briefly. The radius of the
                 <strong>Blast</strong> depends on the quality of the
-                bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
-                feet</p></li><li><p><strong>Standard</strong> - 4
-                feet</p></li><li><p><strong>Fine</strong> - 6
-                feet</p></li><li><p><strong>Superior</strong> - 8
-                feet</p></li><li><p><strong>Masterwork</strong> - 10
+                bomb:</p><ul><li><p>@Rule[quality.shoddy] - 3
+                feet</p></li><li><p>@Rule[quality.standard] - 4
+                feet</p></li><li><p>@Rule[quality.fine] - 6
+                feet</p></li><li><p>@Rule[quality.superior] - 8
+                feet</p></li><li><p>@Rule[quality.masterwork] - 10
                 feet</p></li></ul>
               cost:
                 action: 2
@@ -28260,7 +28018,7 @@ actors:
                     suppression: {}
               tags:
                 - consume
-                - weakened
+                - slight
                 - reflex
                 - cold
                 - skill
@@ -28325,18 +28083,18 @@ actors:
               img: icons/consumables/potions/bottle-round-corked-yellow.webp
               condition: ''
               description: >-
-                <p>You hurl the @ref[item.name], dealing @Rule[action.weakened]
-                immediate <strong>Fire</strong> damage but causing the
+                <p>You hurl the @ref[item.name], dealing @Rule[action.slight]
+                immediate @Rule[damageType.fire] damage but causing the
                 @Condition[burning] condition to all enemies in a 4 foot radius
                 <strong>Blast</strong> who fail to avoid the attack.</p><p>The
                 amount of burning damage and its duration is dependent on the
                 quality of the
-                @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2
-                damage for 2 rounds</p></li><li><p><strong>Standard</strong> - 3
-                damage for 3 rounds</p></li><li><p><strong>Fine</strong> - 4
-                damage for 4 rounds</p></li><li><p><strong>Superior</strong> - 6
-                damage for 5 rounds</p></li><li><p><strong>Masterwork</strong> -
-                8 damage for 6 rounds</p></li></ul>
+                @ref[item.name]:</p><ul><li><p>@Rule[quality.shoddy] - 2 damage
+                for 2 rounds</p></li><li><p>@Rule[quality.standard] - 3 damage
+                for 3 rounds</p></li><li><p>@Rule[quality.fine] - 4 damage for 4
+                rounds</p></li><li><p>@Rule[quality.superior] - 6 damage for 5
+                rounds</p></li><li><p>@Rule[quality.masterwork] - 8 damage for 6
+                rounds</p></li></ul>
               cost:
                 action: 2
                 focus: 0
@@ -28380,7 +28138,7 @@ actors:
                     suppression: {}
               tags:
                 - consume
-                - weakened
+                - slight
                 - reflex
                 - fire
                 - skill
@@ -29278,9 +29036,9 @@ actors:
           core: {}
         system:
           description: >-
-            <p>A two-handed weapon technique where you swing your weapon
-            upwards, making a second <strong>Strike</strong> with the backswing
-            of your weapon.</p>
+            <p>A heavy weapon technique where you swing your weapon upwards,
+            making a second <strong>Strike</strong> with the backswing of a
+            weapon which scales using @Rule[ability.strength].</p>
           actions:
             - id: uppercut
               name: Uppercut
@@ -29294,7 +29052,7 @@ actors:
               tags:
                 - afterStrike
                 - melee
-                - twohand
+                - brute
               cost:
                 action: -1
                 focus: 0
@@ -29316,9 +29074,9 @@ actors:
               regionBehavior: null
           keywords:
             - playstyle.melee
-            - weapons.twohand
+            - weapon.heavy
           nodes:
-            - str1a
+            - str0a
           iconicSpells: 0
           training: heavy
           spellcraft: ''
@@ -31016,13 +30774,13 @@ actors:
               tags:
                 - melee
                 - mainhand
-                - empowered
+                - massive
               name: Heavy Strike
               condition: ''
               description: >-
-                <p>You unleash a powerful <strong>Strike</strong> with your
-                mainhand weapon. The attack is slower to execute, but is
-                @Rule[action.empowered] to deliver additional damage.</p>
+                <p>You put your full weight behind a @Rule[action.massive]
+                @Rule[action.strike] with your mainhand weapon. It takes longer
+                to execute, but hits far harder.</p>
               summon: null
               persistRegion: false
               regionBehavior: null
@@ -31991,7 +31749,7 @@ actors:
             - weapon.projectile
             - weapon.mechanical
           nodes:
-            - dex1b
+            - dex1a
           iconicSpells: 0
           training: deception
           spellcraft: ''
@@ -32946,12 +32704,13 @@ actors:
                 <p>You exaggerate your opponent's shortcomings with a scathing
                 bon mot, improvising a @Rule[skill.performance] skill attack
                 against your target's @Rule[defense.willpower]. On a
-                @Rule[dice.success] they suffer modest <strong>Psychic</strong>
-                damage to @Rule[resource.morale].</p><p>On a
-                @Rule[dice.criticalSuccess], they also become
-                @Condition[enraged] for <strong>1 Round</strong>.</p>
+                @Rule[dice.success] they suffer @Rule[action.slight]
+                @Rule[damageType.psychic] damage to
+                @Rule[resource.morale].</p><p>On a @Rule[dice.criticalSuccess],
+                they also become @Condition[enraged] for <strong>1
+                Round</strong>.</p>
               tags:
-                - weakened
+                - slight
                 - willpower
                 - psychic
                 - morale
@@ -34654,7 +34413,7 @@ actors:
             - playstyle.melee
             - weapons.twohand
           nodes:
-            - str0a
+            - str1a
           iconicSpells: 0
           training: heavy
           spellcraft: ''
@@ -36385,7 +36144,7 @@ scenes:
         depth: 4
         actorId: 0crVYYsPvV9KDEJ2
         hidden: false
-        sort: 9
+        sort: -1
         shape: 4
         level: defaultLevel0000
         _id: Xiewo9EnaZhriY6O
@@ -38510,7 +38269,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.8.6
   coreVersion: '14.370'
-  modifiedTime: 1795367995572
+  modifiedTime: 1795393861878
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   compendiumSource: null
   duplicateSource: null

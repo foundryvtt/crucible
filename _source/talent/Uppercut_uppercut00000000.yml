@@ -7,7 +7,7 @@ flags:
 system:
   description: >-
     <p>A heavy weapon technique where you swing your weapon upwards, making a
-    second <strong>Strike</strong> with the backswing of a weapon which scales
+    second @Rule[action.strike] with the backswing of a weapon which scales
     using @Rule[ability.strength].</p>
   actions:
     - id: uppercut
@@ -16,9 +16,9 @@ system:
       condition: ''
       description: >-
         <p>Following a basic @Action[default strike] which did not
-        @Rule[dice.criticalFailure]{Critically Miss}, you
-        <strong>Strike</strong> the same target again with the backswing of your
-        weapon at reduced @Rule[resource.action] cost.</p>
+        @Rule[dice.criticalFailure]{Critically Miss}, you @Rule[action.strike]
+        the same target again with the backswing of your weapon at reduced
+        @Rule[resource.action] cost.</p>
       tags:
         - afterStrike
         - melee

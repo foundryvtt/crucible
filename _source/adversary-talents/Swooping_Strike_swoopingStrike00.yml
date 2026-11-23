@@ -16,7 +16,7 @@ system:
       img: icons/creatures/abilities/dragon-breath-purple.webp
       condition: ''
       description: >-
-        <p>This attack may be used after a <strong>Move</strong> which descended
+        <p>This attack may be used after a @Action[default move] which descended
         at least 10 feet towards the target. The attack gains
         @Rule[dice.boon]{+1 Boon} per 10 feet of elevation decrease in that
         movement.</p><p>If this attack is a @Rule[dice.criticalSuccess]{Critical

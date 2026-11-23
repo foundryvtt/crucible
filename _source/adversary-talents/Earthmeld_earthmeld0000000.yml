@@ -41,7 +41,7 @@ system:
         instantaneously transport itself to any unoccupied space in contact with
         the same rock formation up to <strong>30 feet</strong> away. It does not
         need to be able to see the destination to make this
-        <strong>Move</strong>.</p>
+        @Rule[action.movement].</p>
       condition: ''
   spellcraft: ''
   iconicSpells: 0

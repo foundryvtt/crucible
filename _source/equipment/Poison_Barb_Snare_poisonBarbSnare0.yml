@@ -51,8 +51,8 @@ system:
               <p>The creature that set the trap makes a @Rule[skill.wilderness]
               skill attack against the @Rule[defense.reflex] defense of the
               creature which triggered it. If not resisted, the envenomed barbs
-              bite into the creature with a @Rule[action.slight] attack,
-              dealing @Rule[damageType.poison] damage and inflicting
+              bite into the creature with a @Rule[action.slight] attack, dealing
+              @Rule[damageType.poison] damage and inflicting
               @Condition[poisoned].</p>
             effects:
               - name: Poison Barb Snare

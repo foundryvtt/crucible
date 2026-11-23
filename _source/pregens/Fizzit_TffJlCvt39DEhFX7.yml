@@ -298,8 +298,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.ringMail00000000
       duplicateSource: null
@@ -344,8 +344,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.arcaneOrb0000000
       duplicateSource: null
@@ -389,8 +389,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.grimoire00000000
       duplicateSource: null
@@ -462,8 +462,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.refocus000000000
       duplicateSource: null
@@ -501,8 +501,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.recognizespellcr
       duplicateSource: null
@@ -588,8 +588,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeSoul00000000
       duplicateSource: null
@@ -675,8 +675,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeFrost0000000
       duplicateSource: null
@@ -726,9 +726,9 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      modifiedTime: 1795278382430
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
-      createdTime: 1795278382430
+      createdTime: 1795393562385
       compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
       duplicateSource: null
       exportSource: null
@@ -754,11 +754,11 @@ items:
             <p>You exaggerate your opponent's shortcomings with a scathing bon
             mot, improvising a @Rule[skill.performance] skill attack against
             your target's @Rule[defense.willpower]. On a @Rule[dice.success]
-            they suffer modest <strong>Psychic</strong> damage to
+            they suffer @Rule[action.slight] @Rule[damageType.psychic] damage to
             @Rule[resource.morale].</p><p>On a @Rule[dice.criticalSuccess], they
             also become @Condition[enraged] for <strong>1 Round</strong>.</p>
           tags:
-            - weakened
+            - slight
             - willpower
             - psychic
             - morale
@@ -828,8 +828,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.provocateur00000
       duplicateSource: null
@@ -916,8 +916,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382430
-      modifiedTime: 1795278382430
+      createdTime: 1795393562385
+      modifiedTime: 1795393562385
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.gnomeLineage0000
       duplicateSource: null
@@ -936,8 +936,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795278382430
-  modifiedTime: 1795278382430
+  createdTime: 1795393562385
+  modifiedTime: 1795393562385
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: Compendium.crucible.pregens.Actor.TffJlCvt39DEhFX7

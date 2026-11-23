@@ -8,9 +8,9 @@ system:
   description: >-
     <p>The @ref[actor.name]{creature} is gargantuan — its weak points are far
     apart and well protected, and it is considerably sturdier than most. The
-    @Rule[dice.criticalSuccessThreshold] for <strong>Strikes</strong> against it
-    is increased by 2, and it cannot be moved against its will by any but the
-    most powerful forces.</p>
+    @Rule[dice.criticalSuccessThreshold] for @Rule[action.strike]{Strikes}
+    against it is increased by 2, and it cannot be moved against its will by any
+    but the most powerful forces.</p>
   actions: []
   spellcraft: ''
   iconicSpells: 0

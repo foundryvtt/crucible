@@ -10,7 +10,7 @@ system:
     - id: pinningShot
       condition: ''
       description: >-
-        <p>You <strong>Strike</strong> from distance. The attack is
+        <p>You @Rule[action.strike] from distance. The attack is
         @Rule[action.difficult], however if your target is hit they become
         @Condition[restrained] until the end of their next
         <strong>Turn</strong>.</p>

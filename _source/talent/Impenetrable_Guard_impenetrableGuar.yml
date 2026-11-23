@@ -5,9 +5,9 @@ img: icons/equipment/shield/heater-steel-segmented-purple.webp
 system:
   description: >-
     <p>Your defenses frustrate attackers who struggle to find a gap in your
-    guard. When an enemy's <strong>Strike</strong> against you results in a
+    guard. When an enemy's @Rule[action.strike] against you results in a
     @Rule[defense.block] or <strong>Glancing Blow</strong>, that enemy suffers
-    @Rule[dice.bane]{+1 Bane} on their next <strong>Strike</strong> against
+    @Rule[dice.bane]{+1 Bane} on their next @Rule[action.strike] against
     you.</p>
   actions: []
   keywords:

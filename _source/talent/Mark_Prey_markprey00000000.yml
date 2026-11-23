@@ -8,7 +8,7 @@ system:
   actions:
     - id: markPrey
       description: >-
-        <p>You <strong>Strike</strong> using a special shot. If your attack is
+        <p>You @Rule[action.strike] using a special shot. If your attack is
         successful the target is @Condition[exposed] for the next <strong>3
         Rounds</strong>.</p>
       tags:

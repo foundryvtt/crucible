@@ -11,7 +11,7 @@ system:
       condition: ''
       description: >-
         <p>You can loose a shot under pressure, although with decreased
-        accuracy. You perform a <strong>Strike</strong> that is
+        accuracy. You perform a @Rule[action.strike] that is
         @Rule[action.difficult], but has a reduced @Rule[resource.action]
         cost.</p>
       cost:

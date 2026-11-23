@@ -18,12 +18,12 @@ system:
       condition: ''
       description: >-
         <p>You deliver a precise, decisive thrust against a foe you have caught
-        at a disadvantage. You make a @Rule[action.strike] with your
-        main-hand weapon which is @Rule[action.massive] and
-        @Rule[action.keen].</p><p>You may only perform this attack against a
-        target who is @Condition[exposed], @Condition[prone],
-        @Condition[slowed], @Condition[staggered], @Condition[paralyzed] or who
-        has been disarmed of their main-hand weapon.</p>
+        at a disadvantage. You make a @Rule[action.strike] with your main-hand
+        weapon which is @Rule[action.massive] and @Rule[action.keen].</p><p>You
+        may only perform this attack against a target who is
+        @Condition[exposed], @Condition[prone], @Condition[slowed],
+        @Condition[staggered], @Condition[paralyzed] or who has been disarmed of
+        their main-hand weapon.</p>
       tags:
         - melee
         - mainhand

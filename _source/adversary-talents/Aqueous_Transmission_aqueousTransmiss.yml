@@ -17,7 +17,7 @@ system:
         <p>When the @ref[actor.name]{creature} is within water, it can
         instantaneously transport itself to any unoccupied space within the same
         body of water up to 120 feet away. It does not need to be able to see
-        the destination to make this <strong>Move</strong>.</p>
+        the destination to make this @Rule[action.movement].</p>
       cost:
         action: 0
         focus: 1

@@ -19,17 +19,17 @@ system:
         armor, or accessories.</p><p>You make a @Rule[skill.stealth] check
         against the creature's passive @Rule[skill.awareness] to approach
         unnoticed, and a second @Rule[skill.stealth] check against its
-        @Rule[defense.reflex] to snatch the item. If your approach goes unnoticed
-        but the snatch fails, you also make a @Rule[skill.deception] check
-        against the creature's passive @Rule[skill.deception] to pass off the
-        contact as an accident. The attempt has one of the following
-        outcomes:</p><dl><dt><p>Perfect</p></dt><dd><p>Both
-        @Rule[skill.stealth] checks succeed. You take the item unnoticed, if the
-        creature carries it.</p></dd><dt><p>Noticed</p></dt><dd><p>Only the
-        snatch succeeds. You take the item, if the creature carries it, but the
-        creature knows you took it.</p></dd><dt><p>Feigned</p></dt><dd><p>The
-        snatch fails, but the @Rule[skill.deception] check succeeds. You do not
-        take the item, and the creature believes the contact was an
+        @Rule[defense.reflex] to snatch the item. If your approach goes
+        unnoticed but the snatch fails, you also make a @Rule[skill.deception]
+        check against the creature's passive @Rule[skill.deception] to pass off
+        the contact as an accident. The attempt has one of the following
+        outcomes:</p><dl><dt><p>Perfect</p></dt><dd><p>Both @Rule[skill.stealth]
+        checks succeed. You take the item unnoticed, if the creature carries
+        it.</p></dd><dt><p>Noticed</p></dt><dd><p>Only the snatch succeeds. You
+        take the item, if the creature carries it, but the creature knows you
+        took it.</p></dd><dt><p>Feigned</p></dt><dd><p>The snatch fails, but the
+        @Rule[skill.deception] check succeeds. You do not take the item, and the
+        creature believes the contact was an
         accident.</p></dd><dt><p>Suspected</p></dt><dd><p>The snatch and the
         @Rule[skill.deception] check both fail. You do not take the item, and
         the creature knows you tried.</p></dd><dt><p>Caught</p></dt><dd><p>Both

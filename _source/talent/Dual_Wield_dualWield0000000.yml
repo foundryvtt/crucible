@@ -12,7 +12,7 @@ system:
       description: >-
         <p>Immediately after you perform a basic @Action[default strike] with
         your mainhand weapon, you make a reduced-cost follow-up
-        <strong>Strike</strong> with your <strong>offhand</strong> weapon.</p>
+        @Rule[action.strike] with your <strong>offhand</strong> weapon.</p>
       tags:
         - afterStrike
         - offhand

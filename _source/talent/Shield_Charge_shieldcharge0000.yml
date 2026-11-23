@@ -8,13 +8,13 @@ system:
   description: >-
     <p>A defensive technique in which you drive forward, slamming and pushing
     foes out of your path. You charge up to <strong>20 feet</strong> in a
-    straight line and perform an offhand shield <strong>Strike</strong> against
+    straight line and perform an offhand shield @Rule[action.strike] against
     each successive foe along your path.</p>
   actions:
     - id: shieldCharge
       description: >-
         <p>You charge forward in a straight line, passing through the space of
-        any creatures you encounter and making a <strong>Strike</strong> against
+        any creatures you encounter and making a @Rule[action.strike] against
         each successive foe. Any creature @Rule[dice.criticalSuccess]{Critically
         Hit} by the attack may be pushed into an adjacent space of your
         choosing. You may not end your charge in the same space as another

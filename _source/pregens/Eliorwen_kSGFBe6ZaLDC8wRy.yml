@@ -303,8 +303,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.scimitar00000000
       duplicateSource: null
@@ -345,8 +345,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.studdedLeatherAr
       duplicateSource: null
@@ -386,8 +386,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.equipment.Item.shortbow00000000
       duplicateSource: null
@@ -454,8 +454,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.quickDraw0000000
       duplicateSource: null
@@ -539,8 +539,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.runeEarth0000000
       duplicateSource: null
@@ -578,8 +578,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.preparedness0000
       duplicateSource: null
@@ -672,8 +672,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.markprey00000000
       duplicateSource: null
@@ -703,7 +703,7 @@ items:
         - weapon.projectile
         - weapon.mechanical
       nodes:
-        - dex1b
+        - dex1a
       iconicSpells: 0
       training: deception
       spellcraft: ''
@@ -715,8 +715,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.weakpoints000000
       duplicateSource: null
@@ -788,8 +788,8 @@ items:
       systemId: crucible
       systemVersion: 0.11.3
       coreVersion: '14.370'
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.talent.Item.tumblethrough000
       duplicateSource: null
@@ -877,8 +877,8 @@ items:
       coreVersion: '14.370'
       systemId: crucible
       systemVersion: 0.11.3
-      createdTime: 1795278382428
-      modifiedTime: 1795278382428
+      createdTime: 1795393562382
+      modifiedTime: 1795393562382
       lastModifiedBy: WRGzDgYAt3ZuX6TU
       compendiumSource: Compendium.crucible.ancestry.Item.elfLineage000000
       duplicateSource: null
@@ -896,8 +896,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.11.3
   coreVersion: '14.370'
-  createdTime: 1795278382428
-  modifiedTime: 1795278382428
+  createdTime: 1795393562382
+  modifiedTime: 1795393562382
   lastModifiedBy: WRGzDgYAt3ZuX6TU
   exportSource: null
   compendiumSource: Compendium.crucible.pregens.Actor.kSGFBe6ZaLDC8wRy

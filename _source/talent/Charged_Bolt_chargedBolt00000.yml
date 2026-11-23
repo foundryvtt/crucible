@@ -11,8 +11,8 @@ system:
       img: icons/magic/light/beam-explosion-orange.webp
       condition: ''
       description: >-
-        <p>You perform a @Rule[action.massive] @Rule[action.talisman]
-        attack against a single target.</p>
+        <p>You perform a @Rule[action.massive] @Rule[action.talisman] attack
+        against a single target.</p>
       cost:
         action: 1
         focus: 1

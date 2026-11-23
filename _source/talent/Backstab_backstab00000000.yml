@@ -13,7 +13,7 @@ system:
     - id: backstab
       condition: You are attacking a target with the Flanked condition.
       description: >-
-        <p>You <strong>Strike</strong> with your weapon against a
+        <p>You @Rule[action.strike] with your weapon against a
         @Condition[flanked] target, dealing @Rule[action.deadly] damage.</p>
       tags:
         - finesse

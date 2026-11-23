@@ -8,8 +8,8 @@ system:
     - id: executionersStrike
       condition: ''
       description: >-
-        <p>You deliver a <strong>Strike</strong> with a two-handed weapon. If
-        your attack is successful and your opponent is under half their maximum
+        <p>You deliver a @Rule[action.strike] with a two-handed weapon. If your
+        attack is successful and your opponent is under half their maximum
         @Rule[resource.health], the strike is @Rule[action.deadly], and the
         opponent suffers the @Condition[bleeding] condition for <strong>3
         Rounds</strong>, taking additional damage each round equal to your

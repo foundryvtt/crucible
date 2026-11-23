@@ -17,8 +17,7 @@ system:
       description: >-
         <p>When you defend against a melee attack with a @Rule[defense.parry],
         you may react and expend @Rule[resource.focus] to retaliate with a
-        reduced-cost <strong>Strike</strong> which is
-        @Rule[action.accurate].</p>
+        reduced-cost @Rule[action.strike] which is @Rule[action.accurate].</p>
       cost:
         action: -1
         focus: 1

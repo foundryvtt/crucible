@@ -17,7 +17,7 @@ system:
       description: >-
         <p>When you defend against a melee attack with a @Rule[defense.dodge],
         you may expend @Rule[resource.focus] to retaliate with a reduced-cost
-        <strong>Strike</strong> using your mainhand weapon.</p>
+        @Rule[action.strike] using your mainhand weapon.</p>
       tags:
         - reaction
         - melee

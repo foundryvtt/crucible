@@ -7,7 +7,7 @@ system:
   description: >-
     <p>Enhance a spell to make it more difficult for an enemy to retaliate
     against its casting. This spell does not provide any opportunity to make
-    reactions that involve <strong>Strike</strong> attacks, regardless of the
+    reactions that involve @Rule[action.strike]{Strikes}, regardless of the
     results of the spell.</p>
   actions: []
   spellcraft: eluding

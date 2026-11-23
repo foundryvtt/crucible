@@ -13,8 +13,8 @@ system:
     ignore the free-hand requirement, use your weapon range, and the gesture
     scales using @Rule[ability.wisdom] instead of
     @Rule[ability.intellect].</p><p>Immediately after performing a
-    <strong>Strike</strong> with a projectile weapon, you may cast a spell with
-    its @Rule[resource.action] cost reduced by 1.</p>
+    @Rule[action.strike] with a projectile weapon, you may cast a spell with its
+    @Rule[resource.action] cost reduced by 1.</p>
   actions: []
   iconicSpells: 1
   keywords:
