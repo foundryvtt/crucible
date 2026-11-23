@@ -1462,6 +1462,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( section === targetSection ) {
       try {
         const equipResult = this.actor.canEquipItem(item);
+        if ( (this.actor.type === "adversary") && item.system.requiresInvestment && equipResult.equipped ) {
+          equipResult.invested = true;
+        }
         item.updateSource({system: equipResult});
       } catch(err) {
         return ui.notifications.warn(err.message);

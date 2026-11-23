@@ -45,9 +45,6 @@ export function auditTraining({actors=game.actors, filter}={}) {
       requirements.push({ids: w.system.proficiencies, source: w.name,
         intuitive: w.system.properties.has("intuitive")});
     }
-    if ( armor && actor.items.has(armor.id) && (armor.system.dodge.scaling > 0) ) {
-      requirements.push({ids: ["armor"], source: armor.name});
-    }
     for ( const action of Object.values(actor.actions) ) {
       if ( defaultActionIds.has(action.id) || !action.training.length ) continue;
       requirements.push({ids: action.training, source: action.name});

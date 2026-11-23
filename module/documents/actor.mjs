@@ -2873,6 +2873,7 @@ export default class CrucibleActor extends Actor {
     action.usage.itemSnapshots.push(item.snapshot());
     const update = {_id: item.id, system: {equipped: false}};
     if ( dropped ) update.system.dropped = true;
+    if ( (this.type === "adversary") && item.system.invested ) update.system.invested = false;
     if ( item.type === "weapon" ) Object.assign(action.usage.actorStatus, {unequippedWeapon: true});
     Object.assign(action.usage.actorUpdates, {items: [update]});
     return action;
@@ -2909,6 +2910,9 @@ export default class CrucibleActor extends Actor {
     const update = {_id: item.id, system: {dropped: false, equipped: true}};
     if ( slot !== undefined ) update.system.slot = slot;
     else update.system.equipped = false;
+    if ( update.system.equipped && (this.type === "adversary") && item.system.requiresInvestment ) {
+      update.system.invested = true; // Manual investment is a hero workflow
+    }
     action.usage.actorUpdates.items.push(update);
     return action;
   }
