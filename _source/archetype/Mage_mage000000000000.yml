@@ -12,32 +12,56 @@ system:
     dexterity: 0
   talents:
     - item: Compendium.crucible.talent.Item.gesturefan000000
-      level: 1
+      level: 2
     - item: Compendium.crucible.talent.Item.gesturearrow0000
       level: 1
     - item: Compendium.crucible.talent.Item.counterspell0000
-      level: 2
+      level: 3
     - item: Compendium.crucible.talent.Item.recognizespellcr
-      level: null
+      level: 2
     - item: Compendium.crucible.talent.Item.runeFlame0000000
-      level: null
+      level: 0
     - item: Compendium.crucible.talent.Item.runeStorm0000000
       level: 1
     - item: Compendium.crucible.talent.Item.refocus000000000
-      level: null
+      level: 0
+    - item: Compendium.crucible.talent.Item.warmage000000000
+      level: 7
+    - item: Compendium.crucible.talent.Item.versatileTransla
+      level: 3
+    - item: Compendium.crucible.talent.Item.orbitingAegis000
+      level: 4
+    - item: Compendium.crucible.talent.Item.gestureCone00000
+      level: 5
+    - item: Compendium.crucible.talent.Item.channelersGrip00
+      level: 5
+    - item: Compendium.crucible.talent.Item.pyromancer000000
+      level: 6
+    - item: Compendium.crucible.talent.Item.surgeweaver00000
+      level: 6
+    - item: Compendium.crucible.talent.Item.quickening000000
+      level: 4
   identifier: mage
   training:
-    elemental: 4
+    elemental: 3
     talisman: 3
-    physical: 2
     arcana: 3
     science: 2
     awareness: 1
     society: 1
     diplomacy: 0
     glyphweaving: 0
+    enchanting: 2
   spells: []
-  equipment: []
+  equipment:
+    - item: Compendium.crucible.equipment.Item.lightningRod0000
+      quantity: 1
+      equipped: true
+      autoScale: true
+    - item: Compendium.crucible.equipment.Item.paddedArmor00000
+      quantity: 1
+      equipped: true
+      autoScale: true
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:

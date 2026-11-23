@@ -7,7 +7,7 @@ import CrucibleTalentNode from "./const/talent-node.mjs";
  * @property {string} uuid            The audited Actor's UUID
  * @property {string} issue           One of "untrained", "unusedWeight", "noArchetype", "noWeights", "invalidWeight"
  * @property {string} proficiency     The proficiency labels concerned, any one of which would suffice
- * @property {string} source          The weapon, armor, action, or rune which relies on the proficiency
+ * @property {string} source          The weapon, action, or rune which relies on the proficiency
  */
 
 /**
@@ -37,7 +37,7 @@ export function auditTraining({actors=game.actors, filter}={}) {
     const report = (issue, ids, source) => findings.push({actor: actor.name, uuid: actor.uuid, issue,
       proficiency: label(ids), source});
 
-    // Proficiencies relied upon by equipped items, talent and spell actions, and known runes
+    // Proficiencies relied upon by equipped weapons, talent and spell actions, and known runes
     const requirements = [];
     const {weapons, armor} = actor.equipment;
     for ( const w of [weapons.mainhand, weapons.offhand, ...weapons.natural] ) {
@@ -57,6 +57,9 @@ export function auditTraining({actors=game.actors, filter}={}) {
       for ( const id of ids ) relied.add(id);
       if ( actor.getSkillBonus(ids, {intuitive}) < 0 ) report("untrained", ids, source);
     }
+
+    // Armor training only reduces Dodge scaling, so scaling armor uses the weight without requiring it
+    if ( armor && actor.items.has(armor.id) && (armor.system.dodge.scaling > 0) ) relied.add("armor");
 
     // Archetype training weights
     if ( actor.type !== "adversary" ) continue;
