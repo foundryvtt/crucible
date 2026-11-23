@@ -1,0 +1,35 @@
+name: Panicked Opening
+type: talent
+img: icons/skills/melee/strike-dagger-skull-white.webp
+system:
+  description: >-
+    <p>A panicking foe defends poorly, leaving vital weak spots exposed. Your
+    melee @Rule[action.strike]{Strikes} against a @Condition[broken] creature
+    are @Rule[action.accurate] when attacking with a weapon which scales with
+    @Rule[ability.dexterity].</p>
+  actions: []
+  keywords:
+    - playstyle.melee
+    - target.morale
+  nodes:
+    - dex4d
+  iconicSpells: 0
+  training: light
+effects: []
+folder: Xg1Jww0K0CK7vUo1
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1795305600000
+  modifiedTime: 1795305600000
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: panickedOpening0
+sort: 300000
+_key: '!items!panickedOpening0'

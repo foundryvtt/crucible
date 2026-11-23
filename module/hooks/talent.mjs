@@ -1394,6 +1394,17 @@ HOOKS.packhunter000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.panickedOpening0 = {
+  prepareAttack(item, action, target, rollData) {
+    if ( !action.tags.has("strike") || (action.range.category !== "melee") || !target.statuses.has("broken") ) return;
+    const weapon = this.items.get(rollData.itemId);
+    if ( !weapon?.system.scaling.includes("dexterity") ) return;
+    rollData.boons.accurate ??= {label: item.name, number: 2};
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.patientdeflectio = {
   prepareDefenses(_item, defenses) {
     const {mainhand, offhand} = this.equipment.weapons;

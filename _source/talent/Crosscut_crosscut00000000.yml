@@ -1,0 +1,65 @@
+name: Crosscut
+type: talent
+img: icons/skills/melee/weapons-crossed-daggers-orange.webp
+system:
+  description: >-
+    <p>You have mastered sweeping both of your weapons through a single wide
+    arc, carving through everything in your path.</p>
+  actions:
+    - id: crosscut
+      name: Crosscut
+      img: icons/skills/melee/weapons-crossed-daggers-orange.webp
+      condition: ''
+      description: >-
+        <p>You scissor both blades through a wide arc in the time of a single
+        attack, making a @Rule[action.strike] with each weapon against every
+        creature in the area, friend or foe. Every Strike is
+        @Rule[action.weakened].</p>
+      tags:
+        - dualwield
+        - melee
+        - mainhand
+        - offhand
+        - weakened
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+        heroism: 0
+        hands: 0
+      target:
+        type: fan
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      summon: null
+  keywords:
+    - playstyle.melee
+    - weapons.dualwield
+  nodes:
+    - dex4d
+  iconicSpells: 0
+  training: light
+effects: []
+folder: cW6bwHXBB9pMcwva
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1795305600000
+  modifiedTime: 1795305600000
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: crosscut00000000
+sort: 400000
+_key: '!items!crosscut00000000'
