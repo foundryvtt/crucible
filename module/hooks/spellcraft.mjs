@@ -24,7 +24,7 @@ HOOKS.aspect = {
 
     // Curse: Apply vulnerability to targets
     if ( this.inflection?.id === "negate" ) {
-      for ( const [target, events] of this.eventsByTarget ) {
+      for ( const [_target, events] of this.eventsByTarget ) {
         const rollEvent = events.roll.find(e => e.roll.isSuccess);
         if ( !rollEvent ) continue;
         rollEvent.effects.push({
@@ -218,6 +218,8 @@ HOOKS.strike = {
     this.scaling = mh.system.scaling.split(".");
     this.damage.base = mh.system.damage.base;
     this.usage.strikes = [mh];
+    this.usage.weaponRange = mh.system.range;
+    this.range.maximum = (this.gesture.range.maximum ?? 0) + mh.system.range;
   }
 };
 
