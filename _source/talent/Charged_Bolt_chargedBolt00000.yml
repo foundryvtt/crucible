@@ -11,7 +11,7 @@ system:
       img: icons/magic/light/beam-explosion-orange.webp
       condition: ''
       description: >-
-        <p>You perform an @Rule[action.empowered] <strong>Talisman</strong>
+        <p>You perform a @Rule[action.massive] @Rule[action.talisman]
         attack against a single target.</p>
       cost:
         action: 1
@@ -32,7 +32,7 @@ system:
       tags:
         - talisman
         - ranged
-        - empowered
+        - massive
       summon: null
   keywords:
     - playstyle.ranged

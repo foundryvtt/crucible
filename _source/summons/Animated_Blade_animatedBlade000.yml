@@ -546,15 +546,15 @@ items:
         - id: legSweep
           condition: ''
           description: >-
-            <p>You make a <strong>Strike</strong> attack with your mainhand
+            <p>You make a @Rule[action.strike] with your mainhand
             weapon. This technique is @Rule[action.difficult] to execute and
-            deals reduced damage, but if successful renders your target
-            @Condition[prone].</p>
+            deals @Rule[action.slight] damage, but if successful renders your
+            target @Condition[prone].</p>
           tags:
             - brute
             - melee
             - difficult
-            - weakened
+            - slight
           cost:
             action: 0
             focus: 0
@@ -658,13 +658,13 @@ items:
           tags:
             - melee
             - mainhand
-            - empowered
+            - massive
           name: Heavy Strike
           condition: ''
           description: >-
-            <p>You unleash a powerful <strong>Strike</strong> with your mainhand
-            weapon. The attack is slower to execute, but is
-            @Rule[action.empowered] to deliver additional damage.</p>
+            <p>You put your full weight behind a @Rule[action.massive]
+            @Rule[action.strike] with your mainhand weapon. It takes longer to
+            execute, but hits far harder.</p>
           summon: null
           persistRegion: false
           regionBehavior: null

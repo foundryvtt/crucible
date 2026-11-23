@@ -388,6 +388,10 @@ export const TAGS = {
     }
   },
 
+  /* -------------------------------------------- */
+  /*  Context Requirements                        */
+  /* -------------------------------------------- */
+
   // After a Basic Strike
   afterStrike: {
     tag: "afterStrike",
@@ -408,56 +412,6 @@ export const TAGS = {
     }
   },
 
-  // Requires membership in the primary party
-  party: {
-    tag: "party",
-    label: "ACTION.TAG.Party",
-    tooltip: "ACTION.TAG.PartyTooltip",
-    category: "requirements",
-    canUse() {
-      if ( !crucible.party?.system.actors.has(this.actor) ) {
-        throw new Error(_loc("ACTION.WARNINGS.MustJoinParty", {action: this.name}));
-      }
-    }
-  },
-
-  // Performed during a Rest
-  rest: {
-    tag: "rest",
-    label: "ACTION.TAG.Rest",
-    tooltip: "ACTION.TAG.RestTooltip",
-    category: "requirements",
-    propagate: ["noncombat", "irreversible"],
-    canUse() {
-      const activeRest = crucible.api.models.CrucibleRestMessage.getActiveRest(this.actor);
-      if ( activeRest ) {
-        if ( this.message === activeRest ) return;
-        throw new Error(_loc("ACTION.WARNINGS.MustUseRestCard", {action: this.name}));
-      }
-      if ( this.actor.lastConfirmedAction?.id !== "rest" ) {
-        throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
-      }
-    },
-    async confirm(reverse) {
-      // A group rest card extends its own duration by the time cost instead
-      const {hours} = this.usage.rest;
-      if ( reverse || !hours || (this.message?.type === "rest") ) return;
-      // Only for rest actions performed outside a party rest
-      await game.time.advance(hours * 3600);
-    }
-  },
-
-  // Requires the ability to speak
-  vocal: {
-    tag: "vocal",
-    label: "ACTION.TAG.Vocal",
-    tooltip: "ACTION.TAG.VocalTooltip",
-    category: "requirements",
-    canUse() {
-      if ( this.actor.statuses.has("silenced") ) throw new Error(_loc("ACTION.WARNINGS.Silenced"));
-    }
-  },
-
   // Requires the ability to hear
   auditory: {
     tag: "auditory",
@@ -472,9 +426,36 @@ export const TAGS = {
     }
   },
 
-  /* -------------------------------------------- */
-  /*  Context Requirements                        */
-  /* -------------------------------------------- */
+  // Requires the ability to speak
+  vocal: {
+    tag: "vocal",
+    label: "ACTION.TAG.Vocal",
+    tooltip: "ACTION.TAG.VocalTooltip",
+    category: "requirements",
+    canUse() {
+      if ( this.actor.statuses.has("silenced") ) throw new Error(_loc("ACTION.WARNINGS.Silenced"));
+    }
+  },
+
+  // Requires membership in the primary party
+  party: {
+    tag: "party",
+    label: "ACTION.TAG.Party",
+    tooltip: "ACTION.TAG.PartyTooltip",
+    category: "requirements",
+    canUse() {
+      if ( !crucible.party?.system.actors.has(this.actor) ) {
+        throw new Error(_loc("ACTION.WARNINGS.MustJoinParty", {action: this.name}));
+      }
+    }
+  },
+
+  subtle: {
+    tag: "subtle",
+    label: "ACTION.TAG.Subtle",
+    tooltip: "ACTION.TAG.SubtleTooltip",
+    category: "modifiers"
+  },
 
   // Happens to a creature rather than being chosen, may be used while Incapacitated
   involuntary: {
@@ -516,6 +497,32 @@ export const TAGS = {
         this.cost.focus = -Infinity;
         this.usage.actorStatus.gladiator = true;
       }
+    }
+  },
+
+  // Performed during a Rest
+  rest: {
+    tag: "rest",
+    label: "ACTION.TAG.Rest",
+    tooltip: "ACTION.TAG.RestTooltip",
+    category: "requirements",
+    propagate: ["noncombat", "irreversible"],
+    canUse() {
+      const activeRest = crucible.api.models.CrucibleRestMessage.getActiveRest(this.actor);
+      if ( activeRest ) {
+        if ( this.message === activeRest ) return;
+        throw new Error(_loc("ACTION.WARNINGS.MustUseRestCard", {action: this.name}));
+      }
+      if ( this.actor.lastConfirmedAction?.id !== "rest" ) {
+        throw new Error(_loc("ACTION.WARNINGS.MustFollowRest", {action: this.name}));
+      }
+    },
+    async confirm(reverse) {
+      // A group rest card extends its own duration by the time cost instead
+      const {hours} = this.usage.rest;
+      if ( reverse || !hours || (this.message?.type === "rest") ) return;
+      // Only for rest actions performed outside a party rest
+      await game.time.advance(hours * 3600);
     }
   },
 
@@ -1134,13 +1141,13 @@ export const TAGS = {
   /*  Attack Modifiers                            */
   /* -------------------------------------------- */
 
-  deadly: {
-    tag: "deadly",
-    label: "ACTION.TAG.Deadly",
-    tooltip: "ACTION.TAG.DeadlyTooltip",
+  accurate: {
+    tag: "accurate",
+    label: "ACTION.TAG.Accurate",
+    tooltip: "ACTION.TAG.AccurateTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.bonuses.multiplier += 1;
+      this.usage.boons.accurate = {label: "ACTION.TAG.Accurate", number: 2};
     }
   },
 
@@ -1154,15 +1161,6 @@ export const TAGS = {
     }
   },
 
-  empowered: {
-    tag: "empowered",
-    label: "ACTION.TAG.Empowered",
-    tooltip: "ACTION.TAG.EmpoweredTooltip",
-    category: "modifiers",
-    prepare() {
-      this.usage.bonuses.damageBonus += 6;
-    }
-  },
   keen: {
     tag: "keen",
     label: "ACTION.TAG.Keen",
@@ -1172,15 +1170,11 @@ export const TAGS = {
       this.usage.bonuses.criticalSuccessThreshold -= 2;
     }
   },
-  accurate: {
-    tag: "accurate",
-    label: "ACTION.TAG.Accurate",
-    tooltip: "ACTION.TAG.AccurateTooltip",
-    category: "modifiers",
-    prepare() {
-      this.usage.boons.accurate = {label: "ACTION.TAG.Accurate", number: 2};
-    }
-  },
+
+  /* -------------------------------------------- */
+  /*  Damage Modifiers                            */
+  /* -------------------------------------------- */
+
   harmless: {
     tag: "harmless",
     label: "ACTION.TAG.Harmless",
@@ -1195,19 +1189,54 @@ export const TAGS = {
       }
     }
   },
-  subtle: {
-    tag: "subtle",
-    label: "ACTION.TAG.Subtle",
-    tooltip: "ACTION.TAG.SubtleTooltip",
-    category: "modifiers"
+
+  slight: {
+    tag: "slight",
+    label: "ACTION.TAG.Slight",
+    tooltip: "ACTION.TAG.SlightTooltip",
+    category: "modifiers",
+    prepare() {
+      this.usage.bonuses.damageBonus -= 6;
+    }
   },
+
   weakened: {
     tag: "weakened",
     label: "ACTION.TAG.Weakened",
     tooltip: "ACTION.TAG.WeakenedTooltip",
     category: "modifiers",
     prepare() {
-      this.usage.bonuses.damageBonus -= 6;
+      this.usage.bonuses.damageBonus -= 3;
+    }
+  },
+
+  empowered: {
+    tag: "empowered",
+    label: "ACTION.TAG.Empowered",
+    tooltip: "ACTION.TAG.EmpoweredTooltip",
+    category: "modifiers",
+    prepare() {
+      this.usage.bonuses.damageBonus += 3;
+    }
+  },
+
+  massive: {
+    tag: "massive",
+    label: "ACTION.TAG.Massive",
+    tooltip: "ACTION.TAG.MassiveTooltip",
+    category: "modifiers",
+    prepare() {
+      this.usage.bonuses.damageBonus += 6;
+    }
+  },
+
+  deadly: {
+    tag: "deadly",
+    label: "ACTION.TAG.Deadly",
+    tooltip: "ACTION.TAG.DeadlyTooltip",
+    category: "modifiers",
+    prepare() {
+      this.usage.bonuses.multiplier += 1;
     }
   },
 

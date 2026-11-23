@@ -324,7 +324,7 @@
       "DualWield": "Dual Wield",
       "DualWieldTooltip": "This action requires wielding two separate weapons or being entirely unarmed to perform.",
       "Empowered": "Empowered",
-      "EmpoweredTooltip": "This action is powerful and deals additional damage, gaining a +6 damage bonus if successful.",
+      "EmpoweredTooltip": "This action is powerful and deals additional damage, gaining a +3 damage bonus if successful.",
       "Finesse": "Finesse",
       "FinesseTooltip": "This action requires a certain amount of finesse to perform. You must be wielding a weapon which scales using Dexterity.",
       "Flanking": "Flanking",
@@ -347,6 +347,8 @@
       "MainHandTooltip": "This action utilizes your main-hand weapon to make an attack.",
       "Maintained": "Maintained",
       "MaintainedTooltip": "This action can be maintained, incurring its focus cost at the start of your turns.",
+      "Massive": "Massive",
+      "MassiveTooltip": "This action strikes with great force and has a +6 damage bonus.",
       "Mechanical": "Mechanical",
       "MechanicalTooltip": "This action requires use of a mechanical weapon.",
       "Melee": "Melee",
@@ -401,6 +403,8 @@
       "ShieldTooltip": "This action requires wielding a shield to perform.",
       "Skill": "Skill",
       "SkillTooltip": "This action involves a targeted or opposed Skill check.",
+      "Slight": "Slight",
+      "SlightTooltip": "This action lands only a slight blow and has a -6 damage bonus.",
       "Spell": "Spell",
       "SpellTooltip": "This action involves spellcraft.",
       "Strike": "Strike",
@@ -423,7 +427,7 @@
       "Vocal": "Vocal",
       "VocalTooltip": "This action requires its user to speak or otherwise vocalize sound.",
       "Weakened": "Weakened",
-      "WeakenedTooltip": "This action is weaker than normal attacks and has a -6 damage bonus."
+      "WeakenedTooltip": "This action is weaker than normal attacks and has a -3 damage bonus."
     },
     "TAG_CATEGORIES": {
       "Attack": "Attack",

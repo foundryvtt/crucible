@@ -19,7 +19,8 @@ system:
       description: >-
         <p>When the @ref[actor.name]{creature} is hit by a
         <strong>Strike</strong>, it may partially burst to release a spray of
-        sickening fluid that deals <strong>Corruption</strong> damage. This
+        sickening fluid that deals @Rule[action.slight]
+        @Rule[damageType.corruption] damage. This
         action scales with @Rule[ability.toughness] and targets the
         @Rule[defense.reflex] defense of any creature within 3 feet.</p><p>On a
         @Rule[dice.criticalSuccess], the affected target becomes temporarily
@@ -64,7 +65,7 @@ system:
             properties: []
       tags:
         - reaction
-        - weakened
+        - slight
         - reflex
         - corruption
         - toughness

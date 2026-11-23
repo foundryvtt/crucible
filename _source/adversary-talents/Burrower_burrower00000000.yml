@@ -22,8 +22,8 @@ system:
         with surprising and sudden force. This action may only be activated
         immediately the creature leaves the @Condition[burrowing]
         state.</p><p>The @ref[actor.name]{creature} erupts to
-        <strong>Strike</strong> against all enemies within its weapon range with
-        an @Rule[action.empowered] attack.</p>
+        @Rule[action.strike] against all enemies within its weapon range with
+        a @Rule[action.massive] attack.</p>
       cost:
         action: 2
         focus: 1
@@ -43,7 +43,7 @@ system:
       tags:
         - melee
         - natural
-        - empowered
+        - massive
       summon:
         actorUuid: null
         permanent: true

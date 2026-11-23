@@ -51,7 +51,7 @@ system:
               <p>The creature that set the trap makes a @Rule[skill.wilderness]
               skill attack against the @Rule[defense.reflex] defense of the
               creature which triggered it. If not resisted, the envenomed barbs
-              bite into the creature with a @Rule[action.weakened] attack,
+              bite into the creature with a @Rule[action.slight] attack,
               dealing @Rule[damageType.poison] damage and inflicting
               @Condition[poisoned].</p>
             effects:
@@ -78,7 +78,7 @@ system:
                   regions: []
                   summons: []
             tags:
-              - weakened
+              - slight
               - reflex
               - poison
               - skill
@@ -100,15 +100,15 @@ system:
         triggered, the creature that set the trap makes a
         @Rule[skill.wilderness] skill attack against the @Rule[defense.reflex]
         defense of the creature which triggered it. If not resisted, the
-        envenomed barbs bite into the creature with a @Rule[action.weakened]
+        envenomed barbs bite into the creature with a @Rule[action.slight]
         attack, dealing @Rule[damageType.poison] damage and inflicting
         @Condition[poisoned]. The poison damage and duration of the condition
         vary according to the quality of the
-        trap.</p><ul><li><p><strong>Shoddy</strong> - 1 damage, 1
-        round</p></li><li><p><strong>Standard</strong> - 2 damage, 2
-        rounds</p></li><li><p><strong>Fine</strong> - 3 damage, 3
-        rounds</p></li><li><p><strong>Superior</strong> - 4 damage, 4
-        rounds</p></li><li><p><strong>Masterwork</strong> - 6 damage, 6
+        trap.</p><ul><li><p>@Rule[quality.shoddy] - 1 damage, 1
+        round</p></li><li><p>@Rule[quality.standard] - 2 damage, 2
+        rounds</p></li><li><p>@Rule[quality.fine] - 3 damage, 3
+        rounds</p></li><li><p>@Rule[quality.superior] - 4 damage, 4
+        rounds</p></li><li><p>@Rule[quality.masterwork] - 6 damage, 6
         rounds</p></li></ul>
       condition: ''
   uses:

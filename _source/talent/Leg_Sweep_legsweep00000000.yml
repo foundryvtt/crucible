@@ -9,14 +9,15 @@ system:
     - id: legSweep
       condition: ''
       description: >-
-        <p>You make a <strong>Strike</strong> attack with your mainhand weapon.
-        This technique is @Rule[action.difficult] to execute and deals reduced
-        damage, but if successful renders your target @Condition[prone].</p>
+        <p>You make a @Rule[action.strike] with your mainhand weapon.
+        This technique is @Rule[action.difficult] to execute and deals
+        @Rule[action.slight] damage, but if successful renders your target
+        @Condition[prone].</p>
       tags:
         - brute
         - melee
         - difficult
-        - weakened
+        - slight
       cost:
         action: 0
         focus: 0

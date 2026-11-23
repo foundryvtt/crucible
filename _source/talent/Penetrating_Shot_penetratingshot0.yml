@@ -4,8 +4,8 @@ _id: penetratingshot0
 img: icons/skills/ranged/projectile-explosion-black-orange.webp
 system:
   description: >-
-    You load special ammunition which deals less damage but penetrates directly
-    through a line of targets.
+    You load special ammunition which deals @Rule[action.weakened] damage but
+    penetrates directly through a line of targets.
   actions:
     - id: penetratingShot
       tags:
@@ -28,8 +28,8 @@ system:
       img: icons/skills/ranged/projectile-explosion-black-orange.webp
       condition: ''
       description: >-
-        <p>You fire a shot which penetrates through multiple targets in a direct
-        line.</p>
+        <p>You fire a @Rule[action.weakened] shot which penetrates through
+        multiple targets in a direct line.</p>
       range:
         maximum: null
         weapon: true

@@ -32,15 +32,15 @@ system:
       img: icons/consumables/potions/flask-corked-yellow-glow.webp
       condition: ''
       description: >-
-        <p>You throw the @ref[item.name], dealing weakened <strong>Electricity
-        </strong>damage to all enemies in the radius of the discharge who fail
-        to avoid the attack and leaving them briefly @Condition[staggered]. The
-        radius of the <strong>Discharge</strong> depends on the quality of the
-        bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
-        feet</p></li><li><p><strong>Standard</strong> - 4
-        feet</p></li><li><p><strong>Fine</strong> - 6
-        feet</p></li><li><p><strong>Superior</strong> - 8
-        feet</p></li><li><p><strong>Masterwork</strong> - 10 feet</p></li></ul>
+        <p>You throw the @ref[item.name], dealing @Rule[action.slight]
+        @Rule[damageType.electricity] damage to all enemies in the radius of the
+        discharge who fail to avoid the attack and leaving them briefly
+        @Condition[staggered]. The radius of the <strong>Discharge</strong>
+        depends on the quality of the bomb:</p><ul><li><p>@Rule[quality.shoddy]
+        - 3 feet</p></li><li><p>@Rule[quality.standard] - 4
+        feet</p></li><li><p>@Rule[quality.fine] - 6
+        feet</p></li><li><p>@Rule[quality.superior] - 8
+        feet</p></li><li><p>@Rule[quality.masterwork] - 10 feet</p></li></ul>
       cost:
         action: 2
         focus: 0
@@ -79,7 +79,7 @@ system:
             summons: []
       tags:
         - consume
-        - weakened
+        - slight
         - reflex
         - electricity
         - skill

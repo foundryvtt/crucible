@@ -11,11 +11,11 @@ system:
       name: Headbutt
       img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
       description: >-
-        <p>Make an unarmed <strong>Strike</strong> against the
+        <p>Make an unarmed @Rule[action.strike] against the
         @Rule[defense.fortitude] defense of an adjacent enemy. If your
         <strong>Initiative</strong> is superior to that of your target, you gain
         @Rule[dice.boon]{+1 Boon} to this attack.</p><p>The attack is
-        @Rule[action.difficult] and only deals @Rule[action.weakened] damage,
+        @Rule[action.difficult] and only deals @Rule[action.slight] damage,
         but if successful it inflicts the @Condition[staggered] for <strong>1
         Round</strong>.</p><p>This action always uses an
         <strong>Unarmed</strong> weapon, even if your weapon slots are otherwise
@@ -60,7 +60,7 @@ system:
       tags:
         - melee
         - difficult
-        - weakened
+        - slight
         - fortitude
       condition: ''
       summon: null

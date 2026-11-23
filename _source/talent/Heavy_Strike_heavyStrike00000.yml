@@ -28,13 +28,13 @@ system:
       tags:
         - melee
         - mainhand
-        - empowered
+        - massive
       name: Heavy Strike
       condition: ''
       description: >-
-        <p>You unleash a powerful <strong>Strike</strong> with your mainhand
-        weapon. The attack is slower to execute, but is @Rule[action.empowered]
-        to deliver additional damage.</p>
+        <p>You put your full weight behind a @Rule[action.massive]
+        @Rule[action.strike] with your mainhand weapon. It takes longer to
+        execute, but hits far harder.</p>
       summon: null
   iconicSpells: 0
   training: heavy

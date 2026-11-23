@@ -78,17 +78,17 @@ system:
       tags:
         - melee
         - natural
-        - weakened
+        - slight
         - fortitude
         - poison
         - morale
       name: Debilitating Tendrils
       description: >-
         <p>This strike targets @Rule[defense.fortitude] and exposes the creature
-        to a potentially debilitating neurotoxin. This @Rule[action.weakened]
+        to a potentially debilitating neurotoxin. This @Rule[action.slight]
         attack deals @Rule[damageType.poison] damage to @Rule[resource.morale]
         and inflicts the @Condition[poisoned] condition on the target for 3
-        turns.</p><p>On a Critical Success it also inflicts the
+        turns.</p><p>On a @Rule[dice.criticalSuccess] it also inflicts the
         @Condition[paralyzed] condition for 2 turns.</p>
       condition: ''
   spellcraft: ''

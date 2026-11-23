@@ -26,16 +26,16 @@ system:
       img: icons/consumables/potions/bottle-conical-fumes-green.webp
       condition: ''
       description: >-
-        <p>You fling the @ref[item.name], dealing @Rule[action.weakened]
-        immediate <strong>Acid</strong> damage but causing the
-        @Condition[corroding] condition to all enemies in a 4 foot radius
-        <strong>Blast</strong> who fail to avoid the attack.</p><p>The amount of
-        corroding damage and its duration is dependent on the quality of the
-        @ref[item.name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 2
-        rounds</p></li><li><p><strong>Standard</strong> - 3 damage for 3
-        rounds</p></li><li><p><strong>Fine</strong> - 4 damage for 4
-        rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
-        rounds</p></li><li><p><strong>Masterwork</strong> - 8 damage for 6
+        <p>You fling the @ref[item.name], dealing @Rule[action.slight] immediate
+        @Rule[damageType.acid] damage but causing the @Condition[corroding]
+        condition to all enemies in a 4 foot radius <strong>Blast</strong> who
+        fail to avoid the attack.</p><p>The amount of corroding damage and its
+        duration is dependent on the quality of the
+        @ref[item.name]:</p><ul><li><p>@Rule[quality.shoddy] - 2 damage for 2
+        rounds</p></li><li><p>@Rule[quality.standard] - 3 damage for 3
+        rounds</p></li><li><p>@Rule[quality.fine] - 4 damage for 4
+        rounds</p></li><li><p>@Rule[quality.superior] - 6 damage for 5
+        rounds</p></li><li><p>@Rule[quality.masterwork] - 8 damage for 6
         rounds</p></li></ul>
       cost:
         action: 2
@@ -75,7 +75,7 @@ system:
             summons: []
       tags:
         - consume
-        - weakened
+        - slight
         - reflex
         - acid
         - skill

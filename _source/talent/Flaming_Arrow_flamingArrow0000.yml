@@ -11,7 +11,8 @@ system:
     - dex3a
   description: >-
     <p>You take time to light and loose an arrow covered in flammable pitch.
-    This shot takes longer but is very damaging to creatures and structures.</p>
+    This shot takes longer, but its flames harm creatures and structures which
+    shrug off an ordinary arrowhead.</p>
   actions:
     - id: flamingArrow
       name: Flaming Arrow
@@ -19,11 +20,11 @@ system:
       condition: ''
       description: >-
         <p>You loose an @Rule[action.empowered] ranged strike using a
-        <strong>Projectile</strong> weapon which deals <strong>Fire</strong>
+        @Rule[action.projectile] weapon which deals @Rule[damageType.fire]
         damage upon impact.</p>
       cost:
         action: 1
-        focus: 1
+        focus: 0
         heroism: 0
         weapon: true
         hands: 0
