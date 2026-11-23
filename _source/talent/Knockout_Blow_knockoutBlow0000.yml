@@ -1,0 +1,84 @@
+name: Knockout Blow
+type: talent
+img: icons/skills/melee/strike-club-red.webp
+system:
+  description: >-
+    <p>You know how to fell an unsuspecting foe with a single, carefully placed
+    blow, leaving them senseless rather than slain.</p>
+  actions:
+    - id: knockoutBlow
+      name: Knockout Blow
+      img: icons/skills/melee/strike-club-red.webp
+      condition: Your target is unaware of you.
+      description: >-
+        <p>You make a single @Rule[action.harmless] @Rule[action.strike] with
+        the maximum of @Rule[dice.boon]{+6 Boons} against a creature which is
+        @Condition[unaware] of you. If the Strike deals enough damage to reduce
+        the creature to half of its maximum @Rule[resource.health] or less, it
+        instead becomes @Condition[asleep] for <strong>10 minutes</strong>.
+        Otherwise it takes no damage.</p>
+      tags:
+        - melee
+        - harmless
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+        heroism: 0
+        hands: 0
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects:
+        - name: Knocked Out
+          scope: 3
+          result:
+            type: any
+            all: false
+          statuses:
+            - asleep
+          duration:
+            value: 10
+            units: minutes
+            expired: false
+          system:
+            changes: []
+            dot: []
+            maintenance:
+              cost: null
+              hands: 0
+            regions: []
+            summons: []
+            properties: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      summon: null
+  keywords:
+    - playstyle.melee
+    - skill.stealth
+  nodes:
+    - dex2c
+  iconicSpells: 0
+  training: stealth
+effects: []
+folder: fldStealth000000
+ownership:
+  default: 0
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.10.2
+  coreVersion: '14.367'
+  createdTime: 1795305600000
+  modifiedTime: 1795305600000
+  lastModifiedBy: null
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+_id: knockoutBlow0000
+sort: 900000
+_key: '!items!knockoutBlow0000'

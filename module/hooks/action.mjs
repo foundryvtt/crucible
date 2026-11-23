@@ -515,7 +515,7 @@ HOOKS.camaraderie = {
 
 HOOKS.clarifyIntent = {
   postActivate() {
-    for ( const [target, events] of this.eventsByTarget ) {
+    for ( const [_target, events] of this.eventsByTarget ) {
       const rollEvent = events.roll[0];
       if ( !rollEvent ) continue;
       if ( rollEvent.roll.isSuccess ) {
@@ -1328,7 +1328,7 @@ HOOKS.healingTonic = {
     const quality = this.usage.consumable.config.quality;
     let amount = 2;
     for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
-    for ( const [target, events] of this.eventsByTarget ) {
+    for ( const [_target, events] of this.eventsByTarget ) {
       const {event, effect} = events.getPrimaryEffect();
       if ( !effect ) continue;
       effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
@@ -1490,9 +1490,39 @@ HOOKS.intuitWeakness = {
 
 /* -------------------------------------------- */
 
+HOOKS.knockoutBlow = {
+  prepare() {
+    this.usage.boons.knockoutBlow = {label: this.name, number: SYSTEM.DICE.MAX_BOONS};
+  },
+  acquireTargets(targets) {
+    for ( const target of targets ) {
+      if ( target.actor?.statuses.has("unaware") ) continue;
+      target.error ??= _loc("ACTION.WARNINGS.InvalidTargetScope", {action: this.name});
+    }
+  },
+  roll(target) {
+    const {value, max} = target.system.resources.health;
+    for ( const event of this.events ) {
+      if ( (event.target !== target) || !event.roll ) continue;
+      const total = event.roll.data.damage?.total ?? 0;
+      event.roll.data.knockout = event.roll.hasDamage && ((value - total) <= (max / 2));
+    }
+  },
+  postActivate() {
+    const effectId = SYSTEM.EFFECTS.getEffectId(this.id);
+    const knockedOut = new Set(this.events.filter(e => e.roll?.data.knockout).map(e => e.target));
+    for ( const event of this.events ) {
+      if ( knockedOut.has(event.target) ) continue;
+      event.effects.findSplice(e => e._id === effectId);
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.laughingMatter = {
   postActivate() {
-    for ( const [target, events] of this.eventsByTarget ) {
+    for ( const [_target, events] of this.eventsByTarget ) {
       const {effect} = events.getPrimaryEffect();
       if ( !effect ) continue;
       effect.system.changes ||= [];
@@ -1924,7 +1954,7 @@ HOOKS.medicinalCompound = {
     this.usage.defenseType = defenses.wounds.total >= defenses.madness.total ? "wounds" : "madness";
   },
   postActivate() {
-    for ( const [target, events] of this.eventsByTarget ) {
+    for ( const [_target, events] of this.eventsByTarget ) {
       const rollEvent = events.roll[0];
       if ( !rollEvent?.roll.isSuccess ) continue;
       const dmg = rollEvent.roll.data.damage.total;
@@ -2381,7 +2411,7 @@ HOOKS.rallyingTonic = {
     const quality = this.usage.consumable.config.quality;
     let amount = 2;
     for ( let i = 1; i <= (quality.bonus + 1); i++ ) amount *= 2;
-    for ( const [target, events] of this.eventsByTarget ) {
+    for ( const [_target, events] of this.eventsByTarget ) {
       const {event, effect} = events.getPrimaryEffect();
       if ( !effect ) continue;
       effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
@@ -3367,7 +3397,7 @@ HOOKS.vampiricBite = {
   },
   postActivate() {
     const health = this.actor.system.abilities.toughness.value;
-    for ( const [target, events] of this.eventsByTarget ) {
+    for ( const [_target, events] of this.eventsByTarget ) {
       if ( events.isSuccess ) {
         this.recordEvent({resources: [{resource: "health", delta: health}]});
       }
