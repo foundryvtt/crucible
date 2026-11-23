@@ -473,6 +473,12 @@ export const HOOKS = Object.freeze({
     argLabels: ["item: CrucibleItem", "action: CrucibleAction", "options: {reverse: boolean}"],
     async: true
   },
+  postConfirmAction: {
+    group: "TALENT.HOOKS.GroupAction",
+    argNames: ["action", "options"],
+    argLabels: ["item: CrucibleItem", "action: CrucibleAction", "options: {reverse: boolean}"],
+    async: true
+  },
   prepareStandardCheck: {
     group: "TALENT.HOOKS.GroupAction",
     argNames: ["rollData"],

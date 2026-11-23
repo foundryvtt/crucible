@@ -364,7 +364,7 @@ HOOKS.bloodfrenzy00000 = {
 
 HOOKS.bloodletter00000 = {
   applyCriticalEffects(_item, action) {
-    for ( const [target, events] of action.eventsByTarget ) {
+    for ( const [_target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
         const dt = event.weaponItem?.system.damageType;
@@ -649,7 +649,7 @@ HOOKS.chirurgeon000000 = {
 
 HOOKS.concussiveblows0 = {
   applyCriticalEffects(_item, action) {
-    for ( const [target, events] of action.eventsByTarget ) {
+    for ( const [_target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
         const weapon = event.weaponItem;
@@ -733,6 +733,24 @@ HOOKS.demolitionist000 = {
         action.usage.actorStatus.demolitionist = true;
       }
     }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.digestiveSac0000 = {
+  _holdsPrey(actor) {
+    return actor.effects.some(e => (e.getFlag("crucible", "originAction") === "digestiveSacs") && e.system.effects.size);
+  },
+  postConfirmAction(_item, _action, {reverse}) {
+    if ( reverse || !this.isOwner ) return;
+    const triggered = this.isIncapacitated || this.system.isWeakened
+      || ["burning", "stunned"].some(s => this.statuses.has(s));
+    if ( !triggered ) return;
+    const regurgitate = this.actions.regurgitate;
+    if ( !regurgitate || !HOOKS.digestiveSac0000._holdsPrey(this) ) return;
+    // noinspection ES6MissingAwait
+    regurgitate.use(); // Suggest without blocking confirmation of the triggering action
   }
 };
 
@@ -1491,7 +1509,7 @@ HOOKS.poisoner00000000 = {
   },
   applyCriticalEffects(_item, action) {
     if ( !this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades")) ) return;
-    for ( const [target, events] of action.eventsByTarget ) {
+    for ( const [_target, events] of action.eventsByTarget ) {
       for ( const event of events.roll ) {
         if ( !event.isCriticalSuccess || !event.damagesHealth ) continue;
         const weapon = event.weaponItem;

@@ -3247,6 +3247,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Post-confirm hooks after #applyEvents has completed and committed changes. Useful for chaining actions.
     await this._callActionHooksAsync("postConfirm", reverse);
+    for ( const actor of this.eventsByActor.keys() ) {
+      await actor.callActorHooksAsync("postConfirmAction", this, {reverse});
+    }
 
     // Settle any movement-driven follow-ups (currently: trigger a fall for any moved token left hovering)
     if ( !reverse ) await this.#settleMovement();

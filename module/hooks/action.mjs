@@ -473,7 +473,7 @@ HOOKS.chokingAmpoule = {
     foundry.utils.mergeObject(this.effects[0], poisoned);
   },
   postActivate() {
-    for ( const [target, events] of this.eventsByTarget ) {
+    for ( const [_target, events] of this.eventsByTarget ) {
       const critEvent = events.roll.find(e => e.roll.isCriticalSuccess);
       if ( critEvent?.effects.length ) critEvent.effects[0].statuses.push("silenced");
     }
@@ -2799,6 +2799,23 @@ HOOKS.swallow = {
 /* -------------------------------------------- */
 
 HOOKS.digestiveSacs = {
+  _MAX_ENGULFED: 3,
+  _heldCount(actor) {
+    return actor.effects.reduce((n, e) => {
+      return n + ((e.getFlag("crucible", "originAction") === "digestiveSacs") ? e.system.effects.size : 0);
+    }, 0);
+  },
+  canUse() {
+    if ( HOOKS.digestiveSacs._heldCount(this.actor) >= HOOKS.digestiveSacs._MAX_ENGULFED ) return false;
+  },
+  acquireTargets(targets) {
+    for ( const target of targets ) {
+      const prey = target.actor;
+      if ( prey && (this.actor.size < (prey.size + 2)) ) {
+        target.error ??= _loc("ACTION.WARNINGS.TargetTooLarge", {target: prey.name, action: this.name});
+      }
+    }
+  },
   postActivate() {
     const prey = this.targets.keys().next().value;
     const preyEffect = prey ? this.eventsByActor.get(prey)?.all.flatMap(e => e.effects)[0] : null;
@@ -2838,14 +2855,20 @@ HOOKS.regurgitate = {
     }
   },
   postActivate() {
-    const [prey] = this.targets.keys();
-    if ( !prey ) return;
-    const held = HOOKS.regurgitate._heldEffects(this, prey);
+    const held = [];
+    this.metadata.released = [];
+    for ( const [prey, {token}] of this.targets ) {
+      const preyHeld = HOOKS.regurgitate._heldEffects(this, prey);
+      if ( !preyHeld.length ) continue;
+      held.push(...preyHeld);
+      if ( token?.hidden ) this.metadata.released.push(token.uuid);
+      this.recordEvent({type: "effect", target: prey, effects: preyHeld.map(({effect}) => {
+        return {_id: effect.id, _action: "delete"};
+      })});
+    }
+    if ( !held.length ) return;
 
-    // Release the prey first, so the cascade from its holding effect finds nothing left to delete
-    this.recordEvent({type: "effect", target: prey, effects: held.map(({effect}) => ({_id: effect.id, _action: "delete"}))});
-
-    // Each holding effect lets go of the prey, ending once it holds no other creature
+    // Each holding effect lets go of its released prey, ending once it holds no other creature
     const released = new Set(held.map(({effect}) => effect.uuid));
     const changes = [];
     for ( const holding of new Set(held.map(h => h.holding)) ) {
@@ -2854,8 +2877,6 @@ HOOKS.regurgitate = {
       else changes.push({_id: holding.id, _action: "delete"});
     }
     this.recordEvent({type: "effect", target: this.actor, effects: changes});
-    const token = this.targets.get(prey)?.token;
-    this.metadata.released = token?.hidden ? [token.uuid] : [];
   },
   async confirm(reverse) {
     for ( const tokenUuid of (this.metadata.released ?? []) ) {
