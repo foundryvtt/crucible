@@ -920,8 +920,11 @@ pages:
       format: 1
       content: >-
         <p>A creature that is <strong>Unaware</strong> acts in combat at
-        Initiative 1 and cannot perform Reactions. The Unaware condition is
-        automatically removed at the start of the creature's turn.</p>
+        Initiative 1 and cannot perform Reactions. An Unaware creature cannot
+        Dodge, Block, or Parry, so only its Armor protects it against Physical
+        attacks.</p><p>The Unaware condition is removed once an action which
+        attacks the creature resolves, or automatically at the start of the
+        creature's turn.</p>
     video:
       controls: true
       volume: 0.5

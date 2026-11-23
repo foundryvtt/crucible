@@ -1189,8 +1189,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       defenses.reflex.total = Math.ceil(defenses.reflex.total / 2);
     }
 
-    // Cannot dodge, block, or parry while incapacitated
-    if ( isIncapacitated ) defenses.dodge.total = defenses.parry.total = defenses.block.total = 0;
+    // Cannot dodge, block, or parry while incapacitated or unaware
+    if ( isIncapacitated || statuses.has("unaware") ) {
+      defenses.dodge.total = defenses.parry.total = defenses.block.total = 0;
+    }
 
     // Aggregate total Physical Defense
     defenses.physical = {

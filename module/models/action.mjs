@@ -2452,6 +2452,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Remove an invisibility effect if this action breaks it
     this.#expireInvisibility();
 
+    // Targets of an attack become aware of it
+    this.#expireUnaware();
+
     // Attach derived movement-based statuses
     for ( const event of this.events ) {
       if ( event.type === "movement" ) this.#deriveMovementStatus(event);
@@ -2507,6 +2510,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const effect of this.actor.effects ) {
       if ( !effect.statuses.has("invisible") ) continue;
       activation.effects.push({_id: effect.id, _action: "delete"});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Stage removal of the Unaware status from every target of an attack once the action resolves.
+   */
+  #expireUnaware() {
+    if ( !this.target.isAttack ) return;
+    for ( const target of this.targets.keys() ) {
+      if ( !target.statuses?.has("unaware") ) continue;
+      const effects = target.effects.map(e => e.planStatusRemoval("unaware")).filter(Boolean);
+      if ( effects.length ) this.recordEvent({type: "effect", target, effects});
     }
   }
 

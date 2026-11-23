@@ -230,13 +230,13 @@ HOOKS.artificer0000000 = {
 
 HOOKS.assassin00000000 = {
   prepareAttack(item, action, target, rollData) {
-    if ( !["strike", "spell"].some(t => action.tags.has(t)) ) return;
-    if ( !target.statuses.has("unaware") ) return;
-
-    if ( action.tags.has("deadly") ) return; // An action which is already Deadly gains nothing further
-    rollData.multiplier += 1;
+    if ( !["strike", "spell"].some(t => action.tags.has(t)) || !target.statuses.has("unaware") ) return;
+    rollData.multiplier = Math.max(rollData.multiplier, 3);
+    const markId = SYSTEM.EFFECTS.getEffectId("markForDeath");
+    if ( target.effects.get(markId)?.origin !== this.uuid ) return;
+    rollData.defenseModifiers.armor.assassin = -Math.ceil(target.system.defenses.armor.total / 2);
   }
-}
+};
 
 /* -------------------------------------------- */
 
