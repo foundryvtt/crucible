@@ -6,18 +6,50 @@ system:
     - playstyle.defensive
   nodes: []
   description: >-
-    <p>The @ref[actor.name]{creature}'s life is sustained by necromantic magic
-    or otherworldly forces. When it would be considered @Condition[dead]  it is
-    instead @Condition[incapacitated].</p><p>After the conclusion of combat, the
-    @ref[actor.name]{creature} may begin to perform the Recover action,
-    regaining consciousness after the recovery is complete. Recovery in this
-    fashion may be prevented in one of the following ways:</p><ul><li><p>The
-    creature was incapacitated by a type of damage for which it is
-    <strong>Vulnerable</strong>.</p></li><li><p>The magical forces which caused
-    it to rise as undead are disrupted, countered, or otherwise
-    dispelled.</p></li><li><p>The creature's body is destroyed to a degree that
-    it can no longer maintain its physical form.</p></li></ul>
-  actions: []
+    <p>The @ref[actor.name]{creature}'s existence is sustained by necromantic
+    magic or otherworldly forces. Unless it is fully destroyed, a
+    @Condition[dead] @ref[actor.name]{creature} may Rise Again at the
+    Gamemaster's discretion, even during the combat in which it was defeated. It
+    returns with half its maximum @Rule[resource.health] and
+    @Rule[resource.morale], but no @Rule[resource.action],
+    @Rule[resource.focus], or @Rule[resource.heroism], so it cannot act until
+    its next turn.</p><p>The @ref[actor.name]{creature} cannot Rise Again if
+    any of the following are true:</p><ul><li><p>It was defeated by a type of
+    damage for which it is <strong>Vulnerable</strong>.</p></li><li><p>The
+    magical forces which caused it to rise as undead are disrupted, countered,
+    or otherwise dispelled.</p></li><li><p>Its body is destroyed to a degree
+    that it can no longer maintain its physical form.</p></li></ul>
+  actions:
+    - id: riseAgain
+      name: Rise Again
+      img: icons/magic/death/hand-undead-skeleton-fire-pink.webp
+      description: >-
+        <p>The forces sustaining you draw your body back together, and you rise
+        from death with half your maximum @Rule[resource.health] and
+        @Rule[resource.morale]. You return with no @Rule[resource.action],
+        @Rule[resource.focus], or @Rule[resource.heroism].</p>
+      condition: ''
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        hands: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 0
+        scope: 1
+        self: false
+      summon: null
+      effects: []
+      tags:
+        - involuntary
+      persistRegion: false
+      regionBehavior: null
   iconicSpells: 0
 effects: []
 folder: EDeByOa9cuYSaF8Y

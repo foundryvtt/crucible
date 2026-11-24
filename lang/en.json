@@ -553,6 +553,7 @@
       "RequiresRanged": "This action requires a ranged weapon equipped.",
       "RequiresRune": "You must know the Rune required by this action.",
       "RequiresSlashingMelee": "{action} requires a melee weapon which deals slashing damage.",
+      "RequiresStatus": "{action} requires a creature which is {status}.",
       "RequiresTalisman": "{action} requires use of a Talisman weapon.",
       "RequiresTwoHanded": "This action requires a two-handed weapon equipped.",
       "RequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
@@ -685,9 +686,6 @@
     },
     "Regurgitate": {
       "NotHeld": "You are not holding {target}."
-    },
-    "Revive": {
-      "RequiresDead": "Revive requires a Dead target."
     },
     "Swallow": {
       "AlreadySwallowing": "You are already Swallowing another creature."

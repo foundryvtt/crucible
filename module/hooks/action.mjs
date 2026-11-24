@@ -2891,7 +2891,8 @@ HOOKS.regurgitate = {
 HOOKS.revive = {
   acquireTargets(targets) {
     for ( const target of targets ) {
-      if ( !target.actor.system.isDead ) target.error ??= _loc("ACTIONS.Revive.RequiresDead");
+      if ( target.actor.system.isDead ) continue;
+      target.error ??= _loc("ACTION.WARNINGS.RequiresStatus", {action: this.name, status: _loc("ACTIVE_EFFECT.STATUSES.Dead")});
     }
   },
   postActivate() {
@@ -2934,6 +2935,26 @@ HOOKS.ricochet = {
       current = next.token;
       hop++;
       remaining--;
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
+HOOKS.riseAgain = {
+  canUse() {
+    if ( this.actor.system.isDead ) return;
+    throw new Error(_loc("ACTION.WARNINGS.RequiresStatus", {action: this.name, status: _loc("ACTIVE_EFFECT.STATUSES.Dead")}));
+  },
+  postActivate() {
+    const {resources} = this.actor.system;
+    const activation = this.selfEvents.activation;
+    for ( const id of ["health", "morale"] ) {
+      const delta = Math.ceil(resources[id].max / 2) - resources[id].value;
+      if ( delta > 0 ) activation.resources.push({resource: id, delta});
+    }
+    for ( const id of ["action", "focus", "heroism"] ) {
+      if ( resources[id].value > 0 ) activation.resources.push({resource: id, delta: -resources[id].value});
     }
   }
 };
