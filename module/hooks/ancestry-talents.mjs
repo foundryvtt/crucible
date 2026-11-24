@@ -147,11 +147,12 @@ ACTION.stoutHeart = {
   postActivate() {
     const activation = this.selfEvents?.activation;
     if ( !activation ) return;
-    activation.resources.push({resource: "morale", delta: this.actor.abilities.presence.value * 2});
     for ( const effect of this.actor.effects ) {
       const change = effect.planStatusRemoval("frightened", "confused");
       if ( change ) activation.effects.push(change);
     }
+    // Intentionally a separate event so that it restores after frightened is removed
+    this.recordEvent({resources: [{resource: "morale", delta: this.actor.abilities.presence.value * 2}]});
   }
 };
 

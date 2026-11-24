@@ -102,7 +102,8 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
    */
   planStatusRemoval(...statusIds) {
     if ( !statusIds.some(s => this.statuses.has(s)) ) return null;
-    if ( this.isStatusOnly(...statusIds) ) return {_id: this.id, _action: "delete"};
+    const isCondition = statusIds.some(s => this.id === SYSTEM.EFFECTS.getEffectId(s.capitalize()));
+    if ( isCondition || this.isStatusOnly(...statusIds) ) return {_id: this.id, _action: "delete"};
     return {_id: this.id, _action: "update", statuses: [...this.statuses].filter(s => !statusIds.includes(s))};
   }
 

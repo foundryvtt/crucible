@@ -594,8 +594,11 @@ class CrucibleActionTags extends Set {
  * - Action hooks called: `confirm`
  *    - Receives `reverse` boolean to support undo.
  * - Actor hooks called: `confirmAction` - Called for every actor (including self) in the event stream.
- * - `CrucibleAction##applyEvents` - Walk the event stream and apply resource changes to each actor. When
- *   `reverse=true`, all deltas are inverted, effects are removed, and item snapshots are restored.
+ * - {@linkcode CrucibleAction#resolveEventStream} - Unless reversing, re-resolve the recorded deltas against current
+ *   actor state. The result is persisted with the confirmed flag, so the applied and later reversed changes match.
+ * - `CrucibleAction##applyEvents` - Walk the event stream and write each actor's resolved resource deltas literally,
+ *   without re-applying resource rules. When `reverse=true`, all deltas are inverted, effects are removed, and item
+ *   snapshots are restored.
  * - `CrucibleAction##recordHeroism` - Award heroism for confirmed damage-dealing actions.
  * - Action hooks called: `postConfirm`
  *    - Fires after `#applyEvents` and the message-confirmed flag flip; used for chaining actions.
@@ -3210,6 +3213,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       await actor.callActorHooksAsync("confirmAction", this, {reverse});
     }
 
+    // Re-resolve against current actor state, which other confirmations may have changed since use
+    if ( !reverse ) await this.resolveEventStream();
+
     // Apply action events
     await this.#applyEvents({reverse});
 
@@ -3235,9 +3241,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       console.error(new Error(`Failed to record Heroism from Action "${this.id}"`, {cause: err}));
     }
 
-    // Mark the message as confirmed or reversed
-    const confirmFlags = reverse ? {confirmed: false, reversed: true} : {confirmed: true};
-    await this.message?.update({flags: {crucible: confirmFlags}});
+    // Re-persist the confirmed event stream and mark the message as confirmed or reversed
+    await this.updateMessage({confirmed: !reverse, reversed: reverse});
 
     // Defer postConfirm hooks until VFX playback concludes, capped at 4 seconds
     if ( !reverse && this.message?._vfxPlayback ) {
@@ -3283,8 +3288,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         batch.resources[resource] += delta;
       }
 
-      // Accumulate effects
-      if ( event.effects.length ) batch.effects.push(...event.effects);
+      // Accumulate effects as copies
+      if ( event.effects.length ) batch.effects.push(...foundry.utils.deepClone(event.effects));
 
       // Accumulate actor updates
       if ( event.actorUpdates ) foundry.utils.mergeObject(batch.actorUpdates, event.actorUpdates);
@@ -3310,9 +3315,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Enact or reverse planned movement before committing resources, update token position and free movement state
       if ( batch.movementId ) await this.#applyMovement(actor, batch.movementId, reverse);
 
+      // Commit the resolved stream literally, since resolution already applied the resource rules to each change
+      const r = actor.system.resources;
+      const resources = {};
+      for ( const [id, delta] of Object.entries(batch.resources) ) {
+        if ( !delta || !(id in r) ) continue;
+        resources[id] = {value: Math.clamp(r[id].value + (reverse ? -delta : delta), 0, r[id].max)};
+      }
+      const updates = foundry.utils.mergeObject(batch.actorUpdates, {system: {resources}});
       const textEvents = this.#composeTextEvents(actor, batch.events, {reverse});
       const scrollingText = reverse || !this.message?.getFlag("crucible", "vfxConfig");
-      await actor.alterResources(batch.resources, batch.actorUpdates, {reverse, textEvents, scrollingText});
+      await actor.update(updates, {textEvents, scrollingText});
       if ( batch.effects.length ) await actor._applyActionEffects(batch.effects, {reverse});
     }
   }
@@ -4137,15 +4150,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Persist in-place changes to this action's event stream back onto its ChatMessage by re-serializing the events.
    * Roll indices, dropped when an action is reconstructed, are re-assigned from event order (which the caller must
    * preserve); intended for edits such as negation where the message's roll set is unchanged.
+   * @param {object} [state]                Confirmation state to write in the same update
+   * @param {boolean} [state.confirmed]       Has the action been confirmed?
+   * @param {boolean} [state.reversed]        Has the action been reversed? A reversed stream is not re-persisted.
    * @returns {Promise<ChatMessage|void>}   The updated message, if this action has one
    */
-  async updateMessage() {
+  async updateMessage({confirmed, reversed}={}) {
     if ( !this.message ) return;
-    let index = 0;
-    for ( const event of this.events ) {
-      if ( event.roll ) event.roll.data.index = index++;
+    const flags = {};
+    if ( confirmed !== undefined ) flags.confirmed = confirmed;
+    if ( reversed !== undefined ) flags.reversed = reversed;
+    if ( !reversed ) {
+      let index = 0;
+      for ( const event of this.events ) {
+        if ( event.roll ) event.roll.data.index = index++;
+      }
+      flags.events = this.#serializeEvents();
     }
-    return this.message.update({flags: {crucible: {events: this.#serializeEvents()}}});
+    return this.message.update({flags: {crucible: flags}});
   }
 
   /* -------------------------------------------- */
