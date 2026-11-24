@@ -1339,9 +1339,8 @@ HOOKS.mesmer0000000000 = {
 /* -------------------------------------------- */
 
 HOOKS.neverYield000000 = {
-  // Intentionally uses prepareDefenses because this must run after #prepareFinalResources applies the weakened penalty
-  prepareDefenses(_item, _defenses) {
-    if ( this.system.isWeakened ) this.resources.action.max += 1;
+  prepareResources(_item, resources) {
+    if ( this.system.isWeakened ) resources.action.bonus += 1;
   }
 };
 

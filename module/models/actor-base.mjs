@@ -1061,6 +1061,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( statuses.has("stunned") ) resources.action.bonus -= 4;
     else if ( statuses.has("staggered") ) resources.action.bonus -= 2;
     if ( statuses.has("hastened") ) resources.action.bonus += 1;
+    if ( this.isWeakened ) resources.action.bonus -= 2;
 
     // Compute resource maximums
     for ( const r of Object.values(resources) ) r.max = Math.max(r.base + r.bonus, 0);
@@ -1084,7 +1085,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( !this.abilities.intellect.value ) resources.focus.max = 0;
 
     // Final status modifiers, applied before clamping so reduced maximums constrain current values
-    if ( this.isWeakened ) resources.action.max = Math.max(resources.action.max - 2, 0);
     if ( this.isIncapacitated ) resources.action.max = 0;
 
     // Clamp resource values
