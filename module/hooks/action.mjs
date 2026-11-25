@@ -2006,6 +2006,52 @@ HOOKS.offhandStrike = {
 
 /* -------------------------------------------- */
 
+HOOKS.oozeCorrodeWeapon = {
+  async postActivate() {
+    const tiers = SYSTEM.ITEM.QUALITY_SCALING.tiers;
+    for ( const [target, events] of this.eventsByTarget ) {
+      if ( !events.isSuccess ) continue;
+      const seen = new Set();
+      const weapons = [target.equipment.weapons.mainhand, target.equipment.weapons.offhand].filter(w => {
+        if ( !w || !target.items.has(w.id) || seen.has(w.id) ) return false;
+        seen.add(w.id);
+        return !w.system.broken && (w.system.enchantment === "mundane");
+      });
+      if ( !weapons.length ) continue;
+
+      let weapon = weapons.find(w => w.id === this.metadata.weaponId);
+      if ( !weapon && (weapons.length === 1) ) weapon = weapons[0];
+      if ( !weapon ) {
+        const choices = Object.fromEntries(weapons.map(w => [w.id, w.name]));
+        const field = new foundry.data.fields.StringField({
+          required: true, blank: false, choices, label: _loc("ACTIONS.CorrodeWeapon.Label")
+        });
+        const id = await foundry.applications.api.DialogV2.prompt({
+          window: {title: this.name},
+          content: field.toFormGroup({}, {name: "weapon"}).outerHTML,
+          ok: {label: this.name, callback: (event, button) => button.form.elements.weapon.value},
+          rejectClose: false
+        });
+        weapon = target.items.get(id);
+      }
+      if ( !weapon ) continue;
+
+      const idx = tiers.indexOf(weapon.system.quality);
+      const update = (events.isCriticalSuccess || (idx <= 0)) ? {broken: true} : {quality: tiers[idx - 1]};
+      const snapshot = weapon.snapshot();
+      foundry.utils.setProperty(snapshot, "system.quality", weapon.system.quality);
+      this.recordEvent({
+        type: "actorUpdate",
+        target,
+        actorUpdates: {items: [{_id: weapon.id, system: update}]},
+        itemSnapshots: [snapshot]
+      });
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 HOOKS.oozeMultiply = {
   postActivate() {
     const selfEvents = this.selfEvents;
