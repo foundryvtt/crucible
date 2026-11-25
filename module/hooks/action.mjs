@@ -2432,7 +2432,7 @@ HOOKS.reactiveStrike = {
     }
   },
   acquireTargets(targets) {
-    if ( HOOKS.reactiveStrike._championBypass(this.actor) ) return;
+    if ( this.actor.talentIds.has("opportunist00000") || HOOKS.reactiveStrike._championBypass(this.actor) ) return;
     const token = this.token?.object;
     if ( !token ) return;
     const {flanked} = crucible.api.canvas.CrucibleTokenObject.computeFlanking(token.engagement, {observer: token});
