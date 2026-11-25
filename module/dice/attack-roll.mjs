@@ -15,6 +15,7 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  * @property {number} multiplier              Damage overflow multiplier
  * @property {boolean} restoration            Does this roll restore the targeted resource rather than diminish it?
  * @property {number} flanked                 The degree to which the target is flanked by the attacker
+ * @property {number} [strike]                The index of the attacking weapon in its action's usage.strikes
  * @property {number} [result]                The result code in AttackRoll.RESULT_TYPES, undefined before evaluation
  * @property {DamageData} [damage]            The resolved damage from the roll, undefined before evaluation
  */
@@ -58,6 +59,7 @@ export default class AttackRoll extends StandardCheck {
     result: undefined,
     damage: undefined,
     index: undefined,
+    strike: undefined,
     newTarget: false,  // TODO it would be good to handle this a different way
     multiplier: 1,
     damageBonus: 0,

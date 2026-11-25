@@ -855,8 +855,7 @@ export const TAGS = {
     },
     async roll(target) {
       for ( const [i, weapon] of this.usage.strikes.entries() ) {
-        const roll = await this.actor.weaponAttack(this, weapon, target);
-        roll.data.strike = i;
+        const roll = await this.actor.weaponAttack(this, weapon, target, {strike: i});
         this.recordEvent({type: "strike", target, roll, weapon: weapon.snapshot()});
       }
     },

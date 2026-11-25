@@ -174,7 +174,8 @@ HOOKS.arcingBolt = {
       exclude: t => (t.actor === actor) || (t.actor === target) || t.actor.isIncapacitated
     });
     if ( !next ) return;
-    const roll = await actor.weaponAttack(this, weapon, next.token.actor, {damageBonus: -2});
+    const roll = await actor.weaponAttack(this, weapon, next.token.actor,
+      {damageBonus: -2, strike: this.usage.strikes?.indexOf(weapon)});
     this.recordEvent({type: "strike", target: next.token.actor, roll, weapon: weapon.snapshot()});
   }
 };
@@ -1035,12 +1036,12 @@ HOOKS.feintingStrike = {
     if ( deception?.hasDamage ) deception.data.damage.total = 0;
 
     // Follow-up offhand attack with bonuses if deception succeeded
-    const options = {defenseType: "physical"};
+    const offhand = this.actor.equipment.weapons.offhand;
+    const options = {defenseType: "physical", strike: this.usage.strikes.indexOf(offhand)};
     if ( deception?.isSuccess ) {
       options.boons = {feintingStrike: {label: this.name, number: 2}};
       options.damageBonus = 6;
     }
-    const offhand = this.actor.equipment.weapons.offhand;
     const roll = await this.actor.weaponAttack(this, offhand, target, options);
     const weapon = offhand.snapshot();
     const strike = this.recordEvent({type: "strike", target, roll, weapon}, {temporary: true});
@@ -1051,6 +1052,15 @@ HOOKS.feintingStrike = {
     this.events[first] = deceptionEvent;
     this.events[second] = strike;
     this._eventsDirty = true;
+  },
+  configureVFX() {
+    const deception = this.events.find(e => (e.type === "check") && !e.negated);
+    const mainhand = this.actor.equipment.weapons.mainhand;
+    if ( !deception || !mainhand ) return;
+    const {DODGE, MISS} = crucible.api.dice.AttackRoll.RESULT_TYPES; // Dodge if deceived, miss if not
+    const result = deception.roll.isSuccess ? DODGE : MISS;
+    const display = new Map([[deception, {weapon: mainhand, result}]]);
+    return crucible.api.canvas.vfx.strikes.configureStrikeVFXEffect(this, null, {display});
   }
 };
 
@@ -2929,7 +2939,8 @@ HOOKS.ricochet = {
         exclude: t => (t.actor === actor) || visited.has(t.actor) || t.actor.isIncapacitated
       });
       if ( !next ) break;
-      const roll = await actor.weaponAttack(this, weapon, next.token.actor, {damageBonus: -hop});
+      const roll = await actor.weaponAttack(this, weapon, next.token.actor,
+        {damageBonus: -hop, strike: this.usage.strikes?.indexOf(weapon)});
       this.recordEvent({type: "strike", target: next.token.actor, roll, weapon: weapon.snapshot()});
       visited.add(next.token.actor);
       current = next.token;

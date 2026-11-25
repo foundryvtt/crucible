@@ -1089,7 +1089,8 @@ export default class CrucibleActor extends Actor {
       damageType: options.damageType || action.usage.damageType || weapon.system.damageType,
       damageBonus: options.damageBonus || action.usage.bonuses.damageBonus || 0,
       multiplier: options.multiplier || action.usage.bonuses.multiplier || 1,
-      restoration: options.restoration ?? action.usage.restoration
+      restoration: options.restoration ?? action.usage.restoration,
+      strike: options.strike
     };
 
     // Actor configuration and hooks

@@ -112,6 +112,14 @@ const _PHYSICAL_PROJECTILE_CATEGORIES = new Set(["mechanical1", "mechanical2", "
  * @property {string} meshRef                   Reference key of the target's token mesh
  * @property {CrucibleActionEvent} event        The action event which records the attack roll
  * @property {AttackRoll} roll                  The attack roll against the target
+ * @property {StrikeDisplayData} [display]      How a melee strike is shown in place of its roll
+ */
+
+/**
+ * A melee strike shown with a chosen weapon and result in place of its roll, harming nothing.
+ * @typedef StrikeDisplayData
+ * @property {CrucibleItem} weapon              The weapon shown making the strike
+ * @property {number} result                    The result shown, in AttackRoll.RESULT_TYPES
  */
 
 /**
@@ -194,6 +202,7 @@ const MELEE_STRIKE_CONFIG = {
   windup: {hold: 150, gleamSize: 3, gleamTint: 0xFFF4C0},
   punchCount: 4,
   lunge: {recover: 300},
+  chain: {hold: 50, recover: 150}, // Wind-up hold after, and lunge recovery before, a strike at the same target
   reactionLead: {parry: 120, block: 100, dodge: 120},
   dodgeRetreat: 0.5,
   blockDustTint: 0xC8BBA8,
@@ -249,9 +258,11 @@ export const MELEE_STRIKE_SOUNDS = {
  * Configure the data for a VFXEffect
  * @param {CrucibleAction} action
  * @param {object|null} vfxConfig       The current VFX configuration from prior hooks, if any.
+ * @param {object} [options]
+ * @param {Map<CrucibleActionEvent, StrikeDisplayData>} [options.display]   Roll events shown as melee strikes
  * @returns {{components: {}, name, timeline: *[]}|null}
  */
-export function configureStrikeVFXEffect(action, vfxConfig) {
+export function configureStrikeVFXEffect(action, vfxConfig, {display}={}) {
   if ( !action.tags.has("strike") ) throw new Error(`The Action ${action.id} does not use the strike tag.`);
   const references = {tokenMesh: "^token.object.mesh"};
 
@@ -264,7 +275,9 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
     if ( !token ) continue;
     const {meshRef} = helpers.registerTargetRefs(references, "target", j, token);
     targets.push({actor, group, meshRef, first: strikes.length, count: group.roll.length});
-    for ( const event of group.roll ) strikes.push({target: token, meshRef, event, roll: event.roll});
+    for ( const event of group.roll ) {
+      strikes.push({target: token, meshRef, event, roll: event.roll, display: display?.get(event)});
+    }
     j++;
   }
 
@@ -274,12 +287,21 @@ export function configureStrikeVFXEffect(action, vfxConfig) {
   if ( !built ) return null;
   const {components, timeline} = built;
 
-  // Scrolling text for each target at its first impact, and the actor's activation cost at its first strike
+  // Scrolling text for each target at the impact of each strike: a roll's events with its own strike, and other
+  // events with the strike of the roll before them, or the first strike shown; then the actor's activation cost
   for ( const {actor, group, meshRef, first, count} of targets ) {
-    const strike = built.strikes.slice(first, first + count).find(Boolean);
-    if ( strike ) {
-      helpers.pushTargetScrollingText(components[strike.key].scrollingText, action, actor, group.all, meshRef,
-        strike.impactTime);
+    const targetStrikes = built.strikes.slice(first, first + count);
+    let strike = targetStrikes.find(Boolean);
+    if ( !strike ) continue;
+    const batches = new Map();
+    for ( const event of group.all ) {
+      const r = group.roll.indexOf(event);
+      if ( r >= 0 ) strike = targetStrikes[r] ?? strike;
+      if ( !batches.has(strike) ) batches.set(strike, []);
+      batches.get(strike).push(event);
+    }
+    for ( const [{key, impactTime}, events] of batches ) {
+      helpers.pushTargetScrollingText(components[key].scrollingText, action, actor, events, meshRef, impactTime);
     }
   }
   const firstStrike = built.strikes.find(Boolean);
@@ -327,10 +349,18 @@ export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}
     return hand;
   };
 
+  // Consecutive strikes at the same target follow one another more quickly than a strike at a new target
+  const C = MELEE_STRIKE_CONFIG;
+  const sameTarget = (a, b) => !!a && !!b && (a.target === b.target);
+
   for ( const [i, strike] of strikes.entries() ) {
     const leader = (timeline.length % beatSize) === 0;
+    const prior = strikes.slice(0, i).findLast(Boolean);
+    const following = strikes.slice(i + 1).find(Boolean);
+    const pacing = {hold: sameTarget(prior, strike) ? C.chain.hold : C.windup.hold,
+      recover: sameTarget(strike, following) ? C.chain.recover : C.lunge.recover};
     const built = strike ? _buildMeleeStrike({...strike, token, hand: handOf(strike)},
-      {...options, lunge: (options.lunge ?? true) && leader}) : null;
+      {...options, lunge: (options.lunge ?? true) && leader}, pacing) : null;
     if ( !built ) {
       results.push(null);
       continue;
@@ -386,8 +416,8 @@ function _configureMeleeVFXEffect(action, strikes) {
   if ( !token || (action.target.type !== "single") ) return null;
 
   // Each strike animates its own weapon against its own target; damage types without a preset are skipped as built
-  const data = strikes.map(({target, meshRef, event, roll}) => {
-    const weapon = action.usage.strikes[roll.data.strike];
+  const data = strikes.map(({target, meshRef, event, roll, display}) => {
+    const weapon = display?.weapon ?? action.usage.strikes[roll.data.strike];
 
     // TODO per-strike early out: targets beyond melee reach
     if ( !weapon || (getLinearRange(token, target) > MELEE_STRIKE_CONFIG.reach) ) return null;
@@ -395,10 +425,10 @@ function _configureMeleeVFXEffect(action, strikes) {
     // A natural weapon has no hand, so the builder chooses one at random
     const natural = weapon.system.properties.has("natural");
     const hand = natural ? undefined : ((weapon === offhand) ? "left" : "right");
-    return {target, meshRef, result: roll.data.result, critical: !!roll.isCriticalSuccess,
-      hand, damageType: weapon.system.damageType,
-      effectType: _getStrikeDamageType(roll, weapon), size: _getMeleeStrikeSize(weapon),
-      outcome: helpers.getAttackOutcome(event)};
+    const strike = {target, meshRef, hand, damageType: weapon.system.damageType, size: _getMeleeStrikeSize(weapon)};
+    if ( display ) return {...strike, result: display.result, outcome: {contact: false, damage: false, healing: false}};
+    return {...strike, result: roll.data.result, critical: !!roll.isCriticalSuccess,
+      effectType: _getStrikeDamageType(roll, weapon), outcome: helpers.getAttackOutcome(event)};
   });
   return buildMeleeStrikes(token, data);
 }
@@ -453,11 +483,15 @@ function _configureRangedVFXEffect(action, strikes, references) {
  * Build a melee strike component delivered from beside the attacker to one target.
  * @param {MeleeStrikeData} strike
  * @param {MeleeStrikeOptions} [options]
+ * @param {object} [pacing]
+ * @param {number} [pacing.hold]      Milliseconds the wind-up holds
+ * @param {number} [pacing.recover]   Milliseconds the lunge takes to recover
  * @returns {{component: object, impactTime: number, deliveryEnd: number, settledTime: number}|null}   Null if no
  *   preset matches the damage type and size
  */
 function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=MELEE_STRIKE_CONFIG.tint,
-  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=true, punch=true, lunge=true, art: artOverride}={}) {
+  impactTint=MELEE_STRIKE_CONFIG.impactTint, windup=true, punch=true, lunge=true, art: artOverride}={}, pacing={}) {
+  const {hold: holdMS=MELEE_STRIKE_CONFIG.windup.hold, recover=MELEE_STRIKE_CONFIG.lunge.recover} = pacing;
   const {token, target, meshRef, result, critical=false, mirror=false,
     outcome={contact: true, damage: true, healing: false}} = strike;
   damageType = strike.damageType ?? damageType;
@@ -486,7 +520,7 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
   const sounds = _buildMeleeSounds(target, result, damageType, deliveryMS * C.impactAt);
 
   // Draw back, optionally pause with a gleam at the tip, and optionally lunge the attacker into the blow
-  const hold = windup ? C.windup.hold : 0;
+  const hold = windup ? holdMS : 0;
   const chargeDuration = C.charge + hold;
   const chargeAnimations = [{function: "strikeSpriteDrawBack", params: {distance: C.drawBack, hold}}];
   if ( windup ) {
@@ -495,7 +529,7 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
   }
   if ( lunge ) {
     chargeAnimations.push({function: "strikeSpriteLunge",
-      params: {...preset.lunge, ...art.lunge, hand, recover: C.lunge.recover}});
+      params: {...preset.lunge, ...art.lunge, hand, recover}});
   }
 
   const component = {
@@ -521,7 +555,7 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
   // A following strike may begin once this one has settled, or shortly after it connects without a lunge
   const impactTime = chargeDuration + (deliveryMS * C.impactAt);
   const deliveryEnd = chargeDuration + deliveryMS;
-  const settledTime = lunge ? (deliveryEnd + C.lunge.recover) : (impactTime + 100);
+  const settledTime = lunge ? (deliveryEnd + recover) : (impactTime + 100);
   return {component, impactTime, deliveryEnd, settledTime};
 }
 
