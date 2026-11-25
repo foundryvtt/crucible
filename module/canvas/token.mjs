@@ -218,6 +218,14 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _destroy(options) {
+    CrucibleTokenObject.visibleTokens.delete(this); // Previews are destroyed without being deleted
+    super._destroy(options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   _applyRenderFlags(flags) {
     super._applyRenderFlags(flags);
     if ( flags.refreshPosition || flags.refreshElevation ) this.#supportingSurface = undefined;

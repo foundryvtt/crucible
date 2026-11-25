@@ -36,20 +36,18 @@ export default class CrucibleGridLayer extends foundry.canvas.layers.GridLayer {
     for ( const t of tokens ) {
       const elem = t.mesh;
       if ( !anyControlled && t.hasNoActiveHitBoxState() ) continue;
-      if ( !elem || elem.destroyed ) continue;
+      if ( t.destroyed || !elem || elem.destroyed ) continue;
 
       // Update the batch data if not present
-      if ( !elem._hitBoxBatchData ) {
-        elem._hitBoxBatchData = {
-          crucibleToken: t,
-          blendMode: PIXI.BLEND_MODES.NORMAL,
-          worldAlpha: 1,
-          _texture: PIXI.Texture.WHITE,
-          vertexData: elem._batchData.vertexData,
-          indices: elem._batchData.indices,
-          uvs: elem._batchData.uvs
-        };
-      }
+      elem._hitBoxBatchData ??= {
+        blendMode: PIXI.BLEND_MODES.NORMAL,
+        worldAlpha: 1,
+        _texture: PIXI.Texture.WHITE,
+        vertexData: elem._batchData.vertexData,
+        indices: elem._batchData.indices,
+        uvs: elem._batchData.uvs
+      };
+      elem._hitBoxBatchData.crucibleToken = t; // A mesh can outlive its Token and be reused by the next one
       plugin.render(elem._hitBoxBatchData);
     }
 
