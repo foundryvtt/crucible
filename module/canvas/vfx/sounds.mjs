@@ -34,13 +34,132 @@ export const VFX_SOUNDS = {
     hitCreature: ["ArrowHitCreature1.ogg", "ArrowHitCreature2.ogg"],
     hitObject: ["ArrowHitObject1.ogg", "ArrowHitObject2.ogg"],
     miss: ["ArrowMiss1.ogg", "ArrowMiss2.ogg", "ArrowMiss3.ogg"]
-  },
-  melee: {
-    prefix: "systems/crucible/assets/sfx",
-    // TODO placeholder parry sounds
-    parry: ["parry/Parry1.ogg", "parry/Parry2.ogg", "parry/Parry3.ogg", "parry/Parry4.ogg", "parry/Parry5.ogg"]
   }
 };
+
+/* -------------------------------------------- */
+/*  Melee Sound Library                         */
+/* -------------------------------------------- */
+
+/**
+ * @typedef MeleeSoundEntry
+ * @property {string} src       Filename within the domain's prefix directory.
+ * @property {number} contact   Milliseconds into the sample of its attack, the first 5ms within 6dB of its peak.
+ */
+
+/**
+ * @typedef MeleeSoundDescriptor
+ * @property {string} src       Full path to the chosen sound file.
+ * @property {number} contact   Milliseconds into the sample of its attack.
+ */
+
+/**
+ * Melee strike sounds by domain. Each damage type has a `hit`, which carries the swing and its contact in one sample,
+ * and a `miss`, the swing alone. An `armor` sound per armor category and the `defense` sounds for parry, block, and
+ * dodge layer over a miss. The `contact` of each entry aligns its attack to the moment of contact.
+ * @type {Record<string, {prefix: string} & Record<string, MeleeSoundEntry[]>>}
+ */
+export const MELEE_SOUNDS = {
+  bludgeoning: {
+    prefix: "systems/crucible/assets/sfx/bludgeoning",
+    hit: [
+      {src: "BludgeoningHit1.ogg", contact: 90},
+      {src: "BludgeoningHit2.ogg", contact: 155},
+      {src: "BludgeoningHit3.ogg", contact: 160}
+    ],
+    miss: [
+      {src: "BludgeoningMiss1.ogg", contact: 120},
+      {src: "BludgeoningMiss2.ogg", contact: 130},
+      {src: "BludgeoningMiss3.ogg", contact: 150}
+    ]
+  },
+  piercing: {
+    prefix: "systems/crucible/assets/sfx/piercing",
+    hit: [
+      {src: "PiercingHit1.ogg", contact: 105},
+      {src: "PiercingHit2.ogg", contact: 100},
+      {src: "PiercingHit3.ogg", contact: 70}
+    ],
+    miss: [
+      {src: "PiercingMiss1.ogg", contact: 25},
+      {src: "PiercingMiss2.ogg", contact: 35},
+      {src: "PiercingMiss3.ogg", contact: 70}
+    ]
+  },
+  slashing: {
+    prefix: "systems/crucible/assets/sfx/slashing",
+    hit: [
+      {src: "SlashingHit1.ogg", contact: 140},
+      {src: "SlashingHit2.ogg", contact: 120},
+      {src: "SlashingHit3.ogg", contact: 135}
+    ],
+    miss: [
+      {src: "SlashingMiss1.ogg", contact: 105},
+      {src: "SlashingMiss2.ogg", contact: 100},
+      {src: "SlashingMiss3.ogg", contact: 100}
+    ]
+  },
+  armor: {
+    prefix: "systems/crucible/assets/sfx/armor",
+    light: [
+      {src: "ArmorLight1.ogg", contact: 45},
+      {src: "ArmorLight2.ogg", contact: 25},
+      {src: "ArmorLight3.ogg", contact: 35}
+    ],
+    medium: [
+      {src: "ArmorMedium1.ogg", contact: 35},
+      {src: "ArmorMedium2.ogg", contact: 80},
+      {src: "ArmorMedium3.ogg", contact: 30}
+    ],
+    heavy: [
+      {src: "ArmorHeavy1.ogg", contact: 55},
+      {src: "ArmorHeavy2.ogg", contact: 60},
+      {src: "ArmorHeavy3.ogg", contact: 45}
+    ],
+    natural: [
+      {src: "ArmorNatural1.ogg", contact: 45},
+      {src: "ArmorNatural2.ogg", contact: 65},
+      {src: "ArmorNatural3.ogg", contact: 65}
+    ]
+  },
+  defense: {
+    prefix: "systems/crucible/assets/sfx",
+    block: [
+      {src: "block/Block1.ogg", contact: 15},
+      {src: "block/Block2.ogg", contact: 30},
+      {src: "block/Block3.ogg", contact: 45}
+    ],
+    dodge: [
+      {src: "dodge/Dodge1.ogg", contact: 160},
+      {src: "dodge/Dodge2.ogg", contact: 145},
+      {src: "dodge/Dodge3.ogg", contact: 130}
+    ],
+    // TODO placeholder parry sounds
+    parry: [
+      {src: "parry/Parry1.ogg", contact: 45},
+      {src: "parry/Parry2.ogg", contact: 55},
+      {src: "parry/Parry3.ogg", contact: 110},
+      {src: "parry/Parry4.ogg", contact: 135},
+      {src: "parry/Parry5.ogg", contact: 45}
+    ]
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Resolve a melee sound of a given type within a domain, choosing a random variant.
+ * @param {string} domain   A MELEE_SOUNDS domain: a damage type, "armor", or "defense".
+ * @param {string} type     A sound type within that domain, such as "hit", "medium", or "block".
+ * @returns {MeleeSoundDescriptor|null}
+ */
+export function getMeleeSound(domain, type) {
+  const lib = MELEE_SOUNDS[domain];
+  const entries = lib?.[type];
+  if ( !entries?.length ) return null;
+  const entry = entries[Math.floor(Math.random() * entries.length)];
+  return {src: `${lib.prefix}/${entry.src}`, contact: entry.contact};
+}
 
 /* -------------------------------------------- */
 /*  Spell Sound Library                         */

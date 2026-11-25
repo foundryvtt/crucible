@@ -1,4 +1,4 @@
-import {buildMeleeStrikes} from "./strikes.mjs";
+import {MELEE_STRIKE_SOUNDS, buildMeleeStrikes, chooseMeleeStrikeSamples} from "./strikes.mjs";
 
 /**
  * VFX debugging tools for the console, exposed as crucible.api.canvas.vfx.debug.
@@ -119,6 +119,55 @@ export async function previewMeleeStrike({result="hit", critical=false, hand, mi
   const {components, timeline} = built;
   const effect = new foundry.canvas.vfx.VFXEffect({name: "previewMeleeStrike", components, timeline});
   await effect.play(references);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Hear the sound layers of a melee strike result at the controlled token, without animation, for tuning.
+ * With `compare`, the same samples play again after a gap with those layer overrides merged in.
+ * @param {object} [options]
+ * @param {string} [options.result="glance"]        A key of AttackRoll.RESULT_TYPES
+ * @param {string} [options.damageType="slashing"]  The physical damage type which provides the swing
+ * @param {string} [options.armor="heavy"]          The target's armor category
+ * @param {object} [options.layers]                 Layer overrides merged into the MELEE_STRIKE_SOUNDS entry
+ * @param {object} [options.compare]                Layer overrides for a second playback of the same samples
+ * @param {number} [options.gap=1500]               Milliseconds between the two playbacks
+ * @returns {Promise<void>}
+ * @example
+ * crucible.api.canvas.vfx.debug.previewMeleeSound({compare: {contact: {effect: {type: "lowpass", intensity: 1}}}});
+ */
+export async function previewMeleeSound({result="glance", damageType="slashing", armor="heavy", layers, compare,
+  gap=1500}={}) {
+  const origin = canvas.tokens.controlled[0]?.center;
+  const base = MELEE_STRIKE_SOUNDS[result.toUpperCase()];
+  if ( !origin || !base ) {
+    ui.notifications.warn("Control a token, and name a result with melee strike sounds.");
+    return;
+  }
+
+  // Choose the samples once so both playbacks compare the same files
+  const merge = (target, overrides) => foundry.utils.mergeObject(foundry.utils.deepClone(target), overrides ?? {});
+  const variants = [merge(base, layers)];
+  if ( compare ) variants.push(merge(variants[0], compare));
+  const samples = chooseMeleeStrikeSamples(variants[0], {damageType, armor});
+  const lead = Math.max(samples.swing?.contact ?? 0, samples.contact?.contact ?? 0);
+  console.log(`previewMeleeSound samples ${JSON.stringify(samples)}`);
+
+  // Each layer plays from a fresh Sound, since playAtPosition accumulates its effects on the instance
+  for ( const [i, variant] of variants.entries() ) {
+    console.log(`previewMeleeSound playback ${i + 1} ${JSON.stringify(variant)}`);
+    for ( const key of ["swing", "contact"] ) {
+      const layer = variant[key];
+      const sample = samples[key];
+      if ( !layer || !sample ) continue;
+      const sound = new foundry.audio.Sound(sample.src, {context: game.audio.environment});
+      await sound.load();
+      const at = (i * gap) + lead - sample.contact;
+      setTimeout(() => sound.playAtPosition(origin, 30, {volume: layer.volume ?? 1, gmAlways: true,
+        baseEffect: layer.effect ?? undefined}), at);
+    }
+  }
 }
 
 /* -------------------------------------------- */

@@ -4,6 +4,10 @@ import CrucibleFlipbookMesh from "../flipbook-mesh.mjs";
 import {applyParticleDensity} from "../blocks.mjs";
 import {getVFXFlipbook} from "../sprites.mjs";
 
+/**
+ * @import {AmbientSoundEffect} from "@common/documents/_types.mjs";
+ */
+
 const {ArrayField, BooleanField, ColorField, NumberField, ObjectField, SchemaField, StringField} = foundry.data.fields;
 const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
 
@@ -18,6 +22,7 @@ const {SOUND_ALIGNMENT} = foundry.canvas.vfx.constants;
  * @property {number} fade        Milliseconds of fade in and out
  * @property {number} offset      Milliseconds to shift the sound relative to its aligned time
  * @property {number} release     Milliseconds to hold the sound past the end of its phase
+ * @property {AmbientSoundEffect|null} effect   An effect from CONFIG.soundEffects applied to playback
  */
 
 /**
@@ -113,7 +118,11 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       loop: new BooleanField({initial: false}),
       fade: new NumberField({required: true, nullable: false, initial: 0}),
       offset: new NumberField({required: true, nullable: false, initial: 0}),
-      release: new NumberField({required: true, nullable: false, initial: 0})
+      release: new NumberField({required: true, nullable: false, initial: 0}),
+      effect: new SchemaField({
+        type: new StringField({required: true, blank: false}),
+        intensity: new NumberField({required: true, nullable: false, min: 1, max: 10})
+      }, {required: false, nullable: true, initial: null})
     }, {required: false, nullable: true, initial: null});
   }
 
@@ -266,14 +275,16 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
    * @param {number} [options.fade=0]              Fade-in/out duration (ms) applied when looping.
    * @param {number} [options.offset=0]            Start offset (ms) added to the play time; negative starts earlier.
    * @param {number} [options.release=0]           Extra ms a looping sound lingers past the phase end before stopping.
+   * @param {AmbientSoundEffect|null} [options.effect]  An effect from CONFIG.soundEffects applied to playback.
    */
   _scheduleSound(sound, origin, {position=0, duration=0, align=SOUND_ALIGNMENT.START, radius=30, volume=1,
-    loop=false, fade=0, offset=0, release=0}={}) {
+    loop=false, fade=0, offset=0, release=0, effect=null}={}) {
     if ( !sound ) return;
     const at = Math.max(0, position + offset + this._alignSound(sound, duration, align));
     const playbackOptions = loop ? {loop: true, fade} : {};
     this.timeline.call(() => {
-      sound.playAtPosition(origin, radius, {volume, gmAlways: true, playbackOptions}).catch(err => console.warn(err));
+      sound.playAtPosition(origin, radius, {volume, gmAlways: true, baseEffect: effect, playbackOptions})
+        .catch(err => console.warn(err));
     }, at);
 
     // A looping sound fades out starting at the phase end (plus any release), so it lingers, not cuts off
@@ -456,7 +467,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
       const origin = entry.origin ?? this.state.origin;
       this._scheduleSound(cue.instance, origin, {position: entry.time, duration: entry.duration ?? 0,
         align: cue.align, radius: cue.radius, volume: cue.volume, loop: cue.loop, fade: cue.fade,
-        offset: cue.offset, release: cue.release});
+        offset: cue.offset, release: cue.release, effect: cue.effect});
     }
   }
 
@@ -718,7 +729,7 @@ export default class CrucibleVFXComponent extends foundry.canvas.vfx.VFXComponen
     if ( !config?.instance ) return;
     this._scheduleSound(config.instance, origin, {position: phase.start, duration: phase.duration,
       align: config.align, radius: config.radius, volume: config.volume ?? 1, loop: config.loop,
-      fade: config.fade, offset: config.offset, release: config.release});
+      fade: config.fade, offset: config.offset, release: config.release, effect: config.effect});
   }
 
   /* -------------------------------------------- */

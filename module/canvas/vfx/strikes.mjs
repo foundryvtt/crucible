@@ -1,4 +1,4 @@
-import {getRandomSound, getVFXSound} from "./sounds.mjs";
+import {getMeleeSound, getRandomSound, getVFXSound} from "./sounds.mjs";
 import {getRandomSprite, getVFXFlipbook, getVFXTexturePath} from "./sprites.mjs";
 import * as helpers from "./helpers.mjs";
 import {buildProjectileTrail, getDamageTypeRune, getRuneImpact, resolveAttackEffect, resolveRuneTextures,
@@ -10,8 +10,10 @@ import {getLinearRange} from "../grid/targeting.mjs";
 /**
  * @import {ProjectileDeliveryData, ProjectilePathType} from "./components/vfx-projectile-component.mjs";
  * @import {ProjectileTrailConfig, RuneImpactData} from "./spells.mjs";
- * @import {RuneSoundCue} from "./sounds.mjs";
+ * @import {MeleeSoundDescriptor, RuneSoundCue} from "./sounds.mjs";
+ * @import {AmbientSoundEffect} from "@common/documents/_types.mjs";
  * @import {AttackOutcome} from "./helpers.mjs";
+ * @import {VFXPhaseSoundData} from "./components/vfx-component.mjs";
  */
 
 /**
@@ -216,6 +218,34 @@ const MELEE_STRIKE_SPREAD = {
 const MELEE_STRIKE_DEPTH = {PARRY: -0.2, BLOCK: 0.15};
 
 /**
+ * One sound layer of a melee strike.
+ * @typedef MeleeStrikeSoundLayer
+ * @property {string} sample                  A swing's sample type within its damage type ("hit" or "miss"), or a
+ *                                            contact layer's: "armor" for the target's armor category, else a
+ *                                            MELEE_SOUNDS defense type
+ * @property {number} [volume=1]              Playback volume
+ * @property {AmbientSoundEffect} [effect]    An effect from CONFIG.soundEffects applied to playback
+ */
+
+/**
+ * The sound layers of a melee strike by result: a swing from the attacker, and a contact layer at the target for a
+ * defended strike. A result without an entry is silent.
+ * @type {Record<string, {swing?: MeleeStrikeSoundLayer, contact?: MeleeStrikeSoundLayer}>}
+ */
+export const MELEE_STRIKE_SOUNDS = {
+  HIT: {swing: {sample: "hit"}},
+  GLANCE: {
+    swing: {sample: "hit", volume: 0.6},
+    contact: {sample: "armor", volume: 0.7, effect: {type: "lowpass", intensity: 1}}
+  },
+  ARMOR: {swing: {sample: "miss", volume: 0.7}, contact: {sample: "armor"}},
+  BLOCK: {swing: {sample: "miss", volume: 0.7}, contact: {sample: "block"}},
+  PARRY: {swing: {sample: "miss", volume: 0.7}, contact: {sample: "parry"}},
+  DODGE: {swing: {sample: "miss", volume: 0.7}, contact: {sample: "dodge"}},
+  MISS: {swing: {sample: "miss"}}
+};
+
+/**
  * Configure the data for a VFXEffect
  * @param {CrucibleAction} action
  * @param {object|null} vfxConfig       The current VFX configuration from prior hooks, if any.
@@ -317,6 +347,26 @@ export function buildMeleeStrikes(token, strikes, {concurrency=1, ...options}={}
   if ( !timeline.length ) return null;
   facing.apply(components, timeline);
   return {components, timeline, strikes: results};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Choose a random sample for each sound layer of a melee strike.
+ * @param {{swing?: MeleeStrikeSoundLayer, contact?: MeleeStrikeSoundLayer}} layers   An entry of MELEE_STRIKE_SOUNDS
+ * @param {object} context
+ * @param {string} context.damageType     The physical damage type of the strike, which provides the swing
+ * @param {string} [context.armor]        The target's armor category; one without its own sounds is treated as light
+ * @returns {{swing: MeleeSoundDescriptor|null, contact: MeleeSoundDescriptor|null}}
+ */
+export function chooseMeleeStrikeSamples(layers, {damageType, armor}) {
+  const swing = layers.swing ? getMeleeSound(damageType, layers.swing.sample) : null;
+  let contact = null;
+  if ( layers.contact?.sample === "armor" ) {
+    contact = getMeleeSound("armor", armor) ?? getMeleeSound("armor", "light");
+  }
+  else if ( layers.contact ) contact = getMeleeSound("defense", layers.contact.sample);
+  return {swing, contact};
 }
 
 /* -------------------------------------------- */
@@ -432,6 +482,8 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
   const momentum = Math.toRadians(art.momentum ?? 0) * (flip ? -1 : 1);
   const offset = _computeMeleeStrikeOffset(token, target, result);
   const strikeTint = Number(foundry.utils.Color.from(tint));
+  const deliveryMS = ((getVFXFlipbook(texture)?.length ?? 1) * 1000) / C.fps;
+  const sounds = _buildMeleeSounds(target, result, damageType, deliveryMS * C.impactAt);
 
   // Draw back, optionally pause with a gleam at the tip, and optionally lunge the attacker into the blow
   const hold = windup ? C.windup.hold : 0;
@@ -457,16 +509,16 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
       texture, fps: C.fps, impactAt: C.impactAt, tint: strikeTint, mirror: flip, rotation,
       anchor: art.anchor ?? null,
       offset: {forward: art.offset.forward, lateral: art.offset.lateral * ((hand === "left") ? -1 : 1)},
-      sound: helpers.positionalSound(getVFXSound("generic", "whooshFast")),
+      sound: sounds.swing,
       animations: [{function: "strikeSpriteThrust", params: {distance: C.thrust, contact: art.contact}}]
     },
     impacts: [_buildMeleeImpact(target, result, {critical, preset, strikeTint, punch, momentum, effect,
+      sound: sounds.contact,
       impactTint: (impactTint === null) ? strikeTint : Number(foundry.utils.Color.from(impactTint))})],
     scrollingText: []
   };
 
   // A following strike may begin once this one has settled, or shortly after it connects without a lunge
-  const deliveryMS = ((getVFXFlipbook(texture)?.length ?? 1) * 1000) / C.fps;
   const impactTime = chargeDuration + (deliveryMS * C.impactAt);
   const deliveryEnd = chargeDuration + deliveryMS;
   const settledTime = lunge ? (deliveryEnd + C.lunge.recover) : (impactTime + 100);
@@ -487,48 +539,40 @@ function _buildMeleeStrike(strike, {damageType="piercing", size="medium", tint=M
  * @param {boolean} options.punch         Burst streaks through the target, for a strike which harms health
  * @param {number} options.momentum       Radians off the strike art's heading that the streaks follow
  * @param {{animations: object[], particles: object[]}} options.effect   The effect of the damage dealt
+ * @param {VFXPhaseSoundData|null} options.sound   The contact layer played at the target
  * @returns {object}                      The impact entry
  */
-function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impactTint, punch, momentum, effect}) {
+function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impactTint, punch, momentum, effect, sound}) {
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  const {START} = foundry.canvas.vfx.constants.SOUND_ALIGNMENT;
   const C = MELEE_STRIKE_CONFIG;
   const burst = (texture, params={}) => ({function: "impactSpriteBurst", params: {texture: getVFXTexturePath(texture),
     size: C.impactSize, duration: C.impactDuration, tint: impactTint, ...params}});
-  const sound = (domain, key) => ({src: getRandomSound(domain, key), align: START});
-  const impact = {result, id: target.id, sound: null, animations: [], particles: []};
+  const impact = {result, id: target.id, sound, animations: [], particles: []};
 
-  // Contact particles by result; TODO placeholder arrow sounds until melee thud and hit sounds exist
+  // Contact particles by result
   switch ( result ) {
     case T.HIT:
     case T.GLANCE:
-      impact.sound = sound("projectile", (result === T.HIT) ? "hitCreature" : "hitObject");
       impact.animations.push(burst(helpers.pickRandom(preset.impacts)),
         {function: (critical && (result === T.HIT)) ? "impactSpriteShake" : "impactSpriteRecoil"});
       break;
     case T.ARMOR:
-      impact.sound = sound("projectile", "block");
       impact.animations.push(burst(helpers.pickRandom(preset.impacts)),
         {function: "impactSpriteRecoil", params: {distance: 6, duration: 380}});
       break;
     case T.RESIST:
-      impact.sound = sound("projectile", "block");
       impact.animations.push(burst(helpers.pickRandom(preset.impacts)));
       break;
     case T.PARRY:
-      impact.sound = sound("melee", "parry");
       impact.animations.push(burst("impacts/ImpactGeometric", {size: 3, duration: 450, tint: 0xFFFFFF, fps: 20}),
         burst("impacts/SpraySpark", {size: 5, duration: 600, tint: 0xFFE066, scaleStart: 0.3, scaleSettle: 0.7}),
         {function: "impactSpriteRecoil", params: {distance: -5, duration: 300, lead: C.reactionLead.parry}});
       break;
     case T.BLOCK:
-      impact.sound = sound("projectile", "block");
       impact.animations.push(burst("air/AirDust", {size: 3, duration: 800, flash: false, tint: C.blockDustTint,
         scaleStart: 0.6, scaleSettle: 1.2}),
       {function: "impactSpriteRecoil", params: {distance: 6, duration: 380, lead: C.reactionLead.block}});
       break;
-    default:
-      impact.sound = sound("projectile", "miss");
   }
   helpers.addDodgeSidestep(impact, {lead: C.reactionLead.dodge, retreat: C.dodgeRetreat});
 
@@ -551,6 +595,39 @@ function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impact
 /* -------------------------------------------- */
 
 /**
+ * Build the sound layers of a melee strike, each placed so the attack of its sample lands on the moment of contact.
+ * @param {TokenDocument} target
+ * @param {number} result                 The attack result in AttackRoll.RESULT_TYPES
+ * @param {string} damageType             The physical damage type of the strike
+ * @param {number} contactAt              Milliseconds into the delivery at which the strike connects
+ * @returns {{swing: VFXPhaseSoundData|null, contact: VFXPhaseSoundData|null}}   The delivery and impact sounds
+ */
+function _buildMeleeSounds(target, result, damageType, contactAt) {
+  const layers = MELEE_STRIKE_SOUNDS[_getResultKey(result)] ?? {};
+  const armor = target.actor?.equipment.armor.system.category;
+  const samples = chooseMeleeStrikeSamples(layers, {damageType, armor});
+  const cue = (layer, sample, at) => {
+    if ( !sample ) return null;
+    return {...helpers.positionalSound(sample), offset: at - sample.contact, volume: layer.volume ?? 1,
+      effect: layer.effect ?? null};
+  };
+  return {swing: cue(layers.swing, samples.swing, contactAt), contact: cue(layers.contact, samples.contact, 0)};
+}
+
+/* -------------------------------------------- */
+
+/**
+ * The key in AttackRoll.RESULT_TYPES of an attack result.
+ * @param {number} result                 The attack result in AttackRoll.RESULT_TYPES
+ * @returns {string|undefined}
+ */
+function _getResultKey(result) {
+  return Object.entries(crucible.api.dice.AttackRoll.RESULT_TYPES).find(([, v]) => v === result)?.[0];
+}
+
+/* -------------------------------------------- */
+
+/**
  * Compute where a melee strike lands relative to its target's center, by attack result.
  * @param {TokenDocument} token           The attacking token
  * @param {TokenDocument} target
@@ -558,7 +635,7 @@ function _buildMeleeImpact(target, result, {critical, preset, strikeTint, impact
  * @returns {{x: number, y: number}}
  */
 function _computeMeleeStrikeOffset(token, target, result) {
-  const key = Object.entries(crucible.api.dice.AttackRoll.RESULT_TYPES).find(([, v]) => v === result)?.[0];
+  const key = _getResultKey(result);
   const [min, max] = MELEE_STRIKE_SPREAD[key] ?? [0, 0];
   const size = canvas.dimensions.size;
   const w = target.width * size;
