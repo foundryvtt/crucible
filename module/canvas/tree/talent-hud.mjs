@@ -178,13 +178,10 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
 
   /** @override */
   _replaceHTML(result, content, options) {
-    const existing = document.getElementById(content.id);
-    if ( existing ) {
-      content.replaceChildren(); // Always clear
-      return super._replaceHTML(result, content, options);
-    }
-    const hud = document.getElementById("hud");
-    hud.appendChild(content);
+    content.replaceChildren(); // Parts differ between targets, so never keep a prior one
+    super._replaceHTML(result, content, options);
+    // Changing the Scene rebuilds the canvas HUD, detaching this element while the application remains rendered
+    if ( !content.isConnected ) document.getElementById("hud").appendChild(content);
   }
 
   /* -------------------------------------------- */
