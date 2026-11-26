@@ -4141,7 +4141,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async toMessage(options={}) {
     const messageData = await this._prepareMessage(options);
-    return ChatMessage.create(messageData, options);
+    // Action cards are never spoken aloud; suppress the token chat bubble Foundry adds for "ic" message mode
+    return ChatMessage.create(messageData, {chatBubble: false, ...options});
   }
 
   /* -------------------------------------------- */
