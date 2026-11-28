@@ -14,6 +14,9 @@ const THROWN_TORCH_SPEED = 30;
 export function configureThrowTorchVFXEffect(action) {
   const {item, region, token} = action;
   if ( !item || !region || !token ) return null;
+  const effect = action.selfEvents?.all.flatMap(e => e.effects).find(f => f._id === item.id);
+  const lightUuid = effect?.system.lights[0];
+  if ( !lightUuid ) return null;
 
   // Arc to a side chosen now, so every client sees the same flight
   const components = {
@@ -36,10 +39,10 @@ export function configureThrowTorchVFXEffect(action) {
     return null;
   }
 
-  // The thrown torch's AmbientLight shares the torch's id and lands on the floor at the center of the blast region
+  // The thrown torch's AmbientLight lands on the floor at the center of the blast region
   const {x, y} = region.shapes[0];
   vfxConfig.references = {
-    torchLight: `@${region.parent.uuid}.AmbientLight.${item.id}`,
+    torchLight: `@${lightUuid}`,
     throwOrigin: {...token.getCenterPoint(), elevation: token.elevation},
     throwLanding: {x, y, elevation: region.elevation.bottom}
   };

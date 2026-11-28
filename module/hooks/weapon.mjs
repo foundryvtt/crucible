@@ -18,40 +18,43 @@ const THROWN_TORCH_LIGHT = Object.freeze({...TORCH_LIGHT,
 /* -------------------------------------------- */
 
 HOOKS.burningTorch = {
+  // Land at the center of a placed region, or otherwise at the creature it was thrown at
+  _getLanding(action) {
+    const region = action.region;
+    if ( region ) {
+      const {x, y} = region.shapes[0];
+      return {scene: region.parent, x, y, elevation: region.elevation.bottom, levels: Array.from(region.levels)};
+    }
+    const token = action.targets?.values().next().value?.token;
+    if ( !token ) return null;
+    const {x, y} = token.getCenterPoint();
+    return {scene: token.parent, x, y, elevation: token.elevation, levels: [token.level]};
+  },
   async _placeLight(action, weapon, {scene, x, y, elevation, levels}) {
     const effect = action.selfEvents?.all.flatMap(e => e.effects).find(f => f._id === weapon.id);
-    if ( !effect ) return;
-    const lightData = {_id: weapon.id, name: _loc("ACTIONS.ThrowTorch.LightName", {actor: action.actor.name}), x, y,
-      elevation, levels, config: foundry.utils.deepClone(THROWN_TORCH_LIGHT)};
-    const [light] = await scene.createEmbeddedDocuments("AmbientLight", [lightData], {keepId: true});
-    effect.system.lights.push(light.uuid);
+    const uuid = effect?.system.lights[0];
+    if ( !uuid ) return;
+    const lightData = {_id: uuid.split(".").pop(), name: _loc("ACTIONS.ThrowTorch.LightName", {actor: action.actor.name}),
+      x, y, elevation, levels, config: foundry.utils.deepClone(THROWN_TORCH_LIGHT)};
+    await scene.createEmbeddedDocuments("AmbientLight", [lightData], {keepId: true});
   },
+  // Record the planned light now with a unique ID so its animation can be planned
   _recordDeployment(action, weapon) {
+    const scene = HOOKS.burningTorch._getLanding(action)?.scene;
+    const lights = scene ? [`${scene.uuid}.AmbientLight.torch${foundry.utils.randomID(11)}`] : [];
     action.recordEvent({type: "effect", target: action.actor, effects: [{
       _id: weapon.id,
       name: weapon.name,
       img: weapon.img,
       origin: weapon.uuid,
       showIcon: CONST.ACTIVE_EFFECT_SHOW_ICON.NEVER,
-      system: {properties: ["deployed"], lights: []}
+      system: {properties: ["deployed"], lights}
     }]});
   },
   async confirmAction(item, action, {reverse}) {
     if ( reverse || !action.tags.has("thrown") ) return;
-
-    // Land at the center of a placed region, or otherwise at the creature it was thrown at
-    const region = action.region;
-    if ( region ) {
-      const {x, y} = region.shapes[0];
-      await HOOKS.burningTorch._placeLight(action, item, {scene: region.parent, x, y,
-        elevation: region.elevation.bottom, levels: Array.from(region.levels)});
-      return;
-    }
-    const token = action.targets.values().next().value?.token;
-    if ( !token ) return;
-    const {x, y} = token.getCenterPoint();
-    await HOOKS.burningTorch._placeLight(action, item, {scene: token.parent, x, y, elevation: token.elevation,
-      levels: [token.level]});
+    const landing = HOOKS.burningTorch._getLanding(action);
+    if ( landing ) await HOOKS.burningTorch._placeLight(action, item, landing);
   },
   preActivateAction(item, action) {
     if ( !action.tags.has("thrown") || !action.usage.strikes?.some(w => w.id === item.id) ) return;
